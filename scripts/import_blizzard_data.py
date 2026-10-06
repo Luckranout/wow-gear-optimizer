@@ -823,9 +823,31 @@ def collect_profession_supporting_data(token):
                     if crafted_item_id:
                         output_item_ids.add(crafted_item_id)
 
+                    # Preserve Blizzard's structured crafting metadata instead of
+                    # reducing a recipe to only its output item. These fields are needed
+                    # later for recrafting, optional reagents, stat selection, quality,
+                    # and embellishment-aware optimization.
+                    modified_crafting_slots = (
+                        recipe.get("modified_crafting_slots")
+                        or recipe.get("modifiedCraftingSlots")
+                        or []
+                    )
+                    optional_reagents = (
+                        recipe.get("optional_reagents")
+                        or recipe.get("optionalReagents")
+                        or []
+                    )
+                    crafting_quality = (
+                        recipe.get("crafting_quality")
+                        or recipe.get("craftingQuality")
+                        or recipe.get("quality")
+                    )
+                    recipe_name = localized_name(recipe.get("name")) or localized_name(recipe_ref.get("name"))
+                    recipe_description = recipe.get("description")
+
                     recipes.append({
                         "id": recipe_id,
-                        "name": localized_name(recipe.get("name")) or localized_name(recipe_ref.get("name")),
+                        "name": recipe_name,
                         "profession": profession_name,
                         "professionId": profession_id,
                         "skillTier": tier_name,
@@ -833,8 +855,19 @@ def collect_profession_supporting_data(token):
                         "craftedItemId": crafted_item_id,
                         "craftedItemQuantity": crafted_item.get("quantity") if isinstance(crafted_item, dict) else None,
                         "reagents": recipe.get("reagents", []),
-                        "description": recipe.get("description"),
+                        "optionalReagents": optional_reagents,
+                        "modifiedCraftingSlots": modified_crafting_slots,
+                        "craftingQuality": crafting_quality,
+                        "description": recipe_description,
                         "media": recipe.get("media"),
+                        "isRecraft": (
+                            "recraft" in normalize_name(recipe_name)
+                            or "recraft" in normalize_name(recipe_description)
+                        ),
+                        "isEmbellishment": (
+                            "embellishment" in normalize_name(recipe_name)
+                            or "embellishment" in normalize_name(recipe_description)
+                        ),
                         "seasonScope": SEASON_SCOPE,
                         "source": "Blizzard Game Data API — current Midnight profession recipe",
                     })
@@ -848,7 +881,19 @@ def collect_profession_supporting_data(token):
         f"Current Midnight profession import: {len(recipes)} recipes, "
         f"{len(output_item_ids)} crafted item outputs."
     )
+    recraft_count = sum(1 for r in recipes if r.get("isRecraft"))
+    embellishment_count = sum(1 for r in recipes if r.get("isEmbellishment"))
+    optional_reagent_count = sum(1 for r in recipes if r.get("optionalReagents"))
+    modified_slot_count = sum(1 for r in recipes if r.get("modifiedCraftingSlots"))
+
     print(f"Resolved {fallback_output_count} recipe outputs through item search fallback.")
+    print(
+        "Crafting metadata: "
+        f"{recraft_count} recraft recipes, "
+        f"{embellishment_count} embellishment recipes, "
+        f"{optional_reagent_count} recipes with optional reagents, "
+        f"{modified_slot_count} recipes with modified crafting slots."
+    )
     print(f"Profession recipe counts: {profession_counts}")
 
     return recipes, sorted(output_item_ids)
@@ -1056,6 +1101,10 @@ def main():
         "gemRecipeCount": len(gems),
         "enchantRecipeCount": len(enchants),
         "craftedGearRecipeCount": len(crafted_gear),
+        "recraftRecipeCount": sum(1 for r in profession_recipes if r.get("isRecraft")),
+        "embellishmentRecipeCount": sum(1 for r in profession_recipes if r.get("isEmbellishment")),
+        "optionalReagentRecipeCount": sum(1 for r in profession_recipes if r.get("optionalReagents")),
+        "modifiedCraftingSlotRecipeCount": sum(1 for r in profession_recipes if r.get("modifiedCraftingSlots")),
         "importPhase": "season-2-plus-pve-pvp-talents-professions",
         "seasonPolicy": SEASON_SCOPE,
     }
