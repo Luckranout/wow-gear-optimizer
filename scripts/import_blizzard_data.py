@@ -15,11 +15,29 @@ LOCALE = "en_US"
 REQUEST_DELAY_SECONDS = 0.15
 MAX_RETRIES = 4
 
-# The optimizer intentionally keeps the current expansion only.  Season 1
-# and older historical gear must not be imported just because its item level
-# happens to overlap the current range.
-CURRENT_EXPANSION_NAME = "Midnight"
+# The optimizer scope is Season 2 and newer. We use Blizzard's published
+# Season 2 content list to build the source pool instead of guessing from
+# item level or importing the historical item catalog.
 MINIMUM_SEASON = 2
+SEASON_SCOPE = "Midnight Season 2+"
+
+# Blizzard's Season 2 announcement defines this Mythic+ rotation and raid.
+# Future Season 2 additions are included when their Journal entries become
+# available; missing future entries simply contribute no items yet.
+SEASON_CONTENT_NAMES = [
+    "Venomous Abyss",
+    "Altar of Fangs",
+    "Murder Row",
+    "Den of Nalorakk",
+    "The Blinding Vale",
+    "Voidscar Arena",
+    "Kings' Rest",
+    "Temple of Sethraliss",
+    "Ruby Life Pools",
+    "The Tidebound Grotto",
+    "The Unbinding of Kith'ix",
+    "Labyrinth of Kindo'jan",
+]
 
 
 def request_json(url, headers=None, data=None):
@@ -136,87 +154,39 @@ def normalize_item(data, source=None):
     }
 
 
-def get_current_expansion(token):
+def find_journal_encounters_for_instance_name(token, instance_name):
     response = get_api_json(
-        "/data/wow/journal-expansion/index",
+        "/data/wow/search/journal-encounter",
         token,
-        {"namespace": NAMESPACE, "locale": LOCALE},
+        {
+            "namespace": NAMESPACE,
+            "locale": LOCALE,
+            "orderby": "id",
+            "_pageSize": 100,
+            "instance.name.en_US": instance_name,
+        },
     )
-
-    expansions = response.get("journal_expansions", [])
-    for expansion in expansions:
-        name = localized_name(expansion.get("name"))
-        if str(name).strip().lower() == CURRENT_EXPANSION_NAME.lower():
-            return expansion
-
-    available = [
-        localized_name(item.get("name"))
-        for item in expansions
-        if localized_name(item.get("name"))
-    ]
-    raise RuntimeError(
-        f"Could not find current expansion '{CURRENT_EXPANSION_NAME}'. "
-        f"Available journal expansions: {available}"
-    )
+    return response.get("results", [])
 
 
-def get_current_expansion_instances(token, expansion):
-    expansion_id = extract_id(expansion)
-    if not expansion_id:
-        raise RuntimeError("Current expansion journal entry has no ID.")
-
-    detail = get_api_json(
-        f"/data/wow/journal-expansion/{expansion_id}",
-        token,
-        {"namespace": NAMESPACE, "locale": LOCALE},
-    )
-
-    instances = detail.get("journal_instances", [])
-    if not instances:
-        raise RuntimeError(
-            f"Journal expansion '{CURRENT_EXPANSION_NAME}' returned no journal instances."
-        )
-
-    return instances
-
-
-def get_current_expansion_item_ids(token):
+def collect_season_content_item_ids(token):
     """
-    Build the candidate gear pool from the current expansion's Adventure
-    Journal. Each current-expansion instance exposes its encounters, and
-    each encounter exposes its loot item IDs. This avoids importing tens of
-    thousands of historical items.
+    Build a focused candidate pool from Blizzard Adventure Journal encounters
+    whose instances are explicitly part of the Midnight Season 2 rotation or
+    Season 2 content.
 
-    Note: the Game Data Journal API does not expose every source of gear
-    (for example, some vendor/crafted/BoE variations). Those sources will be
-    added in later importer phases. This phase deliberately establishes a
-    trustworthy current-expansion PvE candidate pool.
+    This is deliberately source-based: item level is NOT used to decide
+    whether an item belongs to Season 2.
     """
-    expansion = get_current_expansion(token)
-    expansion_name = localized_name(expansion.get("name"))
-    instances = get_current_expansion_instances(token, expansion)
-
     item_sources = {}
+    matched_instances = set()
     encounter_count = 0
-    instance_count = 0
 
-    for instance_ref in instances:
-        instance_id = extract_id(instance_ref)
-        if not instance_id:
-            continue
+    for instance_name in SEASON_CONTENT_NAMES:
+        results = find_journal_encounters_for_instance_name(token, instance_name)
 
-        instance = get_api_json(
-            f"/data/wow/journal-instance/{instance_id}",
-            token,
-            {"namespace": NAMESPACE, "locale": LOCALE},
-        )
-        instance_count += 1
-
-        instance_name = localized_name(instance.get("name"))
-        encounters = instance.get("journal_encounters", [])
-
-        for encounter_ref in encounters:
-            encounter_id = extract_id(encounter_ref)
+        for result in results:
+            encounter_id = extract_id(result)
             if not encounter_id:
                 continue
 
@@ -227,6 +197,10 @@ def get_current_expansion_item_ids(token):
             )
             encounter_count += 1
 
+            journal_instance = encounter.get("journal_instance") or {}
+            actual_instance_name = localized_name(journal_instance.get("name")) or instance_name
+            matched_instances.add(actual_instance_name)
+
             for loot in encounter.get("items", []):
                 item_id = extract_id(loot.get("item"))
                 if not item_id:
@@ -235,9 +209,8 @@ def get_current_expansion_item_ids(token):
                     continue
 
                 item_sources.setdefault(item_id, []).append({
-                    "expansion": expansion_name,
-                    "instanceId": instance_id,
-                    "instance": instance_name,
+                    "seasonScope": SEASON_SCOPE,
+                    "instance": actual_instance_name,
                     "encounterId": encounter_id,
                     "encounter": localized_name(encounter.get("name")),
                 })
@@ -247,11 +220,10 @@ def get_current_expansion_item_ids(token):
         time.sleep(REQUEST_DELAY_SECONDS)
 
     print(
-        f"Current expansion source scan: {instance_count} instances, "
+        f"Season source scan: {len(matched_instances)} matched instances, "
         f"{encounter_count} encounters, {len(item_sources)} unique loot items."
     )
-
-    return item_sources
+    return item_sources, sorted(matched_instances)
 
 
 def fetch_item_details(token, item_ids, item_sources):
@@ -273,9 +245,9 @@ def fetch_item_details(token, item_ids, item_sources):
 
         item = normalize_item(
             data,
-            source="Blizzard Game Data API — current Midnight journal loot",
+            source="Blizzard Game Data API — Season 2+ content source",
         )
-        item["seasonScope"] = f"Season {MINIMUM_SEASON}+"
+        item["seasonScope"] = SEASON_SCOPE
         item["sourceLocations"] = item_sources.get(item_id, [])
         items.append(item)
 
@@ -303,7 +275,7 @@ def main():
         {"namespace": NAMESPACE, "locale": LOCALE},
     )
 
-    item_sources = get_current_expansion_item_ids(token)
+    item_sources, matched_instances = collect_season_content_item_ids(token)
     items = fetch_item_details(token, item_sources.keys(), item_sources)
 
     items.sort(
@@ -314,29 +286,29 @@ def main():
     with open(OUTPUT, "r", encoding="utf-8") as handle:
         dataset = json.load(handle)
 
-    dataset["status"] = "current-expansion-source-imported"
+    dataset["status"] = "season-2-plus-source-imported"
     dataset["source"] = "Blizzard Game Data API"
     dataset["updatedAt"] = datetime.now(timezone.utc).isoformat()
     dataset["items"] = items
-    dataset["expansion"] = CURRENT_EXPANSION_NAME
     dataset["season"] = MINIMUM_SEASON
     dataset["apiCheck"] = {
         "itemClassCount": len(item_classes.get("item_classes", [])),
         "namespace": NAMESPACE,
         "gearItemCount": len(items),
         "candidateItemCount": len(item_sources),
-        "importPhase": "current-expansion-journal-sources",
-        "seasonPolicy": f"Season {MINIMUM_SEASON}+",
+        "matchedInstances": matched_instances,
+        "importPhase": "season-content-sources",
+        "seasonPolicy": SEASON_SCOPE,
     }
 
     dataset["notes"] = [
         "Generated from the secure Blizzard Game Data API importer.",
         "Blizzard API credentials are never placed in browser JavaScript.",
-        "The importer no longer scans the historical weapon/armor item catalog.",
-        "The gear candidate pool starts from current Midnight Adventure Journal loot.",
-        "The optimizer scope is Season 2 and newer, not Season 1 or older historical gear.",
+        "The importer does not scan the historical weapon/armor catalog.",
+        "Season membership is source-based, not guessed from item level.",
+        "The candidate pool is built from Blizzard Adventure Journal encounters for Season 2+ content.",
         "Detailed item stats and effects are imported from the Blizzard item endpoint.",
-        "Some non-Journal sources such as vendors, crafted gear, and certain BoEs require a later source-specific import phase.",
+        "Some non-Journal sources such as PvP vendors, crafted gear, outdoor rewards, and certain BoEs require later source-specific import phases.",
     ]
 
     with open(OUTPUT, "w", encoding="utf-8") as handle:
@@ -344,8 +316,8 @@ def main():
         handle.write("\n")
 
     print(
-        f"Current Retail gear import completed: {len(items)} enriched items "
-        f"from {len(item_sources)} current-expansion loot candidates."
+        f"Season 2+ Retail gear import completed: {len(items)} enriched items "
+        f"from {len(item_sources)} source candidates."
     )
 
 
