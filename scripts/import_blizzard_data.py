@@ -653,7 +653,9 @@ def find_recipe_output_item_id(token, recipe_name, profession_name, cache):
             "orderby": "id",
         },
     )
-
+if profession_name == "Jewelcrafting" and recipe_name == "Quick Peridot":
+    print("QUICK PERIDOT ITEM SEARCH RESPONSE:")
+    print(json.dumps(response, indent=2))
     candidates = []
     for result in response.get("results", []) or []:
         data = result.get("data") or {}
