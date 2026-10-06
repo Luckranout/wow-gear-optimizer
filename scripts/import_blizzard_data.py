@@ -106,9 +106,35 @@ def nested_id(value):
 
 
 def extract_id(value):
+    """Extract an ID from Blizzard resource references, including key.href."""
+    if isinstance(value, int):
+        return value
     if isinstance(value, dict):
-        return value.get("id")
-    return value if isinstance(value, int) else None
+        value_id = value.get("id")
+        if isinstance(value_id, int):
+            return value_id
+
+        key = value.get("key")
+        if isinstance(key, dict):
+            key_id = key.get("id")
+            if isinstance(key_id, int):
+                return key_id
+            href = key.get("href")
+            if href:
+                for part in reversed(str(href).rstrip("/").split("/")):
+                    try:
+                        return int(part.split("?")[0])
+                    except ValueError:
+                        continue
+
+        href = value.get("href")
+        if href:
+            for part in reversed(str(href).rstrip("/").split("/")):
+                try:
+                    return int(part.split("?")[0])
+                except ValueError:
+                    continue
+    return None
 
 
 def normalize_name(value):
