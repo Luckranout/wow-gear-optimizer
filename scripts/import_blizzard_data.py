@@ -951,3 +951,23 @@ def main():
         "Blizzard API credentials are never placed in browser JavaScript.",
         "The importer does not scan the historical weapon/armor catalog.",
         "Season membership is source-based, not guessed from item level.",
+        "Season 2 PvE candidates come from matched Adventure Journal sources.",
+        "Season 2 PvP candidates come from Blizzard's PvP Season 2 reward API.",
+        "Current Midnight profession recipes are imported for gems, enchants, crafted gear, and other crafted outputs.",
+        "Unified item records retain their source category so the optimizer can distinguish PvE and PvP gear.",
+        "Season 2+ additions such as Kith'ix and Labyrinth of Kindo'jan are added when Blizzard exposes their reward data.",
+        "Crafted, vendor, outdoor, Delves, Prey, and other non-Journal sources require their own source-specific importers; they are not silently approximated as Season 2 gear.",
+    ]
+
+    with open(OUTPUT, "w", encoding="utf-8") as handle:
+        json.dump(dataset, handle, indent=2)
+        handle.write("\n")
+
+    print(
+        f"Season 2+ Retail gear import completed: {len(items)} enriched items "
+        f"from {len(item_sources)} unified PvE/PvP source candidates."
+    )
+
+
+if __name__ == "__main__":
+    main()
