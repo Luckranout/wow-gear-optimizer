@@ -340,6 +340,158 @@ def collect_pvp_season_item_ids(token):
     }
 
 
+def collect_profession_supporting_data(token):
+    """Collect current Midnight profession recipes without using historical scans."""
+    profession_index = get_api_json(
+        "/data/wow/profession/index",
+        token,
+        {"namespace": NAMESPACE, "locale": LOCALE},
+    )
+
+    profession_refs = profession_index.get("professions", []) or []
+    profession_names = {
+        "Alchemy", "Blacksmithing", "Enchanting", "Inscription",
+        "Jewelcrafting", "Leatherworking", "Tailoring", "Cooking",
+    }
+
+    recipes = []
+    output_item_ids = set()
+    profession_counts = {}
+
+    for profession_ref in profession_refs:
+        profession_id = extract_id(profession_ref)
+        profession_name = localized_name(profession_ref.get("name")) if isinstance(profession_ref, dict) else None
+        if not profession_id or profession_name not in profession_names:
+            continue
+
+        profession = get_api_json(
+            f"/data/wow/profession/{profession_id}",
+            token,
+            {"namespace": NAMESPACE, "locale": LOCALE},
+        )
+
+        current_tiers = []
+        for tier_ref in profession.get("skill_tiers", []) or []:
+            tier_id = extract_id(tier_ref)
+            tier_name = localized_name(tier_ref.get("name")) if isinstance(tier_ref, dict) else None
+            if tier_id and tier_name and "midnight" in normalize_name(tier_name):
+                current_tiers.append((tier_id, tier_name))
+
+        if not current_tiers:
+            print(f"Profession {profession_name}: no Midnight skill tier exposed.")
+            continue
+
+        for tier_id, tier_name in current_tiers:
+            skill_tier = get_api_json(
+                f"/data/wow/profession/{profession_id}/skill-tier/{tier_id}",
+                token,
+                {"namespace": NAMESPACE, "locale": LOCALE},
+            )
+
+            for category in skill_tier.get("categories", []) or []:
+                category_name = localized_name(category.get("name")) or ""
+                for recipe_ref in category.get("recipes", []) or []:
+                    recipe_id = extract_id(recipe_ref)
+                    if not recipe_id:
+                        continue
+
+                    recipe = get_api_json(
+                        f"/data/wow/recipe/{recipe_id}",
+                        token,
+                        {"namespace": NAMESPACE, "locale": LOCALE},
+                    )
+
+                    crafted_item = recipe.get("crafted_item") or {}
+                    crafted_item_id = extract_id(crafted_item)
+                    if crafted_item_id:
+                        output_item_ids.add(crafted_item_id)
+
+                    recipes.append({
+                        "id": recipe_id,
+                        "name": localized_name(recipe.get("name")) or localized_name(recipe_ref.get("name")),
+                        "profession": profession_name,
+                        "professionId": profession_id,
+                        "skillTier": tier_name,
+                        "category": category_name,
+                        "craftedItemId": crafted_item_id,
+                        "craftedItemQuantity": crafted_item.get("quantity") if isinstance(crafted_item, dict) else None,
+                        "reagents": recipe.get("reagents", []),
+                        "description": recipe.get("description"),
+                        "media": recipe.get("media"),
+                        "seasonScope": SEASON_SCOPE,
+                        "source": "Blizzard Game Data API — current Midnight profession recipe",
+                    })
+                    time.sleep(REQUEST_DELAY_SECONDS)
+
+        profession_counts[profession_name] = len(
+            [r for r in recipes if r["profession"] == profession_name]
+        )
+
+    print(
+        f"Current Midnight profession import: {len(recipes)} recipes, "
+        f"{len(output_item_ids)} crafted item outputs."
+    )
+    print(f"Profession recipe counts: {profession_counts}")
+
+    return recipes, sorted(output_item_ids)
+
+
+def fetch_supporting_item_details(token, item_ids):
+    """Fetch non-equippable outputs too, such as gems and crafted consumables."""
+    records = []
+
+    for index, item_id in enumerate(sorted(set(item_ids)), start=1):
+        try:
+            data = get_api_json(
+                f"/data/wow/item/{item_id}",
+                token,
+                {"namespace": NAMESPACE, "locale": LOCALE},
+            )
+        except urllib.error.HTTPError as error:
+            print(f"Skipping supporting item {item_id}: Blizzard returned HTTP {error.code}.")
+            continue
+
+        records.append(normalize_item(
+            data,
+            source="Blizzard Game Data API — current Midnight profession output",
+        ))
+
+        if index % 100 == 0:
+            print(f"Enriched {index}/{len(item_ids)} supporting recipe outputs.")
+
+        time.sleep(REQUEST_DELAY_SECONDS)
+
+    return records
+
+
+def classify_profession_outputs(recipes, output_items):
+    item_by_id = {item.get("id"): item for item in output_items if item.get("id")}
+    gems = []
+    crafted_gear = []
+    other_crafted_items = []
+
+    for recipe in recipes:
+        item = item_by_id.get(recipe.get("craftedItemId"))
+        if item:
+            item_class_id = (item.get("itemClass") or {}).get("id")
+            if item_class_id == 3:
+                gems.append({**recipe, "item": item})
+            elif item.get("isEquippable") and item_class_id in {2, 4}:
+                crafted_gear.append({**recipe, "item": item})
+            else:
+                other_crafted_items.append({**recipe, "item": item})
+        elif recipe.get("profession") == "Enchanting":
+            other_crafted_items.append(recipe)
+
+    enchants = [r for r in recipes if r.get("profession") == "Enchanting"]
+
+    print(
+        f"Supporting data classified: {len(gems)} gems, "
+        f"{len(enchants)} enchants, {len(crafted_gear)} crafted gear recipes."
+    )
+
+    return gems, enchants, crafted_gear, other_crafted_items
+
 def merge_item_sources(*source_maps):
     merged = {}
 
@@ -403,6 +555,13 @@ def main():
     pvp_sources, pvp_metadata = collect_pvp_season_item_ids(token)
     item_sources = merge_item_sources(pve_sources, pvp_sources)
 
+    profession_recipes, profession_output_ids = collect_profession_supporting_data(token)
+    supporting_items = fetch_supporting_item_details(token, profession_output_ids)
+    gems, enchants, crafted_gear, other_crafted_items = classify_profession_outputs(
+        profession_recipes,
+        supporting_items,
+    )
+
     items = fetch_item_details(token, item_sources.keys(), item_sources)
 
     items.sort(
@@ -418,6 +577,15 @@ def main():
     dataset["updatedAt"] = datetime.now(timezone.utc).isoformat()
     dataset["items"] = items
     dataset["season"] = MINIMUM_SEASON
+    dataset["gems"] = gems
+    dataset["enchants"] = enchants
+    dataset["crafting"] = {
+        "recipes": profession_recipes,
+        "craftedGear": crafted_gear,
+        "otherOutputs": other_crafted_items,
+        "source": "Blizzard Game Data API",
+        "seasonScope": SEASON_SCOPE,
+    }
 
     dataset["pvp"] = [{
         "season": pvp_metadata["name"],
@@ -436,7 +604,12 @@ def main():
         "matchedPvEInstances": matched_instances,
         "missingPvESources": missing_sources,
         "pvpSeason": pvp_metadata,
-        "importPhase": "season-2-plus-pve-pvp-sources",
+        "professionRecipeCount": len(profession_recipes),
+        "craftedOutputItemCount": len(profession_output_ids),
+        "gemRecipeCount": len(gems),
+        "enchantRecipeCount": len(enchants),
+        "craftedGearRecipeCount": len(crafted_gear),
+        "importPhase": "season-2-plus-pve-pvp-professions",
         "seasonPolicy": SEASON_SCOPE,
     }
 
@@ -447,6 +620,7 @@ def main():
         "Season membership is source-based, not guessed from item level.",
         "Season 2 PvE candidates come from matched Adventure Journal sources.",
         "Season 2 PvP candidates come from Blizzard's PvP Season 2 reward API.",
+        "Current Midnight profession recipes are imported for gems, enchants, crafted gear, and other crafted outputs.",
         "Unified item records retain their source category so the optimizer can distinguish PvE and PvP gear.",
         "Season 2+ additions such as Kith'ix and Labyrinth of Kindo'jan are added when Blizzard exposes their reward data.",
         "Crafted, vendor, outdoor, Delves, Prey, and other non-Journal sources require their own source-specific importers; they are not silently approximated as Season 2 gear.",
