@@ -6,7 +6,7 @@
   "season": 2,
   "patch": "12.1.0",
   "status": "season-2-plus-source-imported",
-  "updatedAt": "2026-10-06T06:40:43.694419+00:00",
+  "updatedAt": "2026-10-06T07:04:30.930693+00:00",
   "source": "Blizzard Game Data API",
   "items": [
     {
@@ -58475,39 +58475,27 @@
         "heroTalentTrees": [
           {
             "id": 74,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/1034/hero-talent/74?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Totemic"
           },
           {
             "id": 70,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/1033/hero-talent/70?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Stormbringer"
           },
           {
             "id": 55,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/786/hero-talent/55?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Stormbringer"
           },
           {
             "id": 73,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/1034/hero-talent/73?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Stormbringer"
           },
           {
             "id": 54,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/786/hero-talent/54?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Totemic"
           },
           {
             "id": 71,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/1033/hero-talent/71?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Totemic"
           }
         ],
         "pvpTalents": [
@@ -58658,15 +58646,11 @@
         "heroTalentTrees": [
           {
             "id": 66,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/1000/hero-talent/66?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Master of Harmony"
           },
           {
             "id": 64,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/1000/hero-talent/64?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Conduit of the Celestials"
           }
         ],
         "pvpTalents": [
@@ -58821,15 +58805,11 @@
         "heroTalentTrees": [
           {
             "id": 49,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/790/hero-talent/49?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Lightsmith"
           },
           {
             "id": 48,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/790/hero-talent/48?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Templar"
           }
         ],
         "pvpTalents": [
@@ -59040,15 +59020,11 @@
         "heroTalentTrees": [
           {
             "id": 42,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/774/hero-talent/42?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Sentinel"
           },
           {
             "id": 43,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/774/hero-talent/43?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Pack Leader"
           }
         ],
         "pvpTalents": [
@@ -59227,15 +59203,11 @@
         "heroTalentTrees": [
           {
             "id": 18,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/795/hero-talent/18?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Voidweaver"
           },
           {
             "id": 20,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/795/hero-talent/20?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Oracle"
           }
         ],
         "pvpTalents": [
@@ -59419,15 +59391,11 @@
         "heroTalentTrees": [
           {
             "id": 66,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/1000/hero-talent/66?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Master of Harmony"
           },
           {
             "id": 65,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/1000/hero-talent/65?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Shado-Pan"
           }
         ],
         "pvpTalents": [
@@ -59601,15 +59569,11 @@
         "heroTalentTrees": [
           {
             "id": 61,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/850/hero-talent/61?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Mountain Thane"
           },
           {
             "id": 60,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/850/hero-talent/60?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Slayer"
           }
         ],
         "pvpTalents": [
@@ -59779,15 +59743,11 @@
         "heroTalentTrees": [
           {
             "id": 31,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/750/hero-talent/31?namespace=static-12.1.0_68914-us"
-            }
+            "name": "San'layn"
           },
           {
             "id": 32,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/750/hero-talent/32?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Rider of the Apocalypse"
           }
         ],
         "pvpTalents": [
@@ -59960,15 +59920,11 @@
         "heroTalentTrees": [
           {
             "id": 52,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/852/hero-talent/52?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Fatebound"
           },
           {
             "id": 53,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/852/hero-talent/53?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Deathstalker"
           }
         ],
         "pvpTalents": [
@@ -60154,39 +60110,27 @@
         "heroTalentTrees": [
           {
             "id": 74,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/1034/hero-talent/74?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Totemic"
           },
           {
             "id": 54,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/786/hero-talent/54?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Totemic"
           },
           {
             "id": 56,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/786/hero-talent/56?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Farseer"
           },
           {
             "id": 71,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/1033/hero-talent/71?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Totemic"
           },
           {
             "id": 75,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/1034/hero-talent/75?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Farseer"
           },
           {
             "id": 72,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/1033/hero-talent/72?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Farseer"
           }
         ],
         "pvpTalents": [
@@ -60376,15 +60320,11 @@
         "heroTalentTrees": [
           {
             "id": 40,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/658/hero-talent/40?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Spellslinger"
           },
           {
             "id": 41,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/658/hero-talent/41?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Frostfire"
           }
         ],
         "pvpTalents": [
@@ -60561,15 +60501,11 @@
         "heroTalentTrees": [
           {
             "id": 40,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/658/hero-talent/40?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Spellslinger"
           },
           {
             "id": 39,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/658/hero-talent/39?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Sunfury"
           }
         ],
         "pvpTalents": [
@@ -60733,15 +60669,11 @@
         "heroTalentTrees": [
           {
             "id": 49,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/790/hero-talent/49?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Lightsmith"
           },
           {
             "id": 50,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/790/hero-talent/50?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Herald of the Sun"
           }
         ],
         "pvpTalents": [
@@ -60939,15 +60871,11 @@
         "heroTalentTrees": [
           {
             "id": 48,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/790/hero-talent/48?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Templar"
           },
           {
             "id": 50,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/790/hero-talent/50?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Herald of the Sun"
           }
         ],
         "pvpTalents": [
@@ -61106,15 +61034,11 @@
         "heroTalentTrees": [
           {
             "id": 62,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/850/hero-talent/62?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Colossus"
           },
           {
             "id": 60,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/850/hero-talent/60?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Slayer"
           }
         ],
         "pvpTalents": [
@@ -61284,15 +61208,11 @@
         "heroTalentTrees": [
           {
             "id": 61,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/850/hero-talent/61?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Mountain Thane"
           },
           {
             "id": 62,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/850/hero-talent/62?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Colossus"
           }
         ],
         "pvpTalents": [
@@ -61503,15 +61423,11 @@
         "heroTalentTrees": [
           {
             "id": 44,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/774/hero-talent/44?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Dark Ranger"
           },
           {
             "id": 43,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/774/hero-talent/43?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Pack Leader"
           }
         ],
         "pvpTalents": [
@@ -61686,15 +61602,11 @@
         "heroTalentTrees": [
           {
             "id": 44,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/774/hero-talent/44?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Dark Ranger"
           },
           {
             "id": 42,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/774/hero-talent/42?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Sentinel"
           }
         ],
         "pvpTalents": [
@@ -61851,15 +61763,11 @@
         "heroTalentTrees": [
           {
             "id": 19,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/795/hero-talent/19?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Archon"
           },
           {
             "id": 18,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/795/hero-talent/18?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Voidweaver"
           }
         ],
         "pvpTalents": [
@@ -62017,15 +61925,11 @@
         "heroTalentTrees": [
           {
             "id": 51,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/852/hero-talent/51?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Trickster"
           },
           {
             "id": 53,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/852/hero-talent/53?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Deathstalker"
           }
         ],
         "pvpTalents": [
@@ -62211,27 +62115,19 @@
         "heroTalentTrees": [
           {
             "id": 21,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/793/hero-talent/21?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Druid of the Claw"
           },
           {
             "id": 11,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/898/hero-talent/11?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Blue [DNT]"
           },
           {
             "id": 10,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/898/hero-talent/10?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Pink [DNT]"
           },
           {
             "id": 22,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/793/hero-talent/22?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Wildstalker"
           }
         ],
         "pvpTalents": [
@@ -62411,27 +62307,19 @@
         "heroTalentTrees": [
           {
             "id": 21,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/793/hero-talent/21?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Druid of the Claw"
           },
           {
             "id": 10,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/898/hero-talent/10?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Pink [DNT]"
           },
           {
             "id": 9,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/898/hero-talent/9?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Yellow [DNT]"
           },
           {
             "id": 24,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/793/hero-talent/24?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Elune's Chosen"
           }
         ],
         "pvpTalents": [
@@ -62631,27 +62519,19 @@
         "heroTalentTrees": [
           {
             "id": 23,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/793/hero-talent/23?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Keeper of the Grove"
           },
           {
             "id": 12,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/898/hero-talent/12?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Red [DNT]"
           },
           {
             "id": 9,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/898/hero-talent/9?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Yellow [DNT]"
           },
           {
             "id": 22,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/793/hero-talent/22?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Wildstalker"
           }
         ],
         "pvpTalents": [
@@ -62832,15 +62712,11 @@
         "heroTalentTrees": [
           {
             "id": 59,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/720/hero-talent/59?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Diabolist"
           },
           {
             "id": 58,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/720/hero-talent/58?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Hellcaller"
           }
         ],
         "pvpTalents": [
@@ -63003,15 +62879,11 @@
         "heroTalentTrees": [
           {
             "id": 19,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/795/hero-talent/19?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Archon"
           },
           {
             "id": 20,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/795/hero-talent/20?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Oracle"
           }
         ],
         "pvpTalents": [
@@ -63154,15 +63026,11 @@
         "heroTalentTrees": [
           {
             "id": 41,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/658/hero-talent/41?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Frostfire"
           },
           {
             "id": 39,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/658/hero-talent/39?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Sunfury"
           }
         ],
         "pvpTalents": [
@@ -63324,15 +63192,11 @@
         "heroTalentTrees": [
           {
             "id": 31,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/750/hero-talent/31?namespace=static-12.1.0_68914-us"
-            }
+            "name": "San'layn"
           },
           {
             "id": 33,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/750/hero-talent/33?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Deathbringer"
           }
         ],
         "pvpTalents": [
@@ -63507,15 +63371,11 @@
         "heroTalentTrees": [
           {
             "id": 32,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/750/hero-talent/32?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Rider of the Apocalypse"
           },
           {
             "id": 33,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/750/hero-talent/33?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Deathbringer"
           }
         ],
         "pvpTalents": [
@@ -63686,15 +63546,11 @@
         "heroTalentTrees": [
           {
             "id": 52,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/852/hero-talent/52?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Fatebound"
           },
           {
             "id": 51,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/852/hero-talent/51?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Trickster"
           }
         ],
         "pvpTalents": [
@@ -63880,39 +63736,27 @@
         "heroTalentTrees": [
           {
             "id": 70,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/1033/hero-talent/70?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Stormbringer"
           },
           {
             "id": 55,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/786/hero-talent/55?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Stormbringer"
           },
           {
             "id": 73,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/1034/hero-talent/73?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Stormbringer"
           },
           {
             "id": 56,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/786/hero-talent/56?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Farseer"
           },
           {
             "id": 75,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/1034/hero-talent/75?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Farseer"
           },
           {
             "id": 72,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/1033/hero-talent/72?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Farseer"
           }
         ],
         "pvpTalents": [
@@ -64076,15 +63920,11 @@
         "heroTalentTrees": [
           {
             "id": 58,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/720/hero-talent/58?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Hellcaller"
           },
           {
             "id": 57,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/720/hero-talent/57?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Soul Harvester"
           }
         ],
         "pvpTalents": [
@@ -64276,15 +64116,11 @@
         "heroTalentTrees": [
           {
             "id": 59,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/720/hero-talent/59?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Diabolist"
           },
           {
             "id": 57,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/720/hero-talent/57?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Soul Harvester"
           }
         ],
         "pvpTalents": [
@@ -64436,15 +64272,11 @@
         "heroTalentTrees": [
           {
             "id": 65,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/1000/hero-talent/65?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Shado-Pan"
           },
           {
             "id": 64,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/1000/hero-talent/64?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Conduit of the Celestials"
           }
         ],
         "pvpTalents": [
@@ -64586,27 +64418,19 @@
         "heroTalentTrees": [
           {
             "id": 23,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/793/hero-talent/23?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Keeper of the Grove"
           },
           {
             "id": 11,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/898/hero-talent/11?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Blue [DNT]"
           },
           {
             "id": 12,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/898/hero-talent/12?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Red [DNT]"
           },
           {
             "id": 24,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/793/hero-talent/24?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Elune's Chosen"
           }
         ],
         "pvpTalents": [
@@ -64814,15 +64638,11 @@
         "heroTalentTrees": [
           {
             "id": 35,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/854/hero-talent/35?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Aldrachi Reaver"
           },
           {
             "id": 34,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/854/hero-talent/34?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Fel-Scarred"
           }
         ],
         "pvpTalents": [
@@ -64992,15 +64812,11 @@
         "heroTalentTrees": [
           {
             "id": 35,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/854/hero-talent/35?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Aldrachi Reaver"
           },
           {
             "id": 124,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/854/hero-talent/124?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Annihilator"
           }
         ],
         "pvpTalents": [
@@ -65237,15 +65053,11 @@
         "heroTalentTrees": [
           {
             "id": 37,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/872/hero-talent/37?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Flameshaper"
           },
           {
             "id": 36,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/872/hero-talent/36?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Scalecommander"
           }
         ],
         "pvpTalents": [
@@ -65390,15 +65202,11 @@
         "heroTalentTrees": [
           {
             "id": 37,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/872/hero-talent/37?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Flameshaper"
           },
           {
             "id": 38,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/872/hero-talent/38?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Chronowarden"
           }
         ],
         "pvpTalents": [
@@ -65573,15 +65381,11 @@
         "heroTalentTrees": [
           {
             "id": 36,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/872/hero-talent/36?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Scalecommander"
           },
           {
             "id": 38,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/872/hero-talent/38?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Chronowarden"
           }
         ],
         "pvpTalents": [
@@ -65752,15 +65556,11 @@
         "heroTalentTrees": [
           {
             "id": 124,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/854/hero-talent/124?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Annihilator"
           },
           {
             "id": 126,
-            "name": {
-              "href": "https://us.api.blizzard.com/data/wow/talent-tree/854/hero-talent/126?namespace=static-12.1.0_68914-us"
-            }
+            "name": "Void-Scarred"
           }
         ],
         "pvpTalents": [
