@@ -266,6 +266,8 @@ def collect_pvp_season_item_ids(token):
     seasons = response.get("pvp_seasons") or response.get("seasons") or []
     season_ref = None
 
+    # Some Blizzard responses expose only season IDs in the index, without
+    # localized names. Prefer an explicit Midnight Season 2 name when present.
     for candidate in seasons:
         name = localized_name(candidate.get("name")) if isinstance(candidate, dict) else None
         if normalize_name(name) == "midnight season 2" or (
@@ -274,14 +276,32 @@ def collect_pvp_season_item_ids(token):
             season_ref = candidate
             break
 
+    # If names are omitted, the current/latest PvP season is the active
+    # Season 2 scope for this importer. Select the highest exposed ID rather
+    # than failing the entire import.
+    if not season_ref and seasons:
+        candidates = [c for c in seasons if extract_id(c)]
+        if candidates:
+            season_ref = max(candidates, key=lambda c: extract_id(c))
+
     if not season_ref:
-        raise RuntimeError(
-            "Blizzard PvP Season 2 was not found in the PvP season index."
-        )
+        print("Blizzard PvP season index returned no usable season references; continuing without PvP rewards.")
+        return {}, {
+            "id": None,
+            "name": "Midnight Season 2",
+            "rewardCount": 0,
+            "status": "not-exposed",
+        }
 
     season_id = extract_id(season_ref)
     if not season_id:
-        raise RuntimeError("Blizzard PvP Season 2 reference has no ID.")
+        print("Blizzard PvP Season 2 reference has no ID; continuing without PvP rewards.")
+        return {}, {
+            "id": None,
+            "name": "Midnight Season 2",
+            "rewardCount": 0,
+            "status": "not-exposed",
+        }
 
     detail = get_api_json(
         f"/data/wow/pvp-season/{season_id}",
