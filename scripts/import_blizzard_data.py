@@ -18,8 +18,7 @@ MAX_RETRIES = 4
 MINIMUM_SEASON = 2
 SEASON_SCOPE = "Midnight Season 2+"
 
-# Season 2 sources. Matching is done against Blizzard's complete
-# Adventure Journal instance index, not by item level.
+# Season 2 PvE sources exposed through the Adventure Journal.
 SEASON_CONTENT_NAMES = {
     "The Venomous Abyss",
     "Venomous Abyss",
@@ -33,6 +32,10 @@ SEASON_CONTENT_NAMES = {
     "Ruby Life Pools",
     "The Tidebound Grotto",
 }
+
+# Season 2+ is a source scope, not an item-level range. New Season 2
+# sources such as Kith'ix and Labyrinth of Kindo'jan are added to this
+# catalog as soon as Blizzard exposes them through the API.
 
 
 def request_json(url, headers=None, data=None):
@@ -161,9 +164,6 @@ def get_season_instances(token):
         token,
         {"namespace": NAMESPACE, "locale": LOCALE},
     )
-    # Blizzard's Journal Instance Index returns the collection as
-    # "journal_instances" in some documentation examples and "instances"
-    # in the current API model. Accept both so the importer is resilient.
     return response.get("journal_instances") or response.get("instances") or []
 
 
@@ -218,6 +218,7 @@ def collect_season_content_item_ids(token):
 
                 item_sources.setdefault(item_id, []).append({
                     "seasonScope": SEASON_SCOPE,
+                    "category": "PvE",
                     "instance": actual_instance_name,
                     "instanceId": instance_id,
                     "encounterId": encounter_id,
@@ -237,11 +238,104 @@ def collect_season_content_item_ids(token):
         f"Season source scan: {len(matched_instances)} matched instances, "
         f"{encounter_count} encounters, {len(item_sources)} unique loot items."
     )
-    print(f"Matched Season 2 sources: {sorted(matched_instances)}")
+    print(f"Matched Season 2 PvE sources: {sorted(matched_instances)}")
     if missing_sources:
-        print(f"Season 2 sources not present in Journal yet: {sorted(missing_sources)}")
+        print(f"Season 2 PvE sources not present in Journal yet: {sorted(missing_sources)}")
 
     return item_sources, sorted(matched_instances), sorted(missing_sources)
+
+
+def extract_pvp_item_ids(value, item_sources, path=""):
+    """
+    PvP reward payloads can nest item references differently between API
+    versions. Only collect IDs from fields explicitly named item/item_id;
+    do not mistake currencies, achievements, tiers, or ratings for items.
+    """
+    if isinstance(value, dict):
+        for key, child in value.items():
+            key_lower = str(key).lower()
+            if key_lower in {"item", "item_id", "itemid"}:
+                item_id = extract_id(child)
+                if item_id:
+                    item_sources.setdefault(item_id, []).append(path or "PvP Season 2 reward")
+            extract_pvp_item_ids(child, item_sources, f"{path}.{key}" if path else key)
+    elif isinstance(value, list):
+        for index, child in enumerate(value):
+            extract_pvp_item_ids(child, item_sources, f"{path}[{index}]")
+
+
+def collect_pvp_season_item_ids(token):
+    response = get_api_json(
+        "/data/wow/pvp-season/index",
+        token,
+        {"namespace": NAMESPACE, "locale": LOCALE},
+    )
+
+    seasons = response.get("pvp_seasons") or response.get("seasons") or []
+    season_ref = None
+
+    for candidate in seasons:
+        name = localized_name(candidate.get("name")) if isinstance(candidate, dict) else None
+        if normalize_name(name) == "midnight season 2" or (
+            name and "midnight" in normalize_name(name) and "season 2" in normalize_name(name)
+        ):
+            season_ref = candidate
+            break
+
+    if not season_ref:
+        raise RuntimeError(
+            "Blizzard PvP Season 2 was not found in the PvP season index."
+        )
+
+    season_id = extract_id(season_ref)
+    if not season_id:
+        raise RuntimeError("Blizzard PvP Season 2 reference has no ID.")
+
+    detail = get_api_json(
+        f"/data/wow/pvp-season/{season_id}",
+        token,
+        {"namespace": NAMESPACE, "locale": LOCALE},
+    )
+
+    rewards = get_api_json(
+        f"/data/wow/pvp-season/{season_id}/pvp-reward/index",
+        token,
+        {"namespace": NAMESPACE, "locale": LOCALE},
+    )
+
+    reward_sources = {}
+    extract_pvp_item_ids(rewards, reward_sources, "pvpRewards")
+
+    print(
+        f"PvP Season 2 found: id {season_id}; "
+        f"{len(reward_sources)} item references in PvP rewards."
+    )
+
+    item_sources = {}
+    for item_id, paths in reward_sources.items():
+        item_sources[item_id] = [{
+            "seasonScope": SEASON_SCOPE,
+            "category": "PvP",
+            "pvpSeasonId": season_id,
+            "pvpSeason": localized_name(detail.get("name")) or "Midnight Season 2",
+            "rewardPaths": paths,
+        }]
+
+    return item_sources, {
+        "id": season_id,
+        "name": localized_name(detail.get("name")) or "Midnight Season 2",
+        "rewardCount": len(reward_sources),
+    }
+
+
+def merge_item_sources(*source_maps):
+    merged = {}
+
+    for source_map in source_maps:
+        for item_id, sources in source_map.items():
+            merged.setdefault(item_id, []).extend(sources)
+
+    return merged
 
 
 def fetch_item_details(token, item_ids, item_sources):
@@ -293,7 +387,10 @@ def main():
         {"namespace": NAMESPACE, "locale": LOCALE},
     )
 
-    item_sources, matched_instances, missing_sources = collect_season_content_item_ids(token)
+    pve_sources, matched_instances, missing_sources = collect_season_content_item_ids(token)
+    pvp_sources, pvp_metadata = collect_pvp_season_item_ids(token)
+    item_sources = merge_item_sources(pve_sources, pvp_sources)
+
     items = fetch_item_details(token, item_sources.keys(), item_sources)
 
     items.sort(
@@ -309,14 +406,27 @@ def main():
     dataset["updatedAt"] = datetime.now(timezone.utc).isoformat()
     dataset["items"] = items
     dataset["season"] = MINIMUM_SEASON
+
+    # Preserve the structured PVP section for the optimizer UI while the
+    # actual equippable PvP items also live in the unified items catalog.
+    dataset["pvp"] = [{
+        "season": pvp_metadata["name"],
+        "seasonId": pvp_metadata["id"],
+        "rewardItemCount": pvp_metadata["rewardCount"],
+        "source": "Blizzard Game Data API",
+    }]
+
     dataset["apiCheck"] = {
         "itemClassCount": len(item_classes.get("item_classes", [])),
         "namespace": NAMESPACE,
         "gearItemCount": len(items),
         "candidateItemCount": len(item_sources),
-        "matchedInstances": matched_instances,
-        "missingSources": missing_sources,
-        "importPhase": "season-content-sources",
+        "pveCandidateItemCount": len(pve_sources),
+        "pvpCandidateItemCount": len(pvp_sources),
+        "matchedPvEInstances": matched_instances,
+        "missingPvESources": missing_sources,
+        "pvpSeason": pvp_metadata,
+        "importPhase": "season-2-plus-pve-pvp-sources",
         "seasonPolicy": SEASON_SCOPE,
     }
 
@@ -325,9 +435,11 @@ def main():
         "Blizzard API credentials are never placed in browser JavaScript.",
         "The importer does not scan the historical weapon/armor catalog.",
         "Season membership is source-based, not guessed from item level.",
-        "The candidate pool is built from explicitly matched Season 2+ Adventure Journal sources.",
-        "Detailed item stats and effects are imported from the Blizzard item endpoint.",
-        "PvP vendors, crafted gear, outdoor rewards, and certain BoEs require later source-specific import phases.",
+        "Season 2 PvE candidates come from matched Adventure Journal sources.",
+        "Season 2 PvP candidates come from Blizzard's PvP Season 2 reward API.",
+        "Unified item records retain their source category so the optimizer can distinguish PvE and PvP gear.",
+        "Season 2+ additions such as Kith'ix and Labyrinth of Kindo'jan are added when Blizzard exposes their reward data.",
+        "Crafted, vendor, outdoor, Delves, Prey, and other non-Journal sources require their own source-specific importers; they are not silently approximated as Season 2 gear.",
     ]
 
     with open(OUTPUT, "w", encoding="utf-8") as handle:
@@ -336,7 +448,7 @@ def main():
 
     print(
         f"Season 2+ Retail gear import completed: {len(items)} enriched items "
-        f"from {len(item_sources)} source candidates."
+        f"from {len(item_sources)} unified PvE/PvP source candidates."
     )
 
 
