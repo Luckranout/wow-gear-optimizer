@@ -666,6 +666,20 @@ def find_recipe_output_item_id(token, recipe_name, profession_name, cache):
         if len(token) > 1
     }
 
+    if profession_name == "Jewelcrafting" and normalize_name(recipe_name) == "quick peridot":
+        print("QUICK PERIDOT ITEM SEARCH CANDIDATES:")
+        for result in response.get("results", []) or []:
+            data = result.get("data") or {}
+            debug_id = extract_id(result) or extract_id(data)
+            debug_name = localized_name(data.get("name")) or localized_name(result.get("name"))
+            debug_class = extract_id(data.get("item_class"))
+            print(json.dumps({
+                "id": debug_id,
+                "name": debug_name,
+                "itemClassId": debug_class,
+                "isEquippable": data.get("is_equippable"),
+            }, ensure_ascii=False))
+
     candidates = []
 
     for result in response.get("results", []) or []:
