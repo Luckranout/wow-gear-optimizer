@@ -2,6 +2,7 @@ import json
 import os
 import sys
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
@@ -12,7 +13,10 @@ OUTPUT = "data/current-retail.json"
 NAMESPACE = "static-us"
 LOCALE = "en_US"
 PAGE_SIZE = 1000
-REQUEST_DELAY_SECONDS = 0.08
+REQUEST_DELAY_SECONDS = 0.15
+MIN_CURRENT_ITEM_LEVEL = 250
+MAX_CURRENT_ITEM_LEVEL = 344
+MAX_RETRIES = 4
 
 
 def request_json(url, headers=None, data=None):
@@ -22,8 +26,24 @@ def request_json(url, headers=None, data=None):
         data=data,
         method="POST" if data is not None else "GET",
     )
-    with urllib.request.urlopen(request, timeout=60) as response:
-        return json.load(response)
+    for attempt in range(MAX_RETRIES):
+        try:
+            with urllib.request.urlopen(request, timeout=60) as response:
+                return json.load(response)
+        except urllib.error.HTTPError as error:
+            if error.code >= 500 and attempt < MAX_RETRIES - 1:
+                wait = 2 ** attempt
+                print(f"Blizzard API returned HTTP {error.code}; retrying in {wait}s...")
+                time.sleep(wait)
+                continue
+            raise
+        except (urllib.error.URLError, TimeoutError) as error:
+            if attempt < MAX_RETRIES - 1:
+                wait = 2 ** attempt
+                print(f"Blizzard API request failed ({error}); retrying in {wait}s...")
+                time.sleep(wait)
+                continue
+            raise
 
 
 def get_access_token(client_id, client_secret):
@@ -122,6 +142,7 @@ def import_gear_items(token, item_class_id):
                 "_pageSize": PAGE_SIZE,
                 "_page": 1,
                 "id": f"[{starting_id},]",
+                "level": f"[{MIN_CURRENT_ITEM_LEVEL},{MAX_CURRENT_ITEM_LEVEL}]",
                 "item_class.id": item_class_id,
             },
         )
@@ -177,8 +198,9 @@ def main():
     )
 
     # Retail equipment lives primarily in item classes 2 (Weapon) and
-    # 4 (Armor). We import the searchable catalog first; detailed item
-    # records (stats/effects) will be added in the next importer phase.
+    # 4 (Armor). Restrict the catalog to the current Season 2 item-level
+    # band so we do not spend the workflow's time pulling the entire
+    # historical WoW item database. Detailed item stats/effects come next.
     items = []
     for item_class_id in (2, 4):
         items.extend(import_gear_items(token, item_class_id))
@@ -197,13 +219,14 @@ def main():
         "namespace": NAMESPACE,
         "gearItemCount": len(items),
         "gearItemClasses": [2, 4],
+        "itemLevelRange": [MIN_CURRENT_ITEM_LEVEL, MAX_CURRENT_ITEM_LEVEL],
         "importPhase": "catalog",
     }
 
     notes = [
         "This file is generated from the secure Blizzard Game Data API importer.",
         "Blizzard API credentials must never be placed in browser JavaScript.",
-        "Phase 1 imports the searchable Retail weapon and armor catalog.",
+        "Phase 1 imports the searchable current-season weapon and armor catalog.",
         "Phase 2 will enrich candidate gear with detailed stats and effects.",
     ]
     dataset["notes"] = notes
