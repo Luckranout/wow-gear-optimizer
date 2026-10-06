@@ -1,0 +1,36 @@
+name: Import WoW Retail Data
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 8 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Import current Retail data
+        env:
+          BLIZZARD_CLIENT_ID: ${{ secrets.BLIZZARD_CLIENT_ID }}
+          BLIZZARD_CLIENT_SECRET: ${{ secrets.BLIZZARD_CLIENT_SECRET }}
+        run: python scripts/import_blizzard_data.py
+
+      - name: Commit updated dataset
+        run: |
+          git config user.name "wow-gear-optimizer"
+          git config user.email "actions@github.com"
+          git add data/current-retail.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Update current Retail WoW data"
+          git push
