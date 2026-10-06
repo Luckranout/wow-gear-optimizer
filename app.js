@@ -54,12 +54,35 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
   const goal = document.querySelector("#goalSelect").value;
 
   if (!cls || !spec) {
-    resultMessage.textContent = "Select a class and specialization before optimizing.";
+    resultMessage.textContent =
+      "Select a class and specialization before optimizing.";
     return;
   }
 
+  const character = WoWOptimizer.createCharacterProfile();
+
+  character.className = cls;
+  character.specialization = spec;
+  character.goal = goal;
+
+  const report = WoWOptimizer.createOptimizationReport({
+    character,
+    availableItems: WoWOptimizer.testData
+  });
+
+  const availableUpgrades = report.topUpgrades
+    .map(upgrade => {
+      const itemName =
+        upgrade.recommendedItem?.name || "Recommended upgrade";
+
+      return `${upgrade.slot}: ${itemName}`;
+    })
+    .join(" • ");
+
   resultMessage.textContent =
-    `${cls} • ${spec} • ${goal} selected. The live data and optimization engine will be connected in the next build stage.`;
+    availableUpgrades
+      ? `${cls} • ${spec} • ${goal} — Optimizer running. Top available upgrades: ${availableUpgrades}`
+      : `${cls} • ${spec} • ${goal} — Optimizer running. No current test-data upgrades are available yet.`;
 });
 
 document.querySelector("#clearBtn").addEventListener("click", () => {
