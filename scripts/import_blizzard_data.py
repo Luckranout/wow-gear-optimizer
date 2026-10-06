@@ -18,11 +18,11 @@ MAX_RETRIES = 4
 MINIMUM_SEASON = 2
 SEASON_SCOPE = "Midnight Season 2+"
 
-# These are Blizzard's Season 2 sources. We match against the complete
-# Adventure Journal instance index rather than relying on a search endpoint
-# filter whose field behavior can vary.
+# Season 2 sources. Matching is done against Blizzard's complete
+# Adventure Journal instance index, not by item level.
 SEASON_CONTENT_NAMES = {
     "The Venomous Abyss",
+    "Venomous Abyss",
     "Altar of Fangs",
     "Murder Row",
     "Den of Nalorakk",
@@ -32,8 +32,6 @@ SEASON_CONTENT_NAMES = {
     "Temple of Sethraliss",
     "Ruby Life Pools",
     "The Tidebound Grotto",
-    "The Unbinding of Kith'ix",
-    "Labyrinth of Kindo'jan",
 }
 
 
@@ -163,24 +161,22 @@ def get_season_instances(token):
         token,
         {"namespace": NAMESPACE, "locale": LOCALE},
     )
-    return response.get("journal_instances", [])
+    # Blizzard's Journal Instance Index returns the collection as
+    # "journal_instances" in some documentation examples and "instances"
+    # in the current API model. Accept both so the importer is resilient.
+    return response.get("journal_instances") or response.get("instances") or []
 
 
 def collect_season_content_item_ids(token):
-    """
-    Build the candidate pool from explicitly named Season 2 sources in the
-    complete Blizzard Adventure Journal instance index.
-
-    This is source-based: item level is never used to decide Season 2
-    membership. Historical instances are ignored.
-    """
-    wanted = {normalize_name(name): name for name in SEASON_CONTENT_NAMES}
     item_sources = {}
     matched_instances = []
     missing_sources = []
     encounter_count = 0
 
+    wanted = {normalize_name(name): name for name in SEASON_CONTENT_NAMES}
     instances = get_season_instances(token)
+
+    print(f"Blizzard Journal instance index returned {len(instances)} instances.")
 
     for instance_ref in instances:
         instance_id = extract_id(instance_ref)
@@ -198,7 +194,7 @@ def collect_season_content_item_ids(token):
             {"namespace": NAMESPACE, "locale": LOCALE},
         )
 
-        for encounter_ref in instance.get("journal_encounters", []):
+        for encounter_ref in instance.get("journal_encounters", []) or instance.get("encounters", []):
             encounter_id = extract_id(encounter_ref)
             if not encounter_id:
                 continue
@@ -210,6 +206,9 @@ def collect_season_content_item_ids(token):
             )
             encounter_count += 1
 
+            actual_instance = encounter.get("instance") or encounter.get("journal_instance") or {}
+            actual_instance_name = localized_name(actual_instance.get("name")) or instance_name
+
             for loot in encounter.get("items", []):
                 item_id = extract_id(loot.get("item"))
                 if not item_id:
@@ -219,7 +218,7 @@ def collect_season_content_item_ids(token):
 
                 item_sources.setdefault(item_id, []).append({
                     "seasonScope": SEASON_SCOPE,
-                    "instance": instance_name,
+                    "instance": actual_instance_name,
                     "instanceId": instance_id,
                     "encounterId": encounter_id,
                     "encounter": localized_name(encounter.get("name")),
