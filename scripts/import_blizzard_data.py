@@ -633,7 +633,13 @@ def collect_talent_data(token):
     }
 
 def find_recipe_output_item_id(token, recipe_name, profession_name, cache):
-    """Resolve Midnight recipe outputs when Blizzard omits crafted_item."""
+    """Resolve a Blizzard recipe output when the recipe omits crafted_item.
+
+    The lookup uses the recipe name returned by Blizzard internally. It never
+    uses a name supplied by the end user. For Jewelcrafting, the candidate must
+    also be a Blizzard Gem item (item class 3), which prevents unrelated search
+    results such as legacy Peridot rings from being selected.
+    """
     cache_key = f"{profession_name}:{normalize_name(recipe_name)}"
     if cache_key in cache:
         return cache[cache_key]
@@ -653,27 +659,56 @@ def find_recipe_output_item_id(token, recipe_name, profession_name, cache):
             "orderby": "id",
         },
     )
-    if profession_name == "Jewelcrafting" and recipe_name == "Quick Peridot":
-            print("QUICK PERIDOT ITEM SEARCH RESPONSE:")
-            print(json.dumps(response, indent=2))
+
+    recipe_normalized = normalize_name(recipe_name)
+    recipe_tokens = {
+        token for token in recipe_normalized.split()
+        if len(token) > 1
+    }
+
     candidates = []
+
     for result in response.get("results", []) or []:
         data = result.get("data") or {}
-        item_id = extract_id(result)
-        if not item_id:
-            item_id = extract_id(data)
+        item_id = extract_id(result) or extract_id(data)
         item_name = localized_name(data.get("name")) or localized_name(result.get("name"))
-        if item_id and normalize_name(item_name) == normalize_name(recipe_name):
-            candidates.append((item_id, data))
+
+        if not item_id or not item_name:
+            continue
+
+        item_normalized = normalize_name(item_name)
+        item_tokens = {
+            token for token in item_normalized.split()
+            if len(token) > 1
+        }
+        item_class_id = extract_id(data.get("item_class"))
+        is_equippable = data.get("is_equippable") is True
+
+        # Jewelcrafting is special: Blizzard's item search can return
+        # unrelated legacy items with overlapping words. Only accept an
+        # actual Gem whose meaningful name tokens contain the recipe tokens.
+        if profession_name == "Jewelcrafting":
+            if item_class_id != 3:
+                continue
+            if not recipe_tokens.issubset(item_tokens):
+                continue
+
+        # For other professions, keep the existing exact-name behavior.
+        elif item_normalized != recipe_normalized:
+            continue
+
+        candidates.append((item_id, data, item_normalized == recipe_normalized))
 
     def candidate_score(candidate):
-        item_id, data = candidate
+        item_id, data, is_exact_name = candidate
         item_class_id = extract_id(data.get("item_class"))
         is_equippable = data.get("is_equippable") is True
         score = 0
 
+        if is_exact_name:
+            score += 1000
         if profession_name == "Jewelcrafting" and item_class_id == 3:
-            score += 100
+            score += 500
         if profession_name in {"Blacksmithing", "Leatherworking", "Tailoring"} and is_equippable:
             score += 50
         if profession_name == "Alchemy" and item_class_id == 0:
