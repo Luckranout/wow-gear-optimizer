@@ -6,7 +6,7 @@
   "season": 2,
   "patch": "12.1.0",
   "status": "season-2-plus-source-imported",
-  "updatedAt": "2026-10-06T18:54:45.058776+00:00",
+  "updatedAt": "2026-10-06T22:32:51.867740+00:00",
   "source": "Blizzard Game Data API",
   "items": [
     {
@@ -17278,6 +17278,2330 @@
   ],
   "gems": [
     {
+      "id": 52572,
+      "name": "Quick Peridot",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Powerful Peridots",
+      "craftedItemId": 240856,
+      "craftedItemQuantity": null,
+      "reagents": [],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52572?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52572
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240856,
+        "name": "Quick Peridot",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Uncommon"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 7,
+          "name": "Haste"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240856?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240856
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52573,
+      "name": "Deadly Peridot",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Powerful Peridots",
+      "craftedItemId": 240858,
+      "craftedItemQuantity": null,
+      "reagents": [],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52573?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52573
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240858,
+        "name": "Deadly Peridot",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Uncommon"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 10,
+          "name": "Multiple Stats"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240858?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240858
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52574,
+      "name": "Masterful Peridot",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Powerful Peridots",
+      "craftedItemId": 240860,
+      "craftedItemQuantity": null,
+      "reagents": [],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52574?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52574
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240860,
+        "name": "Masterful Peridot",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Uncommon"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 10,
+          "name": "Multiple Stats"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240860?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240860
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52575,
+      "name": "Versatile Peridot",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Powerful Peridots",
+      "craftedItemId": 240862,
+      "craftedItemQuantity": null,
+      "reagents": [],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52575?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52575
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240862,
+        "name": "Versatile Peridot",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Uncommon"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 10,
+          "name": "Multiple Stats"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240862?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240862
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52576,
+      "name": "Flawless Quick Peridot",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Powerful Peridots",
+      "craftedItemId": 240888,
+      "craftedItemQuantity": null,
+      "reagents": [
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/236950?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Mote of Primal Energy",
+            "id": 236950
+          },
+          "quantity": 3
+        },
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/251285?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Petrified Root",
+            "id": 251285
+          },
+          "quantity": 1
+        }
+      ],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52576?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52576
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240888,
+        "name": "Flawless Quick Peridot",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Rare"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 7,
+          "name": "Haste"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240888?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240888
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52577,
+      "name": "Flawless Deadly Peridot",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Powerful Peridots",
+      "craftedItemId": 240890,
+      "craftedItemQuantity": null,
+      "reagents": [
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/236950?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Mote of Primal Energy",
+            "id": 236950
+          },
+          "quantity": 3
+        },
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/251285?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Petrified Root",
+            "id": 251285
+          },
+          "quantity": 1
+        }
+      ],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52577?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52577
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240890,
+        "name": "Flawless Deadly Peridot",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Rare"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 10,
+          "name": "Multiple Stats"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240890?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240890
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52578,
+      "name": "Flawless Masterful Peridot",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Powerful Peridots",
+      "craftedItemId": 240892,
+      "craftedItemQuantity": null,
+      "reagents": [
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/236950?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Mote of Primal Energy",
+            "id": 236950
+          },
+          "quantity": 3
+        },
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/251285?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Petrified Root",
+            "id": 251285
+          },
+          "quantity": 1
+        }
+      ],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52578?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52578
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240892,
+        "name": "Flawless Masterful Peridot",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Rare"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 10,
+          "name": "Multiple Stats"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240892?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240892
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52579,
+      "name": "Flawless Versatile Peridot",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Powerful Peridots",
+      "craftedItemId": 240894,
+      "craftedItemQuantity": null,
+      "reagents": [
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/236950?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Mote of Primal Energy",
+            "id": 236950
+          },
+          "quantity": 3
+        },
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/251285?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Petrified Root",
+            "id": 251285
+          },
+          "quantity": 1
+        }
+      ],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52579?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52579
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240894,
+        "name": "Flawless Versatile Peridot",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Rare"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 10,
+          "name": "Multiple Stats"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240894?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240894
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52580,
+      "name": "Quick Lapis",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Lustrous Lapis",
+      "craftedItemId": 240884,
+      "craftedItemQuantity": null,
+      "reagents": [],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52580?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52580
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240884,
+        "name": "Quick Lapis",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Uncommon"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 10,
+          "name": "Multiple Stats"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240884?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240884
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52581,
+      "name": "Deadly Lapis",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Lustrous Lapis",
+      "craftedItemId": 240882,
+      "craftedItemQuantity": null,
+      "reagents": [],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52581?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52581
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240882,
+        "name": "Deadly Lapis",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Uncommon"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 10,
+          "name": "Multiple Stats"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240882?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240882
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52582,
+      "name": "Masterful Lapis",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Lustrous Lapis",
+      "craftedItemId": 240886,
+      "craftedItemQuantity": null,
+      "reagents": [],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52582?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52582
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240886,
+        "name": "Masterful Lapis",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Uncommon"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 10,
+          "name": "Multiple Stats"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240886?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240886
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52583,
+      "name": "Versatile Lapis",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Lustrous Lapis",
+      "craftedItemId": 240880,
+      "craftedItemQuantity": null,
+      "reagents": [],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52583?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52583
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240880,
+        "name": "Versatile Lapis",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Uncommon"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 8,
+          "name": "Versatility"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240880?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240880
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52584,
+      "name": "Flawless Quick Lapis",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Lustrous Lapis",
+      "craftedItemId": 240916,
+      "craftedItemQuantity": null,
+      "reagents": [
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/236951?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Mote of Wild Magic",
+            "id": 236951
+          },
+          "quantity": 3
+        },
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/251285?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Petrified Root",
+            "id": 251285
+          },
+          "quantity": 1
+        }
+      ],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52584?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52584
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240916,
+        "name": "Flawless Quick Lapis",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Rare"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 10,
+          "name": "Multiple Stats"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240916?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240916
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52585,
+      "name": "Flawless Deadly Lapis",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Lustrous Lapis",
+      "craftedItemId": 240914,
+      "craftedItemQuantity": null,
+      "reagents": [
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/236951?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Mote of Wild Magic",
+            "id": 236951
+          },
+          "quantity": 3
+        },
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/251285?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Petrified Root",
+            "id": 251285
+          },
+          "quantity": 1
+        }
+      ],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52585?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52585
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240914,
+        "name": "Flawless Deadly Lapis",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Rare"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 10,
+          "name": "Multiple Stats"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240914?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240914
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52586,
+      "name": "Flawless Masterful Lapis",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Lustrous Lapis",
+      "craftedItemId": 240918,
+      "craftedItemQuantity": null,
+      "reagents": [
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/236951?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Mote of Wild Magic",
+            "id": 236951
+          },
+          "quantity": 3
+        },
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/251285?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Petrified Root",
+            "id": 251285
+          },
+          "quantity": 1
+        }
+      ],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52586?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52586
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240918,
+        "name": "Flawless Masterful Lapis",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Rare"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 10,
+          "name": "Multiple Stats"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240918?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240918
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52587,
+      "name": "Flawless Versatile Lapis",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Lustrous Lapis",
+      "craftedItemId": 240912,
+      "craftedItemQuantity": null,
+      "reagents": [
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/236951?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Mote of Wild Magic",
+            "id": 236951
+          },
+          "quantity": 3
+        },
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/251285?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Petrified Root",
+            "id": 251285
+          },
+          "quantity": 1
+        }
+      ],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52587?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52587
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240912,
+        "name": "Flawless Versatile Lapis",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Rare"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 8,
+          "name": "Versatility"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240912?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240912
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52588,
+      "name": "Quick Amethyst",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Austere Amethysts",
+      "craftedItemId": 240868,
+      "craftedItemQuantity": null,
+      "reagents": [],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52588?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52588
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240868,
+        "name": "Quick Amethyst",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Uncommon"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 10,
+          "name": "Multiple Stats"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240868?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240868
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52589,
+      "name": "Deadly Amethyst",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Austere Amethysts",
+      "craftedItemId": 240866,
+      "craftedItemQuantity": null,
+      "reagents": [],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52589?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52589
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240866,
+        "name": "Deadly Amethyst",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Uncommon"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 10,
+          "name": "Multiple Stats"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240866?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240866
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52590,
+      "name": "Masterful Amethyst",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Austere Amethysts",
+      "craftedItemId": 240864,
+      "craftedItemQuantity": null,
+      "reagents": [],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52590?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52590
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240864,
+        "name": "Masterful Amethyst",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Uncommon"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 6,
+          "name": "Mastery"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240864?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240864
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52591,
+      "name": "Versatile Amethyst",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Austere Amethysts",
+      "craftedItemId": 240870,
+      "craftedItemQuantity": null,
+      "reagents": [],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52591?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52591
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240870,
+        "name": "Versatile Amethyst",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Uncommon"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 10,
+          "name": "Multiple Stats"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240870?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240870
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52592,
+      "name": "Flawless Quick Amethyst",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Austere Amethysts",
+      "craftedItemId": 240900,
+      "craftedItemQuantity": null,
+      "reagents": [
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/236952?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Mote of Pure Void",
+            "id": 236952
+          },
+          "quantity": 3
+        },
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/251285?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Petrified Root",
+            "id": 251285
+          },
+          "quantity": 1
+        }
+      ],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52592?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52592
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240900,
+        "name": "Flawless Quick Amethyst",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Rare"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 10,
+          "name": "Multiple Stats"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240900?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240900
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52593,
+      "name": "Flawless Deadly Amethyst",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Austere Amethysts",
+      "craftedItemId": 240898,
+      "craftedItemQuantity": null,
+      "reagents": [
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/236952?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Mote of Pure Void",
+            "id": 236952
+          },
+          "quantity": 3
+        },
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/251285?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Petrified Root",
+            "id": 251285
+          },
+          "quantity": 1
+        }
+      ],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52593?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52593
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240898,
+        "name": "Flawless Deadly Amethyst",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Rare"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 10,
+          "name": "Multiple Stats"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240898?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240898
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52594,
+      "name": "Flawless Masterful Amethyst",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Austere Amethysts",
+      "craftedItemId": 240896,
+      "craftedItemQuantity": null,
+      "reagents": [
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/236952?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Mote of Pure Void",
+            "id": 236952
+          },
+          "quantity": 3
+        },
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/251285?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Petrified Root",
+            "id": 251285
+          },
+          "quantity": 1
+        }
+      ],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52594?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52594
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240896,
+        "name": "Flawless Masterful Amethyst",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Rare"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 6,
+          "name": "Mastery"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240896?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240896
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52595,
+      "name": "Flawless Versatile Amethyst",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Austere Amethysts",
+      "craftedItemId": 240902,
+      "craftedItemQuantity": null,
+      "reagents": [
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/236952?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Mote of Pure Void",
+            "id": 236952
+          },
+          "quantity": 3
+        },
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/251285?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Petrified Root",
+            "id": 251285
+          },
+          "quantity": 1
+        }
+      ],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52595?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52595
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240902,
+        "name": "Flawless Versatile Amethyst",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Rare"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 10,
+          "name": "Multiple Stats"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240902?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240902
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52596,
+      "name": "Quick Garnet",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Glorious Garnets",
+      "craftedItemId": 240874,
+      "craftedItemQuantity": null,
+      "reagents": [],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52596?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52596
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240874,
+        "name": "Quick Garnet",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Uncommon"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 10,
+          "name": "Multiple Stats"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240874?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240874
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52597,
+      "name": "Deadly Garnet",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Glorious Garnets",
+      "craftedItemId": 240872,
+      "craftedItemQuantity": null,
+      "reagents": [],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52597?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52597
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240872,
+        "name": "Deadly Garnet",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Uncommon"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 5,
+          "name": "Critical Strike"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240872?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240872
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52598,
+      "name": "Masterful Garnet",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Glorious Garnets",
+      "craftedItemId": 240876,
+      "craftedItemQuantity": null,
+      "reagents": [],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52598?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52598
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240876,
+        "name": "Masterful Garnet",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Uncommon"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 10,
+          "name": "Multiple Stats"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240876?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240876
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52599,
+      "name": "Versatile Garnet",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Glorious Garnets",
+      "craftedItemId": 240878,
+      "craftedItemQuantity": null,
+      "reagents": [],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52599?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52599
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240878,
+        "name": "Versatile Garnet",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Uncommon"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 10,
+          "name": "Multiple Stats"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240878?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240878
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52600,
+      "name": "Flawless Quick Garnet",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Glorious Garnets",
+      "craftedItemId": 240906,
+      "craftedItemQuantity": null,
+      "reagents": [
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/236949?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Mote of Light",
+            "id": 236949
+          },
+          "quantity": 3
+        },
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/251285?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Petrified Root",
+            "id": 251285
+          },
+          "quantity": 1
+        }
+      ],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52600?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52600
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240906,
+        "name": "Flawless Quick Garnet",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Rare"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 10,
+          "name": "Multiple Stats"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240906?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240906
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52601,
+      "name": "Flawless Deadly Garnet",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Glorious Garnets",
+      "craftedItemId": 240904,
+      "craftedItemQuantity": null,
+      "reagents": [
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/236949?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Mote of Light",
+            "id": 236949
+          },
+          "quantity": 3
+        },
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/251285?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Petrified Root",
+            "id": 251285
+          },
+          "quantity": 1
+        }
+      ],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52601?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52601
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240904,
+        "name": "Flawless Deadly Garnet",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Rare"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 5,
+          "name": "Critical Strike"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240904?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240904
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52602,
+      "name": "Flawless Masterful Garnet",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Glorious Garnets",
+      "craftedItemId": 240908,
+      "craftedItemQuantity": null,
+      "reagents": [
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/236949?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Mote of Light",
+            "id": 236949
+          },
+          "quantity": 3
+        },
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/251285?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Petrified Root",
+            "id": 251285
+          },
+          "quantity": 1
+        }
+      ],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52602?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52602
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240908,
+        "name": "Flawless Masterful Garnet",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Rare"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 10,
+          "name": "Multiple Stats"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240908?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240908
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52603,
+      "name": "Flawless Versatile Garnet",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Glorious Garnets",
+      "craftedItemId": 240910,
+      "craftedItemQuantity": null,
+      "reagents": [
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/236949?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Mote of Light",
+            "id": 236949
+          },
+          "quantity": 3
+        },
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/251285?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Petrified Root",
+            "id": 251285
+          },
+          "quantity": 1
+        }
+      ],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52603?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52603
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240910,
+        "name": "Flawless Versatile Garnet",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Rare"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 10,
+          "name": "Multiple Stats"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240910?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240910
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52604,
+      "name": "Powerful Eversong Diamond",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Dazzling Diamonds",
+      "craftedItemId": 240967,
+      "craftedItemQuantity": null,
+      "reagents": [
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/251285?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Petrified Root",
+            "id": 251285
+          },
+          "quantity": 2
+        }
+      ],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52604?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52604
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240967,
+        "name": "Powerful Eversong Diamond",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Epic"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 9,
+          "name": "Other"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240967?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240967
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52605,
+      "name": "Telluric Eversong Diamond",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Dazzling Diamonds",
+      "craftedItemId": 240969,
+      "craftedItemQuantity": null,
+      "reagents": [
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/251285?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Petrified Root",
+            "id": 251285
+          },
+          "quantity": 2
+        }
+      ],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52605?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52605
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240969,
+        "name": "Telluric Eversong Diamond",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Epic"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 9,
+          "name": "Other"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240969?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240969
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52606,
+      "name": "Stoic Eversong Diamond",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Dazzling Diamonds",
+      "craftedItemId": 240971,
+      "craftedItemQuantity": null,
+      "reagents": [
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/251285?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Petrified Root",
+            "id": 251285
+          },
+          "quantity": 2
+        }
+      ],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52606?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52606
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240971,
+        "name": "Stoic Eversong Diamond",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Epic"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 9,
+          "name": "Other"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240971?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240971
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52607,
+      "name": "Indecipherable Eversong Diamond",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Dazzling Diamonds",
+      "craftedItemId": 240983,
+      "craftedItemQuantity": null,
+      "reagents": [
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/251285?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Petrified Root",
+            "id": 251285
+          },
+          "quantity": 2
+        }
+      ],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52607?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52607
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 240983,
+        "name": "Indecipherable Eversong Diamond",
+        "level": 295,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Epic"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 9,
+          "name": "Other"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/240983?namespace=static-12.1.0_68914-us"
+          },
+          "id": 240983
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
       "id": 52633,
       "name": "Determined Heliotrope",
       "profession": "Jewelcrafting",
@@ -17403,6 +19727,71 @@
             "href": "https://us.api.blizzard.com/data/wow/media/item/241143?namespace=static-12.1.0_68914-us"
           },
           "id": 241143
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
+    },
+    {
+      "id": 52635,
+      "name": "Enduring Heliotrope",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Competitor's Crafts (PvP)",
+      "craftedItemId": 241144,
+      "craftedItemQuantity": null,
+      "reagents": [
+        {
+          "reagent": {
+            "key": {
+              "href": "https://us.api.blizzard.com/data/wow/item/253307?namespace=static-12.1.0_68914-us"
+            },
+            "name": "Infused Heliotrope",
+            "id": 253307
+          },
+          "quantity": 1
+        }
+      ],
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/52635?namespace=static-12.1.0_68914-us"
+        },
+        "id": 52635
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 241144,
+        "name": "Enduring Heliotrope",
+        "level": 610,
+        "requiredLevel": 1,
+        "quality": {
+          "id": null,
+          "name": "Epic"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 9,
+          "name": "Other"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/241144?namespace=static-12.1.0_68914-us"
+          },
+          "id": 241144
         },
         "source": "Blizzard Game Data API \u2014 current Midnight profession output"
       }
@@ -21181,8 +23570,8 @@
     "talentNodeCount": 0,
     "apexReferenceCount": 0,
     "professionRecipeCount": 730,
-    "craftedOutputItemCount": 99,
-    "gemRecipeCount": 3,
+    "craftedOutputItemCount": 136,
+    "gemRecipeCount": 40,
     "enchantRecipeCount": 107,
     "craftedGearRecipeCount": 27,
     "importPhase": "season-2-plus-pve-pvp-talents-professions",
@@ -44670,7 +47059,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Powerful Peridots",
-        "craftedItemId": null,
+        "craftedItemId": 240856,
         "craftedItemQuantity": null,
         "reagents": [],
         "description": null,
@@ -44690,7 +47079,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Powerful Peridots",
-        "craftedItemId": null,
+        "craftedItemId": 240858,
         "craftedItemQuantity": null,
         "reagents": [],
         "description": null,
@@ -44710,7 +47099,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Powerful Peridots",
-        "craftedItemId": null,
+        "craftedItemId": 240860,
         "craftedItemQuantity": null,
         "reagents": [],
         "description": null,
@@ -44730,7 +47119,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Powerful Peridots",
-        "craftedItemId": null,
+        "craftedItemId": 240862,
         "craftedItemQuantity": null,
         "reagents": [],
         "description": null,
@@ -44750,7 +47139,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Powerful Peridots",
-        "craftedItemId": null,
+        "craftedItemId": 240888,
         "craftedItemQuantity": null,
         "reagents": [
           {
@@ -44791,7 +47180,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Powerful Peridots",
-        "craftedItemId": null,
+        "craftedItemId": 240890,
         "craftedItemQuantity": null,
         "reagents": [
           {
@@ -44832,7 +47221,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Powerful Peridots",
-        "craftedItemId": null,
+        "craftedItemId": 240892,
         "craftedItemQuantity": null,
         "reagents": [
           {
@@ -44873,7 +47262,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Powerful Peridots",
-        "craftedItemId": null,
+        "craftedItemId": 240894,
         "craftedItemQuantity": null,
         "reagents": [
           {
@@ -44934,7 +47323,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Lustrous Lapis",
-        "craftedItemId": null,
+        "craftedItemId": 240884,
         "craftedItemQuantity": null,
         "reagents": [],
         "description": null,
@@ -44954,7 +47343,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Lustrous Lapis",
-        "craftedItemId": null,
+        "craftedItemId": 240882,
         "craftedItemQuantity": null,
         "reagents": [],
         "description": null,
@@ -44974,7 +47363,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Lustrous Lapis",
-        "craftedItemId": null,
+        "craftedItemId": 240886,
         "craftedItemQuantity": null,
         "reagents": [],
         "description": null,
@@ -44994,7 +47383,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Lustrous Lapis",
-        "craftedItemId": null,
+        "craftedItemId": 240880,
         "craftedItemQuantity": null,
         "reagents": [],
         "description": null,
@@ -45014,7 +47403,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Lustrous Lapis",
-        "craftedItemId": null,
+        "craftedItemId": 240916,
         "craftedItemQuantity": null,
         "reagents": [
           {
@@ -45055,7 +47444,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Lustrous Lapis",
-        "craftedItemId": null,
+        "craftedItemId": 240914,
         "craftedItemQuantity": null,
         "reagents": [
           {
@@ -45096,7 +47485,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Lustrous Lapis",
-        "craftedItemId": null,
+        "craftedItemId": 240918,
         "craftedItemQuantity": null,
         "reagents": [
           {
@@ -45137,7 +47526,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Lustrous Lapis",
-        "craftedItemId": null,
+        "craftedItemId": 240912,
         "craftedItemQuantity": null,
         "reagents": [
           {
@@ -45198,7 +47587,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Austere Amethysts",
-        "craftedItemId": null,
+        "craftedItemId": 240868,
         "craftedItemQuantity": null,
         "reagents": [],
         "description": null,
@@ -45218,7 +47607,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Austere Amethysts",
-        "craftedItemId": null,
+        "craftedItemId": 240866,
         "craftedItemQuantity": null,
         "reagents": [],
         "description": null,
@@ -45238,7 +47627,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Austere Amethysts",
-        "craftedItemId": null,
+        "craftedItemId": 240864,
         "craftedItemQuantity": null,
         "reagents": [],
         "description": null,
@@ -45258,7 +47647,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Austere Amethysts",
-        "craftedItemId": null,
+        "craftedItemId": 240870,
         "craftedItemQuantity": null,
         "reagents": [],
         "description": null,
@@ -45278,7 +47667,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Austere Amethysts",
-        "craftedItemId": null,
+        "craftedItemId": 240900,
         "craftedItemQuantity": null,
         "reagents": [
           {
@@ -45319,7 +47708,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Austere Amethysts",
-        "craftedItemId": null,
+        "craftedItemId": 240898,
         "craftedItemQuantity": null,
         "reagents": [
           {
@@ -45360,7 +47749,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Austere Amethysts",
-        "craftedItemId": null,
+        "craftedItemId": 240896,
         "craftedItemQuantity": null,
         "reagents": [
           {
@@ -45401,7 +47790,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Austere Amethysts",
-        "craftedItemId": null,
+        "craftedItemId": 240902,
         "craftedItemQuantity": null,
         "reagents": [
           {
@@ -45462,7 +47851,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Glorious Garnets",
-        "craftedItemId": null,
+        "craftedItemId": 240874,
         "craftedItemQuantity": null,
         "reagents": [],
         "description": null,
@@ -45482,7 +47871,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Glorious Garnets",
-        "craftedItemId": null,
+        "craftedItemId": 240872,
         "craftedItemQuantity": null,
         "reagents": [],
         "description": null,
@@ -45502,7 +47891,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Glorious Garnets",
-        "craftedItemId": null,
+        "craftedItemId": 240876,
         "craftedItemQuantity": null,
         "reagents": [],
         "description": null,
@@ -45522,7 +47911,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Glorious Garnets",
-        "craftedItemId": null,
+        "craftedItemId": 240878,
         "craftedItemQuantity": null,
         "reagents": [],
         "description": null,
@@ -45542,7 +47931,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Glorious Garnets",
-        "craftedItemId": null,
+        "craftedItemId": 240906,
         "craftedItemQuantity": null,
         "reagents": [
           {
@@ -45583,7 +47972,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Glorious Garnets",
-        "craftedItemId": null,
+        "craftedItemId": 240904,
         "craftedItemQuantity": null,
         "reagents": [
           {
@@ -45624,7 +48013,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Glorious Garnets",
-        "craftedItemId": null,
+        "craftedItemId": 240908,
         "craftedItemQuantity": null,
         "reagents": [
           {
@@ -45665,7 +48054,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Glorious Garnets",
-        "craftedItemId": null,
+        "craftedItemId": 240910,
         "craftedItemQuantity": null,
         "reagents": [
           {
@@ -45726,7 +48115,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Dazzling Diamonds",
-        "craftedItemId": null,
+        "craftedItemId": 240967,
         "craftedItemQuantity": null,
         "reagents": [
           {
@@ -45757,7 +48146,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Dazzling Diamonds",
-        "craftedItemId": null,
+        "craftedItemId": 240969,
         "craftedItemQuantity": null,
         "reagents": [
           {
@@ -45788,7 +48177,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Dazzling Diamonds",
-        "craftedItemId": null,
+        "craftedItemId": 240971,
         "craftedItemQuantity": null,
         "reagents": [
           {
@@ -45819,7 +48208,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Dazzling Diamonds",
-        "craftedItemId": null,
+        "craftedItemId": 240983,
         "craftedItemQuantity": null,
         "reagents": [
           {
@@ -46643,7 +49032,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Competitor's Crafts (PvP)",
-        "craftedItemId": null,
+        "craftedItemId": 241144,
         "craftedItemQuantity": null,
         "reagents": [
           {
