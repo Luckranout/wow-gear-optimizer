@@ -423,6 +423,124 @@ def collect_pvp_season_item_ids(token):
         "status": "gear-search-imported",
     }
 
+def collect_talent_data(token):
+    """Collect current Retail class/spec, specialization, Hero Talent, and Apex Talent tree data."""
+    spec_index = get_api_json(
+        "/data/wow/playable-specialization/index",
+        token,
+        {"namespace": NAMESPACE, "locale": LOCALE},
+    )
+
+    specs = spec_index.get("character_specializations") or spec_index.get("playable_specializations") or spec_index.get("specializations") or []
+    talent_records = []
+    tree_ids = set()
+    hero_tree_ids = set()
+
+    for spec_ref in specs:
+        spec_id = extract_id(spec_ref)
+        if not spec_id:
+            continue
+        try:
+            spec = get_api_json(
+                f"/data/wow/playable-specialization/{spec_id}",
+                token,
+                {"namespace": NAMESPACE, "locale": LOCALE},
+            )
+        except urllib.error.HTTPError as error:
+            print(f"Skipping specialization {spec_id}: Blizzard returned HTTP {error.code}.")
+            continue
+
+        spec_tree = spec.get("spec_talent_tree") or spec.get("talent_tree") or {}
+        spec_tree_id = extract_id(spec_tree)
+        if spec_tree_id:
+            tree_ids.add(spec_tree_id)
+
+        hero_refs = spec.get("hero_talent_trees") or spec.get("hero_talent_tree") or []
+        if isinstance(hero_refs, dict):
+            hero_refs = [hero_refs]
+        for hero_ref in hero_refs:
+            hero_id = extract_id(hero_ref)
+            if hero_id:
+                hero_tree_ids.add(hero_id)
+
+        talent_records.append({
+            "id": spec_id,
+            "name": localized_name(spec.get("name")) or localized_name(spec_ref.get("name")),
+            "playableClass": spec.get("playable_class"),
+            "role": spec.get("role"),
+            "powerType": spec.get("power_type"),
+            "primaryStatType": spec.get("primary_stat_type"),
+            "specTalentTreeId": spec_tree_id,
+            "heroTalentTrees": [
+                {"id": extract_id(ref), "name": localized_name(ref)}
+                for ref in hero_refs if extract_id(ref)
+            ],
+            "pvpTalents": spec.get("pvp_talents", []),
+            "seasonScope": "Midnight Season 2+",
+        })
+        time.sleep(REQUEST_DELAY_SECONDS)
+
+    def fetch_tree(tree_id, kind):
+        try:
+            tree = get_api_json(
+                f"/data/wow/talent-tree/{tree_id}",
+                token,
+                {"namespace": NAMESPACE, "locale": LOCALE},
+            )
+            return tree
+        except urllib.error.HTTPError:
+            return None
+
+    trees = []
+    for tree_id in sorted(tree_ids):
+        tree = fetch_tree(tree_id, "specialization")
+        if tree is not None:
+            trees.append({
+                "id": tree_id,
+                "type": "specialization",
+                "data": tree,
+                "seasonScope": "Midnight Season 2+",
+            })
+        time.sleep(REQUEST_DELAY_SECONDS)
+
+    for tree_id in sorted(hero_tree_ids):
+        tree = fetch_tree(tree_id, "hero")
+        if tree is not None:
+            trees.append({
+                "id": tree_id,
+                "type": "hero",
+                "data": tree,
+                "seasonScope": "Midnight Season 2+",
+            })
+        time.sleep(REQUEST_DELAY_SECONDS)
+
+    apex_count = 0
+    node_count = 0
+    for tree in trees:
+        data = tree.get("data") or {}
+        nodes = data.get("nodes") or []
+        node_count += len(nodes)
+        for node in nodes:
+            text_blob = json.dumps(node, ensure_ascii=False).lower()
+            if "apex" in text_blob:
+                apex_count += 1
+
+    print(
+        f"Talent import: {len(talent_records)} specializations, {len(trees)} talent trees, "
+        f"{node_count} nodes, {apex_count} nodes referencing Apex data."
+    )
+
+    return {
+        "specializations": talent_records,
+        "trees": trees,
+        "seasonScope": "Midnight Season 2+",
+        "source": "Blizzard Game Data API",
+        "specializationCount": len(talent_records),
+        "treeCount": len(trees),
+        "nodeCount": node_count,
+        "apexReferenceCount": apex_count,
+    }
+
 def find_recipe_output_item_id(token, recipe_name, profession_name, cache):
     """Resolve Midnight recipe outputs when Blizzard omits crafted_item."""
     cache_key = f"{profession_name}:{normalize_name(recipe_name)}"
@@ -709,6 +827,8 @@ def main():
     pvp_sources, pvp_metadata = collect_pvp_season_item_ids(token)
     item_sources = merge_item_sources(pve_sources, pvp_sources)
 
+    talent_data = collect_talent_data(token)
+
     profession_recipes, profession_output_ids = collect_profession_supporting_data(token)
     supporting_items = fetch_supporting_item_details(token, profession_output_ids)
     gems, enchants, crafted_gear, other_crafted_items = classify_profession_outputs(
@@ -741,6 +861,8 @@ def main():
         "seasonScope": SEASON_SCOPE,
     }
 
+    dataset["talents"] = talent_data
+
     dataset["pvp"] = [{
         "season": pvp_metadata["name"],
         "seasonId": pvp_metadata["id"],
@@ -758,12 +880,16 @@ def main():
         "matchedPvEInstances": matched_instances,
         "missingPvESources": missing_sources,
         "pvpSeason": pvp_metadata,
+        "talentSpecializationCount": talent_data["specializationCount"],
+        "talentTreeCount": talent_data["treeCount"],
+        "talentNodeCount": talent_data["nodeCount"],
+        "apexReferenceCount": talent_data["apexReferenceCount"],
         "professionRecipeCount": len(profession_recipes),
         "craftedOutputItemCount": len(profession_output_ids),
         "gemRecipeCount": len(gems),
         "enchantRecipeCount": len(enchants),
         "craftedGearRecipeCount": len(crafted_gear),
-        "importPhase": "season-2-plus-pve-pvp-professions",
+        "importPhase": "season-2-plus-pve-pvp-talents-professions",
         "seasonPolicy": SEASON_SCOPE,
     }
 
