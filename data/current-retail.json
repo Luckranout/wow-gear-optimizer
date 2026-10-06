@@ -6,7 +6,7 @@
   "season": 2,
   "patch": "12.1.0",
   "status": "season-2-plus-source-imported",
-  "updatedAt": "2026-10-06T16:44:43.419153+00:00",
+  "updatedAt": "2026-10-06T18:39:42.571642+00:00",
   "source": "Blizzard Game Data API",
   "items": [
     {
@@ -17406,6 +17406,60 @@
         },
         "source": "Blizzard Game Data API \u2014 current Midnight profession output"
       }
+    },
+    {
+      "id": 56654,
+      "name": "Knowledge",
+      "profession": "Jewelcrafting",
+      "professionId": 755,
+      "skillTier": "Midnight Jewelcrafting",
+      "category": "Appendix I - Terms",
+      "craftedItemId": 155727,
+      "craftedItemQuantity": null,
+      "reagents": [],
+      "description": "Knowledge points are spent on Specializations. Specializations grant access to new recipes, stat bonuses, and more. Knowledge points are earned from first-time crafts, quest rewards, and occasionally treasures. ",
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/recipe/56654?namespace=static-12.1.0_68914-us"
+        },
+        "id": 56654
+      },
+      "seasonScope": "Midnight Season 2+",
+      "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
+      "item": {
+        "id": 155727,
+        "name": "Taboo Knowledge",
+        "level": 44,
+        "requiredLevel": 0,
+        "quality": {
+          "id": null,
+          "name": "Epic"
+        },
+        "itemClass": {
+          "id": 3,
+          "name": "Gem"
+        },
+        "itemSubclass": {
+          "id": 11,
+          "name": "Artifact Relic"
+        },
+        "inventoryType": {
+          "id": null,
+          "name": "Non-equippable"
+        },
+        "isEquippable": false,
+        "stats": [],
+        "spells": [],
+        "set": null,
+        "description": null,
+        "media": {
+          "key": {
+            "href": "https://us.api.blizzard.com/data/wow/media/item/155727?namespace=static-12.1.0_68914-us"
+          },
+          "id": 155727
+        },
+        "source": "Blizzard Game Data API \u2014 current Midnight profession output"
+      }
     }
   ],
   "enchants": [
@@ -21127,8 +21181,8 @@
     "talentNodeCount": 0,
     "apexReferenceCount": 0,
     "professionRecipeCount": 730,
-    "craftedOutputItemCount": 105,
-    "gemRecipeCount": 2,
+    "craftedOutputItemCount": 99,
+    "gemRecipeCount": 3,
     "enchantRecipeCount": 107,
     "craftedGearRecipeCount": 27,
     "importPhase": "season-2-plus-pve-pvp-talents-professions",
@@ -45796,7 +45850,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Reagents",
-        "craftedItemId": 240975,
+        "craftedItemId": null,
         "craftedItemQuantity": null,
         "reagents": [],
         "description": null,
@@ -45876,7 +45930,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Reagents",
-        "craftedItemId": 251490,
+        "craftedItemId": null,
         "craftedItemQuantity": null,
         "reagents": [],
         "description": null,
@@ -46233,7 +46287,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Crafting Couture",
-        "craftedItemId": 240955,
+        "craftedItemId": null,
         "craftedItemQuantity": null,
         "reagents": [],
         "description": null,
@@ -46253,7 +46307,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Crafting Couture",
-        "craftedItemId": 240954,
+        "craftedItemId": null,
         "craftedItemQuantity": null,
         "reagents": [],
         "description": null,
@@ -46273,7 +46327,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Crafting Couture",
-        "craftedItemId": 240953,
+        "craftedItemId": null,
         "craftedItemQuantity": null,
         "reagents": [],
         "description": null,
@@ -46507,7 +46561,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Jeweler's Jests",
-        "craftedItemId": 241141,
+        "craftedItemId": null,
         "craftedItemQuantity": null,
         "reagents": [],
         "description": null,
@@ -46844,7 +46898,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "House Decor",
-        "craftedItemId": 262461,
+        "craftedItemId": null,
         "craftedItemQuantity": null,
         "reagents": [
           {
@@ -47141,7 +47195,7 @@
         "professionId": 755,
         "skillTier": "Midnight Jewelcrafting",
         "category": "Appendix I - Terms",
-        "craftedItemId": null,
+        "craftedItemId": 155727,
         "craftedItemQuantity": null,
         "reagents": [],
         "description": "Knowledge points are spent on Specializations. Specializations grant access to new recipes, stat bonuses, and more. Knowledge points are earned from first-time crafts, quest rewards, and occasionally treasures. ",
@@ -58047,395 +58101,6 @@
               "href": "https://us.api.blizzard.com/data/wow/media/item/262354?namespace=static-12.1.0_68914-us"
             },
             "id": 262354
-          },
-          "source": "Blizzard Game Data API \u2014 current Midnight profession output"
-        }
-      },
-      {
-        "id": 52608,
-        "name": "Kaleidoscopic Prism",
-        "profession": "Jewelcrafting",
-        "professionId": 755,
-        "skillTier": "Midnight Jewelcrafting",
-        "category": "Reagents",
-        "craftedItemId": 240975,
-        "craftedItemQuantity": null,
-        "reagents": [],
-        "description": null,
-        "media": {
-          "key": {
-            "href": "https://us.api.blizzard.com/data/wow/media/recipe/52608?namespace=static-12.1.0_68914-us"
-          },
-          "id": 52608
-        },
-        "seasonScope": "Midnight Season 2+",
-        "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
-        "item": {
-          "id": 240975,
-          "name": "Kaleidoscopic Prism",
-          "level": 70,
-          "requiredLevel": 1,
-          "quality": {
-            "id": null,
-            "name": "Rare"
-          },
-          "itemClass": {
-            "id": 7,
-            "name": "Tradeskill"
-          },
-          "itemSubclass": {
-            "id": 4,
-            "name": "Jewelcrafting"
-          },
-          "inventoryType": {
-            "id": null,
-            "name": "Non-equippable"
-          },
-          "isEquippable": false,
-          "stats": [],
-          "spells": [],
-          "set": null,
-          "description": "Created by players with the Jewelcrafting skill. Can be bought and sold on the Auction House.",
-          "media": {
-            "key": {
-              "href": "https://us.api.blizzard.com/data/wow/media/item/240975?namespace=static-12.1.0_68914-us"
-            },
-            "id": 240975
-          },
-          "source": "Blizzard Game Data API \u2014 current Midnight profession output"
-        }
-      },
-      {
-        "id": 52612,
-        "name": "Stabilizing Gemstone Bandolier",
-        "profession": "Jewelcrafting",
-        "professionId": 755,
-        "skillTier": "Midnight Jewelcrafting",
-        "category": "Reagents",
-        "craftedItemId": 251490,
-        "craftedItemQuantity": null,
-        "reagents": [],
-        "description": null,
-        "media": {
-          "key": {
-            "href": "https://us.api.blizzard.com/data/wow/media/recipe/52612?namespace=static-12.1.0_68914-us"
-          },
-          "id": 52612
-        },
-        "seasonScope": "Midnight Season 2+",
-        "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
-        "item": {
-          "id": 251490,
-          "name": "Stabilizing Gemstone Bandolier",
-          "level": 72,
-          "requiredLevel": 1,
-          "quality": {
-            "id": null,
-            "name": "Rare"
-          },
-          "itemClass": {
-            "id": 7,
-            "name": "Tradeskill"
-          },
-          "itemSubclass": {
-            "id": 18,
-            "name": "Optional Reagents"
-          },
-          "inventoryType": {
-            "id": null,
-            "name": "Non-equippable"
-          },
-          "isEquippable": false,
-          "stats": [],
-          "spells": [],
-          "set": null,
-          "description": "Can be bought and sold on the Auction House.",
-          "media": {
-            "key": {
-              "href": "https://us.api.blizzard.com/data/wow/media/item/251490?namespace=static-12.1.0_68914-us"
-            },
-            "id": 251490
-          },
-          "source": "Blizzard Game Data API \u2014 current Midnight profession output"
-        }
-      },
-      {
-        "id": 52625,
-        "name": "Silvermoon Loupes",
-        "profession": "Jewelcrafting",
-        "professionId": 755,
-        "skillTier": "Midnight Jewelcrafting",
-        "category": "Crafting Couture",
-        "craftedItemId": 240955,
-        "craftedItemQuantity": null,
-        "reagents": [],
-        "description": null,
-        "media": {
-          "key": {
-            "href": "https://us.api.blizzard.com/data/wow/media/recipe/52625?namespace=static-12.1.0_68914-us"
-          },
-          "id": 52625
-        },
-        "seasonScope": "Midnight Season 2+",
-        "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
-        "item": {
-          "id": 240955,
-          "name": "Silvermoon Loupes",
-          "level": 80,
-          "requiredLevel": 78,
-          "quality": {
-            "id": null,
-            "name": "Uncommon"
-          },
-          "itemClass": {
-            "id": 19,
-            "name": "Profession"
-          },
-          "itemSubclass": {
-            "id": 11,
-            "name": "Jewelcrafting"
-          },
-          "inventoryType": {
-            "id": null,
-            "name": "Profession Equipment"
-          },
-          "isEquippable": true,
-          "stats": [],
-          "spells": [],
-          "set": null,
-          "description": null,
-          "media": {
-            "key": {
-              "href": "https://us.api.blizzard.com/data/wow/media/item/240955?namespace=static-12.1.0_68914-us"
-            },
-            "id": 240955
-          },
-          "source": "Blizzard Game Data API \u2014 current Midnight profession output"
-        }
-      },
-      {
-        "id": 52626,
-        "name": "Fantastic Font Focuser",
-        "profession": "Jewelcrafting",
-        "professionId": 755,
-        "skillTier": "Midnight Jewelcrafting",
-        "category": "Crafting Couture",
-        "craftedItemId": 240954,
-        "craftedItemQuantity": null,
-        "reagents": [],
-        "description": null,
-        "media": {
-          "key": {
-            "href": "https://us.api.blizzard.com/data/wow/media/recipe/52626?namespace=static-12.1.0_68914-us"
-          },
-          "id": 52626
-        },
-        "seasonScope": "Midnight Season 2+",
-        "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
-        "item": {
-          "id": 240954,
-          "name": "Fantastic Font Focuser",
-          "level": 80,
-          "requiredLevel": 78,
-          "quality": {
-            "id": null,
-            "name": "Uncommon"
-          },
-          "itemClass": {
-            "id": 19,
-            "name": "Profession"
-          },
-          "itemSubclass": {
-            "id": 12,
-            "name": "Inscription"
-          },
-          "inventoryType": {
-            "id": null,
-            "name": "Profession Equipment"
-          },
-          "isEquippable": true,
-          "stats": [],
-          "spells": [],
-          "set": null,
-          "description": null,
-          "media": {
-            "key": {
-              "href": "https://us.api.blizzard.com/data/wow/media/item/240954?namespace=static-12.1.0_68914-us"
-            },
-            "id": 240954
-          },
-          "source": "Blizzard Game Data API \u2014 current Midnight profession output"
-        }
-      },
-      {
-        "id": 52627,
-        "name": "Bold Biographer's Bifocals",
-        "profession": "Jewelcrafting",
-        "professionId": 755,
-        "skillTier": "Midnight Jewelcrafting",
-        "category": "Crafting Couture",
-        "craftedItemId": 240953,
-        "craftedItemQuantity": null,
-        "reagents": [],
-        "description": null,
-        "media": {
-          "key": {
-            "href": "https://us.api.blizzard.com/data/wow/media/recipe/52627?namespace=static-12.1.0_68914-us"
-          },
-          "id": 52627
-        },
-        "seasonScope": "Midnight Season 2+",
-        "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
-        "item": {
-          "id": 240953,
-          "name": "Bold Biographer's Bifocals",
-          "level": 80,
-          "requiredLevel": 78,
-          "quality": {
-            "id": null,
-            "name": "Uncommon"
-          },
-          "itemClass": {
-            "id": 19,
-            "name": "Profession"
-          },
-          "itemSubclass": {
-            "id": 12,
-            "name": "Inscription"
-          },
-          "inventoryType": {
-            "id": null,
-            "name": "Profession Equipment"
-          },
-          "isEquippable": true,
-          "stats": [],
-          "spells": [],
-          "set": null,
-          "description": null,
-          "media": {
-            "key": {
-              "href": "https://us.api.blizzard.com/data/wow/media/item/240953?namespace=static-12.1.0_68914-us"
-            },
-            "id": 240953
-          },
-          "source": "Blizzard Game Data API \u2014 current Midnight profession output"
-        }
-      },
-      {
-        "id": 52632,
-        "name": "Monologuer's Chalice",
-        "profession": "Jewelcrafting",
-        "professionId": 755,
-        "skillTier": "Midnight Jewelcrafting",
-        "category": "Jeweler's Jests",
-        "craftedItemId": 241141,
-        "craftedItemQuantity": null,
-        "reagents": [],
-        "description": null,
-        "media": {
-          "key": {
-            "href": "https://us.api.blizzard.com/data/wow/media/recipe/52632?namespace=static-12.1.0_68914-us"
-          },
-          "id": 52632
-        },
-        "seasonScope": "Midnight Season 2+",
-        "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
-        "item": {
-          "id": 241141,
-          "name": "Monologuer's Chalice",
-          "level": 70,
-          "requiredLevel": 70,
-          "quality": {
-            "id": null,
-            "name": "Common"
-          },
-          "itemClass": {
-            "id": 0,
-            "name": "Consumable"
-          },
-          "itemSubclass": {
-            "id": 8,
-            "name": "Other"
-          },
-          "inventoryType": {
-            "id": null,
-            "name": "Non-equippable"
-          },
-          "isEquippable": false,
-          "stats": [],
-          "spells": [],
-          "set": null,
-          "description": "What is a chalice? A wonderful prop for monologues!",
-          "media": {
-            "key": {
-              "href": "https://us.api.blizzard.com/data/wow/media/item/241141?namespace=static-12.1.0_68914-us"
-            },
-            "id": 241141
-          },
-          "source": "Blizzard Game Data API \u2014 current Midnight profession output"
-        }
-      },
-      {
-        "id": 54250,
-        "name": "Tenebrous Ren'dorei Armillary",
-        "profession": "Jewelcrafting",
-        "professionId": 755,
-        "skillTier": "Midnight Jewelcrafting",
-        "category": "House Decor",
-        "craftedItemId": 262461,
-        "craftedItemQuantity": null,
-        "reagents": [
-          {
-            "reagent": {
-              "key": {
-                "href": "https://us.api.blizzard.com/data/wow/item/256963?namespace=static-12.1.0_68914-us"
-              },
-              "name": "Thalassian Lumber",
-              "id": 256963
-            },
-            "quantity": 12
-          }
-        ],
-        "description": null,
-        "media": {
-          "key": {
-            "href": "https://us.api.blizzard.com/data/wow/media/recipe/54250?namespace=static-12.1.0_68914-us"
-          },
-          "id": 54250
-        },
-        "seasonScope": "Midnight Season 2+",
-        "source": "Blizzard Game Data API \u2014 current Midnight profession recipe",
-        "item": {
-          "id": 262461,
-          "name": "Tenebrous Ren'dorei Armillary",
-          "level": 1,
-          "requiredLevel": 1,
-          "quality": {
-            "id": null,
-            "name": "Uncommon"
-          },
-          "itemClass": {
-            "id": 20,
-            "name": "Housing"
-          },
-          "itemSubclass": {
-            "id": 0,
-            "name": "Decor"
-          },
-          "inventoryType": {
-            "id": null,
-            "name": "Non-equippable"
-          },
-          "isEquippable": false,
-          "stats": [],
-          "spells": [],
-          "set": null,
-          "description": null,
-          "media": {
-            "key": {
-              "href": "https://us.api.blizzard.com/data/wow/media/item/262461?namespace=static-12.1.0_68914-us"
-            },
-            "id": 262461
           },
           "source": "Blizzard Game Data API \u2014 current Midnight profession output"
         }
