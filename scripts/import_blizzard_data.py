@@ -754,6 +754,9 @@ def collect_profession_supporting_data(token):
 
                     crafted_item = recipe.get("crafted_item") or {}
                     crafted_item_id = extract_id(crafted_item)
+                    if recipe_id == 52572:
+                        print("QUICK PERIDOT RECIPE DEBUG:")
+                        print(json.dumps(recipe, indent=2))
 
                     if not crafted_item_id and profession_name != "Enchanting":
                         crafted_item_id = find_recipe_output_item_id(
