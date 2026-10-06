@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "1.0.0",
+  "game": "World of Warcraft",
+  "mode": "Retail",
+  "expansion": "Midnight",
+  "season": 2,
+  "patch": "12.1.0",
+  "status": "awaiting-secure-blizzard-import",
+  "updatedAt": null,
+  "source": "Blizzard Game Data API",
+  "items": [],
+  "gems": [],
+  "enchants": [],
+  "embellishments": [],
+  "upgrades": [],
+  "consumables": {
+    "food": [],
+    "flaskOrPhial": [],
+    "potions": [],
+    "other": []
+  },
+  "setBonuses": [],
+  "encounters": [],
+  "dungeons": [],
+  "pvp": [],
+  "notes": [
+    "This file is the normalized import target for live Retail data.",
+    "Blizzard API credentials must never be placed in browser JavaScript.",
+    "The next secure backend/import step will populate this dataset with current Season 2 data."
+  ]
+}
