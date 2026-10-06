@@ -256,7 +256,7 @@ def extract_pvp_item_ids(value, item_sources, path=""):
 
 
 def collect_pvp_season_item_ids(token):
-    # PvP season data is dynamic data; using static-us here returns 404.
+    """Collect Season 2 PvP metadata and actual current-season PvP gear."""
     response = get_api_json(
         "/data/wow/pvp-season/index",
         token,
@@ -266,8 +266,6 @@ def collect_pvp_season_item_ids(token):
     seasons = response.get("pvp_seasons") or response.get("seasons") or []
     season_ref = None
 
-    # Some Blizzard responses expose only season IDs in the index, without
-    # localized names. Prefer an explicit Midnight Season 2 name when present.
     for candidate in seasons:
         name = localized_name(candidate.get("name")) if isinstance(candidate, dict) else None
         if normalize_name(name) == "midnight season 2" or (
@@ -276,9 +274,6 @@ def collect_pvp_season_item_ids(token):
             season_ref = candidate
             break
 
-    # If names are omitted, the current/latest PvP season is the active
-    # Season 2 scope for this importer. Select the highest exposed ID rather
-    # than failing the entire import.
     if not season_ref and seasons:
         candidates = [c for c in seasons if extract_id(c)]
         if candidates:
@@ -290,6 +285,7 @@ def collect_pvp_season_item_ids(token):
             "id": None,
             "name": "Midnight Season 2",
             "rewardCount": 0,
+            "gearItemCount": 0,
             "status": "not-exposed",
         }
 
@@ -300,6 +296,7 @@ def collect_pvp_season_item_ids(token):
             "id": None,
             "name": "Midnight Season 2",
             "rewardCount": 0,
+            "gearItemCount": 0,
             "status": "not-exposed",
         }
 
@@ -309,36 +306,122 @@ def collect_pvp_season_item_ids(token):
         {"namespace": PVP_NAMESPACE, "locale": LOCALE},
     )
 
-    rewards = get_api_json(
-        f"/data/wow/pvp-season/{season_id}/pvp-reward/index",
-        token,
-        {"namespace": PVP_NAMESPACE, "locale": LOCALE},
-    )
-
-    reward_sources = {}
-    extract_pvp_item_ids(rewards, reward_sources, "pvpRewards")
-
-    print(
-        f"PvP Season 2 found: id {season_id}; "
-        f"{len(reward_sources)} item references in PvP rewards."
-    )
-
     item_sources = {}
-    for item_id, paths in reward_sources.items():
-        item_sources[item_id] = [{
+
+    # Blizzard's PvP reward endpoint is region-scoped. It contains seasonal
+    # reward metadata, but not the complete vendor gear catalog.
+    reward_count = 0
+    try:
+        region_index = get_api_json(
+            "/data/wow/pvp-region/index",
+            token,
+            {"namespace": PVP_NAMESPACE, "locale": LOCALE},
+        )
+        region_refs = region_index.get("pvp_regions", []) or []
+
+        for region_ref in region_refs:
+            href = region_ref.get("href", "") if isinstance(region_ref, dict) else ""
+            parts = href.rstrip("/").split("/")
+            region_id = None
+            if "pvp-region" in parts:
+                pos = parts.index("pvp-region")
+                if pos + 1 < len(parts):
+                    try:
+                        region_id = int(parts[pos + 1])
+                    except ValueError:
+                        region_id = None
+            if not region_id:
+                region_id = extract_id(region_ref)
+
+            if not region_id:
+                continue
+
+            try:
+                rewards = get_api_json(
+                    f"/data/wow/pvp-region/{region_id}/pvp-season/{season_id}/pvp-reward/index",
+                    token,
+                    {"namespace": PVP_NAMESPACE, "locale": LOCALE},
+                )
+            except urllib.error.HTTPError:
+                continue
+
+            reward_sources = {}
+            extract_pvp_item_ids(
+                rewards,
+                reward_sources,
+                f"pvpRegion{region_id}.pvpRewards",
+            )
+            reward_count += len(reward_sources)
+
+            for item_id, paths in reward_sources.items():
+                item_sources.setdefault(item_id, []).append({
+                    "seasonScope": SEASON_SCOPE,
+                    "category": "PvP",
+                    "pvpSeasonId": season_id,
+                    "pvpRegionId": region_id,
+                    "pvpSeason": localized_name(detail.get("name")) or "Midnight Season 2",
+                    "rewardPaths": paths,
+                })
+
+    except urllib.error.HTTPError:
+        print("Blizzard PvP region index was not available; continuing with PvP gear search.")
+
+    # The PvP season/reward API does not expose the vendor gear catalog.
+    # Search Blizzard's item index by the unique Season 2 gear families instead.
+    pvp_gear_prefixes = [
+        "Venomous Aspirant",
+        "Venomous Gladiator",
+        "Venomous Warmonger",
+        "Thalassian Competitor",
+    ]
+
+    gear_item_ids = set()
+
+    for prefix in pvp_gear_prefixes:
+        search = get_api_json(
+            "/data/wow/search/item",
+            token,
+            {
+                "namespace": NAMESPACE,
+                "locale": LOCALE,
+                "name.en_US": prefix,
+                "_pageSize": 1000,
+                "orderby": "id",
+            },
+        )
+
+        for result in search.get("results", []) or []:
+            data = result.get("data") or {}
+            item_id = extract_id(result) or extract_id(data)
+            item_name = localized_name(data.get("name")) or localized_name(result.get("name"))
+            if not item_id or not item_name:
+                continue
+
+            normalized = normalize_name(item_name)
+            if normalized.startswith(normalize_name(prefix)):
+                gear_item_ids.add(item_id)
+
+    for item_id in sorted(gear_item_ids):
+        item_sources.setdefault(item_id, []).append({
             "seasonScope": SEASON_SCOPE,
             "category": "PvP",
             "pvpSeasonId": season_id,
             "pvpSeason": localized_name(detail.get("name")) or "Midnight Season 2",
-            "rewardPaths": paths,
-        }]
+            "sourceType": "current-season PvP gear family search",
+        })
+
+    print(
+        f"PvP Season 2 found: id {season_id}; "
+        f"{reward_count} reward references and {len(gear_item_ids)} current-season gear candidates."
+    )
 
     return item_sources, {
         "id": season_id,
         "name": localized_name(detail.get("name")) or "Midnight Season 2",
-        "rewardCount": len(reward_sources),
+        "rewardCount": reward_count,
+        "gearItemCount": len(gear_item_ids),
+        "status": "gear-search-imported",
     }
-
 
 def find_recipe_output_item_id(token, recipe_name, profession_name, cache):
     """Resolve Midnight recipe outputs when Blizzard omits crafted_item."""
