@@ -2,6 +2,10 @@ name: Import WoW Retail Data
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - "scripts/import_blizzard_data.py"
+      - ".github/workflows/import-wow-data.yml"
   schedule:
     - cron: "30 8 * * *"
 
