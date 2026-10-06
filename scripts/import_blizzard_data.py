@@ -846,6 +846,27 @@ def classify_profession_outputs(recipes, output_items):
         elif recipe.get("profession") == "Enchanting":
             other_crafted_items.append(recipe)
 
+    jc_recipes = [r for r in recipes if r.get("profession") == "Jewelcrafting"]
+    jc_missing_outputs = [r for r in jc_recipes if not r.get("craftedItemId")]
+    jc_class_counts = {}
+    jc_subclass_counts = {}
+    for recipe in jc_recipes:
+        item = item_by_id.get(recipe.get("craftedItemId"))
+        if not item:
+            continue
+        class_key = f"{(item.get("itemClass") or {}).get("id")}:{(item.get("itemClass") or {}).get("name")}"
+        subclass_key = f"{(item.get("itemSubclass") or {}).get("id")}:{(item.get("itemSubclass") or {}).get("name")}"
+        jc_class_counts[class_key] = jc_class_counts.get(class_key, 0) + 1
+        jc_subclass_counts[subclass_key] = jc_subclass_counts.get(subclass_key, 0) + 1
+
+    print(f"Jewelcrafting diagnostic: {len(jc_recipes)} recipes, {len(jc_missing_outputs)} missing craftedItemId.")
+    print(f"Jewelcrafting item classes: {jc_class_counts}")
+    print(f"Jewelcrafting item subclasses: {jc_subclass_counts}")
+    if jc_missing_outputs:
+        print("Jewelcrafting recipes without resolved output: " + ", ".join(
+            f"{r.get('id')}:{r.get('name')}" for r in jc_missing_outputs[:30]
+        ))
+
     enchants = [r for r in recipes if r.get("profession") == "Enchanting"]
 
     print(
