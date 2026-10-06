@@ -15,17 +15,14 @@ LOCALE = "en_US"
 REQUEST_DELAY_SECONDS = 0.15
 MAX_RETRIES = 4
 
-# The optimizer scope is Season 2 and newer. We use Blizzard's published
-# Season 2 content list to build the source pool instead of guessing from
-# item level or importing the historical item catalog.
 MINIMUM_SEASON = 2
 SEASON_SCOPE = "Midnight Season 2+"
 
-# Blizzard's Season 2 announcement defines this Mythic+ rotation and raid.
-# Future Season 2 additions are included when their Journal entries become
-# available; missing future entries simply contribute no items yet.
-SEASON_CONTENT_NAMES = [
-    "Venomous Abyss",
+# These are Blizzard's Season 2 sources. We match against the complete
+# Adventure Journal instance index rather than relying on a search endpoint
+# filter whose field behavior can vary.
+SEASON_CONTENT_NAMES = {
+    "The Venomous Abyss",
     "Altar of Fangs",
     "Murder Row",
     "Den of Nalorakk",
@@ -37,7 +34,7 @@ SEASON_CONTENT_NAMES = [
     "The Tidebound Grotto",
     "The Unbinding of Kith'ix",
     "Labyrinth of Kindo'jan",
-]
+}
 
 
 def request_json(url, headers=None, data=None):
@@ -117,6 +114,12 @@ def extract_id(value):
     return value if isinstance(value, int) else None
 
 
+def normalize_name(value):
+    if not value:
+        return ""
+    return " ".join(str(value).replace("’", "'").split()).strip().lower()
+
+
 def normalize_item(data, source=None):
     quality = data.get("quality") or {}
     item_class = data.get("item_class") or {}
@@ -154,39 +157,49 @@ def normalize_item(data, source=None):
     }
 
 
-def find_journal_encounters_for_instance_name(token, instance_name):
+def get_season_instances(token):
     response = get_api_json(
-        "/data/wow/search/journal-encounter",
+        "/data/wow/journal-instance/index",
         token,
-        {
-            "namespace": NAMESPACE,
-            "locale": LOCALE,
-            "orderby": "id",
-            "_pageSize": 100,
-            "instance.name.en_US": instance_name,
-        },
+        {"namespace": NAMESPACE, "locale": LOCALE},
     )
-    return response.get("results", [])
+    return response.get("journal_instances", [])
 
 
 def collect_season_content_item_ids(token):
     """
-    Build a focused candidate pool from Blizzard Adventure Journal encounters
-    whose instances are explicitly part of the Midnight Season 2 rotation or
-    Season 2 content.
+    Build the candidate pool from explicitly named Season 2 sources in the
+    complete Blizzard Adventure Journal instance index.
 
-    This is deliberately source-based: item level is NOT used to decide
-    whether an item belongs to Season 2.
+    This is source-based: item level is never used to decide Season 2
+    membership. Historical instances are ignored.
     """
+    wanted = {normalize_name(name): name for name in SEASON_CONTENT_NAMES}
     item_sources = {}
-    matched_instances = set()
+    matched_instances = []
+    missing_sources = []
     encounter_count = 0
 
-    for instance_name in SEASON_CONTENT_NAMES:
-        results = find_journal_encounters_for_instance_name(token, instance_name)
+    instances = get_season_instances(token)
 
-        for result in results:
-            encounter_id = extract_id(result)
+    for instance_ref in instances:
+        instance_id = extract_id(instance_ref)
+        instance_name = localized_name(instance_ref.get("name")) if isinstance(instance_ref, dict) else None
+        canonical = normalize_name(instance_name)
+
+        if canonical not in wanted or not instance_id:
+            continue
+
+        matched_instances.append(instance_name)
+
+        instance = get_api_json(
+            f"/data/wow/journal-instance/{instance_id}",
+            token,
+            {"namespace": NAMESPACE, "locale": LOCALE},
+        )
+
+        for encounter_ref in instance.get("journal_encounters", []):
+            encounter_id = extract_id(encounter_ref)
             if not encounter_id:
                 continue
 
@@ -197,10 +210,6 @@ def collect_season_content_item_ids(token):
             )
             encounter_count += 1
 
-            journal_instance = encounter.get("journal_instance") or {}
-            actual_instance_name = localized_name(journal_instance.get("name")) or instance_name
-            matched_instances.add(actual_instance_name)
-
             for loot in encounter.get("items", []):
                 item_id = extract_id(loot.get("item"))
                 if not item_id:
@@ -210,7 +219,8 @@ def collect_season_content_item_ids(token):
 
                 item_sources.setdefault(item_id, []).append({
                     "seasonScope": SEASON_SCOPE,
-                    "instance": actual_instance_name,
+                    "instance": instance_name,
+                    "instanceId": instance_id,
                     "encounterId": encounter_id,
                     "encounter": localized_name(encounter.get("name")),
                 })
@@ -219,11 +229,20 @@ def collect_season_content_item_ids(token):
 
         time.sleep(REQUEST_DELAY_SECONDS)
 
+    matched_normalized = {normalize_name(name) for name in matched_instances}
+    for canonical, display_name in wanted.items():
+        if canonical not in matched_normalized:
+            missing_sources.append(display_name)
+
     print(
         f"Season source scan: {len(matched_instances)} matched instances, "
         f"{encounter_count} encounters, {len(item_sources)} unique loot items."
     )
-    return item_sources, sorted(matched_instances)
+    print(f"Matched Season 2 sources: {sorted(matched_instances)}")
+    if missing_sources:
+        print(f"Season 2 sources not present in Journal yet: {sorted(missing_sources)}")
+
+    return item_sources, sorted(matched_instances), sorted(missing_sources)
 
 
 def fetch_item_details(token, item_ids, item_sources):
@@ -275,7 +294,7 @@ def main():
         {"namespace": NAMESPACE, "locale": LOCALE},
     )
 
-    item_sources, matched_instances = collect_season_content_item_ids(token)
+    item_sources, matched_instances, missing_sources = collect_season_content_item_ids(token)
     items = fetch_item_details(token, item_sources.keys(), item_sources)
 
     items.sort(
@@ -297,6 +316,7 @@ def main():
         "gearItemCount": len(items),
         "candidateItemCount": len(item_sources),
         "matchedInstances": matched_instances,
+        "missingSources": missing_sources,
         "importPhase": "season-content-sources",
         "seasonPolicy": SEASON_SCOPE,
     }
@@ -306,9 +326,9 @@ def main():
         "Blizzard API credentials are never placed in browser JavaScript.",
         "The importer does not scan the historical weapon/armor catalog.",
         "Season membership is source-based, not guessed from item level.",
-        "The candidate pool is built from Blizzard Adventure Journal encounters for Season 2+ content.",
+        "The candidate pool is built from explicitly matched Season 2+ Adventure Journal sources.",
         "Detailed item stats and effects are imported from the Blizzard item endpoint.",
-        "Some non-Journal sources such as PvP vendors, crafted gear, outdoor rewards, and certain BoEs require later source-specific import phases.",
+        "PvP vendors, crafted gear, outdoor rewards, and certain BoEs require later source-specific import phases.",
     ]
 
     with open(OUTPUT, "w", encoding="utf-8") as handle:
