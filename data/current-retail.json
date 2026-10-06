@@ -6,7 +6,7 @@
   "season": 2,
   "patch": "12.1.0",
   "status": "season-2-plus-source-imported",
-  "updatedAt": "2026-10-06T05:45:38.099907+00:00",
+  "updatedAt": "2026-10-06T06:03:53.256227+00:00",
   "source": "Blizzard Game Data API",
   "items": [
     {
@@ -6126,6 +6126,2778 @@
           "instanceId": 1320,
           "encounterId": 2894,
           "encounter": "The Lost Explorers"
+        }
+      ]
+    },
+    {
+      "id": 268479,
+      "name": "Thalassian Competitor's Rifle",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 2,
+        "name": "Weapon"
+      },
+      "itemSubclass": {
+        "id": 3,
+        "name": "Gun"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Ranged"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/268479?namespace=static-12.1.0_68914-us"
+        },
+        "id": 268479
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 268365,
+      "name": "Thalassian Competitor's Staff",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 2,
+        "name": "Weapon"
+      },
+      "itemSubclass": {
+        "id": 10,
+        "name": "Staff"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Two-Hand"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/268365?namespace=static-12.1.0_68914-us"
+        },
+        "id": 268365
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 245870,
+      "name": "Thalassian Competitor's Lamp",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 0,
+        "name": "Miscellaneous"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Held In Off-hand"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/245870?namespace=static-12.1.0_68914-us"
+        },
+        "id": 245870
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 245869,
+      "name": "Thalassian Competitor's Bow",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 2,
+        "name": "Weapon"
+      },
+      "itemSubclass": {
+        "id": 2,
+        "name": "Bow"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Ranged"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/245869?namespace=static-12.1.0_68914-us"
+        },
+        "id": 245869
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 245868,
+      "name": "Thalassian Competitor's Pillar",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 2,
+        "name": "Weapon"
+      },
+      "itemSubclass": {
+        "id": 6,
+        "name": "Polearm"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Two-Hand"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/245868?namespace=static-12.1.0_68914-us"
+        },
+        "id": 245868
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 245753,
+      "name": "Thalassian Competitor's Emblem",
+      "level": 197,
+      "requiredLevel": 70,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 0,
+        "name": "Miscellaneous"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Trinket"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/245753?namespace=static-12.1.0_68914-us"
+        },
+        "id": 245753
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 245752,
+      "name": "Thalassian Competitor's Insignia of Alacrity",
+      "level": 197,
+      "requiredLevel": 70,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 0,
+        "name": "Miscellaneous"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Trinket"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/245752?namespace=static-12.1.0_68914-us"
+        },
+        "id": 245752
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 245751,
+      "name": "Thalassian Competitor's Medallion",
+      "level": 197,
+      "requiredLevel": 70,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 0,
+        "name": "Miscellaneous"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Trinket"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/245751?namespace=static-12.1.0_68914-us"
+        },
+        "id": 245751
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 244766,
+      "name": "Thalassian Competitor's Plate Dunkers",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 4,
+        "name": "Plate"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Feet"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244766?namespace=static-12.1.0_68914-us"
+        },
+        "id": 244766
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 244765,
+      "name": "Thalassian Competitor's Mail Footlinks",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 3,
+        "name": "Mail"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Feet"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244765?namespace=static-12.1.0_68914-us"
+        },
+        "id": 244765
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 244764,
+      "name": "Thalassian Competitor's Leather Sliders",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 2,
+        "name": "Leather"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Feet"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244764?namespace=static-12.1.0_68914-us"
+        },
+        "id": 244764
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 244763,
+      "name": "Thalassian Competitor's Cloth Tip-Toes",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Feet"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244763?namespace=static-12.1.0_68914-us"
+        },
+        "id": 244763
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 244742,
+      "name": "Thalassian Competitor's Plate Bindings",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 4,
+        "name": "Plate"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Wrist"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244742?namespace=static-12.1.0_68914-us"
+        },
+        "id": 244742
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 244741,
+      "name": "Thalassian Competitor's Mail Links",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 3,
+        "name": "Mail"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Wrist"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244741?namespace=static-12.1.0_68914-us"
+        },
+        "id": 244741
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 244740,
+      "name": "Thalassian Competitor's Leather Bands",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 2,
+        "name": "Leather"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Wrist"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244740?namespace=static-12.1.0_68914-us"
+        },
+        "id": 244740
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 244739,
+      "name": "Thalassian Competitor's Cloth Cuffs",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Wrist"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244739?namespace=static-12.1.0_68914-us"
+        },
+        "id": 244739
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 244738,
+      "name": "Thalassian Competitor's Plate Guard",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 4,
+        "name": "Plate"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Head"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244738?namespace=static-12.1.0_68914-us"
+        },
+        "id": 244738
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 244737,
+      "name": "Thalassian Competitor's Mail Visor",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 3,
+        "name": "Mail"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Head"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244737?namespace=static-12.1.0_68914-us"
+        },
+        "id": 244737
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 244736,
+      "name": "Thalassian Competitor's Leather Optics",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 2,
+        "name": "Leather"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Head"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244736?namespace=static-12.1.0_68914-us"
+        },
+        "id": 244736
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 244735,
+      "name": "Thalassian Competitor's Cloth Goggles",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Head"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244735?namespace=static-12.1.0_68914-us"
+        },
+        "id": 244735
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 244568,
+      "name": "Thalassian Competitor's Chain Cuffs",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 3,
+        "name": "Mail"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Wrist"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244568?namespace=static-12.1.0_68914-us"
+        },
+        "id": 244568
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 244567,
+      "name": "Thalassian Competitor's Chain Grips",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 3,
+        "name": "Mail"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Hands"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244567?namespace=static-12.1.0_68914-us"
+        },
+        "id": 244567
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 244566,
+      "name": "Thalassian Competitor's Chain Leggings",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 3,
+        "name": "Mail"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Legs"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244566?namespace=static-12.1.0_68914-us"
+        },
+        "id": 244566
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 244565,
+      "name": "Thalassian Competitor's Chain Girdle",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 3,
+        "name": "Mail"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Waist"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244565?namespace=static-12.1.0_68914-us"
+        },
+        "id": 244565
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 244564,
+      "name": "Thalassian Competitor's Chain Epaulets",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 3,
+        "name": "Mail"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Shoulder"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244564?namespace=static-12.1.0_68914-us"
+        },
+        "id": 244564
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 244563,
+      "name": "Thalassian Competitor's Chain Cowl",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 3,
+        "name": "Mail"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Head"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244563?namespace=static-12.1.0_68914-us"
+        },
+        "id": 244563
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 244562,
+      "name": "Thalassian Competitor's Chain Tunic",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 3,
+        "name": "Mail"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244562?namespace=static-12.1.0_68914-us"
+        },
+        "id": 244562
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 244561,
+      "name": "Thalassian Competitor's Chain Stompers",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 3,
+        "name": "Mail"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Feet"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244561?namespace=static-12.1.0_68914-us"
+        },
+        "id": 244561
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 244560,
+      "name": "Thalassian Competitor's Leather Wristwraps",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 2,
+        "name": "Leather"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Wrist"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244560?namespace=static-12.1.0_68914-us"
+        },
+        "id": 244560
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 244559,
+      "name": "Thalassian Competitor's Leather Gloves",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 2,
+        "name": "Leather"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Hands"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244559?namespace=static-12.1.0_68914-us"
+        },
+        "id": 244559
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 244558,
+      "name": "Thalassian Competitor's Leather Trousers",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 2,
+        "name": "Leather"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Legs"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244558?namespace=static-12.1.0_68914-us"
+        },
+        "id": 244558
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 244557,
+      "name": "Thalassian Competitor's Leather Belt",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 2,
+        "name": "Leather"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Waist"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244557?namespace=static-12.1.0_68914-us"
+        },
+        "id": 244557
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 244556,
+      "name": "Thalassian Competitor's Leather Shoulderpads",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 2,
+        "name": "Leather"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Shoulder"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244556?namespace=static-12.1.0_68914-us"
+        },
+        "id": 244556
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 244555,
+      "name": "Thalassian Competitor's Leather Mask",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 2,
+        "name": "Leather"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Head"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244555?namespace=static-12.1.0_68914-us"
+        },
+        "id": 244555
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 244554,
+      "name": "Thalassian Competitor's Leather Chestpiece",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 2,
+        "name": "Leather"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244554?namespace=static-12.1.0_68914-us"
+        },
+        "id": 244554
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 244553,
+      "name": "Thalassian Competitor's Leather Boots",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 2,
+        "name": "Leather"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Feet"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244553?namespace=static-12.1.0_68914-us"
+        },
+        "id": 244553
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 240952,
+      "name": "Thalassian Competitor's Amulet",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 0,
+        "name": "Miscellaneous"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Neck"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/240952?namespace=static-12.1.0_68914-us"
+        },
+        "id": 240952
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 240951,
+      "name": "Thalassian Competitor's Signet",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 0,
+        "name": "Miscellaneous"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Finger"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/240951?namespace=static-12.1.0_68914-us"
+        },
+        "id": 240951
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 239685,
+      "name": "Thalassian Competitor's Cloth Tunic",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/239685?namespace=static-12.1.0_68914-us"
+        },
+        "id": 239685
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 239684,
+      "name": "Thalassian Competitor's Cloth Treads",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Feet"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/239684?namespace=static-12.1.0_68914-us"
+        },
+        "id": 239684
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 239683,
+      "name": "Thalassian Competitor's Cloth Shoulderpads",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Shoulder"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/239683?namespace=static-12.1.0_68914-us"
+        },
+        "id": 239683
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 239682,
+      "name": "Thalassian Competitor's Cloth Sash",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Waist"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/239682?namespace=static-12.1.0_68914-us"
+        },
+        "id": 239682
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 239681,
+      "name": "Thalassian Competitor's Cloth Leggings",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Legs"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/239681?namespace=static-12.1.0_68914-us"
+        },
+        "id": 239681
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 239680,
+      "name": "Thalassian Competitor's Cloth Hood",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Head"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/239680?namespace=static-12.1.0_68914-us"
+        },
+        "id": 239680
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 239679,
+      "name": "Thalassian Competitor's Cloth Gloves",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Hands"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/239679?namespace=static-12.1.0_68914-us"
+        },
+        "id": 239679
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 239678,
+      "name": "Thalassian Competitor's Cloth Cloak",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Back"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/239678?namespace=static-12.1.0_68914-us"
+        },
+        "id": 239678
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 239677,
+      "name": "Thalassian Competitor's Cloth Bands",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Wrist"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/239677?namespace=static-12.1.0_68914-us"
+        },
+        "id": 239677
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 237916,
+      "name": "Thalassian Competitor's Sword",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 2,
+        "name": "Weapon"
+      },
+      "itemSubclass": {
+        "id": 7,
+        "name": "Sword"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "One-Hand"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/237916?namespace=static-12.1.0_68914-us"
+        },
+        "id": 237916
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 237915,
+      "name": "Thalassian Competitor's Greatsword",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 2,
+        "name": "Weapon"
+      },
+      "itemSubclass": {
+        "id": 8,
+        "name": "Sword"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Two-Hand"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/237915?namespace=static-12.1.0_68914-us"
+        },
+        "id": 237915
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 237914,
+      "name": "Thalassian Competitor's Skewer",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 2,
+        "name": "Weapon"
+      },
+      "itemSubclass": {
+        "id": 15,
+        "name": "Dagger"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "One-Hand"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/237914?namespace=static-12.1.0_68914-us"
+        },
+        "id": 237914
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 237913,
+      "name": "Thalassian Competitor's Splitter",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 2,
+        "name": "Weapon"
+      },
+      "itemSubclass": {
+        "id": 0,
+        "name": "Axe"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "One-Hand"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/237913?namespace=static-12.1.0_68914-us"
+        },
+        "id": 237913
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 237912,
+      "name": "Thalassian Competitor's Bulwark",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 6,
+        "name": "Shield"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Off Hand"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/237912?namespace=static-12.1.0_68914-us"
+        },
+        "id": 237912
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 237911,
+      "name": "Thalassian Competitor's Maxim",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 2,
+        "name": "Weapon"
+      },
+      "itemSubclass": {
+        "id": 4,
+        "name": "Mace"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "One-Hand"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/237911?namespace=static-12.1.0_68914-us"
+        },
+        "id": 237911
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 237910,
+      "name": "Thalassian Competitor's Knife",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 2,
+        "name": "Weapon"
+      },
+      "itemSubclass": {
+        "id": 15,
+        "name": "Dagger"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "One-Hand"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/237910?namespace=static-12.1.0_68914-us"
+        },
+        "id": 237910
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 237909,
+      "name": "Thalassian Competitor's Pickaxe",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 2,
+        "name": "Weapon"
+      },
+      "itemSubclass": {
+        "id": 0,
+        "name": "Axe"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "One-Hand"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/237909?namespace=static-12.1.0_68914-us"
+        },
+        "id": 237909
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 237908,
+      "name": "Thalassian Competitor's Plate Armguards",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 4,
+        "name": "Plate"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Wrist"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/237908?namespace=static-12.1.0_68914-us"
+        },
+        "id": 237908
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 237907,
+      "name": "Thalassian Competitor's Plate Waistguard",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 4,
+        "name": "Plate"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Waist"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/237907?namespace=static-12.1.0_68914-us"
+        },
+        "id": 237907
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 237906,
+      "name": "Thalassian Competitor's Plate Pauldrons",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 4,
+        "name": "Plate"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Shoulder"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/237906?namespace=static-12.1.0_68914-us"
+        },
+        "id": 237906
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 237905,
+      "name": "Thalassian Competitor's Plate Greaves",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 4,
+        "name": "Plate"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Legs"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/237905?namespace=static-12.1.0_68914-us"
+        },
+        "id": 237905
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 237904,
+      "name": "Thalassian Competitor's Plate Helm",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 4,
+        "name": "Plate"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Head"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/237904?namespace=static-12.1.0_68914-us"
+        },
+        "id": 237904
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 237903,
+      "name": "Thalassian Competitor's Plate Gauntlets",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 4,
+        "name": "Plate"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Hands"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/237903?namespace=static-12.1.0_68914-us"
+        },
+        "id": 237903
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 237902,
+      "name": "Thalassian Competitor's Plate Sabatons",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 4,
+        "name": "Plate"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Feet"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/237902?namespace=static-12.1.0_68914-us"
+        },
+        "id": 237902
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        }
+      ]
+    },
+    {
+      "id": 237901,
+      "name": "Thalassian Competitor's Plate Breastplate",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 4,
+        "name": "Plate"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/237901?namespace=static-12.1.0_68914-us"
+        },
+        "id": 237901
+      },
+      "source": "Blizzard Game Data API \u2014 Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
         }
       ]
     },
@@ -18324,10 +21096,10 @@
   "apiCheck": {
     "itemClassCount": 19,
     "namespace": "static-us",
-    "gearItemCount": 318,
-    "candidateItemCount": 378,
+    "gearItemCount": 381,
+    "candidateItemCount": 441,
     "pveCandidateItemCount": 378,
-    "pvpCandidateItemCount": 0,
+    "pvpCandidateItemCount": 63,
     "matchedPvEInstances": [
       "Altar of Fangs",
       "Den of Nalorakk",
@@ -18346,7 +21118,9 @@
     "pvpSeason": {
       "id": 42,
       "name": "Midnight Season 2",
-      "rewardCount": 0
+      "rewardCount": 0,
+      "gearItemCount": 63,
+      "status": "gear-search-imported"
     },
     "professionRecipeCount": 730,
     "craftedOutputItemCount": 105,
