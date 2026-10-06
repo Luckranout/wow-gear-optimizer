@@ -5,7 +5,7 @@
   "expansion": "Midnight",
   "season": 2,
   "patch": "12.1.0",
-  "status": "awaiting-secure-blizzard-import",
+  "status": "blizzard-api-connected",
   "updatedAt": null,
   "source": "Blizzard Game Data API",
   "items": [],
@@ -27,5 +27,9 @@
     "This file is the normalized import target for live Retail data.",
     "Blizzard API credentials must never be placed in browser JavaScript.",
     "The next secure backend/import step will populate this dataset with current Season 2 data."
-  ]
+  ],
+  "apiCheck": {
+    "itemClassCount": 19,
+    "namespace": "static-us"
+  }
 }
