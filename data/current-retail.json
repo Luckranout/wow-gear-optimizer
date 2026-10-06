@@ -5,8 +5,8 @@
   "expansion": "Midnight",
   "season": 2,
   "patch": "12.1.0",
-  "status": "blizzard-api-connected",
-  "updatedAt": null,
+  "status": "season-2-plus-source-imported",
+  "updatedAt": "2026-10-06T04:23:16.795102+00:00",
   "source": "Blizzard Game Data API",
   "items": [],
   "gems": [],
@@ -24,12 +24,21 @@
   "dungeons": [],
   "pvp": [],
   "notes": [
-    "This file is the normalized import target for live Retail data.",
-    "Blizzard API credentials must never be placed in browser JavaScript.",
-    "The next secure backend/import step will populate this dataset with current Season 2 data."
+    "Generated from the secure Blizzard Game Data API importer.",
+    "Blizzard API credentials are never placed in browser JavaScript.",
+    "The importer does not scan the historical weapon/armor catalog.",
+    "Season membership is source-based, not guessed from item level.",
+    "The candidate pool is built from Blizzard Adventure Journal encounters for Season 2+ content.",
+    "Detailed item stats and effects are imported from the Blizzard item endpoint.",
+    "Some non-Journal sources such as PvP vendors, crafted gear, outdoor rewards, and certain BoEs require later source-specific import phases."
   ],
   "apiCheck": {
     "itemClassCount": 19,
-    "namespace": "static-us"
+    "namespace": "static-us",
+    "gearItemCount": 0,
+    "candidateItemCount": 0,
+    "matchedInstances": [],
+    "importPhase": "season-content-sources",
+    "seasonPolicy": "Midnight Season 2+"
   }
 }
