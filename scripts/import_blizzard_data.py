@@ -340,8 +340,65 @@ def collect_pvp_season_item_ids(token):
     }
 
 
+def find_recipe_output_item_id(token, recipe_name, profession_name, cache):
+    """Resolve Midnight recipe outputs when Blizzard omits crafted_item."""
+    cache_key = f"{profession_name}:{normalize_name(recipe_name)}"
+    if cache_key in cache:
+        return cache[cache_key]
+
+    if not recipe_name:
+        cache[cache_key] = None
+        return None
+
+    response = get_api_json(
+        "/data/wow/search/item",
+        token,
+        {
+            "namespace": NAMESPACE,
+            "locale": LOCALE,
+            "name.en_US": recipe_name,
+            "_pageSize": 100,
+            "orderby": "id",
+        },
+    )
+
+    candidates = []
+    for result in response.get("results", []) or []:
+        data = result.get("data") or {}
+        item_id = extract_id(result)
+        if not item_id:
+            item_id = extract_id(data)
+        item_name = localized_name(data.get("name")) or localized_name(result.get("name"))
+        if item_id and normalize_name(item_name) == normalize_name(recipe_name):
+            candidates.append((item_id, data))
+
+    def candidate_score(candidate):
+        item_id, data = candidate
+        item_class_id = extract_id(data.get("item_class"))
+        is_equippable = data.get("is_equippable") is True
+        score = 0
+
+        if profession_name == "Jewelcrafting" and item_class_id == 3:
+            score += 100
+        if profession_name in {"Blacksmithing", "Leatherworking", "Tailoring"} and is_equippable:
+            score += 50
+        if profession_name == "Alchemy" and item_class_id == 0:
+            score += 20
+        if profession_name == "Inscription" and item_class_id in {0, 4}:
+            score += 20
+        if profession_name == "Cooking" and item_class_id == 0:
+            score += 20
+
+        score += item_id / 1_000_000_000
+        return score
+
+    chosen = max(candidates, key=candidate_score)[0] if candidates else None
+    cache[cache_key] = chosen
+    return chosen
+
+
 def collect_profession_supporting_data(token):
-    """Collect current Midnight profession recipes without using historical scans."""
+    """Collect current Midnight profession recipes and resolve their outputs."""
     profession_index = get_api_json(
         "/data/wow/profession/index",
         token,
@@ -357,6 +414,8 @@ def collect_profession_supporting_data(token):
     recipes = []
     output_item_ids = set()
     profession_counts = {}
+    recipe_output_cache = {}
+    fallback_output_count = 0
 
     for profession_ref in profession_refs:
         profession_id = extract_id(profession_ref)
@@ -403,6 +462,17 @@ def collect_profession_supporting_data(token):
 
                     crafted_item = recipe.get("crafted_item") or {}
                     crafted_item_id = extract_id(crafted_item)
+
+                    if not crafted_item_id and profession_name != "Enchanting":
+                        crafted_item_id = find_recipe_output_item_id(
+                            token,
+                            localized_name(recipe.get("name")) or localized_name(recipe_ref.get("name")),
+                            profession_name,
+                            recipe_output_cache,
+                        )
+                        if crafted_item_id:
+                            fallback_output_count += 1
+
                     if crafted_item_id:
                         output_item_ids.add(crafted_item_id)
 
@@ -431,6 +501,7 @@ def collect_profession_supporting_data(token):
         f"Current Midnight profession import: {len(recipes)} recipes, "
         f"{len(output_item_ids)} crafted item outputs."
     )
+    print(f"Resolved {fallback_output_count} recipe outputs through item search fallback.")
     print(f"Profession recipe counts: {profession_counts}")
 
     return recipes, sorted(output_item_ids)
