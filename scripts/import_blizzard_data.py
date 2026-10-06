@@ -648,37 +648,38 @@ def find_recipe_output_item_id(token, recipe_name, profession_name, cache):
         cache[cache_key] = None
         return None
 
-    response = get_api_json(
-        "/data/wow/search/item",
-        token,
-        {
-            "namespace": NAMESPACE,
-            "locale": LOCALE,
-            "name.en_US": recipe_name,
-            "_pageSize": 100,
-            "orderby": "id",
-        },
-    )
+    search_params = {
+        "namespace": NAMESPACE,
+        "locale": LOCALE,
+        "name.en_US": recipe_name,
+        "_pageSize": 100,
+        "orderby": "id",
+    }
+    response = get_api_json("/data/wow/search/item", token, search_params)
+
+    # Blizzard item-name search is paginated. Midnight gem IDs are much newer
+    # than many historical matches, so the first page can contain only old
+    # gems/recipes. For Jewelcrafting, inspect every returned page before
+    # deciding that Blizzard has no matching Gem.
+    if profession_name == "Jewelcrafting":
+        page_count = int(response.get("pageCount") or 1)
+        all_results = list(response.get("results", []) or [])
+        for page in range(2, page_count + 1):
+            page_params = dict(search_params)
+            page_params["_page"] = page
+            page_response = get_api_json(
+                "/data/wow/search/item",
+                token,
+                page_params,
+            )
+            all_results.extend(page_response.get("results", []) or [])
+        response["results"] = all_results
 
     recipe_normalized = normalize_name(recipe_name)
     recipe_tokens = {
         token for token in recipe_normalized.split()
         if len(token) > 1
     }
-
-    if profession_name == "Jewelcrafting" and normalize_name(recipe_name) == "quick peridot":
-        print("QUICK PERIDOT ITEM SEARCH CANDIDATES:")
-        for result in response.get("results", []) or []:
-            data = result.get("data") or {}
-            debug_id = extract_id(result) or extract_id(data)
-            debug_name = localized_name(data.get("name")) or localized_name(result.get("name"))
-            debug_class = extract_id(data.get("item_class"))
-            print(json.dumps({
-                "id": debug_id,
-                "name": debug_name,
-                "itemClassId": debug_class,
-                "isEquippable": data.get("is_equippable"),
-            }, ensure_ascii=False))
 
     candidates = []
 
