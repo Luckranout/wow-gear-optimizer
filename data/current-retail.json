@@ -6,7 +6,7 @@
   "season": 2,
   "patch": "12.1.0",
   "status": "season-2-plus-source-imported",
-  "updatedAt": "2026-10-06T07:04:30.930693+00:00",
+  "updatedAt": "2026-10-06T07:28:47.079634+00:00",
   "source": "Blizzard Game Data API",
   "items": [
     {
@@ -58471,7 +58471,7 @@
           "type": "AGILITY",
           "name": "Agility"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 263,
         "heroTalentTrees": [
           {
             "id": 74,
@@ -58642,7 +58642,7 @@
           "type": "INTELLECT",
           "name": "Intellect"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 270,
         "heroTalentTrees": [
           {
             "id": 66,
@@ -58801,7 +58801,7 @@
           "type": "STRENGTH",
           "name": "Strength"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 66,
         "heroTalentTrees": [
           {
             "id": 49,
@@ -59016,7 +59016,7 @@
           "type": "AGILITY",
           "name": "Agility"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 255,
         "heroTalentTrees": [
           {
             "id": 42,
@@ -59199,7 +59199,7 @@
           "type": "INTELLECT",
           "name": "Intellect"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 256,
         "heroTalentTrees": [
           {
             "id": 18,
@@ -59387,7 +59387,7 @@
           "type": "AGILITY",
           "name": "Agility"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 268,
         "heroTalentTrees": [
           {
             "id": 66,
@@ -59565,7 +59565,7 @@
           "type": "STRENGTH",
           "name": "Strength"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 72,
         "heroTalentTrees": [
           {
             "id": 61,
@@ -59739,7 +59739,7 @@
           "type": "STRENGTH",
           "name": "Strength"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 252,
         "heroTalentTrees": [
           {
             "id": 31,
@@ -59916,7 +59916,7 @@
           "type": "AGILITY",
           "name": "Agility"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 259,
         "heroTalentTrees": [
           {
             "id": 52,
@@ -60106,7 +60106,7 @@
           "type": "INTELLECT",
           "name": "Intellect"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 264,
         "heroTalentTrees": [
           {
             "id": 74,
@@ -60316,7 +60316,7 @@
           "type": "INTELLECT",
           "name": "Intellect"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 64,
         "heroTalentTrees": [
           {
             "id": 40,
@@ -60497,7 +60497,7 @@
           "type": "INTELLECT",
           "name": "Intellect"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 62,
         "heroTalentTrees": [
           {
             "id": 40,
@@ -60665,7 +60665,7 @@
           "type": "INTELLECT",
           "name": "Intellect"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 65,
         "heroTalentTrees": [
           {
             "id": 49,
@@ -60867,7 +60867,7 @@
           "type": "STRENGTH",
           "name": "Strength"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 70,
         "heroTalentTrees": [
           {
             "id": 48,
@@ -61030,7 +61030,7 @@
           "type": "STRENGTH",
           "name": "Strength"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 71,
         "heroTalentTrees": [
           {
             "id": 62,
@@ -61204,7 +61204,7 @@
           "type": "STRENGTH",
           "name": "Strength"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 73,
         "heroTalentTrees": [
           {
             "id": 61,
@@ -61419,7 +61419,7 @@
           "type": "AGILITY",
           "name": "Agility"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 253,
         "heroTalentTrees": [
           {
             "id": 44,
@@ -61598,7 +61598,7 @@
           "type": "AGILITY",
           "name": "Agility"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 254,
         "heroTalentTrees": [
           {
             "id": 44,
@@ -61759,7 +61759,7 @@
           "type": "INTELLECT",
           "name": "Intellect"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 258,
         "heroTalentTrees": [
           {
             "id": 19,
@@ -61921,7 +61921,7 @@
           "type": "AGILITY",
           "name": "Agility"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 261,
         "heroTalentTrees": [
           {
             "id": 51,
@@ -62111,7 +62111,7 @@
           "type": "AGILITY",
           "name": "Agility"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 103,
         "heroTalentTrees": [
           {
             "id": 21,
@@ -62303,7 +62303,7 @@
           "type": "AGILITY",
           "name": "Agility"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 104,
         "heroTalentTrees": [
           {
             "id": 21,
@@ -62515,7 +62515,7 @@
           "type": "INTELLECT",
           "name": "Intellect"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 105,
         "heroTalentTrees": [
           {
             "id": 23,
@@ -62708,7 +62708,7 @@
           "type": "INTELLECT",
           "name": "Intellect"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 267,
         "heroTalentTrees": [
           {
             "id": 59,
@@ -62875,7 +62875,7 @@
           "type": "INTELLECT",
           "name": "Intellect"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 257,
         "heroTalentTrees": [
           {
             "id": 19,
@@ -63022,7 +63022,7 @@
           "type": "INTELLECT",
           "name": "Intellect"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 63,
         "heroTalentTrees": [
           {
             "id": 41,
@@ -63188,7 +63188,7 @@
           "type": "STRENGTH",
           "name": "Strength"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 250,
         "heroTalentTrees": [
           {
             "id": 31,
@@ -63367,7 +63367,7 @@
           "type": "STRENGTH",
           "name": "Strength"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 251,
         "heroTalentTrees": [
           {
             "id": 32,
@@ -63542,7 +63542,7 @@
           "type": "AGILITY",
           "name": "Agility"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 260,
         "heroTalentTrees": [
           {
             "id": 52,
@@ -63732,7 +63732,7 @@
           "type": "INTELLECT",
           "name": "Intellect"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 262,
         "heroTalentTrees": [
           {
             "id": 70,
@@ -63916,7 +63916,7 @@
           "type": "INTELLECT",
           "name": "Intellect"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 265,
         "heroTalentTrees": [
           {
             "id": 58,
@@ -64112,7 +64112,7 @@
           "type": "INTELLECT",
           "name": "Intellect"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 266,
         "heroTalentTrees": [
           {
             "id": 59,
@@ -64268,7 +64268,7 @@
           "type": "AGILITY",
           "name": "Agility"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 269,
         "heroTalentTrees": [
           {
             "id": 65,
@@ -64414,7 +64414,7 @@
           "type": "INTELLECT",
           "name": "Intellect"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 102,
         "heroTalentTrees": [
           {
             "id": 23,
@@ -64634,7 +64634,7 @@
           "type": "AGILITY",
           "name": "Agility"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 577,
         "heroTalentTrees": [
           {
             "id": 35,
@@ -64808,7 +64808,7 @@
           "type": "AGILITY",
           "name": "Agility"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 581,
         "heroTalentTrees": [
           {
             "id": 35,
@@ -65049,7 +65049,7 @@
           "type": "INTELLECT",
           "name": "Intellect"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 1467,
         "heroTalentTrees": [
           {
             "id": 37,
@@ -65198,7 +65198,7 @@
           "type": "INTELLECT",
           "name": "Intellect"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 1468,
         "heroTalentTrees": [
           {
             "id": 37,
@@ -65377,7 +65377,7 @@
           "type": "INTELLECT",
           "name": "Intellect"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 1473,
         "heroTalentTrees": [
           {
             "id": 36,
@@ -65552,7 +65552,7 @@
           "type": "INTELLECT",
           "name": "Intellect"
         },
-        "specTalentTreeId": null,
+        "specTalentTreeId": 1480,
         "heroTalentTrees": [
           {
             "id": 124,
