@@ -6,7 +6,7 @@
   "season": 2,
   "patch": "12.1.0",
   "status": "season-2-plus-source-imported",
-  "updatedAt": "2026-10-06T11:46:43.420492+00:00",
+  "updatedAt": "2026-10-06T15:45:35.686079+00:00",
   "source": "Blizzard Game Data API",
   "items": [
     {
@@ -58595,7 +58595,7 @@
               "id": 5658
             },
             "spell_tooltip": {
-              "description": "When you successfully Purge a beneficial effect, the enemy suffers 1,866 Nature damage over 3 sec.",
+              "description": "When you successfully Purge a beneficial effect, the enemy suffers 3,733 Nature damage over 3 sec.",
               "cast_time": "Passive"
             }
           },
@@ -58689,7 +58689,7 @@
               "id": 683
             },
             "spell_tooltip": {
-              "description": "Your healing has a chance to coalesces a Healing Sphere out of the mists at your target's location after 1.5 sec. If allies walk through it, they consume the sphere, healing themselves for 1,283 and dispelling all harmful periodic magic effects.\r\n\r\nMaximum of 3 Healing Spheres can be active by the Monk at any given time.",
+              "description": "Your healing has a chance to coalesces a Healing Sphere out of the mists at your target's location after 1.5 sec. If allies walk through it, they consume the sphere, healing themselves for 2,598 and dispelling all harmful periodic magic effects.\r\n\r\nMaximum of 5 Healing Spheres can be active by the Monk at any given time.",
               "cast_time": "Passive"
             }
           },
@@ -58744,7 +58744,7 @@
               "description": "You perform a Mighty Ox Kick, hurling your enemy a distance behind you.",
               "cast_time": "Instant",
               "range": "Melee Range",
-              "cooldown": "30 sec cooldown"
+              "cooldown": "20 sec cooldown"
             }
           },
           {
@@ -58889,10 +58889,10 @@
               "id": 844
             },
             "spell_tooltip": {
-              "description": "You focus the assault on this target, increasing their damage taken by 3% for 6 sec. Each unique player that attacks the target increases the damage taken by an additional 3%, stacking up to 5 times.\r\n\r\nYour melee attacks refresh the duration of Focused Assault.",
+              "description": "You focus the assault on this target, increasing their damage taken by 3% for 10 sec. Each unique player that attacks the target increases the damage taken by an additional 3%, stacking up to 6 times.\r\n\r\nYour melee attacks refresh the duration of Focused Assault.",
               "cast_time": "Instant",
-              "range": "10 yd range",
-              "cooldown": "20 sec cooldown"
+              "range": "15 yd range",
+              "cooldown": "15 sec cooldown"
             }
           },
           {
@@ -58971,7 +58971,7 @@
               "id": 5667
             },
             "spell_tooltip": {
-              "description": "Eye for an Eye can now also trigger at 100% effectiveness from direct Magic damage.",
+              "description": "Eye for an Eye can now also trigger at 150% effectiveness from direct Magic damage.",
               "cast_time": "Passive"
             }
           },
@@ -59037,7 +59037,7 @@
               "id": 661
             },
             "spell_tooltip": {
-              "description": "Aspect of the Cheetah has 50% reduced cooldown and grants its effects to allies within 30 yds.",
+              "description": "Aspect of the Cheetah has 50% reduced cooldown and grants its effects to allies within 40 yds.",
               "cast_time": "Passive"
             }
           },
@@ -59122,7 +59122,7 @@
               "id": 3609
             },
             "spell_tooltip": {
-              "description": "Stings the target, dealing 600 Nature damage and initiating a series of venoms. Each lasts 3 sec and applies the next effect after the previous one ends.\r\n\r\n Scorpid Venom:\r\n90% reduced movement speed.\r\n\r\n Spider Venom:\r\nSilenced.\r\n\r\n Viper Venom:\r\n20% reduced damage and healing.",
+              "description": "Stings the target, dealing 584 Nature damage and initiating a series of venoms. Each lasts 3 sec and applies the next effect after the previous one ends.\r\n\r\n Scorpid Venom:\r\n90% reduced movement speed.\r\n\r\n Spider Venom:\r\nSilenced.\r\n\r\n Viper Venom:\r\n20% reduced damage and healing.",
               "cast_time": "Instant",
               "range": "40 yd range",
               "cooldown": "1 min cooldown"
@@ -59300,7 +59300,7 @@
               "id": 5480
             },
             "spell_tooltip": {
-              "description": "Leap of Faith also pulls the spirit of the 3 furthest allies within 40 yards and shields you and the affected allies for 2,969.",
+              "description": "Leap of Faith also pulls the spirit of the 3 furthest allies within 40 yards and shields you and the affected allies for 7,916.",
               "cast_time": "Passive"
             }
           },
@@ -59326,7 +59326,7 @@
               "id": 5635
             },
             "spell_tooltip": {
-              "description": "Reduces the cooldown of Mass Dispel by 60 sec.",
+              "description": "Reduces the cooldown of Mass Dispel by 75 sec.",
               "cast_time": "Passive"
             }
           },
@@ -59339,7 +59339,7 @@
               "id": 5640
             },
             "spell_tooltip": {
-              "description": "Assault an enemy's mind, dealing 4,620 Shadow damage and briefly reversing their perception of reality.\r\n\r\nFor 7 sec, the next 15,553 damage they deal will heal their target, and the next 15,553 healing they deal will damage their target.",
+              "description": "Assault an enemy's mind, dealing 4,770 Shadow damage and briefly reversing their perception of reality.\r\n\r\nFor 7 sec, the next 15,553 damage they deal will heal their target, and the next 15,553 healing they deal will damage their target.",
               "cast_time": "1.5 sec cast",
               "power_cost": "600 Mana",
               "range": "40 yd range",
@@ -59480,7 +59480,7 @@
               "description": "You perform a Mighty Ox Kick, hurling your enemy a distance behind you.",
               "cast_time": "Instant",
               "range": "Melee Range",
-              "cooldown": "30 sec cooldown"
+              "cooldown": "20 sec cooldown"
             }
           },
           {
@@ -59505,10 +59505,10 @@
               "id": 843
             },
             "spell_tooltip": {
-              "description": "You focus the assault on this target, increasing their damage taken by 3% for 6 sec. Each unique player that attacks the target increases the damage taken by an additional 3%, stacking up to 5 times.\r\n\r\nYour melee attacks refresh the duration of Focused Assault.",
+              "description": "You focus the assault on this target, increasing their damage taken by 3% for 10 sec. Each unique player that attacks the target increases the damage taken by an additional 3%, stacking up to 6 times.\r\n\r\nYour melee attacks refresh the duration of Focused Assault.",
               "cast_time": "Instant",
-              "range": "10 yd range",
-              "cooldown": "20 sec cooldown"
+              "range": "15 yd range",
+              "cooldown": "15 sec cooldown"
             }
           },
           {
@@ -59694,7 +59694,7 @@
               "id": 5678
             },
             "spell_tooltip": {
-              "description": "Run at high speed at a distance in front of you. All enemies in your path will take 349 Physical damage and be knocked back.",
+              "description": "Run at high speed at a distance in front of you. All enemies in your path will take 344 Physical damage and be knocked back.",
               "cast_time": "Instant"
             }
           },
@@ -59776,7 +59776,7 @@
               "description": "Places a dark ward on an enemy player that persists for 12 sec, triggering when the enemy next spends mana on a spell, and allowing the Death Knight to unleash an exact duplicate of that spell.",
               "cast_time": "Instant",
               "range": "40 yd range",
-              "cooldown": "20 sec cooldown"
+              "cooldown": "15 sec cooldown"
             }
           },
           {
@@ -60159,7 +60159,7 @@
               "id": 714
             },
             "spell_tooltip": {
-              "description": "When you successfully Purge a beneficial effect, the enemy suffers 2,126 Nature damage over 3 sec.",
+              "description": "When you successfully Purge a beneficial effect, the enemy suffers 4,252 Nature damage over 3 sec.",
               "cast_time": "Passive"
             }
           },
@@ -60269,7 +60269,7 @@
               "id": 5719
             },
             "spell_tooltip": {
-              "description": "Nature's Swiftness now also affects Hex, but its cooldown is increased by 30 sec.",
+              "description": "Nature's Swiftness now also affects Hex, but its cooldown is increased by 20 sec.",
               "cast_time": "Passive"
             }
           },
@@ -60337,7 +60337,7 @@
               "id": 66
             },
             "spell_tooltip": {
-              "description": "When your Frost Nova or Water Elemental's Freeze is dispelled or removed, become immune to snares for 3 sec. \r\n\r\nThis effect can only occur once every 10 sec.",
+              "description": "When your Frost Nova or Water Elemental's Freeze is dispelled or removed, become immune to snares for 4 sec. \r\n\r\nThis effect can only occur once every 10 sec.",
               "cast_time": "Passive"
             }
           },
@@ -60395,7 +60395,7 @@
               "id": 5496
             },
             "spell_tooltip": {
-              "description": "Places a Frost Bomb on the target. After 5 sec, the bomb explodes, dealing 4,189 Frost damage to the target and 2,069 Frost damage to all other enemies within 10 yards. All affected targets are slowed by 50% for 8 sec. \r\n\r\nIf Frost Bomb is dispelled before it explodes, gain a charge of Brain Freeze.",
+              "description": "Places a Frost Bomb on the target. After 5 sec, the bomb explodes, dealing 10,427 Frost damage to the target and 5,246 Frost damage to all other enemies within 10 yards. All affected targets are slowed by 50% for 8 sec. \r\n\r\nIf Frost Bomb is dispelled before it explodes, gain a charge of Brain Freeze.",
               "cast_time": "1.5 sec cast",
               "power_cost": "375 Mana",
               "range": "40 yd range",
@@ -60411,7 +60411,7 @@
               "id": 5497
             },
             "spell_tooltip": {
-              "description": "Summon a strong Blizzard that surrounds you for 6 sec that slows enemies by 70% and deals 92 Frost damage every 1 sec. \r\n\r\nEnemies that are caught in Snowdrift for 2 sec consecutively become Frozen in ice, stunned for 4 sec.",
+              "description": "Summon a strong Blizzard that surrounds you for 6 sec that slows enemies by 70% and deals 90 Frost damage every 1 sec. \r\n\r\nEnemies that are caught in Snowdrift for 2 sec consecutively become Frozen in ice, stunned for 4 sec.",
               "cast_time": "Instant",
               "power_cost": "750 Mana",
               "cooldown": "45 sec cooldown"
@@ -60547,7 +60547,7 @@
               "id": 5397
             },
             "spell_tooltip": {
-              "description": "Builds a sphere of Arcane energy, gaining power over 4 sec. Upon release, the sphere passes through any barriers, knocking enemies back and dealing up to 19,308 Arcane damage.",
+              "description": "Builds a sphere of Arcane energy, gaining power over 4 sec. Upon release, the sphere passes through any barriers, knocking enemies back and dealing up to 18,868 Arcane damage.",
               "cast_time": "Channeled",
               "range": "60 yd range",
               "cooldown": "45 sec cooldown"
@@ -60793,7 +60793,7 @@
               "id": 5665
             },
             "spell_tooltip": {
-              "description": "Eye for an Eye can now also trigger at 100% effectiveness from direct Magic damage.",
+              "description": "Eye for an Eye can now also trigger at 150% effectiveness from direct Magic damage.",
               "cast_time": "Passive"
             }
           },
@@ -60916,7 +60916,7 @@
               "id": 753
             },
             "spell_tooltip": {
-              "description": "Mark an enemy player for retribution after they kill an ally within your active Aura. If the marked enemy is slain within 12 sec, cast Redemption on the fallen ally.",
+              "description": "Mark an enemy player for retribution after they kill an ally within your active Aura. If the marked enemy is slain within 20 sec, cast Redemption on the fallen ally.",
               "cast_time": "Passive"
             }
           },
@@ -60985,7 +60985,7 @@
               "id": 5666
             },
             "spell_tooltip": {
-              "description": "Eye for an Eye can now also trigger at 100% effectiveness from direct Magic damage.",
+              "description": "Eye for an Eye can now also trigger at 150% effectiveness from direct Magic damage.",
               "cast_time": "Passive"
             }
           },
@@ -61159,7 +61159,7 @@
               "id": 5679
             },
             "spell_tooltip": {
-              "description": "Run at high speed at a distance in front of you. All enemies in your path will take 248 Physical damage and be knocked back.",
+              "description": "Run at high speed at a distance in front of you. All enemies in your path will take 244 Physical damage and be knocked back.",
               "cast_time": "Instant"
             }
           },
@@ -61294,7 +61294,7 @@
               "id": 831
             },
             "spell_tooltip": {
-              "description": "Run at high speed at a distance in front of you. All enemies in your path will take 306 Physical damage and be knocked back.",
+              "description": "Run at high speed at a distance in front of you. All enemies in your path will take 308 Physical damage and be knocked back.",
               "cast_time": "Instant"
             }
           },
@@ -61320,10 +61320,10 @@
               "id": 845
             },
             "spell_tooltip": {
-              "description": "You focus the assault on this target, increasing their damage taken by 3% for 6 sec. Each unique player that attacks the target increases the damage taken by an additional 3%, stacking up to 5 times.\r\n\r\nYour melee attacks refresh the duration of Focused Assault.",
+              "description": "You focus the assault on this target, increasing their damage taken by 3% for 10 sec. Each unique player that attacks the target increases the damage taken by an additional 3%, stacking up to 6 times.\r\n\r\nYour melee attacks refresh the duration of Focused Assault.",
               "cast_time": "Instant",
-              "range": "10 yd range",
-              "cooldown": "20 sec cooldown"
+              "range": "15 yd range",
+              "cooldown": "15 sec cooldown"
             }
           },
           {
@@ -61496,7 +61496,7 @@
               "id": 3604
             },
             "spell_tooltip": {
-              "description": "Stings the target, dealing 586 Nature damage and initiating a series of venoms. Each lasts 3 sec and applies the next effect after the previous one ends.\r\n\r\n Scorpid Venom:\r\n90% reduced movement speed.\r\n\r\n Spider Venom:\r\nSilenced.\r\n\r\n Viper Venom:\r\n20% reduced damage and healing.",
+              "description": "Stings the target, dealing 602 Nature damage and initiating a series of venoms. Each lasts 3 sec and applies the next effect after the previous one ends.\r\n\r\n Scorpid Venom:\r\n90% reduced movement speed.\r\n\r\n Spider Venom:\r\nSilenced.\r\n\r\n Viper Venom:\r\n20% reduced damage and healing.",
               "cast_time": "Instant",
               "range": "40 yd range",
               "cooldown": "1 min cooldown"
@@ -61511,7 +61511,7 @@
               "id": 3730
             },
             "spell_tooltip": {
-              "description": "Aspect of the Cheetah has 50% reduced cooldown and grants its effects to allies within 30 yds.",
+              "description": "Aspect of the Cheetah has 50% reduced cooldown and grants its effects to allies within 40 yds.",
               "cast_time": "Passive"
             }
           },
@@ -61632,7 +61632,7 @@
               "id": 653
             },
             "spell_tooltip": {
-              "description": "Stings the target, dealing 585 Nature damage and initiating a series of venoms. Each lasts 3 sec and applies the next effect after the previous one ends.\r\n\r\n Scorpid Venom:\r\n90% reduced movement speed.\r\n\r\n Spider Venom:\r\nSilenced.\r\n\r\n Viper Venom:\r\n20% reduced damage and healing.",
+              "description": "Stings the target, dealing 597 Nature damage and initiating a series of venoms. Each lasts 3 sec and applies the next effect after the previous one ends.\r\n\r\n Scorpid Venom:\r\n90% reduced movement speed.\r\n\r\n Spider Venom:\r\nSilenced.\r\n\r\n Viper Venom:\r\n20% reduced damage and healing.",
               "cast_time": "Instant",
               "range": "40 yd range",
               "cooldown": "1 min cooldown"
@@ -61673,7 +61673,7 @@
               "id": 3729
             },
             "spell_tooltip": {
-              "description": "Aspect of the Cheetah has 50% reduced cooldown and grants its effects to allies within 30 yds.",
+              "description": "Aspect of the Cheetah has 50% reduced cooldown and grants its effects to allies within 40 yds.",
               "cast_time": "Passive"
             }
           },
@@ -61821,7 +61821,7 @@
               "id": 5447
             },
             "spell_tooltip": {
-              "description": "Voidform sends out slow-moving bolts of Shadow energy at random locations every 0.5 sec for 3 sec, dealing 284 Shadow damage to all targets within 8 yds, and causing them to flee in Horror for 2 sec.",
+              "description": "Voidform sends out slow-moving bolts of Shadow energy at random locations every 0.5 sec for 3 sec, dealing 279 Shadow damage to all targets within 8 yds, and causing them to flee in Horror for 2 sec.",
               "cast_time": "Passive"
             }
           },
@@ -61834,7 +61834,7 @@
               "id": 5481
             },
             "spell_tooltip": {
-              "description": "Leap of Faith also pulls the spirit of the 3 furthest allies within 40 yards and shields you and the affected allies for 2,969.",
+              "description": "Leap of Faith also pulls the spirit of the 3 furthest allies within 40 yards and shields you and the affected allies for 7,916.",
               "cast_time": "Passive"
             }
           },
@@ -61860,7 +61860,7 @@
               "id": 5636
             },
             "spell_tooltip": {
-              "description": "Reduces the cooldown of Mass Dispel by 60 sec.",
+              "description": "Reduces the cooldown of Mass Dispel by 75 sec.",
               "cast_time": "Passive"
             }
           },
@@ -61873,7 +61873,7 @@
               "id": 5638
             },
             "spell_tooltip": {
-              "description": "Assault an enemy's mind, dealing 4,136 Shadow damage and briefly reversing their perception of reality.\r\n\r\nFor 7 sec, the next 15,553 damage they deal will heal their target, and the next 15,553 healing they deal will damage their target.\r\n\r\nGenerates 10 Insanity.",
+              "description": "Assault an enemy's mind, dealing 4,215 Shadow damage and briefly reversing their perception of reality.\r\n\r\nFor 7 sec, the next 15,553 damage they deal will heal their target, and the next 15,553 healing they deal will damage their target.\r\n\r\nGenerates 10 Insanity.",
               "cast_time": "1.5 sec cast",
               "power_cost": "600 Mana",
               "range": "40 yd range",
@@ -62140,7 +62140,7 @@
               "id": 201
             },
             "spell_tooltip": {
-              "description": "Casting Barkskin sprouts thorns on you for 12 sec. When victim to melee attacks, thorns deals 363 Nature damage back to the attacker.\r\n\r\nAttackers also have their movement speed reduced by 50% for 4 sec.",
+              "description": "Casting Barkskin sprouts thorns on you for 12 sec. When victim to melee attacks, thorns deals 367 Nature damage back to the attacker.\r\n\r\nAttackers also have their movement speed reduced by 50% for 4 sec.",
               "cast_time": "Passive",
               "range": "40 yd range"
             }
@@ -62427,10 +62427,10 @@
               "id": 842
             },
             "spell_tooltip": {
-              "description": "You focus the assault on this target, increasing their damage taken by 3% for 6 sec. Each unique player that attacks the target increases the damage taken by an additional 3%, stacking up to 5 times.\r\n\r\nYour melee attacks refresh the duration of Focused Assault.",
+              "description": "You focus the assault on this target, increasing their damage taken by 3% for 10 sec. Each unique player that attacks the target increases the damage taken by an additional 3%, stacking up to 6 times.\r\n\r\nYour melee attacks refresh the duration of Focused Assault.",
               "cast_time": "Instant",
-              "range": "10 yd range",
-              "cooldown": "20 sec cooldown"
+              "range": "15 yd range",
+              "cooldown": "15 sec cooldown"
             }
           },
           {
@@ -62570,7 +62570,7 @@
               "id": 697
             },
             "spell_tooltip": {
-              "description": "Casting Barkskin or Ironbark sprouts thorns on you for 12 sec. When victim to melee attacks, thorns deals 418 Nature damage back to the attacker.\r\n\r\nAttackers also have their movement speed reduced by 50% for 4 sec.",
+              "description": "Casting Barkskin or Ironbark sprouts thorns on you for 12 sec. When victim to melee attacks, thorns deals 423 Nature damage back to the attacker.\r\n\r\nAttackers also have their movement speed reduced by 50% for 4 sec.",
               "cast_time": "Passive",
               "range": "40 yd range"
             }
@@ -62799,7 +62799,7 @@
               "id": 5401
             },
             "spell_tooltip": {
-              "description": "Encircle enemy players with Bonds of Fel. If any affected player leaves the 12 yd radius they explode, dealing 5,654 Fire damage split amongst all nearby enemies.",
+              "description": "Encircle enemy players with Bonds of Fel. If any affected player leaves the 12 yd radius they explode, dealing 11,422 Fire damage split amongst all nearby enemies.",
               "cast_time": "1.5 sec cast",
               "power_cost": "450 Mana",
               "range": "30 yd range",
@@ -62843,7 +62843,7 @@
               "id": 5696
             },
             "spell_tooltip": {
-              "description": "Your Healthstones are replaced with Bloodstones which increase their user's haste by 20% for 12 sec instead of healing.",
+              "description": "Your Healthstones are replaced with Bloodstones which increase their user's haste by 20% for 18 sec instead of healing.",
               "cast_time": "Passive"
             }
           }
@@ -62951,7 +62951,7 @@
               "id": 1927
             },
             "spell_tooltip": {
-              "description": "Leap of Faith also pulls the spirit of the 3 furthest allies within 40 yards and shields you and the affected allies for 2,969.",
+              "description": "Leap of Faith also pulls the spirit of the 3 furthest allies within 40 yards and shields you and the affected allies for 7,916.",
               "cast_time": "Passive"
             }
           },
@@ -62990,7 +62990,7 @@
               "id": 5634
             },
             "spell_tooltip": {
-              "description": "Reduces the cooldown of Mass Dispel by 60 sec.",
+              "description": "Reduces the cooldown of Mass Dispel by 75 sec.",
               "cast_time": "Passive"
             }
           }
@@ -63043,7 +63043,7 @@
               "id": 644
             },
             "spell_tooltip": {
-              "description": "Empower Flamestrike, dealing up to 50% more damage based on enemies' distance to the center of Flamestrike.",
+              "description": "Empower Flamestrike, dealing up to 75% more damage based on enemies' distance to the center of Flamestrike.",
               "cast_time": "Passive"
             }
           },
@@ -63104,7 +63104,7 @@
               "id": 5495
             },
             "spell_tooltip": {
-              "description": "Increases damage of Fireball, Scorch, and Ignite by 20% but decreases your maximum health by 30%.\r\n",
+              "description": "Increases damage of Fireball, Scorch, and Ignite by 25% but decreases your maximum health by 30%.\r\n",
               "cast_time": "Passive"
             }
           },
@@ -63251,7 +63251,7 @@
               "id": 609
             },
             "spell_tooltip": {
-              "description": "Chains 3 enemies together, dealing 134.6 Shadow damage and causing 20% of all damage taken to also be received by the others in the chain. Lasts for 10 sec.",
+              "description": "Chains 4 enemies together, dealing 809.4 Shadow damage and causing 20% of all damage taken to also be received by the others in the chain. Lasts for 10 sec.",
               "cast_time": "Instant",
               "range": "10 yd range",
               "cooldown": "30 sec cooldown"
@@ -63266,10 +63266,10 @@
               "id": 841
             },
             "spell_tooltip": {
-              "description": "You focus the assault on this target, increasing their damage taken by 3% for 6 sec. Each unique player that attacks the target increases the damage taken by an additional 3%, stacking up to 5 times.\r\n\r\nYour melee attacks refresh the duration of Focused Assault.",
+              "description": "You focus the assault on this target, increasing their damage taken by 3% for 10 sec. Each unique player that attacks the target increases the damage taken by an additional 3%, stacking up to 6 times.\r\n\r\nYour melee attacks refresh the duration of Focused Assault.",
               "cast_time": "Instant",
-              "range": "10 yd range",
-              "cooldown": "20 sec cooldown"
+              "range": "15 yd range",
+              "cooldown": "15 sec cooldown"
             }
           },
           {
@@ -63297,7 +63297,7 @@
               "description": "Places a dark ward on an enemy player that persists for 12 sec, triggering when the enemy next spends mana on a spell, and allowing the Death Knight to unleash an exact duplicate of that spell.",
               "cast_time": "Instant",
               "range": "40 yd range",
-              "cooldown": "20 sec cooldown"
+              "cooldown": "15 sec cooldown"
             }
           },
           {
@@ -63335,7 +63335,7 @@
               "id": 5712
             },
             "spell_tooltip": {
-              "description": "You sacrifice 1% of your health every 1 sec and in exchange you cannot be slowed below 90% of normal speed, and you are immune to forced movement effects and knockbacks. Lasts until canceled.",
+              "description": "You sacrifice 1% of your health every 1.5 sec and in exchange you cannot be slowed below 100% of normal speed, and you are immune to forced movement effects and knockbacks. Lasts until canceled.",
               "cast_time": "Instant"
             }
           }
@@ -63430,7 +63430,7 @@
               "description": "Places a dark ward on an enemy player that persists for 12 sec, triggering when the enemy next spends mana on a spell, and allowing the Death Knight to unleash an exact duplicate of that spell.",
               "cast_time": "Instant",
               "range": "40 yd range",
-              "cooldown": "20 sec cooldown"
+              "cooldown": "15 sec cooldown"
             }
           },
           {
@@ -63510,7 +63510,7 @@
               "id": 5693
             },
             "spell_tooltip": {
-              "description": "Pillar of Frost grants you Remorseless Winter and increases its damage by 400% and its radius by 150%, but your movement speed is heavily reduced for its duration.\r\n\r\nPillar of Frost's cooldown is increased by 15 sec.",
+              "description": "Pillar of Frost grants you Remorseless Winter and increases its damage by 450% and its radius by 150%, but your movement speed is heavily reduced for its duration.\r\n\r\nPillar of Frost's cooldown is increased by 15 sec.",
               "cast_time": "Passive"
             }
           }
@@ -63843,7 +63843,7 @@
               "id": 5659
             },
             "spell_tooltip": {
-              "description": "When you successfully Purge a beneficial effect, the enemy suffers 2,126 Nature damage over 3 sec.",
+              "description": "When you successfully Purge a beneficial effect, the enemy suffers 4,252 Nature damage over 3 sec.",
               "cast_time": "Passive"
             }
           },
@@ -64020,7 +64020,7 @@
               "id": 5546
             },
             "spell_tooltip": {
-              "description": "Encircle enemy players with Bonds of Fel. If any affected player leaves the 12 yd radius they explode, dealing 5,437 Fire damage split amongst all nearby enemies.",
+              "description": "Encircle enemy players with Bonds of Fel. If any affected player leaves the 12 yd radius they explode, dealing 10,986 Fire damage split amongst all nearby enemies.",
               "cast_time": "1.5 sec cast",
               "power_cost": "450 Mana",
               "range": "30 yd range",
@@ -64080,7 +64080,7 @@
               "id": 5695
             },
             "spell_tooltip": {
-              "description": "Your Healthstones are replaced with Bloodstones which increase their user's haste by 20% for 12 sec instead of healing.",
+              "description": "Your Healthstones are replaced with Bloodstones which increase their user's haste by 20% for 18 sec instead of healing.",
               "cast_time": "Passive"
             }
           }
@@ -64192,7 +64192,7 @@
               "id": 5545
             },
             "spell_tooltip": {
-              "description": "Encircle enemy players with Bonds of Fel. If any affected player leaves the 12 yd radius they explode, dealing 5,187 Fire damage split amongst all nearby enemies.",
+              "description": "Encircle enemy players with Bonds of Fel. If any affected player leaves the 12 yd radius they explode, dealing 10,315 Fire damage split amongst all nearby enemies.",
               "cast_time": "1.5 sec cast",
               "power_cost": "450 Mana",
               "range": "30 yd range",
@@ -64236,7 +64236,7 @@
               "id": 5694
             },
             "spell_tooltip": {
-              "description": "Your Healthstones are replaced with Bloodstones which increase their user's haste by 20% for 12 sec instead of healing.",
+              "description": "Your Healthstones are replaced with Bloodstones which increase their user's haste by 20% for 18 sec instead of healing.",
               "cast_time": "Passive"
             }
           }
@@ -64356,7 +64356,7 @@
               "id": 5448
             },
             "spell_tooltip": {
-              "description": "Paralysis range reduced by 5 yards, but spreads to 2 new enemies when removed.",
+              "description": "Paralysis range reduced by 5 yards, but spreads to 3 new enemies when removed.",
               "cast_time": "Passive"
             }
           },
@@ -64536,7 +64536,7 @@
               "id": 3731
             },
             "spell_tooltip": {
-              "description": "Casting Barkskin sprouts thorns on you for 12 sec. When victim to melee attacks, thorns deals 645 Nature damage back to the attacker.\r\n\r\nAttackers also have their movement speed reduced by 50% for 4 sec.",
+              "description": "Casting Barkskin sprouts thorns on you for 12 sec. When victim to melee attacks, thorns deals 658 Nature damage back to the attacker.\r\n\r\nAttackers also have their movement speed reduced by 50% for 4 sec.",
               "cast_time": "Passive",
               "range": "40 yd range"
             }
@@ -64883,9 +64883,9 @@
               "id": 1220
             },
             "spell_tooltip": {
-              "description": "You focus the assault on this target, increasing their damage taken by 3% for 6 sec. Each unique player that attacks the target increases the damage taken by an additional 3%, stacking up to 5 times.\r\n\r\nYour melee attacks refresh the duration of Focused Assault.",
+              "description": "You focus the assault on this target, increasing their damage taken by 3% for 10 sec. Each unique player that attacks the target increases the damage taken by an additional 3%, stacking up to 6 times.\r\n\r\nYour melee attacks refresh the duration of Focused Assault.",
               "cast_time": "Instant",
-              "range": "10 yd range"
+              "range": "15 yd range"
             }
           },
           {
@@ -64910,7 +64910,7 @@
               "id": 3423
             },
             "spell_tooltip": {
-              "description": "Transform to demon form, moving at 175% increased speed for 3 sec, knocking down all enemies in your path and dealing 76 Physical damage.\r\n\r\nDuring Demonic Trample you are unaffected by snares but cannot cast spells or use your normal attacks. Shares charges with Infernal Strike.",
+              "description": "Transform to demon form, moving at 175% increased speed for 3 sec, knocking down all enemies in your path and dealing 77 Physical damage.\r\n\r\nDuring Demonic Trample you are unaffected by snares but cannot cast spells or use your normal attacks. Shares charges with Infernal Strike.",
               "cast_time": "Instant",
               "cooldown": "0.8 sec cooldown"
             }
@@ -65166,7 +65166,7 @@
               "id": 5617
             },
             "spell_tooltip": {
-              "description": "Verdant Embrace tethers you to an ally, increasing movement speed by 40% and slowing and siphoning 475 life from enemies who come in contact with the tether.\r\n\r\nThe tether lasts up to 10 sec or until you move more than 30 yards away from your ally.",
+              "description": "Verdant Embrace tethers you to an ally, increasing movement speed by 40% and slowing and siphoning 1,142 life from enemies who come in contact with the tether.\r\n\r\nThe tether lasts up to 10 sec or until you move more than 30 yards away from your ally.",
               "cast_time": "Passive"
             }
           }
@@ -65315,7 +65315,7 @@
               "id": 5616
             },
             "spell_tooltip": {
-              "description": "Verdant Embrace tethers you to an ally, increasing movement speed by 40% and slowing and siphoning 475 life from enemies who come in contact with the tether.\r\n\r\nThe tether lasts up to 10 sec or until you move more than 30 yards away from your ally.",
+              "description": "Verdant Embrace tethers you to an ally, increasing movement speed by 40% and slowing and siphoning 1,142 life from enemies who come in contact with the tether.\r\n\r\nThe tether lasts up to 10 sec or until you move more than 30 yards away from your ally.",
               "cast_time": "Passive"
             }
           },
@@ -65328,7 +65328,7 @@
               "id": 5711
             },
             "spell_tooltip": {
-              "description": "Summon a flying projection of yourself that heals allies you pass through for 604. Detonating your projection dispels all nearby allies of Magical effects, and heals for 3,080 over 20 sec.",
+              "description": "Summon a flying projection of yourself that heals allies you pass through for 595. Detonating your projection dispels all nearby allies of Magical effects, and heals for 3,051 over 20 sec.",
               "cast_time": "0.5 sec cast",
               "power_cost": "1,200 Mana",
               "range": "40 yd range",
@@ -65398,7 +65398,7 @@
               "id": 5454
             },
             "spell_tooltip": {
-              "description": "Landslide causes enemies who are mid-air to be slammed to the ground, stunning them for 4 sec and Landslide's cooldown is reduced by 15 sec.",
+              "description": "Landslide causes enemies who are mid-air to be slammed to the ground, stunning them for 5 sec and Landslide's cooldown is reduced by 15 sec.",
               "cast_time": "Passive"
             }
           },
@@ -65505,7 +65505,7 @@
               "id": 5615
             },
             "spell_tooltip": {
-              "description": "Verdant Embrace tethers you to an ally, increasing movement speed by 40% and slowing and siphoning 475 life from enemies who come in contact with the tether.\r\n\r\nThe tether lasts up to 10 sec or until you move more than 30 yards away from your ally.",
+              "description": "Verdant Embrace tethers you to an ally, increasing movement speed by 40% and slowing and siphoning 1,142 life from enemies who come in contact with the tether.\r\n\r\nThe tether lasts up to 10 sec or until you move more than 30 yards away from your ally.",
               "cast_time": "Passive"
             }
           },
