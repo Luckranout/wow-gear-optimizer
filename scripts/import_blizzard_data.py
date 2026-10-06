@@ -12,11 +12,14 @@ TOKEN_URL = "https://oauth.battle.net/token"
 OUTPUT = "data/current-retail.json"
 NAMESPACE = "static-us"
 LOCALE = "en_US"
-PAGE_SIZE = 1000
 REQUEST_DELAY_SECONDS = 0.15
-MIN_CURRENT_ITEM_LEVEL = 250
-MAX_CURRENT_ITEM_LEVEL = 344
 MAX_RETRIES = 4
+
+# The optimizer intentionally keeps the current expansion only.  Season 1
+# and older historical gear must not be imported just because its item level
+# happens to overlap the current range.
+CURRENT_EXPANSION_NAME = "Midnight"
+MINIMUM_SEASON = 2
 
 
 def request_json(url, headers=None, data=None):
@@ -90,8 +93,13 @@ def nested_id(value):
     return None
 
 
-def normalize_item(result):
-    data = result.get("data", {})
+def extract_id(value):
+    if isinstance(value, dict):
+        return value.get("id")
+    return value if isinstance(value, int) else None
+
+
+def normalize_item(data, source=None):
     quality = data.get("quality") or {}
     item_class = data.get("item_class") or {}
     item_subclass = data.get("item_subclass") or {}
@@ -119,62 +127,161 @@ def normalize_item(result):
             "name": localized_name(inventory_type.get("name")) if isinstance(inventory_type, dict) else None,
         },
         "isEquippable": data.get("is_equippable"),
+        "stats": data.get("stats", []),
+        "spells": data.get("spells", []),
+        "set": data.get("set"),
+        "description": data.get("description"),
         "media": data.get("media"),
-        "source": "Blizzard Game Data API",
+        "source": source or "Blizzard Game Data API",
     }
 
 
-def import_gear_items(token, item_class_id):
-    items = []
-    seen_ids = set()
-    starting_id = 1
-    page_count = 0
+def get_current_expansion(token):
+    response = get_api_json(
+        "/data/wow/journal-expansion/index",
+        token,
+        {"namespace": NAMESPACE, "locale": LOCALE},
+    )
 
-    while True:
-        page_count += 1
-        response = get_api_json(
-            "/data/wow/search/item",
-            token,
-            {
-                "namespace": NAMESPACE,
-                "locale": LOCALE,
-                "orderby": "id",
-                "_pageSize": PAGE_SIZE,
-                "_page": 1,
-                "id": f"[{starting_id},]",
-                "level": f"[{MIN_CURRENT_ITEM_LEVEL},{MAX_CURRENT_ITEM_LEVEL}]",
-                "item_class.id": item_class_id,
-            },
+    expansions = response.get("journal_expansions", [])
+    for expansion in expansions:
+        name = localized_name(expansion.get("name"))
+        if str(name).strip().lower() == CURRENT_EXPANSION_NAME.lower():
+            return expansion
+
+    available = [
+        localized_name(item.get("name"))
+        for item in expansions
+        if localized_name(item.get("name"))
+    ]
+    raise RuntimeError(
+        f"Could not find current expansion '{CURRENT_EXPANSION_NAME}'. "
+        f"Available journal expansions: {available}"
+    )
+
+
+def get_current_expansion_instances(token, expansion):
+    expansion_id = extract_id(expansion)
+    if not expansion_id:
+        raise RuntimeError("Current expansion journal entry has no ID.")
+
+    detail = get_api_json(
+        f"/data/wow/journal-expansion/{expansion_id}",
+        token,
+        {"namespace": NAMESPACE, "locale": LOCALE},
+    )
+
+    instances = detail.get("journal_instances", [])
+    if not instances:
+        raise RuntimeError(
+            f"Journal expansion '{CURRENT_EXPANSION_NAME}' returned no journal instances."
         )
 
-        results = response.get("results", [])
-        if not results:
-            break
+    return instances
 
-        batch = []
-        max_id = starting_id
 
-        for result in results:
-            item = normalize_item(result)
-            item_id = item.get("id")
-            if not item_id or item_id in seen_ids:
+def get_current_expansion_item_ids(token):
+    """
+    Build the candidate gear pool from the current expansion's Adventure
+    Journal. Each current-expansion instance exposes its encounters, and
+    each encounter exposes its loot item IDs. This avoids importing tens of
+    thousands of historical items.
+
+    Note: the Game Data Journal API does not expose every source of gear
+    (for example, some vendor/crafted/BoE variations). Those sources will be
+    added in later importer phases. This phase deliberately establishes a
+    trustworthy current-expansion PvE candidate pool.
+    """
+    expansion = get_current_expansion(token)
+    expansion_name = localized_name(expansion.get("name"))
+    instances = get_current_expansion_instances(token, expansion)
+
+    item_sources = {}
+    encounter_count = 0
+    instance_count = 0
+
+    for instance_ref in instances:
+        instance_id = extract_id(instance_ref)
+        if not instance_id:
+            continue
+
+        instance = get_api_json(
+            f"/data/wow/journal-instance/{instance_id}",
+            token,
+            {"namespace": NAMESPACE, "locale": LOCALE},
+        )
+        instance_count += 1
+
+        instance_name = localized_name(instance.get("name"))
+        encounters = instance.get("journal_encounters", [])
+
+        for encounter_ref in encounters:
+            encounter_id = extract_id(encounter_ref)
+            if not encounter_id:
                 continue
 
-            seen_ids.add(item_id)
-            batch.append(item)
-            max_id = max(max_id, item_id)
+            encounter = get_api_json(
+                f"/data/wow/journal-encounter/{encounter_id}",
+                token,
+                {"namespace": NAMESPACE, "locale": LOCALE},
+            )
+            encounter_count += 1
 
-        items.extend(batch)
+            for loot in encounter.get("items", []):
+                item_id = extract_id(loot.get("item"))
+                if not item_id:
+                    item_id = extract_id(loot)
+                if not item_id:
+                    continue
 
-        print(
-            f"Imported item class {item_class_id}: "
-            f"batch {page_count}, {len(batch)} items, total {len(items)}"
+                item_sources.setdefault(item_id, []).append({
+                    "expansion": expansion_name,
+                    "instanceId": instance_id,
+                    "instance": instance_name,
+                    "encounterId": encounter_id,
+                    "encounter": localized_name(encounter.get("name")),
+                })
+
+            time.sleep(REQUEST_DELAY_SECONDS)
+
+        time.sleep(REQUEST_DELAY_SECONDS)
+
+    print(
+        f"Current expansion source scan: {instance_count} instances, "
+        f"{encounter_count} encounters, {len(item_sources)} unique loot items."
+    )
+
+    return item_sources
+
+
+def fetch_item_details(token, item_ids, item_sources):
+    items = []
+
+    for index, item_id in enumerate(sorted(item_ids), start=1):
+        try:
+            data = get_api_json(
+                f"/data/wow/item/{item_id}",
+                token,
+                {"namespace": NAMESPACE, "locale": LOCALE},
+            )
+        except urllib.error.HTTPError as error:
+            print(f"Skipping item {item_id}: Blizzard returned HTTP {error.code}.")
+            continue
+
+        if not data.get("is_equippable"):
+            continue
+
+        item = normalize_item(
+            data,
+            source="Blizzard Game Data API — current Midnight journal loot",
         )
+        item["seasonScope"] = f"Season {MINIMUM_SEASON}+"
+        item["sourceLocations"] = item_sources.get(item_id, [])
+        items.append(item)
 
-        if max_id < starting_id or len(results) < PAGE_SIZE:
-            break
+        if index % 50 == 0:
+            print(f"Enriched {index}/{len(item_ids)} candidate items.")
 
-        starting_id = max_id + 1
         time.sleep(REQUEST_DELAY_SECONDS)
 
     return items
@@ -190,52 +297,56 @@ def main():
 
     token = get_access_token(client_id, client_secret)
 
-    # Verify the API and retrieve the current item-class catalog.
     item_classes = get_api_json(
         "/data/wow/item-class/index",
         token,
         {"namespace": NAMESPACE, "locale": LOCALE},
     )
 
-    # Retail equipment lives primarily in item classes 2 (Weapon) and
-    # 4 (Armor). Restrict the catalog to the current Season 2 item-level
-    # band so we do not spend the workflow's time pulling the entire
-    # historical WoW item database. Detailed item stats/effects come next.
-    items = []
-    for item_class_id in (2, 4):
-        items.extend(import_gear_items(token, item_class_id))
+    item_sources = get_current_expansion_item_ids(token)
+    items = fetch_item_details(token, item_sources.keys(), item_sources)
 
-    items.sort(key=lambda item: (item.get("level") or 0, item.get("id") or 0), reverse=True)
+    items.sort(
+        key=lambda item: (item.get("level") or 0, item.get("id") or 0),
+        reverse=True,
+    )
 
     with open(OUTPUT, "r", encoding="utf-8") as handle:
         dataset = json.load(handle)
 
-    dataset["status"] = "gear-catalog-imported"
+    dataset["status"] = "current-expansion-source-imported"
     dataset["source"] = "Blizzard Game Data API"
     dataset["updatedAt"] = datetime.now(timezone.utc).isoformat()
     dataset["items"] = items
+    dataset["expansion"] = CURRENT_EXPANSION_NAME
+    dataset["season"] = MINIMUM_SEASON
     dataset["apiCheck"] = {
         "itemClassCount": len(item_classes.get("item_classes", [])),
         "namespace": NAMESPACE,
         "gearItemCount": len(items),
-        "gearItemClasses": [2, 4],
-        "itemLevelRange": [MIN_CURRENT_ITEM_LEVEL, MAX_CURRENT_ITEM_LEVEL],
-        "importPhase": "catalog",
+        "candidateItemCount": len(item_sources),
+        "importPhase": "current-expansion-journal-sources",
+        "seasonPolicy": f"Season {MINIMUM_SEASON}+",
     }
 
-    notes = [
-        "This file is generated from the secure Blizzard Game Data API importer.",
-        "Blizzard API credentials must never be placed in browser JavaScript.",
-        "Phase 1 imports the searchable current-season weapon and armor catalog.",
-        "Phase 2 will enrich candidate gear with detailed stats and effects.",
+    dataset["notes"] = [
+        "Generated from the secure Blizzard Game Data API importer.",
+        "Blizzard API credentials are never placed in browser JavaScript.",
+        "The importer no longer scans the historical weapon/armor item catalog.",
+        "The gear candidate pool starts from current Midnight Adventure Journal loot.",
+        "The optimizer scope is Season 2 and newer, not Season 1 or older historical gear.",
+        "Detailed item stats and effects are imported from the Blizzard item endpoint.",
+        "Some non-Journal sources such as vendors, crafted gear, and certain BoEs require a later source-specific import phase.",
     ]
-    dataset["notes"] = notes
 
     with open(OUTPUT, "w", encoding="utf-8") as handle:
         json.dump(dataset, handle, indent=2)
         handle.write("\n")
 
-    print(f"Blizzard gear catalog imported successfully: {len(items)} items.")
+    print(
+        f"Current Retail gear import completed: {len(items)} enriched items "
+        f"from {len(item_sources)} current-expansion loot candidates."
+    )
 
 
 if __name__ == "__main__":
