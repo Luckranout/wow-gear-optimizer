@@ -741,6 +741,99 @@ def find_recipe_output_item_id(token, recipe_name, profession_name, cache):
     return chosen
 
 
+def fetch_modified_crafting_slot_metadata(token, slots, cache):
+    """Resolve Blizzard modified-crafting slot types/categories.
+
+    Recipe responses expose optional/modified crafting inputs through
+    modified_crafting_slots rather than a reliable optional_reagents field.
+    The slot-type endpoint also exposes compatible categories, which lets the
+    dataset retain the actual Blizzard structure instead of guessing from
+    recipe names.
+    """
+    enriched = []
+
+    for slot in slots or []:
+        if not isinstance(slot, dict):
+            continue
+
+        slot_type = slot.get("slot_type") or slot.get("slotType") or {}
+        slot_id = extract_id(slot_type)
+        if not slot_id:
+            continue
+
+        cache_key = ("slot", slot_id)
+        if cache_key not in cache:
+            try:
+                cache[cache_key] = get_api_json(
+                    f"/data/wow/modified-crafting/reagent-slot-type/{slot_id}",
+                    token,
+                    {"namespace": NAMESPACE, "locale": LOCALE},
+                )
+            except urllib.error.HTTPError as error:
+                print(
+                    f"Skipping modified crafting slot type {slot_id}: "
+                    f"Blizzard returned HTTP {error.code}."
+                )
+                cache[cache_key] = {}
+
+            time.sleep(REQUEST_DELAY_SECONDS)
+
+        resolved = cache[cache_key]
+        categories = []
+
+        for category_ref in resolved.get("compatible_categories", []) or []:
+            category_id = extract_id(category_ref)
+            if not category_id:
+                continue
+
+            category_key = ("category", category_id)
+            if category_key not in cache:
+                try:
+                    cache[category_key] = get_api_json(
+                        f"/data/wow/modified-crafting/category/{category_id}",
+                        token,
+                        {"namespace": NAMESPACE, "locale": LOCALE},
+                    )
+                except urllib.error.HTTPError as error:
+                    print(
+                        f"Skipping modified crafting category {category_id}: "
+                        f"Blizzard returned HTTP {error.code}."
+                    )
+                    cache[category_key] = {}
+
+                time.sleep(REQUEST_DELAY_SECONDS)
+
+            category_data = cache[category_key]
+            categories.append({
+                "id": category_id,
+                "name": localized_name(category_data.get("name"))
+                    or localized_name(category_ref.get("name")),
+            })
+
+        enriched.append({
+            "slotTypeId": slot_id,
+            "name": localized_name(slot_type.get("name"))
+                or localized_name(resolved.get("name")),
+            "description": localized_name(resolved.get("description")),
+            "displayOrder": slot.get("display_order", slot.get("displayOrder")),
+            "compatibleCategories": categories,
+        })
+
+    return enriched
+
+
+def modified_crafting_text(slots):
+    parts = []
+    for slot in slots or []:
+        parts.extend([
+            slot.get("name") or "",
+            slot.get("description") or "",
+        ])
+        for category in slot.get("compatibleCategories", []) or []:
+            parts.append(category.get("name") or "")
+    return normalize_name(" ".join(parts))
+
+
 def collect_profession_supporting_data(token):
     """Collect current Midnight profession recipes and resolve their outputs."""
     profession_index = get_api_json(
@@ -760,6 +853,7 @@ def collect_profession_supporting_data(token):
     profession_counts = {}
     recipe_output_cache = {}
     fallback_output_count = 0
+    modified_crafting_cache = {}
 
     for profession_ref in profession_refs:
         profession_id = extract_id(profession_ref)
@@ -827,16 +921,25 @@ def collect_profession_supporting_data(token):
                     # reducing a recipe to only its output item. These fields are needed
                     # later for recrafting, optional reagents, stat selection, quality,
                     # and embellishment-aware optimization.
-                    modified_crafting_slots = (
+                    raw_modified_crafting_slots = (
                         recipe.get("modified_crafting_slots")
                         or recipe.get("modifiedCraftingSlots")
                         or []
+                    )
+                    modified_crafting_slots = fetch_modified_crafting_slot_metadata(
+                        token,
+                        raw_modified_crafting_slots,
+                        modified_crafting_cache,
                     )
                     optional_reagents = (
                         recipe.get("optional_reagents")
                         or recipe.get("optionalReagents")
                         or []
                     )
+                    # Blizzard commonly represents optional/modified inputs via
+                    # modified_crafting_slots. Preserve both API shapes.
+                    if not optional_reagents and modified_crafting_slots:
+                        optional_reagents = modified_crafting_slots
                     crafting_quality = (
                         recipe.get("crafting_quality")
                         or recipe.get("craftingQuality")
@@ -867,7 +970,9 @@ def collect_profession_supporting_data(token):
                         "isEmbellishment": (
                             "embellishment" in normalize_name(recipe_name)
                             or "embellishment" in normalize_name(recipe_description)
+                            or "embellishment" in modified_crafting_text(modified_crafting_slots)
                         ),
+                        "modifiedCraftingText": modified_crafting_text(modified_crafting_slots),
                         "seasonScope": SEASON_SCOPE,
                         "source": "Blizzard Game Data API — current Midnight profession recipe",
                     })
