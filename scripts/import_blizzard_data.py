@@ -424,19 +424,24 @@ def collect_pvp_season_item_ids(token):
     }
 
 def reference_id(value):
-    """Extract an ID from Blizzard references, including href-only references."""
+    """Extract an ID from Blizzard references, including key.href-only references."""
+    if isinstance(value, int):
+        return value
     if isinstance(value, dict):
         value_id = value.get("id")
         if isinstance(value_id, int):
             return value_id
-        href = value.get("href")
-        if href:
-            for part in reversed(str(href).rstrip("/").split("/")):
-                try:
-                    return int(part)
-                except ValueError:
-                    continue
-    return value if isinstance(value, int) else None
+
+        for candidate in (value.get("href"), (value.get("key") or {}).get("href")):
+            if candidate:
+                # Talent-tree references commonly expose the ID only inside key.href.
+                parts = str(candidate).rstrip("/").split("/")
+                for part in reversed(parts):
+                    try:
+                        return int(part.split("?")[0])
+                    except ValueError:
+                        continue
+    return None
 
 
 def collect_talent_data(token):
@@ -506,7 +511,14 @@ def collect_talent_data(token):
         token,
         {"namespace": NAMESPACE, "locale": LOCALE},
     )
-    tree_refs = tree_index.get("talent_trees") or tree_index.get("trees") or []
+    tree_refs = (
+        tree_index.get("spec_talent_trees")
+        or tree_index.get("hero_talent_trees")
+        or tree_index.get("class_talent_trees")
+        or tree_index.get("talent_trees")
+        or tree_index.get("trees")
+        or []
+    )
 
     tree_records = []
     seen_tree_keys = set()
