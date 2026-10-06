@@ -11,6 +11,7 @@ API_BASE = "https://us.api.blizzard.com"
 TOKEN_URL = "https://oauth.battle.net/token"
 OUTPUT = "data/current-retail.json"
 NAMESPACE = "static-us"
+PVP_NAMESPACE = "dynamic-us"
 LOCALE = "en_US"
 REQUEST_DELAY_SECONDS = 0.15
 MAX_RETRIES = 4
@@ -18,7 +19,6 @@ MAX_RETRIES = 4
 MINIMUM_SEASON = 2
 SEASON_SCOPE = "Midnight Season 2+"
 
-# Season 2 PvE sources exposed through the Adventure Journal.
 SEASON_CONTENT_NAMES = {
     "The Venomous Abyss",
     "Venomous Abyss",
@@ -32,10 +32,6 @@ SEASON_CONTENT_NAMES = {
     "Ruby Life Pools",
     "The Tidebound Grotto",
 }
-
-# Season 2+ is a source scope, not an item-level range. New Season 2
-# sources such as Kith'ix and Labyrinth of Kindo'jan are added to this
-# catalog as soon as Blizzard exposes them through the API.
 
 
 def request_json(url, headers=None, data=None):
@@ -246,11 +242,6 @@ def collect_season_content_item_ids(token):
 
 
 def extract_pvp_item_ids(value, item_sources, path=""):
-    """
-    PvP reward payloads can nest item references differently between API
-    versions. Only collect IDs from fields explicitly named item/item_id;
-    do not mistake currencies, achievements, tiers, or ratings for items.
-    """
     if isinstance(value, dict):
         for key, child in value.items():
             key_lower = str(key).lower()
@@ -265,10 +256,11 @@ def extract_pvp_item_ids(value, item_sources, path=""):
 
 
 def collect_pvp_season_item_ids(token):
+    # PvP season data is dynamic data; using static-us here returns 404.
     response = get_api_json(
         "/data/wow/pvp-season/index",
         token,
-        {"namespace": NAMESPACE, "locale": LOCALE},
+        {"namespace": PVP_NAMESPACE, "locale": LOCALE},
     )
 
     seasons = response.get("pvp_seasons") or response.get("seasons") or []
@@ -294,13 +286,13 @@ def collect_pvp_season_item_ids(token):
     detail = get_api_json(
         f"/data/wow/pvp-season/{season_id}",
         token,
-        {"namespace": NAMESPACE, "locale": LOCALE},
+        {"namespace": PVP_NAMESPACE, "locale": LOCALE},
     )
 
     rewards = get_api_json(
         f"/data/wow/pvp-season/{season_id}/pvp-reward/index",
         token,
-        {"namespace": NAMESPACE, "locale": LOCALE},
+        {"namespace": PVP_NAMESPACE, "locale": LOCALE},
     )
 
     reward_sources = {}
@@ -407,8 +399,6 @@ def main():
     dataset["items"] = items
     dataset["season"] = MINIMUM_SEASON
 
-    # Preserve the structured PVP section for the optimizer UI while the
-    # actual equippable PvP items also live in the unified items catalog.
     dataset["pvp"] = [{
         "season": pvp_metadata["name"],
         "seasonId": pvp_metadata["id"],
