@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WoW Gear Optimizer</title>
+  <meta name="description" content="Retail World of Warcraft gear and character optimizer.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">⚔</div>
+      <div>
+        <div class="brand-title">WoW Gear Optimizer</div>
+        <div class="brand-subtitle">Retail • Current Season</div>
+      </div>
+    </div>
+    <div class="status"><span class="dot"></span> Foundation build</div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">RETAIL CHARACTER OPTIMIZER</p>
+        <h1>Build your strongest character.</h1>
+        <p class="hero-copy">
+          Choose a class, specialization, and goal. The optimizer will eventually evaluate
+          gear, gems, enchants, upgrades, crafted enhancements, and consumables together.
+        </p>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-label">Current data scope</div>
+        <div class="hero-card-value">Current expansion + season</div>
+        <div class="hero-card-note">Live data connection will be added next.</div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <div>
+          <h2>Character setup</h2>
+          <p>Tell the optimizer what you're building for.</p>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <label>
+          Class
+          <select id="classSelect">
+            <option value="">Select class</option>
+            <option>Death Knight</option>
+            <option>Demon Hunter</option>
+            <option>Druid</option>
+            <option>Evoker</option>
+            <option>Hunter</option>
+            <option>Mage</option>
+            <option>Monk</option>
+            <option>Paladin</option>
+            <option>Priest</option>
+            <option>Rogue</option>
+            <option>Shaman</option>
+            <option>Warlock</option>
+            <option>Warrior</option>
+          </select>
+        </label>
+
+        <label>
+          Specialization
+          <select id="specSelect" disabled>
+            <option value="">Select class first</option>
+          </select>
+        </label>
+
+        <label>
+          Goal
+          <select id="goalSelect">
+            <option>Mythic+</option>
+            <option>Raid</option>
+            <option>PvP</option>
+            <option>General / All-around</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="actions">
+        <button class="primary" id="optimizeBtn">Optimize Character</button>
+        <button class="secondary" id="clearBtn">Clear</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <div>
+          <h2>Complete equipment</h2>
+          <p>Every slot will be evaluated individually and as part of the complete setup.</p>
+        </div>
+      </div>
+      <div class="slot-grid" id="slotGrid"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <div>
+          <h2>Character enhancements</h2>
+          <p>These will be included in the final optimization.</p>
+        </div>
+      </div>
+      <div class="enhancement-grid">
+        <div class="enhancement"><span>💎</span><b>Gems</b><small>Best gems for the build</small></div>
+        <div class="enhancement"><span>✨</span><b>Enchants</b><small>Best applicable enchants</small></div>
+        <div class="enhancement"><span>🔧</span><b>Upgrades</b><small>Best upgrade path</small></div>
+        <div class="enhancement"><span>🛠️</span><b>Embellishments</b><small>Crafted effects</small></div>
+        <div class="enhancement"><span>🍖</span><b>Food</b><small>Best food buff</small></div>
+        <div class="enhancement"><span>🧪</span><b>Flask / Phial</b><small>Best current option</small></div>
+        <div class="enhancement"><span>🧴</span><b>Potions</b><small>Best combat potion</small></div>
+        <div class="enhancement"><span>⚗️</span><b>Other</b><small>Applicable character buffs</small></div>
+      </div>
+    </section>
+
+    <section class="panel results" id="results">
+      <div class="panel-heading">
+        <div>
+          <h2>Optimization results</h2>
+          <p id="resultMessage">Choose your class and specialization, then run the optimizer.</p>
+        </div>
+      </div>
+      <div class="result-placeholder">
+        <div class="result-icon">⚔️</div>
+        <h3>Optimizer engine coming next</h3>
+        <p>
+          This first build establishes the interface. Next we'll connect current Retail data
+          and teach the engine how to compare complete gear combinations.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>WoW Gear Optimizer</span>
+    <span>Retail data architecture • Foundation v0.1</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
