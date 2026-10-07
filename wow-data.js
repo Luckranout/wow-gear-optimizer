@@ -44,7 +44,18 @@ function createEmptyRetailDataset() {
     encounters: [],
     dungeons: [],
     pvp: [],
-    notes: []
+    notes: [],
+    optimizationProfiles: {},
+    talents: {
+      specializations: [],
+      trees: [],
+      seasonScope: null,
+      source: null,
+      specializationCount: 0,
+      treeCount: 0,
+      nodeCount: 0,
+      apexReferenceCount: 0
+    }
   };
 }
 
@@ -71,6 +82,14 @@ function normalizeRetailDataset(input) {
       ascendantVenomstone: data.upgradeSystem?.ascendantVenomstone || null
     },
     setBonuses: Array.isArray(data.setBonuses) ? data.setBonuses : [],
+    optimizationProfiles: data.optimizationProfiles && typeof data.optimizationProfiles === "object"
+      ? data.optimizationProfiles : {},
+    talents: {
+      ...base.talents,
+      ...(data.talents || {}),
+      specializations: Array.isArray(data.talents?.specializations) ? data.talents.specializations : [],
+      trees: Array.isArray(data.talents?.trees) ? data.talents.trees : []
+    },
     encounters: Array.isArray(data.encounters) ? data.encounters : [],
     dungeons: Array.isArray(data.dungeons) ? data.dungeons : [],
     pvp: Array.isArray(data.pvp) ? data.pvp : [],
