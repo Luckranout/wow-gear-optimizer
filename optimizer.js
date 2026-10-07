@@ -277,14 +277,20 @@ function optimizeEquipment({
   };
 }
 
-function findUpgradeOpportunities({currentEquipment = {}, availableItems = [], goal = WOW_GOALS.general, limit = 5} = {}) {
-  const statWeights = getGoalWeights(goal);
+function findUpgradeOpportunities({
+  currentEquipment = {},
+  availableItems = [],
+  goal = WOW_GOALS.general,
+  statWeights = null,
+  limit = 5
+} = {}) {
+  const weights = statWeights || getGoalWeights(goal);
   const upgrades = [];
   for (const slot of WOW_EQUIPMENT_SLOTS) {
     const currentItem = currentEquipment[slot];
-    const currentScore = scoreItem(currentItem, statWeights);
+    const currentScore = scoreItem(currentItem, weights);
     const candidates = availableItems.filter(item => item.slot === slot)
-      .map(item => ({ item, score: scoreItem(item, statWeights) }))
+      .map(item => ({ item, score: scoreItem(item, weights) }))
       .filter(candidate => candidate.score > currentScore)
       .sort((a, b) => b.score - a.score);
     if (candidates.length) {
@@ -298,9 +304,9 @@ function findUpgradeOpportunities({currentEquipment = {}, availableItems = [], g
   return upgrades.sort((a, b) => b.improvement - a.improvement).slice(0, limit);
 }
 
-function rankItems(items, goal = WOW_GOALS.general) {
-  const statWeights = getGoalWeights(goal);
-  return (items || []).map(item => ({ item, score: scoreItem(item, statWeights) }))
+function rankItems(items, goal = WOW_GOALS.general, statWeights = null) {
+  const weights = statWeights || getGoalWeights(goal);
+  return (items || []).map(item => ({ item, score: scoreItem(item, weights) }))
     .sort((a, b) => b.score - a.score);
 }
 
@@ -460,7 +466,13 @@ function createOptimizationReport({character = createCharacterProfile(), availab
   });
   const statSummary = getCharacterStatSummary(character.statistics, statWeights);
   const optimized = optimizeEquipment({ items: availableItems, character, goal, statWeights });
-  const upgrades = findUpgradeOpportunities({ currentEquipment: character.equipment, availableItems, goal, limit: 5 });
+  const upgrades = findUpgradeOpportunities({
+    currentEquipment: character.equipment,
+    availableItems,
+    goal,
+    statWeights,
+    limit: 5
+  });
   const system = upgradeSystem || getUpgradeSystem(dataset);
   const upgradePlans = WOW_EQUIPMENT_SLOTS
     .map(slot => character.equipment?.[slot] ? recommendUpgradePlan({
