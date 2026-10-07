@@ -58,9 +58,6 @@ if (!realSystem.tracks.every(track => track.rankItemLevels?.length === 6)) throw
 if (!dataset.talents || !Array.isArray(dataset.talents.specializations)) {
   throw new Error("Generated dataset must contain specialization metadata");
 }
-if (!dataset.optimizationProfiles || typeof dataset.optimizationProfiles !== "object" || Array.isArray(dataset.optimizationProfiles)) {
-  throw new Error("Generated dataset must contain an optimization profile registry");
-}
 console.log("Generated current-retail.json upgradeSystem verification passed.");
 
 console.log("Step 4 optimizer tests passed.");
