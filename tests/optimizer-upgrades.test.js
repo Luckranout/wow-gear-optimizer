@@ -277,7 +277,8 @@ const specCharacter = {
   ...importedProfile,
   className: "Warrior",
   specialization: "Arms",
-  goal: o.goals.mythicPlus
+  goal: o.goals.mythicPlus,
+  statistics: { Strength: 100, Haste: 50, CriticalStrike: 25 }
 };
 const specDataset = {
   ...dataset,
