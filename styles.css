@@ -140,3 +140,14 @@ footer {
   padding-top: 6px;
   border-top: 1px solid var(--border);
 }
+
+
+.optimization-source {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #0c1017;
+  color: var(--muted);
+  font-size: 12px;
+}
