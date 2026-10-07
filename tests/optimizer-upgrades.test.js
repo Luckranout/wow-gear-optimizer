@@ -186,3 +186,52 @@ if (importedReport.character.characterId !== 777 ||
   throw new Error("Imported character optimizer integration failed");
 }
 console.log("Step 6B character-to-optimizer integration passed.");
+
+// Step 8: character statistics baseline.
+const rawStats = {
+  strength: 1200,
+  agility: 300,
+  haste: 25.5,
+  critical_strike: 40,
+  mastery: 50,
+  versatility: 20,
+  unknown_stat: 999
+};
+const normalizedStats = o.normalizeCharacterStatistics(rawStats);
+if (normalizedStats.Strength !== 1200 ||
+    normalizedStats.Agility !== 300 ||
+    normalizedStats.Haste !== 25.5 ||
+    normalizedStats.CriticalStrike !== 40 ||
+    normalizedStats.Mastery !== 50 ||
+    normalizedStats.Versatility !== 20 ||
+    normalizedStats.unknown_stat !== 999) {
+  throw new Error("Character statistic normalization failed");
+}
+const statSummary = o.getCharacterStatSummary(rawStats);
+if (statSummary.trackedStats.Strength !== 1200 ||
+    statSummary.trackedStats.Haste !== 25.5 ||
+    statSummary.weightedScore <= 0) {
+  throw new Error("Character statistic summary failed");
+}
+
+const statsCharacter = {
+  ...importedCharacter,
+  statistics: rawStats
+};
+const statsProfile = o.createCharacterProfileFromImport({
+  importedCharacter: statsCharacter,
+  goal: o.goals.mythicPlus
+});
+if (statsProfile.statistics.CriticalStrike !== 40) {
+  throw new Error("Imported character statistics mapping failed");
+}
+const statsReport = o.createOptimizationReport({
+  character: statsProfile,
+  availableItems: [],
+  dataset
+});
+if (statsReport.currentStats.trackedStats.Haste !== 25.5 ||
+    statsReport.currentStats.weightedScore <= 0) {
+  throw new Error("Optimization report character statistics baseline failed");
+}
+console.log("Step 8 character statistics baseline passed.");
