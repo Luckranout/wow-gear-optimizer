@@ -184,13 +184,50 @@ function getSpecProfileContext({ dataset = null, className = "", specialization 
   };
 }
 
+function normalizeSimulationScaleFactors(scaleFactors = {}) {
+  const aliases = {
+    strength: "Strength", agility: "Agility", intellect: "Intellect", stamina: "Stamina",
+    criticalstrike: "CriticalStrike", crit: "CriticalStrike", haste: "Haste",
+    mastery: "Mastery", versatility: "Versatility"
+  };
+  const normalized = {};
+  for (const [rawKey, rawValue] of Object.entries(scaleFactors || {})) {
+    const key = String(rawKey).replace(/[\s_-]/g, "").toLowerCase();
+    const value = Number(rawValue);
+    if (!Number.isFinite(value) || value < 0) continue;
+    normalized[aliases[key] || rawKey] = value;
+  }
+  return normalized;
+}
+
+function getSimulationWeightContext(simulation = null) {
+  if (!simulation || typeof simulation !== "object") return null;
+  const scaleFactors = normalizeSimulationScaleFactors(
+    simulation.scaleFactors || simulation.weights || {}
+  );
+  if (!Object.keys(scaleFactors).length) return null;
+
+  return {
+    source: simulation.source || "Simulation-derived",
+    method: simulation.method || "scale-factors",
+    patch: simulation.patch || null,
+    specialization: simulation.specialization || null,
+    characterId: simulation.characterId ?? null,
+    generatedAt: simulation.generatedAt || null,
+    scaleFactors
+  };
+}
+
 function resolveStatWeights({
   goal = WOW_GOALS.general,
   className = "",
   specialization = "",
-  statProfiles = null
+  statProfiles = null,
+  simulation = null
 } = {}) {
   const goalWeights = getGoalWeights(goal);
+  const simulationContext = getSimulationWeightContext(simulation);
+  if (simulationContext) return { ...goalWeights, ...simulationContext.scaleFactors };
   if (!statProfiles || typeof statProfiles !== "object") return goalWeights;
 
   const classProfiles = statProfiles[className];
@@ -405,11 +442,14 @@ function recommendUpgradePlan({ currentItem, upgradeSystem, availableCrests = {}
 
 function createOptimizationReport({character = createCharacterProfile(), availableItems = [], dataset = null, upgradeSystem = null} = {}) {
   const goal = character.goal || WOW_GOALS.general;
+  const simulation = character.simulation || dataset?.simulation || null;
+  const simulationContext = getSimulationWeightContext(simulation);
   const statWeights = resolveStatWeights({
     goal,
     className: character.className,
     specialization: character.specialization,
-    statProfiles: dataset?.optimizationProfiles
+    statProfiles: dataset?.optimizationProfiles,
+    simulation
   });
   const statSummary = getCharacterStatSummary(character.statistics, statWeights);
   const optimized = optimizeEquipment({ items: availableItems, character, goal, statWeights });
@@ -435,7 +475,7 @@ const WOW_OPTIMIZER_TEST_DATA = [
 
 window.WoWOptimizer = {
   slots: WOW_EQUIPMENT_SLOTS, goals: WOW_GOALS,
-  createCharacterProfile, normalizeCharacterStatistics, scoreCharacterStatistics, getCharacterStatSummary, resolveStatWeights, findBlizzardSpecialization, getSpecProfileContext,
+  createCharacterProfile, normalizeCharacterStatistics, scoreCharacterStatistics, getCharacterStatSummary, resolveStatWeights, normalizeSimulationScaleFactors, getSimulationWeightContext, findBlizzardSpecialization, getSpecProfileContext,
   normalizeImportedEquipment, createCharacterProfileFromImport, scoreItem, scoreEquipment, getGoalWeights,
   findBestItemForSlot, optimizeEquipment, findUpgradeOpportunities, rankItems,
   getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,
