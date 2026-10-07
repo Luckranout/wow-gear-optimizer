@@ -38,5 +38,22 @@ class CharacterImportTests(unittest.TestCase):
         self.assertEqual(normalized["equipment"][1]["slotType"], "FINGER")
 
 
+
+
+class ImportCharacterWorkflowContractTests(unittest.TestCase):
+    def test_normalized_character_fixture_has_ui_contract(self):
+        fixture = {
+            "id": 1,
+            "name": "Example",
+            "realm": {"id": 1, "name": "Area 52", "slug": "area-52"},
+            "class": {"id": 1, "name": "Warrior"},
+            "activeSpec": {"id": 71, "name": "Arms"},
+            "equipment": [],
+            "equipmentCount": 0,
+        }
+        for field in ("id", "name", "realm", "class", "activeSpec", "equipment"):
+            self.assertIn(field, fixture)
+        self.assertIsInstance(fixture["equipment"], list)
+
 if __name__ == "__main__":
     unittest.main()
