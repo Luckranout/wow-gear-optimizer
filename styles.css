@@ -110,3 +110,18 @@ footer {
   .status { display:none; }
   .container { width:92vw; }
 }
+
+.import-box {
+  display:grid; grid-template-columns:1fr minmax(220px, .5fr); gap:16px;
+  align-items:center; margin-bottom:22px; padding:18px;
+  background:#0c1017; border:1px solid var(--border); border-radius:13px;
+}
+.import-box h3 { margin:0 0 6px; }
+.import-box p { margin:0; color:var(--muted); font-size:13px; line-height:1.5; }
+.file-label input {
+  display:block; width:100%; margin-top:8px; box-sizing:border-box;
+  color:var(--muted); font:inherit; font-weight:500;
+}
+.import-status { grid-column:1 / -1; color:var(--muted); font-size:13px; }
+.import-status.error { color:#ff8f8f; }
+@media (max-width: 800px) { .import-box { grid-template-columns:1fr; } }
