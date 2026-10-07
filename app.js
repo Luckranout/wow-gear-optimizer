@@ -33,6 +33,7 @@ const simulationFile = document.querySelector("#simulationFile");
 const simulationStatus = document.querySelector("#simulationStatus");
 const simulationResults = document.querySelector("#simulationResults");
 const upgradeResults = document.querySelector("#upgradeResults");
+const loadoutResults = document.querySelector("#loadoutResults");
 const optimizationSource = document.querySelector("#optimizationSource");
 const simulationExportBtn = document.querySelector("#simulationExportBtn");
 let importedSimulation = null;
@@ -125,6 +126,21 @@ function renderUpgradeResults(upgrades = [], simulation = null) {
       <div class="upgrade-improvement">+${formatGearScore(upgrade.improvement)} weighted score</div>
     </article>
   `).join("");
+}
+function renderOptimizedLoadout(equipment = {}, score = 0, simulation = null) {
+  const entries = Object.entries(equipment).filter(([, item]) => item);
+  if (!entries.length) {
+    loadoutResults.innerHTML = '<div class="result-empty">No optimized loadout is available from the current dataset.</div>';
+    return;
+  }
+  const sourceLabel = simulation ? "SimulationCraft-weighted" : "Goal/spec-weighted";
+  loadoutResults.innerHTML = entries.map(([slot, item]) => `
+    <div class="loadout-row">
+      <div class="loadout-slot">${slot}</div>
+      <div class="loadout-item">${item.name || "Unnamed item"}</div>
+      <div class="loadout-ilvl">iLvl ${item.itemLevel ?? item.level ?? "—"}</div>
+    </div>
+  `).join("") + `<div class="loadout-summary"><strong>Optimized weighted score: ${formatGearScore(score)}</strong><span>${sourceLabel}</span></div>`;
 }
 function setSelectValue(select, value) {
   if (!value) return;
@@ -272,6 +288,7 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
     : `Using baseline goal/spec weights • ${character.goal}`;
 
   renderUpgradeResults(report.topUpgrades, importedSimulation);
+  renderOptimizedLoadout(report.optimizedEquipment, report.totalScore, importedSimulation);
 
 
   const label = importedCharacter
@@ -301,6 +318,7 @@ document.querySelector("#clearBtn").addEventListener("click", () => {
   goalSelect.value = "Mythic+";
   optimizationSource.textContent = "Optimization source will appear after the optimizer runs.";
   renderUpgradeResults([]);
+  renderOptimizedLoadout({});
   resultMessage.textContent = "Import a character or choose a class and specialization, then run the optimizer.";
   renderSlots();
 });
