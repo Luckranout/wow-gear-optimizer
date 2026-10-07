@@ -28,7 +28,7 @@ function normalizeCharacterStatistics(statistics = {}) {
   };
   const normalized = {};
   for (const [rawKey, rawValue] of Object.entries(statistics || {})) {
-    const key = String(rawKey).replace(/[\\s_-]/g, "").toLowerCase();
+    const key = String(rawKey).replace(/[\s_-]/g, "").toLowerCase();
     const numericValue = Number(rawValue);
     if (!Number.isFinite(numericValue)) continue;
     normalized[aliases[key] || rawKey] = numericValue;
