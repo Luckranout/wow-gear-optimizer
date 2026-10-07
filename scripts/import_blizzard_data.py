@@ -1124,6 +1124,167 @@ def fetch_item_details(token, item_ids, item_sources):
     return items
 
 
+
+def collect_upgrade_and_crest_data():
+    """Build explicit Midnight Season 2 upgrade-track and crest rules.
+
+    Blizzard's public Game Data API does not expose a complete seasonal
+    upgrade-track catalog as a single resource, so keep the seasonal ladder
+    explicit and versioned rather than inferring it from item level alone.
+    """
+    tracks = [
+        {
+            "id": "adventurer",
+            "name": "Adventurer",
+            "crest": "Adventurer Mistcrest",
+            "ranks": [266, 269, 272, 276, 279, 282],
+            "maxRank": 6,
+        },
+        {
+            "id": "veteran",
+            "name": "Veteran",
+            "crest": "Veteran Mistcrest",
+            "ranks": [279, 282, 285, 289, 292, 295],
+            "maxRank": 6,
+        },
+        {
+            "id": "champion",
+            "name": "Champion",
+            "crest": "Champion Mistcrest",
+            "ranks": [292, 295, 298, 302, 305, 308],
+            "maxRank": 6,
+        },
+        {
+            "id": "hero",
+            "name": "Hero",
+            "crest": "Hero Mistcrest",
+            "ranks": [305, 308, 311, 315, 318, 321],
+            "maxRank": 6,
+        },
+        {
+            "id": "myth",
+            "name": "Myth",
+            "crest": "Myth Mistcrest",
+            "ranks": [318, 321, 324, 328, 331, 334],
+            "maxRank": 6,
+        },
+    ]
+
+    for track in tracks:
+        track["seasonScope"] = SEASON_SCOPE
+        track["crestCostPerUpgrade"] = 20
+        track["weeklyCrestCap"] = 100
+        track["itemLevelMin"] = track["ranks"][0]
+        track["itemLevelMax"] = track["ranks"][-1]
+        track["rankCount"] = len(track["ranks"])
+        track["rankItemLevels"] = [
+            {"rank": index + 1, "itemLevel": item_level}
+            for index, item_level in enumerate(track["ranks"])
+        ]
+
+    crests = [
+        {
+            "id": "adventurer-mistcrest",
+            "name": "Adventurer Mistcrest",
+            "track": "Adventurer",
+            "itemLevelRange": [269, 282],
+            "source": "Midnight Season 2 upgrade currency",
+        },
+        {
+            "id": "veteran-mistcrest",
+            "name": "Veteran Mistcrest",
+            "track": "Veteran",
+            "itemLevelRange": [282, 295],
+            "source": "Midnight Season 2 upgrade currency",
+        },
+        {
+            "id": "champion-mistcrest",
+            "name": "Champion Mistcrest",
+            "track": "Champion",
+            "itemLevelRange": [295, 308],
+            "source": "Midnight Season 2 upgrade currency",
+        },
+        {
+            "id": "hero-mistcrest",
+            "name": "Hero Mistcrest",
+            "track": "Hero",
+            "itemLevelRange": [308, 321],
+            "source": "Midnight Season 2 upgrade currency",
+        },
+        {
+            "id": "myth-mistcrest",
+            "name": "Myth Mistcrest",
+            "track": "Myth",
+            "itemLevelRange": [321, 334],
+            "source": "Midnight Season 2 upgrade currency",
+        },
+    ]
+
+    exchange_rules = [
+        {
+            "from": "Adventurer Mistcrest",
+            "to": "Veteran Mistcrest",
+            "ratio": "3:1",
+            "requirement": "Adventurer of the Mist",
+        },
+        {
+            "from": "Veteran Mistcrest",
+            "to": "Champion Mistcrest",
+            "ratio": "3:1",
+            "requirement": "Veteran of the Mist",
+        },
+        {
+            "from": "Champion Mistcrest",
+            "to": "Hero Mistcrest",
+            "ratio": "3:1",
+            "requirement": "Champion of the Mist",
+        },
+        {
+            "from": "Hero Mistcrest",
+            "to": "Myth Mistcrest",
+            "ratio": "3:1",
+            "requirement": "Hero of the Mist",
+        },
+    ]
+
+    ascendant_venomstone = {
+        "name": "Ascendant Venomstone",
+        "status": "planned-season-2-feature",
+        "cost": 10,
+        "eligibleSlots": ["Neck", "Trinket 1", "Trinket 2", "Main Hand", "Off Hand"],
+        "eligibleTracks": ["Hero", "Myth"],
+        "requiresFullyUpgradedTrack": True,
+        "requiresMaximumQualityTidalCrafted": True,
+        "seasonScope": SEASON_SCOPE,
+        "notes": [
+            "Uses 10 Ascendant Venomstones per eligible upgrade.",
+            "Only fully upgraded Season 2 Hero/Myth gear or maximum-quality Tidal Crafted gear is eligible.",
+            "The resulting item-level increase is intentionally not hardcoded until the live data is stable.",
+        ],
+    }
+
+    print(
+        f"Upgrade data: {len(tracks)} tracks, "
+        f"{len(crests)} crests, {len(exchange_rules)} crest exchange rules."
+    )
+    print(
+        "Upgrade ladder item levels: "
+        + "; ".join(
+            f"{track['name']} {track['ranks'][0]}-{track['ranks'][-1]}"
+            for track in tracks
+        )
+    )
+
+    return {
+        "tracks": tracks,
+        "crests": crests,
+        "exchangeRules": exchange_rules,
+        "ascendantVenomstone": ascendant_venomstone,
+        "seasonScope": SEASON_SCOPE,
+        "source": "Midnight Season 2 upgrade rules",
+    }
+
+
 def main():
     client_id = os.environ.get("BLIZZARD_CLIENT_ID")
     client_secret = os.environ.get("BLIZZARD_CLIENT_SECRET")
@@ -1145,6 +1306,7 @@ def main():
     item_sources = merge_item_sources(pve_sources, pvp_sources)
 
     talent_data = collect_talent_data(token)
+    upgrade_data = collect_upgrade_and_crest_data()
 
     profession_recipes, profession_output_ids = collect_profession_supporting_data(token)
     supporting_items = fetch_supporting_item_details(token, profession_output_ids)
@@ -1179,6 +1341,8 @@ def main():
     }
 
     dataset["talents"] = talent_data
+    dataset["upgrades"] = upgrade_data["tracks"]
+    dataset["upgradeSystem"] = upgrade_data
 
     dataset["pvp"] = [{
         "season": pvp_metadata["name"],
@@ -1210,7 +1374,11 @@ def main():
         "embellishmentRecipeCount": sum(1 for r in profession_recipes if r.get("isEmbellishment")),
         "optionalReagentRecipeCount": sum(1 for r in profession_recipes if r.get("optionalReagents")),
         "modifiedCraftingSlotRecipeCount": sum(1 for r in profession_recipes if r.get("modifiedCraftingSlots")),
-        "importPhase": "season-2-plus-pve-pvp-talents-professions",
+        "upgradeTrackCount": len(upgrade_data["tracks"]),
+        "crestTypeCount": len(upgrade_data["crests"]),
+        "crestExchangeRuleCount": len(upgrade_data["exchangeRules"]),
+        "ascendantVenomstoneStatus": upgrade_data["ascendantVenomstone"]["status"],
+        "importPhase": "season-2-plus-pve-pvp-talents-professions-upgrades",
         "seasonPolicy": SEASON_SCOPE,
     }
 
@@ -1222,6 +1390,7 @@ def main():
         "Season 2 PvE candidates come from matched Adventure Journal sources.",
         "Season 2 PvP candidates come from Blizzard's PvP Season 2 reward API.",
         "Current Midnight profession recipes are imported for gems, enchants, crafted gear, and other crafted outputs.",
+        "Midnight Season 2 upgrade tracks, Mistcrests, exchange rules, and Ascendant Venomstone eligibility are stored explicitly; upgrade tracks are not inferred from item level.",
         "Unified item records retain their source category so the optimizer can distinguish PvE and PvP gear.",
         "Season 2+ additions such as Kith'ix and Labyrinth of Kindo'jan are added when Blizzard exposes their reward data.",
         "Crafted, vendor, outdoor, Delves, Prey, and other non-Journal sources require their own source-specific importers; they are not silently approximated as Season 2 gear.",

@@ -28,6 +28,12 @@ function createEmptyRetailDataset() {
     enchants: [],
     embellishments: [],
     upgrades: [],
+    upgradeSystem: {
+      tracks: [],
+      crests: [],
+      exchangeRules: [],
+      ascendantVenomstone: null
+    },
     consumables: {
       food: [],
       flaskOrPhial: [],
@@ -56,6 +62,14 @@ function normalizeRetailDataset(input) {
     enchants: Array.isArray(data.enchants) ? data.enchants : [],
     embellishments: Array.isArray(data.embellishments) ? data.embellishments : [],
     upgrades: Array.isArray(data.upgrades) ? data.upgrades : [],
+    upgradeSystem: {
+      ...base.upgradeSystem,
+      ...(data.upgradeSystem || {}),
+      tracks: Array.isArray(data.upgradeSystem?.tracks) ? data.upgradeSystem.tracks : [],
+      crests: Array.isArray(data.upgradeSystem?.crests) ? data.upgradeSystem.crests : [],
+      exchangeRules: Array.isArray(data.upgradeSystem?.exchangeRules) ? data.upgradeSystem.exchangeRules : [],
+      ascendantVenomstone: data.upgradeSystem?.ascendantVenomstone || null
+    },
     setBonuses: Array.isArray(data.setBonuses) ? data.setBonuses : [],
     encounters: Array.isArray(data.encounters) ? data.encounters : [],
     dungeons: Array.isArray(data.dungeons) ? data.dungeons : [],
