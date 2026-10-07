@@ -32,6 +32,17 @@ function parseImportedCharacterJson(text) {
   return validateImportedCharacter(parsed);
 }
 
+function formatCharacterStatistics(statistics = {}) {
+  const labels = {
+    Strength: "Strength", Agility: "Agility", Intellect: "Intellect", Stamina: "Stamina",
+    CriticalStrike: "Critical Strike", Haste: "Haste", Mastery: "Mastery", Versatility: "Versatility"
+  };
+  return Object.entries(statistics || {})
+    .filter(([key, value]) => labels[key] && Number.isFinite(Number(value)))
+    .map(([key, value]) => ({ key, label: labels[key], value: Number(value) }))
+    .sort((a, b) => a.label.localeCompare(b.label));
+}
+
 function formatImportedCharacterSummary(character) {
   if (!character) return "";
   const realm = character.realm?.name || "Unknown realm";
@@ -46,7 +57,8 @@ if (typeof window !== "undefined") {
   window.WoWCharacterImport = {
     validateImportedCharacter,
     parseImportedCharacterJson,
-    formatImportedCharacterSummary
+    formatImportedCharacterSummary,
+    formatCharacterStatistics
   };
 }
 
@@ -54,6 +66,7 @@ if (typeof module !== "undefined") {
   module.exports = {
     validateImportedCharacter,
     parseImportedCharacterJson,
-    formatImportedCharacterSummary
+    formatImportedCharacterSummary,
+    formatCharacterStatistics
   };
 }

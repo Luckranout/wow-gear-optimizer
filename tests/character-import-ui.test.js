@@ -2,7 +2,8 @@ const assert = require("assert");
 const {
   validateImportedCharacter,
   parseImportedCharacterJson,
-  formatImportedCharacterSummary
+  formatImportedCharacterSummary,
+  formatCharacterStatistics
 } = require("../character-import.js");
 
 const valid = {
@@ -12,6 +13,7 @@ const valid = {
   realm: { id: 1, name: "Area 52", slug: "area-52" },
   class: { id: 1, name: "Warrior" },
   activeSpec: { id: 71, name: "Arms" },
+  statistics: { Strength: 1200, Haste: 25.5, CriticalStrike: 40 },
   equipment: [
     { id: 1, name: "Test Helm", slot: "Head", slotType: "HEAD", itemLevel: 318 }
   ]
@@ -38,4 +40,8 @@ assert.match(
   /Testchar — Warrior \/ Arms — Area 52 • Level 90 • 1 equipped items/
 );
 
-console.log("Step 6C character import UI helper tests passed.");
+const stats = formatCharacterStatistics(valid.statistics);
+assert.deepStrictEqual(stats.map(stat => stat.label), ["Critical Strike", "Haste", "Strength"]);
+assert.strictEqual(stats.find(stat => stat.key === "Haste").value, 25.5);
+
+console.log("Step 9 character statistics UI helper tests passed.");
