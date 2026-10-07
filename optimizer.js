@@ -155,6 +155,35 @@ function getGoalWeights(goal) {
   return weights;
 }
 
+function findBlizzardSpecialization(dataset, specializationId = null, specializationName = "") {
+  const records = dataset?.talents?.specializations || [];
+  if (!records.length) return null;
+
+  if (specializationId !== null && specializationId !== undefined) {
+    const byId = records.find(record => Number(record.id) === Number(specializationId));
+    if (byId) return byId;
+  }
+
+  const target = String(specializationName || "").trim().toLowerCase();
+  if (!target) return null;
+  return records.find(record => String(record.name || "").trim().toLowerCase() === target) || null;
+}
+
+function getSpecProfileContext({ dataset = null, className = "", specialization = "", specializationId = null } = {}) {
+  const specializationRecord = findBlizzardSpecialization(
+    dataset,
+    specializationId,
+    specialization
+  );
+  const optimizationProfile =
+    dataset?.optimizationProfiles?.[className]?.[specialization] || null;
+
+  return {
+    specialization: specializationRecord,
+    optimizationProfile
+  };
+}
+
 function resolveStatWeights({
   goal = WOW_GOALS.general,
   className = "",
@@ -406,7 +435,7 @@ const WOW_OPTIMIZER_TEST_DATA = [
 
 window.WoWOptimizer = {
   slots: WOW_EQUIPMENT_SLOTS, goals: WOW_GOALS,
-  createCharacterProfile, normalizeCharacterStatistics, scoreCharacterStatistics, getCharacterStatSummary, resolveStatWeights,
+  createCharacterProfile, normalizeCharacterStatistics, scoreCharacterStatistics, getCharacterStatSummary, resolveStatWeights, findBlizzardSpecialization, getSpecProfileContext,
   normalizeImportedEquipment, createCharacterProfileFromImport, scoreItem, scoreEquipment, getGoalWeights,
   findBestItemForSlot, optimizeEquipment, findUpgradeOpportunities, rankItems,
   getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,
