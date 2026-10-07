@@ -28,6 +28,7 @@ const slotGrid = document.querySelector("#slotGrid");
 const resultMessage = document.querySelector("#resultMessage");
 const characterFile = document.querySelector("#characterFile");
 const importStatus = document.querySelector("#importStatus");
+const statsGrid = document.querySelector("#statsGrid");
 let retailDataset = null;
 let importedCharacter = null;
 
@@ -55,6 +56,18 @@ function renderSlots() {
   `).join("");
 }
 
+function renderCharacterStats(statistics = {}) {
+  const stats = WoWCharacterImport.formatCharacterStatistics(statistics);
+  statsGrid.innerHTML = stats.length
+    ? stats.map(stat => `
+        <div class="stat-card">
+          <div class="stat-label">${stat.label}</div>
+          <div class="stat-value">${stat.value.toLocaleString()}</div>
+        </div>
+      `).join("")
+    : '<div class="stat-empty">No imported character statistics available.</div>';
+}
+
 function setSelectValue(select, value) {
   if (!value) return;
   const option = [...select.options].find(item => item.value === value || item.textContent === value);
@@ -74,6 +87,7 @@ function applyImportedCharacter(character) {
   specSelect.innerHTML = `<option value="${profile.specialization}">${profile.specialization}</option>`;
   specSelect.value = profile.specialization;
   importStatus.textContent = WoWCharacterImport.formatImportedCharacterSummary(character);
+  renderCharacterStats(profile.statistics);
   renderSlots();
   resultMessage.textContent = "Character imported. Run the optimizer to evaluate this character's current equipment.";
 }
@@ -148,6 +162,8 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
     dataset: retailDataset
   });
 
+  renderCharacterStats(report.currentStats.trackedStats);
+
   const availableUpgrades = report.topUpgrades
     .map(upgrade => `${upgrade.slot}: ${upgrade.recommendedItem?.name || "Recommended upgrade"}`)
     .join(" • ");
@@ -166,6 +182,7 @@ document.querySelector("#clearBtn").addEventListener("click", () => {
   characterFile.value = "";
   importStatus.classList.remove("error");
   importStatus.textContent = "No character imported.";
+  renderCharacterStats({});
   classSelect.disabled = false;
   classSelect.value = "";
   specSelect.disabled = true;
