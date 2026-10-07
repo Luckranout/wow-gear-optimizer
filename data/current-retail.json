@@ -6,7 +6,7 @@
   "season": 2,
   "patch": "12.1.0",
   "status": "season-2-plus-source-imported",
-  "updatedAt": "2026-10-07T09:07:56.121723+00:00",
+  "updatedAt": "2026-10-07T11:41:25.440260+00:00",
   "source": "Blizzard Game Data API",
   "items": [
     {
@@ -40590,7 +40590,238 @@
     }
   ],
   "embellishments": [],
-  "upgrades": [],
+  "upgrades": [
+    {
+      "id": "adventurer",
+      "name": "Adventurer",
+      "crest": "Adventurer Mistcrest",
+      "ranks": [
+        266,
+        269,
+        272,
+        276,
+        279,
+        282
+      ],
+      "maxRank": 6,
+      "seasonScope": "Midnight Season 2+",
+      "crestCostPerUpgrade": 20,
+      "weeklyCrestCap": 100,
+      "itemLevelMin": 266,
+      "itemLevelMax": 282,
+      "rankCount": 6,
+      "rankItemLevels": [
+        {
+          "rank": 1,
+          "itemLevel": 266
+        },
+        {
+          "rank": 2,
+          "itemLevel": 269
+        },
+        {
+          "rank": 3,
+          "itemLevel": 272
+        },
+        {
+          "rank": 4,
+          "itemLevel": 276
+        },
+        {
+          "rank": 5,
+          "itemLevel": 279
+        },
+        {
+          "rank": 6,
+          "itemLevel": 282
+        }
+      ]
+    },
+    {
+      "id": "veteran",
+      "name": "Veteran",
+      "crest": "Veteran Mistcrest",
+      "ranks": [
+        279,
+        282,
+        285,
+        289,
+        292,
+        295
+      ],
+      "maxRank": 6,
+      "seasonScope": "Midnight Season 2+",
+      "crestCostPerUpgrade": 20,
+      "weeklyCrestCap": 100,
+      "itemLevelMin": 279,
+      "itemLevelMax": 295,
+      "rankCount": 6,
+      "rankItemLevels": [
+        {
+          "rank": 1,
+          "itemLevel": 279
+        },
+        {
+          "rank": 2,
+          "itemLevel": 282
+        },
+        {
+          "rank": 3,
+          "itemLevel": 285
+        },
+        {
+          "rank": 4,
+          "itemLevel": 289
+        },
+        {
+          "rank": 5,
+          "itemLevel": 292
+        },
+        {
+          "rank": 6,
+          "itemLevel": 295
+        }
+      ]
+    },
+    {
+      "id": "champion",
+      "name": "Champion",
+      "crest": "Champion Mistcrest",
+      "ranks": [
+        292,
+        295,
+        298,
+        302,
+        305,
+        308
+      ],
+      "maxRank": 6,
+      "seasonScope": "Midnight Season 2+",
+      "crestCostPerUpgrade": 20,
+      "weeklyCrestCap": 100,
+      "itemLevelMin": 292,
+      "itemLevelMax": 308,
+      "rankCount": 6,
+      "rankItemLevels": [
+        {
+          "rank": 1,
+          "itemLevel": 292
+        },
+        {
+          "rank": 2,
+          "itemLevel": 295
+        },
+        {
+          "rank": 3,
+          "itemLevel": 298
+        },
+        {
+          "rank": 4,
+          "itemLevel": 302
+        },
+        {
+          "rank": 5,
+          "itemLevel": 305
+        },
+        {
+          "rank": 6,
+          "itemLevel": 308
+        }
+      ]
+    },
+    {
+      "id": "hero",
+      "name": "Hero",
+      "crest": "Hero Mistcrest",
+      "ranks": [
+        305,
+        308,
+        311,
+        315,
+        318,
+        321
+      ],
+      "maxRank": 6,
+      "seasonScope": "Midnight Season 2+",
+      "crestCostPerUpgrade": 20,
+      "weeklyCrestCap": 100,
+      "itemLevelMin": 305,
+      "itemLevelMax": 321,
+      "rankCount": 6,
+      "rankItemLevels": [
+        {
+          "rank": 1,
+          "itemLevel": 305
+        },
+        {
+          "rank": 2,
+          "itemLevel": 308
+        },
+        {
+          "rank": 3,
+          "itemLevel": 311
+        },
+        {
+          "rank": 4,
+          "itemLevel": 315
+        },
+        {
+          "rank": 5,
+          "itemLevel": 318
+        },
+        {
+          "rank": 6,
+          "itemLevel": 321
+        }
+      ]
+    },
+    {
+      "id": "myth",
+      "name": "Myth",
+      "crest": "Myth Mistcrest",
+      "ranks": [
+        318,
+        321,
+        324,
+        328,
+        331,
+        334
+      ],
+      "maxRank": 6,
+      "seasonScope": "Midnight Season 2+",
+      "crestCostPerUpgrade": 20,
+      "weeklyCrestCap": 100,
+      "itemLevelMin": 318,
+      "itemLevelMax": 334,
+      "rankCount": 6,
+      "rankItemLevels": [
+        {
+          "rank": 1,
+          "itemLevel": 318
+        },
+        {
+          "rank": 2,
+          "itemLevel": 321
+        },
+        {
+          "rank": 3,
+          "itemLevel": 324
+        },
+        {
+          "rank": 4,
+          "itemLevel": 328
+        },
+        {
+          "rank": 5,
+          "itemLevel": 331
+        },
+        {
+          "rank": 6,
+          "itemLevel": 334
+        }
+      ]
+    }
+  ],
   "consumables": {
     "food": [],
     "flaskOrPhial": [],
@@ -40616,6 +40847,7 @@
     "Season 2 PvE candidates come from matched Adventure Journal sources.",
     "Season 2 PvP candidates come from Blizzard's PvP Season 2 reward API.",
     "Current Midnight profession recipes are imported for gems, enchants, crafted gear, and other crafted outputs.",
+    "Midnight Season 2 upgrade tracks, Mistcrests, exchange rules, and Ascendant Venomstone eligibility are stored explicitly; upgrade tracks are not inferred from item level.",
     "Unified item records retain their source category so the optimizer can distinguish PvE and PvP gear.",
     "Season 2+ additions such as Kith'ix and Labyrinth of Kindo'jan are added when Blizzard exposes their reward data.",
     "Crafted, vendor, outdoor, Delves, Prey, and other non-Journal sources require their own source-specific importers; they are not silently approximated as Season 2 gear."
@@ -40662,7 +40894,11 @@
     "embellishmentRecipeCount": 150,
     "optionalReagentRecipeCount": 635,
     "modifiedCraftingSlotRecipeCount": 635,
-    "importPhase": "season-2-plus-pve-pvp-talents-professions",
+    "upgradeTrackCount": 5,
+    "crestTypeCount": 5,
+    "crestExchangeRuleCount": 4,
+    "ascendantVenomstoneStatus": "planned-season-2-feature",
+    "importPhase": "season-2-plus-pve-pvp-talents-professions-upgrades",
     "seasonPolicy": "Midnight Season 2+"
   },
   "crafting": {
@@ -219971,5 +220207,343 @@
     "treeCount": 0,
     "nodeCount": 0,
     "apexReferenceCount": 0
+  },
+  "upgradeSystem": {
+    "tracks": [
+      {
+        "id": "adventurer",
+        "name": "Adventurer",
+        "crest": "Adventurer Mistcrest",
+        "ranks": [
+          266,
+          269,
+          272,
+          276,
+          279,
+          282
+        ],
+        "maxRank": 6,
+        "seasonScope": "Midnight Season 2+",
+        "crestCostPerUpgrade": 20,
+        "weeklyCrestCap": 100,
+        "itemLevelMin": 266,
+        "itemLevelMax": 282,
+        "rankCount": 6,
+        "rankItemLevels": [
+          {
+            "rank": 1,
+            "itemLevel": 266
+          },
+          {
+            "rank": 2,
+            "itemLevel": 269
+          },
+          {
+            "rank": 3,
+            "itemLevel": 272
+          },
+          {
+            "rank": 4,
+            "itemLevel": 276
+          },
+          {
+            "rank": 5,
+            "itemLevel": 279
+          },
+          {
+            "rank": 6,
+            "itemLevel": 282
+          }
+        ]
+      },
+      {
+        "id": "veteran",
+        "name": "Veteran",
+        "crest": "Veteran Mistcrest",
+        "ranks": [
+          279,
+          282,
+          285,
+          289,
+          292,
+          295
+        ],
+        "maxRank": 6,
+        "seasonScope": "Midnight Season 2+",
+        "crestCostPerUpgrade": 20,
+        "weeklyCrestCap": 100,
+        "itemLevelMin": 279,
+        "itemLevelMax": 295,
+        "rankCount": 6,
+        "rankItemLevels": [
+          {
+            "rank": 1,
+            "itemLevel": 279
+          },
+          {
+            "rank": 2,
+            "itemLevel": 282
+          },
+          {
+            "rank": 3,
+            "itemLevel": 285
+          },
+          {
+            "rank": 4,
+            "itemLevel": 289
+          },
+          {
+            "rank": 5,
+            "itemLevel": 292
+          },
+          {
+            "rank": 6,
+            "itemLevel": 295
+          }
+        ]
+      },
+      {
+        "id": "champion",
+        "name": "Champion",
+        "crest": "Champion Mistcrest",
+        "ranks": [
+          292,
+          295,
+          298,
+          302,
+          305,
+          308
+        ],
+        "maxRank": 6,
+        "seasonScope": "Midnight Season 2+",
+        "crestCostPerUpgrade": 20,
+        "weeklyCrestCap": 100,
+        "itemLevelMin": 292,
+        "itemLevelMax": 308,
+        "rankCount": 6,
+        "rankItemLevels": [
+          {
+            "rank": 1,
+            "itemLevel": 292
+          },
+          {
+            "rank": 2,
+            "itemLevel": 295
+          },
+          {
+            "rank": 3,
+            "itemLevel": 298
+          },
+          {
+            "rank": 4,
+            "itemLevel": 302
+          },
+          {
+            "rank": 5,
+            "itemLevel": 305
+          },
+          {
+            "rank": 6,
+            "itemLevel": 308
+          }
+        ]
+      },
+      {
+        "id": "hero",
+        "name": "Hero",
+        "crest": "Hero Mistcrest",
+        "ranks": [
+          305,
+          308,
+          311,
+          315,
+          318,
+          321
+        ],
+        "maxRank": 6,
+        "seasonScope": "Midnight Season 2+",
+        "crestCostPerUpgrade": 20,
+        "weeklyCrestCap": 100,
+        "itemLevelMin": 305,
+        "itemLevelMax": 321,
+        "rankCount": 6,
+        "rankItemLevels": [
+          {
+            "rank": 1,
+            "itemLevel": 305
+          },
+          {
+            "rank": 2,
+            "itemLevel": 308
+          },
+          {
+            "rank": 3,
+            "itemLevel": 311
+          },
+          {
+            "rank": 4,
+            "itemLevel": 315
+          },
+          {
+            "rank": 5,
+            "itemLevel": 318
+          },
+          {
+            "rank": 6,
+            "itemLevel": 321
+          }
+        ]
+      },
+      {
+        "id": "myth",
+        "name": "Myth",
+        "crest": "Myth Mistcrest",
+        "ranks": [
+          318,
+          321,
+          324,
+          328,
+          331,
+          334
+        ],
+        "maxRank": 6,
+        "seasonScope": "Midnight Season 2+",
+        "crestCostPerUpgrade": 20,
+        "weeklyCrestCap": 100,
+        "itemLevelMin": 318,
+        "itemLevelMax": 334,
+        "rankCount": 6,
+        "rankItemLevels": [
+          {
+            "rank": 1,
+            "itemLevel": 318
+          },
+          {
+            "rank": 2,
+            "itemLevel": 321
+          },
+          {
+            "rank": 3,
+            "itemLevel": 324
+          },
+          {
+            "rank": 4,
+            "itemLevel": 328
+          },
+          {
+            "rank": 5,
+            "itemLevel": 331
+          },
+          {
+            "rank": 6,
+            "itemLevel": 334
+          }
+        ]
+      }
+    ],
+    "crests": [
+      {
+        "id": "adventurer-mistcrest",
+        "name": "Adventurer Mistcrest",
+        "track": "Adventurer",
+        "itemLevelRange": [
+          269,
+          282
+        ],
+        "source": "Midnight Season 2 upgrade currency"
+      },
+      {
+        "id": "veteran-mistcrest",
+        "name": "Veteran Mistcrest",
+        "track": "Veteran",
+        "itemLevelRange": [
+          282,
+          295
+        ],
+        "source": "Midnight Season 2 upgrade currency"
+      },
+      {
+        "id": "champion-mistcrest",
+        "name": "Champion Mistcrest",
+        "track": "Champion",
+        "itemLevelRange": [
+          295,
+          308
+        ],
+        "source": "Midnight Season 2 upgrade currency"
+      },
+      {
+        "id": "hero-mistcrest",
+        "name": "Hero Mistcrest",
+        "track": "Hero",
+        "itemLevelRange": [
+          308,
+          321
+        ],
+        "source": "Midnight Season 2 upgrade currency"
+      },
+      {
+        "id": "myth-mistcrest",
+        "name": "Myth Mistcrest",
+        "track": "Myth",
+        "itemLevelRange": [
+          321,
+          334
+        ],
+        "source": "Midnight Season 2 upgrade currency"
+      }
+    ],
+    "exchangeRules": [
+      {
+        "from": "Adventurer Mistcrest",
+        "to": "Veteran Mistcrest",
+        "ratio": "3:1",
+        "requirement": "Adventurer of the Mist"
+      },
+      {
+        "from": "Veteran Mistcrest",
+        "to": "Champion Mistcrest",
+        "ratio": "3:1",
+        "requirement": "Veteran of the Mist"
+      },
+      {
+        "from": "Champion Mistcrest",
+        "to": "Hero Mistcrest",
+        "ratio": "3:1",
+        "requirement": "Champion of the Mist"
+      },
+      {
+        "from": "Hero Mistcrest",
+        "to": "Myth Mistcrest",
+        "ratio": "3:1",
+        "requirement": "Hero of the Mist"
+      }
+    ],
+    "ascendantVenomstone": {
+      "name": "Ascendant Venomstone",
+      "status": "planned-season-2-feature",
+      "cost": 10,
+      "eligibleSlots": [
+        "Neck",
+        "Trinket 1",
+        "Trinket 2",
+        "Main Hand",
+        "Off Hand"
+      ],
+      "eligibleTracks": [
+        "Hero",
+        "Myth"
+      ],
+      "requiresFullyUpgradedTrack": true,
+      "requiresMaximumQualityTidalCrafted": true,
+      "seasonScope": "Midnight Season 2+",
+      "notes": [
+        "Uses 10 Ascendant Venomstones per eligible upgrade.",
+        "Only fully upgraded Season 2 Hero/Myth gear or maximum-quality Tidal Crafted gear is eligible.",
+        "The resulting item-level increase is intentionally not hardcoded until the live data is stable."
+      ]
+    },
+    "seasonScope": "Midnight Season 2+",
+    "source": "Midnight Season 2 upgrade rules"
   }
 }
