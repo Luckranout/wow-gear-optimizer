@@ -119,13 +119,36 @@ function createCharacterProfileFromImport({ importedCharacter, goal = WOW_GOALS.
   };
 }
 
+function normalizeItemStatName(stat) {
+  const key = String(stat || "").replace(/[\s_-]/g, "").toLowerCase();
+  const aliases = {
+    strength: "Strength", str: "Strength",
+    agility: "Agility", agi: "Agility",
+    intellect: "Intellect", int: "Intellect",
+    stamina: "Stamina", sta: "Stamina",
+    attackpower: "AttackPower", ap: "AttackPower",
+    criticalstrike: "CriticalStrike", crit: "CriticalStrike", critrating: "CriticalStrike",
+    haste: "Haste", hasterating: "Haste",
+    mastery: "Mastery", masteryrating: "Mastery",
+    versatility: "Versatility", vers: "Versatility", versatilityrating: "Versatility",
+    armor: "Armor", bonusarmor: "BonusArmor", wdps: "WeaponDPS"
+  };
+  return aliases[key] || stat;
+}
+
 function scoreItemStats(item, statWeights = STAT_WEIGHTS) {
   if (!item || !item.stats) return 0;
   const stats = Array.isArray(item.stats)
-    ? Object.fromEntries(item.stats.map(s => [s.stat?.name || s.name, Number(s.value) || 0]))
-    : item.stats;
-  return Object.entries(stats).reduce((score, [stat, value]) =>
-    score + (Number(value) || 0) * (statWeights[stat] ?? 0), 0);
+    ? item.stats.map(s => [
+        normalizeItemStatName(s.stat?.name || s.name || s.stat),
+        Number(s.value) || 0
+      ])
+    : Object.entries(item.stats).map(([stat, value]) => [
+        normalizeItemStatName(stat),
+        Number(value) || 0
+      ]);
+  return stats.reduce((score, [stat, value]) =>
+    score + value * (statWeights[stat] ?? 0), 0);
 }
 
 function scoreItem(item, statWeights = STAT_WEIGHTS) {
@@ -510,7 +533,7 @@ const WOW_OPTIMIZER_TEST_DATA = [
 window.WoWOptimizer = {
   slots: WOW_EQUIPMENT_SLOTS, goals: WOW_GOALS,
   createCharacterProfile, normalizeCharacterStatistics, scoreCharacterStatistics, getCharacterStatSummary, resolveStatWeights, normalizeSimulationScaleFactors, getSimulationWeightContext, findBlizzardSpecialization, getSpecProfileContext,
-  normalizeImportedEquipment, createCharacterProfileFromImport, scoreItem, scoreEquipment, getGoalWeights,
+  normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, scoreItem, scoreEquipment, getGoalWeights,
   findBestItemForSlot, optimizeEquipment, findUpgradeOpportunities, rankItems,
   getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,
   calculateCrestRequirements, isAscendantVenomstoneEligible, recommendUpgradePlan,

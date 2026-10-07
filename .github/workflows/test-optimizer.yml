@@ -50,3 +50,6 @@ jobs:
 
       - name: Run SimulationCraft optimizer mapping tests
         run: node tests/simulation-optimizer.test.js
+
+      - name: Run equipped gear comparison tests
+        run: node tests/equipped-gear-comparison.test.js

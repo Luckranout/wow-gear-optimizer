@@ -32,6 +32,7 @@ const statsGrid = document.querySelector("#statsGrid");
 const simulationFile = document.querySelector("#simulationFile");
 const simulationStatus = document.querySelector("#simulationStatus");
 const simulationResults = document.querySelector("#simulationResults");
+const upgradeResults = document.querySelector("#upgradeResults");
 const optimizationSource = document.querySelector("#optimizationSource");
 const simulationExportBtn = document.querySelector("#simulationExportBtn");
 let importedSimulation = null;
@@ -89,6 +90,42 @@ function renderSimulationResults(simulation = null) {
   `).join("");
 }
 
+function formatGearScore(value) {
+  return Number(value || 0).toLocaleString(undefined, { maximumFractionDigits: 2 });
+}
+
+function renderUpgradeResults(upgrades = [], simulation = null) {
+  if (!upgrades.length) {
+    upgradeResults.innerHTML = '<div class="result-empty">No direct gear upgrades are available in the current dataset for the imported character.</div>';
+    return;
+  }
+  const sourceLabel = simulation ? "SimulationCraft-weighted" : "Goal/spec-weighted";
+  upgradeResults.innerHTML = upgrades.map(upgrade => `
+    <article class="upgrade-card">
+      <div class="upgrade-card-top">
+        <div>
+          <div class="upgrade-slot">${upgrade.slot}</div>
+          <h3>${upgrade.recommendedItem?.name || "Recommended upgrade"}</h3>
+        </div>
+        <div class="upgrade-badge">${sourceLabel}</div>
+      </div>
+      <div class="upgrade-comparison">
+        <div>
+          <span>Current</span>
+          <strong>${upgrade.currentItem?.name || "Empty slot"}</strong>
+          <small>Score ${formatGearScore(upgrade.currentScore)}</small>
+        </div>
+        <div class="upgrade-arrow">→</div>
+        <div>
+          <span>Recommended</span>
+          <strong>${upgrade.recommendedItem?.name || "Unknown item"}</strong>
+          <small>Score ${formatGearScore(upgrade.recommendedScore)}</small>
+        </div>
+      </div>
+      <div class="upgrade-improvement">+${formatGearScore(upgrade.improvement)} weighted score</div>
+    </article>
+  `).join("");
+}
 function setSelectValue(select, value) {
   if (!value) return;
   const option = [...select.options].find(item => item.value === value || item.textContent === value);
@@ -234,17 +271,16 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
     ? `Using SimulationCraft scale factors • ${report.optimizationContext.specialization || character.specialization || "spec not specified"} • patch ${report.optimizationContext.patch || "unspecified"}`
     : `Using baseline goal/spec weights • ${character.goal}`;
 
-  const availableUpgrades = report.topUpgrades
-    .map(upgrade => `${upgrade.slot}: ${upgrade.recommendedItem?.name || "Recommended upgrade"}`)
-    .join(" • ");
+  renderUpgradeResults(report.topUpgrades, importedSimulation);
+
 
   const label = importedCharacter
     ? `${character.characterName} • ${character.className} • ${character.specialization}`
     : `${character.className} • ${character.specialization}`;
 
-  resultMessage.textContent = availableUpgrades
-    ? `${label} • ${character.goal} — ${report.upgradePlans.length} upgrade plans evaluated. Top available upgrades: ${availableUpgrades}`
-    : `${label} • ${character.goal} — ${report.upgradePlans.length} upgrade plans evaluated. No matching gear upgrades are available in the current dataset.`;
+  resultMessage.textContent = report.topUpgrades.length
+    ? `${label} • ${character.goal} — ${report.topUpgrades.length} direct gear upgrades found and ranked by the active stat weights.`
+    : `${label} • ${character.goal} — no direct gear upgrades are available in the current dataset.`;
 });
 
 document.querySelector("#clearBtn").addEventListener("click", () => {
@@ -264,6 +300,7 @@ document.querySelector("#clearBtn").addEventListener("click", () => {
   specSelect.innerHTML = "<option>Select class first</option>";
   goalSelect.value = "Mythic+";
   optimizationSource.textContent = "Optimization source will appear after the optimizer runs.";
+  renderUpgradeResults([]);
   resultMessage.textContent = "Import a character or choose a class and specialization, then run the optimizer.";
   renderSlots();
 });
