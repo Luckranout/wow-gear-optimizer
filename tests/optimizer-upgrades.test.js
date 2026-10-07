@@ -132,3 +132,57 @@ if (exchangedPlan.crestPlan.exchanges.length !== 1 ||
 }
 
 console.log("Step 5 real-world validation scenarios passed.");
+
+
+// Step 6B: imported character -> optimizer equipment mapping.
+const importedCharacter = {
+  id: 777,
+  name: "IntegrationTest",
+  level: 90,
+  class: { id: 1, name: "Warrior" },
+  activeSpec: { id: 71, name: "Arms" },
+  realm: { id: 1, name: "Area 52", slug: "area-52" },
+  source: "Blizzard WoW Profile API",
+  equipment: [
+    { id: 1, name: "Test Helm", slot: "Head", slotType: "HEAD", itemLevel: 318 },
+    { id: 2, name: "Test Ring A", slot: "Finger", slotType: "FINGER", itemLevel: 318 },
+    { id: 3, name: "Test Ring B", slot: "Finger", slotType: "FINGER", itemLevel: 321 },
+    { id: 4, name: "Test Trinket A", slot: "Trinket", slotType: "TRINKET", itemLevel: 318 },
+    { id: 5, name: "Test Trinket B", slot: "Trinket", slotType: "TRINKET", itemLevel: 321 },
+    { id: 6, name: "Test Weapon", slot: "Main Hand", slotType: "MAIN_HAND", itemLevel: 321 }
+  ]
+};
+
+const importedProfile = o.createCharacterProfileFromImport({
+  importedCharacter,
+  goal: o.goals.mythicPlus
+});
+if (importedProfile.characterName !== "IntegrationTest" ||
+    importedProfile.className !== "Warrior" ||
+    importedProfile.specialization !== "Arms") {
+  throw new Error("Imported character identity mapping failed");
+}
+if (importedProfile.equipment["Head"]?.name !== "Test Helm") {
+  throw new Error("Imported head equipment mapping failed");
+}
+if (importedProfile.equipment["Ring 1"]?.name !== "Test Ring A" ||
+    importedProfile.equipment["Ring 2"]?.name !== "Test Ring B") {
+  throw new Error("Imported ring slot mapping failed");
+}
+if (importedProfile.equipment["Trinket 1"]?.name !== "Test Trinket A" ||
+    importedProfile.equipment["Trinket 2"]?.name !== "Test Trinket B") {
+  throw new Error("Imported trinket slot mapping failed");
+}
+if (importedProfile.equipment["Main Hand"]?.name !== "Test Weapon") {
+  throw new Error("Imported weapon slot mapping failed");
+}
+const importedReport = o.createOptimizationReport({
+  character: importedProfile,
+  availableItems: [],
+  dataset
+});
+if (importedReport.character.characterId !== 777 ||
+    importedReport.equipmentSlots !== 16) {
+  throw new Error("Imported character optimizer integration failed");
+}
+console.log("Step 6B character-to-optimizer integration passed.");

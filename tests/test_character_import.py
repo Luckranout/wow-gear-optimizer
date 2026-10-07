@@ -22,8 +22,8 @@ class CharacterImportTests(unittest.TestCase):
             "active_spec": {"id": 71, "name": {"en_US": "Arms"}},
         }
         equipment = {"equipped_items": [
-            {"item": {"id": 12345}, "name": "Validation Helm", "slot": {"name": {"en_US": "Head"}}, "level": 318, "quality": {"id": 4, "name": {"en_US": "Epic"}}},
-            {"item": {"id": 67890}, "name": "Validation Ring", "slot": {"name": {"en_US": "Finger"}}, "level": 321},
+            {"item": {"id": 12345}, "name": "Validation Helm", "slot": {"name": {"en_US": "Head"}, "type": "HEAD"}, "level": 318, "quality": {"id": 4, "name": {"en_US": "Epic"}}},
+            {"item": {"id": 67890}, "name": "Validation Ring", "slot": {"name": {"en_US": "Finger"}, "type": "FINGER"}, "level": 321},
         ]}
         normalized = MODULE.normalize_character(profile, equipment)
         self.assertEqual(normalized["name"], "Testchar")
@@ -34,6 +34,8 @@ class CharacterImportTests(unittest.TestCase):
         self.assertEqual(normalized["equipment"][0]["id"], 12345)
         self.assertEqual(normalized["equipment"][0]["itemLevel"], 318)
         self.assertEqual(normalized["equipment"][0]["slot"], "Head")
+        self.assertEqual(normalized["equipment"][0]["slotType"], "HEAD")
+        self.assertEqual(normalized["equipment"][1]["slotType"], "FINGER")
 
 
 if __name__ == "__main__":
