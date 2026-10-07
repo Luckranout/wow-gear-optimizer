@@ -66,6 +66,7 @@ if (typeof module !== "undefined") {
   module.exports = {
     validateImportedCharacter,
     parseImportedCharacterJson,
-    formatImportedCharacterSummary
+    formatImportedCharacterSummary,
+    formatCharacterStatistics
   };
 }
