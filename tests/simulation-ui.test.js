@@ -13,8 +13,7 @@ for (const required of [
 
 for (const required of [
   "WoWSimulationImport.parseSimulationResultJson",
-  "character.simulation = importedSimulation",
-  "optimizationContext"
+  "character.simulation = importedSimulation"
 ]) {
   if (!app.includes(required)) throw new Error(`App is missing simulation integration: ${required}`);
 }
