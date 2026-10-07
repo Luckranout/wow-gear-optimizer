@@ -124,8 +124,13 @@ const exchangedPlan = o.recommendUpgradePlan({
   weeklyUsed: 0,
   maximumQualityTidalCrafted: true
 });
-if (exchangedPlan.crestPlan.exchanges.length !== 1 ||
-    exchangedPlan.crestPlan.exchanges[0].required !== 40) {
+if (exchangedPlan.crestPlan.exchanges.length !== 2 ||
+    exchangedPlan.crestPlan.exchanges[0].from !== "Hero Mistcrest" ||
+    exchangedPlan.crestPlan.exchanges[0].to !== "Myth Mistcrest" ||
+    exchangedPlan.crestPlan.exchanges[0].required !== 40 ||
+    exchangedPlan.crestPlan.exchanges[1].from !== "Champion Mistcrest" ||
+    exchangedPlan.crestPlan.exchanges[1].to !== "Hero Mistcrest" ||
+    exchangedPlan.crestPlan.exchanges[1].required !== 120) {
   throw new Error("Real 3:1 Hero-to-Myth exchange calculation failed");
 }
 
