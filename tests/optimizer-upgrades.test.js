@@ -316,7 +316,7 @@ console.log("Step 10 spec-aware stat weight resolution passed.");
 
 
 // Step 11: Blizzard specialization metadata anchors spec profiles.
-const specDataset = {
+const specRegistryDataset = {
   talents: {
     specializations: [
       { id: 71, name: "Arms", role: "DAMAGE", primaryStatType: "STRENGTH",
@@ -329,12 +329,12 @@ const specDataset = {
     }
   }
 };
-const specRecord = o.findBlizzardSpecialization(specDataset, 71, "Arms");
+const specRecord = o.findBlizzardSpecialization(specRegistryDataset, 71, "Arms");
 if (!specRecord || specRecord.name !== "Arms" || specRecord.primaryStatType !== "STRENGTH") {
   throw new Error("Blizzard specialization lookup failed");
 }
 const specContext = o.getSpecProfileContext({
-  dataset: specDataset,
+  dataset: specRegistryDataset,
   className: "Warrior",
   specialization: "Arms",
   specializationId: 71
@@ -344,7 +344,7 @@ if (!specContext.specialization || !specContext.optimizationProfile ||
   throw new Error("Spec profile was not anchored to Blizzard specialization metadata");
 }
 const missingSpecContext = o.getSpecProfileContext({
-  dataset: specDataset,
+  dataset: specRegistryDataset,
   className: "Warrior",
   specialization: "Fury",
   specializationId: 72
