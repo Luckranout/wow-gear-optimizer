@@ -19,6 +19,43 @@ const STAT_WEIGHTS = {
   CriticalStrike: 0.8, Haste: 0.8, Mastery: 0.8, Versatility: 0.8
 };
 
+function normalizeCharacterStatistics(statistics = {}) {
+  const aliases = {
+    strength: "Strength", agility: "Agility", intellect: "Intellect", stamina: "Stamina",
+    criticalstrike: "CriticalStrike", haste: "Haste", mastery: "Mastery", versatility: "Versatility",
+    armor: "Armor", dodge: "Dodge", parry: "Parry", block: "Block",
+    leech: "Leech", speed: "Speed", avoidance: "Avoidance"
+  };
+  const normalized = {};
+  for (const [rawKey, rawValue] of Object.entries(statistics || {})) {
+    const key = String(rawKey).replace(/[\\s_-]/g, "").toLowerCase();
+    const numericValue = Number(rawValue);
+    if (!Number.isFinite(numericValue)) continue;
+    normalized[aliases[key] || rawKey] = numericValue;
+  }
+  return normalized;
+}
+
+function scoreCharacterStatistics(statistics = {}, statWeights = STAT_WEIGHTS) {
+  const normalized = normalizeCharacterStatistics(statistics);
+  return Object.entries(normalized).reduce((score, [stat, value]) =>
+    score + value * (statWeights[stat] ?? 0), 0);
+}
+
+function getCharacterStatSummary(statistics = {}, statWeights = STAT_WEIGHTS) {
+  const normalized = normalizeCharacterStatistics(statistics);
+  const trackedStats = Object.fromEntries(
+    Object.keys(statWeights)
+      .filter(stat => normalized[stat] !== undefined)
+      .map(stat => [stat, normalized[stat]])
+  );
+  return {
+    stats: normalized,
+    trackedStats,
+    weightedScore: scoreCharacterStatistics(normalized, statWeights)
+  };
+}
+
 function createCharacterProfile() {
   return {
     className: "", specialization: "", goal: WOW_GOALS.general,
@@ -68,6 +105,7 @@ function createCharacterProfileFromImport({ importedCharacter, goal = WOW_GOALS.
   character.specialization = importedCharacter.activeSpec?.name || "";
   character.goal = goal;
   character.equipment = normalizeImportedEquipment(importedCharacter.equipment);
+  character.statistics = normalizeCharacterStatistics(importedCharacter.statistics);
 
   return {
     ...character,
@@ -309,6 +347,7 @@ function recommendUpgradePlan({ currentItem, upgradeSystem, availableCrests = {}
 
 function createOptimizationReport({character = createCharacterProfile(), availableItems = [], dataset = null, upgradeSystem = null} = {}) {
   const goal = character.goal || WOW_GOALS.general;
+  const statSummary = getCharacterStatSummary(character.statistics, getGoalWeights(goal));
   const optimized = optimizeEquipment({ items: availableItems, character, goal });
   const upgrades = findUpgradeOpportunities({ currentEquipment: character.equipment, availableItems, goal, limit: 5 });
   const system = upgradeSystem || getUpgradeSystem(dataset);
@@ -320,7 +359,7 @@ function createOptimizationReport({character = createCharacterProfile(), availab
     .filter(Boolean);
   return {
     character, goal, optimizedEquipment: optimized.equipment, totalScore: optimized.score,
-    topUpgrades: upgrades, upgradePlans,
+    topUpgrades: upgrades, upgradePlans, currentStats: statSummary,
     equipmentSlots: WOW_EQUIPMENT_SLOTS.length, generatedAt: new Date().toISOString()
   };
 }
@@ -332,7 +371,8 @@ const WOW_OPTIMIZER_TEST_DATA = [
 
 window.WoWOptimizer = {
   slots: WOW_EQUIPMENT_SLOTS, goals: WOW_GOALS,
-  createCharacterProfile, normalizeImportedEquipment, createCharacterProfileFromImport, scoreItem, scoreEquipment, getGoalWeights,
+  createCharacterProfile, normalizeCharacterStatistics, scoreCharacterStatistics, getCharacterStatSummary,
+  normalizeImportedEquipment, createCharacterProfileFromImport, scoreItem, scoreEquipment, getGoalWeights,
   findBestItemForSlot, optimizeEquipment, findUpgradeOpportunities, rankItems,
   getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,
   calculateCrestRequirements, isAscendantVenomstoneEligible, recommendUpgradePlan,
