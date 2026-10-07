@@ -42,3 +42,6 @@ jobs:
 
       - name: Run simulation UI tests
         run: node tests/simulation-ui.test.js
+
+      - name: Run simulation export tests
+        run: node tests/simulation-export.test.js
