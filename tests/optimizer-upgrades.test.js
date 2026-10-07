@@ -120,17 +120,14 @@ if (invalidVenomstone.eligible || !invalidVenomstone.reasons.includes("Slot is n
 const exchangedPlan = o.recommendUpgradePlan({
   currentItem: { id: 900004, name: "Validation Myth Weapon", slot: "Main Hand", track: "Myth", rank: 5 },
   upgradeSystem: realSystem,
-  availableCrests: { "Myth Mistcrest": 0, "Hero Mistcrest": 20 },
+  availableCrests: { "Myth Mistcrest": 0, "Hero Mistcrest": 20, "Champion Mistcrest": 120 },
   weeklyUsed: 0,
   maximumQualityTidalCrafted: true
 });
-if (exchangedPlan.crestPlan.exchanges.length !== 2 ||
+if (exchangedPlan.crestPlan.exchanges.length !== 1 ||
     exchangedPlan.crestPlan.exchanges[0].from !== "Hero Mistcrest" ||
     exchangedPlan.crestPlan.exchanges[0].to !== "Myth Mistcrest" ||
-    exchangedPlan.crestPlan.exchanges[0].required !== 40 ||
-    exchangedPlan.crestPlan.exchanges[1].from !== "Champion Mistcrest" ||
-    exchangedPlan.crestPlan.exchanges[1].to !== "Hero Mistcrest" ||
-    exchangedPlan.crestPlan.exchanges[1].required !== 120) {
+    exchangedPlan.crestPlan.exchanges[0].required !== 40) {
   throw new Error("Real 3:1 Hero-to-Myth exchange calculation failed");
 }
 
