@@ -10,6 +10,7 @@ on:
       - "wow-data.js"
       - "scripts/**"
       - "tests/**"
+      - "simulation-import.js"
       - ".github/workflows/test-optimizer.yml"
       - ".github/workflows/import-character.yml"
   pull_request:
@@ -18,6 +19,7 @@ on:
       - "wow-data.js"
       - "scripts/**"
       - "tests/**"
+      - "simulation-import.js"
       - ".github/workflows/test-optimizer.yml"
 
 jobs:
@@ -45,3 +47,6 @@ jobs:
 
       - name: Run simulation export tests
         run: node tests/simulation-export.test.js
+
+      - name: Run SimulationCraft optimizer mapping tests
+        run: node tests/simulation-optimizer.test.js
