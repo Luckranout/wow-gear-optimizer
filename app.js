@@ -29,6 +29,9 @@ const resultMessage = document.querySelector("#resultMessage");
 const characterFile = document.querySelector("#characterFile");
 const importStatus = document.querySelector("#importStatus");
 const statsGrid = document.querySelector("#statsGrid");
+const simulationFile = document.querySelector("#simulationFile");
+const simulationStatus = document.querySelector("#simulationStatus");
+let importedSimulation = null;
 let retailDataset = null;
 let importedCharacter = null;
 
@@ -89,7 +92,9 @@ function applyImportedCharacter(character) {
   importStatus.textContent = WoWCharacterImport.formatImportedCharacterSummary(character);
   renderCharacterStats(profile.statistics);
   renderSlots();
-  resultMessage.textContent = "Character imported. Run the optimizer to evaluate this character's current equipment.";
+  resultMessage.textContent = importedSimulation
+    ? "Character imported with simulation results. Run the optimizer to evaluate this character using those scale factors."
+    : "Character imported. Run the optimizer to evaluate this character's current equipment.";
 }
 
 characterFile.addEventListener("change", async () => {
@@ -107,6 +112,24 @@ characterFile.addEventListener("change", async () => {
 
   importStatus.classList.remove("error");
   applyImportedCharacter(parsed.character);
+});
+
+simulationFile.addEventListener("change", async () => {
+  const file = simulationFile.files?.[0];
+  if (!file) return;
+  try {
+    importedSimulation = WoWSimulationImport.parseSimulationResultJson(await file.text());
+    simulationStatus.classList.remove("error");
+    simulationStatus.textContent =
+      `Loaded ${importedSimulation.source} scale factors for ${importedSimulation.specialization || "unspecified specialization"}.`;
+    if (importedCharacter) {
+      resultMessage.textContent = "Simulation results loaded. Run the optimizer to use the simulation-derived weights.";
+    }
+  } catch (error) {
+    importedSimulation = null;
+    simulationStatus.classList.add("error");
+    simulationStatus.textContent = error.message;
+  }
 });
 
 classSelect.addEventListener("change", () => {
@@ -142,6 +165,7 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
       importedCharacter,
       goal: goalSelect.value
     });
+    character.simulation = importedSimulation;
   } else {
     const cls = classSelect.value;
     const spec = specSelect.value;
@@ -154,6 +178,7 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
     character.className = cls;
     character.specialization = spec;
     character.goal = goalSelect.value;
+    character.simulation = importedSimulation;
   }
 
   const report = WoWOptimizer.createOptimizationReport({
@@ -179,9 +204,13 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
 
 document.querySelector("#clearBtn").addEventListener("click", () => {
   importedCharacter = null;
+  importedSimulation = null;
   characterFile.value = "";
+  simulationFile.value = "";
   importStatus.classList.remove("error");
   importStatus.textContent = "No character imported.";
+  simulationStatus.classList.remove("error");
+  simulationStatus.textContent = "No simulation results imported.";
   renderCharacterStats({});
   classSelect.disabled = false;
   classSelect.value = "";
