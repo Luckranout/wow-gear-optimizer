@@ -31,6 +31,7 @@ const importStatus = document.querySelector("#importStatus");
 const statsGrid = document.querySelector("#statsGrid");
 const simulationFile = document.querySelector("#simulationFile");
 const simulationStatus = document.querySelector("#simulationStatus");
+const simulationResults = document.querySelector("#simulationResults");
 const optimizationSource = document.querySelector("#optimizationSource");
 const simulationExportBtn = document.querySelector("#simulationExportBtn");
 let importedSimulation = null;
@@ -71,6 +72,21 @@ function renderCharacterStats(statistics = {}) {
         </div>
       `).join("")
     : '<div class="stat-empty">No imported character statistics available.</div>';
+}
+
+function renderSimulationResults(simulation = null) {
+  if (!simulation || !simulation.scaleFactors) {
+    simulationResults.innerHTML = '<div class="stat-empty">Import SimulationCraft results to see the derived stat weights.</div>';
+    return;
+  }
+  const entries = Object.entries(simulation.scaleFactors)
+    .sort((a, b) => b[1] - a[1]);
+  simulationResults.innerHTML = entries.map(([stat, value]) => `
+    <div class="stat-card">
+      <div class="stat-label">${stat}</div>
+      <div class="stat-value">${Number(value).toFixed(4)}</div>
+    </div>
+  `).join("");
 }
 
 function setSelectValue(select, value) {
@@ -147,6 +163,7 @@ simulationFile.addEventListener("change", async () => {
     simulationStatus.classList.remove("error");
     simulationStatus.textContent =
       `Loaded ${importedSimulation.source} scale factors for ${importedSimulation.specialization || "unspecified specialization"}.`;
+    renderSimulationResults(importedSimulation);
     if (importedCharacter) {
       resultMessage.textContent = "Simulation results loaded. Run the optimizer to use the simulation-derived weights.";
     }
@@ -239,6 +256,7 @@ document.querySelector("#clearBtn").addEventListener("click", () => {
   importStatus.textContent = "No character imported.";
   simulationStatus.classList.remove("error");
   simulationStatus.textContent = "No simulation results imported.";
+  renderSimulationResults(null);
   renderCharacterStats({});
   classSelect.disabled = false;
   classSelect.value = "";
