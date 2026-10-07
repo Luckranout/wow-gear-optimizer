@@ -1341,6 +1341,10 @@ def main():
     }
 
     dataset["talents"] = talent_data
+    # Stat weights are intentionally not inferred from Blizzard metadata.
+    # Verified optimization profiles can be added separately and are keyed
+    # to these exact class/spec records.
+    dataset["optimizationProfiles"] = dataset.get("optimizationProfiles") or {}
     dataset["upgrades"] = upgrade_data["tracks"]
     dataset["upgradeSystem"] = upgrade_data
 
