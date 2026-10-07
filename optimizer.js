@@ -186,16 +186,22 @@ function getSpecProfileContext({ dataset = null, className = "", specialization 
 
 function normalizeSimulationScaleFactors(scaleFactors = {}) {
   const aliases = {
-    strength: "Strength", agility: "Agility", intellect: "Intellect", stamina: "Stamina",
+    strength: "Strength", str: "Strength",
+    agility: "Agility", agi: "Agility",
+    intellect: "Intellect", int: "Intellect",
+    stamina: "Stamina", sta: "Stamina",
+    attackpower: "AttackPower", ap: "AttackPower",
     criticalstrike: "CriticalStrike", crit: "CriticalStrike", critrating: "CriticalStrike",
-    haste: "Haste", hasterating: "Haste", mastery: "Mastery", masteryrating: "Mastery",
-    versatility: "Versatility", versatilityrating: "Versatility"
+    haste: "Haste", hasterating: "Haste",
+    mastery: "Mastery", masteryrating: "Mastery",
+    versatility: "Versatility", vers: "Versatility", versatilityrating: "Versatility",
+    armor: "Armor", bonusarmor: "BonusArmor", wdps: "WeaponDPS"
   };
   const normalized = {};
   for (const [rawKey, rawValue] of Object.entries(scaleFactors || {})) {
     const key = String(rawKey).replace(/[\s_-]/g, "").toLowerCase();
     const value = Number(rawValue);
-    if (!Number.isFinite(value) || value < 0) continue;
+    if (!Number.isFinite(value)) continue;
     normalized[aliases[key] || rawKey] = value;
   }
   return normalized;

@@ -364,7 +364,7 @@ const normalizedScaleFactors = o.normalizeSimulationScaleFactors(rawScaleFactors
 if (normalizedScaleFactors.Strength !== 1.7 ||
     normalizedScaleFactors.CriticalStrike !== 0.55 ||
     normalizedScaleFactors.Haste !== 1.25 ||
-    normalizedScaleFactors.Mastery !== undefined ||
+    normalizedScaleFactors.Mastery !== -2 ||
     normalizedScaleFactors.invalid !== undefined) {
   throw new Error("Simulation scale-factor normalization failed");
 }
