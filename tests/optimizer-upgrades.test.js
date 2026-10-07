@@ -55,6 +55,9 @@ if (realSystem.crests.length !== 5) throw new Error("Generated dataset must cont
 if (realSystem.exchangeRules.length !== 4) throw new Error("Generated dataset must contain 4 crest exchange rules");
 if (!realSystem.ascendantVenomstone || realSystem.ascendantVenomstone.name !== "Ascendant Venomstone") throw new Error("Generated dataset is missing Ascendant Venomstone");
 if (!realSystem.tracks.every(track => track.rankItemLevels?.length === 6)) throw new Error("Every upgrade track must contain 6 ranks");
+if (!dataset.talents || !Array.isArray(dataset.talents.specializations)) {
+  throw new Error("Generated dataset must contain specialization metadata");
+}
 console.log("Generated current-retail.json upgradeSystem verification passed.");
 
 console.log("Step 4 optimizer tests passed.");
@@ -307,3 +310,43 @@ if (bestSpecItem?.item?.name !== "Strength Ring") {
   throw new Error("Spec-specific weights did not affect item selection");
 }
 console.log("Step 10 spec-aware stat weight resolution passed.");
+
+
+// Step 11: Blizzard specialization metadata anchors spec profiles.
+const specRegistryDataset = {
+  talents: {
+    specializations: [
+      { id: 71, name: "Arms", role: "DAMAGE", primaryStatType: "STRENGTH",
+        playableClass: { id: 1, name: "Warrior" }, heroTalentTrees: [{ id: 1001, name: "Slayer" }] }
+    ]
+  },
+  optimizationProfiles: {
+    Warrior: {
+      Arms: { Strength: 1.4, Haste: 1.1, source: "verified-test-profile" }
+    }
+  }
+};
+const specRecord = o.findBlizzardSpecialization(specRegistryDataset, 71, "Arms");
+if (!specRecord || specRecord.name !== "Arms" || specRecord.primaryStatType !== "STRENGTH") {
+  throw new Error("Blizzard specialization lookup failed");
+}
+const specContext = o.getSpecProfileContext({
+  dataset: specRegistryDataset,
+  className: "Warrior",
+  specialization: "Arms",
+  specializationId: 71
+});
+if (!specContext.specialization || !specContext.optimizationProfile ||
+    specContext.optimizationProfile.Strength !== 1.4) {
+  throw new Error("Spec profile was not anchored to Blizzard specialization metadata");
+}
+const missingSpecContext = o.getSpecProfileContext({
+  dataset: specRegistryDataset,
+  className: "Warrior",
+  specialization: "Fury",
+  specializationId: 72
+});
+if (missingSpecContext.specialization !== null || missingSpecContext.optimizationProfile !== null) {
+  throw new Error("Unknown specialization should not resolve a profile");
+}
+console.log("Step 11 specialization profile registry passed.");
