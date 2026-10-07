@@ -40,8 +40,20 @@
       <div class="panel-heading">
         <div>
           <h2>Character setup</h2>
-          <p>Tell the optimizer what you're building for.</p>
+          <p>Use an imported character or choose a class and specialization manually.</p>
         </div>
+      </div>
+
+      <div class="import-box">
+        <div>
+          <h3>Import your real character</h3>
+          <p>Run the secure Blizzard importer with your Blizzard access token, then load its normalized JSON here. The browser never receives or stores the Blizzard token.</p>
+        </div>
+        <label class="file-label">
+          Character JSON
+          <input id="characterFile" type="file" accept=".json,application/json">
+        </label>
+        <div id="importStatus" class="import-status">No character imported.</div>
       </div>
 
       <div class="form-grid">
@@ -122,15 +134,14 @@
       <div class="panel-heading">
         <div>
           <h2>Optimization results</h2>
-          <p id="resultMessage">Choose your class and specialization, then run the optimizer.</p>
+          <p id="resultMessage">Import a character or choose a class and specialization, then run the optimizer.</p>
         </div>
       </div>
       <div class="result-placeholder">
         <div class="result-icon">⚔️</div>
         <h3>Optimizer engine coming next</h3>
         <p>
-          This first build establishes the interface. Next we'll connect current Retail data
-          and teach the engine how to compare complete gear combinations.
+          Imported character equipment can now be passed directly into the optimizer. The next stages will deepen item, enhancement, and complete-build optimization.
         </p>
       </div>
     </section>
@@ -143,6 +154,7 @@
 
   <script src="wow-data.js"></script>
   <script src="optimizer.js"></script>
+  <script src="character-import.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
