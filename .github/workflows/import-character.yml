@@ -52,15 +52,18 @@ jobs:
 
           path = Path("data/current-character.json")
           data = json.loads(path.read_text(encoding="utf-8"))
-          required = ("id", "name", "realm", "class", "activeSpec", "equipment")
+          required = ("id", "name", "realm", "class", "activeSpec", "statistics", "equipment")
           missing = [key for key in required if data.get(key) is None]
           if missing:
               raise SystemExit(f"Missing required normalized fields: {', '.join(missing)}")
+          if not isinstance(data["statistics"], dict):
+              raise SystemExit("Normalized statistics must be an object.")
           if not isinstance(data["equipment"], list):
               raise SystemExit("Normalized equipment must be a list.")
           print(
               f"Validated {data['name']} ({data['realm']['name']}) "
-              f"with {data['equipmentCount']} equipped items."
+              f"with {data['equipmentCount']} equipped items and "
+              f"{len(data['statistics'])} character statistics."
           )
           PY
 
