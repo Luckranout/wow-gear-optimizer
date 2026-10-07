@@ -18,7 +18,9 @@ for (const required of [
   "character.simulation = importedSimulation",
   "WoWSimulationExport.createSimulationCraftProfile",
   "report.optimizationContext.source",
-  "optimizationSource.textContent"
+  "optimizationSource.textContent",
+  "renderSimulationResults",
+  "simulationResults"
 ]) {
   if (!app.includes(required)) throw new Error(`App is missing simulation integration: ${required}`);
 }
