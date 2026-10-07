@@ -23,14 +23,19 @@ const slots = [
 
 const classSelect = document.querySelector("#classSelect");
 const specSelect = document.querySelector("#specSelect");
+const goalSelect = document.querySelector("#goalSelect");
 const slotGrid = document.querySelector("#slotGrid");
 const resultMessage = document.querySelector("#resultMessage");
+const characterFile = document.querySelector("#characterFile");
+const importStatus = document.querySelector("#importStatus");
 let retailDataset = null;
+let importedCharacter = null;
 
 async function loadCurrentRetailData() {
   try {
     retailDataset = await WoWData.loadRetailDataset();
-    document.querySelector(".status").textContent = `● ${retailDataset.expansion} Season ${retailDataset.season} data loaded`;
+    document.querySelector(".status").textContent =
+      `● ${retailDataset.expansion} Season ${retailDataset.season} data loaded`;
     return true;
   } catch (error) {
     resultMessage.textContent = `Current Retail data could not be loaded: ${error.message}`;
@@ -42,10 +47,53 @@ function renderSlots() {
   slotGrid.innerHTML = slots.map(slot => `
     <div class="slot">
       <div class="slot-name">${slot}</div>
-      <div class="slot-status">Awaiting current Retail data</div>
+      <div class="slot-status">${importedCharacter?.equipment?.find(item => {
+        const normalized = WoWOptimizer.normalizeImportedEquipment(importedCharacter.equipment);
+        return normalized[slot]?.id === item.id;
+      }) ? "Imported character gear" : "Awaiting character import"}</div>
     </div>
   `).join("");
 }
+
+function setSelectValue(select, value) {
+  if (!value) return;
+  const option = [...select.options].find(item => item.value === value || item.textContent === value);
+  if (option) select.value = option.value;
+}
+
+function applyImportedCharacter(character) {
+  importedCharacter = character;
+  const profile = WoWOptimizer.createCharacterProfileFromImport({
+    importedCharacter,
+    goal: goalSelect.value
+  });
+
+  setSelectValue(classSelect, profile.className);
+  classSelect.disabled = true;
+  specSelect.disabled = false;
+  specSelect.innerHTML = `<option value="${profile.specialization}">${profile.specialization}</option>`;
+  specSelect.value = profile.specialization;
+  importStatus.textContent = WoWCharacterImport.formatImportedCharacterSummary(character);
+  renderSlots();
+  resultMessage.textContent = "Character imported. Run the optimizer to evaluate this character's current equipment.";
+}
+
+characterFile.addEventListener("change", async () => {
+  const file = characterFile.files?.[0];
+  if (!file) return;
+
+  const parsed = WoWCharacterImport.parseImportedCharacterJson(await file.text());
+  if (!parsed.valid) {
+    importedCharacter = null;
+    importStatus.textContent = parsed.errors.join(" ");
+    importStatus.classList.add("error");
+    renderSlots();
+    return;
+  }
+
+  importStatus.classList.remove("error");
+  applyImportedCharacter(parsed.character);
+});
 
 classSelect.addEventListener("change", () => {
   const selected = classSelect.value;
@@ -60,51 +108,71 @@ classSelect.addEventListener("change", () => {
     specs[selected].map(spec => `<option>${spec}</option>`).join("");
 });
 
-document.querySelector("#optimizeBtn").addEventListener("click", () => {
-  const cls = classSelect.value;
-  const spec = specSelect.value;
-  const goal = document.querySelector("#goalSelect").value;
+goalSelect.addEventListener("change", () => {
+  if (importedCharacter) {
+    importStatus.textContent =
+      WoWCharacterImport.formatImportedCharacterSummary(importedCharacter) +
+      ` • Goal: ${goalSelect.value}`;
+  }
+});
 
-  if (!cls || !spec) {
-    resultMessage.textContent =
-      "Select a class and specialization before optimizing.";
+document.querySelector("#optimizeBtn").addEventListener("click", () => {
+  if (!retailDataset) {
+    resultMessage.textContent = "Current Retail data is still loading. Try again in a moment.";
     return;
   }
 
-  const character = WoWOptimizer.createCharacterProfile();
-
-  character.className = cls;
-  character.specialization = spec;
-  character.goal = goal;
+  let character;
+  if (importedCharacter) {
+    character = WoWOptimizer.createCharacterProfileFromImport({
+      importedCharacter,
+      goal: goalSelect.value
+    });
+  } else {
+    const cls = classSelect.value;
+    const spec = specSelect.value;
+    if (!cls || !spec) {
+      resultMessage.textContent =
+        "Import a character or select a class and specialization before optimizing.";
+      return;
+    }
+    character = WoWOptimizer.createCharacterProfile();
+    character.className = cls;
+    character.specialization = spec;
+    character.goal = goalSelect.value;
+  }
 
   const report = WoWOptimizer.createOptimizationReport({
     character,
-    availableItems: retailDataset?.items || [],
+    availableItems: retailDataset.items || [],
     dataset: retailDataset
   });
 
   const availableUpgrades = report.topUpgrades
-    .map(upgrade => {
-      const itemName =
-        upgrade.recommendedItem?.name || "Recommended upgrade";
-
-      return `${upgrade.slot}: ${itemName}`;
-    })
+    .map(upgrade => `${upgrade.slot}: ${upgrade.recommendedItem?.name || "Recommended upgrade"}`)
     .join(" • ");
 
-  const upgradeCount = report.upgradePlans.length;
-  resultMessage.textContent =
-    availableUpgrades
-      ? `${cls} • ${spec} • ${goal} — ${upgradeCount} upgrade plans evaluated. Top available upgrades: ${availableUpgrades}`
-      : `${cls} • ${spec} • ${goal} — ${upgradeCount} upgrade plans evaluated. No matching gear upgrades are available in the current dataset.`;
+  const label = importedCharacter
+    ? `${character.characterName} • ${character.className} • ${character.specialization}`
+    : `${character.className} • ${character.specialization}`;
+
+  resultMessage.textContent = availableUpgrades
+    ? `${label} • ${character.goal} — ${report.upgradePlans.length} upgrade plans evaluated. Top available upgrades: ${availableUpgrades}`
+    : `${label} • ${character.goal} — ${report.upgradePlans.length} upgrade plans evaluated. No matching gear upgrades are available in the current dataset.`;
 });
 
 document.querySelector("#clearBtn").addEventListener("click", () => {
+  importedCharacter = null;
+  characterFile.value = "";
+  importStatus.classList.remove("error");
+  importStatus.textContent = "No character imported.";
+  classSelect.disabled = false;
   classSelect.value = "";
   specSelect.disabled = true;
   specSelect.innerHTML = "<option>Select class first</option>";
-  document.querySelector("#goalSelect").value = "Mythic+";
-  resultMessage.textContent = "Choose your class and specialization, then run the optimizer.";
+  goalSelect.value = "Mythic+";
+  resultMessage.textContent = "Import a character or choose a class and specialization, then run the optimizer.";
+  renderSlots();
 });
 
 renderSlots();
