@@ -31,6 +31,7 @@ const importStatus = document.querySelector("#importStatus");
 const statsGrid = document.querySelector("#statsGrid");
 const simulationFile = document.querySelector("#simulationFile");
 const simulationStatus = document.querySelector("#simulationStatus");
+const optimizationSource = document.querySelector("#optimizationSource");
 let importedSimulation = null;
 let retailDataset = null;
 let importedCharacter = null;
@@ -188,6 +189,9 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
   });
 
   renderCharacterStats(report.currentStats.trackedStats);
+  optimizationSource.textContent = report.optimizationContext.source === "SimulationCraft"
+    ? `Using SimulationCraft scale factors • ${report.optimizationContext.specialization || character.specialization || "spec not specified"} • patch ${report.optimizationContext.patch || "unspecified"}`
+    : `Using baseline goal/spec weights • ${character.goal}`;
 
   const availableUpgrades = report.topUpgrades
     .map(upgrade => `${upgrade.slot}: ${upgrade.recommendedItem?.name || "Recommended upgrade"}`)
@@ -217,6 +221,7 @@ document.querySelector("#clearBtn").addEventListener("click", () => {
   specSelect.disabled = true;
   specSelect.innerHTML = "<option>Select class first</option>";
   goalSelect.value = "Mythic+";
+  optimizationSource.textContent = "Optimization source will appear after the optimizer runs.";
   resultMessage.textContent = "Import a character or choose a class and specialization, then run the optimizer.";
   renderSlots();
 });
