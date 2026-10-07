@@ -32,6 +32,7 @@ const statsGrid = document.querySelector("#statsGrid");
 const simulationFile = document.querySelector("#simulationFile");
 const simulationStatus = document.querySelector("#simulationStatus");
 const optimizationSource = document.querySelector("#optimizationSource");
+const simulationExportBtn = document.querySelector("#simulationExportBtn");
 let importedSimulation = null;
 let retailDataset = null;
 let importedCharacter = null;
@@ -113,6 +114,29 @@ characterFile.addEventListener("change", async () => {
 
   importStatus.classList.remove("error");
   applyImportedCharacter(parsed.character);
+});
+
+simulationExportBtn.addEventListener("click", () => {
+  if (!importedCharacter) {
+    simulationStatus.classList.add("error");
+    simulationStatus.textContent = "Import a character before exporting a SimulationCraft profile.";
+    return;
+  }
+  try {
+    const profile = WoWSimulationExport.createSimulationCraftProfile(importedCharacter);
+    const blob = new Blob([profile], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${importedCharacter.name || "character"}-optimizer.simc`;
+    link.click();
+    URL.revokeObjectURL(url);
+    simulationStatus.classList.remove("error");
+    simulationStatus.textContent = "SimulationCraft profile exported.";
+  } catch (error) {
+    simulationStatus.classList.add("error");
+    simulationStatus.textContent = error.message;
+  }
 });
 
 simulationFile.addEventListener("change", async () => {

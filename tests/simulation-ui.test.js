@@ -6,7 +6,9 @@ const app = fs.readFileSync("app.js", "utf8");
 for (const required of [
   'id="simulationFile"',
   'id="simulationStatus"',
-  'simulation-import.js'
+  'id="simulationExportBtn"',
+  'simulation-import.js',
+  'simulation-export.js'
 ]) {
   if (!index.includes(required)) throw new Error(`UI is missing simulation control: ${required}`);
 }
@@ -14,6 +16,7 @@ for (const required of [
 for (const required of [
   "WoWSimulationImport.parseSimulationResultJson",
   "character.simulation = importedSimulation",
+  "WoWSimulationExport.createSimulationCraftProfile",
   "report.optimizationContext.source",
   "optimizationSource.textContent"
 ]) {
