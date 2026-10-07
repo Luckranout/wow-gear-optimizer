@@ -187,8 +187,9 @@ function getSpecProfileContext({ dataset = null, className = "", specialization 
 function normalizeSimulationScaleFactors(scaleFactors = {}) {
   const aliases = {
     strength: "Strength", agility: "Agility", intellect: "Intellect", stamina: "Stamina",
-    criticalstrike: "CriticalStrike", crit: "CriticalStrike", haste: "Haste",
-    mastery: "Mastery", versatility: "Versatility"
+    criticalstrike: "CriticalStrike", crit: "CriticalStrike", critrating: "CriticalStrike",
+    haste: "Haste", hasterating: "Haste", mastery: "Mastery", masteryrating: "Mastery",
+    versatility: "Versatility", versatilityrating: "Versatility"
   };
   const normalized = {};
   for (const [rawKey, rawValue] of Object.entries(scaleFactors || {})) {
