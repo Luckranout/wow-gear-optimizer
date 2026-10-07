@@ -235,3 +235,75 @@ if (statsReport.currentStats.trackedStats.Haste !== 25.5 ||
   throw new Error("Optimization report character statistics baseline failed");
 }
 console.log("Step 8 character statistics baseline passed.");
+ 
+// Step 10: spec-aware stat weight resolution.
+// Profiles are supplied as data; the optimizer must never invent a profile when one is absent.
+const specProfiles = {
+  Warrior: {
+    Arms: {
+      Strength: 1.4,
+      CriticalStrike: 0.6,
+      Haste: 1.1,
+      Mastery: 0.9,
+      Versatility: 0.7
+    }
+  }
+};
+const resolvedArmsWeights = o.resolveStatWeights({
+  goal: o.goals.mythicPlus,
+  className: "Warrior",
+  specialization: "Arms",
+  statProfiles: specProfiles
+});
+if (resolvedArmsWeights.Strength !== 1.4 ||
+    resolvedArmsWeights.Haste !== 1.1 ||
+    resolvedArmsWeights.CriticalStrike !== 0.6) {
+  throw new Error("Spec-specific stat weights were not applied");
+}
+
+const fallbackWeights = o.resolveStatWeights({
+  goal: o.goals.mythicPlus,
+  className: "Warrior",
+  specialization: "Fury",
+  statProfiles: specProfiles
+});
+const expectedFallback = o.getGoalWeights(o.goals.mythicPlus);
+if (fallbackWeights.Haste !== expectedFallback.Haste ||
+    fallbackWeights.CriticalStrike !== expectedFallback.CriticalStrike) {
+  throw new Error("Missing spec profile did not safely fall back to goal weights");
+}
+
+const specCharacter = {
+  ...importedProfile,
+  className: "Warrior",
+  specialization: "Arms",
+  goal: o.goals.mythicPlus,
+  statistics: { Strength: 100, Haste: 50, CriticalStrike: 25 }
+};
+const specDataset = {
+  ...dataset,
+  optimizationProfiles: specProfiles
+};
+const specReport = o.createOptimizationReport({
+  character: specCharacter,
+  availableItems: [],
+  dataset: specDataset
+});
+if (specReport.currentStats.weightedScore <= 0) {
+  throw new Error("Spec-aware optimization report did not use resolved weights");
+}
+
+const specItems = [
+  { id: 910001, name: "Strength Ring", slot: "Ring 1", itemLevel: 318, stats: { Strength: 10 } },
+  { id: 910002, name: "Haste Ring", slot: "Ring 1", itemLevel: 318, stats: { Haste: 10 } }
+];
+const bestSpecItem = o.findBestItemForSlot(
+  specItems,
+  "Ring 1",
+  o.goals.mythicPlus,
+  resolvedArmsWeights
+);
+if (bestSpecItem?.item?.name !== "Strength Ring") {
+  throw new Error("Spec-specific weights did not affect item selection");
+}
+console.log("Step 10 spec-aware stat weight resolution passed.");

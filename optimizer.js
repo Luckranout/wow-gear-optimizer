@@ -155,23 +155,52 @@ function getGoalWeights(goal) {
   return weights;
 }
 
-function findBestItemForSlot(items, slot, goal) {
-  const statWeights = getGoalWeights(goal);
+function resolveStatWeights({
+  goal = WOW_GOALS.general,
+  className = "",
+  specialization = "",
+  statProfiles = null
+} = {}) {
+  const goalWeights = getGoalWeights(goal);
+  if (!statProfiles || typeof statProfiles !== "object") return goalWeights;
+
+  const classProfiles = statProfiles[className];
+  const profile = classProfiles?.[specialization];
+  if (!profile || typeof profile !== "object") return goalWeights;
+
+  const merged = { ...goalWeights };
+  for (const [stat, value] of Object.entries(profile)) {
+    const numericValue = Number(value);
+    if (Number.isFinite(numericValue) && numericValue >= 0) {
+      merged[stat] = numericValue;
+    }
+  }
+  return merged;
+}
+
+function findBestItemForSlot(items, slot, goal, statWeights = null) {
+  const weights = statWeights || getGoalWeights(goal);
   return (items || []).filter(item => item.slot === slot)
-    .map(item => ({ item, score: scoreItem(item, statWeights) }))
+    .map(item => ({ item, score: scoreItem(item, weights) }))
     .sort((a, b) => b.score - a.score)[0] || null;
 }
 
-function optimizeEquipment({items = [], character = createCharacterProfile(), goal = character.goal || WOW_GOALS.general} = {}) {
+function optimizeEquipment({
+  items = [],
+  character = createCharacterProfile(),
+  goal = character.goal || WOW_GOALS.general,
+  statWeights = null
+} = {}) {
+  const weights = statWeights || getGoalWeights(goal);
   const optimizedEquipment = {};
   for (const slot of WOW_EQUIPMENT_SLOTS) {
-    const best = findBestItemForSlot(items, slot, goal);
+    const best = findBestItemForSlot(items, slot, goal, weights);
     optimizedEquipment[slot] = best ? best.item : null;
   }
   return {
     character: { ...character, goal },
     equipment: optimizedEquipment,
-    score: scoreEquipment(optimizedEquipment, getGoalWeights(goal))
+    score: scoreEquipment(optimizedEquipment, weights)
   };
 }
 
@@ -347,8 +376,14 @@ function recommendUpgradePlan({ currentItem, upgradeSystem, availableCrests = {}
 
 function createOptimizationReport({character = createCharacterProfile(), availableItems = [], dataset = null, upgradeSystem = null} = {}) {
   const goal = character.goal || WOW_GOALS.general;
-  const statSummary = getCharacterStatSummary(character.statistics, getGoalWeights(goal));
-  const optimized = optimizeEquipment({ items: availableItems, character, goal });
+  const statWeights = resolveStatWeights({
+    goal,
+    className: character.className,
+    specialization: character.specialization,
+    statProfiles: dataset?.optimizationProfiles
+  });
+  const statSummary = getCharacterStatSummary(character.statistics, statWeights);
+  const optimized = optimizeEquipment({ items: availableItems, character, goal, statWeights });
   const upgrades = findUpgradeOpportunities({ currentEquipment: character.equipment, availableItems, goal, limit: 5 });
   const system = upgradeSystem || getUpgradeSystem(dataset);
   const upgradePlans = WOW_EQUIPMENT_SLOTS
@@ -371,7 +406,7 @@ const WOW_OPTIMIZER_TEST_DATA = [
 
 window.WoWOptimizer = {
   slots: WOW_EQUIPMENT_SLOTS, goals: WOW_GOALS,
-  createCharacterProfile, normalizeCharacterStatistics, scoreCharacterStatistics, getCharacterStatSummary,
+  createCharacterProfile, normalizeCharacterStatistics, scoreCharacterStatistics, getCharacterStatSummary, resolveStatWeights,
   normalizeImportedEquipment, createCharacterProfileFromImport, scoreItem, scoreEquipment, getGoalWeights,
   findBestItemForSlot, optimizeEquipment, findUpgradeOpportunities, rankItems,
   getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,
