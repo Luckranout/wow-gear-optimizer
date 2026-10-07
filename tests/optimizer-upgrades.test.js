@@ -58,3 +58,66 @@ if (!realSystem.tracks.every(track => track.rankItemLevels?.length === 6)) throw
 console.log("Generated current-retail.json upgradeSystem verification passed.");
 
 console.log("Step 4 optimizer tests passed.");
+
+
+// Step 5: real-world recommendation validation.
+const realHero = realSystem.tracks.find(t => t.id === "hero");
+const realMyth = realSystem.tracks.find(t => t.id === "myth");
+if (!realHero || !realMyth) throw new Error("Real dataset is missing Hero or Myth tracks");
+
+const realHeroPlan = o.recommendUpgradePlan({
+  currentItem: { id: 900001, name: "Validation Hero Ring", slot: "Ring 1", track: "Hero", rank: 4 },
+  upgradeSystem: realSystem,
+  availableCrests: { "Hero Mistcrest": 40 },
+  weeklyUsed: 60
+});
+if (realHeroPlan.nextUpgrade.toRank !== 5 || realHeroPlan.nextUpgrade.toItemLevel !== 318) {
+  throw new Error("Real Hero upgrade recommendation is incorrect");
+}
+if (realHeroPlan.crestPlan.totalCrests !== 40 || !realHeroPlan.crestPlan.fitsWeeklyCap) {
+  throw new Error("Real Hero crest plan is incorrect");
+}
+
+const realMythPlan = o.recommendUpgradePlan({
+  currentItem: { id: 900002, name: "Validation Myth Neck", slot: "Neck", track: "Myth", rank: 6 },
+  upgradeSystem: realSystem,
+  availableCrests: { "Myth Mistcrest": 0 },
+  weeklyUsed: 100,
+  maximumQualityTidalCrafted: true
+});
+if (realMythPlan.nextUpgrade !== null) throw new Error("Max-rank Myth item should have no next upgrade");
+if (!realMythPlan.ascendantVenomstone.eligible) throw new Error("Eligible real Myth Venomstone case failed");
+if (realMythPlan.crestPlan.fitsWeeklyCap) throw new Error("Weekly cap should block an additional crest spend at 100 used");
+
+const cappedPlan = o.recommendUpgradePlan({
+  currentItem: { id: 900003, name: "Validation Hero Chest", slot: "Chest", track: "Hero", rank: 5 },
+  upgradeSystem: realSystem,
+  availableCrests: { "Hero Mistcrest": 20 },
+  weeklyUsed: 100
+});
+if (cappedPlan.crestPlan.fitsWeeklyCap) throw new Error("Weekly cap edge case failed");
+
+const invalidVenomstone = o.isAscendantVenomstoneEligible({
+  upgradeSystem: realSystem,
+  item: { slot: "Head" },
+  track: "Hero",
+  rank: 6,
+  maximumQualityTidalCrafted: true
+});
+if (invalidVenomstone.eligible || !invalidVenomstone.reasons.includes("Slot is not eligible.")) {
+  throw new Error("Real Venomstone invalid-slot validation failed");
+}
+
+const exchangedPlan = o.recommendUpgradePlan({
+  currentItem: { id: 900004, name: "Validation Myth Weapon", slot: "Main Hand", track: "Myth", rank: 5 },
+  upgradeSystem: realSystem,
+  availableCrests: { "Myth Mistcrest": 0, "Hero Mistcrest": 20 },
+  weeklyUsed: 0,
+  maximumQualityTidalCrafted: true
+});
+if (exchangedPlan.crestPlan.exchanges.length !== 1 ||
+    exchangedPlan.crestPlan.exchanges[0].required !== 40) {
+  throw new Error("Real 3:1 Hero-to-Myth exchange calculation failed");
+}
+
+console.log("Step 5 real-world validation scenarios passed.");
