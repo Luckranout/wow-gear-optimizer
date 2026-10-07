@@ -8,12 +8,14 @@ on:
     paths:
       - "optimizer.js"
       - "wow-data.js"
+      - "scripts/**"
       - "tests/**"
       - ".github/workflows/test-optimizer.yml"
   pull_request:
     paths:
       - "optimizer.js"
       - "wow-data.js"
+      - "scripts/**"
       - "tests/**"
       - ".github/workflows/test-optimizer.yml"
 
@@ -29,3 +31,5 @@ jobs:
           node-version: "22"
       - name: Run upgrade optimizer tests
         run: node tests/optimizer-upgrades.test.js
+      - name: Run character importer tests
+        run: python -m unittest tests/test_character_import.py
