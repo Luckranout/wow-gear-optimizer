@@ -48,4 +48,13 @@ let ineligible = o.isAscendantVenomstoneEligible({
 });
 if (ineligible.eligible) throw new Error("Ineligible Venomstone case failed");
 
+const dataset = JSON.parse(fs.readFileSync("data/current-retail.json", "utf8"));
+const realSystem = o.getUpgradeSystem(dataset);
+if (realSystem.tracks.length !== 5) throw new Error("Generated dataset must contain 5 upgrade tracks");
+if (realSystem.crests.length !== 5) throw new Error("Generated dataset must contain 5 crest types");
+if (realSystem.exchangeRules.length !== 4) throw new Error("Generated dataset must contain 4 crest exchange rules");
+if (!realSystem.ascendantVenomstone || realSystem.ascendantVenomstone.name !== "Ascendant Venomstone") throw new Error("Generated dataset is missing Ascendant Venomstone");
+if (!realSystem.tracks.every(track => track.rankItemLevels?.length === 6)) throw new Error("Every upgrade track must contain 6 ranks");
+console.log("Generated current-retail.json upgradeSystem verification passed.");
+
 console.log("Step 4 optimizer tests passed.");
