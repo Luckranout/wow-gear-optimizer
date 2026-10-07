@@ -72,7 +72,7 @@ if (simc.source !== "SimulationCraft" ||
     simc.method !== "scale-factors" ||
     simc.patch !== "12.1.0.69933" ||
     simc.specialization !== "Protection Warrior" ||
-    simc.generatedAt !== "2026-10-07T03:46:43.000Z" ||
+    simc.generatedAt !== "2026-10-07T23:11:11.000Z" ||
     simc.scaleFactors.Str !== 0.5241146953001533 ||
     simc.scaleFactors.Armor !== -0.0010908238520395478 ||
     simc.scaleFactors.Wdps !== 3.1226708231236839) {
