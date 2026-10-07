@@ -350,3 +350,64 @@ if (missingSpecContext.specialization !== null || missingSpecContext.optimizatio
   throw new Error("Unknown specialization should not resolve a profile");
 }
 console.log("Step 11 specialization profile registry passed.");
+
+
+// Step 12: simulation-derived scale factors override static goal/spec weights.
+const rawScaleFactors = {
+  strength: 1.7,
+  crit: 0.55,
+  haste_rating: 1.25,
+  mastery: -2,
+  invalid: "not-a-number"
+};
+const normalizedScaleFactors = o.normalizeSimulationScaleFactors(rawScaleFactors);
+if (normalizedScaleFactors.Strength !== 1.7 ||
+    normalizedScaleFactors.CriticalStrike !== 0.55 ||
+    normalizedScaleFactors.Haste !== 1.25 ||
+    normalizedScaleFactors.Mastery !== undefined ||
+    normalizedScaleFactors.invalid !== undefined) {
+  throw new Error("Simulation scale-factor normalization failed");
+}
+
+const simulation = {
+  source: "SimulationCraft",
+  method: "scale-factors",
+  patch: "12.1",
+  specialization: "Arms",
+  characterId: 777,
+  generatedAt: "2026-10-07T00:00:00Z",
+  scaleFactors: rawScaleFactors
+};
+const simulationContext = o.getSimulationWeightContext(simulation);
+if (!simulationContext || simulationContext.scaleFactors.Haste !== 1.25 ||
+    simulationContext.source !== "SimulationCraft") {
+  throw new Error("Simulation weight context failed");
+}
+
+const simulationWeights = o.resolveStatWeights({
+  goal: o.goals.mythicPlus,
+  className: "Warrior",
+  specialization: "Arms",
+  statProfiles: { Warrior: { Arms: { Strength: 1.4, Haste: 0.4 } } },
+  simulation
+});
+if (simulationWeights.Strength !== 1.7 || simulationWeights.Haste !== 1.25) {
+  throw new Error("Simulation-derived weights did not override static profiles");
+}
+
+const simulationCharacter = {
+  ...importedProfile,
+  statistics: { Strength: 100, Haste: 50, CriticalStrike: 20 },
+  simulation
+};
+const simulationReport = o.createOptimizationReport({
+  character: simulationCharacter,
+  availableItems: [],
+  dataset: specDataset
+});
+if (simulationReport.optimizationContext.source !== "SimulationCraft" ||
+    simulationReport.optimizationContext.method !== "scale-factors" ||
+    simulationReport.currentStats.weightedScore <= 0) {
+  throw new Error("Simulation-derived optimization report context failed");
+}
+console.log("Step 12 simulation scale-factor support passed.");
