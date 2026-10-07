@@ -25,6 +25,18 @@ const classSelect = document.querySelector("#classSelect");
 const specSelect = document.querySelector("#specSelect");
 const slotGrid = document.querySelector("#slotGrid");
 const resultMessage = document.querySelector("#resultMessage");
+let retailDataset = null;
+
+async function loadCurrentRetailData() {
+  try {
+    retailDataset = await WoWData.loadRetailDataset();
+    document.querySelector(".status").textContent = `● ${retailDataset.expansion} Season ${retailDataset.season} data loaded`;
+    return true;
+  } catch (error) {
+    resultMessage.textContent = `Current Retail data could not be loaded: ${error.message}`;
+    return false;
+  }
+}
 
 function renderSlots() {
   slotGrid.innerHTML = slots.map(slot => `
@@ -67,7 +79,8 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
 
   const report = WoWOptimizer.createOptimizationReport({
     character,
-    availableItems: WoWOptimizer.testData
+    availableItems: retailDataset?.items || [],
+    dataset: retailDataset
   });
 
   const availableUpgrades = report.topUpgrades
@@ -79,10 +92,11 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
     })
     .join(" • ");
 
+  const upgradeCount = report.upgradePlans.length;
   resultMessage.textContent =
     availableUpgrades
-      ? `${cls} • ${spec} • ${goal} — Optimizer running. Top available upgrades: ${availableUpgrades}`
-      : `${cls} • ${spec} • ${goal} — Optimizer running. No current test-data upgrades are available yet.`;
+      ? `${cls} • ${spec} • ${goal} — ${upgradeCount} upgrade plans evaluated. Top available upgrades: ${availableUpgrades}`
+      : `${cls} • ${spec} • ${goal} — ${upgradeCount} upgrade plans evaluated. No matching gear upgrades are available in the current dataset.`;
 });
 
 document.querySelector("#clearBtn").addEventListener("click", () => {
@@ -94,3 +108,4 @@ document.querySelector("#clearBtn").addEventListener("click", () => {
 });
 
 renderSlots();
+loadCurrentRetailData();

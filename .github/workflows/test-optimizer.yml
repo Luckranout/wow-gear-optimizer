@@ -1,0 +1,31 @@
+name: Test WoW Optimizer
+
+on:
+  push:
+    branches:
+      - main
+      - step-4-upgrade-optimizer
+    paths:
+      - "optimizer.js"
+      - "wow-data.js"
+      - "tests/**"
+      - ".github/workflows/test-optimizer.yml"
+  pull_request:
+    paths:
+      - "optimizer.js"
+      - "wow-data.js"
+      - "tests/**"
+      - ".github/workflows/test-optimizer.yml"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Run upgrade optimizer tests
+        run: node tests/optimizer-upgrades.test.js

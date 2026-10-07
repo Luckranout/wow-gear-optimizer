@@ -1,27 +1,10 @@
 // WoW Gear Optimizer
 // Core optimization engine
-// Retail / current-season ready
-//
-// This engine is intentionally data-source independent.
-// Blizzard data will be connected later through the secure backend.
+// Retail / current-season ready.
 
 const WOW_EQUIPMENT_SLOTS = [
-  "Head",
-  "Neck",
-  "Shoulders",
-  "Back",
-  "Chest",
-  "Wrists",
-  "Hands",
-  "Waist",
-  "Legs",
-  "Feet",
-  "Ring 1",
-  "Ring 2",
-  "Trinket 1",
-  "Trinket 2",
-  "Main Hand",
-  "Off Hand"
+  "Head","Neck","Shoulders","Back","Chest","Wrists","Hands","Waist",
+  "Legs","Feet","Ring 1","Ring 2","Trinket 1","Trinket 2","Main Hand","Off Hand"
 ];
 
 const WOW_GOALS = {
@@ -32,311 +15,269 @@ const WOW_GOALS = {
 };
 
 const STAT_WEIGHTS = {
-  Strength: 1,
-  Agility: 1,
-  Intellect: 1,
-  Stamina: 0.15,
-  CriticalStrike: 0.8,
-  Haste: 0.8,
-  Mastery: 0.8,
-  Versatility: 0.8
+  Strength: 1, Agility: 1, Intellect: 1, Stamina: 0.15,
+  CriticalStrike: 0.8, Haste: 0.8, Mastery: 0.8, Versatility: 0.8
 };
 
-/**
- * Creates an empty character optimization profile.
- */
 function createCharacterProfile() {
   return {
-    className: "",
-    specialization: "",
-    goal: "General / All-around",
-    equipment: Object.fromEntries(
-      WOW_EQUIPMENT_SLOTS.map(slot => [slot, null])
-    ),
-    gems: [],
-    enchants: [],
-    embellishments: [],
-    upgrades: [],
-    consumables: {
-      food: null,
-      flaskOrPhial: null,
-      potions: [],
-      other: []
-    }
+    className: "", specialization: "", goal: WOW_GOALS.general,
+    equipment: Object.fromEntries(WOW_EQUIPMENT_SLOTS.map(slot => [slot, null])),
+    gems: [], enchants: [], embellishments: [], upgrades: [],
+    consumables: { food: null, flaskOrPhial: null, potions: [], other: [] }
   };
 }
 
-/**
- * Calculate the basic stat score of an item.
- */
 function scoreItemStats(item, statWeights = STAT_WEIGHTS) {
-  if (!item || !item.stats) {
-    return 0;
-  }
-
-  return Object.entries(item.stats).reduce((score, [stat, value]) => {
-    const weight = statWeights[stat] ?? 0;
-    return score + (Number(value) || 0) * weight;
-  }, 0);
+  if (!item || !item.stats) return 0;
+  const stats = Array.isArray(item.stats)
+    ? Object.fromEntries(item.stats.map(s => [s.stat?.name || s.name, Number(s.value) || 0]))
+    : item.stats;
+  return Object.entries(stats).reduce((score, [stat, value]) =>
+    score + (Number(value) || 0) * (statWeights[stat] ?? 0), 0);
 }
 
-/**
- * Gives higher-quality items a reasonable advantage.
- *
- * This is NOT intended to replace full simulation.
- * It provides the first deterministic optimization layer.
- */
 function scoreItem(item, statWeights = STAT_WEIGHTS) {
-  if (!item) {
-    return 0;
-  }
-
-  const itemLevelScore = (Number(item.itemLevel) || 0) * 2;
-  const statScore = scoreItemStats(item, statWeights);
-
-  let effectScore = 0;
-
-  if (item.effectValue) {
-    effectScore += Number(item.effectValue) || 0;
-  }
-
-  if (item.isSetPiece) {
-    effectScore += 10;
-  }
-
-  if (item.isUniqueEffect) {
-    effectScore += 5;
-  }
-
-  return itemLevelScore + statScore + effectScore;
+  if (!item) return 0;
+  const itemLevel = Number(item.itemLevel ?? item.level) || 0;
+  let effectScore = Number(item.effectValue) || 0;
+  if (item.isSetPiece) effectScore += 10;
+  if (item.isUniqueEffect) effectScore += 5;
+  return itemLevel * 2 + scoreItemStats(item, statWeights) + effectScore;
 }
 
-/**
- * Score a complete equipment set.
- */
 function scoreEquipment(equipment, statWeights = STAT_WEIGHTS) {
-  let total = 0;
-
-  for (const slot of WOW_EQUIPMENT_SLOTS) {
-    total += scoreItem(equipment?.[slot], statWeights);
-  }
-
-  return total;
+  return WOW_EQUIPMENT_SLOTS.reduce((total, slot) =>
+    total + scoreItem(equipment?.[slot], statWeights), 0);
 }
 
-/**
- * Apply goal-specific adjustments.
- */
 function getGoalWeights(goal) {
   const weights = { ...STAT_WEIGHTS };
-
   switch (goal) {
     case WOW_GOALS.mythicPlus:
-      weights.Haste *= 1.08;
-      weights.CriticalStrike *= 1.04;
-      break;
-
+      weights.Haste *= 1.08; weights.CriticalStrike *= 1.04; break;
     case WOW_GOALS.raid:
-      weights.Mastery *= 1.06;
-      weights.CriticalStrike *= 1.04;
-      break;
-
+      weights.Mastery *= 1.06; weights.CriticalStrike *= 1.04; break;
     case WOW_GOALS.pvp:
-      weights.Versatility *= 1.12;
-      weights.Haste *= 1.05;
-      break;
-
-    case WOW_GOALS.general:
-    default:
-      break;
+      weights.Versatility *= 1.12; weights.Haste *= 1.05; break;
   }
-
   return weights;
 }
 
-/**
- * Find the best item for one equipment slot.
- */
 function findBestItemForSlot(items, slot, goal) {
   const statWeights = getGoalWeights(goal);
-
-  const candidates = (items || [])
-    .filter(item => item.slot === slot)
-    .map(item => ({
-      item,
-      score: scoreItem(item, statWeights)
-    }))
-    .sort((a, b) => b.score - a.score);
-
-  return candidates.length ? candidates[0] : null;
+  return (items || []).filter(item => item.slot === slot)
+    .map(item => ({ item, score: scoreItem(item, statWeights) }))
+    .sort((a, b) => b.score - a.score)[0] || null;
 }
 
-/**
- * Build the best available equipment set from supplied data.
- */
-function optimizeEquipment({
-  items = [],
-  character = createCharacterProfile(),
-  goal = character.goal || WOW_GOALS.general
-} = {}) {
+function optimizeEquipment({items = [], character = createCharacterProfile(), goal = character.goal || WOW_GOALS.general} = {}) {
   const optimizedEquipment = {};
-
   for (const slot of WOW_EQUIPMENT_SLOTS) {
     const best = findBestItemForSlot(items, slot, goal);
-    optimizedEquipment[slot] = best
-      ? best.item
-      : null;
+    optimizedEquipment[slot] = best ? best.item : null;
   }
-
   return {
-    character: {
-      ...character,
-      goal
-    },
+    character: { ...character, goal },
     equipment: optimizedEquipment,
-    score: scoreEquipment(
-      optimizedEquipment,
-      getGoalWeights(goal)
-    )
+    score: scoreEquipment(optimizedEquipment, getGoalWeights(goal))
   };
 }
 
-/**
- * Find the most important upgrades compared with the current character.
- */
-function findUpgradeOpportunities({
-  currentEquipment = {},
-  availableItems = [],
-  goal = WOW_GOALS.general,
-  limit = 5
-} = {}) {
+function findUpgradeOpportunities({currentEquipment = {}, availableItems = [], goal = WOW_GOALS.general, limit = 5} = {}) {
   const statWeights = getGoalWeights(goal);
   const upgrades = [];
-
   for (const slot of WOW_EQUIPMENT_SLOTS) {
     const currentItem = currentEquipment[slot];
     const currentScore = scoreItem(currentItem, statWeights);
-
-    const candidates = availableItems
-      .filter(item => item.slot === slot)
-      .map(item => ({
-        item,
-        score: scoreItem(item, statWeights)
-      }))
+    const candidates = availableItems.filter(item => item.slot === slot)
+      .map(item => ({ item, score: scoreItem(item, statWeights) }))
       .filter(candidate => candidate.score > currentScore)
       .sort((a, b) => b.score - a.score);
-
     if (candidates.length) {
       const best = candidates[0];
-
       upgrades.push({
-        slot,
-        currentItem,
-        recommendedItem: best.item,
-        currentScore,
-        recommendedScore: best.score,
-        improvement: best.score - currentScore
+        slot, currentItem, recommendedItem: best.item, currentScore,
+        recommendedScore: best.score, improvement: best.score - currentScore
       });
     }
   }
-
-  return upgrades
-    .sort((a, b) => b.improvement - a.improvement)
-    .slice(0, limit);
+  return upgrades.sort((a, b) => b.improvement - a.improvement).slice(0, limit);
 }
 
-/**
- * Rank a collection of items.
- */
 function rankItems(items, goal = WOW_GOALS.general) {
   const statWeights = getGoalWeights(goal);
-
-  return (items || [])
-    .map(item => ({
-      item,
-      score: scoreItem(item, statWeights)
-    }))
+  return (items || []).map(item => ({ item, score: scoreItem(item, statWeights) }))
     .sort((a, b) => b.score - a.score);
 }
 
-/**
- * Create a complete optimization report.
- */
-function createOptimizationReport({
-  character = createCharacterProfile(),
-  availableItems = []
-} = {}) {
-  const goal = character.goal || WOW_GOALS.general;
+function getUpgradeSystem(dataset) {
+  return dataset?.upgradeSystem || dataset?.upgradeData || { tracks: [], crests: [], exchangeRules: [], ascendantVenomstone: null };
+}
 
-  const optimized = optimizeEquipment({
-    items: availableItems,
-    character,
-    goal
-  });
+function findUpgradeTrack(upgradeSystem, track) {
+  const tracks = upgradeSystem?.tracks || [];
+  return tracks.find(t =>
+    String(t.id).toLowerCase() === String(track).toLowerCase() ||
+    String(t.name).toLowerCase() === String(track).toLowerCase()
+  ) || null;
+}
 
-  const upgrades = findUpgradeOpportunities({
-    currentEquipment: character.equipment,
-    availableItems,
-    goal,
-    limit: 5
-  });
-
-  return {
-    character,
-    goal,
-    optimizedEquipment: optimized.equipment,
-    totalScore: optimized.score,
-    topUpgrades: upgrades,
-    equipmentSlots: WOW_EQUIPMENT_SLOTS.length,
-    generatedAt: new Date().toISOString()
-  };
+function getTrackRank(track, rank) {
+  if (!track) return null;
+  const numericRank = Number(rank);
+  return (track.rankItemLevels || []).find(r => Number(r.rank) === numericRank) ||
+    (track.ranks || []).map((itemLevel, i) => ({ rank: i + 1, itemLevel }))
+      .find(r => r.rank === numericRank) || null;
 }
 
 /**
- * Example test data.
- * This is only used until real Blizzard data is connected.
+ * Return the next legal rank on the item's current upgrade track.
+ * No cross-track promotion is inferred here; it must be supplied explicitly by the caller.
  */
-const WOW_OPTIMIZER_TEST_DATA = [
-  {
-    id: 1,
-    name: "Example Helm",
-    slot: "Head",
-    itemLevel: 250,
-    stats: {
-      Strength: 100,
-      Haste: 50,
-      CriticalStrike: 40
-    }
-  },
-  {
-    id: 2,
-    name: "Example Chest",
-    slot: "Chest",
-    itemLevel: 250,
-    stats: {
-      Strength: 120,
-      Mastery: 45,
-      Versatility: 35
+function getNextUpgrade({ upgradeSystem, track, rank } = {}) {
+  const resolvedTrack = findUpgradeTrack(upgradeSystem, track);
+  const currentRank = Number(rank);
+  if (!resolvedTrack || !Number.isFinite(currentRank)) return null;
+  const maxRank = Number(resolvedTrack.maxRank || resolvedTrack.rankCount || resolvedTrack.ranks?.length || 0);
+  if (currentRank >= maxRank) return null;
+  const next = getTrackRank(resolvedTrack, currentRank + 1);
+  if (!next) return null;
+  return {
+    track: resolvedTrack.name,
+    trackId: resolvedTrack.id,
+    fromRank: currentRank,
+    toRank: next.rank,
+    fromItemLevel: getTrackRank(resolvedTrack, currentRank)?.itemLevel ?? null,
+    toItemLevel: next.itemLevel,
+    crest: resolvedTrack.crest,
+    crestCost: Number(resolvedTrack.crestCostPerUpgrade ?? 20),
+    weeklyCrestCap: Number(resolvedTrack.weeklyCrestCap ?? 100)
+  };
+}
+
+function getUpgradePath({ upgradeSystem, track, rank } = {}) {
+  const path = [];
+  let currentTrack = track;
+  let currentRank = Number(rank);
+  while (true) {
+    const next = getNextUpgrade({ upgradeSystem, track: currentTrack, rank: currentRank });
+    if (!next) break;
+    path.push(next);
+    currentRank = next.toRank;
+  }
+  return path;
+}
+
+function parseExchangeRatio(rule) {
+  const raw = String(rule?.ratio || "1:1");
+  const parts = raw.split(":").map(Number);
+  return { from: Number.isFinite(parts[0]) ? parts[0] : 1, to: Number.isFinite(parts[1]) ? parts[1] : 1 };
+}
+
+function calculateCrestRequirements({ upgradeSystem, track, rank, availableCrests = {}, weeklyUsed = 0 } = {}) {
+  const path = getUpgradePath({ upgradeSystem, track, rank });
+  const required = {};
+  for (const step of path) required[step.crest] = (required[step.crest] || 0) + step.crestCost;
+
+  const exchanges = [];
+  for (const [crest, amount] of Object.entries(required)) {
+    const have = Number(availableCrests[crest] || 0);
+    if (have >= amount) continue;
+    let deficit = amount - have;
+    let current = crest;
+    const visited = new Set();
+    while (deficit > 0 && !visited.has(current)) {
+      visited.add(current);
+      const rule = (upgradeSystem.exchangeRules || []).find(r => r.to === current);
+      if (!rule) break;
+      const ratio = parseExchangeRatio(rule);
+      const neededFrom = Math.ceil(deficit * ratio.from / ratio.to);
+      exchanges.push({ from: rule.from, to: rule.to, required: neededFrom, ratio: rule.ratio, requirement: rule.requirement });
+      current = rule.from;
+      deficit = Math.max(0, neededFrom - Number(availableCrests[current] || 0));
     }
   }
+
+  const totalCrests = Object.values(required).reduce((a, b) => a + b, 0);
+  return {
+    path,
+    required,
+    exchanges,
+    totalCrests,
+    weeklyUsed: Number(weeklyUsed) || 0,
+    weeklyRemaining: Math.max(0, 100 - (Number(weeklyUsed) || 0)),
+    fitsWeeklyCap: (Number(weeklyUsed) || 0) + totalCrests <= 100
+  };
+}
+
+function isAscendantVenomstoneEligible({ upgradeSystem, item = {}, track, rank, maximumQualityTidalCrafted = false } = {}) {
+  const rule = upgradeSystem?.ascendantVenomstone;
+  if (!rule) return { eligible: false, reasons: ["Ascendant Venomstone data is unavailable."] };
+  const reasons = [];
+  const slot = item.slot;
+  if (!(rule.eligibleSlots || []).includes(slot)) reasons.push("Slot is not eligible.");
+  const resolvedTrack = String(track || item.track || "");
+  if (!(rule.eligibleTracks || []).some(t => String(t).toLowerCase() === resolvedTrack.toLowerCase())) {
+    reasons.push("Track is not eligible.");
+  }
+  const resolved = findUpgradeTrack(upgradeSystem, resolvedTrack);
+  const maxRank = Number(resolved?.maxRank || resolved?.rankCount || resolved?.ranks?.length || 0);
+  if (Number(rank ?? item.rank) !== maxRank) reasons.push("Item must be fully upgraded.");
+  if (!maximumQualityTidalCrafted && !item.maximumQualityTidalCrafted) {
+    reasons.push("Maximum-quality Tidal Crafted status is required.");
+  }
+  return { eligible: reasons.length === 0, reasons, cost: Number(rule.cost) || 10 };
+}
+
+function recommendUpgradePlan({ currentItem, upgradeSystem, availableCrests = {}, weeklyUsed = 0, maximumQualityTidalCrafted = false } = {}) {
+  if (!currentItem) return null;
+  const track = currentItem.track || currentItem.upgradeTrack;
+  const rank = currentItem.rank ?? currentItem.upgradeRank;
+  const next = getNextUpgrade({ upgradeSystem, track, rank });
+  const crestPlan = calculateCrestRequirements({ upgradeSystem, track, rank, availableCrests, weeklyUsed });
+  const venomstone = isAscendantVenomstoneEligible({
+    upgradeSystem, item: currentItem, track, rank, maximumQualityTidalCrafted
+  });
+  return {
+    slot: currentItem.slot,
+    item: currentItem,
+    track,
+    rank: Number(rank),
+    nextUpgrade: next,
+    crestPlan,
+    ascendantVenomstone: venomstone
+  };
+}
+
+function createOptimizationReport({character = createCharacterProfile(), availableItems = [], dataset = null, upgradeSystem = null} = {}) {
+  const goal = character.goal || WOW_GOALS.general;
+  const optimized = optimizeEquipment({ items: availableItems, character, goal });
+  const upgrades = findUpgradeOpportunities({ currentEquipment: character.equipment, availableItems, goal, limit: 5 });
+  const system = upgradeSystem || getUpgradeSystem(dataset);
+  const upgradePlans = WOW_EQUIPMENT_SLOTS
+    .map(slot => character.equipment?.[slot] ? recommendUpgradePlan({
+      currentItem: character.equipment[slot], upgradeSystem: system,
+      availableCrests: character.crestInventory || {}, weeklyUsed: character.weeklyCrestUsed || 0
+    }) : null)
+    .filter(Boolean);
+  return {
+    character, goal, optimizedEquipment: optimized.equipment, totalScore: optimized.score,
+    topUpgrades: upgrades, upgradePlans,
+    equipmentSlots: WOW_EQUIPMENT_SLOTS.length, generatedAt: new Date().toISOString()
+  };
+}
+
+const WOW_OPTIMIZER_TEST_DATA = [
+  { id: 1, name: "Example Helm", slot: "Head", itemLevel: 250, stats: { Strength: 100, Haste: 50, CriticalStrike: 40 } },
+  { id: 2, name: "Example Chest", slot: "Chest", itemLevel: 250, stats: { Strength: 120, Mastery: 45, Versatility: 35 } }
 ];
 
-/**
- * Public API used by the website.
- */
 window.WoWOptimizer = {
-  slots: WOW_EQUIPMENT_SLOTS,
-  goals: WOW_GOALS,
-
-  createCharacterProfile,
-  scoreItem,
-  scoreEquipment,
-  getGoalWeights,
-  findBestItemForSlot,
-  optimizeEquipment,
-  findUpgradeOpportunities,
-  rankItems,
-  createOptimizationReport,
-
-  testData: WOW_OPTIMIZER_TEST_DATA
+  slots: WOW_EQUIPMENT_SLOTS, goals: WOW_GOALS,
+  createCharacterProfile, scoreItem, scoreEquipment, getGoalWeights,
+  findBestItemForSlot, optimizeEquipment, findUpgradeOpportunities, rankItems,
+  getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,
+  calculateCrestRequirements, isAscendantVenomstoneEligible, recommendUpgradePlan,
+  createOptimizationReport, testData: WOW_OPTIMIZER_TEST_DATA
 };
