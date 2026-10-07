@@ -307,3 +307,43 @@ if (bestSpecItem?.item?.name !== "Strength Ring") {
   throw new Error("Spec-specific weights did not affect item selection");
 }
 console.log("Step 10 spec-aware stat weight resolution passed.");
+
+
+// Step 11: Blizzard specialization metadata anchors spec profiles.
+const specDataset = {
+  talents: {
+    specializations: [
+      { id: 71, name: "Arms", role: "DAMAGE", primaryStatType: "STRENGTH",
+        playableClass: { id: 1, name: "Warrior" }, heroTalentTrees: [{ id: 1001, name: "Slayer" }] }
+    ]
+  },
+  optimizationProfiles: {
+    Warrior: {
+      Arms: { Strength: 1.4, Haste: 1.1, source: "verified-test-profile" }
+    }
+  }
+};
+const specRecord = o.findBlizzardSpecialization(specDataset, 71, "Arms");
+if (!specRecord || specRecord.name !== "Arms" || specRecord.primaryStatType !== "STRENGTH") {
+  throw new Error("Blizzard specialization lookup failed");
+}
+const specContext = o.getSpecProfileContext({
+  dataset: specDataset,
+  className: "Warrior",
+  specialization: "Arms",
+  specializationId: 71
+});
+if (!specContext.specialization || !specContext.optimizationProfile ||
+    specContext.optimizationProfile.Strength !== 1.4) {
+  throw new Error("Spec profile was not anchored to Blizzard specialization metadata");
+}
+const missingSpecContext = o.getSpecProfileContext({
+  dataset: specDataset,
+  className: "Warrior",
+  specialization: "Fury",
+  specializationId: 72
+});
+if (missingSpecContext.specialization !== null || missingSpecContext.optimizationProfile !== null) {
+  throw new Error("Unknown specialization should not resolve a profile");
+}
+console.log("Step 11 specialization profile registry passed.");
