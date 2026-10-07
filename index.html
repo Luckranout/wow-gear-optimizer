@@ -54,6 +54,13 @@
           <input id="characterFile" type="file" accept=".json,application/json">
         </label>
         <div id="importStatus" class="import-status">No character imported.</div>
+        <div class="simulation-import">
+          <label class="file-label">
+            Simulation result JSON
+            <input id="simulationFile" type="file" accept=".json,application/json">
+          </label>
+          <div id="simulationStatus" class="import-status">No simulation results imported.</div>
+        </div>
       </div>
 
       <div class="form-grid">
@@ -167,6 +174,7 @@
   <script src="wow-data.js"></script>
   <script src="optimizer.js"></script>
   <script src="character-import.js"></script>
+  <script src="simulation-import.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
