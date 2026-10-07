@@ -465,6 +465,21 @@ function createOptimizationReport({character = createCharacterProfile(), availab
   return {
     character, goal, optimizedEquipment: optimized.equipment, totalScore: optimized.score,
     topUpgrades: upgrades, upgradePlans, currentStats: statSummary,
+    optimizationContext: simulationContext ? {
+      source: simulationContext.source,
+      method: simulationContext.method,
+      patch: simulationContext.patch,
+      specialization: simulationContext.specialization,
+      characterId: simulationContext.characterId,
+      generatedAt: simulationContext.generatedAt
+    } : {
+      source: "Goal/spec baseline",
+      method: "static-weights",
+      patch: null,
+      specialization: character.specialization || null,
+      characterId: character.characterId ?? null,
+      generatedAt: null
+    },
     equipmentSlots: WOW_EQUIPMENT_SLOTS.length, generatedAt: new Date().toISOString()
   };
 }
