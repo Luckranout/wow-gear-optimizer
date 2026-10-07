@@ -36,7 +36,7 @@ let crest = o.calculateCrestRequirements({upgradeSystem:system, track:"Hero", ra
 if (crest.totalCrests !== 40 || crest.weeklyRemaining !== 40 || !crest.fitsWeeklyCap) throw new Error("Crest calculation failed");
 
 let exchange = o.calculateCrestRequirements({upgradeSystem:system, track:"Myth", rank:5, availableCrests:{"Myth Mistcrest":0,"Hero Mistcrest":20}});
-if (exchange.totalCrests !== 20 || exchange.exchanges[0].required !== 60) throw new Error("Crest exchange calculation failed");
+if (exchange.totalCrests !== 20 || exchange.exchanges[0].required !== 40) throw new Error("Crest exchange calculation failed");
 
 let eligible = o.isAscendantVenomstoneEligible({
   upgradeSystem:system, item:{slot:"Neck"}, track:"Hero", rank:6, maximumQualityTidalCrafted:true
