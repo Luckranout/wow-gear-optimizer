@@ -43,6 +43,7 @@ def normalize_equipped_item(item):
         "id": resource_id(item_ref),
         "name": normalize_name(item.get("name")),
         "slot": normalize_name(slot.get("name") if isinstance(slot, dict) else slot),
+        "slotType": slot.get("type") if isinstance(slot, dict) else None,
         "itemLevel": item.get("level"),
         "quality": {
             "id": resource_id(quality),
