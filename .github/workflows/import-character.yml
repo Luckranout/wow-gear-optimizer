@@ -1,0 +1,73 @@
+name: Import WoW Character
+
+on:
+  workflow_dispatch:
+    inputs:
+      realm:
+        description: "WoW realm name (for example: Area 52)"
+        required: true
+        type: string
+      character:
+        description: "WoW character name"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  import-character:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate Blizzard credential is configured
+        env:
+          BLIZZARD_ACCESS_TOKEN: ${{ secrets.BLIZZARD_ACCESS_TOKEN }}
+        run: |
+          if [ -z "$BLIZZARD_ACCESS_TOKEN" ]; then
+            echo "::error::Repository secret BLIZZARD_ACCESS_TOKEN is not configured."
+            exit 1
+          fi
+
+      - name: Import character from Blizzard
+        env:
+          BLIZZARD_ACCESS_TOKEN: ${{ secrets.BLIZZARD_ACCESS_TOKEN }}
+          WOW_REALM: ${{ inputs.realm }}
+          WOW_CHARACTER: ${{ inputs.character }}
+          WOW_CHARACTER_OUTPUT: data/current-character.json
+        run: python scripts/import_character.py
+
+      - name: Validate normalized character
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          path = Path("data/current-character.json")
+          data = json.loads(path.read_text(encoding="utf-8"))
+          required = ("id", "name", "realm", "class", "activeSpec", "equipment")
+          missing = [key for key in required if data.get(key) is None]
+          if missing:
+              raise SystemExit(f"Missing required normalized fields: {', '.join(missing)}")
+          if not isinstance(data["equipment"], list):
+              raise SystemExit("Normalized equipment must be a list.")
+          print(
+              f"Validated {data['name']} ({data['realm']['name']}) "
+              f"with {data['equipmentCount']} equipped items."
+          )
+          PY
+
+      - name: Upload normalized character artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: wow-character-${{ inputs.realm }}-${{ inputs.character }}
+          path: data/current-character.json
+          if-no-files-found: error
+          retention-days: 7
