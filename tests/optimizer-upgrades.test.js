@@ -291,4 +291,18 @@ const specReport = o.createOptimizationReport({
 if (specReport.currentStats.weightedScore <= 0) {
   throw new Error("Spec-aware optimization report did not use resolved weights");
 }
+
+const specItems = [
+  { id: 910001, name: "Strength Ring", slot: "Ring 1", itemLevel: 318, stats: { Strength: 10 } },
+  { id: 910002, name: "Haste Ring", slot: "Ring 1", itemLevel: 318, stats: { Haste: 10 } }
+];
+const bestSpecItem = o.findBestItemForSlot(
+  specItems,
+  "Ring 1",
+  o.goals.mythicPlus,
+  resolvedArmsWeights
+);
+if (bestSpecItem?.item?.name !== "Strength Ring") {
+  throw new Error("Spec-specific weights did not affect item selection");
+}
 console.log("Step 10 spec-aware stat weight resolution passed.");
