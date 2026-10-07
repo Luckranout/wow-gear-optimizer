@@ -59,3 +59,40 @@ if (resolved.Strength !== 0.5 || resolved.CriticalStrike !== 0.1) {
 }
 
 console.log("Step 17 SimulationCraft optimizer mapping passed.");
+
+
+const simWeights = {
+  Strength: 0.1,
+  CriticalStrike: 2.0,
+  Haste: 0.2,
+  Mastery: 0.2,
+  Versatility: 0.2
+};
+
+const gearCandidates = [
+  { id: 1001, name: "Crit Ring", slot: "Ring 1", itemLevel: 318, stats: { CriticalStrike: 20 } },
+  { id: 1002, name: "Strength Ring", slot: "Ring 1", itemLevel: 318, stats: { Strength: 20 } }
+];
+
+const ranked = optimizer.rankItems(gearCandidates, "Mythic+", simWeights);
+if (ranked[0]?.item?.name !== "Crit Ring" || ranked[1]?.item?.name !== "Strength Ring") {
+  throw new Error("Simulation-derived weights did not control item ranking");
+}
+
+const currentEquipment = {
+  "Ring 1": gearCandidates[1]
+};
+const upgradeResults = optimizer.findUpgradeOpportunities({
+  currentEquipment,
+  availableItems: gearCandidates,
+  goal: "Mythic+",
+  statWeights: simWeights,
+  limit: 5
+});
+if (upgradeResults.length !== 1 ||
+    upgradeResults[0].recommendedItem.name !== "Crit Ring" ||
+    upgradeResults[0].improvement <= 0) {
+  throw new Error("Simulation-derived weights did not control upgrade recommendations");
+}
+
+console.log("Step 19 SimulationCraft weighted gear ranking passed.");
