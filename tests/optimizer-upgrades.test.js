@@ -235,3 +235,60 @@ if (statsReport.currentStats.trackedStats.Haste !== 25.5 ||
   throw new Error("Optimization report character statistics baseline failed");
 }
 console.log("Step 8 character statistics baseline passed.");
+ 
+// Step 10: spec-aware stat weight resolution.
+// Profiles are supplied as data; the optimizer must never invent a profile when one is absent.
+const specProfiles = {
+  Warrior: {
+    Arms: {
+      Strength: 1.4,
+      CriticalStrike: 0.6,
+      Haste: 1.1,
+      Mastery: 0.9,
+      Versatility: 0.7
+    }
+  }
+};
+const resolvedArmsWeights = o.resolveStatWeights({
+  goal: o.goals.mythicPlus,
+  className: "Warrior",
+  specialization: "Arms",
+  statProfiles: specProfiles
+});
+if (resolvedArmsWeights.Strength !== 1.4 ||
+    resolvedArmsWeights.Haste !== 1.1 ||
+    resolvedArmsWeights.CriticalStrike !== 0.6) {
+  throw new Error("Spec-specific stat weights were not applied");
+}
+
+const fallbackWeights = o.resolveStatWeights({
+  goal: o.goals.mythicPlus,
+  className: "Warrior",
+  specialization: "Fury",
+  statProfiles: specProfiles
+});
+const expectedFallback = o.getGoalWeights(o.goals.mythicPlus);
+if (fallbackWeights.Haste !== expectedFallback.Haste ||
+    fallbackWeights.CriticalStrike !== expectedFallback.CriticalStrike) {
+  throw new Error("Missing spec profile did not safely fall back to goal weights");
+}
+
+const specCharacter = {
+  ...importedProfile,
+  className: "Warrior",
+  specialization: "Arms",
+  goal: o.goals.mythicPlus
+};
+const specDataset = {
+  ...dataset,
+  optimizationProfiles: specProfiles
+};
+const specReport = o.createOptimizationReport({
+  character: specCharacter,
+  availableItems: [],
+  dataset: specDataset
+});
+if (specReport.currentStats.weightedScore <= 0) {
+  throw new Error("Spec-aware optimization report did not use resolved weights");
+}
+console.log("Step 10 spec-aware stat weight resolution passed.");
