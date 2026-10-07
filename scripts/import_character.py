@@ -62,7 +62,17 @@ def normalize_equipped_item(item):
     }
 
 
-def normalize_character(profile, equipment):
+def normalize_statistics(statistics):
+    if not isinstance(statistics, dict):
+        return {}
+    return {
+        key: value
+        for key, value in statistics.items()
+        if key not in {"_links", "character"}
+    }
+
+
+def normalize_character(profile, equipment, statistics=None):
     active_spec = profile.get("active_spec") or {}
     character_class = profile.get("character_class") or {}
     race = profile.get("race") or {}
@@ -81,6 +91,7 @@ def normalize_character(profile, equipment):
         "class": {"id": resource_id(character_class), "name": normalize_name(character_class.get("name")) if isinstance(character_class, dict) else ""},
         "race": {"id": resource_id(race), "name": normalize_name(race.get("name")) if isinstance(race, dict) else ""},
         "activeSpec": {"id": resource_id(active_spec), "name": normalize_name(active_spec.get("name")) if isinstance(active_spec, dict) else ""},
+        "statistics": normalize_statistics(statistics),
         "equipment": items,
         "equipmentCount": len(items),
         "source": "Blizzard WoW Profile API",
@@ -94,7 +105,12 @@ def fetch_character(token, realm, character):
         raise ValueError("Realm and character name are required.")
     base = f"{API_BASE}/profile/wow/character/{realm_slug}/{character_name}?namespace={PROFILE_NAMESPACE}&locale={LOCALE}"
     equipment_url = f"{API_BASE}/profile/wow/character/{realm_slug}/{character_name}/equipment?namespace={PROFILE_NAMESPACE}&locale={LOCALE}"
-    return normalize_character(request_json(base, token), request_json(equipment_url, token))
+    statistics_url = f"{API_BASE}/profile/wow/character/{realm_slug}/{character_name}/statistics?namespace={PROFILE_NAMESPACE}&locale={LOCALE}"
+    return normalize_character(
+        request_json(base, token),
+        request_json(equipment_url, token),
+        request_json(statistics_url, token),
+    )
 
 
 def main():
@@ -117,7 +133,7 @@ def main():
     with open(output, "w", encoding="utf-8") as handle:
         json.dump(normalized, handle, indent=2)
         handle.write("\n")
-    print(f"Imported {normalized['name']} ({normalized['realm']['name']}) with {normalized['equipmentCount']} equipped items.")
+    print(f"Imported {normalized['name']} ({normalized['realm']['name']}) with {normalized['equipmentCount']} equipped items and {len(normalized['statistics'])} character statistics.")
 
 
 if __name__ == "__main__":
