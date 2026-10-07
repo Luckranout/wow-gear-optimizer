@@ -28,6 +28,59 @@ function createCharacterProfile() {
   };
 }
 
+function normalizeImportedEquipment(equipmentItems = []) {
+  const equipment = Object.fromEntries(WOW_EQUIPMENT_SLOTS.map(slot => [slot, null]));
+  const nextDuplicateSlot = { Finger: "Ring 1", Trinket: "Trinket 1" };
+
+  for (const rawItem of equipmentItems || []) {
+    if (!rawItem) continue;
+    const slotType = String(rawItem.slotType || "").toUpperCase();
+    const rawSlot = String(rawItem.slot || rawItem.slotName || "").trim();
+    let targetSlot = null;
+
+    if (slotType === "FINGER" || rawSlot.toLowerCase() === "finger") {
+      targetSlot = nextDuplicateSlot.Finger === "Ring 1" ? "Ring 1" : "Ring 2";
+      nextDuplicateSlot.Finger = targetSlot === "Ring 1" ? "Ring 2" : null;
+    } else if (slotType === "TRINKET" || rawSlot.toLowerCase() === "trinket") {
+      targetSlot = nextDuplicateSlot.Trinket === "Trinket 1" ? "Trinket 1" : "Trinket 2";
+      nextDuplicateSlot.Trinket = targetSlot === "Trinket 1" ? "Trinket 2" : null;
+    } else if (WOW_EQUIPMENT_SLOTS.includes(rawSlot)) {
+      targetSlot = rawSlot;
+    } else if (slotType === "MAIN_HAND" || rawSlot.toLowerCase() === "main hand") {
+      targetSlot = "Main Hand";
+    } else if (slotType === "OFF_HAND" || rawSlot.toLowerCase() === "off hand") {
+      targetSlot = "Off Hand";
+    }
+
+    if (targetSlot && !equipment[targetSlot]) {
+      equipment[targetSlot] = { ...rawItem, slot: targetSlot };
+    }
+  }
+
+  return equipment;
+}
+
+function createCharacterProfileFromImport({ importedCharacter, goal = WOW_GOALS.general } = {}) {
+  const character = createCharacterProfile();
+  if (!importedCharacter) return character;
+
+  character.className = importedCharacter.class?.name || "";
+  character.specialization = importedCharacter.activeSpec?.name || "";
+  character.goal = goal;
+  character.equipment = normalizeImportedEquipment(importedCharacter.equipment);
+
+  return {
+    ...character,
+    characterId: importedCharacter.id ?? null,
+    characterName: importedCharacter.name || "",
+    realm: importedCharacter.realm || null,
+    level: importedCharacter.level ?? null,
+    classId: importedCharacter.class?.id ?? null,
+    specializationId: importedCharacter.activeSpec?.id ?? null,
+    source: importedCharacter.source || "Imported character"
+  };
+}
+
 function scoreItemStats(item, statWeights = STAT_WEIGHTS) {
   if (!item || !item.stats) return 0;
   const stats = Array.isArray(item.stats)
@@ -279,7 +332,7 @@ const WOW_OPTIMIZER_TEST_DATA = [
 
 window.WoWOptimizer = {
   slots: WOW_EQUIPMENT_SLOTS, goals: WOW_GOALS,
-  createCharacterProfile, scoreItem, scoreEquipment, getGoalWeights,
+  createCharacterProfile, normalizeImportedEquipment, createCharacterProfileFromImport, scoreItem, scoreEquipment, getGoalWeights,
   findBestItemForSlot, optimizeEquipment, findUpgradeOpportunities, rankItems,
   getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,
   calculateCrestRequirements, isAscendantVenomstoneEligible, recommendUpgradePlan,
