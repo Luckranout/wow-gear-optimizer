@@ -232,3 +232,34 @@ footer {
 @media (max-width: 800px) {
   .upgrade-grid { grid-template-columns:1fr; }
 }
+
+.loadout-list { display:grid; gap:8px; }
+.loadout-row {
+  display:grid;
+  grid-template-columns:140px 1fr 90px;
+  gap:12px;
+  align-items:center;
+  background:#0c1017;
+  border:1px solid var(--border);
+  border-radius:11px;
+  padding:11px 13px;
+}
+.loadout-slot { color:var(--muted); font-size:12px; font-weight:800; }
+.loadout-item { font-size:13px; font-weight:750; }
+.loadout-ilvl { color:var(--muted); font-size:12px; text-align:right; }
+.loadout-summary {
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:8px;
+  padding:13px;
+  border:1px solid var(--border);
+  border-radius:11px;
+  background:#111722;
+}
+.loadout-summary span { color:var(--muted); font-size:12px; }
+@media (max-width: 520px) {
+  .loadout-row { grid-template-columns:1fr 1fr; }
+  .loadout-ilvl { text-align:left; }
+  .loadout-summary { flex-direction:column; }
+}
