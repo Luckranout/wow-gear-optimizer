@@ -107,7 +107,7 @@ function findUpgradeOpportunities({currentEquipment = {}, availableItems = [], g
 
 function rankItems(items, goal = WOW_GOALS.general) {
   const statWeights = getGoalWeights(goal);
-  return (items || []).map(item => ({ item, score: scoreItem(item, statWeights }))
+  return (items || []).map(item => ({ item, score: scoreItem(item, statWeights) }))
     .sort((a, b) => b.score - a.score);
 }
 
