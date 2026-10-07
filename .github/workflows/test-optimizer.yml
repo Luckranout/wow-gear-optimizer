@@ -11,6 +11,7 @@ on:
       - "scripts/**"
       - "tests/**"
       - ".github/workflows/test-optimizer.yml"
+      - ".github/workflows/import-character.yml"
   pull_request:
     paths:
       - "optimizer.js"
