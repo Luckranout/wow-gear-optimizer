@@ -193,9 +193,13 @@ function calculateCrestRequirements({ upgradeSystem, track, rank, availableCrest
       if (!rule) break;
       const ratio = parseExchangeRatio(rule);
       const neededFrom = Math.ceil(deficit * ratio.from / ratio.to);
-      exchanges.push({ from: rule.from, to: rule.to, required: neededFrom, ratio: rule.ratio, requirement: rule.requirement });
+      const availableFrom = Number(availableCrests[rule.from] || 0);
+      const exchangeNeeded = Math.max(0, neededFrom - availableFrom);
+      if (exchangeNeeded > 0) {
+        exchanges.push({ from: rule.from, to: rule.to, required: exchangeNeeded, ratio: rule.ratio, requirement: rule.requirement });
+      }
       current = rule.from;
-      deficit = Math.max(0, neededFrom - Number(availableCrests[current] || 0));
+      deficit = exchangeNeeded;
     }
   }
 
