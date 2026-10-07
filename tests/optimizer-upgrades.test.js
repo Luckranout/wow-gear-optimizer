@@ -87,7 +87,16 @@ const realMythPlan = o.recommendUpgradePlan({
 });
 if (realMythPlan.nextUpgrade !== null) throw new Error("Max-rank Myth item should have no next upgrade");
 if (!realMythPlan.ascendantVenomstone.eligible) throw new Error("Eligible real Myth Venomstone case failed");
-if (realMythPlan.crestPlan.fitsWeeklyCap) throw new Error("Weekly cap should block an additional crest spend at 100 used");
+if (realMythPlan.crestPlan.totalCrests !== 0 || !realMythPlan.crestPlan.fitsWeeklyCap) throw new Error("Max-rank Myth crest plan should require no crest spend");
+
+const cappedMythPlan = o.recommendUpgradePlan({
+  currentItem: { id: 900005, name: "Validation Myth Pending Upgrade", slot: "Neck", track: "Myth", rank: 5 },
+  upgradeSystem: realSystem,
+  availableCrests: { "Myth Mistcrest": 0 },
+  weeklyUsed: 100,
+  maximumQualityTidalCrafted: true
+});
+if (cappedMythPlan.crestPlan.fitsWeeklyCap) throw new Error("Weekly cap should block an additional crest spend at 100 used");
 
 const cappedPlan = o.recommendUpgradePlan({
   currentItem: { id: 900003, name: "Validation Hero Chest", slot: "Chest", track: "Hero", rank: 5 },
