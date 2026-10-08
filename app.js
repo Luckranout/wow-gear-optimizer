@@ -266,7 +266,7 @@ async function lookupCharacter() {
   const realm = realmInput.value.trim();
   if (!characterName || !realm) {
     importStatus.classList.add("error");
-    importStatus.textContent = "Enter both a character name and realm.";
+    importStatus.textContent = "Enter a character name and select a realm.";
     return;
   }
   lookupCharacterBtn.disabled = true;
