@@ -52,6 +52,34 @@ assert.deepStrictEqual(normalized.equipment[0].stats, [{ type: "Strength", value
 assert.deepStrictEqual(normalized.equipment[0].enchantments, [{ id: 77, name: "Example Enchant", displayString: "" }]);
 assert.deepStrictEqual(normalized.equipment[0].gems, [{ id: 88, name: "Example Gem", raw: { item: { id: 88 }, name: { en_US: "Example Gem" } } }]);
 assert.deepStrictEqual(normalized.statistics, { Strength: 100, Haste: 50 });
+
+const talentNormalized = normalizeCharacter(
+  { id: 2, name: "TalentTester", level: 90, realm: { id: 1, name: "Burning Legion", slug: "burning-legion" } },
+  { equipped_items: [] },
+  {},
+  {
+    active_specialization: { id: 73, name: "Protection" },
+    specializations: [{
+      specialization: { id: 73, name: "Protection" },
+      loadouts: [{
+        is_active: true,
+        selected_class_talents: [{ id: 100, rank: 1, tooltip: { talent: { id: 100, name: "Class Talent" } } }],
+        selected_spec_talents: [{ id: 200, rank: 2, tooltip: { talent: { id: 200, name: "Spec Talent" } } }],
+        selected_hero_talents: [{ id: 300, rank: 1, tooltip: { talent: { id: 300, name: "Hero Talent" } } }]
+      }]
+    }]
+  }
+);
+assert.deepStrictEqual(
+  talentNormalized.talents.map(talent => ({ source: talent.source, id: talent.id, name: talent.name, rank: talent.rank })),
+  [
+    { source: "Class", id: 100, name: "Class Talent", rank: 1 },
+    { source: "Spec", id: 200, name: "Spec Talent", rank: 2 },
+    { source: "Hero", id: 300, name: "Hero Talent", rank: 1 }
+  ]
+);
+assert.strictEqual(talentNormalized.talents.length, 3);
+console.log("Character talent loadout normalization passed.");
 assert.ok(normalized.fetchedAt);
 console.log("Live character lookup tests passed.");
 
