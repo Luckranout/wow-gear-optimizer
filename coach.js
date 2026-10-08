@@ -146,6 +146,35 @@ function getContentGuidance(goal = "General / All-around") {
   return CONTENT_GUIDANCE[goal] || CONTENT_GUIDANCE["General / All-around"];
 }
 
+function createEncounterGuidance({ encounter = null } = {}) {
+  if (!encounter) {
+    return {
+      available: false,
+      title: "No encounter selected",
+      summary: "Select an encounter when current encounter data is available. The coach will add mechanic-specific reminders without replacing your class priority.",
+      mechanics: []
+    };
+  }
+  const mechanics = Array.isArray(encounter.mechanics) ? encounter.mechanics : [];
+  const mapped = mechanics.map(mechanic => {
+    const type = String(mechanic?.type || mechanic?.category || "mechanic").toLowerCase();
+    const name = String(mechanic?.name || mechanic?.title || "Encounter mechanic");
+    const description = String(mechanic?.description || "").trim();
+    let action = "Handle the mechanic first, then return to your normal priority.";
+    if (type.includes("movement")) action = "Move early and return to your priority as soon as the movement requirement is complete.";
+    else if (type.includes("interrupt")) action = "Be ready to interrupt this cast; missing it can be more important than continuing your normal priority.";
+    else if (type.includes("defensive") || type.includes("damage")) action = "Prepare the appropriate defensive before this damage when the encounter allows it.";
+    else if (type.includes("target")) action = "Prepare to change targets and re-establish important target-dependent effects.";
+    return { name, description, action };
+  });
+  return {
+    available: true,
+    title: String(encounter.name || encounter.title || "Selected encounter"),
+    summary: String(encounter.description || "Encounter-specific guidance is available from the current dataset."),
+    mechanics: mapped
+  };
+}
+
 function createSituationalGuidance({ profile = null } = {}) {
   const role = profile?.role || "Character";
   return {
@@ -263,7 +292,7 @@ function applyTalentGuidance(gameplay, profile, talents) {
   };
 }
 
-function createCharacterCoach({ character = {}, report = {}, goal = "General / All-around" } = {}) {
+function createCharacterCoach({ character = {}, report = {}, goal = "General / All-around", encounter = null } = {}) {
   const className = character.className || "";
   const specialization = character.specialization || "";
   const profile = COACH_PROFILES[className]?.[specialization] || null;
@@ -340,6 +369,7 @@ function createCharacterCoach({ character = {}, report = {}, goal = "General / A
     content: getContentGuidance(goal),
     preparation: createCombatPreparation({ character, goal }),
     situations: createSituationalGuidance({ profile }),
+    encounter: createEncounterGuidance({ encounter }),
     gameplay: applyTalentGuidance({
       abilities: profile?.abilities || { primary: [], resource: "Resource", cooldowns: [] },
       beginnerPriority: profile?.beginnerPriority || [],
@@ -355,5 +385,5 @@ function createCharacterCoach({ character = {}, report = {}, goal = "General / A
   };
 }
 
-if (typeof module !== "undefined") module.exports = { COACH_PROFILES, CONTENT_GUIDANCE, getContentGuidance, createCombatPreparation, createSituationalGuidance, createCharacterCoach };
+if (typeof module !== "undefined") module.exports = { COACH_PROFILES, CONTENT_GUIDANCE, getContentGuidance, createCombatPreparation, createSituationalGuidance, createEncounterGuidance, createCharacterCoach };
 if (typeof window !== "undefined") window.WoWCharacterCoach = { COACH_PROFILES, CONTENT_GUIDANCE, getContentGuidance, createCharacterCoach };
