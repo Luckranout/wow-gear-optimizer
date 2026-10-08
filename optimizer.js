@@ -11,6 +11,7 @@ const WOW_GOALS = {
   mythicPlus: "Mythic+",
   raid: "Raid",
   pvp: "PvP",
+  solo: "Solo / Open World",
   general: "General / All-around"
 };
 
