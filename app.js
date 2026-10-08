@@ -120,7 +120,7 @@ function renderCharacterCoach(report, character) {
   const encounter = retailDataset?.encounters?.find(item =>
     String(item.id ?? item.name) === String(encounterSelect?.value || "")
   ) || null;
-  const coach = WoWCharacterCoach.createCharacterCoach({ character, report, goal: goalSelect.value, encounter });
+  const coach = WoWCharacterCoach.createCharacterCoach({ character, report, goal: goalSelect.value, encounter, dataset: retailDataset });
   document.querySelector("#coachTitle").textContent = `${coach.identity.name} • ${coach.identity.specialization || "Character"}`;
   document.querySelector("#coachHeadline").textContent = coach.summary.nextAction;
   document.querySelector("#coachIdentity").innerHTML = `<strong>${coach.identity.name}</strong><span>${coach.identity.className} • ${coach.identity.specialization} • ${coach.identity.role}</span><small>${coach.identity.goal}</small>`;
@@ -158,6 +158,11 @@ function renderCharacterCoach(report, character) {
   document.querySelector("#coachBuildStats").textContent = coach.buildSynthesis.statLine + " " + coach.buildSynthesis.statSnapshot;
   document.querySelector("#coachBuildGear").textContent = coach.buildSynthesis.gearLine;
   document.querySelector("#coachBuildNext").textContent = coach.buildSynthesis.next;
+  document.querySelector("#coachSetLine").textContent = coach.setCrafted.setLine;
+  document.querySelector("#coachBonusLine").textContent = coach.setCrafted.bonusLine;
+  document.querySelector("#coachEmbellishmentLine").textContent = coach.setCrafted.embellishmentLine;
+  document.querySelector("#coachCraftedLine").textContent = coach.setCrafted.craftedLine;
+  document.querySelector("#coachSetRecommendation").textContent = coach.setCrafted.recommendation;
   document.querySelector("#coachNextAction").textContent = coach.summary.nextAction;
   document.querySelector("#coachStatsSource").textContent = coach.summary.statSource;
   document.querySelector("#coachStrengths").innerHTML = coach.strengths.length ? coach.strengths.map(item => `<li>${item}</li>`).join("") : "<li>No specific strengths can be established from the current data.</li>";

@@ -146,6 +146,34 @@ function getContentGuidance(goal = "General / All-around") {
   return CONTENT_GUIDANCE[goal] || CONTENT_GUIDANCE["General / All-around"];
 }
 
+function createSetCraftedGuidance({ character = {}, dataset = null } = {}) {
+  const equipment = character.equipment || {};
+  const setPieces = Object.values(equipment).filter(item => item?.isSetPiece);
+  const bonuses = Array.isArray(dataset?.setBonuses) ? dataset.setBonuses : [];
+  const embellishments = Array.isArray(dataset?.embellishments) ? dataset.embellishments : [];
+  const crafted = Object.values(equipment).filter(item => item?.crafted || item?.isCrafted);
+  return {
+    setPieces: setPieces.length,
+    setLine: setPieces.length
+      ? `${setPieces.length} equipped set piece${setPieces.length === 1 ? "" : "s"} are recognized in the current character data.`
+      : "No equipped set pieces are identified in the current character data.",
+    bonusLine: bonuses.length
+      ? `${bonuses.length} set-bonus records are available in the current dataset; the coach can use them when the character data identifies a matching set.`
+      : "No current set-bonus records are available, so the coach will not invent a bonus.",
+    embellishmentLine: embellishments.length
+      ? `${embellishments.length} embellishment options are available in the current dataset; exact choices should follow the character and content goal.`
+      : "No current embellishment records are available.",
+    craftedLine: crafted.length
+      ? `${crafted.length} crafted equipped item${crafted.length === 1 ? "" : "s"} are identified.`
+      : "No equipped crafted items are identified.",
+    recommendation: setPieces.length
+      ? "Protect meaningful set progress when comparing replacements; a higher item score is not automatically better if it breaks an important set bonus."
+      : bonuses.length
+        ? "When set pieces become available, evaluate the bonus together with item stats rather than judging each item in isolation."
+        : "Use set and crafted-effect recommendations only when current dataset records support them."
+  };
+}
+
 function createBuildSynthesis({ character = {}, report = {}, gameplay = null } = {}) {
   const talentCount = Array.isArray(character.talents) ? character.talents.length : 0;
   const statSource = report.optimizationContext?.source || "Goal/spec baseline";
@@ -321,7 +349,7 @@ function applyTalentGuidance(gameplay, profile, talents) {
   };
 }
 
-function createCharacterCoach({ character = {}, report = {}, goal = "General / All-around", encounter = null } = {}) {
+function createCharacterCoach({ character = {}, report = {}, goal = "General / All-around", encounter = null, dataset = null } = {}) {
   const className = character.className || "";
   const specialization = character.specialization || "";
   const profile = COACH_PROFILES[className]?.[specialization] || null;
@@ -400,6 +428,7 @@ function createCharacterCoach({ character = {}, report = {}, goal = "General / A
     situations: createSituationalGuidance({ profile }),
     encounter: createEncounterGuidance({ encounter }),
     buildSynthesis: createBuildSynthesis({ character, report }),
+    setCrafted: createSetCraftedGuidance({ character, dataset }),
     gameplay: applyTalentGuidance({
       abilities: profile?.abilities || { primary: [], resource: "Resource", cooldowns: [] },
       beginnerPriority: profile?.beginnerPriority || [],
@@ -415,5 +444,5 @@ function createCharacterCoach({ character = {}, report = {}, goal = "General / A
   };
 }
 
-if (typeof module !== "undefined") module.exports = { COACH_PROFILES, CONTENT_GUIDANCE, getContentGuidance, createCombatPreparation, createSituationalGuidance, createEncounterGuidance, createBuildSynthesis, createCharacterCoach };
+if (typeof module !== "undefined") module.exports = { COACH_PROFILES, CONTENT_GUIDANCE, getContentGuidance, createCombatPreparation, createSituationalGuidance, createEncounterGuidance, createBuildSynthesis, createSetCraftedGuidance, createCharacterCoach };
 if (typeof window !== "undefined") window.WoWCharacterCoach = { COACH_PROFILES, CONTENT_GUIDANCE, getContentGuidance, createCharacterCoach };

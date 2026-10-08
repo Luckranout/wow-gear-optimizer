@@ -1,4 +1,5 @@
 name: Test WoW Optimizer
+# Step 32 verification trigger
 # Step 31 verification trigger
 # Step 30 verification trigger
 # Step 29 verification trigger
@@ -98,3 +99,8 @@ jobs:
         run: node tests/build-synthesis.test.js
       - name: Run build synthesis UI tests
         run: node tests/build-synthesis-ui.test.js
+
+      - name: Run set guidance tests
+        run: node tests/set-guidance.test.js
+      - name: Run set guidance UI tests
+        run: node tests/set-guidance-ui.test.js
