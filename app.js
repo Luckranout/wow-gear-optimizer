@@ -42,6 +42,11 @@ const characterDetailLevel = document.querySelector("#characterDetailLevel");
 const characterDetailRace = document.querySelector("#characterDetailRace");
 const characterDetailClass = document.querySelector("#characterDetailClass");
 const characterDetailSpec = document.querySelector("#characterDetailSpec");
+const characterDetailFaction = document.querySelector("#characterDetailFaction");
+const characterDetailGuild = document.querySelector("#characterDetailGuild");
+const characterDetailAchievementPoints = document.querySelector("#characterDetailAchievementPoints");
+const characterDetailAverageItemLevel = document.querySelector("#characterDetailAverageItemLevel");
+const characterDetailEquippedItemLevel = document.querySelector("#characterDetailEquippedItemLevel");
 const characterTalentsList = document.querySelector("#characterTalentsList");
 const characterEquipmentList = document.querySelector("#characterEquipmentList");
 const API_BASE_URL = String(window.WOW_API_BASE_URL || "").replace(/\/$/, "");
@@ -163,6 +168,11 @@ function renderCharacterDetails(character) {
   setCharacterDetailText(characterDetailRace, character?.race?.name);
   setCharacterDetailText(characterDetailClass, character?.class?.name);
   setCharacterDetailText(characterDetailSpec, character?.activeSpec?.name);
+  setCharacterDetailText(characterDetailFaction, character?.faction);
+  setCharacterDetailText(characterDetailGuild, character?.guild);
+  setCharacterDetailText(characterDetailAchievementPoints, character?.achievementPoints);
+  setCharacterDetailText(characterDetailAverageItemLevel, character?.averageItemLevel);
+  setCharacterDetailText(characterDetailEquippedItemLevel, character?.equippedItemLevel);
 
   const talents = Array.isArray(character?.talents) ? character.talents : [];
   characterTalentsList.innerHTML = "";
