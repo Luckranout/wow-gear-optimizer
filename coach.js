@@ -2,6 +2,11 @@ const COACH_PROFILES = {
   Warrior: {
     Protection: {
       role: "Tank",
+abilities: { primary: ["Shield Slam", "Thunder Clap", "Revenge"], resource: "Rage", cooldowns: ["Avatar", "Demoralizing Shout", "Shield Wall", "Ravager"] },
+      beginnerPriority: ["Shield Slam whenever available.", "Thunder Clap on cooldown and to maintain Rend.", "Use Revenge and react to free or proc opportunities.", "Spend excess Rage on Ignore Pain.", "Use Execute against low-health targets.", "Use Impending Victory when you need the heal."],
+      cooldownGuidance: "Use Avatar and other major cooldowns frequently rather than sitting on them. Use Shield Wall proactively for dangerous damage.",
+      commonMistakes: ["Waiting until you are nearly dead before using a defensive.", "Capping Rage instead of spending it.", "Sitting on Shield Slam or other core abilities."],
+      preCombat: ["Battle Shout active.", "Correct stance selected.", "Food/flask/weapon buffs ready for serious content."],
       loop: "Build and spend Rage while keeping your active defenses and mitigation ready for the damage that is coming.",
       priorities: [
         "Keep your main defensive tools available for dangerous damage instead of waiting until you are nearly dead.",
@@ -13,6 +18,11 @@ const COACH_PROFILES = {
     },
     Fury: {
       role: "Damage",
+abilities: { primary: ["Rampage", "Bloodthirst", "Raging Blow", "Execute"], resource: "Rage", cooldowns: ["Recklessness", "Avatar", "Bladestorm", "Odyn's Fury"] },
+      beginnerPriority: ["Keep attacking; downtime is one of the biggest performance losses.", "Use Rampage to maintain Enrage and avoid Rage waste.", "Use Bloodthirst and Raging Blow to keep Rage flowing.", "Use Execute when available or appropriate.", "Use Whirlwind or Thunder Clap to maintain the multi-target setup when needed."],
+      cooldownGuidance: "Use major cooldowns frequently. Align them when that happens naturally, but do not delay them so long that you lose an entire use.",
+      commonMistakes: ["Letting Enrage fall because Rampage was delayed.", "Standing idle or staying out of melee unnecessarily.", "Holding cooldowns too long for a theoretical perfect window."],
+      preCombat: ["Battle Shout active.", "Food/flask/weapon buffs ready for serious content."],
       loop: "Keep your core damage cycle moving, spend Rage efficiently, and use cooldowns during strong damage windows.",
       priorities: [
         "Keep your core damage abilities flowing instead of sitting on unused resources or important procs.",
@@ -24,6 +34,11 @@ const COACH_PROFILES = {
     },
     Arms: {
       role: "Damage",
+abilities: { primary: ["Mortal Strike", "Overpower", "Rend", "Execute"], resource: "Rage", cooldowns: ["Colossus Smash", "Avatar", "Bladestorm", "Demolish"] },
+      beginnerPriority: ["Keep Colossus Smash available and use it regularly.", "Keep Mortal Strike and other core abilities moving.", "Use Overpower or Slam to fill the gaps in the priority.", "Use Execute when its conditions or procs make it valuable.", "Keep Rage moving without overcapping or starving yourself."],
+      cooldownGuidance: "Keep Colossus Smash, Avatar, and your major hero-talent cooldown available on a regular cycle. Delay only for a meaningful upcoming target or damage window.",
+      commonMistakes: ["Letting downtime break Rage generation.", "Delaying several cooldowns until they desynchronize.", "Spending so much Rage that you cannot fill your next global."],
+      preCombat: ["Battle Shout active.", "Food/flask/weapon buffs ready for serious content."],
       loop: "Follow your priority system, manage Rage, and make your strongest abilities and cooldown windows count.",
       priorities: [
         "Follow the priority order rather than pressing abilities randomly when several choices are available.",
@@ -151,6 +166,11 @@ function createCharacterCoach({ character = {}, report = {}, goal = "General / A
     gearPlan: gearPriorities,
     upgradePlan: upgradePriorities,
     gameplay: {
+      abilities: profile?.abilities || { primary: [], resource: "Resource", cooldowns: [] },
+      beginnerPriority: profile?.beginnerPriority || [],
+      cooldownGuidance: profile?.cooldownGuidance || "Use important cooldowns deliberately and avoid inventing timing rules when the specialization is unsupported.",
+      commonMistakes: profile?.commonMistakes || [],
+      preCombat: profile?.preCombat || [],
       priorities: profile?.priorities || [],
       loop: profile?.loop || "Use the recommendations below as your starting point. A detailed class guide will be added when this specialization has a curated coach profile.",
       defensive: profile?.defensive || "Use defensives proactively for predictable danger and follow your specialization's trusted priority system.",
