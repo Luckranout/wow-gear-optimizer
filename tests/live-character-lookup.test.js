@@ -13,7 +13,12 @@ const normalized = normalizeCharacter(
     realm: { id: 3676, name: { en_US: "Area 52" }, slug: "area-52" },
     character_class: { id: 1, name: { en_US: "Warrior" } },
     race: { id: 2, name: { en_US: "Orc" } },
-    active_spec: { id: 73, name: { en_US: "Protection" } }
+    active_spec: { id: 73, name: { en_US: "Protection" } },
+    faction: { type: "HORDE", name: { en_US: "Horde" } },
+    guild: { id: 42, name: { en_US: "Example Guild" } },
+    achievement_points: 12345,
+    average_item_level: 700,
+    equipped_item_level: 695
   },
   {
     equipped_items: [
@@ -36,6 +41,11 @@ assert.strictEqual(normalized.name, "Luckranout");
 assert.strictEqual(normalized.realm.slug, "area-52");
 assert.strictEqual(normalized.class.name, "Warrior");
 assert.strictEqual(normalized.activeSpec.name, "Protection");
+assert.strictEqual(normalized.faction, "Horde");
+assert.strictEqual(normalized.guild, "Example Guild");
+assert.strictEqual(normalized.achievementPoints, 12345);
+assert.strictEqual(normalized.averageItemLevel, 700);
+assert.strictEqual(normalized.equippedItemLevel, 695);
 assert.strictEqual(normalized.equipmentCount, 1);
 assert.strictEqual(normalized.equipment[0].slotType, "HEAD");
 assert.deepStrictEqual(normalized.equipment[0].stats, [{ type: "Strength", value: 100 }]);
