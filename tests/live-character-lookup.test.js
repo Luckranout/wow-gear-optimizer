@@ -1,5 +1,6 @@
 const assert = require("assert");
 const { slugify, normalizeCharacter } = require("../server/blizzard-character");
+const fs = require("fs");
 
 assert.strictEqual(slugify("Area 52"), "area-52");
 assert.strictEqual(slugify("Zul'jin"), "zuljin");
@@ -37,3 +38,8 @@ assert.strictEqual(normalized.equipment[0].slotType, "HEAD");
 assert.deepStrictEqual(normalized.statistics, { Strength: 100, Haste: 50 });
 assert.ok(normalized.fetchedAt);
 console.log("Live character lookup tests passed.");
+
+const realmsApi = fs.readFileSync("api/realms.js", "utf8");
+assert.ok(realmsApi.includes("fetchRealms"), "Realm API must use the cached Blizzard realm loader.");
+assert.ok(realmsApi.includes("s-maxage=21600"), "Realm API must advertise its cache lifetime.");
+console.log("Blizzard realm API contract passed.");

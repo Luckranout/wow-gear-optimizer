@@ -36,8 +36,36 @@ const characterNameInput = document.querySelector("#characterNameInput");
 const realmInput = document.querySelector("#realmInput");
 const lookupCharacterBtn = document.querySelector("#lookupCharacterBtn");
 const API_BASE_URL = String(window.WOW_API_BASE_URL || "").replace(/\/$/, "");
+const DEFAULT_CHARACTER_NAME = "Failing";
+const DEFAULT_REALM_NAME = "Burning Legion";
 let retailDataset = null;
 let importedCharacter = null;
+
+async function loadRealmOptions() {
+  if (!realmInput || realmInput.tagName !== "SELECT") return false;
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/realms`);
+    const data = await response.json();
+    if (!response.ok || !Array.isArray(data.realms) || !data.realms.length) {
+      throw new Error(data?.error || "No Blizzard realms were returned.");
+    }
+    const currentRealm = realmInput.value;
+    realmInput.innerHTML = `<option value="">${DEFAULT_REALM_NAME}</option>` +
+      data.realms.map(realm =>
+        `<option value="${realm.name}">${realm.name}</option>`
+      ).join("");
+    if (currentRealm && [...realmInput.options].some(option => option.value === currentRealm)) {
+      realmInput.value = currentRealm;
+    } else {
+      realmInput.value = "";
+    }
+    return true;
+  } catch (error) {
+    importStatus.classList.add("error");
+    importStatus.textContent = `Realm list could not be loaded. The default realm remains available. ${error.message}`;
+    return false;
+  }
+}
 
 async function loadCurrentRetailData() {
   try {
@@ -366,4 +394,5 @@ document.querySelector("#clearBtn").addEventListener("click", () => {
 });
 
 renderSlots();
+loadRealmOptions();
 loadCurrentRetailData();

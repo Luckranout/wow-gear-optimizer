@@ -1,9 +1,11 @@
 const API_BASE = "https://us.api.blizzard.com";
 const TOKEN_URL = "https://oauth.battle.net/token";
 const PROFILE_NAMESPACE = "profile-us";
+const DYNAMIC_NAMESPACE = "dynamic-us";
 const LOCALE = "en_US";
 
 let cachedToken = null;
+let cachedRealms = null;
 
 function slugify(value) {
   return String(value || "").trim().toLowerCase().replace(/['’]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
@@ -131,6 +133,23 @@ async function requestJson(url, token) {
   return response.json();
 }
 
+async function fetchRealms({ clientId, clientSecret }) {
+  if (cachedRealms && cachedRealms.expiresAt > Date.now()) return cachedRealms.value;
+  const token = await getAccessToken(clientId, clientSecret);
+  const url = API_BASE + "/data/wow/realm/index?namespace=" + DYNAMIC_NAMESPACE + "&locale=" + LOCALE;
+  const data = await requestJson(url, token);
+  const realms = (Array.isArray(data.realms) ? data.realms : [])
+    .map(realm => ({
+      id: resourceId(realm),
+      name: normalizeName(realm.name),
+      slug: realm.slug || ""
+    }))
+    .filter(realm => realm.name && realm.slug)
+    .sort((a, b) => a.name.localeCompare(b.name));
+  cachedRealms = { value: realms, expiresAt: Date.now() + 6 * 60 * 60 * 1000 };
+  return realms;
+}
+
 async function fetchCharacter({ realm, character, clientId, clientSecret }) {
   const realmSlug = slugify(realm);
   const characterName = encodeURIComponent(String(character).trim().toLowerCase());
@@ -154,4 +173,4 @@ async function fetchCharacter({ realm, character, clientId, clientSecret }) {
   return normalizeCharacter(profile, equipped, stats, specializationData);
 }
 
-module.exports = { slugify, normalizeEquippedItem, normalizeStatistics, normalizeCharacterTalents, normalizeCharacter, fetchCharacter };
+module.exports = { slugify, normalizeEquippedItem, normalizeStatistics, normalizeCharacterTalents, normalizeCharacter, fetchCharacter, fetchRealms };
