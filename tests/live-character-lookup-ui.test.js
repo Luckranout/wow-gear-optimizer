@@ -15,6 +15,9 @@ if (!app.includes('const DEFAULT_CHARACTER_NAME = "Failing";')) throw new Error(
 if (!app.includes('const DEFAULT_REALM_NAME = "Burning Legion";')) throw new Error("Default realm constant must be Burning Legion.");
 if (!app.includes("characterNameInput.value = DEFAULT_CHARACTER_NAME")) throw new Error("Clear must restore the Failing default.");
 if (!app.includes("realmInput.value = DEFAULT_REALM_NAME")) throw new Error("Clear must restore the Burning Legion default.");
+if (!app.includes("clearDefaultOnFocus")) throw new Error("Default fields must clear on focus.");
+if (!app.includes("if (input.value === defaultValue) input.value = \"\"")) throw new Error("Default value must disappear when its field is focused.");
+if (!app.includes("if (!input.value.trim()) input.value = defaultValue")) throw new Error("Empty default field must restore its default on blur.");
 if (index.includes('id="simulationFile"')) throw new Error("SimulationCraft upload must not be part of the customer lookup flow.");
 if (index.includes('id="simulationExportBtn"')) throw new Error("SimulationCraft export must not be part of the customer lookup flow.");
 for (const needle of ["/api/character?", "Looking up your character from Blizzard", "applyLiveCharacter"]) {
