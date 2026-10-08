@@ -33,7 +33,18 @@ def discover_current_pvp_season(token):
     if not candidates:
         raise RuntimeError("Blizzard did not expose a usable PvP season index.")
     current = max(candidates, key=lambda s: extract_id(s))
-    return extract_id(current), localized_name(current.get("name")) if isinstance(current, dict) else None
+    current_id = extract_id(current)
+    current_name = localized_name(current.get("name")) if isinstance(current, dict) else None
+    if not current_name and current_id:
+        detail = get_api_json(
+            f"/data/wow/pvp-season/{current_id}",
+            token,
+            {"namespace": PVP_NAMESPACE, "locale": LOCALE},
+        )
+        current_name = localized_name(detail.get("name"))
+    if not current_name:
+        raise RuntimeError(f"Blizzard PvP season {current_id} did not expose a usable name.")
+    return current_id, current_name
 
 
 def enforce_supported_season(current_season_name):
