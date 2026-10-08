@@ -86,3 +86,8 @@ jobs:
         run: node tests/situational-gameplay-coach.test.js
       - name: Run situational gameplay UI tests
         run: node tests/situational-gameplay-ui.test.js
+
+      - name: Run encounter-aware coach tests
+        run: node tests/encounter-aware-coach.test.js
+      - name: Run encounter-aware UI tests
+        run: node tests/encounter-aware-ui.test.js
