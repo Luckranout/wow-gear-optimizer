@@ -124,6 +124,7 @@ footer {
   align-items:center; margin-bottom:22px; padding:18px;
   background:#0c1017; border:1px solid var(--border); border-radius:13px;
 }
+.import-box .form-grid { grid-template-columns:1fr 1fr; }
 .import-box h3 { margin:0 0 6px; }
 .import-box p { margin:0; color:var(--muted); font-size:13px; line-height:1.5; }
 .file-label input {
