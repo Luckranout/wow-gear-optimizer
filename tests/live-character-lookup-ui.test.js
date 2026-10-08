@@ -56,3 +56,9 @@ if (!app.includes('typeof item?.slot === "string" ? item.slot : (item?.slot?.nam
 if (!app.includes('name.textContent = item?.name || "Unnamed item";')) throw new Error("Character equipment renderer must display returned item names.");
 if (!app.includes('detail.textContent = formatCharacterDetailItem(item);')) throw new Error("Character equipment renderer must display returned item level and quality details.");
 console.log("Character details equipment-shape regression coverage passed.");
+
+if (app.includes('.map(realm => `<option value="${realm.name}">${realm.name}</option>`)')) throw new Error("Realm names must not be inserted into HTML markup.");
+if (!app.includes('placeholderOption.textContent = DEFAULT_REALM_NAME;')) throw new Error("Realm placeholder must use DOM text content.");
+if (!app.includes('option.textContent = String(realm.name);')) throw new Error("Realm names must be assigned as DOM text.");
+if (!app.includes('liveSpecOption.textContent = String(profile.specialization);')) throw new Error("Live specialization must be assigned as DOM text.");
+console.log("Blizzard-sourced select rendering regression coverage passed.");
