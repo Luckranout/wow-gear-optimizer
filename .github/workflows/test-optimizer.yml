@@ -110,3 +110,8 @@ jobs:
         run: node tests/special-item-guidance.test.js
       - name: Run special item UI tests
         run: node tests/special-item-ui.test.js
+
+      - name: Run upgrade spending tests
+        run: node tests/upgrade-spending.test.js
+      - name: Run upgrade spending UI tests
+        run: node tests/upgrade-spending-ui.test.js
