@@ -36,6 +36,8 @@ const characterNameInput = document.querySelector("#characterNameInput");
 const realmInput = document.querySelector("#realmInput");
 const lookupCharacterBtn = document.querySelector("#lookupCharacterBtn");
 const API_BASE_URL = String(window.WOW_API_BASE_URL || "").replace(/\/$/, "");
+const DEFAULT_CHARACTER_NAME = "Failing";
+const DEFAULT_REALM_NAME = "Burning Legion";
 let retailDataset = null;
 let importedCharacter = null;
 
@@ -47,7 +49,7 @@ async function loadRealmOptions() {
     if (!response.ok || !Array.isArray(data.realms) || !data.realms.length) {
       throw new Error(data?.error || "No Blizzard realms were returned.");
     }
-    const currentRealm = realmInput.value || "Burning Legion";
+    const currentRealm = realmInput.value || DEFAULT_REALM_NAME;
     realmInput.innerHTML = data.realms.map(realm =>
       `<option value="${realm.name}">${realm.name}</option>`
     ).join("");
@@ -369,8 +371,8 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
 document.querySelector("#clearBtn").addEventListener("click", () => {
   importedCharacter = null;
   importedSimulation = null;
-  characterNameInput.value = "";
-  realmInput.value = "";
+  characterNameInput.value = DEFAULT_CHARACTER_NAME;
+  realmInput.value = DEFAULT_REALM_NAME;
   importStatus.classList.remove("error");
   importStatus.textContent = "No character imported.";
   renderCharacterStats({});
