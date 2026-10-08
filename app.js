@@ -163,6 +163,12 @@ function renderCharacterCoach(report, character) {
   document.querySelector("#coachEmbellishmentLine").textContent = coach.setCrafted.embellishmentLine;
   document.querySelector("#coachCraftedLine").textContent = coach.setCrafted.craftedLine;
   document.querySelector("#coachSetRecommendation").textContent = coach.setCrafted.recommendation;
+  document.querySelector("#coachSpecialTrinkets").textContent = coach.specialItems.trinketLine;
+  document.querySelector("#coachSpecialWeapons").textContent = coach.specialItems.weaponLine;
+  document.querySelector("#coachSpecialRanked").innerHTML = coach.specialItems.ranked.length
+    ? coach.specialItems.ranked.map(item => `<li><strong>${item.slot}: ${item.name}</strong><span>+${formatGearScore(item.improvement)} weighted score</span></li>`).join("")
+    : "<li>No direct trinket or weapon upgrade is ranked.</li>";
+  document.querySelector("#coachSpecialNote").textContent = coach.specialItems.note;
   document.querySelector("#coachNextAction").textContent = coach.summary.nextAction;
   document.querySelector("#coachStatsSource").textContent = coach.summary.statSource;
   document.querySelector("#coachStrengths").innerHTML = coach.strengths.length ? coach.strengths.map(item => `<li>${item}</li>`).join("") : "<li>No specific strengths can be established from the current data.</li>";
