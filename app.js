@@ -64,7 +64,6 @@ async function loadRealmOptions() {
       throw new Error(data?.error || "No Blizzard realms were returned.");
     }
     const currentRealm = realmInput.value;
-    const placeholder = `<option value="">${DEFAULT_REALM_NAME}</option>`;
     realmInput.innerHTML = "";
     const placeholderOption = document.createElement("option");
     placeholderOption.value = "";
