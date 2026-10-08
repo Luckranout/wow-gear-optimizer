@@ -35,6 +35,15 @@ const optimizationSource = document.querySelector("#optimizationSource");
 const characterNameInput = document.querySelector("#characterNameInput");
 const realmInput = document.querySelector("#realmInput");
 const lookupCharacterBtn = document.querySelector("#lookupCharacterBtn");
+const characterDetailsPanel = document.querySelector("#characterDetailsPanel");
+const characterDetailName = document.querySelector("#characterDetailName");
+const characterDetailRealm = document.querySelector("#characterDetailRealm");
+const characterDetailLevel = document.querySelector("#characterDetailLevel");
+const characterDetailRace = document.querySelector("#characterDetailRace");
+const characterDetailClass = document.querySelector("#characterDetailClass");
+const characterDetailSpec = document.querySelector("#characterDetailSpec");
+const characterTalentsList = document.querySelector("#characterTalentsList");
+const characterEquipmentList = document.querySelector("#characterEquipmentList");
 const API_BASE_URL = String(window.WOW_API_BASE_URL || "").replace(/\/$/, "");
 const DEFAULT_CHARACTER_NAME = "Failing";
 const DEFAULT_REALM_NAME = "Burning Legion";
@@ -110,6 +119,112 @@ function renderCharacterStats(statistics = {}) {
         </div>
       `).join("")
     : '<div class="stat-empty">No imported character statistics available.</div>';
+}
+
+function setCharacterDetailText(element, value) {
+  if (element) element.textContent = value == null || value === "" ? "—" : String(value);
+}
+
+function formatCharacterDetailItem(item) {
+  const quality = item?.quality?.name || "";
+  const itemLevel = item?.itemLevel ?? item?.level;
+  const parts = [];
+  if (itemLevel != null) parts.push(`iLvl ${itemLevel}`);
+  if (quality) parts.push(quality);
+  return parts.join(" • ") || "Item details returned";
+}
+
+function formatCharacterDetailEnhancements(item) {
+  const details = [];
+  if (Array.isArray(item?.enchantments) && item.enchantments.length) {
+    details.push(`${item.enchantments.length} enchantment${item.enchantments.length === 1 ? "" : "s"}`);
+  }
+  if (Array.isArray(item?.gems) && item.gems.length) {
+    details.push(`${item.gems.length} gem${item.gems.length === 1 ? "" : "s"}`);
+  }
+  return details.join(" • ");
+}
+
+function renderCharacterDetails(character) {
+  if (!characterDetailsPanel) return;
+  characterDetailsPanel.hidden = false;
+
+  setCharacterDetailText(characterDetailName, character?.name);
+  setCharacterDetailText(characterDetailRealm, character?.realm?.name);
+  setCharacterDetailText(characterDetailLevel, character?.level);
+  setCharacterDetailText(characterDetailRace, character?.race?.name);
+  setCharacterDetailText(characterDetailClass, character?.class?.name);
+  setCharacterDetailText(characterDetailSpec, character?.activeSpec?.name);
+
+  const talents = Array.isArray(character?.talents) ? character.talents : [];
+  characterTalentsList.innerHTML = "";
+  if (!talents.length) {
+    const empty = document.createElement("li");
+    empty.textContent = "No talent data returned.";
+    characterTalentsList.appendChild(empty);
+  } else {
+    talents.forEach(talent => {
+      const item = document.createElement("li");
+      const name = document.createElement("strong");
+      name.textContent = talent?.name || "Unnamed talent";
+      item.appendChild(name);
+      if (talent?.rank != null) {
+        const rank = document.createElement("span");
+        rank.textContent = `Rank ${talent.rank}`;
+        item.appendChild(rank);
+      }
+      characterTalentsList.appendChild(item);
+    });
+  }
+
+  const equipment = Array.isArray(character?.equipment) ? character.equipment : [];
+  characterEquipmentList.innerHTML = "";
+  if (!equipment.length) {
+    const empty = document.createElement("div");
+    empty.className = "result-empty";
+    empty.textContent = "No equipment data returned.";
+    characterEquipmentList.appendChild(empty);
+  } else {
+    equipment.forEach(item => {
+      const card = document.createElement("article");
+      card.className = "character-equipment-card";
+
+      const header = document.createElement("div");
+      header.className = "character-equipment-header";
+
+      const slot = document.createElement("span");
+      slot.className = "character-equipment-slot";
+      slot.textContent = item?.slot?.name || "Equipment";
+      header.appendChild(slot);
+
+      const name = document.createElement("h4");
+      name.textContent = item?.name || "Unnamed item";
+      header.appendChild(name);
+
+      const detail = document.createElement("div");
+      detail.className = "character-equipment-detail";
+      detail.textContent = formatCharacterDetailItem(item);
+
+      const enhancements = formatCharacterDetailEnhancements(item);
+      if (enhancements) {
+        const enhancement = document.createElement("small");
+        enhancement.textContent = enhancements;
+        detail.appendChild(document.createTextNode(" • "));
+        detail.appendChild(enhancement);
+      }
+
+      card.appendChild(header);
+      card.appendChild(detail);
+      characterEquipmentList.appendChild(card);
+    });
+  }
+}
+
+function clearCharacterDetails() {
+  if (!characterDetailsPanel) return;
+  characterDetailsPanel.hidden = true;
+  characterTalentsList.innerHTML = "";
+  characterEquipmentList.innerHTML = "";
 }
 
 function formatGearScore(value) {
@@ -260,6 +375,7 @@ function applyLiveCharacter(character) {
   importStatus.textContent = WoWCharacterImport.formatImportedCharacterSummary(character) +
     " • Live Blizzard data retrieved " + new Date(character.fetchedAt || Date.now()).toLocaleTimeString();
   renderCharacterStats(profile.statistics);
+  renderCharacterDetails(character);
   renderSlots();
   resultMessage.textContent = "Live character data loaded. Run the optimizer to evaluate the current gear.";
 }
@@ -291,6 +407,7 @@ async function lookupCharacter() {
     importedCharacter = null;
     importStatus.classList.add("error");
     importStatus.textContent = error.message;
+    clearCharacterDetails();
     renderSlots();
     renderCharacterStats({});
   } finally {
@@ -392,6 +509,7 @@ document.querySelector("#clearBtn").addEventListener("click", () => {
   optimizationSource.textContent = "Optimization source will appear after the optimizer runs.";
   renderUpgradeResults([]);
   renderOptimizedLoadout({});
+  clearCharacterDetails();
   resultMessage.textContent = "Look up a character or choose a class and specialization, then run the optimizer.";
   renderSlots();
 });
