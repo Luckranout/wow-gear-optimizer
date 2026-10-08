@@ -46,25 +46,23 @@
 
       <div class="import-box">
         <div>
-          <h3>Import your real character</h3>
-          <p>Run the secure Blizzard importer with your Blizzard access token, then load its normalized JSON here. The browser never receives or stores the Blizzard token.</p>
+          <h3>Look up your live character</h3>
+          <p>Enter your character name and realm. We retrieve the current character profile, equipment, and statistics directly from Blizzard. Nothing to import.</p>
         </div>
-        <label class="file-label">
-          Character JSON
-          <input id="characterFile" type="file" accept=".json,application/json">
-        </label>
-        <div id="importStatus" class="import-status">No character imported.</div>
-        <div class="simulation-import">
-          <label class="file-label">
-            Simulation result JSON
-            <input id="simulationFile" type="file" accept=".json,application/json">
-            <button class="secondary" id="simulationExportBtn" type="button">Export SimulationCraft profile</button>
+        <div class="form-grid">
+          <label>
+            Character name
+            <input id="characterNameInput" type="text" autocomplete="off" placeholder="Luckranout">
           </label>
-          <div id="simulationStatus" class="import-status">No simulation results imported.</div>
-          <div class="stat-grid simulation-results-grid" id="simulationResults">
-            <div class="stat-empty">Import SimulationCraft results to see the derived stat weights.</div>
-          </div>
+          <label>
+            Realm
+            <input id="realmInput" type="text" autocomplete="off" placeholder="Area 52">
+          </label>
         </div>
+        <div class="actions">
+          <button class="primary" id="lookupCharacterBtn" type="button">Look Up Character</button>
+        </div>
+        <div id="importStatus" class="import-status">No character looked up yet.</div>
       </div>
 
       <div class="form-grid">
@@ -203,8 +201,6 @@
   <script src="wow-data.js"></script>
   <script src="optimizer.js"></script>
   <script src="character-import.js"></script>
-  <script src="simulation-import.js"></script>
-  <script src="simulation-export.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

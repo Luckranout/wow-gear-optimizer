@@ -26,17 +26,14 @@ const specSelect = document.querySelector("#specSelect");
 const goalSelect = document.querySelector("#goalSelect");
 const slotGrid = document.querySelector("#slotGrid");
 const resultMessage = document.querySelector("#resultMessage");
-const characterFile = document.querySelector("#characterFile");
 const importStatus = document.querySelector("#importStatus");
 const statsGrid = document.querySelector("#statsGrid");
-const simulationFile = document.querySelector("#simulationFile");
-const simulationStatus = document.querySelector("#simulationStatus");
-const simulationResults = document.querySelector("#simulationResults");
 const upgradeResults = document.querySelector("#upgradeResults");
 const loadoutResults = document.querySelector("#loadoutResults");
 const optimizationSource = document.querySelector("#optimizationSource");
-const simulationExportBtn = document.querySelector("#simulationExportBtn");
-let importedSimulation = null;
+const characterNameInput = document.querySelector("#characterNameInput");
+const realmInput = document.querySelector("#realmInput");
+const lookupCharacterBtn = document.querySelector("#lookupCharacterBtn");
 let retailDataset = null;
 let importedCharacter = null;
 
@@ -76,31 +73,16 @@ function renderCharacterStats(statistics = {}) {
     : '<div class="stat-empty">No imported character statistics available.</div>';
 }
 
-function renderSimulationResults(simulation = null) {
-  if (!simulation || !simulation.scaleFactors) {
-    simulationResults.innerHTML = '<div class="stat-empty">Import SimulationCraft results to see the derived stat weights.</div>';
-    return;
-  }
-  const entries = Object.entries(simulation.scaleFactors)
-    .sort((a, b) => b[1] - a[1]);
-  simulationResults.innerHTML = entries.map(([stat, value]) => `
-    <div class="stat-card">
-      <div class="stat-label">${stat}</div>
-      <div class="stat-value">${Number(value).toFixed(4)}</div>
-    </div>
-  `).join("");
-}
-
 function formatGearScore(value) {
   return Number(value || 0).toLocaleString(undefined, { maximumFractionDigits: 2 });
 }
 
-function renderUpgradeResults(upgrades = [], simulation = null) {
+function renderUpgradeResults(upgrades = []) {
   if (!upgrades.length) {
     upgradeResults.innerHTML = '<div class="result-empty">No direct gear upgrades are available in the current dataset for the imported character.</div>';
     return;
   }
-  const sourceLabel = simulation ? "SimulationCraft-weighted" : "Goal/spec-weighted";
+  const sourceLabel = "Goal/spec-weighted";
   upgradeResults.innerHTML = upgrades.map(upgrade => `
     <article class="upgrade-card">
       <div class="upgrade-card-top">
@@ -127,13 +109,13 @@ function renderUpgradeResults(upgrades = [], simulation = null) {
     </article>
   `).join("");
 }
-function renderOptimizedLoadout(equipment = {}, score = 0, simulation = null) {
+function renderOptimizedLoadout(equipment = {}, score = 0) {
   const entries = Object.entries(equipment).filter(([, item]) => item);
   if (!entries.length) {
     loadoutResults.innerHTML = '<div class="result-empty">No optimized loadout is available from the current dataset.</div>';
     return;
   }
-  const sourceLabel = simulation ? "SimulationCraft-weighted" : "Goal/spec-weighted";
+  const sourceLabel = "Goal/spec-weighted";
   loadoutResults.innerHTML = entries.map(([slot, item]) => `
     <div class="loadout-row">
       <div class="loadout-slot">${slot}</div>
@@ -148,84 +130,54 @@ function setSelectValue(select, value) {
   if (option) select.value = option.value;
 }
 
-function applyImportedCharacter(character) {
+function applyLiveCharacter(character) {
   importedCharacter = character;
   const profile = WoWOptimizer.createCharacterProfileFromImport({
     importedCharacter,
     goal: goalSelect.value
   });
-
   setSelectValue(classSelect, profile.className);
   classSelect.disabled = true;
   specSelect.disabled = false;
   specSelect.innerHTML = `<option value="${profile.specialization}">${profile.specialization}</option>`;
   specSelect.value = profile.specialization;
-  importStatus.textContent = WoWCharacterImport.formatImportedCharacterSummary(character);
+  importStatus.classList.remove("error");
+  importStatus.textContent = WoWCharacterImport.formatImportedCharacterSummary(character) +
+    " • Live Blizzard data retrieved " + new Date(character.fetchedAt || Date.now()).toLocaleTimeString();
   renderCharacterStats(profile.statistics);
   renderSlots();
-  resultMessage.textContent = importedSimulation
-    ? "Character imported with simulation results. Run the optimizer to evaluate this character using those scale factors."
-    : "Character imported. Run the optimizer to evaluate this character's current equipment.";
+  resultMessage.textContent = "Live character data loaded. Run the optimizer to evaluate the current gear.";
 }
 
-characterFile.addEventListener("change", async () => {
-  const file = characterFile.files?.[0];
-  if (!file) return;
-
-  const parsed = WoWCharacterImport.parseImportedCharacterJson(await file.text());
-  if (!parsed.valid) {
-    importedCharacter = null;
-    importStatus.textContent = parsed.errors.join(" ");
+async function lookupCharacter() {
+  const characterName = characterNameInput.value.trim();
+  const realm = realmInput.value.trim();
+  if (!characterName || !realm) {
     importStatus.classList.add("error");
-    renderSlots();
+    importStatus.textContent = "Enter both a character name and realm.";
     return;
   }
-
+  lookupCharacterBtn.disabled = true;
   importStatus.classList.remove("error");
-  applyImportedCharacter(parsed.character);
-});
-
-simulationExportBtn.addEventListener("click", () => {
-  if (!importedCharacter) {
-    simulationStatus.classList.add("error");
-    simulationStatus.textContent = "Import a character before exporting a SimulationCraft profile.";
-    return;
-  }
+  importStatus.textContent = "Looking up your character from Blizzard...";
   try {
-    const profile = WoWSimulationExport.createSimulationCraftProfile(importedCharacter);
-    const blob = new Blob([profile], { type: "text/plain;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `${importedCharacter.name || "character"}-optimizer.simc`;
-    link.click();
-    URL.revokeObjectURL(url);
-    simulationStatus.classList.remove("error");
-    simulationStatus.textContent = "SimulationCraft profile exported.";
+    const response = await fetch(`/api/character?realm=${encodeURIComponent(realm)}&character=${encodeURIComponent(characterName)}`);
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || "Character lookup failed.");
+    applyLiveCharacter(data);
   } catch (error) {
-    simulationStatus.classList.add("error");
-    simulationStatus.textContent = error.message;
+    importedCharacter = null;
+    importStatus.classList.add("error");
+    importStatus.textContent = error.message;
+    renderSlots();
+    renderCharacterStats({});
+  } finally {
+    lookupCharacterBtn.disabled = false;
   }
-});
-
-simulationFile.addEventListener("change", async () => {
-  const file = simulationFile.files?.[0];
-  if (!file) return;
-  try {
-    importedSimulation = WoWSimulationImport.parseSimulationResultJson(await file.text());
-    simulationStatus.classList.remove("error");
-    simulationStatus.textContent =
-      `Loaded ${importedSimulation.source} scale factors for ${importedSimulation.specialization || "unspecified specialization"}.`;
-    renderSimulationResults(importedSimulation);
-    if (importedCharacter) {
-      resultMessage.textContent = "Simulation results loaded. Run the optimizer to use the simulation-derived weights.";
-    }
-  } catch (error) {
-    importedSimulation = null;
-    simulationStatus.classList.add("error");
-    simulationStatus.textContent = error.message;
-  }
-});
+}
+lookupCharacterBtn.addEventListener("click", lookupCharacter);
+characterNameInput.addEventListener("keydown", event => { if (event.key === "Enter") lookupCharacter(); });
+realmInput.addEventListener("keydown", event => { if (event.key === "Enter") lookupCharacter(); });
 
 classSelect.addEventListener("change", () => {
   const selected = classSelect.value;
@@ -260,7 +212,6 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
       importedCharacter,
       goal: goalSelect.value
     });
-    character.simulation = importedSimulation;
   } else {
     const cls = classSelect.value;
     const spec = specSelect.value;
@@ -283,12 +234,10 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
   });
 
   renderCharacterStats(report.currentStats.trackedStats);
-  optimizationSource.textContent = report.optimizationContext.source === "SimulationCraft"
-    ? `Using SimulationCraft scale factors • ${report.optimizationContext.specialization || character.specialization || "spec not specified"} • patch ${report.optimizationContext.patch || "unspecified"}`
-    : `Using baseline goal/spec weights • ${character.goal}`;
+  optimizationSource.textContent = `Using native goal/spec weights • ${character.goal}`;
 
-  renderUpgradeResults(report.topUpgrades, importedSimulation);
-  renderOptimizedLoadout(report.optimizedEquipment, report.totalScore, importedSimulation);
+  renderUpgradeResults(report.topUpgrades);
+  renderOptimizedLoadout(report.optimizedEquipment, report.totalScore);
 
 
   const label = importedCharacter
@@ -303,13 +252,10 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
 document.querySelector("#clearBtn").addEventListener("click", () => {
   importedCharacter = null;
   importedSimulation = null;
-  characterFile.value = "";
-  simulationFile.value = "";
+  characterNameInput.value = "";
+  realmInput.value = "";
   importStatus.classList.remove("error");
   importStatus.textContent = "No character imported.";
-  simulationStatus.classList.remove("error");
-  simulationStatus.textContent = "No simulation results imported.";
-  renderSimulationResults(null);
   renderCharacterStats({});
   classSelect.disabled = false;
   classSelect.value = "";
@@ -319,7 +265,7 @@ document.querySelector("#clearBtn").addEventListener("click", () => {
   optimizationSource.textContent = "Optimization source will appear after the optimizer runs.";
   renderUpgradeResults([]);
   renderOptimizedLoadout({});
-  resultMessage.textContent = "Import a character or choose a class and specialization, then run the optimizer.";
+  resultMessage.textContent = "Look up a character or choose a class and specialization, then run the optimizer.";
   renderSlots();
 });
 
