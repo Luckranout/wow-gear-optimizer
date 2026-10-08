@@ -20,6 +20,10 @@ MINIMUM_SEASON = 2
 SEASON_SCOPE = "Midnight Season 2+"
 SUPPORTED_SEASON_NAME = "Midnight Season 2"
 SUPPORTED_SEASON_ID = 42
+# Blizzard announced that the Midnight Season 2 crest cap is lifted during the week of October 20, 2026.
+# Keep this effective date explicit and sourced rather than silently assuming the cap remains forever.
+CREST_CAP_LIFT_DATE = datetime(2026, 10, 20, tzinfo=timezone.utc)
+CREST_WEEKLY_CAP_BEFORE_LIFT = 100
 
 
 def discover_current_pvp_season(token):
@@ -1149,13 +1153,18 @@ def fetch_item_details(token, item_ids, item_sources):
 
 
 
-def collect_upgrade_and_crest_data():
+def collect_upgrade_and_crest_data(as_of=None):
     """Build explicit Midnight Season 2 upgrade-track and crest rules.
 
     Blizzard's public Game Data API does not expose a complete seasonal
     upgrade-track catalog as a single resource, so keep the seasonal ladder
     explicit and versioned rather than inferring it from item level alone.
     """
+    effective_at = as_of or datetime.now(timezone.utc)
+    crest_cap_lifted = effective_at >= CREST_CAP_LIFT_DATE
+    weekly_crest_cap = None if crest_cap_lifted else CREST_WEEKLY_CAP_BEFORE_LIFT
+    crest_cap_status = "lifted" if crest_cap_lifted else "active"
+
     tracks = [
         {
             "id": "adventurer",
@@ -1197,7 +1206,7 @@ def collect_upgrade_and_crest_data():
     for track in tracks:
         track["seasonScope"] = SEASON_SCOPE
         track["crestCostPerUpgrade"] = 20
-        track["weeklyCrestCap"] = 100
+        track["weeklyCrestCap"] = weekly_crest_cap
         track["itemLevelMin"] = track["ranks"][0]
         track["itemLevelMax"] = track["ranks"][-1]
         track["rankCount"] = len(track["ranks"])
@@ -1304,6 +1313,10 @@ def collect_upgrade_and_crest_data():
         "crests": crests,
         "exchangeRules": exchange_rules,
         "ascendantVenomstone": ascendant_venomstone,
+        "weeklyCrestCap": weekly_crest_cap,
+        "crestCapStatus": crest_cap_status,
+        "crestCapLiftDate": CREST_CAP_LIFT_DATE.date().isoformat(),
+        "crestCapSource": "Blizzard Entertainment — Midnight 12.1.5 Content Update",
         "seasonScope": SEASON_SCOPE,
         "source": "Midnight Season 2 upgrade rules",
     }

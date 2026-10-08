@@ -35,6 +35,10 @@ if (path.length !== 2 || path[0].toItemLevel !== 318 || path[1].toItemLevel !== 
 let crest = o.calculateCrestRequirements({upgradeSystem:system, track:"Hero", rank:4, availableCrests:{"Hero Mistcrest":0}, weeklyUsed:60});
 if (crest.totalCrests !== 40 || crest.weeklyRemaining !== 40 || !crest.fitsWeeklyCap) throw new Error("Crest calculation failed");
 
+const uncappedSystem = { ...system, weeklyCrestCap: null, tracks: system.tracks.map(track => ({ ...track, weeklyCrestCap: null })) };
+const uncapped = o.calculateCrestRequirements({upgradeSystem:uncappedSystem, track:"Hero", rank:4, availableCrests:{"Hero Mistcrest":0}, weeklyUsed:999});
+if (uncapped.weeklyCap !== null || uncapped.weeklyRemaining !== null || !uncapped.fitsWeeklyCap) throw new Error("Lifted crest-cap calculation failed");
+
 let exchange = o.calculateCrestRequirements({upgradeSystem:system, track:"Myth", rank:5, availableCrests:{"Myth Mistcrest":0,"Hero Mistcrest":20}});
 if (exchange.totalCrests !== 20 || exchange.exchanges[0].required !== 40) throw new Error("Crest exchange calculation failed");
 
