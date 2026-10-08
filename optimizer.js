@@ -106,6 +106,7 @@ function createCharacterProfileFromImport({ importedCharacter, goal = WOW_GOALS.
   character.goal = goal;
   character.equipment = normalizeImportedEquipment(importedCharacter.equipment);
   character.statistics = normalizeCharacterStatistics(importedCharacter.statistics);
+  character.talents = Array.isArray(importedCharacter.talents) ? importedCharacter.talents : [];
 
   return {
     ...character,
