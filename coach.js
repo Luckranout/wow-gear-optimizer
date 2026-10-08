@@ -7,6 +7,7 @@ abilities: { primary: ["Shield Slam", "Thunder Clap", "Revenge"], resource: "Rag
       cooldownGuidance: "Use Avatar and other major cooldowns frequently rather than sitting on them. Use Shield Wall proactively for dangerous damage.",
       commonMistakes: ["Waiting until you are nearly dead before using a defensive.", "Capping Rage instead of spending it.", "Sitting on Shield Slam or other core abilities."],
       preCombat: ["Battle Shout active.", "Correct stance selected.", "Food/flask/weapon buffs ready for serious content."],
+      talentGuidance: [] ,
       loop: "Build and spend Rage while keeping your active defenses and mitigation ready for the damage that is coming.",
       priorities: [
         "Keep your main defensive tools available for dangerous damage instead of waiting until you are nearly dead.",
@@ -23,6 +24,7 @@ abilities: { primary: ["Rampage", "Bloodthirst", "Raging Blow", "Execute"], reso
       cooldownGuidance: "Use major cooldowns frequently. Align them when that happens naturally, but do not delay them so long that you lose an entire use.",
       commonMistakes: ["Letting Enrage fall because Rampage was delayed.", "Standing idle or staying out of melee unnecessarily.", "Holding cooldowns too long for a theoretical perfect window."],
       preCombat: ["Battle Shout active.", "Food/flask/weapon buffs ready for serious content."],
+      talentGuidance: [],
       loop: "Keep your core damage cycle moving, spend Rage efficiently, and use cooldowns during strong damage windows.",
       priorities: [
         "Keep your core damage abilities flowing instead of sitting on unused resources or important procs.",
@@ -88,6 +90,39 @@ function createUpgradePriority(plan, index) {
     resources: required || "No crest requirement reported",
     weeklyFit: crestPlan.fitsWeeklyCap ? "Fits the current weekly cap." : "Exceeds the current weekly cap.",
     explanation: "This is the next legal rank on the item's current upgrade track; the plan uses the upgrade data rather than inventing a cross-track jump."
+  };
+}
+
+function createTalentContext(talents = []) {
+  return (Array.isArray(talents) ? talents : [])
+    .map(talent => ({
+      id: talent?.id ?? null,
+      name: String(talent?.name || "").trim(),
+      rank: Number(talent?.rank || 0)
+    }))
+    .filter(talent => talent.name || talent.id != null);
+}
+
+function applyTalentGuidance(gameplay, profile, talents) {
+  const context = createTalentContext(talents);
+  const names = new Set(context.map(talent => talent.name.toLowerCase()));
+  const rules = profile?.talentGuidance || [];
+  const matched = rules.filter(rule =>
+    (rule.matches || []).some(name => names.has(String(name).toLowerCase()))
+  );
+  if (!matched.length) return {
+    ...gameplay,
+    talentAware: context.length > 0,
+    talentSummary: context.length
+      ? `Your live character has ${context.length} selected talent entries. No additional curated talent-specific rule is active yet.`
+      : "No live talent selections were returned for this character.",
+    talentAdjustments: []
+  };
+  return {
+    ...gameplay,
+    talentAware: true,
+    talentSummary: `Your selected talents change the gameplay emphasis: ${matched.map(rule => rule.title).join(", ")}.`,
+    talentAdjustments: matched.map(rule => rule.guidance)
   };
 }
 
@@ -165,7 +200,7 @@ function createCharacterCoach({ character = {}, report = {}, goal = "General / A
     priorities,
     gearPlan: gearPriorities,
     upgradePlan: upgradePriorities,
-    gameplay: {
+    gameplay: applyTalentGuidance({
       abilities: profile?.abilities || { primary: [], resource: "Resource", cooldowns: [] },
       beginnerPriority: profile?.beginnerPriority || [],
       cooldownGuidance: profile?.cooldownGuidance || "Use important cooldowns deliberately and avoid inventing timing rules when the specialization is unsupported.",
@@ -176,7 +211,7 @@ function createCharacterCoach({ character = {}, report = {}, goal = "General / A
       defensive: profile?.defensive || "Use defensives proactively for predictable danger and follow your specialization's trusted priority system.",
       why: profile?.why || "The optimizer can explain gear and stat recommendations, but this specialization does not yet have enough curated gameplay guidance for us to safely invent a rotation.",
       supported: Boolean(profile)
-    }
+    }, profile, character.talents)
   };
 }
 
