@@ -133,7 +133,24 @@ async function requestJson(url, token) {
   return response.json();
 }
 
-async function fetchRealms({ clientId, clientSecret }) {\n  if (cachedRealms && cachedRealms.expiresAt > Date.now()) return cachedRealms.value;\n  const token = await getAccessToken(clientId, clientSecret);\n  const url = API_BASE + "/data/wow/realm/index?namespace=" + DYNAMIC_NAMESPACE + "&locale=" + LOCALE;\n  const data = await requestJson(url, token);\n  const realms = (Array.isArray(data.realms) ? data.realms : [])\n    .map(realm => ({\n      id: resourceId(realm),\n      name: normalizeName(realm.name),\n      slug: realm.slug || ""\n    }))\n    .filter(realm => realm.name && realm.slug)\n    .sort((a, b) => a.name.localeCompare(b.name));\n  cachedRealms = { value: realms, expiresAt: Date.now() + 6 * 60 * 60 * 1000 };\n  return realms;\n}\n\nasync function fetchCharacter({ realm, character, clientId, clientSecret }) {
+async function fetchRealms({ clientId, clientSecret }) {
+  if (cachedRealms && cachedRealms.expiresAt > Date.now()) return cachedRealms.value;
+  const token = await getAccessToken(clientId, clientSecret);
+  const url = API_BASE + "/data/wow/realm/index?namespace=" + DYNAMIC_NAMESPACE + "&locale=" + LOCALE;
+  const data = await requestJson(url, token);
+  const realms = (Array.isArray(data.realms) ? data.realms : [])
+    .map(realm => ({
+      id: resourceId(realm),
+      name: normalizeName(realm.name),
+      slug: realm.slug || ""
+    }))
+    .filter(realm => realm.name && realm.slug)
+    .sort((a, b) => a.name.localeCompare(b.name));
+  cachedRealms = { value: realms, expiresAt: Date.now() + 6 * 60 * 60 * 1000 };
+  return realms;
+}
+
+async function fetchCharacter({ realm, character, clientId, clientSecret }) {
   const realmSlug = slugify(realm);
   const characterName = encodeURIComponent(String(character).trim().toLowerCase());
   if (!realmSlug || !characterName) {
