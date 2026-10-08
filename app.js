@@ -126,7 +126,7 @@ function renderCharacterCoach(report, character) {
   document.querySelector("#coachPrepPotions").textContent = coach.preparation.potions;
   document.querySelector("#coachPrepTrinkets").textContent = coach.preparation.trinkets;
   document.querySelector("#coachPrepEnchants").textContent = coach.preparation.enchants;
-  document.querySelector("#coachPrepRacials").textContent = coach.preparation.racials;
+  document.querySelector("#coachPrepRacial").textContent = coach.preparation.racials;
   document.querySelector("#coachPrepProfessions").textContent = coach.preparation.professions;
   document.querySelector("#coachNextAction").textContent = coach.summary.nextAction;
   document.querySelector("#coachStatsSource").textContent = coach.summary.statSource;
