@@ -399,3 +399,11 @@ footer {
   .character-summary-grid { grid-template-columns: 1fr; }
   .character-equipment-list { grid-template-columns: 1fr; }
 }
+
+.character-equipment-stats {
+  margin-top: 5px;
+  color: #aeb8c7;
+  font-size: 10px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
