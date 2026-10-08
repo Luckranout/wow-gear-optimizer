@@ -292,3 +292,110 @@ footer {
   .import-box .form-grid label { width: 100%; }
   .import-box .form-grid select { width: 100%; min-height: 48px; font-size: 16px; }
 }
+
+
+.character-details-panel[hidden] { display: none; }
+.character-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.character-summary-card {
+  background: #0c1017;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  min-width: 0;
+}
+.character-summary-card span {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .7px;
+}
+.character-summary-card strong {
+  display: block;
+  margin-top: 6px;
+  overflow-wrap: anywhere;
+}
+.character-detail-columns {
+  display: grid;
+  grid-template-columns: .7fr 1.3fr;
+  gap: 12px;
+}
+.character-detail-card {
+  background: #0c1017;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 17px;
+  min-width: 0;
+}
+.character-detail-card h3 {
+  margin: 0 0 12px;
+  font-size: 16px;
+}
+.character-detail-card ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.character-detail-card li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(42,50,64,.65);
+}
+.character-detail-card li:last-child { border-bottom: 0; }
+.character-detail-card li strong { color: var(--text); }
+.character-detail-card li span {
+  color: var(--muted);
+  font-size: 12px;
+  white-space: nowrap;
+}
+.character-equipment-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.character-equipment-card {
+  background: #111722;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 11px;
+  min-width: 0;
+}
+.character-equipment-header h4 {
+  margin: 4px 0 0;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+.character-equipment-slot {
+  color: var(--gold2);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .7px;
+  text-transform: uppercase;
+}
+.character-equipment-detail {
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.45;
+}
+.character-equipment-detail small {
+  color: #718096;
+  font-size: inherit;
+}
+@media (max-width: 800px) {
+  .character-summary-grid { grid-template-columns: 1fr 1fr; }
+  .character-detail-columns { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  .character-summary-grid { grid-template-columns: 1fr; }
+  .character-equipment-list { grid-template-columns: 1fr; }
+}
