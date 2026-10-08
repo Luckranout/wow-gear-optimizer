@@ -51,3 +51,8 @@ for (const needle of ["renderCharacterDetails(character);", "clearCharacterDetai
 for (const needle of [".character-summary-grid", ".character-detail-columns", ".character-equipment-list", "@media (max-width: 520px)"]) {
   if (!styles.includes(needle)) throw new Error(`Missing character details responsive styling: ${needle}`);
 }
+
+if (!app.includes('typeof item?.slot === "string" ? item.slot : (item?.slot?.name || "Equipment")')) throw new Error("Character equipment renderer must support normalized string slot names.");
+if (!app.includes('name.textContent = item?.name || "Unnamed item";')) throw new Error("Character equipment renderer must display returned item names.");
+if (!app.includes('detail.textContent = formatCharacterDetailItem(item);')) throw new Error("Character equipment renderer must display returned item level and quality details.");
+console.log("Character details equipment-shape regression coverage passed.");
