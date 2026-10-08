@@ -146,6 +146,25 @@ function getContentGuidance(goal = "General / All-around") {
   return CONTENT_GUIDANCE[goal] || CONTENT_GUIDANCE["General / All-around"];
 }
 
+function createSpendingGuidance({ report = {} } = {}) {
+  const plans = Array.isArray(report.upgradePlans) ? report.upgradePlans : [];
+  const actionable = plans.filter(plan => plan && plan.slot).slice(0,5);
+  const next = actionable.find(plan => plan.status !== "complete") || actionable[0] || null;
+  return {
+    next: next
+      ? `Prioritize ${next.slot}: ${next.title || "the next available upgrade"}.`
+      : "No immediate upgrade-spending action is identified from the current character data.",
+    steps: actionable.map(plan => ({
+      slot: plan.slot,
+      title: plan.title || "Next upgrade",
+      status: plan.status || "available",
+      resources: plan.resources || "Resource requirement not available.",
+      weeklyFit: plan.weeklyFit || "Weekly-cap impact not available."
+    })),
+    rule: "Spend upgrade currencies where they produce a meaningful character improvement; do not spend a scarce currency merely because it is available."
+  };
+}
+
 function createSpecialItemGuidance({ report = {}, character = {} } = {}) {
   const upgrades = Array.isArray(report.topUpgrades) ? report.topUpgrades : [];
   const specialSlots = ["Trinket 1","Trinket 2","Main Hand","Off Hand"];
@@ -454,6 +473,7 @@ function createCharacterCoach({ character = {}, report = {}, goal = "General / A
     buildSynthesis: createBuildSynthesis({ character, report }),
     setCrafted: createSetCraftedGuidance({ character, dataset }),
     specialItems: createSpecialItemGuidance({ character, report }),
+    spending: createSpendingGuidance({ report }),
     gameplay: applyTalentGuidance({
       abilities: profile?.abilities || { primary: [], resource: "Resource", cooldowns: [] },
       beginnerPriority: profile?.beginnerPriority || [],
@@ -469,5 +489,5 @@ function createCharacterCoach({ character = {}, report = {}, goal = "General / A
   };
 }
 
-if (typeof module !== "undefined") module.exports = { COACH_PROFILES, CONTENT_GUIDANCE, getContentGuidance, createCombatPreparation, createSituationalGuidance, createEncounterGuidance, createBuildSynthesis, createSetCraftedGuidance, createSpecialItemGuidance, createCharacterCoach };
+if (typeof module !== "undefined") module.exports = { COACH_PROFILES, CONTENT_GUIDANCE, getContentGuidance, createCombatPreparation, createSituationalGuidance, createEncounterGuidance, createBuildSynthesis, createSetCraftedGuidance, createSpecialItemGuidance, createSpendingGuidance, createCharacterCoach };
 if (typeof window !== "undefined") window.WoWCharacterCoach = { COACH_PROFILES, CONTENT_GUIDANCE, getContentGuidance, createCharacterCoach };
