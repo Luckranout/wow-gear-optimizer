@@ -42,10 +42,10 @@ if (!app.includes('.filter(realm => realm && realm.name)')) throw new Error("Rea
 if (!styles.includes(".import-box .form-grid select { min-width: 0; width: 100%; }")) throw new Error("Realm selector must fit its mobile container.");
 if (!styles.includes("min-height: 48px; font-size: 16px;")) throw new Error("Mobile realm selector must be comfortably tappable.");
 
-for (const id of ["characterDetailsPanel", "characterDetailName", "characterDetailRealm", "characterDetailLevel", "characterDetailRace", "characterDetailClass", "characterDetailSpec", "characterTalentsList", "characterEquipmentList"]) {
+for (const id of ["characterDetailsPanel", "characterDetailName", "characterDetailRealm", "characterDetailLevel", "characterDetailRace", "characterDetailClass", "characterDetailSpec", "characterDetailFaction", "characterDetailGuild", "characterDetailAchievementPoints", "characterDetailAverageItemLevel", "characterDetailEquippedItemLevel", "characterTalentsList", "characterEquipmentList"]) {
   if (!index.includes(`id="${id}"`)) throw new Error(`Missing live character details element: ${id}`);
 }
-for (const needle of ["renderCharacterDetails(character);", "clearCharacterDetails();", "character?.talents", "character?.equipment", "item?.quality?.name"]) {
+for (const needle of ["renderCharacterDetails(character);", "clearCharacterDetails();", "character?.talents", "character?.equipment", "item?.quality?.name", "character?.faction", "character?.guild", "character?.achievementPoints", "character?.averageItemLevel", "character?.equippedItemLevel"]) {
   if (!app.includes(needle)) throw new Error(`Missing character details behavior: ${needle}`);
 }
 for (const needle of [".character-summary-grid", ".character-detail-columns", ".character-equipment-list", "@media (max-width: 520px)"]) {
