@@ -11,6 +11,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   import:
@@ -25,10 +26,45 @@ jobs:
           python-version: "3.12"
 
       - name: Import current Retail data
+        id: import
         env:
           BLIZZARD_CLIENT_ID: ${{ secrets.BLIZZARD_CLIENT_ID }}
           BLIZZARD_CLIENT_SECRET: ${{ secrets.BLIZZARD_CLIENT_SECRET }}
         run: python scripts/import_blizzard_data.py
+
+      - name: Alert on blocked automatic import
+        if: failure() && steps.import.outcome == 'failure'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const title = "Automatic WoW data import is blocked";
+            const body = [
+              "The scheduled/current Retail data import failed, so no new dataset was published.",
+              "",
+              `Workflow run: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
+              "",
+              "This is intentionally fail-closed: if Blizzard changes the season or exposes data the importer cannot verify, the site keeps the last verified dataset instead of publishing guessed rules.",
+              "",
+              "Review the importer and Blizzard's current Retail season/update information before changing the verified season rules."
+            ].join("\\n");
+
+            const { data: openIssues } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: "open",
+              per_page: 100
+            });
+
+            const existing = openIssues.find(issue => issue.title === title);
+            if (!existing) {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title,
+                body
+              });
+            }
 
       - name: Commit updated dataset
         run: |

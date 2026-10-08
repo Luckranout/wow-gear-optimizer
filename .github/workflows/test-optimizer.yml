@@ -28,6 +28,7 @@ on:
       - "README.md"
       - "vercel.json"
       - ".github/workflows/import-character.yml"
+      - ".github/workflows/import-wow-data.yml"
   pull_request:
     paths:
       - "optimizer.js"
