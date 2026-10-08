@@ -60,3 +60,5 @@ jobs:
         run: node tests/live-character-lookup-ui.test.js
       - name: Run personal action plan tests
         run: node tests/personal-action-plan.test.js
+      - name: Run gameplay coach tests
+        run: node tests/gameplay-coach.test.js
