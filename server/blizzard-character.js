@@ -84,6 +84,8 @@ function normalizeCharacter(profile, equipment, statistics, specializations) {
   const characterClass = profile.character_class || {};
   const race = profile.race || {};
   const realm = profile.realm || {};
+  const faction = profile.faction || {};
+  const guild = profile.guild || {};
   const items = (equipment.equipped_items || []).map(normalizeEquippedItem).filter(item => item.id != null);
   return {
     id: profile.id ?? null,
@@ -93,6 +95,11 @@ function normalizeCharacter(profile, equipment, statistics, specializations) {
     class: { id: resourceId(characterClass), name: normalizeName(characterClass.name) },
     race: { id: resourceId(race), name: normalizeName(race.name) },
     activeSpec: { id: resourceId(activeSpec), name: normalizeName(activeSpec.name) },
+    faction: normalizeName(faction.name || faction),
+    guild: normalizeName(guild.name || guild),
+    achievementPoints: profile.achievement_points ?? null,
+    averageItemLevel: profile.average_item_level ?? null,
+    equippedItemLevel: profile.equipped_item_level ?? null,
     statistics: normalizeStatistics(statistics),
     talents: normalizeCharacterTalents(specializations),
     equipment: items,
