@@ -18,6 +18,31 @@ MAX_RETRIES = 4
 
 MINIMUM_SEASON = 2
 SEASON_SCOPE = "Midnight Season 2+"
+SUPPORTED_SEASON_NAME = "Midnight Season 2"
+
+
+def discover_current_pvp_season(token):
+    """Return Blizzard's newest exposed PvP season without trusting hard-coded names."""
+    response = get_api_json(
+        "/data/wow/pvp-season/index",
+        token,
+        {"namespace": PVP_NAMESPACE, "locale": LOCALE},
+    )
+    seasons = response.get("pvp_seasons") or response.get("seasons") or []
+    candidates = [s for s in seasons if extract_id(s)]
+    if not candidates:
+        raise RuntimeError("Blizzard did not expose a usable PvP season index.")
+    current = max(candidates, key=lambda s: extract_id(s))
+    return extract_id(current), localized_name(current.get("name")) if isinstance(current, dict) else None
+
+
+def enforce_supported_season(current_season_name):
+    """Never publish Season 2-only rules under a newer Blizzard season."""
+    if normalize_name(current_season_name) != normalize_name(SUPPORTED_SEASON_NAME):
+        raise RuntimeError(
+            f"Unsupported Blizzard season detected: {current_season_name!r}. "
+            f"This importer contains verified {SUPPORTED_SEASON_NAME} rules and must not publish stale rules."
+        )
 
 SEASON_CONTENT_NAMES = {
     "The Venomous Abyss",
@@ -281,35 +306,19 @@ def extract_pvp_item_ids(value, item_sources, path=""):
             extract_pvp_item_ids(child, item_sources, f"{path}[{index}]")
 
 
-def collect_pvp_season_item_ids(token):
-    """Collect Season 2 PvP metadata and actual current-season PvP gear."""
-    response = get_api_json(
-        "/data/wow/pvp-season/index",
-        token,
-        {"namespace": PVP_NAMESPACE, "locale": LOCALE},
-    )
+def collect_pvp_season_item_ids(token, current_pvp_season_id, current_pvp_season_name):
+    """Collect the verified supported PvP season metadata and actual season gear."""
+    season_id = current_pvp_season_id
+    season_name = current_pvp_season_name
+    enforce_supported_season(season_name)
 
-    seasons = response.get("pvp_seasons") or response.get("seasons") or []
-    season_ref = None
-
-    for candidate in seasons:
-        name = localized_name(candidate.get("name")) if isinstance(candidate, dict) else None
-        if normalize_name(name) == "midnight season 2" or (
-            name and "midnight" in normalize_name(name) and "season 2" in normalize_name(name)
-        ):
-            season_ref = candidate
-            break
-
-    if not season_ref and seasons:
-        candidates = [c for c in seasons if extract_id(c)]
-        if candidates:
-            season_ref = max(candidates, key=lambda c: extract_id(c))
+    season_ref = {"id": season_id, "name": {LOCALE: season_name}}
 
     if not season_ref:
         print("Blizzard PvP season index returned no usable season references; continuing without PvP rewards.")
         return {}, {
             "id": None,
-            "name": "Midnight Season 2",
+            "name": SUPPORTED_SEASON_NAME,
             "rewardCount": 0,
             "gearItemCount": 0,
             "status": "not-exposed",
@@ -385,7 +394,7 @@ def collect_pvp_season_item_ids(token):
                     "category": "PvP",
                     "pvpSeasonId": season_id,
                     "pvpRegionId": region_id,
-                    "pvpSeason": localized_name(detail.get("name")) or "Midnight Season 2",
+                    "pvpSeason": localized_name(detail.get("name")) or SUPPORTED_SEASON_NAME,
                     "rewardPaths": paths,
                 })
 
@@ -1301,8 +1310,14 @@ def main():
         {"namespace": NAMESPACE, "locale": LOCALE},
     )
 
+    current_pvp_season_id, current_pvp_season_name = discover_current_pvp_season(token)
+    print(f"Blizzard current PvP season: {current_pvp_season_name} (id {current_pvp_season_id})")
+    enforce_supported_season(current_pvp_season_name)
+
     pve_sources, matched_instances, missing_sources = collect_season_content_item_ids(token)
-    pvp_sources, pvp_metadata = collect_pvp_season_item_ids(token)
+    pvp_sources, pvp_metadata = collect_pvp_season_item_ids(
+        token, current_pvp_season_id, current_pvp_season_name
+    )
     item_sources = merge_item_sources(pve_sources, pvp_sources)
 
     talent_data = collect_talent_data(token)
