@@ -136,11 +136,19 @@ function formatCharacterDetailItem(item) {
 
 function formatCharacterDetailEnhancements(item) {
   const details = [];
-  if (Array.isArray(item?.enchantments) && item.enchantments.length) {
-    details.push(`${item.enchantments.length} enchantment${item.enchantments.length === 1 ? "" : "s"}`);
+  const enchantments = Array.isArray(item?.enchantments) ? item.enchantments.filter(entry => entry?.name || entry?.displayString) : [];
+  const gems = Array.isArray(item?.gems) ? item.gems.filter(entry => entry?.name) : [];
+  if (enchantments.length) {
+    details.push(`Enchant: ${enchantments.map(entry => entry.name || entry.displayString).join(", ")}`);
   }
-  if (Array.isArray(item?.gems) && item.gems.length) {
-    details.push(`${item.gems.length} gem${item.gems.length === 1 ? "" : "s"}`);
+  if (gems.length) {
+    details.push(`Gems: ${gems.map(entry => entry.name).join(", ")}`);
+  }
+  if (!details.length) {
+    const enchantCount = Array.isArray(item?.enchantments) ? item.enchantments.length : 0;
+    const gemCount = Array.isArray(item?.gems) ? item.gems.length : 0;
+    if (enchantCount) details.push(`${enchantCount} enchantment${enchantCount === 1 ? "" : "s"}`);
+    if (gemCount) details.push(`${gemCount} gem${gemCount === 1 ? "" : "s"}`);
   }
   return details.join(" • ");
 }
@@ -204,6 +212,16 @@ function renderCharacterDetails(character) {
       const detail = document.createElement("div");
       detail.className = "character-equipment-detail";
       detail.textContent = formatCharacterDetailItem(item);
+
+      const stats = Array.isArray(item?.stats)
+        ? item.stats.filter(stat => stat?.type && stat?.value != null)
+        : [];
+      if (stats.length) {
+        const statLine = document.createElement("div");
+        statLine.className = "character-equipment-stats";
+        statLine.textContent = stats.map(stat => `${stat.type}: ${Number(stat.value).toLocaleString()}`).join(" • ");
+        detail.appendChild(statLine);
+      }
 
       const enhancements = formatCharacterDetailEnhancements(item);
       if (enhancements) {
