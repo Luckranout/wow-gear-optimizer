@@ -169,6 +169,11 @@ function renderCharacterCoach(report, character) {
     ? coach.specialItems.ranked.map(item => `<li><strong>${item.slot}: ${item.name}</strong><span>+${formatGearScore(item.improvement)} weighted score</span></li>`).join("")
     : "<li>No direct trinket or weapon upgrade is ranked.</li>";
   document.querySelector("#coachSpecialNote").textContent = coach.specialItems.note;
+  document.querySelector("#coachSpendNext").textContent = coach.spending.next;
+  document.querySelector("#coachSpendSteps").innerHTML = coach.spending.steps.length
+    ? coach.spending.steps.map(item => `<li><strong>${item.slot}: ${item.title}</strong><span>${item.status}</span><small>${item.resources} • ${item.weeklyFit}</small></li>`).join("")
+    : "<li>No immediate upgrade-spending action is identified.</li>";
+  document.querySelector("#coachSpendRule").textContent = coach.spending.rule;
   document.querySelector("#coachNextAction").textContent = coach.summary.nextAction;
   document.querySelector("#coachStatsSource").textContent = coach.summary.statSource;
   document.querySelector("#coachStrengths").innerHTML = coach.strengths.length ? coach.strengths.map(item => `<li>${item}</li>`).join("") : "<li>No specific strengths can be established from the current data.</li>";
