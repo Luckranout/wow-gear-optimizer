@@ -237,6 +237,19 @@ function setSelectValue(select, value) {
   if (option) select.value = option.value;
 }
 
+function clearDefaultOnFocus(input, defaultValue) {
+  if (!input) return;
+  input.addEventListener("focus", () => {
+    if (input.value === defaultValue) input.value = "";
+  });
+  input.addEventListener("blur", () => {
+    if (!input.value.trim()) input.value = defaultValue;
+  });
+}
+
+clearDefaultOnFocus(characterNameInput, DEFAULT_CHARACTER_NAME);
+clearDefaultOnFocus(realmInput, DEFAULT_REALM_NAME);
+
 function applyLiveCharacter(character) {
   importedCharacter = character;
   const profile = WoWOptimizer.createCharacterProfileFromImport({
