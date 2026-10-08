@@ -146,6 +146,30 @@ function getContentGuidance(goal = "General / All-around") {
   return CONTENT_GUIDANCE[goal] || CONTENT_GUIDANCE["General / All-around"];
 }
 
+function createSpecialItemGuidance({ report = {}, character = {} } = {}) {
+  const upgrades = Array.isArray(report.topUpgrades) ? report.topUpgrades : [];
+  const specialSlots = ["Trinket 1","Trinket 2","Main Hand","Off Hand"];
+  const ranked = upgrades.filter(item => specialSlots.includes(item.slot)).slice(0,4);
+  const trinkets = ["Trinket 1","Trinket 2"].map(slot => character.equipment?.[slot]).filter(Boolean);
+  const weapons = ["Main Hand","Off Hand"].map(slot => character.equipment?.[slot]).filter(Boolean);
+  return {
+    trinketLine: trinkets.length
+      ? `${trinkets.length} equipped trinket${trinkets.length === 1 ? "" : "s"} are part of the current build.`
+      : "No equipped trinkets are present in the current character data.",
+    weaponLine: weapons.length
+      ? `${weapons.length} equipped weapon${weapons.length === 1 ? "" : "s"} are part of the current build.`
+      : "No equipped weapons are present in the current character data.",
+    ranked: ranked.map(item => ({
+      slot: item.slot,
+      name: item.recommendedItem?.name || "Recommended item",
+      improvement: Number(item.improvement || 0)
+    })),
+    note: ranked.length
+      ? "Trinkets and weapons should be judged by their complete effect package as well as stats; the current optimizer only uses effect data when the dataset provides it."
+      : "No direct trinket or weapon upgrade is currently ranked from the available dataset."
+  };
+}
+
 function createSetCraftedGuidance({ character = {}, dataset = null } = {}) {
   const equipment = character.equipment || {};
   const setPieces = Object.values(equipment).filter(item => item?.isSetPiece);
@@ -429,6 +453,7 @@ function createCharacterCoach({ character = {}, report = {}, goal = "General / A
     encounter: createEncounterGuidance({ encounter }),
     buildSynthesis: createBuildSynthesis({ character, report }),
     setCrafted: createSetCraftedGuidance({ character, dataset }),
+    specialItems: createSpecialItemGuidance({ character, report }),
     gameplay: applyTalentGuidance({
       abilities: profile?.abilities || { primary: [], resource: "Resource", cooldowns: [] },
       beginnerPriority: profile?.beginnerPriority || [],
@@ -444,5 +469,5 @@ function createCharacterCoach({ character = {}, report = {}, goal = "General / A
   };
 }
 
-if (typeof module !== "undefined") module.exports = { COACH_PROFILES, CONTENT_GUIDANCE, getContentGuidance, createCombatPreparation, createSituationalGuidance, createEncounterGuidance, createBuildSynthesis, createSetCraftedGuidance, createCharacterCoach };
+if (typeof module !== "undefined") module.exports = { COACH_PROFILES, CONTENT_GUIDANCE, getContentGuidance, createCombatPreparation, createSituationalGuidance, createEncounterGuidance, createBuildSynthesis, createSetCraftedGuidance, createSpecialItemGuidance, createCharacterCoach };
 if (typeof window !== "undefined") window.WoWCharacterCoach = { COACH_PROFILES, CONTENT_GUIDANCE, getContentGuidance, createCharacterCoach };
