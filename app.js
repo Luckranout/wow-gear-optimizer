@@ -153,6 +153,11 @@ function renderCharacterCoach(report, character) {
   document.querySelector("#coachEncounterMechanics").innerHTML = coach.encounter.mechanics.length
     ? coach.encounter.mechanics.map(item => `<li><strong>${item.name}</strong><span>${item.action}</span>${item.description ? `<small>${item.description}</small>` : ""}</li>`).join("")
     : "<li>No encounter-specific mechanics are available for the current selection.";
+  document.querySelector("#coachBuildHeadline").textContent = coach.buildSynthesis.headline;
+  document.querySelector("#coachBuildTalent").textContent = coach.buildSynthesis.talentLine;
+  document.querySelector("#coachBuildStats").textContent = coach.buildSynthesis.statLine + " " + coach.buildSynthesis.statSnapshot;
+  document.querySelector("#coachBuildGear").textContent = coach.buildSynthesis.gearLine;
+  document.querySelector("#coachBuildNext").textContent = coach.buildSynthesis.next;
   document.querySelector("#coachNextAction").textContent = coach.summary.nextAction;
   document.querySelector("#coachStatsSource").textContent = coach.summary.statSource;
   document.querySelector("#coachStrengths").innerHTML = coach.strengths.length ? coach.strengths.map(item => `<li>${item}</li>`).join("") : "<li>No specific strengths can be established from the current data.</li>";
