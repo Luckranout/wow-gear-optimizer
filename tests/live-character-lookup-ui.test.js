@@ -6,6 +6,10 @@ for (const id of ["characterNameInput", "realmInput", "lookupCharacterBtn", "imp
   if (!index.includes(`id="${id}"`)) throw new Error(`Missing live lookup control: ${id}`);
 }
 if (!index.includes("Nothing to import")) throw new Error("Live lookup copy is missing.");
+if (!index.includes("current Retail dataset plus your live Blizzard character profile")) throw new Error("Hero copy must describe the live data workflow.");
+if (!index.includes("Live Blizzard character data is connected.")) throw new Error("Hero status must not claim live data is coming later.");
+if (index.includes("will eventually evaluate")) throw new Error("Hero copy must not describe implemented optimization features as future work.");
+if (index.includes("Live data connection will be added next.")) throw new Error("Hero status must not claim live data is not connected.");
 if (!index.includes('id="characterNameInput" type="text" autocomplete="off" placeholder="Failing"')) throw new Error("Character placeholder must be Failing.");
 if (!index.includes('id="realmInput" autocomplete="off" aria-label="Realm"')) throw new Error("Realm selector must be a dropdown.");
 if (!index.includes('<option value="" selected>Burning Legion</option>')) throw new Error("Realm placeholder must be Burning Legion.");
