@@ -19,6 +19,7 @@ MAX_RETRIES = 4
 MINIMUM_SEASON = 2
 SEASON_SCOPE = "Midnight Season 2+"
 SUPPORTED_SEASON_NAME = "Midnight Season 2"
+SUPPORTED_SEASON_ID = 42
 
 
 def discover_current_pvp_season(token):
@@ -42,17 +43,20 @@ def discover_current_pvp_season(token):
             {"namespace": PVP_NAMESPACE, "locale": LOCALE},
         )
         current_name = localized_name(detail.get("name"))
+    if not current_name and current_id == SUPPORTED_SEASON_ID:
+        current_name = SUPPORTED_SEASON_NAME
     if not current_name:
-        raise RuntimeError(f"Blizzard PvP season {current_id} did not expose a usable name.")
+        current_name = f"Blizzard PvP Season {current_id}"
     return current_id, current_name
 
 
-def enforce_supported_season(current_season_name):
+def enforce_supported_season(current_season_id, current_season_name):
     """Never publish Season 2-only rules under a newer Blizzard season."""
-    if normalize_name(current_season_name) != normalize_name(SUPPORTED_SEASON_NAME):
+    if current_season_id != SUPPORTED_SEASON_ID:
         raise RuntimeError(
-            f"Unsupported Blizzard season detected: {current_season_name!r}. "
-            f"This importer contains verified {SUPPORTED_SEASON_NAME} rules and must not publish stale rules."
+            f"Unsupported Blizzard season detected: id {current_season_id}, name {current_season_name!r}. "
+            f"This importer contains verified {SUPPORTED_SEASON_NAME} (id {SUPPORTED_SEASON_ID}) rules "
+            "and must not publish stale rules."
         )
 
 SEASON_CONTENT_NAMES = {
@@ -321,7 +325,7 @@ def collect_pvp_season_item_ids(token, current_pvp_season_id, current_pvp_season
     """Collect the verified supported PvP season metadata and actual season gear."""
     season_id = current_pvp_season_id
     season_name = current_pvp_season_name
-    enforce_supported_season(season_name)
+    enforce_supported_season(season_id, season_name)
 
     season_ref = {"id": season_id, "name": {LOCALE: season_name}}
 
@@ -1323,7 +1327,7 @@ def main():
 
     current_pvp_season_id, current_pvp_season_name = discover_current_pvp_season(token)
     print(f"Blizzard current PvP season: {current_pvp_season_name} (id {current_pvp_season_id})")
-    enforce_supported_season(current_pvp_season_name)
+    enforce_supported_season(current_pvp_season_id, current_pvp_season_name)
 
     pve_sources, matched_instances, missing_sources = collect_season_content_item_ids(token)
     pvp_sources, pvp_metadata = collect_pvp_season_item_ids(

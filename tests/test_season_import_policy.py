@@ -34,10 +34,10 @@ class SeasonImportPolicyTests(unittest.TestCase):
 
     def test_unsupported_season_is_rejected_before_publish(self):
         with self.assertRaises(RuntimeError):
-            MODULE.enforce_supported_season("Midnight Season 3")
+            MODULE.enforce_supported_season(43, "Midnight Season 3")
 
     def test_supported_season_is_allowed(self):
-        MODULE.enforce_supported_season("Midnight Season 2")
+        MODULE.enforce_supported_season(42, "Midnight Season 2")
 
 
 if __name__ == "__main__":
