@@ -2,6 +2,7 @@ const COACH_PROFILES = {
   Warrior: {
     Protection: {
       role: "Tank",
+      abilities: { primary: ["Shield Slam", "Thunder Clap", "Revenge"], resource: "Rage", cooldowns: ["Avatar", "Shield Wall"], },
       loop: "Build and spend Rage while keeping your active defenses and mitigation ready for the damage that is coming.",
       priorities: [
         "Keep your main defensive tools available for dangerous damage instead of waiting until you are nearly dead.",
@@ -13,6 +14,7 @@ const COACH_PROFILES = {
     },
     Fury: {
       role: "Damage",
+      abilities: { primary: ["Bloodthirst", "Rampage", "Raging Blow"], resource: "Rage", cooldowns: ["Recklessness"], },
       loop: "Keep your core damage cycle moving, spend Rage efficiently, and use cooldowns during strong damage windows.",
       priorities: [
         "Keep your core damage abilities flowing instead of sitting on unused resources or important procs.",
@@ -24,6 +26,7 @@ const COACH_PROFILES = {
     },
     Arms: {
       role: "Damage",
+      abilities: { primary: ["Mortal Strike", "Overpower", "Execute"], resource: "Rage", cooldowns: ["Avatar"], },
       loop: "Follow your priority system, manage Rage, and make your strongest abilities and cooldown windows count.",
       priorities: [
         "Follow the priority order rather than pressing abilities randomly when several choices are available.",
@@ -151,6 +154,7 @@ function createCharacterCoach({ character = {}, report = {}, goal = "General / A
     gearPlan: gearPriorities,
     upgradePlan: upgradePriorities,
     gameplay: {
+      abilities: profile?.abilities || { primary: [], resource: "Resource", cooldowns: [] },
       priorities: profile?.priorities || [],
       loop: profile?.loop || "Use the recommendations below as your starting point. A detailed class guide will be added when this specialization has a curated coach profile.",
       defensive: profile?.defensive || "Use defensives proactively for predictable danger and follow your specialization's trusted priority system.",
