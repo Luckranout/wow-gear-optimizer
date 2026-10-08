@@ -1,9 +1,11 @@
 const API_BASE = "https://us.api.blizzard.com";
 const TOKEN_URL = "https://oauth.battle.net/token";
 const PROFILE_NAMESPACE = "profile-us";
+const DYNAMIC_NAMESPACE = "dynamic-us";
 const LOCALE = "en_US";
 
 let cachedToken = null;
+let cachedRealms = null;
 
 function slugify(value) {
   return String(value || "").trim().toLowerCase().replace(/['’]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
@@ -131,7 +133,7 @@ async function requestJson(url, token) {
   return response.json();
 }
 
-async function fetchCharacter({ realm, character, clientId, clientSecret }) {
+async function fetchRealms({ clientId, clientSecret }) {\n  if (cachedRealms && cachedRealms.expiresAt > Date.now()) return cachedRealms.value;\n  const token = await getAccessToken(clientId, clientSecret);\n  const url = API_BASE + "/data/wow/realm/index?namespace=" + DYNAMIC_NAMESPACE + "&locale=" + LOCALE;\n  const data = await requestJson(url, token);\n  const realms = (Array.isArray(data.realms) ? data.realms : [])\n    .map(realm => ({\n      id: resourceId(realm),\n      name: normalizeName(realm.name),\n      slug: realm.slug || ""\n    }))\n    .filter(realm => realm.name && realm.slug)\n    .sort((a, b) => a.name.localeCompare(b.name));\n  cachedRealms = { value: realms, expiresAt: Date.now() + 6 * 60 * 60 * 1000 };\n  return realms;\n}\n\nasync function fetchCharacter({ realm, character, clientId, clientSecret }) {
   const realmSlug = slugify(realm);
   const characterName = encodeURIComponent(String(character).trim().toLowerCase());
   if (!realmSlug || !characterName) {
@@ -154,4 +156,4 @@ async function fetchCharacter({ realm, character, clientId, clientSecret }) {
   return normalizeCharacter(profile, equipped, stats, specializationData);
 }
 
-module.exports = { slugify, normalizeEquippedItem, normalizeStatistics, normalizeCharacterTalents, normalizeCharacter, fetchCharacter };
+module.exports = { slugify, normalizeEquippedItem, normalizeStatistics, normalizeCharacterTalents, normalizeCharacter, fetchCharacter, fetchRealms };
