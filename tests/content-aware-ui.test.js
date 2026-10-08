@@ -1,3 +1,4 @@
+const assert = require("assert");
 const fs = require("fs");
 const index = fs.readFileSync("index.html", "utf8");
 const app = fs.readFileSync("app.js", "utf8");
