@@ -145,13 +145,13 @@ async function fetchCharacter({ realm, character, clientId, clientSecret }) {
   const equipment = `${API_BASE}/profile/wow/character/${realmSlug}/${characterName}/equipment?namespace=${PROFILE_NAMESPACE}&locale=${LOCALE}`;
   const statistics = `${API_BASE}/profile/wow/character/${realmSlug}/${characterName}/statistics?namespace=${PROFILE_NAMESPACE}&locale=${LOCALE}`;
   const specializations = `${API_BASE}/profile/wow/character/${realmSlug}/${characterName}/specializations?namespace=${PROFILE_NAMESPACE}&locale=${LOCALE}`;
-  const [profile, equipped, stats] = await Promise.all([
+  const [profile, equipped, stats, specializationData] = await Promise.all([
     requestJson(base, token),
     requestJson(equipment, token),
     requestJson(statistics, token),
     requestJson(specializations, token)
   ]);
-  return normalizeCharacter(profile, equipped, stats, specializations);
+  return normalizeCharacter(profile, equipped, stats, specializationData);
 }
 
 module.exports = { slugify, normalizeEquippedItem, normalizeStatistics, normalizeCharacterTalents, normalizeCharacter, fetchCharacter };
