@@ -202,7 +202,7 @@ function renderCharacterDetails(character) {
 
       const slot = document.createElement("span");
       slot.className = "character-equipment-slot";
-      slot.textContent = item?.slot?.name || "Equipment";
+      slot.textContent = typeof item?.slot === "string" ? item.slot : (item?.slot?.name || "Equipment");
       header.appendChild(slot);
 
       const name = document.createElement("h4");
