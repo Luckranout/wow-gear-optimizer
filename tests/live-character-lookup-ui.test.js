@@ -21,7 +21,7 @@ if (!app.includes('const DEFAULT_REALM_NAME = "Burning Legion";')) throw new Err
 const styles = fs.readFileSync("styles.css", "utf8");
 if (!styles.includes(".import-box .form-grid { grid-template-columns:1fr 1fr; }")) throw new Error("Character and realm fields must share the lookup row.");
 if (!styles.includes("@media (max-width: 520px) { .import-box .form-grid { grid-template-columns:1fr; } }")) throw new Error("Character and realm fields must stack on narrow mobile screens.");
-if (!app.includes('realmInput.innerHTML = `<option value="">${DEFAULT_REALM_NAME}</option>`')) throw new Error("Realm placeholder must be rendered as an empty-value option.");
+if (!app.includes('const placeholder = `<option value="">${DEFAULT_REALM_NAME}</option>`;')) throw new Error("Realm placeholder must be rendered as an empty-value option.");
 if (index.includes('id="simulationFile"')) throw new Error("SimulationCraft upload must not be part of the customer lookup flow.");
 if (index.includes('id="simulationExportBtn"')) throw new Error("SimulationCraft export must not be part of the customer lookup flow.");
 for (const needle of ["/api/character?", "Looking up your character from Blizzard", "applyLiveCharacter"]) {
