@@ -305,7 +305,15 @@ function renderCharacterCoach(report, character) {
   const coach = WoWCharacterCoach.createCharacterCoach({ character, report, goal: goalSelect.value, encounter, dataset: retailDataset });
   document.querySelector("#coachTitle").textContent = `${coach.identity.name} • ${coach.identity.specialization || "Character"}`;
   document.querySelector("#coachHeadline").textContent = coach.summary.nextAction;
-  document.querySelector("#coachIdentity").innerHTML = `<strong>${coach.identity.name}</strong><span>${coach.identity.className} • ${coach.identity.specialization} • ${coach.identity.role}</span><small>${coach.identity.goal}</small>`;
+  const coachIdentity = document.querySelector("#coachIdentity");
+  coachIdentity.innerHTML = "";
+  const coachIdentityName = document.createElement("strong");
+  coachIdentityName.textContent = coach.identity.name || "Character";
+  const coachIdentityBuild = document.createElement("span");
+  coachIdentityBuild.textContent = [coach.identity.className, coach.identity.specialization, coach.identity.role].filter(Boolean).join(" • ");
+  const coachIdentityGoal = document.createElement("small");
+  coachIdentityGoal.textContent = coach.identity.goal || "";
+  coachIdentity.append(coachIdentityName, coachIdentityBuild, coachIdentityGoal);
   document.querySelector("#coachSummary").textContent = coach.summary.headline;
   document.querySelector("#coachContentLabel").textContent = coach.content.label;
   document.querySelector("#coachContentFocus").textContent = coach.content.focus;
