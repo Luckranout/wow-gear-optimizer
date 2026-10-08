@@ -282,3 +282,13 @@ footer {
 .coach-card > span{color:var(--muted);font-size:14px}
 .coach-muted{color:#718096!important;font-size:12px!important}
 @media(max-width:800px){.coach-grid,.coach-hero{grid-template-columns:1fr}}
+
+/* Mobile live-character lookup: keep the realm control readable and tappable. */
+.import-box .form-grid { min-width: 0; }
+.import-box .form-grid label { min-width: 0; }
+.import-box .form-grid select { min-width: 0; width: 100%; }
+@media (max-width: 520px) {
+  .import-box .form-grid { gap: 12px; }
+  .import-box .form-grid label { width: 100%; }
+  .import-box .form-grid select { width: 100%; min-height: 48px; font-size: 16px; }
+}
