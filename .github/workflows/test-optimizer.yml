@@ -98,3 +98,8 @@ jobs:
         run: node tests/build-synthesis.test.js
       - name: Run build synthesis UI tests
         run: node tests/build-synthesis-ui.test.js
+
+      - name: Run set guidance tests
+        run: node tests/set-guidance.test.js
+      - name: Run set guidance UI tests
+        run: node tests/set-guidance-ui.test.js
