@@ -22,7 +22,10 @@ const normalized = normalizeCharacter(
         name: { en_US: "Example Helm" },
         slot: { type: "HEAD", name: { en_US: "Head" } },
         level: 300,
-        quality: { id: 4, name: { en_US: "Epic" } }
+        quality: { id: 4, name: { en_US: "Epic" } },
+        stats: [{ type: { en_US: "Strength" }, value: 100 }],
+        enchantments: [{ id: 77, name: { en_US: "Example Enchant" } }],
+        gems: [{ item: { id: 88 }, name: { en_US: "Example Gem" } }]
       }
     ]
   },
@@ -35,6 +38,9 @@ assert.strictEqual(normalized.class.name, "Warrior");
 assert.strictEqual(normalized.activeSpec.name, "Protection");
 assert.strictEqual(normalized.equipmentCount, 1);
 assert.strictEqual(normalized.equipment[0].slotType, "HEAD");
+assert.deepStrictEqual(normalized.equipment[0].stats, [{ type: "Strength", value: 100 }]);
+assert.deepStrictEqual(normalized.equipment[0].enchantments, [{ id: 77, name: "Example Enchant", displayString: "" }]);
+assert.deepStrictEqual(normalized.equipment[0].gems, [{ id: 88, name: "Example Gem", raw: { item: { id: 88 }, name: { en_US: "Example Gem" } } }]);
 assert.deepStrictEqual(normalized.statistics, { Strength: 100, Haste: 50 });
 assert.ok(normalized.fetchedAt);
 console.log("Live character lookup tests passed.");
