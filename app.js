@@ -112,16 +112,20 @@ function renderUpgradeResults(upgrades = []) {
 function renderCharacterCoach(report, character) {
   const coach = WoWCharacterCoach.createCharacterCoach({ character, report, goal: goalSelect.value });
   document.querySelector("#coachTitle").textContent = `${coach.identity.name} • ${coach.identity.specialization || "Character"}`;
-  document.querySelector("#coachHeadline").textContent = coach.assessment.headline;
-  document.querySelector("#coachIdentity").innerHTML = `<strong>${coach.identity.name}</strong><span>${coach.identity.className} • ${coach.identity.specialization} • ${coach.identity.role}</span>`;
-  document.querySelector("#coachLoop").textContent = coach.assessment.loop;
-  document.querySelector("#coachWhy").textContent = coach.assessment.why;
+  document.querySelector("#coachHeadline").textContent = coach.summary.nextAction;
+  document.querySelector("#coachIdentity").innerHTML = `<strong>${coach.identity.name}</strong><span>${coach.identity.className} • ${coach.identity.specialization} • ${coach.identity.role}</span><small>${coach.identity.goal}</small>`;
+  document.querySelector("#coachSummary").textContent = coach.summary.headline;
+  document.querySelector("#coachNextAction").textContent = coach.summary.nextAction;
+  document.querySelector("#coachStatsSource").textContent = coach.summary.statSource;
+  document.querySelector("#coachStrengths").innerHTML = coach.strengths.length ? coach.strengths.map(item => `<li>${item}</li>`).join("") : "<li>No specific strengths can be established from the current data.</li>";
+  document.querySelector("#coachAttention").innerHTML = coach.attention.length ? coach.attention.map(item => `<li>${item}</li>`).join("") : "<li>No immediate attention items were identified from the current data.</li>";
+  document.querySelector("#coachPriorities").innerHTML = coach.priorities.length ? coach.priorities.map(item => `<li><strong>${item.section} — ${item.slot}</strong><span>${item.title}</span><small>${item.explanation}</small></li>`).join("") : "<li><strong>No immediate gear action.</strong><span>Use the gameplay plan below and re-run the optimizer after your next gear change.</span></li>";
+  document.querySelector("#coachGearPlan").innerHTML = coach.gearPlan.length ? coach.gearPlan.map(item => `<li><strong>${item.slot}: ${item.title}</strong><span>Current: ${item.current}</span><small>${item.explanation}</small></li>`).join("") : "<li>No direct gear replacement is available in the current dataset.</li>";
+  document.querySelector("#coachUpgradePlan").innerHTML = coach.upgradePlan.length ? coach.upgradePlan.map(item => `<li><strong>${item.slot}: ${item.title}</strong><span>${item.status}</span><small>${item.resources} • ${item.weeklyFit}</small></li>`).join("") : "<li>No next-track upgrade is currently identified.</li>";
+  document.querySelector("#coachLoop").textContent = coach.gameplay.loop;
+  document.querySelector("#coachWhy").textContent = coach.gameplay.why;
   document.querySelector("#coachDefensive").textContent = coach.gameplay.defensive;
-  const list = document.querySelector("#coachPriorities");
-  list.innerHTML = coach.priorities.length
-    ? coach.priorities.map(item => `<li><strong>${item.slot}:</strong> ${item.recommended} <small>(currently ${item.current})</small></li>`).join("")
-    : "<li>No direct gear upgrades were found in the current dataset. Your next step is to learn the gameplay loop above.</li>";
-  if (coach.gameplay.priorities.length) list.insertAdjacentHTML("beforeend", coach.gameplay.priorities.map(item => `<li class="coach-gameplay">${item}</li>`).join(""));
+  document.querySelector("#coachGameplay").innerHTML = coach.gameplay.priorities.length ? coach.gameplay.priorities.map(item => `<li>${item}</li>`).join("") : "<li>Detailed gameplay priorities are not yet curated for this specialization.</li>";
 }
 
 function renderOptimizedLoadout(equipment = {}, score = 0) {
