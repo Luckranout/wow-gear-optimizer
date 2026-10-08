@@ -42,7 +42,7 @@ jobs:
             const body = [
               "The scheduled/current Retail data import failed, so no new dataset was published.",
               "",
-              `Workflow run: ${'{'}context.serverUrl{'}'}/${'{'}context.repo.owner{'}'}/${'{'}context.repo.repo{'}'}/actions/runs/${'{'}context.runId{'}'}`,
+              `Workflow run: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
               "",
               "This is intentionally fail-closed: if Blizzard changes the season or exposes data the importer cannot verify, the site keeps the last verified dataset instead of publishing guessed rules.",
               "",
