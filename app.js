@@ -65,12 +65,20 @@ async function loadRealmOptions() {
     }
     const currentRealm = realmInput.value;
     const placeholder = `<option value="">${DEFAULT_REALM_NAME}</option>`;
-    const options = data.realms
+    realmInput.innerHTML = "";
+    const placeholderOption = document.createElement("option");
+    placeholderOption.value = "";
+    placeholderOption.textContent = DEFAULT_REALM_NAME;
+    realmInput.appendChild(placeholderOption);
+    data.realms
       .filter(realm => realm && realm.name)
       .sort((a, b) => a.name.localeCompare(b.name))
-      .map(realm => `<option value="${realm.name}">${realm.name}</option>`)
-      .join("");
-    realmInput.innerHTML = placeholder + options;
+      .forEach(realm => {
+        const option = document.createElement("option");
+        option.value = String(realm.name);
+        option.textContent = String(realm.name);
+        realmInput.appendChild(option);
+      });
     if (currentRealm && [...realmInput.options].some(option => option.value === currentRealm)) {
       realmInput.value = currentRealm;
     } else {
@@ -397,7 +405,11 @@ function applyLiveCharacter(character) {
   setSelectValue(classSelect, profile.className);
   classSelect.disabled = true;
   specSelect.disabled = false;
-  specSelect.innerHTML = `<option value="${profile.specialization}">${profile.specialization}</option>`;
+  specSelect.innerHTML = "";
+  const liveSpecOption = document.createElement("option");
+  liveSpecOption.value = String(profile.specialization);
+  liveSpecOption.textContent = String(profile.specialization);
+  specSelect.appendChild(liveSpecOption);
   specSelect.value = profile.specialization;
   importStatus.classList.remove("error");
   importStatus.textContent = WoWCharacterImport.formatImportedCharacterSummary(character) +
