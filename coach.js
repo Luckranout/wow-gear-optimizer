@@ -146,6 +146,28 @@ function getContentGuidance(goal = "General / All-around") {
   return CONTENT_GUIDANCE[goal] || CONTENT_GUIDANCE["General / All-around"];
 }
 
+function createCombatPreparation({ character = {}, goal = "General / All-around" } = {}) {
+  const consumables = character.consumables || {};
+  const equipment = character.equipment || {};
+  const trinkets = [equipment["Trinket 1"], equipment["Trinket 2"]].filter(Boolean);
+  return {
+    food: consumables.food ? "A food buff is present on the character profile." : "Use an appropriate current food buff for serious content.",
+    flask: consumables.flaskOrPhial ? "A flask or phial is present on the character profile." : "Use the current flask or phial appropriate to your character when available.",
+    potions: Array.isArray(consumables.potions) && consumables.potions.length
+      ? "Combat potions are present in the character profile; use them during meaningful offensive windows."
+      : "Keep combat potions available and use them during meaningful offensive windows.",
+    trinkets: trinkets.length
+      ? "Treat equipped trinkets as part of your cooldown plan; use them deliberately with your strongest windows when practical."
+      : "No equipped trinkets were returned, so the coach will not invent a trinket cooldown plan.",
+    enchants: Array.isArray(character.enchants) && character.enchants.length
+      ? "Known enchants are present; keep them current as gear changes."
+      : "Keep applicable gear enchanted; exact recommendations require current enchant data.",
+    racials: "Use your racial ability as part of an offensive or defensive window when the character data identifies one.",
+    professions: "Use profession cooldowns or crafted effects when they meaningfully support the goal; exact profession advice requires profession data.",
+    content: goal
+  };
+}
+
 function createGearPriority(upgrade, index) {
   return {
     rank: index + 1,
@@ -294,6 +316,7 @@ function createCharacterCoach({ character = {}, report = {}, goal = "General / A
     gearPlan: gearPriorities,
     upgradePlan: upgradePriorities,
     content: getContentGuidance(goal),
+    preparation: createCombatPreparation({ character, goal }),
     gameplay: applyTalentGuidance({
       abilities: profile?.abilities || { primary: [], resource: "Resource", cooldowns: [] },
       beginnerPriority: profile?.beginnerPriority || [],
@@ -309,5 +332,5 @@ function createCharacterCoach({ character = {}, report = {}, goal = "General / A
   };
 }
 
-if (typeof module !== "undefined") module.exports = { COACH_PROFILES, CONTENT_GUIDANCE, getContentGuidance, createCharacterCoach };
+if (typeof module !== "undefined") module.exports = { COACH_PROFILES, CONTENT_GUIDANCE, getContentGuidance, createCombatPreparation, createCharacterCoach };
 if (typeof window !== "undefined") window.WoWCharacterCoach = { COACH_PROFILES, CONTENT_GUIDANCE, getContentGuidance, createCharacterCoach };

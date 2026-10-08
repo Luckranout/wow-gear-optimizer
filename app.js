@@ -121,6 +121,13 @@ function renderCharacterCoach(report, character) {
   document.querySelector("#coachContentDefensive").textContent = coach.content.defensive;
   document.querySelector("#coachContentCooldowns").textContent = coach.content.cooldowns;
   document.querySelector("#coachContentMistakes").innerHTML = coach.content.mistakes.map(item => `<li>${item}</li>`).join("");
+  document.querySelector("#coachPrepFood").textContent = coach.preparation.food;
+  document.querySelector("#coachPrepFlask").textContent = coach.preparation.flask;
+  document.querySelector("#coachPrepPotions").textContent = coach.preparation.potions;
+  document.querySelector("#coachPrepTrinkets").textContent = coach.preparation.trinkets;
+  document.querySelector("#coachPrepEnchants").textContent = coach.preparation.enchants;
+  document.querySelector("#coachPrepRacial").textContent = coach.preparation.racials;
+  document.querySelector("#coachPrepProfessions").textContent = coach.preparation.professions;
   document.querySelector("#coachNextAction").textContent = coach.summary.nextAction;
   document.querySelector("#coachStatsSource").textContent = coach.summary.statSource;
   document.querySelector("#coachStrengths").innerHTML = coach.strengths.length ? coach.strengths.map(item => `<li>${item}</li>`).join("") : "<li>No specific strengths can be established from the current data.</li>";

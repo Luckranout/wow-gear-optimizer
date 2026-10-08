@@ -1,4 +1,5 @@
 name: Test WoW Optimizer
+# Step 28 verification trigger
 # Step 27 verification trigger
 
 on:
@@ -74,3 +75,8 @@ jobs:
         run: node tests/content-aware-coach.test.js
       - name: Run content-aware UI tests
         run: node tests/content-aware-ui.test.js
+
+      - name: Run combat preparation coach tests
+        run: node tests/combat-preparation-coach.test.js
+      - name: Run combat preparation UI tests
+        run: node tests/combat-preparation-ui.test.js
