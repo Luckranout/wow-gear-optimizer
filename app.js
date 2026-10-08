@@ -24,6 +24,7 @@ const slots = [
 const classSelect = document.querySelector("#classSelect");
 const specSelect = document.querySelector("#specSelect");
 const goalSelect = document.querySelector("#goalSelect");
+const encounterSelect = document.querySelector("#encounterSelect");
 const slotGrid = document.querySelector("#slotGrid");
 const resultMessage = document.querySelector("#resultMessage");
 const importStatus = document.querySelector("#importStatus");
@@ -40,6 +41,12 @@ let importedCharacter = null;
 async function loadCurrentRetailData() {
   try {
     retailDataset = await WoWData.loadRetailDataset();
+    if (encounterSelect) {
+      const encounters = Array.isArray(retailDataset.encounters) ? retailDataset.encounters : [];
+      encounterSelect.innerHTML = '<option value="">No encounter selected</option>' +
+        encounters.map(item => `<option value="${item.id ?? item.name}">${item.name || item.title || "Encounter"}</option>`).join("");
+      encounterSelect.disabled = encounters.length === 0;
+    }
     document.querySelector(".status").textContent =
       `● ${retailDataset.expansion} Season ${retailDataset.season} data loaded`;
     return true;
@@ -110,7 +117,10 @@ function renderUpgradeResults(upgrades = []) {
   `).join("");
 }
 function renderCharacterCoach(report, character) {
-  const coach = WoWCharacterCoach.createCharacterCoach({ character, report, goal: goalSelect.value });
+  const encounter = retailDataset?.encounters?.find(item =>
+    String(item.id ?? item.name) === String(encounterSelect?.value || "")
+  ) || null;
+  const coach = WoWCharacterCoach.createCharacterCoach({ character, report, goal: goalSelect.value, encounter });
   document.querySelector("#coachTitle").textContent = `${coach.identity.name} • ${coach.identity.specialization || "Character"}`;
   document.querySelector("#coachHeadline").textContent = coach.summary.nextAction;
   document.querySelector("#coachIdentity").innerHTML = `<strong>${coach.identity.name}</strong><span>${coach.identity.className} • ${coach.identity.specialization} • ${coach.identity.role}</span><small>${coach.identity.goal}</small>`;
@@ -138,6 +148,11 @@ function renderCharacterCoach(report, character) {
   document.querySelector("#coachSituationRange").textContent = coach.situations.outOfRange;
   document.querySelector("#coachSituationInterrupt").textContent = coach.situations.interruption;
   document.querySelector("#coachSituationNote").textContent = coach.situations.note;
+  document.querySelector("#coachEncounterTitle").textContent = coach.encounter.title;
+  document.querySelector("#coachEncounterSummary").textContent = coach.encounter.summary;
+  document.querySelector("#coachEncounterMechanics").innerHTML = coach.encounter.mechanics.length
+    ? coach.encounter.mechanics.map(item => `<li><strong>${item.name}</strong><span>${item.action}</span>${item.description ? `<small>${item.description}</small>` : ""}</li>`).join("")
+    : "<li>No encounter-specific mechanics are available for the current selection.";
   document.querySelector("#coachNextAction").textContent = coach.summary.nextAction;
   document.querySelector("#coachStatsSource").textContent = coach.summary.statSource;
   document.querySelector("#coachStrengths").innerHTML = coach.strengths.length ? coach.strengths.map(item => `<li>${item}</li>`).join("") : "<li>No specific strengths can be established from the current data.</li>";
@@ -237,6 +252,10 @@ classSelect.addEventListener("change", () => {
   specSelect.disabled = false;
   specSelect.innerHTML = '<option value="">Select specialization</option>' +
     specs[selected].map(spec => `<option>${spec}</option>`).join("");
+});
+
+encounterSelect?.addEventListener("change", () => {
+  if (importedCharacter) document.querySelector("#optimizeBtn").click();
 });
 
 goalSelect.addEventListener("change", () => {
