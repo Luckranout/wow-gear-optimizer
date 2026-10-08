@@ -65,13 +65,33 @@ function normalizeCharacterTalents(specializations) {
       ? specializations
       : [];
   const active = entries.find(entry => entry.active) || entries[0] || {};
-  const talents = Array.isArray(active.talents) ? active.talents : [];
-  return talents.map(talent => ({
-    id: resourceId(talent.id || talent.talent),
-    name: normalizeName(talent.name || talent.talent?.name),
-    rank: Number(talent.rank ?? talent.points ?? 0),
-    raw: talent
-  })).filter(talent => talent.id != null || talent.name);
+  const activeLoadout = Array.isArray(active.loadouts)
+    ? (active.loadouts.find(loadout => loadout.is_active) || active.loadouts[0] || {})
+    : {};
+  const loadoutGroups = [
+    ["Class", activeLoadout.selected_class_talents],
+    ["Spec", activeLoadout.selected_spec_talents],
+    ["Hero", activeLoadout.selected_hero_talents]
+  ];
+  const selected = loadoutGroups.flatMap(([source, talents]) =>
+    (Array.isArray(talents) ? talents : []).map(talent => ({
+      source,
+      id: resourceId(talent.id || talent.tooltip?.talent),
+      name: normalizeName(talent.name || talent.tooltip?.talent?.name),
+      rank: Number(talent.rank ?? talent.points ?? 0),
+      raw: talent
+    }))
+  );
+  const legacy = Array.isArray(active.talents)
+    ? active.talents.map(talent => ({
+        source: "Legacy",
+        id: resourceId(talent.id || talent.talent),
+        name: normalizeName(talent.name || talent.talent?.name),
+        rank: Number(talent.rank ?? talent.points ?? 0),
+        raw: talent
+      }))
+    : [];
+  return [...selected, ...legacy].filter(talent => talent.id != null || talent.name);
 }
 
 function normalizeStatistics(statistics) {
