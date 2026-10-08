@@ -50,10 +50,13 @@ async function loadRealmOptions() {
       throw new Error(data?.error || "No Blizzard realms were returned.");
     }
     const currentRealm = realmInput.value;
-    realmInput.innerHTML = `<option value="">${DEFAULT_REALM_NAME}</option>` +
-      data.realms.map(realm =>
-        `<option value="${realm.name}">${realm.name}</option>`
-      ).join("");
+    const placeholder = `<option value="">${DEFAULT_REALM_NAME}</option>`;
+    const options = data.realms
+      .filter(realm => realm && realm.name)
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .map(realm => `<option value="${realm.name}">${realm.name}</option>`)
+      .join("");
+    realmInput.innerHTML = placeholder + options;
     if (currentRealm && [...realmInput.options].some(option => option.value === currentRealm)) {
       realmInput.value = currentRealm;
     } else {
