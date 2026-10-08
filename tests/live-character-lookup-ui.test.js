@@ -6,18 +6,14 @@ for (const id of ["characterNameInput", "realmInput", "lookupCharacterBtn", "imp
   if (!index.includes(`id="${id}"`)) throw new Error(`Missing live lookup control: ${id}`);
 }
 if (!index.includes("Nothing to import")) throw new Error("Live lookup copy is missing.");
-if (!index.includes('id="characterNameInput" type="text" autocomplete="off" value="Failing"')) throw new Error("Default character must be Failing.");
+if (!index.includes('id="characterNameInput" type="text" autocomplete="off" placeholder="Failing"')) throw new Error("Character placeholder must be Failing.");
 if (!index.includes('id="realmInput" autocomplete="off" aria-label="Realm"')) throw new Error("Realm selector must be a dropdown.");
-if (!index.includes('<option value="Burning Legion">Burning Legion</option>')) throw new Error("Default realm must be Burning Legion.");
+if (!index.includes('<option value="" selected>Burning Legion</option>')) throw new Error("Realm placeholder must be Burning Legion.");
 if (!app.includes("/api/realms")) throw new Error("Realm list endpoint is not wired into the UI.");
 if (!app.includes("loadRealmOptions")) throw new Error("Realm list loader is missing.");
-if (!app.includes('const DEFAULT_CHARACTER_NAME = "Failing";')) throw new Error("Default character constant must be Failing.");
-if (!app.includes('const DEFAULT_REALM_NAME = "Burning Legion";')) throw new Error("Default realm constant must be Burning Legion.");
-if (!app.includes("characterNameInput.value = DEFAULT_CHARACTER_NAME")) throw new Error("Clear must restore the Failing default.");
-if (!app.includes("realmInput.value = DEFAULT_REALM_NAME")) throw new Error("Clear must restore the Burning Legion default.");
-if (!app.includes("clearDefaultOnFocus")) throw new Error("Default fields must clear on focus.");
-if (!app.includes("if (input.value === defaultValue) input.value = \"\"")) throw new Error("Default value must disappear when its field is focused.");
-if (!app.includes("if (!input.value.trim()) input.value = defaultValue")) throw new Error("Empty default field must restore its default on blur.");
+if (!app.includes('const DEFAULT_CHARACTER_NAME = "Failing";')) throw new Error("Default character placeholder constant must be Failing.");
+if (!app.includes('const DEFAULT_REALM_NAME = "Burning Legion";')) throw new Error("Default realm placeholder constant must be Burning Legion.");
+if (!app.includes('realmInput.innerHTML = `<option value="">${DEFAULT_REALM_NAME}</option>`')) throw new Error("Realm placeholder must be rendered as an empty-value option.");
 if (index.includes('id="simulationFile"')) throw new Error("SimulationCraft upload must not be part of the customer lookup flow.");
 if (index.includes('id="simulationExportBtn"')) throw new Error("SimulationCraft export must not be part of the customer lookup flow.");
 for (const needle of ["/api/character?", "Looking up your character from Blizzard", "applyLiveCharacter"]) {
