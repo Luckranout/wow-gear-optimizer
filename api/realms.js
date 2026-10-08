@@ -1,6 +1,8 @@
 const { fetchRealms } = require("../server/blizzard-character");
 
 module.exports = async function handler(req, res) {
+  res.setHeader("Access-Control-Allow-Origin", "https://luckranout.github.io");
+  res.setHeader("Vary", "Origin");
   if (req.method !== "GET") {
     res.setHeader("Allow", "GET");
     return res.status(405).json({ error: "Method not allowed." });
