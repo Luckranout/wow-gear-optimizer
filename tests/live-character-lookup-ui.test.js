@@ -24,4 +24,5 @@ for (const needle of ["/api/character?", "Looking up your character from Blizzar
   if (!app.includes(needle)) throw new Error(`Missing live lookup behavior: ${needle}`);
 }
 console.log("Live character lookup UI contract passed.");
+// Regression coverage includes default-field focus behavior.
 
