@@ -109,6 +109,21 @@ function renderUpgradeResults(upgrades = []) {
     </article>
   `).join("");
 }
+function renderCharacterCoach(report, character) {
+  const coach = WoWCharacterCoach.createCharacterCoach({ character, report, goal: goalSelect.value });
+  document.querySelector("#coachTitle").textContent = `${coach.identity.name} • ${coach.identity.specialization || "Character"}`;
+  document.querySelector("#coachHeadline").textContent = coach.assessment.headline;
+  document.querySelector("#coachIdentity").innerHTML = `<strong>${coach.identity.name}</strong><span>${coach.identity.className} • ${coach.identity.specialization} • ${coach.identity.role}</span>`;
+  document.querySelector("#coachLoop").textContent = coach.assessment.loop;
+  document.querySelector("#coachWhy").textContent = coach.assessment.why;
+  document.querySelector("#coachDefensive").textContent = coach.gameplay.defensive;
+  const list = document.querySelector("#coachPriorities");
+  list.innerHTML = coach.priorities.length
+    ? coach.priorities.map(item => `<li><strong>${item.slot}:</strong> ${item.recommended} <small>(currently ${item.current})</small></li>`).join("")
+    : "<li>No direct gear upgrades were found in the current dataset. Your next step is to learn the gameplay loop above.</li>";
+  if (coach.gameplay.priorities.length) list.insertAdjacentHTML("beforeend", coach.gameplay.priorities.map(item => `<li class="coach-gameplay">${item}</li>`).join(""));
+}
+
 function renderOptimizedLoadout(equipment = {}, score = 0) {
   const entries = Object.entries(equipment).filter(([, item]) => item);
   if (!entries.length) {
@@ -238,6 +253,7 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
 
   renderUpgradeResults(report.topUpgrades);
   renderOptimizedLoadout(report.optimizedEquipment, report.totalScore);
+  renderCharacterCoach(report, character);
 
 
   const label = importedCharacter

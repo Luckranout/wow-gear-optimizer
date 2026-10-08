@@ -263,3 +263,5 @@ footer {
   .loadout-ilvl { text-align:left; }
   .loadout-summary { flex-direction:column; }
 }
+
+.coach-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.coach-card{background:#0c1017;border:1px solid var(--border);border-radius:13px;padding:18px}.coach-card strong{display:block;margin-bottom:8px}.coach-card p,.coach-card li{color:var(--muted);line-height:1.6;font-size:14px}.coach-card ol{margin:0;padding-left:20px}.coach-card small{color:#718096}.coach-gameplay{margin-top:7px}@media(max-width:800px){.coach-grid{grid-template-columns:1fr}}
