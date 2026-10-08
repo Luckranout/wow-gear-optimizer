@@ -125,7 +125,10 @@ function renderCharacterCoach(report, character) {
   document.querySelector("#coachLoop").textContent = coach.gameplay.loop;
   document.querySelector("#coachWhy").textContent = coach.gameplay.why;
   document.querySelector("#coachDefensive").textContent = coach.gameplay.defensive;
-  document.querySelector("#coachGameplay").innerHTML = coach.gameplay.priorities.length ? coach.gameplay.priorities.map(item => `<li>${item}</li>`).join("") : "<li>Detailed gameplay priorities are not yet curated for this specialization.</li>";
+  document.querySelector("#coachGameplay").innerHTML = coach.gameplay.beginnerPriority.length ? coach.gameplay.beginnerPriority.map(item => `<li>${item}</li>`).join("") : "<li>Detailed gameplay priorities are not yet curated for this specialization.</li>";
+  document.querySelector("#coachCooldowns").textContent = coach.gameplay.cooldownGuidance;
+  document.querySelector("#coachMistakes").innerHTML = coach.gameplay.commonMistakes.length ? coach.gameplay.commonMistakes.map(item => `<li>${item}</li>`).join("") : "<li>No curated mistakes are available yet.</li>";
+  document.querySelector("#coachPreCombat").innerHTML = coach.gameplay.preCombat.length ? coach.gameplay.preCombat.map(item => `<li>${item}</li>`).join("") : "<li>No curated pre-combat checklist is available yet.</li>";
 }
 
 function renderOptimizedLoadout(equipment = {}, score = 0) {
