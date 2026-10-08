@@ -41,3 +41,13 @@ if (!app.includes('const placeholder = `<option value="">${DEFAULT_REALM_NAME}</
 if (!app.includes('.filter(realm => realm && realm.name)')) throw new Error("Realm loader must retain valid named Blizzard realms.");
 if (!styles.includes(".import-box .form-grid select { min-width: 0; width: 100%; }")) throw new Error("Realm selector must fit its mobile container.");
 if (!styles.includes("min-height: 48px; font-size: 16px;")) throw new Error("Mobile realm selector must be comfortably tappable.");
+
+for (const id of ["characterDetailsPanel", "characterDetailName", "characterDetailRealm", "characterDetailLevel", "characterDetailRace", "characterDetailClass", "characterDetailSpec", "characterTalentsList", "characterEquipmentList"]) {
+  if (!index.includes(`id="${id}"`)) throw new Error(`Missing live character details element: ${id}`);
+}
+for (const needle of ["renderCharacterDetails(character);", "clearCharacterDetails();", "character?.talents", "character?.equipment", "item?.quality?.name"]) {
+  if (!app.includes(needle)) throw new Error(`Missing character details behavior: ${needle}`);
+}
+for (const needle of [".character-summary-grid", ".character-detail-columns", ".character-equipment-list", "@media (max-width: 520px)"]) {
+  if (!styles.includes(needle)) throw new Error(`Missing character details responsive styling: ${needle}`);
+}
