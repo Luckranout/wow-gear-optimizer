@@ -31,7 +31,8 @@ console.log("Live character lookup UI contract passed.");
 // Regression coverage includes default-field focus behavior.
 
 
-
-if (!index.includes("window.WOW_API_BASE_URL = \"https://wow-gear-optimizer-nwj9.vercel.app\"")) throw new Error("GitHub Pages must point at the production API.");
-if (!realms.includes('Access-Control-Allow-Origin')) throw new Error("Realm API must allow the GitHub Pages origin.");
-if (!character.includes('Access-Control-Allow-Origin')) throw new Error("Character API must allow the GitHub Pages origin.");
+if (!index.includes('window.WOW_API_BASE_URL = "https://wow-gear-optimizer-nwj9.vercel.app"')) throw new Error("GitHub Pages must point at the production API.");
+const realmsApi = fs.readFileSync("api/realms.js", "utf8");
+const characterApi = fs.readFileSync("api/character.js", "utf8");
+if (!realmsApi.includes("Access-Control-Allow-Origin")) throw new Error("Realm API must allow the GitHub Pages origin.");
+if (!characterApi.includes("Access-Control-Allow-Origin")) throw new Error("Character API must allow the GitHub Pages origin.");
