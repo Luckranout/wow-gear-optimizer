@@ -35,6 +35,7 @@ const optimizationSource = document.querySelector("#optimizationSource");
 const characterNameInput = document.querySelector("#characterNameInput");
 const realmInput = document.querySelector("#realmInput");
 const lookupCharacterBtn = document.querySelector("#lookupCharacterBtn");
+const API_BASE_URL = String(window.WOW_API_BASE_URL || "").replace(/\/$/, "");
 let retailDataset = null;
 let importedCharacter = null;
 
@@ -244,9 +245,16 @@ async function lookupCharacter() {
   importStatus.classList.remove("error");
   importStatus.textContent = "Looking up your character from Blizzard...";
   try {
-    const response = await fetch(`/api/character?realm=${encodeURIComponent(realm)}&character=${encodeURIComponent(characterName)}`);
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.error || "Character lookup failed.");
+    const response = await fetch(`${API_BASE_URL}/api/character?realm=${encodeURIComponent(realm)}&character=${encodeURIComponent(characterName)}`);
+    const contentType = response.headers.get("content-type") || "";
+    const data = contentType.includes("application/json") ? await response.json() : null;
+    if (!response.ok) {
+      if (!data && response.status === 404 && !API_BASE_URL) {
+        throw new Error("Live character lookup is not available on this static deployment. Open the server-backed deployment to use Blizzard lookup.");
+      }
+      throw new Error(data?.error || `Character lookup failed (HTTP ${response.status}).`);
+    }
+    if (!data) throw new Error("Character lookup returned an unexpected response.");
     applyLiveCharacter(data);
   } catch (error) {
     importedCharacter = null;
