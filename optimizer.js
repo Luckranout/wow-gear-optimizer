@@ -376,7 +376,7 @@ function getNextUpgrade({ upgradeSystem, track, rank } = {}) {
     toItemLevel: next.itemLevel,
     crest: resolvedTrack.crest,
     crestCost: Number(resolvedTrack.crestCostPerUpgrade ?? 20),
-    weeklyCrestCap: Number(resolvedTrack.weeklyCrestCap ?? 100)
+    weeklyCrestCap: resolvedTrack.weeklyCrestCap == null ? null : Number(resolvedTrack.weeklyCrestCap)
   };
 }
 
@@ -428,14 +428,21 @@ function calculateCrestRequirements({ upgradeSystem, track, rank, availableCrest
   }
 
   const totalCrests = Object.values(required).reduce((a, b) => a + b, 0);
+  const weeklyUsedValue = Number(weeklyUsed) || 0;
+  const weeklyCap = Object.prototype.hasOwnProperty.call(upgradeSystem || {}, "weeklyCrestCap")
+    ? upgradeSystem.weeklyCrestCap
+    : (path[0]?.weeklyCrestCap ?? 100);
+  const hasWeeklyCap = weeklyCap !== null && weeklyCap !== undefined && Number.isFinite(Number(weeklyCap));
+  const normalizedWeeklyCap = hasWeeklyCap ? Number(weeklyCap) : null;
   return {
     path,
     required,
     exchanges,
     totalCrests,
-    weeklyUsed: Number(weeklyUsed) || 0,
-    weeklyRemaining: Math.max(0, 100 - (Number(weeklyUsed) || 0)),
-    fitsWeeklyCap: (Number(weeklyUsed) || 0) + totalCrests <= 100
+    weeklyUsed: weeklyUsedValue,
+    weeklyCap: normalizedWeeklyCap,
+    weeklyRemaining: hasWeeklyCap ? Math.max(0, normalizedWeeklyCap - weeklyUsedValue) : null,
+    fitsWeeklyCap: !hasWeeklyCap || weeklyUsedValue + totalCrests <= normalizedWeeklyCap
   };
 }
 
