@@ -60,3 +60,7 @@ if (!app.includes('placeholderOption.textContent = DEFAULT_REALM_NAME;')) throw 
 if (!app.includes('option.textContent = String(realm.name);')) throw new Error("Realm names must be assigned as DOM text.");
 if (!app.includes('liveSpecOption.textContent = String(profile.specialization);')) throw new Error("Live specialization must be assigned as DOM text.");
 console.log("Blizzard-sourced select rendering regression coverage passed.");
+
+if (app.includes('coach.identity.name}</strong>')) throw new Error("Live character coach identity must not inject character data into HTML.");
+if (!app.includes('coachIdentityName.textContent = coach.identity.name || "Character";')) throw new Error("Live character coach identity must use DOM text content.");
+console.log("Live character identity rendering regression coverage passed.");
