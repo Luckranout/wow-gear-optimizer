@@ -128,6 +128,16 @@ function renderCharacterCoach(report, character) {
   document.querySelector("#coachPrepEnchants").textContent = coach.preparation.enchants;
   document.querySelector("#coachPrepRacial").textContent = coach.preparation.racials;
   document.querySelector("#coachPrepProfessions").textContent = coach.preparation.professions;
+  document.querySelector("#coachSituationIncoming").textContent = coach.situations.incomingDamage;
+  document.querySelector("#coachSituationHealth").textContent = coach.situations.lowHealth;
+  document.querySelector("#coachSituationMovement").textContent = coach.situations.movement;
+  document.querySelector("#coachSituationTarget").textContent = coach.situations.targetSwap;
+  document.querySelector("#coachSituationAoE").textContent = coach.situations.multipleTargets;
+  document.querySelector("#coachSituationCooldown").textContent = coach.situations.cooldownReady;
+  document.querySelector("#coachSituationResource").textContent = coach.situations.resourceHigh;
+  document.querySelector("#coachSituationRange").textContent = coach.situations.outOfRange;
+  document.querySelector("#coachSituationInterrupt").textContent = coach.situations.interruption;
+  document.querySelector("#coachSituationNote").textContent = coach.situations.note;
   document.querySelector("#coachNextAction").textContent = coach.summary.nextAction;
   document.querySelector("#coachStatsSource").textContent = coach.summary.statSource;
   document.querySelector("#coachStrengths").innerHTML = coach.strengths.length ? coach.strengths.map(item => `<li>${item}</li>`).join("") : "<li>No specific strengths can be established from the current data.</li>";

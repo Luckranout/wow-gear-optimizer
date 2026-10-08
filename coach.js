@@ -146,6 +146,28 @@ function getContentGuidance(goal = "General / All-around") {
   return CONTENT_GUIDANCE[goal] || CONTENT_GUIDANCE["General / All-around"];
 }
 
+function createSituationalGuidance({ profile = null } = {}) {
+  const role = profile?.role || "Character";
+  return {
+    incomingDamage: role === "Tank"
+      ? "If a large hit is coming, prepare a defensive before the damage lands and make sure your resource is ready for the follow-up."
+      : "If a large hit is coming, prioritize the mechanic and use a defensive before the damage lands when appropriate.",
+    lowHealth: role === "Tank"
+      ? "When health drops, stabilize first: use the appropriate defensive or recovery tool rather than sacrificing survival for damage."
+      : "When health drops, use available recovery or defensive tools and return to damage once you are safe.",
+    movement: "When movement is required, use useful instant or movement-compatible actions where the priority allows and return to your core priority immediately.",
+    targetSwap: "When changing targets, re-establish the important target-dependent effects and resume your priority without waiting for a perfect setup.",
+    multipleTargets: "When several targets are present, use your multi-target priority when appropriate, but keep important single-target or priority-target actions in view.",
+    cooldownReady: "When a major cooldown is ready, use it if the current situation is valuable; delay only when a clear better window is imminent.",
+    resourceHigh: "When your main resource is near its cap, spend it according to your priority rather than continuing to generate waste.",
+    outOfRange: "When you are out of range, fix positioning first. A technically perfect priority cannot help if the character cannot reach the target.",
+    interruption: "If a mechanic or interrupt requires attention, handle it first. Resume the normal priority as soon as the situation is safe.",
+    note: profile
+      ? "These are situation rules layered on top of your specialization priority; they are not a replacement for the core rotation."
+      : "This is general situation guidance. A specialization-specific rotation is not invented until that spec has curated coaching data."
+  };
+}
+
 function createCombatPreparation({ character = {}, goal = "General / All-around" } = {}) {
   const consumables = character.consumables || {};
   const equipment = character.equipment || {};
@@ -317,6 +339,7 @@ function createCharacterCoach({ character = {}, report = {}, goal = "General / A
     upgradePlan: upgradePriorities,
     content: getContentGuidance(goal),
     preparation: createCombatPreparation({ character, goal }),
+    situations: createSituationalGuidance({ profile }),
     gameplay: applyTalentGuidance({
       abilities: profile?.abilities || { primary: [], resource: "Resource", cooldowns: [] },
       beginnerPriority: profile?.beginnerPriority || [],
@@ -332,5 +355,5 @@ function createCharacterCoach({ character = {}, report = {}, goal = "General / A
   };
 }
 
-if (typeof module !== "undefined") module.exports = { COACH_PROFILES, CONTENT_GUIDANCE, getContentGuidance, createCombatPreparation, createCharacterCoach };
+if (typeof module !== "undefined") module.exports = { COACH_PROFILES, CONTENT_GUIDANCE, getContentGuidance, createCombatPreparation, createSituationalGuidance, createCharacterCoach };
 if (typeof window !== "undefined") window.WoWCharacterCoach = { COACH_PROFILES, CONTENT_GUIDANCE, getContentGuidance, createCharacterCoach };

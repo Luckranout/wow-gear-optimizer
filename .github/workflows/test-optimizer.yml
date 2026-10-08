@@ -1,4 +1,5 @@
 name: Test WoW Optimizer
+# Step 29 verification trigger
 # Step 28 verification trigger
 # Step 27 verification trigger
 
@@ -80,3 +81,8 @@ jobs:
         run: node tests/combat-preparation-coach.test.js
       - name: Run combat preparation UI tests
         run: node tests/combat-preparation-ui.test.js
+
+      - name: Run situational gameplay coach tests
+        run: node tests/situational-gameplay-coach.test.js
+      - name: Run situational gameplay UI tests
+        run: node tests/situational-gameplay-ui.test.js
