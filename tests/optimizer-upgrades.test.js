@@ -35,6 +35,10 @@ if (path.length !== 2 || path[0].toItemLevel !== 318 || path[1].toItemLevel !== 
 let crest = o.calculateCrestRequirements({upgradeSystem:system, track:"Hero", rank:4, availableCrests:{"Hero Mistcrest":0}, weeklyUsed:60});
 if (crest.totalCrests !== 40 || crest.weeklyRemaining !== 40 || !crest.fitsWeeklyCap) throw new Error("Crest calculation failed");
 
+const uncappedSystem = { ...system, weeklyCrestCap: null, tracks: system.tracks.map(track => ({ ...track, weeklyCrestCap: null })) };
+const uncapped = o.calculateCrestRequirements({upgradeSystem:uncappedSystem, track:"Hero", rank:4, availableCrests:{"Hero Mistcrest":0}, weeklyUsed:999});
+if (uncapped.weeklyCap !== null || uncapped.weeklyRemaining !== null || !uncapped.fitsWeeklyCap) throw new Error("Lifted crest-cap calculation failed");
+
 let exchange = o.calculateCrestRequirements({upgradeSystem:system, track:"Myth", rank:5, availableCrests:{"Myth Mistcrest":0,"Hero Mistcrest":20}});
 if (exchange.totalCrests !== 20 || exchange.exchanges[0].required !== 40) throw new Error("Crest exchange calculation failed");
 
@@ -53,6 +57,7 @@ const realSystem = o.getUpgradeSystem(dataset);
 if (realSystem.tracks.length !== 5) throw new Error("Generated dataset must contain 5 upgrade tracks");
 if (realSystem.crests.length !== 5) throw new Error("Generated dataset must contain 5 crest types");
 if (realSystem.exchangeRules.length !== 4) throw new Error("Generated dataset must contain 4 crest exchange rules");
+if (realSystem.weeklyCrestCap !== 100) throw new Error("Current dataset should retain the active 100 crest weekly cap before October 20, 2026");
 if (!realSystem.ascendantVenomstone || realSystem.ascendantVenomstone.name !== "Ascendant Venomstone") throw new Error("Generated dataset is missing Ascendant Venomstone");
 if (!realSystem.tracks.every(track => track.rankItemLevels?.length === 6)) throw new Error("Every upgrade track must contain 6 ranks");
 if (!dataset.talents || !Array.isArray(dataset.talents.specializations)) {
