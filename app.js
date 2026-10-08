@@ -115,6 +115,12 @@ function renderCharacterCoach(report, character) {
   document.querySelector("#coachHeadline").textContent = coach.summary.nextAction;
   document.querySelector("#coachIdentity").innerHTML = `<strong>${coach.identity.name}</strong><span>${coach.identity.className} • ${coach.identity.specialization} • ${coach.identity.role}</span><small>${coach.identity.goal}</small>`;
   document.querySelector("#coachSummary").textContent = coach.summary.headline;
+  document.querySelector("#coachContentLabel").textContent = coach.content.label;
+  document.querySelector("#coachContentFocus").textContent = coach.content.focus;
+  document.querySelector("#coachContentPriorities").innerHTML = coach.content.priorities.map(item => `<li>${item}</li>`).join("");
+  document.querySelector("#coachContentDefensive").textContent = coach.content.defensive;
+  document.querySelector("#coachContentCooldowns").textContent = coach.content.cooldowns;
+  document.querySelector("#coachContentMistakes").innerHTML = coach.content.mistakes.map(item => `<li>${item}</li>`).join("");
   document.querySelector("#coachNextAction").textContent = coach.summary.nextAction;
   document.querySelector("#coachStatsSource").textContent = coach.summary.statSource;
   document.querySelector("#coachStrengths").innerHTML = coach.strengths.length ? coach.strengths.map(item => `<li>${item}</li>`).join("") : "<li>No specific strengths can be established from the current data.</li>";
