@@ -11,6 +11,10 @@ if (!index.includes('id="realmInput" autocomplete="off" aria-label="Realm"')) th
 if (!index.includes('<option value="Burning Legion">Burning Legion</option>')) throw new Error("Default realm must be Burning Legion.");
 if (!app.includes("/api/realms")) throw new Error("Realm list endpoint is not wired into the UI.");
 if (!app.includes("loadRealmOptions")) throw new Error("Realm list loader is missing.");
+if (!app.includes('const DEFAULT_CHARACTER_NAME = "Failing";')) throw new Error("Default character constant must be Failing.");
+if (!app.includes('const DEFAULT_REALM_NAME = "Burning Legion";')) throw new Error("Default realm constant must be Burning Legion.");
+if (!app.includes("characterNameInput.value = DEFAULT_CHARACTER_NAME")) throw new Error("Clear must restore the Failing default.");
+if (!app.includes("realmInput.value = DEFAULT_REALM_NAME")) throw new Error("Clear must restore the Burning Legion default.");
 if (index.includes('id="simulationFile"')) throw new Error("SimulationCraft upload must not be part of the customer lookup flow.");
 if (index.includes('id="simulationExportBtn"')) throw new Error("SimulationCraft export must not be part of the customer lookup flow.");
 for (const needle of ["/api/character?", "Looking up your character from Blizzard", "applyLiveCharacter"]) {
