@@ -146,6 +146,37 @@ function getContentGuidance(goal = "General / All-around") {
   return CONTENT_GUIDANCE[goal] || CONTENT_GUIDANCE["General / All-around"];
 }
 
+function createBuildSynthesis({ character = {}, report = {}, gameplay = null } = {}) {
+  const talentCount = Array.isArray(character.talents) ? character.talents.length : 0;
+  const statSource = report.optimizationContext?.source || "Goal/spec baseline";
+  const tracked = report.currentStats?.trackedStats || {};
+  const topStats = Object.entries(tracked)
+    .sort((a,b) => Number(b[1]) - Number(a[1]))
+    .slice(0,3)
+    .map(([name,value]) => `${name}: ${Number(value).toLocaleString()}`);
+  const gearCount = Array.isArray(report.topUpgrades) ? report.topUpgrades.length : 0;
+  const talentLine = gameplay?.talentAware
+    ? gameplay.talentAdjustments?.length
+      ? "Your selected talents have curated gameplay adjustments, so the play guidance should be used together with the gear plan."
+      : "Your selected talents are known, but there is no curated talent-specific adjustment yet; the coach will not invent one."
+    : "Live talent selections are not available, so the coach is keeping the build guidance conservative.";
+  return {
+    headline: "Your talents, stats, and gear should reinforce the same game plan.",
+    talentLine,
+    statLine: statSource === "SimulationCraft"
+      ? "Your gear is being evaluated with SimulationCraft-derived stat weights."
+      : "Your gear is being evaluated with the current goal/spec baseline weights.",
+    statSnapshot: topStats.length ? `Current tracked stats: ${topStats.join(", ")}.` : "No tracked stat snapshot is available yet.",
+    gearLine: gearCount
+      ? `${gearCount} direct gear upgrades are currently available; prioritize the highest-value changes without losing the build's overall direction.`
+      : "No direct gear replacement is currently available in the dataset.",
+    talentCount,
+    next: talentCount && gearCount
+      ? "Keep your talent choices, stat priorities, and gear upgrades pointed at the same content goal rather than optimizing each piece in isolation."
+      : "As more character data becomes available, use the build synthesis to keep talents, stats, and gear aligned."
+  };
+}
+
 function createEncounterGuidance({ encounter = null } = {}) {
   if (!encounter) {
     return {
@@ -370,6 +401,7 @@ function createCharacterCoach({ character = {}, report = {}, goal = "General / A
     preparation: createCombatPreparation({ character, goal }),
     situations: createSituationalGuidance({ profile }),
     encounter: createEncounterGuidance({ encounter }),
+    buildSynthesis: createBuildSynthesis({ character, report, gameplay: null }),
     gameplay: applyTalentGuidance({
       abilities: profile?.abilities || { primary: [], resource: "Resource", cooldowns: [] },
       beginnerPriority: profile?.beginnerPriority || [],
