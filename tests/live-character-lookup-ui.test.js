@@ -13,6 +13,8 @@ if (!app.includes("/api/realms")) throw new Error("Realm list endpoint is not wi
 if (!app.includes("loadRealmOptions")) throw new Error("Realm list loader is missing.");
 if (!app.includes('const DEFAULT_CHARACTER_NAME = "Failing";')) throw new Error("Default character placeholder constant must be Failing.");
 if (!app.includes('const DEFAULT_REALM_NAME = "Burning Legion";')) throw new Error("Default realm placeholder constant must be Burning Legion.");
+const styles = fs.readFileSync("styles.css", "utf8");
+if (!styles.includes(".import-box .form-grid { grid-template-columns:1fr 1fr; }")) throw new Error("Character and realm fields must share the lookup row.");
 if (!app.includes('realmInput.innerHTML = `<option value="">${DEFAULT_REALM_NAME}</option>`')) throw new Error("Realm placeholder must be rendered as an empty-value option.");
 if (index.includes('id="simulationFile"')) throw new Error("SimulationCraft upload must not be part of the customer lookup flow.");
 if (index.includes('id="simulationExportBtn"')) throw new Error("SimulationCraft export must not be part of the customer lookup flow.");
