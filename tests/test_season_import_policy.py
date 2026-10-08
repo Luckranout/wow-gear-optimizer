@@ -39,6 +39,18 @@ class SeasonImportPolicyTests(unittest.TestCase):
     def test_supported_season_is_allowed(self):
         MODULE.enforce_supported_season(42, "Midnight Season 2")
 
+    def test_crest_cap_is_active_before_blizzard_lift_date(self):
+        before = MODULE.CREST_CAP_LIFT_DATE.replace(day=19)
+        rules = MODULE.collect_upgrade_and_crest_data(before)
+        self.assertEqual(rules["weeklyCrestCap"], 100)
+        self.assertEqual(rules["crestCapStatus"], "active")
+
+    def test_crest_cap_is_lifted_on_blizzard_effective_date(self):
+        rules = MODULE.collect_upgrade_and_crest_data(MODULE.CREST_CAP_LIFT_DATE)
+        self.assertIsNone(rules["weeklyCrestCap"])
+        self.assertEqual(rules["crestCapStatus"], "lifted")
+        self.assertTrue(all(track["weeklyCrestCap"] is None for track in rules["tracks"]))
+
 
 if __name__ == "__main__":
     unittest.main()
