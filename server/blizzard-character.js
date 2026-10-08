@@ -44,12 +44,29 @@ function normalizeEquippedItem(item) {
   };
 }
 
+function normalizeCharacterTalents(specializations) {
+  if (!specializations || typeof specializations !== "object") return [];
+  const entries = Array.isArray(specializations.specializations)
+    ? specializations.specializations
+    : Array.isArray(specializations)
+      ? specializations
+      : [];
+  const active = entries.find(entry => entry.active) || entries[0] || {};
+  const talents = Array.isArray(active.talents) ? active.talents : [];
+  return talents.map(talent => ({
+    id: resourceId(talent.id || talent.talent),
+    name: normalizeName(talent.name || talent.talent?.name),
+    rank: Number(talent.rank ?? talent.points ?? 0),
+    raw: talent
+  })).filter(talent => talent.id != null || talent.name);
+}
+
 function normalizeStatistics(statistics) {
   if (!statistics || typeof statistics !== "object") return {};
   return Object.fromEntries(Object.entries(statistics).filter(([key]) => !["_links", "character"].includes(key)));
 }
 
-function normalizeCharacter(profile, equipment, statistics) {
+function normalizeCharacter(profile, equipment, statistics, specializations) {
   const activeSpec = profile.active_spec || {};
   const characterClass = profile.character_class || {};
   const race = profile.race || {};
@@ -64,6 +81,7 @@ function normalizeCharacter(profile, equipment, statistics) {
     race: { id: resourceId(race), name: normalizeName(race.name) },
     activeSpec: { id: resourceId(activeSpec), name: normalizeName(activeSpec.name) },
     statistics: normalizeStatistics(statistics),
+    talents: normalizeCharacterTalents(specializations),
     equipment: items,
     equipmentCount: items.length,
     fetchedAt: new Date().toISOString(),
@@ -126,12 +144,14 @@ async function fetchCharacter({ realm, character, clientId, clientSecret }) {
   const base = `${API_BASE}/profile/wow/character/${realmSlug}/${characterName}?namespace=${PROFILE_NAMESPACE}&locale=${LOCALE}`;
   const equipment = `${API_BASE}/profile/wow/character/${realmSlug}/${characterName}/equipment?namespace=${PROFILE_NAMESPACE}&locale=${LOCALE}`;
   const statistics = `${API_BASE}/profile/wow/character/${realmSlug}/${characterName}/statistics?namespace=${PROFILE_NAMESPACE}&locale=${LOCALE}`;
+  const specializations = `${API_BASE}/profile/wow/character/${realmSlug}/${characterName}/specializations?namespace=${PROFILE_NAMESPACE}&locale=${LOCALE}`;
   const [profile, equipped, stats] = await Promise.all([
     requestJson(base, token),
     requestJson(equipment, token),
-    requestJson(statistics, token)
+    requestJson(statistics, token),
+    requestJson(specializations, token)
   ]);
-  return normalizeCharacter(profile, equipped, stats);
+  return normalizeCharacter(profile, equipped, stats, specializations);
 }
 
-module.exports = { slugify, normalizeEquippedItem, normalizeStatistics, normalizeCharacter, fetchCharacter };
+module.exports = { slugify, normalizeEquippedItem, normalizeStatistics, normalizeCharacterTalents, normalizeCharacter, fetchCharacter };
