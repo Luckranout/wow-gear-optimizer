@@ -34,10 +34,21 @@ function normalizeEquippedItem(item) {
     slotType: slot.type || null,
     itemLevel: item.level ?? null,
     quality: { id: resourceId(quality), name: normalizeName(quality.name || quality) },
-    stats: item.stats || [],
-    enchantments: item.enchantments || [],
-    sockets: item.sockets || [],
-    gems: item.gems || [],
+    stats: Array.isArray(item.stats) ? item.stats.map(stat => ({
+      type: normalizeName(stat.type || stat.stat),
+      value: stat.value ?? null
+    })).filter(stat => stat.type || stat.value != null) : [],
+    enchantments: Array.isArray(item.enchantments) ? item.enchantments.map(enchantment => ({
+      id: resourceId(enchantment),
+      name: normalizeName(enchantment.name || enchantment.enchantment?.name),
+      displayString: normalizeName(enchantment.display_string || enchantment.displayString)
+    })).filter(enchantment => enchantment.id != null || enchantment.name || enchantment.displayString) : [],
+    sockets: Array.isArray(item.sockets) ? item.sockets : [],
+    gems: Array.isArray(item.gems) ? item.gems.map(gem => ({
+      id: resourceId(gem.item || gem),
+      name: normalizeName(gem.name || gem.item?.name),
+      raw: gem
+    })).filter(gem => gem.id != null || gem.name) : [],
     spells: item.spells || [],
     set: item.set || null,
     context: item.context ?? null,
