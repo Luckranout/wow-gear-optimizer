@@ -66,3 +66,5 @@ jobs:
         run: node tests/talent-aware-coach.test.js
       - name: Run character talent tests
         run: node tests/character-talents.test.js
+      - name: Run talent-aware UI tests
+        run: node tests/talent-aware-ui.test.js
