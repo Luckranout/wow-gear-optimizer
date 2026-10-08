@@ -36,3 +36,8 @@ const realmsApi = fs.readFileSync("api/realms.js", "utf8");
 const characterApi = fs.readFileSync("api/character.js", "utf8");
 if (!realmsApi.includes("Access-Control-Allow-Origin")) throw new Error("Realm API must allow the GitHub Pages origin.");
 if (!characterApi.includes("Access-Control-Allow-Origin")) throw new Error("Character API must allow the GitHub Pages origin.");
+
+if (!app.includes('const placeholder = `<option value="">${DEFAULT_REALM_NAME}</option>`;')) throw new Error("Realm placeholder must remain an empty-value option.");
+if (!app.includes('.filter(realm => realm && realm.name)')) throw new Error("Realm loader must retain valid named Blizzard realms.");
+if (!styles.includes(".import-box .form-grid select { min-width: 0; width: 100%; }")) throw new Error("Realm selector must fit its mobile container.");
+if (!styles.includes("min-height: 48px; font-size: 16px;")) throw new Error("Mobile realm selector must be comfortably tappable.");
