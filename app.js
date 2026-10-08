@@ -49,11 +49,16 @@ async function loadRealmOptions() {
     if (!response.ok || !Array.isArray(data.realms) || !data.realms.length) {
       throw new Error(data?.error || "No Blizzard realms were returned.");
     }
-    const currentRealm = realmInput.value || DEFAULT_REALM_NAME;
-    realmInput.innerHTML = data.realms.map(realm =>
-      `<option value="${realm.name}">${realm.name}</option>`
-    ).join("");
-    setSelectValue(realmInput, currentRealm);
+    const currentRealm = realmInput.value;
+    realmInput.innerHTML = `<option value="">${DEFAULT_REALM_NAME}</option>` +
+      data.realms.map(realm =>
+        `<option value="${realm.name}">${realm.name}</option>`
+      ).join("");
+    if (currentRealm && [...realmInput.options].some(option => option.value === currentRealm)) {
+      realmInput.value = currentRealm;
+    } else {
+      realmInput.value = "";
+    }
     return true;
   } catch (error) {
     importStatus.classList.add("error");
@@ -237,19 +242,6 @@ function setSelectValue(select, value) {
   if (option) select.value = option.value;
 }
 
-function clearDefaultOnFocus(input, defaultValue) {
-  if (!input) return;
-  input.addEventListener("focus", () => {
-    if (input.value === defaultValue) input.value = "";
-  });
-  input.addEventListener("blur", () => {
-    if (!input.value.trim()) input.value = defaultValue;
-  });
-}
-
-clearDefaultOnFocus(characterNameInput, DEFAULT_CHARACTER_NAME);
-clearDefaultOnFocus(realmInput, DEFAULT_REALM_NAME);
-
 function applyLiveCharacter(character) {
   importedCharacter = character;
   const profile = WoWOptimizer.createCharacterProfileFromImport({
@@ -384,8 +376,8 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
 document.querySelector("#clearBtn").addEventListener("click", () => {
   importedCharacter = null;
   importedSimulation = null;
-  characterNameInput.value = DEFAULT_CHARACTER_NAME;
-  realmInput.value = DEFAULT_REALM_NAME;
+  characterNameInput.value = "";
+  realmInput.value = "";
   importStatus.classList.remove("error");
   importStatus.textContent = "No character imported.";
   renderCharacterStats({});
