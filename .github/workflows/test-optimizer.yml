@@ -104,3 +104,8 @@ jobs:
         run: node tests/set-guidance.test.js
       - name: Run set guidance UI tests
         run: node tests/set-guidance-ui.test.js
+
+      - name: Run special item guidance tests
+        run: node tests/special-item-guidance.test.js
+      - name: Run special item UI tests
+        run: node tests/special-item-ui.test.js
