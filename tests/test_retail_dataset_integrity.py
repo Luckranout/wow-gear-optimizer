@@ -70,6 +70,12 @@ class RetailDatasetIntegrityTests(unittest.TestCase):
         self.assertGreater(audit.get("candidateItemCount", 0), 0)
         self.assertGreater(audit.get("talentSpecializationCount", 0), 0)
         self.assertGreater(audit.get("talentTreeCount", 0), 0)
+        talent_data = self.data.get("talents") or {}
+        trees = talent_data.get("trees") or []
+        tree_types = {tree.get("type") for tree in trees if isinstance(tree, dict)}
+        self.assertIn("class", tree_types, "Published talent data is missing class talent trees.")
+        self.assertIn("specialization", tree_types, "Published talent data is missing specialization talent trees.")
+        self.assertEqual(audit.get("talentTreeCount"), len(trees))
         self.assertGreater(audit.get("professionRecipeCount", 0), 0)
         self.assertGreater(audit.get("upgradeTrackCount", 0), 0)
         pvp_season = audit.get("pvpSeason") or {}
