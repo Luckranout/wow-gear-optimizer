@@ -289,6 +289,49 @@ function clearCharacterDetails() {
   characterEquipmentList.innerHTML = "";
 }
 
+function renderVerificationRecord(verification) {
+  const panel = document.querySelector("#verificationPanel");
+  if (!panel || !verification) return;
+  panel.hidden = false;
+  const warnings = Array.isArray(verification.warnings) ? verification.warnings : [];
+  const status = document.querySelector("#verificationStatus");
+  status.textContent = warnings.length
+    ? "Calculated with limitations — review the warnings before relying on this result."
+    : "Calculation completed. This is not, by itself, proof of live-source accuracy.";
+  document.querySelector("#verificationDataset").textContent = [
+    verification.dataScope?.game,
+    verification.dataScope?.mode,
+    verification.dataScope?.expansion,
+    verification.dataScope?.season == null ? null : `Season ${verification.dataScope.season}`,
+    verification.dataScope?.patch ? `Patch ${verification.dataScope.patch}` : null,
+    verification.dataScope?.schemaVersion ? `Schema ${verification.dataScope.schemaVersion}` : null
+  ].filter(Boolean).join(" • ") || "Dataset scope unavailable";
+  document.querySelector("#verificationSource").textContent = [
+    verification.dataScope?.source || "Source unavailable",
+    verification.dataScope?.updatedAt ? `Last updated: ${verification.dataScope.updatedAt}` : "Update time unavailable",
+    `Import status: ${verification.dataScope?.status || "unknown"}`
+  ].join(" • ");
+  document.querySelector("#verificationMethod").textContent =
+    `${verification.method || "Unknown method"} • weights: ${verification.weightSource || "unknown"} • goal: ${verification.goal || "unknown"}`;
+  document.querySelector("#verificationCandidates").textContent = Object.entries(verification.candidateCountsBySlot || {})
+    .map(([slot, count]) => `${slot}: ${count}`).join(" • ") || "Candidate counts unavailable";
+  document.querySelector("#verificationItems").textContent = Object.entries(verification.selectedItemIdsBySlot || {})
+    .map(([slot, id]) => `${slot}: ${id == null ? "none" : `#${id}`}`).join(" • ") || "Selected item IDs unavailable";
+  const warningList = document.querySelector("#verificationWarnings");
+  warningList.replaceChildren();
+  if (!warnings.length) {
+    const item = document.createElement("li");
+    item.textContent = "No calculation warnings were recorded. Source accuracy and production behavior still require independent verification.";
+    warningList.appendChild(item);
+  } else {
+    warnings.forEach(warning => {
+      const item = document.createElement("li");
+      item.textContent = String(warning);
+      warningList.appendChild(item);
+    });
+  }
+}
+
 function formatGearScore(value) {
   return Number(value || 0).toLocaleString(undefined, { maximumFractionDigits: 2 });
 }
@@ -661,6 +704,8 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
     availableItems: retailDataset.items || [],
     dataset: retailDataset
   });
+
+  renderVerificationRecord(report.verification);
 
   renderCharacterStats(report.currentStats.trackedStats);
   optimizationSource.textContent = `Using native goal/spec weights • ${character.goal}`;
