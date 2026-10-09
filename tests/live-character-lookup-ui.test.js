@@ -85,3 +85,33 @@ for (const needle of [
 if (app.includes('upgrade.recommendedItem?.name}</h3>')) throw new Error("Recommended gear names must not be interpolated into HTML.");
 if (app.includes('${item.name || "Unnamed item"}</div>')) throw new Error("Optimized gear names must not be interpolated into HTML.");
 console.log("Gear recommendation and optimized loadout safe-rendering regression coverage passed.");
+
+
+for (const needle of [
+  "function renderTextList(selector, values, emptyMessage)",
+  "function renderCoachStructuredList(selector, entries, emptyMessage, getFields)",
+  'renderTextList("#coachContentPriorities"',
+  'renderTextList("#coachContentMistakes"',
+  'renderCoachStructuredList("#coachEncounterMechanics"',
+  'renderCoachStructuredList("#coachSpecialRanked"',
+  'renderCoachStructuredList("#coachSpendSteps"',
+  'renderCoachStructuredList("#coachPriorities"',
+  'renderCoachStructuredList("#coachGearPlan"',
+  'renderCoachStructuredList("#coachUpgradePlan"',
+  'renderTextList("#coachTalentAdjustments"',
+  'renderTextList("#coachGameplay"',
+  'renderTextList("#coachMistakes"',
+  'renderTextList("#coachPreCombat"'
+]) {
+  if (!app.includes(needle)) throw new Error(`Coach list output must use safe DOM rendering: ${needle}`);
+}
+for (const unsafe of [
+  'coach.encounter.mechanics.map(item => `<li><strong>${item.name}',
+  'coach.priorities.map(item => `<li><strong>${item.section}',
+  'coach.gearPlan.map(item => `<li><strong>${item.slot}',
+  'coach.upgradePlan.map(item => `<li><strong>${item.slot}',
+  'coach.gameplay.beginnerPriority.map(item => `<li>${item}</li>`)'
+]) {
+  if (app.includes(unsafe)) throw new Error(`Unsafe coach HTML interpolation remains: ${unsafe}`);
+}
+console.log("Character coach dynamic-list safe-rendering regression coverage passed.");
