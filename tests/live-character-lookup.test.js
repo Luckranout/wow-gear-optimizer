@@ -1,5 +1,5 @@
 const assert = require("assert");
-const { slugify, normalizeCharacter } = require("../server/blizzard-character");
+const { slugify, normalizeCharacter, requestJson } = require("../server/blizzard-character");
 const fs = require("fs");
 
 assert.strictEqual(slugify("Area 52"), "area-52");
@@ -144,3 +144,31 @@ const realmsApi = fs.readFileSync("api/realms.js", "utf8");
 assert.ok(realmsApi.includes("fetchRealms"), "Realm API must use the cached Blizzard realm loader.");
 assert.ok(realmsApi.includes("s-maxage=21600"), "Realm API must advertise its cache lifetime.");
 console.log("Blizzard realm API contract passed.");
+
+// A stalled upstream request must fail with a controlled service error.
+const originalFetch = global.fetch;
+global.fetch = (_url, options = {}) => new Promise((_resolve, reject) => {
+  const signal = options.signal;
+  const rejectOnAbort = () => {
+    const error = new Error("Mock request aborted.");
+    error.name = "AbortError";
+    reject(error);
+  };
+  if (signal.aborted) {
+    rejectOnAbort();
+    return;
+  }
+  signal.addEventListener("abort", rejectOnAbort, { once: true });
+});
+requestJson("https://example.invalid/profile", "test-token", 5)
+  .then(() => {
+    throw new Error("A timed-out Blizzard request must reject.");
+  })
+  .catch(error => {
+    assert.strictEqual(error.statusCode, 502, "timed-out upstream requests must map to 502");
+    assert.strictEqual(error.publicMessage, "Blizzard character service is temporarily unavailable.");
+    console.log("Blizzard upstream timeout handling passed.");
+  })
+  .finally(() => {
+    global.fetch = originalFetch;
+  });
