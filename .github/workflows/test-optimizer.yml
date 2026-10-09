@@ -34,6 +34,7 @@ on:
     paths:
       - "optimizer.js"
       - "wow-data.js"
+      - "data/current-retail.json"
       - "scripts/**"
       - "tests/**"
       - "simulation-import.js"
