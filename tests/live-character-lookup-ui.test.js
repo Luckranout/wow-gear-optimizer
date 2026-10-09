@@ -46,7 +46,7 @@ if (!styles.includes("min-height: 48px; font-size: 16px;")) throw new Error("Mob
 for (const id of ["characterDetailsPanel", "characterDetailName", "characterDetailRealm", "characterDetailLevel", "characterDetailRace", "characterDetailClass", "characterDetailSpec", "characterDetailFaction", "characterDetailGuild", "characterDetailAchievementPoints", "characterDetailAverageItemLevel", "characterDetailEquippedItemLevel", "characterTalentsList", "characterEquipmentList"]) {
   if (!index.includes(`id="${id}"`)) throw new Error(`Missing live character details element: ${id}`);
 }
-for (const needle of ["renderCharacterDetails(character);", "clearCharacterDetails();", "character?.talents", "character?.equipment", "item?.quality?.name", "character?.faction", "character?.guild", "character?.achievementPoints", "character?.averageItemLevel", "character?.equippedItemLevel"]) {
+for (const needle of ["renderCharacterDetails(character);", "clearCharacterDetails();", "clearOptimizationResults();", "Character lookup failed. Previous optimization results were cleared.", "function clearOptimizationResults()", "document.querySelector(\"#characterCoachPanel\").hidden = true;", "document.querySelector(\"#characterCoachPanel\").hidden = false;", "character?.talents", "character?.equipment", "item?.quality?.name", "character?.faction", "character?.guild", "character?.achievementPoints", "character?.averageItemLevel", "character?.equippedItemLevel"]) {
   if (!app.includes(needle)) throw new Error(`Missing character details behavior: ${needle}`);
 }
 for (const needle of [".character-summary-grid", ".character-detail-columns", ".character-equipment-list", "@media (max-width: 520px)"]) {
