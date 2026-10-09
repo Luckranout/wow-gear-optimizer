@@ -709,18 +709,14 @@ def collect_talent_data(token):
         seen_tree_keys.add(key)
 
         try:
-            if spec_id:
-                tree = get_api_json(
-                    f"/data/wow/talent-tree/{tree_id}/playable-specialization/{spec_id}",
-                    token,
-                    {"namespace": NAMESPACE, "locale": LOCALE},
-                )
-            else:
-                tree = get_api_json(
-                    f"/data/wow/talent-tree/{tree_id}",
-                    token,
-                    {"namespace": NAMESPACE, "locale": LOCALE},
-                )
+            # Fetch the canonical tree resource. The specialization-scoped route
+            # can return 404 even for valid references; the canonical tree route
+            # exposes nodes and specialization links for the tree ID.
+            tree = get_api_json(
+                f"/data/wow/talent-tree/{tree_id}",
+                token,
+                {"namespace": NAMESPACE, "locale": LOCALE},
+            )
         except urllib.error.HTTPError as error:
             print(
                 f"Talent tree {tree_id} ({tree_type}, spec {spec_id}) "
