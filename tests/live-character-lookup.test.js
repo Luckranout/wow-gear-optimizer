@@ -99,6 +99,30 @@ assert.deepStrictEqual(
   [{ source: "Class", id: 100, name: "Class Talent" }]
 );
 console.log("Active-loadout talents take precedence over legacy fallback entries.");
+const activeSpecTalentNormalized = normalizeCharacter(
+  { id: 4, name: "ActiveSpecTester", level: 90, realm: { id: 1, name: "Burning Legion", slug: "burning-legion" } },
+  { equipped_items: [] },
+  {},
+  {
+    active_specialization: { id: 73, name: "Protection" },
+    specializations: [
+      {
+        specialization: { id:  62, name: "Frost" },
+        loadouts: [{ is_active: true, selected_spec_talents: [{ id: 500, rank: 1, name: "Frost Talent" }] }]
+      },
+      {
+        specialization: { id: 73, name: "Protection" },
+        loadouts: [{ is_active: true, selected_spec_talents: [{ id: 600, rank: 1, name: "Protection Talent" }] }]
+      }
+    ]
+  }
+);
+assert.deepStrictEqual(
+  activeSpecTalentNormalized.talents.map(talent => talent.name),
+  ["Protection Talent"]
+);
+console.log("Talent normalization follows Blizzard's active specialization.");
+
 
 console.log("Character talent loadout normalization passed.");
 assert.ok(normalized.fetchedAt);
