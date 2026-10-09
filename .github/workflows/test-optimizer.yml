@@ -59,6 +59,8 @@ jobs:
           node-version: "22"
       - name: Run upgrade optimizer tests
         run: node tests/optimizer-upgrades.test.js
+      - name: Run Retail dataset loader regression tests
+        run: node tests/wow-data-loader.test.js
       - name: Run character import UI tests
         run: node tests/character-import-ui.test.js
       - name: Run character importer tests
