@@ -308,6 +308,7 @@ function renderUpgradeResults(upgrades = []) {
   `).join("");
 }
 function renderCharacterCoach(report, character) {
+  document.querySelector("#characterCoachPanel").hidden = false;
   const encounter = retailDataset?.encounters?.find(item =>
     String(item.id ?? item.name) === String(encounterSelect?.value || "")
   ) || null;
@@ -406,6 +407,13 @@ function renderOptimizedLoadout(equipment = {}, score = 0) {
     </div>
   `).join("") + `<div class="loadout-summary"><strong>Optimized weighted score: ${formatGearScore(score)}</strong><span>${sourceLabel}</span></div>`;
 }
+function clearOptimizationResults() {
+  upgradeResults.innerHTML = '<div class="result-empty">Run the optimizer after a successful character lookup.</div>';
+  loadoutResults.innerHTML = '<div class="result-empty">No optimized loadout has been calculated.</div>';
+  optimizationSource.textContent = "Optimization source will appear after the optimizer runs.";
+  document.querySelector("#characterCoachPanel").hidden = true;
+}
+
 function setSelectValue(select, value) {
   if (!value) return;
   const option = [...select.options].find(item => item.value === value || item.textContent === value);
@@ -466,6 +474,8 @@ async function lookupCharacter() {
     clearCharacterDetails();
     renderSlots();
     renderCharacterStats({});
+    clearOptimizationResults();
+    resultMessage.textContent = "Character lookup failed. Previous optimization results were cleared.";
   } finally {
     lookupCharacterBtn.disabled = false;
   }
@@ -562,7 +572,7 @@ document.querySelector("#clearBtn").addEventListener("click", () => {
   specSelect.disabled = true;
   specSelect.innerHTML = "<option>Select class first</option>";
   goalSelect.value = "Mythic+";
-  optimizationSource.textContent = "Optimization source will appear after the optimizer runs.";
+  clearOptimizationResults();
   renderUpgradeResults([]);
   renderOptimizedLoadout({});
   clearCharacterDetails();
