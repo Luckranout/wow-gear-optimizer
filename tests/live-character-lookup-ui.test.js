@@ -115,3 +115,15 @@ for (const unsafe of [
   if (app.includes(unsafe)) throw new Error(`Unsafe coach HTML interpolation remains: ${unsafe}`);
 }
 console.log("Character coach dynamic-list safe-rendering regression coverage passed.");
+
+
+for (const needle of [
+  "function renderCharacterStats(statistics = {})",
+  "statsGrid.replaceChildren();",
+  "label.textContent = String(stat.label ?? \"Stat\");",
+  "value.textContent = Number(stat.value).toLocaleString();"
+]) {
+  if (!app.includes(needle)) throw new Error(`Imported character statistics must render as safe DOM text: ${needle}`);
+}
+if (app.includes('stats.map(stat => `<div class="stat-card">')) throw new Error("Statistic labels must not be interpolated into HTML.");
+console.log("Imported character statistics safe-rendering regression coverage passed.");
