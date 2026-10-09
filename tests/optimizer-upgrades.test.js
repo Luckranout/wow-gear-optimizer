@@ -19,6 +19,14 @@ const sharedTrinket = {
 if (o.findBestItemForSlot([sharedTrinket], "Trinket 2", o.goals.general)?.item?.id !== sharedTrinket.id) {
   throw new Error("A compatible trinket must be eligible for both trinket slots.");
 }
+const ring2Upgrade = o.findUpgradeOpportunities({
+  currentEquipment: { "Ring 2": { id: 990003, name: "Older Ring", slot: "Ring 2", itemLevel: 100 } },
+  availableItems: [sharedRing],
+  goal: o.goals.general,
+});
+if (ring2Upgrade[0]?.slot !== "Ring 2" || ring2Upgrade[0]?.recommendedItem?.id !== sharedRing.id) {
+  throw new Error("Compatible ring candidates must be considered for upgrade opportunities in both ring slots.");
+}
 
 const system = {
   tracks: [
