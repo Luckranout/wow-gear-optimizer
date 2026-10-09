@@ -68,8 +68,8 @@ class TalentTreeImportTests(unittest.TestCase):
                     "key": {"href": "https://us.api.blizzard.com/data/wow/talent-tree/789"}
                 }],
             },
-            "/data/wow/talent-tree/123/playable-specialization/71": {"nodes": [{"id": 1}]},
-            "/data/wow/talent-tree/456/playable-specialization/71": {"nodes": [{"id": 2}]},
+            "/data/wow/talent-tree/123": {"nodes": [{"id": 1}]},
+            "/data/wow/talent-tree/456": {"nodes": [{"id": 2}]},
             "/data/wow/talent-tree/789": {"talent_nodes": [{"id": 3}]},
         }
 
