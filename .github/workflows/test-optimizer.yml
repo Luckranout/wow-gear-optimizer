@@ -9,10 +9,12 @@ name: Test WoW Optimizer
 # Step 27 verification trigger
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
       - step-4-upgrade-optimizer
+      - step-35-character-details
     paths:
       - "optimizer.js"
       - "wow-data.js"
