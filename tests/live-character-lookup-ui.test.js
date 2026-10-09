@@ -41,3 +41,5 @@ if (!app.includes('const placeholder = `<option value="">${DEFAULT_REALM_NAME}</
 if (!app.includes('.filter(realm => realm && realm.name)')) throw new Error("Realm loader must retain valid named Blizzard realms.");
 if (!styles.includes(".import-box .form-grid select { min-width: 0; width: 100%; }")) throw new Error("Realm selector must fit its mobile container.");
 if (!styles.includes("min-height: 48px; font-size: 16px;")) throw new Error("Mobile realm selector must be comfortably tappable.");
+
+if (styles.includes("\\n@media (max-width: 520px) { .import-box .form-grid { grid-template-columns:1fr; } }")) throw new Error("Mobile realm media query must be separated by a real newline, not a literal escape.");
