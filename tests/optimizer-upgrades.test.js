@@ -439,3 +439,53 @@ if (simulationReport.optimizationContext.source !== "SimulationCraft" ||
   throw new Error("Simulation-derived optimization report context failed");
 }
 console.log("Step 12 simulation scale-factor support passed.");
+
+const auditedDataset = {
+  ...specDataset,
+  game: "World of Warcraft",
+  mode: "Retail",
+  expansion: "Midnight",
+  season: 2,
+  schemaVersion: "1.0.0",
+  source: "Blizzard Game Data API",
+  status: "validated",
+  updatedAt: "2026-10-08T00:00:00Z",
+  items: [
+    { id: 8001, name: "Audit Helm", slot: "Head", compatibleSlots: ["Head"], itemLevel: 300 },
+    { id: 8002, name: "Audit Helm Alternative", slot: "Head", compatibleSlots: ["Head"], itemLevel: 290 }
+  ]
+};
+const auditReport = o.createOptimizationReport({
+  character: { ...o.createCharacterProfile(), className: "Warrior", specialization: "Arms", goal: o.goals.raid },
+  availableItems: auditedDataset.items,
+  dataset: auditedDataset
+});
+if (auditReport.verification?.status !== "warnings" ||
+    auditReport.verification.dataScope.source !== "Blizzard Game Data API" ||
+    auditReport.verification.dataScope.updatedAt !== auditedDataset.updatedAt ||
+    auditReport.verification.candidateCountsBySlot.Head !== 2 ||
+    auditReport.verification.selectedItemIdsBySlot.Head !== 8001 ||
+    !auditReport.verification.warnings.some(warning => warning.includes("heuristic static weights"))) {
+  throw new Error("Optimizer verification record must expose source, timestamp, candidate count, selected item, and heuristic limitation.");
+}
+const repeatAuditReport = o.createOptimizationReport({
+  character: { ...o.createCharacterProfile(), className: "Warrior", specialization: "Arms", goal: o.goals.raid },
+  availableItems: auditedDataset.items,
+  dataset: auditedDataset
+});
+if (JSON.stringify(auditReport.verification.selectedItemIdsBySlot) !==
+    JSON.stringify(repeatAuditReport.verification.selectedItemIdsBySlot) ||
+    JSON.stringify(auditReport.verification.candidateCountsBySlot) !==
+    JSON.stringify(repeatAuditReport.verification.candidateCountsBySlot)) {
+  throw new Error("Identical inputs and dataset must produce the same auditable selections.");
+}
+const missingMetadataReport = o.createOptimizationReport({
+  character: o.createCharacterProfile(),
+  availableItems: [],
+  dataset: null
+});
+if (missingMetadataReport.verification.status !== "warnings" ||
+    !missingMetadataReport.verification.warnings.some(warning => warning.includes("No dataset metadata"))) {
+  throw new Error("Missing dataset metadata must be disclosed, not treated as verified.");
+}
+console.log("Optimizer verification record tests passed.");
