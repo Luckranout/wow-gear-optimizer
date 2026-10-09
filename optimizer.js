@@ -517,6 +517,32 @@ function createOptimizationReport({character = createCharacterProfile(), availab
       availableCrests: character.crestInventory || {}, weeklyUsed: character.weeklyCrestUsed || 0
     }) : null)
     .filter(Boolean);
+  const datasetItems = Array.isArray(dataset?.items) ? dataset.items : availableItems;
+  const candidateCountsBySlot = Object.fromEntries(WOW_EQUIPMENT_SLOTS.map(slot => [
+    slot, (availableItems || []).filter(item => itemSupportsSlot(item, slot)).length
+  ]));
+  const verificationWarnings = [];
+  if (!dataset) verificationWarnings.push("No dataset metadata was supplied; source freshness cannot be verified.");
+  if (dataset && (!dataset.updatedAt || !dataset.source || !dataset.status)) {
+    verificationWarnings.push("Dataset is missing source, update timestamp, or import status metadata.");
+  }
+  if (dataset?.datasetWarnings?.length) verificationWarnings.push(...dataset.datasetWarnings);
+  if (!datasetItems.length) verificationWarnings.push("No eligible item records were available to calculate recommendations.");
+  if (!simulationContext) verificationWarnings.push("This result uses heuristic static weights, not a SimulationCraft result.");
+  const datasetUpdatedAt = dataset?.updatedAt || null;
+  const datasetStatus = dataset?.status || "unknown";
+  const datasetSource = dataset?.source || null;
+  const dataScope = {
+    game: dataset?.game || "World of Warcraft",
+    mode: dataset?.mode || "Retail",
+    expansion: dataset?.expansion || null,
+    season: dataset?.season ?? null,
+    patch: dataset?.patch || null,
+    schemaVersion: dataset?.schemaVersion || null,
+    source: datasetSource,
+    updatedAt: datasetUpdatedAt,
+    status: datasetStatus
+  };
   return {
     character, goal, optimizedEquipment: optimized.equipment, totalScore: optimized.score,
     topUpgrades: upgrades, upgradePlans, currentStats: statSummary,
@@ -530,10 +556,29 @@ function createOptimizationReport({character = createCharacterProfile(), availab
     } : {
       source: "Goal/spec baseline",
       method: "static-weights",
-      patch: null,
+      patch: dataset?.patch || null,
       specialization: character.specialization || null,
       characterId: character.characterId ?? null,
       generatedAt: null
+    },
+    verification: {
+      status: verificationWarnings.length ? "warnings" : "calculated",
+      dataScope,
+      goal,
+      className: character.className || null,
+      specialization: character.specialization || null,
+      method: simulationContext ? simulationContext.method : "static-weights",
+      weightSource: simulationContext ? simulationContext.source : "built-in goal weights",
+      candidateCountsBySlot,
+      selectedItemIdsBySlot: Object.fromEntries(WOW_EQUIPMENT_SLOTS.map(slot => [
+        slot, optimized.equipment[slot]?.id ?? null
+      ])),
+      warnings: verificationWarnings,
+      reproducibility: {
+        note: "Re-run with the same character input, dataset version, goal, and weight source to reproduce this calculation.",
+        datasetUpdatedAt,
+        simulationGeneratedAt: simulationContext?.generatedAt || null
+      }
     },
     equipmentSlots: WOW_EQUIPMENT_SLOTS.length, generatedAt: new Date().toISOString()
   };
