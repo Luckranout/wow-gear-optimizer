@@ -317,6 +317,9 @@ function renderVerificationRecord(verification) {
     .map(([slot, count]) => `${slot}: ${count}`).join(" • ") || "Candidate counts unavailable";
   document.querySelector("#verificationItems").textContent = Object.entries(verification.selectedItemIdsBySlot || {})
     .map(([slot, id]) => `${slot}: ${id == null ? "none" : `#${id}`}`).join(" • ") || "Selected item IDs unavailable";
+  document.querySelector("#verificationRankings").textContent = Object.entries(verification.rankedCandidatesBySlot || {})
+    .map(([slot, candidates]) => `${slot}: ${(candidates || []).map(candidate => `${candidate.name} (#${candidate.id ?? "unknown"}, score ${formatGearScore(candidate.score)})`).join(" > ") || "no eligible candidates"}`)
+    .join(" • ") || "Ranked candidate evidence unavailable";
   const warningList = document.querySelector("#verificationWarnings");
   warningList.replaceChildren();
   if (!warnings.length) {
