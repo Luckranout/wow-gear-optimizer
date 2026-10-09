@@ -187,14 +187,53 @@ def normalize_name(value):
     return " ".join(str(value).replace("’", "'").split()).strip().lower()
 
 
+def normalize_inventory_slot(data):
+    """Map Blizzard inventory types to optimizer slots without guessing unknown types."""
+    inventory_type = data.get("inventory_type") or {}
+    inventory_name = normalize_name(localized_name(inventory_type.get("name")) if isinstance(inventory_type, dict) else inventory_type)
+    slot_map = {
+        "head": ("Head", ["Head"]),
+        "neck": ("Neck", ["Neck"]),
+        "shoulder": ("Shoulders", ["Shoulders"]),
+        "shoulders": ("Shoulders", ["Shoulders"]),
+        "cloak": ("Back", ["Back"]),
+        "back": ("Back", ["Back"]),
+        "chest": ("Chest", ["Chest"]),
+        "robe": ("Chest", ["Chest"]),
+        "wrist": ("Wrists", ["Wrists"]),
+        "wrists": ("Wrists", ["Wrists"]),
+        "hands": ("Hands", ["Hands"]),
+        "hand": ("Hands", ["Hands"]),
+        "waist": ("Waist", ["Waist"]),
+        "legs": ("Legs", ["Legs"]),
+        "feet": ("Feet", ["Feet"]),
+        "finger": ("Ring 1", ["Ring 1", "Ring 2"]),
+        "ring": ("Ring 1", ["Ring 1", "Ring 2"]),
+        "trinket": ("Trinket 1", ["Trinket 1", "Trinket 2"]),
+        "weapon": ("Main Hand", ["Main Hand"]),
+        "main hand": ("Main Hand", ["Main Hand"]),
+        "two-hand": ("Main Hand", ["Main Hand"]),
+        "two handed": ("Main Hand", ["Main Hand"]),
+        "2h weapon": ("Main Hand", ["Main Hand"]),
+        "off hand": ("Off Hand", ["Off Hand"]),
+        "held in off-hand": ("Off Hand", ["Off Hand"]),
+        "shield": ("Off Hand", ["Off Hand"]),
+        "holdable": ("Off Hand", ["Off Hand"]),
+    }
+    return slot_map.get(inventory_name, (None, []))
+
+
 def normalize_item(data, source=None):
     quality = data.get("quality") or {}
     item_class = data.get("item_class") or {}
     item_subclass = data.get("item_subclass") or {}
     inventory_type = data.get("inventory_type") or {}
+    slot, compatible_slots = normalize_inventory_slot(data)
 
     return {
         "id": data.get("id"),
+        "slot": slot,
+        "compatibleSlots": compatible_slots,
         "name": localized_name(data.get("name")),
         "level": data.get("level"),
         "requiredLevel": data.get("required_level"),
@@ -1136,10 +1175,21 @@ def fetch_item_details(token, item_ids, item_sources):
         if not data.get("is_equippable"):
             continue
 
+        slot, compatible_slots = normalize_inventory_slot(data)
+        if not slot:
+            inventory_type = localized_name((data.get("inventory_type") or {}).get("name"))
+            print(
+                f"Skipping equippable item {item_id} with unsupported inventory type "
+                f"{inventory_type!r}; it cannot be safely assigned to an optimizer slot."
+            )
+            continue
+
         item = normalize_item(
             data,
             source="Blizzard Game Data API — Season 2+ content source",
         )
+        item["slot"] = slot
+        item["compatibleSlots"] = compatible_slots
         item["seasonScope"] = SEASON_SCOPE
         item["sourceLocations"] = item_sources.get(item_id, [])
         items.append(item)
