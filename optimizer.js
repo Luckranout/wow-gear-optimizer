@@ -592,6 +592,14 @@ function createOptimizationReport({character = createCharacterProfile(), availab
       selectedItemIdsBySlot: Object.fromEntries(WOW_EQUIPMENT_SLOTS.map(slot => [
         slot, optimized.equipment[slot]?.id ?? null
       ])),
+      rankedCandidatesBySlot: Object.fromEntries(WOW_EQUIPMENT_SLOTS.map(slot => [
+        slot,
+        (availableItems || [])
+          .filter(item => itemSupportsSlot(item, slot))
+          .map(item => ({ id: item.id ?? null, name: item.name || "Unnamed item", score: scoreItem(item, statWeights) }))
+          .sort((a, b) => b.score - a.score)
+          .slice(0, 5)
+      ])),
       warnings: verificationWarnings,
       reproducibility: {
         note: "Re-run with the same character input, dataset version, goal, and weight source to reproduce this calculation.",
