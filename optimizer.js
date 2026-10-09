@@ -526,8 +526,27 @@ function createOptimizationReport({character = createCharacterProfile(), availab
   if (dataset && (!dataset.updatedAt || !dataset.source || !dataset.status)) {
     verificationWarnings.push("Dataset is missing source, update timestamp, or import status metadata.");
   }
+  if (dataset?.status === "pending-live-import") {
+    verificationWarnings.push("Dataset import is pending; these results must not be treated as current.");
+  }
+  if (dataset?.updatedAt) {
+    const updatedAtMs = Date.parse(dataset.updatedAt);
+    if (!Number.isFinite(updatedAtMs)) {
+      verificationWarnings.push("Dataset update timestamp is invalid; freshness cannot be verified.");
+    } else {
+      const ageMs = Date.now() - updatedAtMs;
+      if (ageMs < -5 * 60 * 1000) {
+        verificationWarnings.push("Dataset timestamp is in the future; freshness metadata needs investigation.");
+      } else if (ageMs > 7 * 24 * 60 * 60 * 1000) {
+        verificationWarnings.push("Dataset is older than 7 days; refresh and validate it before treating results as current.");
+      }
+    }
+  }
   if (dataset?.datasetWarnings?.length) verificationWarnings.push(...dataset.datasetWarnings);
   if (!datasetItems.length) verificationWarnings.push("No eligible item records were available to calculate recommendations.");
+  for (const [slot, count] of Object.entries(candidateCountsBySlot)) {
+    if (count === 0) verificationWarnings.push(`No eligible candidate items are available for the ${slot} slot.`);
+  }
   if (!simulationContext) verificationWarnings.push("This result uses heuristic static weights, not a SimulationCraft result.");
   const datasetUpdatedAt = dataset?.updatedAt || null;
   const datasetStatus = dataset?.status || "unknown";
