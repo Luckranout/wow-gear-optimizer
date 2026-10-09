@@ -20,13 +20,13 @@ class TalentTreeImportTests(unittest.TestCase):
         }
         self.assertEqual(MODULE.talent_tree_reference_id(ref), 12345)
 
-    def test_explicit_tree_id_takes_precedence(self):
+    def test_tree_href_takes_precedence_over_ambiguous_id_field(self):
         self.assertEqual(
             MODULE.talent_tree_reference_id({
                 "id": 456,
                 "key": {"href": "https://us.api.blizzard.com/data/wow/talent-tree/123/playable-specialization/71"}
             }),
-            456,
+            123,
         )
 
     def test_collector_imports_spec_and_hero_talent_trees(self):
