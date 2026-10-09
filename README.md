@@ -2,16 +2,15 @@
 
 A Retail World of Warcraft gear and character optimizer.
 
-## Current stage
+## Implementation and verification status
 
-The optimizer UI, current-season data layer, live character adapter, optimization engine, and character coaching workflow are implemented. Production hosting must run the server-side Blizzard adapter; GitHub Pages is static-only and cannot execute `/api/character`.
+The repository contains the browser UI, Retail dataset loader, server-side Blizzard character adapter, optimization engine, and character-coaching workflow. Automated repository checks run in GitHub Actions.
 
-1. Current Retail data ingestion
-2. Database models
-3. Character data
-4. Gear/enhancement data
-5. Optimization engine
-6. Current-season update pipeline
+**What is verified:** the repository test workflow covers character lookup behavior, character/talent rendering contracts, API request guards, optimizer logic, and related UI contracts. Check the latest run before relying on a change.
+
+**What is not implied by a passing test:** CI does not prove that production credentials, host configuration, live Blizzard responses, the deployed version, or the live mobile layout are correct. Those require a live test after the intended revision is deployed. The live website has not been independently verified as serving the current working branch.
+
+**Current handoff:** review the open pull request, ensure the intended commit is merged and deployed through the normal hosting process, then perform the live checklist. Do not describe a character, item, talent, upgrade route, or deployment as verified unless the corresponding source or live result has actually been checked.
 
 ## Scope
 
