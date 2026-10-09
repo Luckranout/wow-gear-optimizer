@@ -51,12 +51,19 @@ class TalentTreeImportTests(unittest.TestCase):
                     "key": {"href": "https://us.api.blizzard.com/data/wow/talent-tree/456/playable-specialization/71"}
                 }],
             },
-            "/data/wow/talent-tree/index": {"spec_talent_trees": [{
-                "name": {"en_US": "Arms"},
-                "key": {"href": "https://us.api.blizzard.com/data/wow/talent-tree/123/playable-specialization/71"}
-            }]},
+            "/data/wow/talent-tree/index": {
+                "spec_talent_trees": [{
+                    "name": {"en_US": "Arms"},
+                    "key": {"href": "https://us.api.blizzard.com/data/wow/talent-tree/123/playable-specialization/71"}
+                }],
+                "class_talent_trees": [{
+                    "name": {"en_US": "Warrior"},
+                    "key": {"href": "https://us.api.blizzard.com/data/wow/talent-tree/789"}
+                }],
+            },
             "/data/wow/talent-tree/123/playable-specialization/71": {"nodes": [{"id": 1}]},
             "/data/wow/talent-tree/456/playable-specialization/71": {"nodes": [{"id": 2}]},
+            "/data/wow/talent-tree/789": {"nodes": [{"id": 3}]},
         }
 
         def fake_get(path, *args, **kwargs):
@@ -69,11 +76,11 @@ class TalentTreeImportTests(unittest.TestCase):
             MODULE.time.sleep = lambda *_: None
             data = MODULE.collect_talent_data("test-token")
             self.assertEqual(data["specializationCount"], 1)
-            self.assertEqual(data["treeCount"], 2)
-            self.assertEqual(data["nodeCount"], 2)
+            self.assertEqual(data["treeCount"], 3)
+            self.assertEqual(data["nodeCount"], 3)
             self.assertEqual(
                 {(tree["id"], tree["type"]) for tree in data["trees"]},
-                {(123, "specialization"), (456, "hero")},
+                {(123, "specialization"), (456, "hero"), (789, "class")},
             )
         finally:
             MODULE.get_api_json = original_get
