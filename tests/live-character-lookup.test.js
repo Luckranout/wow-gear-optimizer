@@ -108,6 +108,7 @@ const activeSpecTalentNormalized = normalizeCharacter(
     specializations: [
       {
         specialization: { id:  62, name: "Frost" },
+        active: true, // Stale per-entry flag must not override active_specialization.
         loadouts: [{ is_active: true, selected_spec_talents: [{ id: 500, rank: 1, name: "Frost Talent" }] }]
       },
       {
