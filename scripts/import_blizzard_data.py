@@ -537,6 +537,28 @@ def reference_id(value):
     return None
 
 
+def talent_tree_reference_id(value):
+    """Extract the talent-tree ID, not a trailing specialization ID, from Blizzard links."""
+    if isinstance(value, dict):
+        value_id = value.get("id")
+        if isinstance(value_id, int):
+            return value_id
+        candidates = (value.get("href"), (value.get("key") or {}).get("href"))
+        for candidate in candidates:
+            if not candidate:
+                continue
+            parts = str(candidate).split("?")[0].rstrip("/").split("/")
+            for index, part in enumerate(parts[:-1]):
+                if part == "talent-tree":
+                    try:
+                        return int(parts[index + 1])
+                    except (ValueError, IndexError):
+                        continue
+    if isinstance(value, int):
+        return value
+    return None
+
+
 def collect_talent_data(token):
     """Collect current Retail specialization, Hero Talent, and Apex talent data."""
     spec_index = get_api_json(
@@ -569,7 +591,7 @@ def collect_talent_data(token):
             continue
 
         spec_tree = spec.get("spec_talent_tree") or spec.get("talent_tree") or {}
-        spec_tree_id = reference_id(spec_tree)
+        spec_tree_id = talent_tree_reference_id(spec_tree)
 
         hero_refs = spec.get("hero_talent_trees") or spec.get("hero_talent_tree") or []
         if isinstance(hero_refs, dict):
@@ -577,7 +599,7 @@ def collect_talent_data(token):
 
         hero_records = []
         for hero_ref in hero_refs:
-            hero_id = reference_id(hero_ref)
+            hero_id = talent_tree_reference_id(hero_ref)
             if hero_id:
                 hero_records.append({
                     "id": hero_id,
@@ -659,7 +681,7 @@ def collect_talent_data(token):
             add_tree(hero["id"], "hero")
 
     for tree_ref in tree_refs:
-        tree_id = reference_id(tree_ref)
+        tree_id = talent_tree_reference_id(tree_ref)
         if not tree_id:
             continue
         linked_specs = (
