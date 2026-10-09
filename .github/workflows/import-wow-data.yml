@@ -1,11 +1,14 @@
 name: Import WoW Retail Data
 
+concurrency:
+  group: wow-retail-data-import-${{ github.ref }}
+  cancel-in-progress: false
+
 on:
   workflow_dispatch:
   push:
     paths:
       - "scripts/import_blizzard_data.py"
-      - ".github/workflows/import-wow-data.yml"
   schedule:
     - cron: "30 8 * * *"
 
