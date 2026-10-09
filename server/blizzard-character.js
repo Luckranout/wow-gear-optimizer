@@ -91,7 +91,9 @@ function normalizeCharacterTalents(specializations) {
         raw: talent
       }))
     : [];
-  return [...selected, ...legacy].filter(talent => talent.id != null || talent.name);
+  const normalizedSelected = selected.filter(talent => talent.id != null || talent.name);
+  if (normalizedSelected.length) return normalizedSelected;
+  return legacy.filter(talent => talent.id != null || talent.name);
 }
 
 function normalizeStatistics(statistics) {
