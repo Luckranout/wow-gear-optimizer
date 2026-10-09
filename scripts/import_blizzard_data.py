@@ -641,14 +641,12 @@ def collect_talent_data(token):
         token,
         {"namespace": NAMESPACE, "locale": LOCALE},
     )
-    tree_refs = (
-        tree_index.get("spec_talent_trees")
-        or tree_index.get("hero_talent_trees")
-        or tree_index.get("class_talent_trees")
-        or tree_index.get("talent_trees")
-        or tree_index.get("trees")
-        or []
-    )
+    tree_ref_groups = [
+        ("specialization", tree_index.get("spec_talent_trees") or []),
+        ("hero", tree_index.get("hero_talent_trees") or []),
+        ("class", tree_index.get("class_talent_trees") or []),
+        ("specialization", tree_index.get("talent_trees") or tree_index.get("trees") or []),
+    ]
 
     tree_records = []
     seen_tree_keys = set()
@@ -695,13 +693,17 @@ def collect_talent_data(token):
         for hero in record["heroTalentTrees"]:
             add_tree(hero["id"], "hero", record["id"])
 
-    for tree_ref in tree_refs:
-        tree_id, linked_spec_id = talent_tree_reference_parts(tree_ref)
-        if not tree_id:
-            continue
-        if linked_spec_id in spec_ids:
-            add_tree(tree_id, "specialization", linked_spec_id)
-        else:
+    for tree_type, tree_refs in tree_ref_groups:
+        for tree_ref in tree_refs:
+            tree_id, linked_spec_id = talent_tree_reference_parts(tree_ref)
+            if not tree_id:
+                continue
+            if tree_type == "class":
+                add_tree(tree_id, "class")
+                continue
+            if linked_spec_id in spec_ids:
+                add_tree(tree_id, tree_type, linked_spec_id)
+                continue
             linked_specs = (
                 tree_ref.get("playable_specializations")
                 or tree_ref.get("specializations")
@@ -710,7 +712,7 @@ def collect_talent_data(token):
             for spec_ref in linked_specs:
                 fallback_spec_id = reference_id(spec_ref)
                 if fallback_spec_id in spec_ids:
-                    add_tree(tree_id, "specialization", fallback_spec_id)
+                    add_tree(tree_id, tree_type, fallback_spec_id)
 
     node_count = 0
     apex_count = 0
