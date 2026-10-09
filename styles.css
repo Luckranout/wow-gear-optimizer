@@ -407,3 +407,27 @@ footer {
   line-height: 1.45;
   overflow-wrap: anywhere;
 }
+
+
+/* Result evidence: keep provenance and limitations visible beside calculations. */
+.verification-panel {
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 1px solid var(--border, #d7dce2);
+  border-radius: 0.75rem;
+  background: var(--panel, #f8fafc);
+  overflow-wrap: anywhere;
+}
+.verification-panel h3 { margin-top: 0; }
+.verification-panel dl {
+  display: grid;
+  grid-template-columns: minmax(9rem, 0.3fr) minmax(0, 1fr);
+  gap: 0.5rem 1rem;
+}
+.verification-panel dt { font-weight: 700; }
+.verification-panel dd { margin: 0; }
+.verification-panel li { margin: 0.35rem 0; }
+@media (max-width: 640px) {
+  .verification-panel dl { grid-template-columns: 1fr; gap: 0.2rem; }
+  .verification-panel dd { margin-bottom: 0.65rem; }
+}
