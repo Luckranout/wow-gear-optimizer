@@ -622,6 +622,8 @@ goalSelect.addEventListener("change", () => {
 });
 
 document.querySelector("#optimizeBtn").addEventListener("click", () => {
+  resultMessage.textContent = "Optimizing character…";
+  try {
   if (!retailDataset) {
     resultMessage.textContent = "Current Retail data is still loading. Try again in a moment.";
     return;
@@ -669,6 +671,16 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
   resultMessage.textContent = report.topUpgrades.length
     ? `${label} • ${character.goal} — ${report.topUpgrades.length} direct gear upgrades found and ranked by the active stat weights.`
     : `${label} • ${character.goal} — no direct gear upgrades are available in the current dataset.`;
+  } catch (error) {
+    clearOptimizationResults();
+    renderUpgradeResults([]);
+    renderOptimizedLoadout({});
+    renderCharacterStats({});
+    optimizationSource.textContent = "Optimization did not complete.";
+    const detail = error instanceof Error && error.message ? error.message : "Unexpected optimizer error.";
+    resultMessage.textContent = `Optimization failed: ${detail} Check the current Retail dataset and try again after the issue is fixed.`;
+    console.error("WoW Gear Optimizer failed to create an optimization report:", error);
+  }
 });
 
 document.querySelector("#clearBtn").addEventListener("click", () => {
