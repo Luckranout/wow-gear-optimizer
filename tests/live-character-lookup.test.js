@@ -163,6 +163,21 @@ function timeoutSignalError() {
 }
 (async () => {
   try {
+    global.fetch = async () => ({ ok: true, json: async () => ({ result: "ok" }) });
+    assert.deepStrictEqual(await requestJson("https://example.invalid/profile", "test-token", 100), { result: "ok" });
+
+    global.fetch = async () => ({ ok: false, status: 404 });
+    await assert.rejects(
+      requestJson("https://example.invalid/missing", "test-token", 100),
+      error => error.statusCode === 404 && error.publicMessage === "Character not found. Check the character name and realm."
+    );
+
+    global.fetch = async () => ({ ok: false, status: 503 });
+    await assert.rejects(
+      requestJson("https://example.invalid/unavailable", "test-token", 100),
+      error => error.statusCode === 502 && error.publicMessage === "Blizzard character service is temporarily unavailable."
+    );
+
     global.fetch = (_url, options = {}) => new Promise((_resolve, reject) => {
       const signal = options.signal;
       const rejectOnAbort = () => reject(timeoutSignalError());
@@ -187,7 +202,7 @@ function timeoutSignalError() {
       requestJson("https://example.invalid/profile", "test-token", 5),
       error => error.statusCode === 502 && error.publicMessage === "Blizzard character service is temporarily unavailable."
     );
-    console.log("Blizzard request and response-body timeout handling passed.");
+    console.log("Blizzard success, not-found, service-error, and timeout handling passed.");
   } finally {
     timeoutRegressionComplete = true;
     clearTimeout(timeoutRegressionGuard);
