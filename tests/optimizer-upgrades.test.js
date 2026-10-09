@@ -24,7 +24,8 @@ const ring2Upgrade = o.findUpgradeOpportunities({
   availableItems: [sharedRing],
   goal: o.goals.general,
 });
-if (ring2Upgrade[0]?.slot !== "Ring 2" || ring2Upgrade[0]?.recommendedItem?.id !== sharedRing.id) {
+const ring2Recommendation = ring2Upgrade.find(upgrade => upgrade.slot === "Ring 2");
+if (ring2Recommendation?.recommendedItem?.id !== sharedRing.id) {
   throw new Error("Compatible ring candidates must be considered for upgrade opportunities in both ring slots.");
 }
 
