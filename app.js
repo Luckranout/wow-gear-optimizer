@@ -109,8 +109,14 @@ async function loadCurrentRetailData() {
       });
       encounterSelect.disabled = encounters.length === 0;
     }
-    document.querySelector(".status").textContent =
-      `● ${retailDataset.expansion} Season ${retailDataset.season} data loaded`;
+    const datasetStatus = document.querySelector(".status");
+    const warningText = Array.isArray(retailDataset.datasetWarnings)
+      ? retailDataset.datasetWarnings.filter(Boolean).join(" ")
+      : "";
+    datasetStatus.textContent = warningText
+      ? `⚠ ${retailDataset.expansion} Season ${retailDataset.season} data loaded with warnings: ${warningText}`
+      : `● ${retailDataset.expansion} Season ${retailDataset.season} data loaded`;
+    datasetStatus.classList.toggle("error", Boolean(warningText));
     return true;
   } catch (error) {
     resultMessage.textContent = `Current Retail data could not be loaded: ${error.message}`;
