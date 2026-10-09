@@ -5,6 +5,21 @@ vm.createContext(context);
 vm.runInContext(fs.readFileSync("optimizer.js", "utf8"), context);
 const o = context.window.WoWOptimizer;
 
+const sharedRing = {
+  id: 990001, name: "Slot mapping regression ring", slot: "Ring 1",
+  compatibleSlots: ["Ring 1", "Ring 2"], itemLevel: 300
+};
+if (o.findBestItemForSlot([sharedRing], "Ring 2", o.goals.general)?.item?.id !== sharedRing.id) {
+  throw new Error("A compatible ring must be eligible for both ring slots.");
+}
+const sharedTrinket = {
+  id: 990002, name: "Slot mapping regression trinket", slot: "Trinket 1",
+  compatibleSlots: ["Trinket 1", "Trinket 2"], itemLevel: 300
+};
+if (o.findBestItemForSlot([sharedTrinket], "Trinket 2", o.goals.general)?.item?.id !== sharedTrinket.id) {
+  throw new Error("A compatible trinket must be eligible for both trinket slots.");
+}
+
 const system = {
   tracks: [
     { id: "hero", name: "Hero", crest: "Hero Mistcrest", maxRank: 6,
