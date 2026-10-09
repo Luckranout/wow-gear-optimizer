@@ -81,6 +81,8 @@ jobs:
         run: node tests/complete-loadout-ui.test.js
       - name: Run live character lookup tests
         run: node tests/live-character-lookup.test.js
+      - name: Run API request guard tests
+        run: node tests/api-request-guards.test.js
       - name: Run live character lookup UI tests
         run: node tests/live-character-lookup-ui.test.js
       - name: Run personal action plan tests
