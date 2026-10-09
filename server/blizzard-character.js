@@ -64,7 +64,18 @@ function normalizeCharacterTalents(specializations) {
     : Array.isArray(specializations)
       ? specializations
       : [];
-  const active = entries.find(entry => entry.active) || entries[0] || {};
+  const activeSpecialization = specializations.active_specialization || {};
+  const activeSpecializationId = resourceId(activeSpecialization);
+  const activeSpecializationName = normalizeName(activeSpecialization.name);
+  const active = entries.find(entry => entry.active) ||
+    entries.find(entry => {
+      const specialization = entry.specialization || {};
+      const idMatches = activeSpecializationId != null && resourceId(specialization) === activeSpecializationId;
+      const nameMatches = activeSpecializationName && normalizeName(specialization.name || specialization) === activeSpecializationName;
+      return idMatches || nameMatches;
+    }) ||
+    entries[0] ||
+    {};
   const activeLoadout = Array.isArray(active.loadouts)
     ? (active.loadouts.find(loadout => loadout.is_active) || active.loadouts[0] || {})
     : {};
