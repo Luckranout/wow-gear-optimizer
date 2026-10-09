@@ -133,7 +133,8 @@ footer {
 }
 .import-status { grid-column:1 / -1; color:var(--muted); font-size:13px; }
 .import-status.error { color:#ff8f8f; }
-@media (max-width: 800px) { .import-box { grid-template-columns:1fr; } }\n@media (max-width: 520px) { .import-box .form-grid { grid-template-columns:1fr; } }
+@media (max-width: 800px) { .import-box { grid-template-columns:1fr; } }
+@media (max-width: 520px) { .import-box .form-grid { grid-template-columns:1fr; } }
 
 
 .simulation-import {
