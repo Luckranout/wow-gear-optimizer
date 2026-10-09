@@ -276,9 +276,14 @@ function resolveStatWeights({
   return merged;
 }
 
+function itemSupportsSlot(item, slot) {
+  return item?.slot === slot ||
+    (Array.isArray(item?.compatibleSlots) && item.compatibleSlots.includes(slot));
+}
+
 function findBestItemForSlot(items, slot, goal, statWeights = null) {
   const weights = statWeights || getGoalWeights(goal);
-  return (items || []).filter(item => item.slot === slot || (Array.isArray(item.compatibleSlots) && item.compatibleSlots.includes(slot)))
+  return (items || []).filter(item => itemSupportsSlot(item, slot))
     .map(item => ({ item, score: scoreItem(item, weights) }))
     .sort((a, b) => b.score - a.score)[0] || null;
 }
@@ -314,7 +319,7 @@ function findUpgradeOpportunities({
   for (const slot of WOW_EQUIPMENT_SLOTS) {
     const currentItem = currentEquipment[slot];
     const currentScore = scoreItem(currentItem, weights);
-    const candidates = availableItems.filter(item => item.slot === slot)
+    const candidates = availableItems.filter(item => itemSupportsSlot(item, slot))
       .map(item => ({ item, score: scoreItem(item, weights) }))
       .filter(candidate => candidate.score > currentScore)
       .sort((a, b) => b.score - a.score);
