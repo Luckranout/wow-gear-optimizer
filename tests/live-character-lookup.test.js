@@ -147,6 +147,14 @@ assert.ok(realmsApi.includes("s-maxage=21600"), "Realm API must advertise its ca
 console.log("Blizzard realm API contract passed.");
 
 // Stalled network requests and stalled JSON bodies must map to controlled service errors.
+// Keep Node alive long enough for AbortSignal.timeout() to fire; fail if the test never completes.
+let timeoutRegressionComplete = false;
+const timeoutRegressionGuard = setTimeout(() => {
+  if (!timeoutRegressionComplete) {
+    console.error("Timeout regression tests did not finish.");
+    process.exitCode = 1;
+  }
+}, 1000);
 const originalFetch = global.fetch;
 function timeoutSignalError() {
   const error = new Error("Mock request aborted.");
@@ -181,6 +189,8 @@ function timeoutSignalError() {
     );
     console.log("Blizzard request and response-body timeout handling passed.");
   } finally {
+    timeoutRegressionComplete = true;
+    clearTimeout(timeoutRegressionGuard);
     global.fetch = originalFetch;
   }
 })().catch(error => {
