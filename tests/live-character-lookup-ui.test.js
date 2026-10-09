@@ -68,3 +68,20 @@ console.log("Blizzard-sourced select rendering regression coverage passed.");
 if (app.includes('coach.identity.name}</strong>')) throw new Error("Live character coach identity must not inject character data into HTML.");
 if (!app.includes('coachIdentityName.textContent = coach.identity.name || "Character";')) throw new Error("Live character coach identity must use DOM text content.");
 console.log("Live character identity rendering regression coverage passed.");
+
+
+for (const needle of [
+  "function renderUpgradeResults(upgrades = [])",
+  "upgradeResults.replaceChildren();",
+  "title.textContent = upgrade.recommendedItem?.name || \"Recommended upgrade\";",
+  "currentName.textContent = upgrade.currentItem?.name || \"Empty slot\";",
+  "recommendedName.textContent = upgrade.recommendedItem?.name || \"Unknown item\";",
+  "function renderOptimizedLoadout(equipment = {}, score = 0)",
+  "name.textContent = item.name || \"Unnamed item\";",
+  "row.append(slot, name, itemLevel);"
+]) {
+  if (!app.includes(needle)) throw new Error(`Gear output must render dynamic values as DOM text: ${needle}`);
+}
+if (app.includes('upgrade.recommendedItem?.name}</h3>')) throw new Error("Recommended gear names must not be interpolated into HTML.");
+if (app.includes('${item.name || "Unnamed item"}</div>')) throw new Error("Optimized gear names must not be interpolated into HTML.");
+console.log("Gear recommendation and optimized loadout safe-rendering regression coverage passed.");
