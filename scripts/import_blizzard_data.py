@@ -574,6 +574,17 @@ def talent_tree_reference_id(value):
     return talent_tree_reference_parts(value)[0]
 
 
+def extract_talent_nodes(tree_data):
+    """Read talent nodes across Blizzard response field variants without inventing data."""
+    if not isinstance(tree_data, dict):
+        return []
+    for field in ("nodes", "talent_nodes", "class_talent_nodes", "spec_talent_nodes", "hero_talent_nodes"):
+        value = tree_data.get(field)
+        if isinstance(value, list) and value:
+            return value
+    return []
+
+
 def collect_talent_data(token):
     """Collect current Retail specialization, Hero Talent, and Apex talent data."""
     spec_index = get_api_json(
@@ -718,7 +729,7 @@ def collect_talent_data(token):
     apex_count = 0
     for tree in tree_records:
         data = tree.get("data") or {}
-        nodes = data.get("nodes") or []
+        nodes = extract_talent_nodes(data)
         node_count += len(nodes)
         for node in nodes:
             if "apex" in json.dumps(node, ensure_ascii=False).lower():
