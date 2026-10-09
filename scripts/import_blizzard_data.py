@@ -537,8 +537,10 @@ def reference_id(value):
     return None
 
 
-def talent_tree_reference_id(value):
-    """Extract the talent-tree ID, not a trailing specialization ID, from Blizzard links."""
+def talent_tree_reference_parts(value):
+    """Extract tree and optional specialization IDs from Blizzard talent-tree references."""
+    if isinstance(value, int):
+        return value, None
     if isinstance(value, dict):
         candidates = (value.get("href"), (value.get("key") or {}).get("href"))
         for candidate in candidates:
@@ -546,17 +548,30 @@ def talent_tree_reference_id(value):
                 continue
             parts = str(candidate).split("?")[0].rstrip("/").split("/")
             for index, part in enumerate(parts[:-1]):
-                if part == "talent-tree":
-                    try:
-                        return int(parts[index + 1])
-                    except (ValueError, IndexError):
-                        continue
+                if part != "talent-tree":
+                    continue
+                try:
+                    tree_id = int(parts[index + 1])
+                except (ValueError, IndexError):
+                    continue
+                spec_id = None
+                for spec_index, segment in enumerate(parts[:-1]):
+                    if segment == "playable-specialization":
+                        try:
+                            spec_id = int(parts[spec_index + 1])
+                        except (ValueError, IndexError):
+                            spec_id = None
+                        break
+                return tree_id, spec_id
         value_id = value.get("id")
         if isinstance(value_id, int):
-            return value_id
-    if isinstance(value, int):
-        return value
-    return None
+            return value_id, None
+    return None, None
+
+
+def talent_tree_reference_id(value):
+    """Extract the tree ID from a Blizzard talent-tree reference."""
+    return talent_tree_reference_parts(value)[0]
 
 
 def collect_talent_data(token):
@@ -647,7 +662,7 @@ def collect_talent_data(token):
         seen_tree_keys.add(key)
 
         try:
-            if tree_type == "specialization" and spec_id:
+            if spec_id:
                 tree = get_api_json(
                     f"/data/wow/talent-tree/{tree_id}/playable-specialization/{spec_id}",
                     token,
@@ -678,21 +693,24 @@ def collect_talent_data(token):
     for record in talent_records:
         add_tree(record["specTalentTreeId"], "specialization", record["id"])
         for hero in record["heroTalentTrees"]:
-            add_tree(hero["id"], "hero")
+            add_tree(hero["id"], "hero", record["id"])
 
     for tree_ref in tree_refs:
-        tree_id = talent_tree_reference_id(tree_ref)
+        tree_id, linked_spec_id = talent_tree_reference_parts(tree_ref)
         if not tree_id:
             continue
-        linked_specs = (
-            tree_ref.get("playable_specializations")
-            or tree_ref.get("specializations")
-            or []
-        ) if isinstance(tree_ref, dict) else []
-        for spec_ref in linked_specs:
-            linked_spec_id = reference_id(spec_ref)
-            if linked_spec_id in spec_ids:
-                add_tree(tree_id, "specialization", linked_spec_id)
+        if linked_spec_id in spec_ids:
+            add_tree(tree_id, "specialization", linked_spec_id)
+        else:
+            linked_specs = (
+                tree_ref.get("playable_specializations")
+                or tree_ref.get("specializations")
+                or []
+            ) if isinstance(tree_ref, dict) else []
+            for spec_ref in linked_specs:
+                fallback_spec_id = reference_id(spec_ref)
+                if fallback_spec_id in spec_ids:
+                    add_tree(tree_id, "specialization", fallback_spec_id)
 
     node_count = 0
     apex_count = 0
