@@ -13,6 +13,9 @@ module.exports = async function handler(req, res) {
   if (!realm || !character) {
     return res.status(400).json({ error: "Realm and character name are required." });
   }
+  if (realm.length > 100 || character.length > 64) {
+    return res.status(400).json({ error: "Realm or character name is too long." });
+  }
 
   try {
     const result = await fetchCharacter({
