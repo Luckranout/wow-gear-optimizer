@@ -688,6 +688,15 @@ def collect_talent_data(token):
         f"{apex_count} nodes referencing Apex data."
     )
 
+    if not talent_records:
+        raise RuntimeError(
+            "Blizzard returned no usable Retail specializations; refusing to publish incomplete talent data."
+        )
+    if not tree_records or node_count == 0:
+        raise RuntimeError(
+            "Blizzard returned no usable Retail talent trees or nodes; refusing to publish incomplete talent data."
+        )
+
     return {
         "specializations": talent_records,
         "trees": tree_records,
