@@ -249,6 +249,18 @@
           <div class="optimization-source" id="optimizationSource">Optimization source will appear after the optimizer runs.</div>
         </div>
       </div>
+      <section class="verification-panel" id="verificationPanel" aria-live="polite" hidden>
+        <h3>Result verification</h3>
+        <p id="verificationStatus">Verification details will appear after a calculation.</p>
+        <dl>
+          <dt>Dataset</dt><dd id="verificationDataset">Not checked</dd>
+          <dt>Source and freshness</dt><dd id="verificationSource">Not checked</dd>
+          <dt>Method</dt><dd id="verificationMethod">Not checked</dd>
+          <dt>Candidate items by slot</dt><dd id="verificationCandidates">Not checked</dd>
+          <dt>Selected item IDs</dt><dd id="verificationItems">Not checked</dd>
+        </dl>
+        <ul id="verificationWarnings"></ul>
+      </section>
       <div class="result-placeholder">
         <div class="result-icon">⚔️</div>
         <h3>Ready to optimize</h3>
