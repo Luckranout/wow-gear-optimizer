@@ -422,6 +422,7 @@ function setSelectValue(select, value) {
 
 function applyLiveCharacter(character) {
   importedCharacter = character;
+  clearOptimizationResults();
   const profile = WoWOptimizer.createCharacterProfileFromImport({
     importedCharacter,
     goal: goalSelect.value
