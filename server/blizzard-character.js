@@ -187,16 +187,26 @@ async function getAccessToken(clientId, clientSecret) {
 }
 
 async function requestJson(url, token, timeoutMs = REQUEST_TIMEOUT_MS) {
-  const response = await fetchWithTimeout(url, { headers: { Authorization: `Bearer ${token}`, Accept: "application/json" } }, timeoutMs);
-  if (!response.ok) {
-    const error = new Error(`Blizzard profile request failed with HTTP ${response.status}.`);
-    error.statusCode = response.status === 404 ? 404 : 502;
-    error.publicMessage = response.status === 404
-      ? "Character not found. Check the character name and realm."
-      : "Blizzard character service is temporarily unavailable.";
-    throw error;
+  try {
+    const response = await fetchWithTimeout(url, { headers: { Authorization: `Bearer ${token}`, Accept: "application/json" } }, timeoutMs);
+    if (!response.ok) {
+      const error = new Error(`Blizzard profile request failed with HTTP ${response.status}.`);
+      error.statusCode = response.status === 404 ? 404 : 502;
+      error.publicMessage = response.status === 404
+        ? "Character not found. Check the character name and realm."
+        : "Blizzard character service is temporarily unavailable.";
+      throw error;
+    }
+    return await response.json();
+  } catch (cause) {
+    if (cause?.name === "TimeoutError" || cause?.name === "AbortError") {
+      const error = new Error("Blizzard request timed out.");
+      error.statusCode = 502;
+      error.publicMessage = "Blizzard character service is temporarily unavailable.";
+      throw error;
+    }
+    throw cause;
   }
-  return response.json();
 }
 
 async function fetchRealms({ clientId, clientSecret }) {
