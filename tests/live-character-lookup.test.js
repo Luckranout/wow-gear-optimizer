@@ -79,6 +79,27 @@ assert.deepStrictEqual(
   ]
 );
 assert.strictEqual(talentNormalized.talents.length, 3);
+const duplicateTalentNormalized = normalizeCharacter(
+  { id: 3, name: "DuplicateTester", level: 90, realm: { id: 1, name: "Burning Legion", slug: "burning-legion" } },
+  { equipped_items: [] },
+  {},
+  {
+    specializations: [{
+      active: true,
+      loadouts: [{
+        is_active: true,
+        selected_class_talents: [{ id: 100, rank: 1, tooltip: { talent: { id: 100, name: "Class Talent" } } }]
+      }],
+      talents: [{ id: 100, rank: 1, name: "Class Talent" }, { id: 200, rank: 1, name: "Legacy Only Talent" }]
+    }]
+  }
+);
+assert.deepStrictEqual(
+  duplicateTalentNormalized.talents.map(talent => ({ source: talent.source, id: talent.id, name: talent.name })),
+  [{ source: "Class", id: 100, name: "Class Talent" }]
+);
+console.log("Active-loadout talents take precedence over legacy fallback entries.");
+
 console.log("Character talent loadout normalization passed.");
 assert.ok(normalized.fetchedAt);
 console.log("Live character lookup tests passed.");
