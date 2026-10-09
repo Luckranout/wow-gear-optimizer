@@ -19,6 +19,7 @@ class TalentTreeImportTests(unittest.TestCase):
             }
         }
         self.assertEqual(MODULE.talent_tree_reference_id(ref), 12345)
+        self.assertEqual(MODULE.talent_tree_reference_parts(ref), (12345, 71))
 
     def test_tree_href_takes_precedence_over_ambiguous_id_field(self):
         self.assertEqual(
@@ -50,9 +51,12 @@ class TalentTreeImportTests(unittest.TestCase):
                     "key": {"href": "https://us.api.blizzard.com/data/wow/talent-tree/456/playable-specialization/71"}
                 }],
             },
-            "/data/wow/talent-tree/index": {"spec_talent_trees": []},
+            "/data/wow/talent-tree/index": {"spec_talent_trees": [{
+                "name": {"en_US": "Arms"},
+                "key": {"href": "https://us.api.blizzard.com/data/wow/talent-tree/123/playable-specialization/71"}
+            }]},
             "/data/wow/talent-tree/123/playable-specialization/71": {"nodes": [{"id": 1}]},
-            "/data/wow/talent-tree/456": {"nodes": [{"id": 2}]},
+            "/data/wow/talent-tree/456/playable-specialization/71": {"nodes": [{"id": 2}]},
         }
 
         def fake_get(path, *args, **kwargs):
