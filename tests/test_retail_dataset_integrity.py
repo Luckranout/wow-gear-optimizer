@@ -52,6 +52,13 @@ class RetailDatasetIntegrityTests(unittest.TestCase):
             self.assertIsNotNone(item.get("id"), "Catalog item is missing its Blizzard item ID.")
             self.assertTrue(str(item.get("name", "")).strip(), "Catalog item is missing its name.")
             self.assertIn(item.get("slot"), REQUIRED_SLOTS, f"Unsupported or missing slot for item {item.get('id')}.")
+            compatible_slots = item.get("compatibleSlots")
+            self.assertIsInstance(compatible_slots, list, f"Item {item.get('id')} is missing compatibleSlots.")
+            self.assertIn(item["slot"], compatible_slots, f"Primary slot must be listed as compatible for item {item.get('id')}.")
+            self.assertTrue(
+                all(slot in REQUIRED_SLOTS for slot in compatible_slots),
+                f"Item {item.get('id')} declares an unsupported compatible slot.",
+            )
             item_id = str(item["id"])
             self.assertNotIn(item_id, seen_ids, f"Duplicate Blizzard item ID: {item_id}.")
             seen_ids.add(item_id)
