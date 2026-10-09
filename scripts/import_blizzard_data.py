@@ -223,6 +223,44 @@ def normalize_inventory_slot(data):
     return slot_map.get(inventory_name, (None, []))
 
 
+OPTIMIZER_EQUIPMENT_SLOTS = {
+    "Head", "Neck", "Shoulders", "Back", "Chest", "Wrists", "Hands",
+    "Waist", "Legs", "Feet", "Ring 1", "Ring 2", "Trinket 1",
+    "Trinket 2", "Main Hand", "Off Hand",
+}
+
+
+def filter_optimizer_items(items):
+    """Keep only uniquely identified, named items mapped to supported gear slots.
+
+    Blizzard candidate pools can contain bags, tabards, and other non-slot items.
+    They are not optimizer gear and must not invalidate the entire published dataset.
+    Unknown inventory types are excluded rather than assigned a guessed slot.
+    """
+    filtered = []
+    seen_ids = set()
+    for item in items or []:
+        if not isinstance(item, dict):
+            continue
+        item_id = item.get("id")
+        slot = item.get("slot")
+        compatible_slots = item.get("compatibleSlots")
+        if item_id is None or not str(item.get("name") or "").strip():
+            continue
+        if slot not in OPTIMIZER_EQUIPMENT_SLOTS:
+            continue
+        if not isinstance(compatible_slots, list) or slot not in compatible_slots:
+            continue
+        if any(candidate not in OPTIMIZER_EQUIPMENT_SLOTS for candidate in compatible_slots):
+            continue
+        normalized_id = str(item_id)
+        if normalized_id in seen_ids:
+            continue
+        seen_ids.add(normalized_id)
+        filtered.append(item)
+    return filtered
+
+
 def normalize_item(data, source=None):
     quality = data.get("quality") or {}
     item_class = data.get("item_class") or {}
@@ -1471,6 +1509,9 @@ def main():
     )
 
     items = fetch_item_details(token, item_sources.keys(), item_sources)
+    candidate_count_before_slot_filter = len(items)
+    items = filter_optimizer_items(items)
+    print(f"Filtered optimizer gear candidates: {len(items)} of {candidate_count_before_slot_filter} have valid unique equipment slots.")
 
     items.sort(
         key=lambda item: (item.get("level") or 0, item.get("id") or 0),
