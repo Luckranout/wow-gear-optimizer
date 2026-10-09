@@ -3,6 +3,7 @@ const TOKEN_URL = "https://oauth.battle.net/token";
 const PROFILE_NAMESPACE = "profile-us";
 const DYNAMIC_NAMESPACE = "dynamic-us";
 const LOCALE = "en_US";
+const REQUEST_TIMEOUT_MS = 12000;
 
 let cachedToken = null;
 let cachedRealms = null;
@@ -142,6 +143,20 @@ function normalizeCharacter(profile, equipment, statistics, specializations) {
   };
 }
 
+async function fetchWithTimeout(url, options = {}, timeoutMs = REQUEST_TIMEOUT_MS) {
+  try {
+    return await fetch(url, { ...options, signal: AbortSignal.timeout(timeoutMs) });
+  } catch (cause) {
+    if (cause?.name === "TimeoutError" || cause?.name === "AbortError") {
+      const error = new Error("Blizzard request timed out.");
+      error.statusCode = 502;
+      error.publicMessage = "Blizzard character service is temporarily unavailable.";
+      throw error;
+    }
+    throw cause;
+  }
+}
+
 async function getAccessToken(clientId, clientSecret) {
   if (!clientId || !clientSecret) {
     const error = new Error("Blizzard API credentials are not configured.");
@@ -152,7 +167,7 @@ async function getAccessToken(clientId, clientSecret) {
   if (cachedToken && cachedToken.expiresAt > Date.now() + 60000) return cachedToken.value;
 
   const basic = Buffer.from(`${clientId}:${clientSecret}`).toString("base64");
-  const response = await fetch(TOKEN_URL, {
+  const response = await fetchWithTimeout(TOKEN_URL, {
     method: "POST",
     headers: {
       Authorization: `Basic ${basic}`,
@@ -171,8 +186,8 @@ async function getAccessToken(clientId, clientSecret) {
   return cachedToken.value;
 }
 
-async function requestJson(url, token) {
-  const response = await fetch(url, { headers: { Authorization: `Bearer ${token}`, Accept: "application/json" } });
+async function requestJson(url, token, timeoutMs = REQUEST_TIMEOUT_MS) {
+  const response = await fetchWithTimeout(url, { headers: { Authorization: `Bearer ${token}`, Accept: "application/json" } }, timeoutMs);
   if (!response.ok) {
     const error = new Error(`Blizzard profile request failed with HTTP ${response.status}.`);
     error.statusCode = response.status === 404 ? 404 : 502;
@@ -224,4 +239,4 @@ async function fetchCharacter({ realm, character, clientId, clientSecret }) {
   return normalizeCharacter(profile, equipped, stats, specializationData);
 }
 
-module.exports = { slugify, normalizeEquippedItem, normalizeStatistics, normalizeCharacterTalents, normalizeCharacter, fetchCharacter, fetchRealms };
+module.exports = { slugify, normalizeEquippedItem, normalizeStatistics, normalizeCharacterTalents, normalizeCharacter, fetchCharacter, fetchRealms, requestJson };
