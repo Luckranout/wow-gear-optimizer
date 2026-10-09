@@ -56,6 +56,7 @@ for (const needle of [".character-summary-grid", ".character-detail-columns", ".
 if (!app.includes('typeof item?.slot === "string" ? item.slot : (item?.slot?.name || "Equipment")')) throw new Error("Character equipment renderer must support normalized string slot names.");
 if (!app.includes('name.textContent = item?.name || "Unnamed item";')) throw new Error("Character equipment renderer must display returned item names.");
 if (!app.includes('detail.textContent = formatCharacterDetailItem(item);')) throw new Error("Character equipment renderer must display returned item level and quality details.");
+if (!/function applyLiveCharacter\(character\)\s*\{\s*importedCharacter = character;\s*clearOptimizationResults\(\);/.test(app)) throw new Error("Successful character changes must clear old optimizer output.");
 console.log("Character details equipment-shape regression coverage passed.");
 
 if (app.includes('.map(realm => `<option value="${realm.name}">${realm.name}</option>`)')) throw new Error("Realm names must not be inserted into HTML markup.");
