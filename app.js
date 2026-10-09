@@ -96,8 +96,17 @@ async function loadCurrentRetailData() {
     retailDataset = await WoWData.loadRetailDataset();
     if (encounterSelect) {
       const encounters = Array.isArray(retailDataset.encounters) ? retailDataset.encounters : [];
-      encounterSelect.innerHTML = '<option value="">No encounter selected</option>' +
-        encounters.map(item => `<option value="${item.id ?? item.name}">${item.name || item.title || "Encounter"}</option>`).join("");
+      encounterSelect.replaceChildren();
+      const placeholder = document.createElement("option");
+      placeholder.value = "";
+      placeholder.textContent = "No encounter selected";
+      encounterSelect.appendChild(placeholder);
+      encounters.forEach(item => {
+        const option = document.createElement("option");
+        option.value = String(item.id ?? item.name ?? "");
+        option.textContent = String(item.name || item.title || "Encounter");
+        encounterSelect.appendChild(option);
+      });
       encounterSelect.disabled = encounters.length === 0;
     }
     document.querySelector(".status").textContent =
