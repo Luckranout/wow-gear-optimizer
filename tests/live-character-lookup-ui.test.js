@@ -127,3 +127,21 @@ for (const needle of [
 }
 if (app.includes('stats.map(stat => `<div class="stat-card">')) throw new Error("Statistic labels must not be interpolated into HTML.");
 console.log("Imported character statistics safe-rendering regression coverage passed.");
+
+const optimizerHandlerStart = app.indexOf('document.querySelector("#optimizeBtn").addEventListener("click"');
+const optimizerHandlerEnd = app.indexOf('document.querySelector("#clearBtn").addEventListener("click"', optimizerHandlerStart);
+if (optimizerHandlerStart < 0 || optimizerHandlerEnd < 0) throw new Error("Optimizer click handler boundaries are missing.");
+const optimizerHandler = app.slice(optimizerHandlerStart, optimizerHandlerEnd);
+for (const needle of [
+  'resultMessage.textContent = "Optimizing character…";',
+  "try {",
+  "} catch (error) {",
+  "clearOptimizationResults();",
+  "renderUpgradeResults([]);",
+  "renderOptimizedLoadout({});",
+  'optimizationSource.textContent = "Optimization did not complete.";'
+]) {
+  if (!optimizerHandler.includes(needle)) throw new Error(`Optimizer must reset stale results and surface runtime failures: ${needle}`);
+}
+if (!optimizerHandler.includes("Optimization failed:")) throw new Error("Optimizer errors must be visible in the result message.");
+console.log("Optimizer failure-state regression contract passed.");
