@@ -16,6 +16,9 @@ if (!index.includes('<option value="" selected>Burning Legion</option>')) throw 
 if (!app.includes("Enter a character name and select a realm.")) throw new Error("Missing clear realm-selection validation message.");
 if (!app.includes("/api/realms")) throw new Error("Realm list endpoint is not wired into the UI.");
 if (!app.includes("loadRealmOptions")) throw new Error("Realm list loader is missing.");
+if (!app.includes('option.textContent = String(item.name || item.title || "Encounter");')) throw new Error("Encounter names must be assigned as DOM text.");
+if (!app.includes("encounterSelect.replaceChildren();")) throw new Error("Encounter options must be rebuilt using DOM nodes.");
+if (app.includes('encounters.map(item => `<option value="${item.id ?? item.name}">')) throw new Error("Encounter data must not be interpolated into HTML.");
 if (!app.includes('const DEFAULT_CHARACTER_NAME = "Failing";')) throw new Error("Default character placeholder constant must be Failing.");
 if (!app.includes('const DEFAULT_REALM_NAME = "Burning Legion";')) throw new Error("Default realm placeholder constant must be Burning Legion.");
 const styles = fs.readFileSync("styles.css", "utf8");
