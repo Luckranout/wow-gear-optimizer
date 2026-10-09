@@ -146,30 +146,44 @@ assert.ok(realmsApi.includes("fetchRealms"), "Realm API must use the cached Bliz
 assert.ok(realmsApi.includes("s-maxage=21600"), "Realm API must advertise its cache lifetime.");
 console.log("Blizzard realm API contract passed.");
 
-// A stalled upstream request must fail with a controlled service error.
+// Stalled network requests and stalled JSON bodies must map to controlled service errors.
 const originalFetch = global.fetch;
-global.fetch = (_url, options = {}) => new Promise((_resolve, reject) => {
-  const signal = options.signal;
-  const rejectOnAbort = () => {
-    const error = new Error("Mock request aborted.");
-    error.name = "AbortError";
-    reject(error);
-  };
-  if (signal.aborted) {
-    rejectOnAbort();
-    return;
-  }
-  signal.addEventListener("abort", rejectOnAbort, { once: true });
-});
-requestJson("https://example.invalid/profile", "test-token", 5)
-  .then(() => {
-    throw new Error("A timed-out Blizzard request must reject.");
-  })
-  .catch(error => {
-    assert.strictEqual(error.statusCode, 502, "timed-out upstream requests must map to 502");
-    assert.strictEqual(error.publicMessage, "Blizzard character service is temporarily unavailable.");
-    console.log("Blizzard upstream timeout handling passed.");
-  })
-  .finally(() => {
+function timeoutSignalError() {
+  const error = new Error("Mock request aborted.");
+  error.name = "AbortError";
+  return error;
+}
+(async () => {
+  try {
+    global.fetch = (_url, options = {}) => new Promise((_resolve, reject) => {
+      const signal = options.signal;
+      const rejectOnAbort = () => reject(timeoutSignalError());
+      if (signal.aborted) return rejectOnAbort();
+      signal.addEventListener("abort", rejectOnAbort, { once: true });
+    });
+    await assert.rejects(
+      requestJson("https://example.invalid/profile", "test-token", 5),
+      error => error.statusCode === 502 && error.publicMessage === "Blizzard character service is temporarily unavailable."
+    );
+
+    global.fetch = async (_url, options = {}) => ({
+      ok: true,
+      json: () => new Promise((_resolve, reject) => {
+        const signal = options.signal;
+        const rejectOnAbort = () => reject(timeoutSignalError());
+        if (signal.aborted) return rejectOnAbort();
+        signal.addEventListener("abort", rejectOnAbort, { once: true });
+      })
+    });
+    await assert.rejects(
+      requestJson("https://example.invalid/profile", "test-token", 5),
+      error => error.statusCode === 502 && error.publicMessage === "Blizzard character service is temporarily unavailable."
+    );
+    console.log("Blizzard request and response-body timeout handling passed.");
+  } finally {
     global.fetch = originalFetch;
-  });
+  }
+})().catch(error => {
+  console.error(error);
+  process.exitCode = 1;
+});
