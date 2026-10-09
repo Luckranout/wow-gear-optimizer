@@ -540,9 +540,6 @@ def reference_id(value):
 def talent_tree_reference_id(value):
     """Extract the talent-tree ID, not a trailing specialization ID, from Blizzard links."""
     if isinstance(value, dict):
-        value_id = value.get("id")
-        if isinstance(value_id, int):
-            return value_id
         candidates = (value.get("href"), (value.get("key") or {}).get("href"))
         for candidate in candidates:
             if not candidate:
@@ -554,6 +551,9 @@ def talent_tree_reference_id(value):
                         return int(parts[index + 1])
                     except (ValueError, IndexError):
                         continue
+        value_id = value.get("id")
+        if isinstance(value_id, int):
+            return value_id
     if isinstance(value, int):
         return value
     return None
