@@ -275,6 +275,41 @@ function formatGearScore(value) {
   return Number(value || 0).toLocaleString(undefined, { maximumFractionDigits: 2 });
 }
 
+function renderTextList(selector, values, emptyMessage) {
+  const list = document.querySelector(selector);
+  list.replaceChildren();
+  const items = Array.isArray(values) ? values : [];
+  const entries = items.length ? items : [emptyMessage];
+  entries.forEach(value => {
+    const item = document.createElement("li");
+    item.textContent = String(value ?? "");
+    list.appendChild(item);
+  });
+}
+
+function appendCoachListItem(list, fields) {
+  const item = document.createElement("li");
+  fields.forEach(field => {
+    if (field == null || field.value == null || field.value === "") return;
+    const element = document.createElement(field.tag || "span");
+    element.textContent = String(field.value);
+    item.appendChild(element);
+  });
+  list.appendChild(item);
+}
+
+function renderCoachStructuredList(selector, entries, emptyMessage, getFields) {
+  const list = document.querySelector(selector);
+  list.replaceChildren();
+  if (!Array.isArray(entries) || !entries.length) {
+    const empty = document.createElement("li");
+    empty.textContent = emptyMessage;
+    list.appendChild(empty);
+    return;
+  }
+  entries.forEach(entry => appendCoachListItem(list, getFields(entry)));
+}
+
 function renderUpgradeResults(upgrades = []) {
   upgradeResults.replaceChildren();
   if (!upgrades.length) {
@@ -354,10 +389,10 @@ function renderCharacterCoach(report, character) {
   document.querySelector("#coachSummary").textContent = coach.summary.headline;
   document.querySelector("#coachContentLabel").textContent = coach.content.label;
   document.querySelector("#coachContentFocus").textContent = coach.content.focus;
-  document.querySelector("#coachContentPriorities").innerHTML = coach.content.priorities.map(item => `<li>${item}</li>`).join("");
+  renderTextList("#coachContentPriorities", coach.content.priorities, "No curated priorities are available.");
   document.querySelector("#coachContentDefensive").textContent = coach.content.defensive;
   document.querySelector("#coachContentCooldowns").textContent = coach.content.cooldowns;
-  document.querySelector("#coachContentMistakes").innerHTML = coach.content.mistakes.map(item => `<li>${item}</li>`).join("");
+  renderTextList("#coachContentMistakes", coach.content.mistakes, "No curated mistakes are available.");
   document.querySelector("#coachPrepFood").textContent = coach.preparation.food;
   document.querySelector("#coachPrepFlask").textContent = coach.preparation.flask;
   document.querySelector("#coachPrepPotions").textContent = coach.preparation.potions;
@@ -377,9 +412,11 @@ function renderCharacterCoach(report, character) {
   document.querySelector("#coachSituationNote").textContent = coach.situations.note;
   document.querySelector("#coachEncounterTitle").textContent = coach.encounter.title;
   document.querySelector("#coachEncounterSummary").textContent = coach.encounter.summary;
-  document.querySelector("#coachEncounterMechanics").innerHTML = coach.encounter.mechanics.length
-    ? coach.encounter.mechanics.map(item => `<li><strong>${item.name}</strong><span>${item.action}</span>${item.description ? `<small>${item.description}</small>` : ""}</li>`).join("")
-    : "<li>No encounter-specific mechanics are available for the current selection.";
+  renderCoachStructuredList("#coachEncounterMechanics", coach.encounter.mechanics, "No encounter-specific mechanics are available for the current selection.", item => [
+    { tag: "strong", value: item.name },
+    { tag: "span", value: item.action },
+    { tag: "small", value: item.description }
+  ]);
   document.querySelector("#coachBuildHeadline").textContent = coach.buildSynthesis.headline;
   document.querySelector("#coachBuildTalent").textContent = coach.buildSynthesis.talentLine;
   document.querySelector("#coachBuildStats").textContent = coach.buildSynthesis.statLine + " " + coach.buildSynthesis.statSnapshot;
@@ -392,31 +429,46 @@ function renderCharacterCoach(report, character) {
   document.querySelector("#coachSetRecommendation").textContent = coach.setCrafted.recommendation;
   document.querySelector("#coachSpecialTrinkets").textContent = coach.specialItems.trinketLine;
   document.querySelector("#coachSpecialWeapons").textContent = coach.specialItems.weaponLine;
-  document.querySelector("#coachSpecialRanked").innerHTML = coach.specialItems.ranked.length
-    ? coach.specialItems.ranked.map(item => `<li><strong>${item.slot}: ${item.name}</strong><span>+${formatGearScore(item.improvement)} weighted score</span></li>`).join("")
-    : "<li>No direct trinket or weapon upgrade is ranked.</li>";
+  renderCoachStructuredList("#coachSpecialRanked", coach.specialItems.ranked, "No direct trinket or weapon upgrade is ranked.", item => [
+    { tag: "strong", value: `${item.slot}: ${item.name}` },
+    { tag: "span", value: `+${formatGearScore(item.improvement)} weighted score` }
+  ]);
   document.querySelector("#coachSpecialNote").textContent = coach.specialItems.note;
   document.querySelector("#coachSpendNext").textContent = coach.spending.next;
-  document.querySelector("#coachSpendSteps").innerHTML = coach.spending.steps.length
-    ? coach.spending.steps.map(item => `<li><strong>${item.slot}: ${item.title}</strong><span>${item.status}</span><small>${item.resources} • ${item.weeklyFit}</small></li>`).join("")
-    : "<li>No immediate upgrade-spending action is identified.</li>";
+  renderCoachStructuredList("#coachSpendSteps", coach.spending.steps, "No immediate upgrade-spending action is identified.", item => [
+    { tag: "strong", value: `${item.slot}: ${item.title}` },
+    { tag: "span", value: item.status },
+    { tag: "small", value: `${item.resources} • ${item.weeklyFit}` }
+  ]);
   document.querySelector("#coachSpendRule").textContent = coach.spending.rule;
   document.querySelector("#coachNextAction").textContent = coach.summary.nextAction;
   document.querySelector("#coachStatsSource").textContent = coach.summary.statSource;
-  document.querySelector("#coachStrengths").innerHTML = coach.strengths.length ? coach.strengths.map(item => `<li>${item}</li>`).join("") : "<li>No specific strengths can be established from the current data.</li>";
-  document.querySelector("#coachAttention").innerHTML = coach.attention.length ? coach.attention.map(item => `<li>${item}</li>`).join("") : "<li>No immediate attention items were identified from the current data.</li>";
-  document.querySelector("#coachPriorities").innerHTML = coach.priorities.length ? coach.priorities.map(item => `<li><strong>${item.section} — ${item.slot}</strong><span>${item.title}</span><small>${item.explanation}</small></li>`).join("") : "<li><strong>No immediate gear action.</strong><span>Use the gameplay plan below and re-run the optimizer after your next gear change.</span></li>";
-  document.querySelector("#coachGearPlan").innerHTML = coach.gearPlan.length ? coach.gearPlan.map(item => `<li><strong>${item.slot}: ${item.title}</strong><span>Current: ${item.current}</span><small>${item.explanation}</small></li>`).join("") : "<li>No direct gear replacement is available in the current dataset.</li>";
-  document.querySelector("#coachUpgradePlan").innerHTML = coach.upgradePlan.length ? coach.upgradePlan.map(item => `<li><strong>${item.slot}: ${item.title}</strong><span>${item.status}</span><small>${item.resources} • ${item.weeklyFit}</small></li>`).join("") : "<li>No next-track upgrade is currently identified.</li>";
+  renderTextList("#coachStrengths", coach.strengths, "No specific strengths can be established from the current data.");
+  renderTextList("#coachAttention", coach.attention, "No immediate attention items were identified from the current data.");
+  renderCoachStructuredList("#coachPriorities", coach.priorities, "No immediate gear action. Use the gameplay plan below and re-run the optimizer after your next gear change.", item => [
+    { tag: "strong", value: `${item.section} — ${item.slot}` },
+    { tag: "span", value: item.title },
+    { tag: "small", value: item.explanation }
+  ]);
+  renderCoachStructuredList("#coachGearPlan", coach.gearPlan, "No direct gear replacement is available in the current dataset.", item => [
+    { tag: "strong", value: `${item.slot}: ${item.title}` },
+    { tag: "span", value: `Current: ${item.current}` },
+    { tag: "small", value: item.explanation }
+  ]);
+  renderCoachStructuredList("#coachUpgradePlan", coach.upgradePlan, "No next-track upgrade is currently identified.", item => [
+    { tag: "strong", value: `${item.slot}: ${item.title}` },
+    { tag: "span", value: item.status },
+    { tag: "small", value: `${item.resources} • ${item.weeklyFit}` }
+  ]);
   document.querySelector("#coachLoop").textContent = coach.gameplay.loop;
   document.querySelector("#coachTalentSummary").textContent = coach.gameplay.talentSummary;
-  document.querySelector("#coachTalentAdjustments").innerHTML = coach.gameplay.talentAdjustments.length ? coach.gameplay.talentAdjustments.map(item => `<li>${item}</li>`).join("") : "<li>No additional talent-specific adjustment is active.</li>";
+  renderTextList("#coachTalentAdjustments", coach.gameplay.talentAdjustments, "No additional talent-specific adjustment is active.");
   document.querySelector("#coachWhy").textContent = coach.gameplay.why;
   document.querySelector("#coachDefensive").textContent = coach.gameplay.defensive;
-  document.querySelector("#coachGameplay").innerHTML = coach.gameplay.beginnerPriority.length ? coach.gameplay.beginnerPriority.map(item => `<li>${item}</li>`).join("") : "<li>Detailed gameplay priorities are not yet curated for this specialization.</li>";
+  renderTextList("#coachGameplay", coach.gameplay.beginnerPriority, "Detailed gameplay priorities are not yet curated for this specialization.");
   document.querySelector("#coachCooldowns").textContent = coach.gameplay.cooldownGuidance;
-  document.querySelector("#coachMistakes").innerHTML = coach.gameplay.commonMistakes.length ? coach.gameplay.commonMistakes.map(item => `<li>${item}</li>`).join("") : "<li>No curated mistakes are available yet.</li>";
-  document.querySelector("#coachPreCombat").innerHTML = coach.gameplay.preCombat.length ? coach.gameplay.preCombat.map(item => `<li>${item}</li>`).join("") : "<li>No curated pre-combat checklist is available yet.</li>";
+  renderTextList("#coachMistakes", coach.gameplay.commonMistakes, "No curated mistakes are available yet.");
+  renderTextList("#coachPreCombat", coach.gameplay.preCombat, "No curated pre-combat checklist is available yet.");
 }
 
 function renderOptimizedLoadout(equipment = {}, score = 0) {
