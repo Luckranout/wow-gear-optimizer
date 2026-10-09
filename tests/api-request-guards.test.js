@@ -32,6 +32,16 @@ async function run() {
   await characterHandler({ method: "GET", query: {} }, missingRealmParams);
   assert.strictEqual(missingRealmParams.statusCode, 400, "character endpoint must reject missing realm and name");
 
+  const oversizedRealm = mockResponse();
+  await characterHandler({ method: "GET", query: { realm: "R".repeat(101), character: "Failing" } }, oversizedRealm);
+  assert.strictEqual(oversizedRealm.statusCode, 400, "character endpoint must reject oversized realm values");
+  assert.strictEqual(oversizedRealm.body.error, "Realm or character name is too long.");
+
+  const oversizedCharacter = mockResponse();
+  await characterHandler({ method: "GET", query: { realm: "Burning Legion", character: "C".repeat(65) } }, oversizedCharacter);
+  assert.strictEqual(oversizedCharacter.statusCode, 400, "character endpoint must reject oversized character values");
+  assert.strictEqual(oversizedCharacter.body.error, "Realm or character name is too long.");
+
   console.log("Character and realm API request-guard tests passed.");
 }
 
