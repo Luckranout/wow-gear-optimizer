@@ -12,6 +12,13 @@ SPEC.loader.exec_module(MODULE)
 
 
 class TalentTreeImportTests(unittest.TestCase):
+    def test_extract_nodes_supports_blizzard_talent_nodes_field(self):
+        self.assertEqual(
+            MODULE.extract_talent_nodes({"talent_nodes": [{"id": 12}]}),
+            [{"id": 12}],
+        )
+        self.assertEqual(MODULE.extract_talent_nodes({"unknown": [{"id": 13}]}), [])
+
     def test_tree_id_is_taken_from_talent_tree_path_not_trailing_spec_id(self):
         ref = {
             "key": {
@@ -63,7 +70,7 @@ class TalentTreeImportTests(unittest.TestCase):
             },
             "/data/wow/talent-tree/123/playable-specialization/71": {"nodes": [{"id": 1}]},
             "/data/wow/talent-tree/456/playable-specialization/71": {"nodes": [{"id": 2}]},
-            "/data/wow/talent-tree/789": {"nodes": [{"id": 3}]},
+            "/data/wow/talent-tree/789": {"talent_nodes": [{"id": 3}]},
         }
 
         def fake_get(path, *args, **kwargs):
