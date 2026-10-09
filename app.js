@@ -132,14 +132,26 @@ function renderSlots() {
 
 function renderCharacterStats(statistics = {}) {
   const stats = WoWCharacterImport.formatCharacterStatistics(statistics);
-  statsGrid.innerHTML = stats.length
-    ? stats.map(stat => `
-        <div class="stat-card">
-          <div class="stat-label">${stat.label}</div>
-          <div class="stat-value">${stat.value.toLocaleString()}</div>
-        </div>
-      `).join("")
-    : '<div class="stat-empty">No imported character statistics available.</div>';
+  statsGrid.replaceChildren();
+  if (!stats.length) {
+    const empty = document.createElement("div");
+    empty.className = "stat-empty";
+    empty.textContent = "No imported character statistics available.";
+    statsGrid.appendChild(empty);
+    return;
+  }
+  stats.forEach(stat => {
+    const card = document.createElement("div");
+    card.className = "stat-card";
+    const label = document.createElement("div");
+    label.className = "stat-label";
+    label.textContent = String(stat.label ?? "Stat");
+    const value = document.createElement("div");
+    value.className = "stat-value";
+    value.textContent = Number(stat.value).toLocaleString();
+    card.append(label, value);
+    statsGrid.appendChild(card);
+  });
 }
 
 function setCharacterDetailText(element, value) {
