@@ -65,10 +65,12 @@ jobs:
         run: python -m unittest tests/test_character_import.py
       - name: Run seasonal importer policy tests
         run: python -m unittest tests/test_season_import_policy.py
-      - name: Run published Retail dataset integrity tests
-        run: python -m unittest tests/test_retail_dataset_integrity.py
       - name: Run Retail inventory slot mapping tests
         run: python -m unittest tests/test_retail_slot_mapping.py
+      - name: Run talent tree import regression tests
+        run: python -m unittest tests/test_talent_tree_import.py
+      - name: Run published Retail dataset integrity tests
+        run: python -m unittest tests/test_retail_dataset_integrity.py
 
       - name: Run simulation import tests
         run: node tests/simulation-import.test.js
