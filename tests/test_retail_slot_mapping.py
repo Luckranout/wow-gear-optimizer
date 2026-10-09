@@ -56,5 +56,30 @@ class InventorySlotMappingTests(unittest.TestCase):
         self.assertEqual(item["compatibleSlots"], ["Ring 1", "Ring 2"])
 
 
+    def test_optimizer_catalog_filter_excludes_unknown_slots_and_duplicates(self):
+        valid = {
+            "id": 100,
+            "name": "Test Helm",
+            "slot": "Head",
+            "compatibleSlots": ["Head"],
+        }
+        duplicate = {**valid, "name": "Duplicate Helm"}
+        invalid_slot = {
+            "id": 101, "name": "Unknown Item", "slot": None, "compatibleSlots": []
+        }
+        invalid_compatibility = {
+            "id": 102, "name": "Bad Ring", "slot": "Ring 1",
+            "compatibleSlots": ["Ring 1", "Invalid Slot"],
+        }
+        missing_name = {
+            "id": 103, "name": " ", "slot": "Chest", "compatibleSlots": ["Chest"]
+        }
+        self.assertEqual(
+            MODULE.filter_optimizer_items([valid, duplicate, invalid_slot, invalid_compatibility, missing_name]),
+            [valid],
+        )
+
+
+
 if __name__ == "__main__":
     unittest.main()
