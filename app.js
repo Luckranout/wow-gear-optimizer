@@ -276,36 +276,63 @@ function formatGearScore(value) {
 }
 
 function renderUpgradeResults(upgrades = []) {
+  upgradeResults.replaceChildren();
   if (!upgrades.length) {
-    upgradeResults.innerHTML = '<div class="result-empty">No direct gear upgrades are available in the current dataset for the imported character.</div>';
+    const empty = document.createElement("div");
+    empty.className = "result-empty";
+    empty.textContent = "No direct gear upgrades are available in the current dataset for the imported character.";
+    upgradeResults.appendChild(empty);
     return;
   }
   const sourceLabel = "Goal/spec-weighted";
-  upgradeResults.innerHTML = upgrades.map(upgrade => `
-    <article class="upgrade-card">
-      <div class="upgrade-card-top">
-        <div>
-          <div class="upgrade-slot">${upgrade.slot}</div>
-          <h3>${upgrade.recommendedItem?.name || "Recommended upgrade"}</h3>
-        </div>
-        <div class="upgrade-badge">${sourceLabel}</div>
-      </div>
-      <div class="upgrade-comparison">
-        <div>
-          <span>Current</span>
-          <strong>${upgrade.currentItem?.name || "Empty slot"}</strong>
-          <small>Score ${formatGearScore(upgrade.currentScore)}</small>
-        </div>
-        <div class="upgrade-arrow">→</div>
-        <div>
-          <span>Recommended</span>
-          <strong>${upgrade.recommendedItem?.name || "Unknown item"}</strong>
-          <small>Score ${formatGearScore(upgrade.recommendedScore)}</small>
-        </div>
-      </div>
-      <div class="upgrade-improvement">+${formatGearScore(upgrade.improvement)} weighted score</div>
-    </article>
-  `).join("");
+  upgrades.forEach(upgrade => {
+    const card = document.createElement("article");
+    card.className = "upgrade-card";
+    const top = document.createElement("div");
+    top.className = "upgrade-card-top";
+    const heading = document.createElement("div");
+    const slot = document.createElement("div");
+    slot.className = "upgrade-slot";
+    slot.textContent = upgrade.slot || "Equipment";
+    const title = document.createElement("h3");
+    title.textContent = upgrade.recommendedItem?.name || "Recommended upgrade";
+    heading.append(slot, title);
+    const badge = document.createElement("div");
+    badge.className = "upgrade-badge";
+    badge.textContent = sourceLabel;
+    top.append(heading, badge);
+    card.appendChild(top);
+
+    const comparison = document.createElement("div");
+    comparison.className = "upgrade-comparison";
+    const current = document.createElement("div");
+    const currentLabel = document.createElement("span");
+    currentLabel.textContent = "Current";
+    const currentName = document.createElement("strong");
+    currentName.textContent = upgrade.currentItem?.name || "Empty slot";
+    const currentScore = document.createElement("small");
+    currentScore.textContent = `Score ${formatGearScore(upgrade.currentScore)}`;
+    current.append(currentLabel, currentName, currentScore);
+    const arrow = document.createElement("div");
+    arrow.className = "upgrade-arrow";
+    arrow.textContent = "→";
+    const recommended = document.createElement("div");
+    const recommendedLabel = document.createElement("span");
+    recommendedLabel.textContent = "Recommended";
+    const recommendedName = document.createElement("strong");
+    recommendedName.textContent = upgrade.recommendedItem?.name || "Unknown item";
+    const recommendedScore = document.createElement("small");
+    recommendedScore.textContent = `Score ${formatGearScore(upgrade.recommendedScore)}`;
+    recommended.append(recommendedLabel, recommendedName, recommendedScore);
+    comparison.append(current, arrow, recommended);
+    card.appendChild(comparison);
+
+    const improvement = document.createElement("div");
+    improvement.className = "upgrade-improvement";
+    improvement.textContent = `+${formatGearScore(upgrade.improvement)} weighted score`;
+    card.appendChild(improvement);
+    upgradeResults.appendChild(card);
+  });
 }
 function renderCharacterCoach(report, character) {
   document.querySelector("#characterCoachPanel").hidden = false;
@@ -394,18 +421,38 @@ function renderCharacterCoach(report, character) {
 
 function renderOptimizedLoadout(equipment = {}, score = 0) {
   const entries = Object.entries(equipment).filter(([, item]) => item);
+  loadoutResults.replaceChildren();
   if (!entries.length) {
-    loadoutResults.innerHTML = '<div class="result-empty">No optimized loadout is available from the current dataset.</div>';
+    const empty = document.createElement("div");
+    empty.className = "result-empty";
+    empty.textContent = "No optimized loadout is available from the current dataset.";
+    loadoutResults.appendChild(empty);
     return;
   }
   const sourceLabel = "Goal/spec-weighted";
-  loadoutResults.innerHTML = entries.map(([slot, item]) => `
-    <div class="loadout-row">
-      <div class="loadout-slot">${slot}</div>
-      <div class="loadout-item">${item.name || "Unnamed item"}</div>
-      <div class="loadout-ilvl">iLvl ${item.itemLevel ?? item.level ?? "—"}</div>
-    </div>
-  `).join("") + `<div class="loadout-summary"><strong>Optimized weighted score: ${formatGearScore(score)}</strong><span>${sourceLabel}</span></div>`;
+  entries.forEach(([slotName, item]) => {
+    const row = document.createElement("div");
+    row.className = "loadout-row";
+    const slot = document.createElement("div");
+    slot.className = "loadout-slot";
+    slot.textContent = slotName;
+    const name = document.createElement("div");
+    name.className = "loadout-item";
+    name.textContent = item.name || "Unnamed item";
+    const itemLevel = document.createElement("div");
+    itemLevel.className = "loadout-ilvl";
+    itemLevel.textContent = `iLvl ${item.itemLevel ?? item.level ?? "—"}`;
+    row.append(slot, name, itemLevel);
+    loadoutResults.appendChild(row);
+  });
+  const summary = document.createElement("div");
+  summary.className = "loadout-summary";
+  const total = document.createElement("strong");
+  total.textContent = `Optimized weighted score: ${formatGearScore(score)}`;
+  const source = document.createElement("span");
+  source.textContent = sourceLabel;
+  summary.append(total, source);
+  loadoutResults.appendChild(summary);
 }
 function clearOptimizationResults() {
   upgradeResults.innerHTML = '<div class="result-empty">Run the optimizer after a successful character lookup.</div>';
