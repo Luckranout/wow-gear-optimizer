@@ -122,6 +122,18 @@ assert.deepStrictEqual(
   ["Protection Talent"]
 );
 console.log("Talent normalization follows Blizzard's active specialization.");
+const legacyFallbackNormalized = normalizeCharacter(
+  { id: 5, name: "LegacyFallbackTester", level: 90, realm: { id: 1, name: "Burning Legion", slug: "burning-legion" } },
+  { equipped_items: [] },
+  {},
+  { specializations: [{ talents: [{ id: 900, rank: 1, name: "Legacy Talent" }] }] }
+);
+assert.deepStrictEqual(
+  legacyFallbackNormalized.talents.map(talent => ({ source: talent.source, id: talent.id, name: talent.name })),
+  [{ source: "Legacy", id: 900, name: "Legacy Talent" }]
+);
+console.log("Legacy talents remain available as a fallback.");
+
 
 
 console.log("Character talent loadout normalization passed.");
