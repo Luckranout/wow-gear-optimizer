@@ -153,10 +153,42 @@ async function loadRetailDataset(url = "data/current-retail.json") {
 
   const raw = await response.json();
   const data = normalizeRetailDataset(raw);
-  const errors = validateRetailDataset(data);
 
+  // Keep strict validation available for audits and tests, but prevent a single
+  // malformed/non-equipment source record from disabling all usable gear.
+  // Exclusions are counted and surfaced to the UI; they are never silent.
+  const allowedSlots = new Set(WOW_DATA_REQUIRED_SLOTS);
+  const seenIds = new Set();
+  const originalItems = data.items;
+  const usableItems = [];
+  for (const item of originalItems) {
+    const id = item && item.id != null ? String(item.id) : "";
+    const valid = Boolean(
+      id &&
+      String(item.name || "").trim() &&
+      allowedSlots.has(item.slot) &&
+      Array.isArray(item.compatibleSlots) &&
+      item.compatibleSlots.length > 0 &&
+      item.compatibleSlots.every(slot => allowedSlots.has(slot)) &&
+      item.compatibleSlots.includes(item.slot) &&
+      !seenIds.has(id)
+    );
+    if (!valid) continue;
+    seenIds.add(id);
+    usableItems.push(item);
+  }
+  const excludedItemCount = originalItems.length - usableItems.length;
+  data.items = usableItems;
+  data.datasetWarnings = excludedItemCount > 0
+    ? [`Excluded ${excludedItemCount} invalid, duplicate, or unsupported catalog entries; gear recommendations may be incomplete until the Retail data is refreshed.`]
+    : [];
+
+  const errors = validateRetailDataset(data);
   if (errors.length) {
     throw new Error(errors.join(" "));
+  }
+  if (data.items.length === 0) {
+    throw new Error("The Retail dataset contains no usable equipment items.");
   }
 
   return data;

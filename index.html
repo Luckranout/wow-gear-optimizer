@@ -118,7 +118,40 @@
       </div>
     </section>
 
-    <section class="panel" id="characterCoachPanel">
+    <section class="panel character-details-panel" id="characterDetailsPanel" hidden>
+  <div class="panel-heading">
+    <div>
+      <div class="eyebrow">LIVE BLIZZARD CHARACTER</div>
+      <h2 id="characterDetailsTitle">Character details</h2>
+      <p id="characterDetailsSubtitle">Verified data returned by Blizzard for the selected character.</p>
+    </div>
+  </div>
+  <div class="character-summary-grid">
+    <article class="character-summary-card"><span>Name</span><strong id="characterDetailName">—</strong></article>
+    <article class="character-summary-card"><span>Realm</span><strong id="characterDetailRealm">—</strong></article>
+    <article class="character-summary-card"><span>Level</span><strong id="characterDetailLevel">—</strong></article>
+    <article class="character-summary-card"><span>Race</span><strong id="characterDetailRace">—</strong></article>
+    <article class="character-summary-card"><span>Class</span><strong id="characterDetailClass">—</strong></article>
+    <article class="character-summary-card"><span>Specialization</span><strong id="characterDetailSpec">—</strong></article>
+    <article class="character-summary-card"><span>Faction</span><strong id="characterDetailFaction">—</strong></article>
+    <article class="character-summary-card"><span>Guild</span><strong id="characterDetailGuild">—</strong></article>
+    <article class="character-summary-card"><span>Achievement points</span><strong id="characterDetailAchievementPoints">—</strong></article>
+    <article class="character-summary-card"><span>Average item level</span><strong id="characterDetailAverageItemLevel">—</strong></article>
+    <article class="character-summary-card"><span>Equipped item level</span><strong id="characterDetailEquippedItemLevel">—</strong></article>
+  </div>
+  <div class="character-detail-columns">
+    <article class="character-detail-card">
+      <h3>Talents</h3>
+      <ul id="characterTalentsList"><li>No talent data returned.</li></ul>
+    </article>
+    <article class="character-detail-card">
+      <h3>Equipped gear</h3>
+      <div id="characterEquipmentList" class="character-equipment-list"><div class="result-empty">No equipment data returned.</div></div>
+    </article>
+  </div>
+</section>
+
+<section class="panel" id="characterCoachPanel">
   <div class="panel-heading"><div><div class="eyebrow">YOUR CHARACTER COACH</div><h2 id="coachTitle">Your personal action plan</h2><p id="coachHeadline">Look up your character and run the optimizer to get a prioritized plan.</p></div></div>
   <div class="coach-hero">
     <article class="coach-card coach-next"><strong>Do this next</strong><p id="coachNextAction">Your highest-priority action will appear here.</p></article>
@@ -216,6 +249,19 @@
           <div class="optimization-source" id="optimizationSource">Optimization source will appear after the optimizer runs.</div>
         </div>
       </div>
+      <section class="verification-panel" id="verificationPanel" aria-live="polite" hidden>
+        <h3>Result verification</h3>
+        <p id="verificationStatus">Verification details will appear after a calculation.</p>
+        <dl>
+          <dt>Dataset</dt><dd id="verificationDataset">Not checked</dd>
+          <dt>Source and freshness</dt><dd id="verificationSource">Not checked</dd>
+          <dt>Method</dt><dd id="verificationMethod">Not checked</dd>
+          <dt>Candidate items by slot</dt><dd id="verificationCandidates">Not checked</dd>
+          <dt>Selected item IDs</dt><dd id="verificationItems">Not checked</dd>
+          <dt>Top eligible candidates and scores</dt><dd id="verificationRankings">Not checked</dd>
+        </dl>
+        <ul id="verificationWarnings"></ul>
+      </section>
       <div class="result-placeholder">
         <div class="result-icon">⚔️</div>
         <h3>Ready to optimize</h3>

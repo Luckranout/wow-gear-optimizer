@@ -1,11 +1,14 @@
 name: Import WoW Retail Data
 
+concurrency:
+  group: wow-retail-data-import-${{ github.ref }}
+  cancel-in-progress: false
+
 on:
   workflow_dispatch:
   push:
     paths:
       - "scripts/import_blizzard_data.py"
-      - ".github/workflows/import-wow-data.yml"
   schedule:
     - cron: "30 8 * * *"
 
@@ -73,4 +76,6 @@ jobs:
           git add data/current-retail.json
           git diff --cached --quiet && exit 0
           git commit -m "Update current Retail WoW data"
-          git push
+          git fetch origin "$GITHUB_REF:refs/remotes/origin/$GITHUB_REF_NAME"
+          git rebase "origin/$GITHUB_REF_NAME"
+          git push origin "HEAD:$GITHUB_REF"

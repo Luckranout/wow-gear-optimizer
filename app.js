@@ -35,6 +35,20 @@ const optimizationSource = document.querySelector("#optimizationSource");
 const characterNameInput = document.querySelector("#characterNameInput");
 const realmInput = document.querySelector("#realmInput");
 const lookupCharacterBtn = document.querySelector("#lookupCharacterBtn");
+const characterDetailsPanel = document.querySelector("#characterDetailsPanel");
+const characterDetailName = document.querySelector("#characterDetailName");
+const characterDetailRealm = document.querySelector("#characterDetailRealm");
+const characterDetailLevel = document.querySelector("#characterDetailLevel");
+const characterDetailRace = document.querySelector("#characterDetailRace");
+const characterDetailClass = document.querySelector("#characterDetailClass");
+const characterDetailSpec = document.querySelector("#characterDetailSpec");
+const characterDetailFaction = document.querySelector("#characterDetailFaction");
+const characterDetailGuild = document.querySelector("#characterDetailGuild");
+const characterDetailAchievementPoints = document.querySelector("#characterDetailAchievementPoints");
+const characterDetailAverageItemLevel = document.querySelector("#characterDetailAverageItemLevel");
+const characterDetailEquippedItemLevel = document.querySelector("#characterDetailEquippedItemLevel");
+const characterTalentsList = document.querySelector("#characterTalentsList");
+const characterEquipmentList = document.querySelector("#characterEquipmentList");
 const API_BASE_URL = String(window.WOW_API_BASE_URL || "").replace(/\/$/, "");
 const DEFAULT_CHARACTER_NAME = "Failing";
 const DEFAULT_REALM_NAME = "Burning Legion";
@@ -50,13 +64,20 @@ async function loadRealmOptions() {
       throw new Error(data?.error || "No Blizzard realms were returned.");
     }
     const currentRealm = realmInput.value;
-    const placeholder = `<option value="">${DEFAULT_REALM_NAME}</option>`;
-    const options = data.realms
+    realmInput.innerHTML = "";
+    const placeholderOption = document.createElement("option");
+    placeholderOption.value = "";
+    placeholderOption.textContent = DEFAULT_REALM_NAME;
+    realmInput.appendChild(placeholderOption);
+    data.realms
       .filter(realm => realm && realm.name)
       .sort((a, b) => a.name.localeCompare(b.name))
-      .map(realm => `<option value="${realm.name}">${realm.name}</option>`)
-      .join("");
-    realmInput.innerHTML = placeholder + options;
+      .forEach(realm => {
+        const option = document.createElement("option");
+        option.value = String(realm.name);
+        option.textContent = String(realm.name);
+        realmInput.appendChild(option);
+      });
     if (currentRealm && [...realmInput.options].some(option => option.value === currentRealm)) {
       realmInput.value = currentRealm;
     } else {
@@ -75,12 +96,27 @@ async function loadCurrentRetailData() {
     retailDataset = await WoWData.loadRetailDataset();
     if (encounterSelect) {
       const encounters = Array.isArray(retailDataset.encounters) ? retailDataset.encounters : [];
-      encounterSelect.innerHTML = '<option value="">No encounter selected</option>' +
-        encounters.map(item => `<option value="${item.id ?? item.name}">${item.name || item.title || "Encounter"}</option>`).join("");
+      encounterSelect.replaceChildren();
+      const placeholder = document.createElement("option");
+      placeholder.value = "";
+      placeholder.textContent = "No encounter selected";
+      encounterSelect.appendChild(placeholder);
+      encounters.forEach(item => {
+        const option = document.createElement("option");
+        option.value = String(item.id ?? item.name ?? "");
+        option.textContent = String(item.name || item.title || "Encounter");
+        encounterSelect.appendChild(option);
+      });
       encounterSelect.disabled = encounters.length === 0;
     }
-    document.querySelector(".status").textContent =
-      `● ${retailDataset.expansion} Season ${retailDataset.season} data loaded`;
+    const datasetStatus = document.querySelector(".status");
+    const warningText = Array.isArray(retailDataset.datasetWarnings)
+      ? retailDataset.datasetWarnings.filter(Boolean).join(" ")
+      : "";
+    datasetStatus.textContent = warningText
+      ? `⚠ ${retailDataset.expansion} Season ${retailDataset.season} data loaded with warnings: ${warningText}`
+      : `● ${retailDataset.expansion} Season ${retailDataset.season} data loaded`;
+    datasetStatus.classList.toggle("error", Boolean(warningText));
     return true;
   } catch (error) {
     resultMessage.textContent = `Current Retail data could not be loaded: ${error.message}`;
@@ -102,67 +138,325 @@ function renderSlots() {
 
 function renderCharacterStats(statistics = {}) {
   const stats = WoWCharacterImport.formatCharacterStatistics(statistics);
-  statsGrid.innerHTML = stats.length
-    ? stats.map(stat => `
-        <div class="stat-card">
-          <div class="stat-label">${stat.label}</div>
-          <div class="stat-value">${stat.value.toLocaleString()}</div>
-        </div>
-      `).join("")
-    : '<div class="stat-empty">No imported character statistics available.</div>';
+  statsGrid.replaceChildren();
+  if (!stats.length) {
+    const empty = document.createElement("div");
+    empty.className = "stat-empty";
+    empty.textContent = "No imported character statistics available.";
+    statsGrid.appendChild(empty);
+    return;
+  }
+  stats.forEach(stat => {
+    const card = document.createElement("div");
+    card.className = "stat-card";
+    const label = document.createElement("div");
+    label.className = "stat-label";
+    label.textContent = String(stat.label ?? "Stat");
+    const value = document.createElement("div");
+    value.className = "stat-value";
+    value.textContent = Number(stat.value).toLocaleString();
+    card.append(label, value);
+    statsGrid.appendChild(card);
+  });
+}
+
+function setCharacterDetailText(element, value) {
+  if (element) element.textContent = value == null || value === "" ? "—" : String(value);
+}
+
+function formatCharacterDetailItem(item) {
+  const quality = item?.quality?.name || "";
+  const itemLevel = item?.itemLevel ?? item?.level;
+  const parts = [];
+  if (itemLevel != null) parts.push(`iLvl ${itemLevel}`);
+  if (quality) parts.push(quality);
+  return parts.join(" • ") || "Item details returned";
+}
+
+function formatCharacterDetailEnhancements(item) {
+  const details = [];
+  const enchantments = Array.isArray(item?.enchantments) ? item.enchantments.filter(entry => entry?.name || entry?.displayString) : [];
+  const gems = Array.isArray(item?.gems) ? item.gems.filter(entry => entry?.name) : [];
+  if (enchantments.length) {
+    details.push(`Enchant: ${enchantments.map(entry => entry.name || entry.displayString).join(", ")}`);
+  }
+  if (gems.length) {
+    details.push(`Gems: ${gems.map(entry => entry.name).join(", ")}`);
+  }
+  if (!details.length) {
+    const enchantCount = Array.isArray(item?.enchantments) ? item.enchantments.length : 0;
+    const gemCount = Array.isArray(item?.gems) ? item.gems.length : 0;
+    if (enchantCount) details.push(`${enchantCount} enchantment${enchantCount === 1 ? "" : "s"}`);
+    if (gemCount) details.push(`${gemCount} gem${gemCount === 1 ? "" : "s"}`);
+  }
+  return details.join(" • ");
+}
+
+function renderCharacterDetails(character) {
+  if (!characterDetailsPanel) return;
+  characterDetailsPanel.hidden = false;
+
+  setCharacterDetailText(characterDetailName, character?.name);
+  setCharacterDetailText(characterDetailRealm, character?.realm?.name);
+  setCharacterDetailText(characterDetailLevel, character?.level);
+  setCharacterDetailText(characterDetailRace, character?.race?.name);
+  setCharacterDetailText(characterDetailClass, character?.class?.name);
+  setCharacterDetailText(characterDetailSpec, character?.activeSpec?.name);
+  setCharacterDetailText(characterDetailFaction, character?.faction);
+  setCharacterDetailText(characterDetailGuild, character?.guild);
+  setCharacterDetailText(characterDetailAchievementPoints, character?.achievementPoints);
+  setCharacterDetailText(characterDetailAverageItemLevel, character?.averageItemLevel);
+  setCharacterDetailText(characterDetailEquippedItemLevel, character?.equippedItemLevel);
+
+  const talents = Array.isArray(character?.talents) ? character.talents : [];
+  characterTalentsList.innerHTML = "";
+  if (!talents.length) {
+    const empty = document.createElement("li");
+    empty.textContent = "No talent data returned.";
+    characterTalentsList.appendChild(empty);
+  } else {
+    talents.forEach(talent => {
+      const item = document.createElement("li");
+      const name = document.createElement("strong");
+      name.textContent = talent?.name || "Unnamed talent";
+      item.appendChild(name);
+      if (talent?.rank != null) {
+        const rank = document.createElement("span");
+        rank.textContent = `Rank ${talent.rank}`;
+        item.appendChild(rank);
+      }
+      characterTalentsList.appendChild(item);
+    });
+  }
+
+  const equipment = Array.isArray(character?.equipment) ? character.equipment : [];
+  characterEquipmentList.innerHTML = "";
+  if (!equipment.length) {
+    const empty = document.createElement("div");
+    empty.className = "result-empty";
+    empty.textContent = "No equipment data returned.";
+    characterEquipmentList.appendChild(empty);
+  } else {
+    equipment.forEach(item => {
+      const card = document.createElement("article");
+      card.className = "character-equipment-card";
+
+      const header = document.createElement("div");
+      header.className = "character-equipment-header";
+
+      const slot = document.createElement("span");
+      slot.className = "character-equipment-slot";
+      slot.textContent = typeof item?.slot === "string" ? item.slot : (item?.slot?.name || "Equipment");
+      header.appendChild(slot);
+
+      const name = document.createElement("h4");
+      name.textContent = item?.name || "Unnamed item";
+      header.appendChild(name);
+
+      const detail = document.createElement("div");
+      detail.className = "character-equipment-detail";
+      detail.textContent = formatCharacterDetailItem(item);
+
+      const stats = Array.isArray(item?.stats)
+        ? item.stats.filter(stat => stat?.type && stat?.value != null)
+        : [];
+      if (stats.length) {
+        const statLine = document.createElement("div");
+        statLine.className = "character-equipment-stats";
+        statLine.textContent = stats.map(stat => `${stat.type}: ${Number(stat.value).toLocaleString()}`).join(" • ");
+        detail.appendChild(statLine);
+      }
+
+      const enhancements = formatCharacterDetailEnhancements(item);
+      if (enhancements) {
+        const enhancement = document.createElement("small");
+        enhancement.textContent = enhancements;
+        detail.appendChild(document.createTextNode(" • "));
+        detail.appendChild(enhancement);
+      }
+
+      card.appendChild(header);
+      card.appendChild(detail);
+      characterEquipmentList.appendChild(card);
+    });
+  }
+}
+
+function clearCharacterDetails() {
+  if (!characterDetailsPanel) return;
+  characterDetailsPanel.hidden = true;
+  characterTalentsList.innerHTML = "";
+  characterEquipmentList.innerHTML = "";
+}
+
+function renderVerificationRecord(verification) {
+  const panel = document.querySelector("#verificationPanel");
+  if (!panel || !verification) return;
+  panel.hidden = false;
+  const warnings = Array.isArray(verification.warnings) ? verification.warnings : [];
+  const status = document.querySelector("#verificationStatus");
+  status.textContent = warnings.length
+    ? "Calculated with limitations — review the warnings before relying on this result."
+    : "Calculation completed. This is not, by itself, proof of live-source accuracy.";
+  document.querySelector("#verificationDataset").textContent = [
+    verification.dataScope?.game,
+    verification.dataScope?.mode,
+    verification.dataScope?.expansion,
+    verification.dataScope?.season == null ? null : `Season ${verification.dataScope.season}`,
+    verification.dataScope?.patch ? `Patch ${verification.dataScope.patch}` : null,
+    verification.dataScope?.schemaVersion ? `Schema ${verification.dataScope.schemaVersion}` : null
+  ].filter(Boolean).join(" • ") || "Dataset scope unavailable";
+  document.querySelector("#verificationSource").textContent = [
+    verification.dataScope?.source || "Source unavailable",
+    verification.dataScope?.updatedAt ? `Last updated: ${verification.dataScope.updatedAt}` : "Update time unavailable",
+    `Import status: ${verification.dataScope?.status || "unknown"}`
+  ].join(" • ");
+  document.querySelector("#verificationMethod").textContent =
+    `${verification.method || "Unknown method"} • weights: ${verification.weightSource || "unknown"} • goal: ${verification.goal || "unknown"}`;
+  document.querySelector("#verificationCandidates").textContent = Object.entries(verification.candidateCountsBySlot || {})
+    .map(([slot, count]) => `${slot}: ${count}`).join(" • ") || "Candidate counts unavailable";
+  document.querySelector("#verificationItems").textContent = Object.entries(verification.selectedItemIdsBySlot || {})
+    .map(([slot, id]) => `${slot}: ${id == null ? "none" : `#${id}`}`).join(" • ") || "Selected item IDs unavailable";
+  document.querySelector("#verificationRankings").textContent = Object.entries(verification.rankedCandidatesBySlot || {})
+    .map(([slot, candidates]) => `${slot}: ${(candidates || []).map(candidate => `${candidate.name} (#${candidate.id ?? "unknown"}, score ${formatGearScore(candidate.score)})`).join(" > ") || "no eligible candidates"}`)
+    .join(" • ") || "Ranked candidate evidence unavailable";
+  const warningList = document.querySelector("#verificationWarnings");
+  warningList.replaceChildren();
+  if (!warnings.length) {
+    const item = document.createElement("li");
+    item.textContent = "No calculation warnings were recorded. Source accuracy and production behavior still require independent verification.";
+    warningList.appendChild(item);
+  } else {
+    warnings.forEach(warning => {
+      const item = document.createElement("li");
+      item.textContent = String(warning);
+      warningList.appendChild(item);
+    });
+  }
 }
 
 function formatGearScore(value) {
   return Number(value || 0).toLocaleString(undefined, { maximumFractionDigits: 2 });
 }
 
+function renderTextList(selector, values, emptyMessage) {
+  const list = document.querySelector(selector);
+  list.replaceChildren();
+  const items = Array.isArray(values) ? values : [];
+  const entries = items.length ? items : [emptyMessage];
+  entries.forEach(value => {
+    const item = document.createElement("li");
+    item.textContent = String(value ?? "");
+    list.appendChild(item);
+  });
+}
+
+function appendCoachListItem(list, fields) {
+  const item = document.createElement("li");
+  fields.forEach(field => {
+    if (field == null || field.value == null || field.value === "") return;
+    const element = document.createElement(field.tag || "span");
+    element.textContent = String(field.value);
+    item.appendChild(element);
+  });
+  list.appendChild(item);
+}
+
+function renderCoachStructuredList(selector, entries, emptyMessage, getFields) {
+  const list = document.querySelector(selector);
+  list.replaceChildren();
+  if (!Array.isArray(entries) || !entries.length) {
+    const empty = document.createElement("li");
+    empty.textContent = emptyMessage;
+    list.appendChild(empty);
+    return;
+  }
+  entries.forEach(entry => appendCoachListItem(list, getFields(entry)));
+}
+
 function renderUpgradeResults(upgrades = []) {
+  upgradeResults.replaceChildren();
   if (!upgrades.length) {
-    upgradeResults.innerHTML = '<div class="result-empty">No direct gear upgrades are available in the current dataset for the imported character.</div>';
+    const empty = document.createElement("div");
+    empty.className = "result-empty";
+    empty.textContent = "No direct gear upgrades are available in the current dataset for the imported character.";
+    upgradeResults.appendChild(empty);
     return;
   }
   const sourceLabel = "Goal/spec-weighted";
-  upgradeResults.innerHTML = upgrades.map(upgrade => `
-    <article class="upgrade-card">
-      <div class="upgrade-card-top">
-        <div>
-          <div class="upgrade-slot">${upgrade.slot}</div>
-          <h3>${upgrade.recommendedItem?.name || "Recommended upgrade"}</h3>
-        </div>
-        <div class="upgrade-badge">${sourceLabel}</div>
-      </div>
-      <div class="upgrade-comparison">
-        <div>
-          <span>Current</span>
-          <strong>${upgrade.currentItem?.name || "Empty slot"}</strong>
-          <small>Score ${formatGearScore(upgrade.currentScore)}</small>
-        </div>
-        <div class="upgrade-arrow">→</div>
-        <div>
-          <span>Recommended</span>
-          <strong>${upgrade.recommendedItem?.name || "Unknown item"}</strong>
-          <small>Score ${formatGearScore(upgrade.recommendedScore)}</small>
-        </div>
-      </div>
-      <div class="upgrade-improvement">+${formatGearScore(upgrade.improvement)} weighted score</div>
-    </article>
-  `).join("");
+  upgrades.forEach(upgrade => {
+    const card = document.createElement("article");
+    card.className = "upgrade-card";
+    const top = document.createElement("div");
+    top.className = "upgrade-card-top";
+    const heading = document.createElement("div");
+    const slot = document.createElement("div");
+    slot.className = "upgrade-slot";
+    slot.textContent = upgrade.slot || "Equipment";
+    const title = document.createElement("h3");
+    title.textContent = upgrade.recommendedItem?.name || "Recommended upgrade";
+    heading.append(slot, title);
+    const badge = document.createElement("div");
+    badge.className = "upgrade-badge";
+    badge.textContent = sourceLabel;
+    top.append(heading, badge);
+    card.appendChild(top);
+
+    const comparison = document.createElement("div");
+    comparison.className = "upgrade-comparison";
+    const current = document.createElement("div");
+    const currentLabel = document.createElement("span");
+    currentLabel.textContent = "Current";
+    const currentName = document.createElement("strong");
+    currentName.textContent = upgrade.currentItem?.name || "Empty slot";
+    const currentScore = document.createElement("small");
+    currentScore.textContent = `Score ${formatGearScore(upgrade.currentScore)}`;
+    current.append(currentLabel, currentName, currentScore);
+    const arrow = document.createElement("div");
+    arrow.className = "upgrade-arrow";
+    arrow.textContent = "→";
+    const recommended = document.createElement("div");
+    const recommendedLabel = document.createElement("span");
+    recommendedLabel.textContent = "Recommended";
+    const recommendedName = document.createElement("strong");
+    recommendedName.textContent = upgrade.recommendedItem?.name || "Unknown item";
+    const recommendedScore = document.createElement("small");
+    recommendedScore.textContent = `Score ${formatGearScore(upgrade.recommendedScore)}`;
+    recommended.append(recommendedLabel, recommendedName, recommendedScore);
+    comparison.append(current, arrow, recommended);
+    card.appendChild(comparison);
+
+    const improvement = document.createElement("div");
+    improvement.className = "upgrade-improvement";
+    improvement.textContent = `+${formatGearScore(upgrade.improvement)} weighted score`;
+    card.appendChild(improvement);
+    upgradeResults.appendChild(card);
+  });
 }
 function renderCharacterCoach(report, character) {
+  document.querySelector("#characterCoachPanel").hidden = false;
   const encounter = retailDataset?.encounters?.find(item =>
     String(item.id ?? item.name) === String(encounterSelect?.value || "")
   ) || null;
   const coach = WoWCharacterCoach.createCharacterCoach({ character, report, goal: goalSelect.value, encounter, dataset: retailDataset });
   document.querySelector("#coachTitle").textContent = `${coach.identity.name} • ${coach.identity.specialization || "Character"}`;
   document.querySelector("#coachHeadline").textContent = coach.summary.nextAction;
-  document.querySelector("#coachIdentity").innerHTML = `<strong>${coach.identity.name}</strong><span>${coach.identity.className} • ${coach.identity.specialization} • ${coach.identity.role}</span><small>${coach.identity.goal}</small>`;
+  const coachIdentity = document.querySelector("#coachIdentity");
+  coachIdentity.innerHTML = "";
+  const coachIdentityName = document.createElement("strong");
+  coachIdentityName.textContent = coach.identity.name || "Character";
+  const coachIdentityBuild = document.createElement("span");
+  coachIdentityBuild.textContent = [coach.identity.className, coach.identity.specialization, coach.identity.role].filter(Boolean).join(" • ");
+  const coachIdentityGoal = document.createElement("small");
+  coachIdentityGoal.textContent = coach.identity.goal || "";
+  coachIdentity.append(coachIdentityName, coachIdentityBuild, coachIdentityGoal);
   document.querySelector("#coachSummary").textContent = coach.summary.headline;
   document.querySelector("#coachContentLabel").textContent = coach.content.label;
   document.querySelector("#coachContentFocus").textContent = coach.content.focus;
-  document.querySelector("#coachContentPriorities").innerHTML = coach.content.priorities.map(item => `<li>${item}</li>`).join("");
+  renderTextList("#coachContentPriorities", coach.content.priorities, "No curated priorities are available.");
   document.querySelector("#coachContentDefensive").textContent = coach.content.defensive;
   document.querySelector("#coachContentCooldowns").textContent = coach.content.cooldowns;
-  document.querySelector("#coachContentMistakes").innerHTML = coach.content.mistakes.map(item => `<li>${item}</li>`).join("");
+  renderTextList("#coachContentMistakes", coach.content.mistakes, "No curated mistakes are available.");
   document.querySelector("#coachPrepFood").textContent = coach.preparation.food;
   document.querySelector("#coachPrepFlask").textContent = coach.preparation.flask;
   document.querySelector("#coachPrepPotions").textContent = coach.preparation.potions;
@@ -182,9 +476,11 @@ function renderCharacterCoach(report, character) {
   document.querySelector("#coachSituationNote").textContent = coach.situations.note;
   document.querySelector("#coachEncounterTitle").textContent = coach.encounter.title;
   document.querySelector("#coachEncounterSummary").textContent = coach.encounter.summary;
-  document.querySelector("#coachEncounterMechanics").innerHTML = coach.encounter.mechanics.length
-    ? coach.encounter.mechanics.map(item => `<li><strong>${item.name}</strong><span>${item.action}</span>${item.description ? `<small>${item.description}</small>` : ""}</li>`).join("")
-    : "<li>No encounter-specific mechanics are available for the current selection.";
+  renderCoachStructuredList("#coachEncounterMechanics", coach.encounter.mechanics, "No encounter-specific mechanics are available for the current selection.", item => [
+    { tag: "strong", value: item.name },
+    { tag: "span", value: item.action },
+    { tag: "small", value: item.description }
+  ]);
   document.querySelector("#coachBuildHeadline").textContent = coach.buildSynthesis.headline;
   document.querySelector("#coachBuildTalent").textContent = coach.buildSynthesis.talentLine;
   document.querySelector("#coachBuildStats").textContent = coach.buildSynthesis.statLine + " " + coach.buildSynthesis.statSnapshot;
@@ -197,48 +493,90 @@ function renderCharacterCoach(report, character) {
   document.querySelector("#coachSetRecommendation").textContent = coach.setCrafted.recommendation;
   document.querySelector("#coachSpecialTrinkets").textContent = coach.specialItems.trinketLine;
   document.querySelector("#coachSpecialWeapons").textContent = coach.specialItems.weaponLine;
-  document.querySelector("#coachSpecialRanked").innerHTML = coach.specialItems.ranked.length
-    ? coach.specialItems.ranked.map(item => `<li><strong>${item.slot}: ${item.name}</strong><span>+${formatGearScore(item.improvement)} weighted score</span></li>`).join("")
-    : "<li>No direct trinket or weapon upgrade is ranked.</li>";
+  renderCoachStructuredList("#coachSpecialRanked", coach.specialItems.ranked, "No direct trinket or weapon upgrade is ranked.", item => [
+    { tag: "strong", value: `${item.slot}: ${item.name}` },
+    { tag: "span", value: `+${formatGearScore(item.improvement)} weighted score` }
+  ]);
   document.querySelector("#coachSpecialNote").textContent = coach.specialItems.note;
   document.querySelector("#coachSpendNext").textContent = coach.spending.next;
-  document.querySelector("#coachSpendSteps").innerHTML = coach.spending.steps.length
-    ? coach.spending.steps.map(item => `<li><strong>${item.slot}: ${item.title}</strong><span>${item.status}</span><small>${item.resources} • ${item.weeklyFit}</small></li>`).join("")
-    : "<li>No immediate upgrade-spending action is identified.</li>";
+  renderCoachStructuredList("#coachSpendSteps", coach.spending.steps, "No immediate upgrade-spending action is identified.", item => [
+    { tag: "strong", value: `${item.slot}: ${item.title}` },
+    { tag: "span", value: item.status },
+    { tag: "small", value: `${item.resources} • ${item.weeklyFit}` }
+  ]);
   document.querySelector("#coachSpendRule").textContent = coach.spending.rule;
   document.querySelector("#coachNextAction").textContent = coach.summary.nextAction;
   document.querySelector("#coachStatsSource").textContent = coach.summary.statSource;
-  document.querySelector("#coachStrengths").innerHTML = coach.strengths.length ? coach.strengths.map(item => `<li>${item}</li>`).join("") : "<li>No specific strengths can be established from the current data.</li>";
-  document.querySelector("#coachAttention").innerHTML = coach.attention.length ? coach.attention.map(item => `<li>${item}</li>`).join("") : "<li>No immediate attention items were identified from the current data.</li>";
-  document.querySelector("#coachPriorities").innerHTML = coach.priorities.length ? coach.priorities.map(item => `<li><strong>${item.section} — ${item.slot}</strong><span>${item.title}</span><small>${item.explanation}</small></li>`).join("") : "<li><strong>No immediate gear action.</strong><span>Use the gameplay plan below and re-run the optimizer after your next gear change.</span></li>";
-  document.querySelector("#coachGearPlan").innerHTML = coach.gearPlan.length ? coach.gearPlan.map(item => `<li><strong>${item.slot}: ${item.title}</strong><span>Current: ${item.current}</span><small>${item.explanation}</small></li>`).join("") : "<li>No direct gear replacement is available in the current dataset.</li>";
-  document.querySelector("#coachUpgradePlan").innerHTML = coach.upgradePlan.length ? coach.upgradePlan.map(item => `<li><strong>${item.slot}: ${item.title}</strong><span>${item.status}</span><small>${item.resources} • ${item.weeklyFit}</small></li>`).join("") : "<li>No next-track upgrade is currently identified.</li>";
+  renderTextList("#coachStrengths", coach.strengths, "No specific strengths can be established from the current data.");
+  renderTextList("#coachAttention", coach.attention, "No immediate attention items were identified from the current data.");
+  renderCoachStructuredList("#coachPriorities", coach.priorities, "No immediate gear action. Use the gameplay plan below and re-run the optimizer after your next gear change.", item => [
+    { tag: "strong", value: `${item.section} — ${item.slot}` },
+    { tag: "span", value: item.title },
+    { tag: "small", value: item.explanation }
+  ]);
+  renderCoachStructuredList("#coachGearPlan", coach.gearPlan, "No direct gear replacement is available in the current dataset.", item => [
+    { tag: "strong", value: `${item.slot}: ${item.title}` },
+    { tag: "span", value: `Current: ${item.current}` },
+    { tag: "small", value: item.explanation }
+  ]);
+  renderCoachStructuredList("#coachUpgradePlan", coach.upgradePlan, "No next-track upgrade is currently identified.", item => [
+    { tag: "strong", value: `${item.slot}: ${item.title}` },
+    { tag: "span", value: item.status },
+    { tag: "small", value: `${item.resources} • ${item.weeklyFit}` }
+  ]);
   document.querySelector("#coachLoop").textContent = coach.gameplay.loop;
   document.querySelector("#coachTalentSummary").textContent = coach.gameplay.talentSummary;
-  document.querySelector("#coachTalentAdjustments").innerHTML = coach.gameplay.talentAdjustments.length ? coach.gameplay.talentAdjustments.map(item => `<li>${item}</li>`).join("") : "<li>No additional talent-specific adjustment is active.</li>";
+  renderTextList("#coachTalentAdjustments", coach.gameplay.talentAdjustments, "No additional talent-specific adjustment is active.");
   document.querySelector("#coachWhy").textContent = coach.gameplay.why;
   document.querySelector("#coachDefensive").textContent = coach.gameplay.defensive;
-  document.querySelector("#coachGameplay").innerHTML = coach.gameplay.beginnerPriority.length ? coach.gameplay.beginnerPriority.map(item => `<li>${item}</li>`).join("") : "<li>Detailed gameplay priorities are not yet curated for this specialization.</li>";
+  renderTextList("#coachGameplay", coach.gameplay.beginnerPriority, "Detailed gameplay priorities are not yet curated for this specialization.");
   document.querySelector("#coachCooldowns").textContent = coach.gameplay.cooldownGuidance;
-  document.querySelector("#coachMistakes").innerHTML = coach.gameplay.commonMistakes.length ? coach.gameplay.commonMistakes.map(item => `<li>${item}</li>`).join("") : "<li>No curated mistakes are available yet.</li>";
-  document.querySelector("#coachPreCombat").innerHTML = coach.gameplay.preCombat.length ? coach.gameplay.preCombat.map(item => `<li>${item}</li>`).join("") : "<li>No curated pre-combat checklist is available yet.</li>";
+  renderTextList("#coachMistakes", coach.gameplay.commonMistakes, "No curated mistakes are available yet.");
+  renderTextList("#coachPreCombat", coach.gameplay.preCombat, "No curated pre-combat checklist is available yet.");
 }
 
 function renderOptimizedLoadout(equipment = {}, score = 0) {
   const entries = Object.entries(equipment).filter(([, item]) => item);
+  loadoutResults.replaceChildren();
   if (!entries.length) {
-    loadoutResults.innerHTML = '<div class="result-empty">No optimized loadout is available from the current dataset.</div>';
+    const empty = document.createElement("div");
+    empty.className = "result-empty";
+    empty.textContent = "No optimized loadout is available from the current dataset.";
+    loadoutResults.appendChild(empty);
     return;
   }
   const sourceLabel = "Goal/spec-weighted";
-  loadoutResults.innerHTML = entries.map(([slot, item]) => `
-    <div class="loadout-row">
-      <div class="loadout-slot">${slot}</div>
-      <div class="loadout-item">${item.name || "Unnamed item"}</div>
-      <div class="loadout-ilvl">iLvl ${item.itemLevel ?? item.level ?? "—"}</div>
-    </div>
-  `).join("") + `<div class="loadout-summary"><strong>Optimized weighted score: ${formatGearScore(score)}</strong><span>${sourceLabel}</span></div>`;
+  entries.forEach(([slotName, item]) => {
+    const row = document.createElement("div");
+    row.className = "loadout-row";
+    const slot = document.createElement("div");
+    slot.className = "loadout-slot";
+    slot.textContent = slotName;
+    const name = document.createElement("div");
+    name.className = "loadout-item";
+    name.textContent = item.name || "Unnamed item";
+    const itemLevel = document.createElement("div");
+    itemLevel.className = "loadout-ilvl";
+    itemLevel.textContent = `iLvl ${item.itemLevel ?? item.level ?? "—"}`;
+    row.append(slot, name, itemLevel);
+    loadoutResults.appendChild(row);
+  });
+  const summary = document.createElement("div");
+  summary.className = "loadout-summary";
+  const total = document.createElement("strong");
+  total.textContent = `Optimized weighted score: ${formatGearScore(score)}`;
+  const source = document.createElement("span");
+  source.textContent = sourceLabel;
+  summary.append(total, source);
+  loadoutResults.appendChild(summary);
 }
+function clearOptimizationResults() {
+  upgradeResults.innerHTML = '<div class="result-empty">Run the optimizer after a successful character lookup.</div>';
+  loadoutResults.innerHTML = '<div class="result-empty">No optimized loadout has been calculated.</div>';
+  optimizationSource.textContent = "Optimization source will appear after the optimizer runs.";
+  document.querySelector("#characterCoachPanel").hidden = true;
+}
+
 function setSelectValue(select, value) {
   if (!value) return;
   const option = [...select.options].find(item => item.value === value || item.textContent === value);
@@ -247,6 +585,7 @@ function setSelectValue(select, value) {
 
 function applyLiveCharacter(character) {
   importedCharacter = character;
+  clearOptimizationResults();
   const profile = WoWOptimizer.createCharacterProfileFromImport({
     importedCharacter,
     goal: goalSelect.value
@@ -254,12 +593,17 @@ function applyLiveCharacter(character) {
   setSelectValue(classSelect, profile.className);
   classSelect.disabled = true;
   specSelect.disabled = false;
-  specSelect.innerHTML = `<option value="${profile.specialization}">${profile.specialization}</option>`;
+  specSelect.innerHTML = "";
+  const liveSpecOption = document.createElement("option");
+  liveSpecOption.value = String(profile.specialization);
+  liveSpecOption.textContent = String(profile.specialization);
+  specSelect.appendChild(liveSpecOption);
   specSelect.value = profile.specialization;
   importStatus.classList.remove("error");
   importStatus.textContent = WoWCharacterImport.formatImportedCharacterSummary(character) +
     " • Live Blizzard data retrieved " + new Date(character.fetchedAt || Date.now()).toLocaleTimeString();
   renderCharacterStats(profile.statistics);
+  renderCharacterDetails(character);
   renderSlots();
   resultMessage.textContent = "Live character data loaded. Run the optimizer to evaluate the current gear.";
 }
@@ -291,8 +635,11 @@ async function lookupCharacter() {
     importedCharacter = null;
     importStatus.classList.add("error");
     importStatus.textContent = error.message;
+    clearCharacterDetails();
     renderSlots();
     renderCharacterStats({});
+    clearOptimizationResults();
+    resultMessage.textContent = "Character lookup failed. Previous optimization results were cleared.";
   } finally {
     lookupCharacterBtn.disabled = false;
   }
@@ -327,6 +674,8 @@ goalSelect.addEventListener("change", () => {
 });
 
 document.querySelector("#optimizeBtn").addEventListener("click", () => {
+  resultMessage.textContent = "Optimizing character…";
+  try {
   if (!retailDataset) {
     resultMessage.textContent = "Current Retail data is still loading. Try again in a moment.";
     return;
@@ -359,6 +708,8 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
     dataset: retailDataset
   });
 
+  renderVerificationRecord(report.verification);
+
   renderCharacterStats(report.currentStats.trackedStats);
   optimizationSource.textContent = `Using native goal/spec weights • ${character.goal}`;
 
@@ -374,6 +725,16 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
   resultMessage.textContent = report.topUpgrades.length
     ? `${label} • ${character.goal} — ${report.topUpgrades.length} direct gear upgrades found and ranked by the active stat weights.`
     : `${label} • ${character.goal} — no direct gear upgrades are available in the current dataset.`;
+  } catch (error) {
+    clearOptimizationResults();
+    renderUpgradeResults([]);
+    renderOptimizedLoadout({});
+    renderCharacterStats({});
+    optimizationSource.textContent = "Optimization did not complete.";
+    const detail = error instanceof Error && error.message ? error.message : "Unexpected optimizer error.";
+    resultMessage.textContent = `Optimization failed: ${detail} Check the current Retail dataset and try again after the issue is fixed.`;
+    console.error("WoW Gear Optimizer failed to create an optimization report:", error);
+  }
 });
 
 document.querySelector("#clearBtn").addEventListener("click", () => {
@@ -389,9 +750,10 @@ document.querySelector("#clearBtn").addEventListener("click", () => {
   specSelect.disabled = true;
   specSelect.innerHTML = "<option>Select class first</option>";
   goalSelect.value = "Mythic+";
-  optimizationSource.textContent = "Optimization source will appear after the optimizer runs.";
+  clearOptimizationResults();
   renderUpgradeResults([]);
   renderOptimizedLoadout({});
+  clearCharacterDetails();
   resultMessage.textContent = "Look up a character or choose a class and specialization, then run the optimizer.";
   renderSlots();
 });

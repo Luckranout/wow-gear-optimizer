@@ -276,9 +276,14 @@ function resolveStatWeights({
   return merged;
 }
 
+function itemSupportsSlot(item, slot) {
+  return item?.slot === slot ||
+    (Array.isArray(item?.compatibleSlots) && item.compatibleSlots.includes(slot));
+}
+
 function findBestItemForSlot(items, slot, goal, statWeights = null) {
   const weights = statWeights || getGoalWeights(goal);
-  return (items || []).filter(item => item.slot === slot)
+  return (items || []).filter(item => itemSupportsSlot(item, slot))
     .map(item => ({ item, score: scoreItem(item, weights) }))
     .sort((a, b) => b.score - a.score)[0] || null;
 }
@@ -314,7 +319,7 @@ function findUpgradeOpportunities({
   for (const slot of WOW_EQUIPMENT_SLOTS) {
     const currentItem = currentEquipment[slot];
     const currentScore = scoreItem(currentItem, weights);
-    const candidates = availableItems.filter(item => item.slot === slot)
+    const candidates = availableItems.filter(item => itemSupportsSlot(item, slot))
       .map(item => ({ item, score: scoreItem(item, weights) }))
       .filter(candidate => candidate.score > currentScore)
       .sort((a, b) => b.score - a.score);
@@ -512,6 +517,51 @@ function createOptimizationReport({character = createCharacterProfile(), availab
       availableCrests: character.crestInventory || {}, weeklyUsed: character.weeklyCrestUsed || 0
     }) : null)
     .filter(Boolean);
+  const datasetItems = Array.isArray(dataset?.items) ? dataset.items : availableItems;
+  const candidateCountsBySlot = Object.fromEntries(WOW_EQUIPMENT_SLOTS.map(slot => [
+    slot, (availableItems || []).filter(item => itemSupportsSlot(item, slot)).length
+  ]));
+  const verificationWarnings = [];
+  if (!dataset) verificationWarnings.push("No dataset metadata was supplied; source freshness cannot be verified.");
+  if (dataset && (!dataset.updatedAt || !dataset.source || !dataset.status)) {
+    verificationWarnings.push("Dataset is missing source, update timestamp, or import status metadata.");
+  }
+  if (dataset?.status === "pending-live-import") {
+    verificationWarnings.push("Dataset import is pending; these results must not be treated as current.");
+  }
+  if (dataset?.updatedAt) {
+    const updatedAtMs = Date.parse(dataset.updatedAt);
+    if (!Number.isFinite(updatedAtMs)) {
+      verificationWarnings.push("Dataset update timestamp is invalid; freshness cannot be verified.");
+    } else {
+      const ageMs = Date.now() - updatedAtMs;
+      if (ageMs < -5 * 60 * 1000) {
+        verificationWarnings.push("Dataset timestamp is in the future; freshness metadata needs investigation.");
+      } else if (ageMs > 7 * 24 * 60 * 60 * 1000) {
+        verificationWarnings.push("Dataset is older than 7 days; refresh and validate it before treating results as current.");
+      }
+    }
+  }
+  if (dataset?.datasetWarnings?.length) verificationWarnings.push(...dataset.datasetWarnings);
+  if (!datasetItems.length) verificationWarnings.push("No eligible item records were available to calculate recommendations.");
+  for (const [slot, count] of Object.entries(candidateCountsBySlot)) {
+    if (count === 0) verificationWarnings.push(`No eligible candidate items are available for the ${slot} slot.`);
+  }
+  if (!simulationContext) verificationWarnings.push("This result uses heuristic static weights, not a SimulationCraft result.");
+  const datasetUpdatedAt = dataset?.updatedAt || null;
+  const datasetStatus = dataset?.status || "unknown";
+  const datasetSource = dataset?.source || null;
+  const dataScope = {
+    game: dataset?.game || "World of Warcraft",
+    mode: dataset?.mode || "Retail",
+    expansion: dataset?.expansion || null,
+    season: dataset?.season ?? null,
+    patch: dataset?.patch || null,
+    schemaVersion: dataset?.schemaVersion || null,
+    source: datasetSource,
+    updatedAt: datasetUpdatedAt,
+    status: datasetStatus
+  };
   return {
     character, goal, optimizedEquipment: optimized.equipment, totalScore: optimized.score,
     topUpgrades: upgrades, upgradePlans, currentStats: statSummary,
@@ -525,10 +575,37 @@ function createOptimizationReport({character = createCharacterProfile(), availab
     } : {
       source: "Goal/spec baseline",
       method: "static-weights",
-      patch: null,
+      patch: dataset?.patch || null,
       specialization: character.specialization || null,
       characterId: character.characterId ?? null,
       generatedAt: null
+    },
+    verification: {
+      status: verificationWarnings.length ? "warnings" : "calculated",
+      dataScope,
+      goal,
+      className: character.className || null,
+      specialization: character.specialization || null,
+      method: simulationContext ? simulationContext.method : "static-weights",
+      weightSource: simulationContext ? simulationContext.source : "built-in goal weights",
+      candidateCountsBySlot,
+      selectedItemIdsBySlot: Object.fromEntries(WOW_EQUIPMENT_SLOTS.map(slot => [
+        slot, optimized.equipment[slot]?.id ?? null
+      ])),
+      rankedCandidatesBySlot: Object.fromEntries(WOW_EQUIPMENT_SLOTS.map(slot => [
+        slot,
+        (availableItems || [])
+          .filter(item => itemSupportsSlot(item, slot))
+          .map(item => ({ id: item.id ?? null, name: item.name || "Unnamed item", score: scoreItem(item, statWeights) }))
+          .sort((a, b) => b.score - a.score)
+          .slice(0, 5)
+      ])),
+      warnings: verificationWarnings,
+      reproducibility: {
+        note: "Re-run with the same character input, dataset version, goal, and weight source to reproduce this calculation.",
+        datasetUpdatedAt,
+        simulationGeneratedAt: simulationContext?.generatedAt || null
+      }
     },
     equipmentSlots: WOW_EQUIPMENT_SLOTS.length, generatedAt: new Date().toISOString()
   };

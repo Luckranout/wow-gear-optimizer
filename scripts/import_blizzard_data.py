@@ -187,14 +187,91 @@ def normalize_name(value):
     return " ".join(str(value).replace("’", "'").split()).strip().lower()
 
 
+def normalize_inventory_slot(data):
+    """Map Blizzard inventory types to optimizer slots without guessing unknown types."""
+    inventory_type = data.get("inventory_type") or {}
+    inventory_name = normalize_name(localized_name(inventory_type.get("name")) if isinstance(inventory_type, dict) else inventory_type)
+    slot_map = {
+        "head": ("Head", ["Head"]),
+        "neck": ("Neck", ["Neck"]),
+        "shoulder": ("Shoulders", ["Shoulders"]),
+        "shoulders": ("Shoulders", ["Shoulders"]),
+        "cloak": ("Back", ["Back"]),
+        "back": ("Back", ["Back"]),
+        "chest": ("Chest", ["Chest"]),
+        "robe": ("Chest", ["Chest"]),
+        "wrist": ("Wrists", ["Wrists"]),
+        "wrists": ("Wrists", ["Wrists"]),
+        "hands": ("Hands", ["Hands"]),
+        "hand": ("Hands", ["Hands"]),
+        "waist": ("Waist", ["Waist"]),
+        "legs": ("Legs", ["Legs"]),
+        "feet": ("Feet", ["Feet"]),
+        "finger": ("Ring 1", ["Ring 1", "Ring 2"]),
+        "ring": ("Ring 1", ["Ring 1", "Ring 2"]),
+        "trinket": ("Trinket 1", ["Trinket 1", "Trinket 2"]),
+        "weapon": ("Main Hand", ["Main Hand"]),
+        "main hand": ("Main Hand", ["Main Hand"]),
+        "two-hand": ("Main Hand", ["Main Hand"]),
+        "two handed": ("Main Hand", ["Main Hand"]),
+        "2h weapon": ("Main Hand", ["Main Hand"]),
+        "off hand": ("Off Hand", ["Off Hand"]),
+        "held in off-hand": ("Off Hand", ["Off Hand"]),
+        "shield": ("Off Hand", ["Off Hand"]),
+        "holdable": ("Off Hand", ["Off Hand"]),
+    }
+    return slot_map.get(inventory_name, (None, []))
+
+
+OPTIMIZER_EQUIPMENT_SLOTS = {
+    "Head", "Neck", "Shoulders", "Back", "Chest", "Wrists", "Hands",
+    "Waist", "Legs", "Feet", "Ring 1", "Ring 2", "Trinket 1",
+    "Trinket 2", "Main Hand", "Off Hand",
+}
+
+
+def filter_optimizer_items(items):
+    """Keep only uniquely identified, named items mapped to supported gear slots.
+
+    Blizzard candidate pools can contain bags, tabards, and other non-slot items.
+    They are not optimizer gear and must not invalidate the entire published dataset.
+    Unknown inventory types are excluded rather than assigned a guessed slot.
+    """
+    filtered = []
+    seen_ids = set()
+    for item in items or []:
+        if not isinstance(item, dict):
+            continue
+        item_id = item.get("id")
+        slot = item.get("slot")
+        compatible_slots = item.get("compatibleSlots")
+        if item_id is None or not str(item.get("name") or "").strip():
+            continue
+        if slot not in OPTIMIZER_EQUIPMENT_SLOTS:
+            continue
+        if not isinstance(compatible_slots, list) or slot not in compatible_slots:
+            continue
+        if any(candidate not in OPTIMIZER_EQUIPMENT_SLOTS for candidate in compatible_slots):
+            continue
+        normalized_id = str(item_id)
+        if normalized_id in seen_ids:
+            continue
+        seen_ids.add(normalized_id)
+        filtered.append(item)
+    return filtered
+
+
 def normalize_item(data, source=None):
     quality = data.get("quality") or {}
     item_class = data.get("item_class") or {}
     item_subclass = data.get("item_subclass") or {}
     inventory_type = data.get("inventory_type") or {}
+    slot, compatible_slots = normalize_inventory_slot(data)
 
     return {
         "id": data.get("id"),
+        "slot": slot,
+        "compatibleSlots": compatible_slots,
         "name": localized_name(data.get("name")),
         "level": data.get("level"),
         "requiredLevel": data.get("required_level"),
@@ -498,6 +575,54 @@ def reference_id(value):
     return None
 
 
+def talent_tree_reference_parts(value):
+    """Extract tree and optional specialization IDs from Blizzard talent-tree references."""
+    if isinstance(value, int):
+        return value, None
+    if isinstance(value, dict):
+        candidates = (value.get("href"), (value.get("key") or {}).get("href"))
+        for candidate in candidates:
+            if not candidate:
+                continue
+            parts = str(candidate).split("?")[0].rstrip("/").split("/")
+            for index, part in enumerate(parts[:-1]):
+                if part != "talent-tree":
+                    continue
+                try:
+                    tree_id = int(parts[index + 1])
+                except (ValueError, IndexError):
+                    continue
+                spec_id = None
+                for spec_index, segment in enumerate(parts[:-1]):
+                    if segment == "playable-specialization":
+                        try:
+                            spec_id = int(parts[spec_index + 1])
+                        except (ValueError, IndexError):
+                            spec_id = None
+                        break
+                return tree_id, spec_id
+        value_id = value.get("id")
+        if isinstance(value_id, int):
+            return value_id, None
+    return None, None
+
+
+def talent_tree_reference_id(value):
+    """Extract the tree ID from a Blizzard talent-tree reference."""
+    return talent_tree_reference_parts(value)[0]
+
+
+def extract_talent_nodes(tree_data):
+    """Read talent nodes across Blizzard response field variants without inventing data."""
+    if not isinstance(tree_data, dict):
+        return []
+    for field in ("nodes", "talent_nodes", "class_talent_nodes", "spec_talent_nodes", "hero_talent_nodes"):
+        value = tree_data.get(field)
+        if isinstance(value, list) and value:
+            return value
+    return []
+
+
 def collect_talent_data(token):
     """Collect current Retail specialization, Hero Talent, and Apex talent data."""
     spec_index = get_api_json(
@@ -530,7 +655,7 @@ def collect_talent_data(token):
             continue
 
         spec_tree = spec.get("spec_talent_tree") or spec.get("talent_tree") or {}
-        spec_tree_id = reference_id(spec_tree)
+        spec_tree_id = talent_tree_reference_id(spec_tree)
 
         hero_refs = spec.get("hero_talent_trees") or spec.get("hero_talent_tree") or []
         if isinstance(hero_refs, dict):
@@ -538,7 +663,7 @@ def collect_talent_data(token):
 
         hero_records = []
         for hero_ref in hero_refs:
-            hero_id = reference_id(hero_ref)
+            hero_id = talent_tree_reference_id(hero_ref)
             if hero_id:
                 hero_records.append({
                     "id": hero_id,
@@ -565,14 +690,12 @@ def collect_talent_data(token):
         token,
         {"namespace": NAMESPACE, "locale": LOCALE},
     )
-    tree_refs = (
-        tree_index.get("spec_talent_trees")
-        or tree_index.get("hero_talent_trees")
-        or tree_index.get("class_talent_trees")
-        or tree_index.get("talent_trees")
-        or tree_index.get("trees")
-        or []
-    )
+    tree_ref_groups = [
+        ("specialization", tree_index.get("spec_talent_trees") or []),
+        ("hero", tree_index.get("hero_talent_trees") or []),
+        ("class", tree_index.get("class_talent_trees") or []),
+        ("specialization", tree_index.get("talent_trees") or tree_index.get("trees") or []),
+    ]
 
     tree_records = []
     seen_tree_keys = set()
@@ -586,18 +709,14 @@ def collect_talent_data(token):
         seen_tree_keys.add(key)
 
         try:
-            if tree_type == "specialization" and spec_id:
-                tree = get_api_json(
-                    f"/data/wow/talent-tree/{tree_id}/playable-specialization/{spec_id}",
-                    token,
-                    {"namespace": NAMESPACE, "locale": LOCALE},
-                )
-            else:
-                tree = get_api_json(
-                    f"/data/wow/talent-tree/{tree_id}",
-                    token,
-                    {"namespace": NAMESPACE, "locale": LOCALE},
-                )
+            # Fetch the canonical tree resource. The specialization-scoped route
+            # can return 404 even for valid references; the canonical tree route
+            # exposes nodes and specialization links for the tree ID.
+            tree = get_api_json(
+                f"/data/wow/talent-tree/{tree_id}",
+                token,
+                {"namespace": NAMESPACE, "locale": LOCALE},
+            )
         except urllib.error.HTTPError as error:
             print(
                 f"Talent tree {tree_id} ({tree_type}, spec {spec_id}) "
@@ -617,27 +736,34 @@ def collect_talent_data(token):
     for record in talent_records:
         add_tree(record["specTalentTreeId"], "specialization", record["id"])
         for hero in record["heroTalentTrees"]:
-            add_tree(hero["id"], "hero")
+            add_tree(hero["id"], "hero", record["id"])
 
-    for tree_ref in tree_refs:
-        tree_id = reference_id(tree_ref)
-        if not tree_id:
-            continue
-        linked_specs = (
-            tree_ref.get("playable_specializations")
-            or tree_ref.get("specializations")
-            or []
-        ) if isinstance(tree_ref, dict) else []
-        for spec_ref in linked_specs:
-            linked_spec_id = reference_id(spec_ref)
+    for tree_type, tree_refs in tree_ref_groups:
+        for tree_ref in tree_refs:
+            tree_id, linked_spec_id = talent_tree_reference_parts(tree_ref)
+            if not tree_id:
+                continue
+            if tree_type == "class":
+                add_tree(tree_id, "class")
+                continue
             if linked_spec_id in spec_ids:
-                add_tree(tree_id, "specialization", linked_spec_id)
+                add_tree(tree_id, tree_type, linked_spec_id)
+                continue
+            linked_specs = (
+                tree_ref.get("playable_specializations")
+                or tree_ref.get("specializations")
+                or []
+            ) if isinstance(tree_ref, dict) else []
+            for spec_ref in linked_specs:
+                fallback_spec_id = reference_id(spec_ref)
+                if fallback_spec_id in spec_ids:
+                    add_tree(tree_id, tree_type, fallback_spec_id)
 
     node_count = 0
     apex_count = 0
     for tree in tree_records:
         data = tree.get("data") or {}
-        nodes = data.get("nodes") or []
+        nodes = extract_talent_nodes(data)
         node_count += len(nodes)
         for node in nodes:
             if "apex" in json.dumps(node, ensure_ascii=False).lower():
@@ -648,6 +774,15 @@ def collect_talent_data(token):
         f"{len(tree_records)} talent trees, {node_count} nodes, "
         f"{apex_count} nodes referencing Apex data."
     )
+
+    if not talent_records:
+        raise RuntimeError(
+            "Blizzard returned no usable Retail specializations; refusing to publish incomplete talent data."
+        )
+    if not tree_records or node_count == 0:
+        raise RuntimeError(
+            "Blizzard returned no usable Retail talent trees or nodes; refusing to publish incomplete talent data."
+        )
 
     return {
         "specializations": talent_records,
@@ -1136,10 +1271,21 @@ def fetch_item_details(token, item_ids, item_sources):
         if not data.get("is_equippable"):
             continue
 
+        slot, compatible_slots = normalize_inventory_slot(data)
+        if not slot:
+            inventory_type = localized_name((data.get("inventory_type") or {}).get("name"))
+            print(
+                f"Skipping equippable item {item_id} with unsupported inventory type "
+                f"{inventory_type!r}; it cannot be safely assigned to an optimizer slot."
+            )
+            continue
+
         item = normalize_item(
             data,
             source="Blizzard Game Data API — Season 2+ content source",
         )
+        item["slot"] = slot
+        item["compatibleSlots"] = compatible_slots
         item["seasonScope"] = SEASON_SCOPE
         item["sourceLocations"] = item_sources.get(item_id, [])
         items.append(item)
@@ -1359,6 +1505,9 @@ def main():
     )
 
     items = fetch_item_details(token, item_sources.keys(), item_sources)
+    candidate_count_before_slot_filter = len(items)
+    items = filter_optimizer_items(items)
+    print(f"Filtered optimizer gear candidates: {len(items)} of {candidate_count_before_slot_filter} have valid unique equipment slots.")
 
     items.sort(
         key=lambda item: (item.get("level") or 0, item.get("id") or 0),

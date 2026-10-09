@@ -3,6 +3,7 @@ const TOKEN_URL = "https://oauth.battle.net/token";
 const PROFILE_NAMESPACE = "profile-us";
 const DYNAMIC_NAMESPACE = "dynamic-us";
 const LOCALE = "en_US";
+const REQUEST_TIMEOUT_MS = 12000;
 
 let cachedToken = null;
 let cachedRealms = null;
@@ -34,10 +35,21 @@ function normalizeEquippedItem(item) {
     slotType: slot.type || null,
     itemLevel: item.level ?? null,
     quality: { id: resourceId(quality), name: normalizeName(quality.name || quality) },
-    stats: item.stats || [],
-    enchantments: item.enchantments || [],
-    sockets: item.sockets || [],
-    gems: item.gems || [],
+    stats: Array.isArray(item.stats) ? item.stats.map(stat => ({
+      type: normalizeName(stat.type || stat.stat),
+      value: stat.value ?? null
+    })).filter(stat => stat.type || stat.value != null) : [],
+    enchantments: Array.isArray(item.enchantments) ? item.enchantments.map(enchantment => ({
+      id: resourceId(enchantment),
+      name: normalizeName(enchantment.name || enchantment.enchantment?.name),
+      displayString: normalizeName(enchantment.display_string || enchantment.displayString)
+    })).filter(enchantment => enchantment.id != null || enchantment.name || enchantment.displayString) : [],
+    sockets: Array.isArray(item.sockets) ? item.sockets : [],
+    gems: Array.isArray(item.gems) ? item.gems.map(gem => ({
+      id: resourceId(gem.item || gem),
+      name: normalizeName(gem.name || gem.item?.name),
+      raw: gem
+    })).filter(gem => gem.id != null || gem.name) : [],
     spells: item.spells || [],
     set: item.set || null,
     context: item.context ?? null,
@@ -53,14 +65,47 @@ function normalizeCharacterTalents(specializations) {
     : Array.isArray(specializations)
       ? specializations
       : [];
-  const active = entries.find(entry => entry.active) || entries[0] || {};
-  const talents = Array.isArray(active.talents) ? active.talents : [];
-  return talents.map(talent => ({
-    id: resourceId(talent.id || talent.talent),
-    name: normalizeName(talent.name || talent.talent?.name),
-    rank: Number(talent.rank ?? talent.points ?? 0),
-    raw: talent
-  })).filter(talent => talent.id != null || talent.name);
+  const activeSpecialization = specializations.active_specialization || {};
+  const activeSpecializationId = resourceId(activeSpecialization);
+  const activeSpecializationName = normalizeName(activeSpecialization.name);
+  const active = entries.find(entry => {
+      const specialization = entry.specialization || {};
+      const idMatches = activeSpecializationId != null && resourceId(specialization) === activeSpecializationId;
+      const nameMatches = activeSpecializationName && normalizeName(specialization.name || specialization) === activeSpecializationName;
+      return idMatches || nameMatches;
+    }) ||
+    entries.find(entry => entry.active) ||
+    entries[0] ||
+    {};
+  const activeLoadout = Array.isArray(active.loadouts)
+    ? (active.loadouts.find(loadout => loadout.is_active) || active.loadouts[0] || {})
+    : {};
+  const loadoutGroups = [
+    ["Class", activeLoadout.selected_class_talents],
+    ["Spec", activeLoadout.selected_spec_talents],
+    ["Hero", activeLoadout.selected_hero_talents]
+  ];
+  const selected = loadoutGroups.flatMap(([source, talents]) =>
+    (Array.isArray(talents) ? talents : []).map(talent => ({
+      source,
+      id: resourceId(talent.id || talent.tooltip?.talent),
+      name: normalizeName(talent.name || talent.tooltip?.talent?.name),
+      rank: Number(talent.rank ?? talent.points ?? 0),
+      raw: talent
+    }))
+  );
+  const legacy = Array.isArray(active.talents)
+    ? active.talents.map(talent => ({
+        source: "Legacy",
+        id: resourceId(talent.id || talent.talent),
+        name: normalizeName(talent.name || talent.talent?.name),
+        rank: Number(talent.rank ?? talent.points ?? 0),
+        raw: talent
+      }))
+    : [];
+  const normalizedSelected = selected.filter(talent => talent.id != null || talent.name);
+  if (normalizedSelected.length) return normalizedSelected;
+  return legacy.filter(talent => talent.id != null || talent.name);
 }
 
 function normalizeStatistics(statistics) {
@@ -73,6 +118,8 @@ function normalizeCharacter(profile, equipment, statistics, specializations) {
   const characterClass = profile.character_class || {};
   const race = profile.race || {};
   const realm = profile.realm || {};
+  const faction = profile.faction || {};
+  const guild = profile.guild || {};
   const items = (equipment.equipped_items || []).map(normalizeEquippedItem).filter(item => item.id != null);
   return {
     id: profile.id ?? null,
@@ -82,6 +129,11 @@ function normalizeCharacter(profile, equipment, statistics, specializations) {
     class: { id: resourceId(characterClass), name: normalizeName(characterClass.name) },
     race: { id: resourceId(race), name: normalizeName(race.name) },
     activeSpec: { id: resourceId(activeSpec), name: normalizeName(activeSpec.name) },
+    faction: normalizeName(faction.name || faction),
+    guild: normalizeName(guild.name || guild),
+    achievementPoints: profile.achievement_points ?? null,
+    averageItemLevel: profile.average_item_level ?? null,
+    equippedItemLevel: profile.equipped_item_level ?? null,
     statistics: normalizeStatistics(statistics),
     talents: normalizeCharacterTalents(specializations),
     equipment: items,
@@ -89,6 +141,20 @@ function normalizeCharacter(profile, equipment, statistics, specializations) {
     fetchedAt: new Date().toISOString(),
     source: "Blizzard WoW Profile API"
   };
+}
+
+async function fetchWithTimeout(url, options = {}, timeoutMs = REQUEST_TIMEOUT_MS) {
+  try {
+    return await fetch(url, { ...options, signal: AbortSignal.timeout(timeoutMs) });
+  } catch (cause) {
+    if (cause?.name === "TimeoutError" || cause?.name === "AbortError") {
+      const error = new Error("Blizzard request timed out.");
+      error.statusCode = 502;
+      error.publicMessage = "Blizzard character service is temporarily unavailable.";
+      throw error;
+    }
+    throw cause;
+  }
 }
 
 async function getAccessToken(clientId, clientSecret) {
@@ -101,7 +167,7 @@ async function getAccessToken(clientId, clientSecret) {
   if (cachedToken && cachedToken.expiresAt > Date.now() + 60000) return cachedToken.value;
 
   const basic = Buffer.from(`${clientId}:${clientSecret}`).toString("base64");
-  const response = await fetch(TOKEN_URL, {
+  const response = await fetchWithTimeout(TOKEN_URL, {
     method: "POST",
     headers: {
       Authorization: `Basic ${basic}`,
@@ -120,17 +186,27 @@ async function getAccessToken(clientId, clientSecret) {
   return cachedToken.value;
 }
 
-async function requestJson(url, token) {
-  const response = await fetch(url, { headers: { Authorization: `Bearer ${token}`, Accept: "application/json" } });
-  if (!response.ok) {
-    const error = new Error(`Blizzard profile request failed with HTTP ${response.status}.`);
-    error.statusCode = response.status === 404 ? 404 : 502;
-    error.publicMessage = response.status === 404
-      ? "Character not found. Check the character name and realm."
-      : "Blizzard character service is temporarily unavailable.";
-    throw error;
+async function requestJson(url, token, timeoutMs = REQUEST_TIMEOUT_MS) {
+  try {
+    const response = await fetchWithTimeout(url, { headers: { Authorization: `Bearer ${token}`, Accept: "application/json" } }, timeoutMs);
+    if (!response.ok) {
+      const error = new Error(`Blizzard profile request failed with HTTP ${response.status}.`);
+      error.statusCode = response.status === 404 ? 404 : 502;
+      error.publicMessage = response.status === 404
+        ? "Character not found. Check the character name and realm."
+        : "Blizzard character service is temporarily unavailable.";
+      throw error;
+    }
+    return await response.json();
+  } catch (cause) {
+    if (cause?.name === "TimeoutError" || cause?.name === "AbortError") {
+      const error = new Error("Blizzard request timed out.");
+      error.statusCode = 502;
+      error.publicMessage = "Blizzard character service is temporarily unavailable.";
+      throw error;
+    }
+    throw cause;
   }
-  return response.json();
 }
 
 async function fetchRealms({ clientId, clientSecret }) {
@@ -173,4 +249,4 @@ async function fetchCharacter({ realm, character, clientId, clientSecret }) {
   return normalizeCharacter(profile, equipped, stats, specializationData);
 }
 
-module.exports = { slugify, normalizeEquippedItem, normalizeStatistics, normalizeCharacterTalents, normalizeCharacter, fetchCharacter, fetchRealms };
+module.exports = { slugify, normalizeEquippedItem, normalizeStatistics, normalizeCharacterTalents, normalizeCharacter, fetchCharacter, fetchRealms, requestJson };

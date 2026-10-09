@@ -16,6 +16,7 @@ on:
     paths:
       - "optimizer.js"
       - "wow-data.js"
+      - "data/current-retail.json"
       - "scripts/**"
       - "tests/**"
       - "simulation-import.js"
@@ -33,6 +34,7 @@ on:
     paths:
       - "optimizer.js"
       - "wow-data.js"
+      - "data/current-retail.json"
       - "scripts/**"
       - "tests/**"
       - "simulation-import.js"
@@ -57,12 +59,20 @@ jobs:
           node-version: "22"
       - name: Run upgrade optimizer tests
         run: node tests/optimizer-upgrades.test.js
+      - name: Run Retail dataset loader regression tests
+        run: node tests/wow-data-loader.test.js
       - name: Run character import UI tests
         run: node tests/character-import-ui.test.js
       - name: Run character importer tests
         run: python -m unittest tests/test_character_import.py
       - name: Run seasonal importer policy tests
         run: python -m unittest tests/test_season_import_policy.py
+      - name: Run Retail inventory slot mapping tests
+        run: python -m unittest tests/test_retail_slot_mapping.py
+      - name: Run talent tree import regression tests
+        run: python -m unittest tests/test_talent_tree_import.py
+      - name: Run published Retail dataset integrity tests
+        run: python -m unittest tests/test_retail_dataset_integrity.py
 
       - name: Run simulation import tests
         run: node tests/simulation-import.test.js
@@ -81,6 +91,8 @@ jobs:
         run: node tests/complete-loadout-ui.test.js
       - name: Run live character lookup tests
         run: node tests/live-character-lookup.test.js
+      - name: Run API request guard tests
+        run: node tests/api-request-guards.test.js
       - name: Run live character lookup UI tests
         run: node tests/live-character-lookup-ui.test.js
       - name: Run personal action plan tests
