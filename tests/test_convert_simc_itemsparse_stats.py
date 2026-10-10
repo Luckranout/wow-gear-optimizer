@@ -26,6 +26,8 @@ class ItemSparseStatConversionTests(unittest.TestCase):
         self.assertEqual(item["stats"], {"strength": 27, "criticalStrike": 18})
         self.assertEqual(item["unmappedStatPairs"], [{"statTypeId": 999, "value": 50}])
         self.assertFalse(item["fullyMapped"])
+        report = MODULE.convert_records([{"id": 1, "stat_type_1": 999, "stat_alloc_1": 5}])
+        self.assertEqual(report["unmappedStatIdPairCounts"], {"999": 1})
 
     def test_no_stats_are_invented_from_item_level(self):
         item = MODULE.convert_record({"id": 1, "item_level": 999})
