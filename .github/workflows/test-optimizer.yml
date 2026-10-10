@@ -27,12 +27,12 @@ on:
       - "character-import.js"
       - "README.md"
       - "vercel.json"
-      - ".github/workflows/import-wow-data.yml"
-      - ".github/workflows/test-optimizer.yml"
       - ".github/workflows/import-character.yml"
       - ".github/workflows/import-wow-data.yml"
   pull_request:
     paths:
+      - ".github/workflows/import-wow-data.yml"
+      - ".github/workflows/test-optimizer.yml"
       - "optimizer.js"
       - "wow-data.js"
       - "scripts/**"
