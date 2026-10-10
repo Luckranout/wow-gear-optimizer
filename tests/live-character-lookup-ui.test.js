@@ -31,11 +31,14 @@ console.log("Live character lookup UI contract passed.");
 // Regression coverage includes default-field focus behavior.
 
 
-if (!index.includes('window.WOW_API_BASE_URL = "https://wow-gear-optimizer-nwj9.vercel.app"')) throw new Error("GitHub Pages must point at the production API.");
+if (!index.includes('window.WOW_API_BASE_URL = window.location.hostname === "luckranout.github.io" ? "https://wow-gear-optimizer-nwj9.vercel.app" : "";')) throw new Error("GitHub Pages must use the separate API while same-origin deployments use their own API.");
 const realmsApi = fs.readFileSync("api/realms.js", "utf8");
 const characterApi = fs.readFileSync("api/character.js", "utf8");
-if (!realmsApi.includes("Access-Control-Allow-Origin")) throw new Error("Realm API must allow the GitHub Pages origin.");
-if (!characterApi.includes("Access-Control-Allow-Origin")) throw new Error("Character API must allow the GitHub Pages origin.");
+const cors = fs.readFileSync("api/cors.js", "utf8");
+if (!realmsApi.includes("setCorsHeaders")) throw new Error("Realm API must use the shared CORS helper.");
+if (!characterApi.includes("setCorsHeaders")) throw new Error("Character API must use the shared CORS helper.");
+if (!cors.includes('"https://luckranout.github.io"')) throw new Error("Shared CORS helper must allow the GitHub Pages origin.");
+if (!cors.includes('"https://wow-gear-optimizer.vercel.app"')) throw new Error("Shared CORS helper must allow the production Vercel origin.");
 
 if (!app.includes('const placeholder = `<option value="">${DEFAULT_REALM_NAME}</option>`;')) throw new Error("Realm placeholder must remain an empty-value option.");
 if (!app.includes('.filter(realm => realm && realm.name)')) throw new Error("Realm loader must retain valid named Blizzard realms.");
