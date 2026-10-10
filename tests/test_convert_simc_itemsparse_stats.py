@@ -65,6 +65,27 @@ class ItemSparseStatConversionTests(unittest.TestCase):
         )
         self.assertFalse(item["fullyMapped"])
 
+    def test_known_legacy_ids_are_classified_but_not_scored(self):
+        item = MODULE.convert_record({
+            "id": 5,
+            "stat_type_1": 6, "stat_alloc_1": 2,
+            "stat_type_2": 20, "stat_alloc_2": 3,
+            "stat_type_3": 38, "stat_alloc_3": 4,
+            "stat_type_4": 39, "stat_alloc_4": 5,
+            "stat_type_5": 41, "stat_alloc_5": 6,
+            "stat_type_6": 45, "stat_alloc_6": 7,
+            "stat_type_7": 46, "stat_alloc_7": 8,
+            "stat_type_8": 50, "stat_alloc_8": 9,
+            "stat_type_9": 56, "stat_alloc_9": 10,
+            "stat_type_10": 64, "stat_alloc_10": 1,
+        })
+        self.assertEqual(item["stats"], {})
+        self.assertEqual(
+            {pair["statTypeId"] for pair in item["contextDependentStatPairs"]},
+            {6, 20, 38, 39, 41, 45, 46, 50, 56, 64},
+        )
+        self.assertFalse(item["fullyMapped"])
+
     def test_no_stats_are_invented_from_item_level(self):
         item = MODULE.convert_record({"id": 1, "item_level": 999})
         self.assertEqual(item["stats"], {})
