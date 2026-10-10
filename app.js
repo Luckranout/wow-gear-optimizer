@@ -224,22 +224,33 @@ function renderCharacterCoach(report, character) {
   document.querySelector("#coachPreCombat").innerHTML = coach.gameplay.preCombat.length ? coach.gameplay.preCombat.map(item => `<li>${item}</li>`).join("") : "<li>No curated pre-combat checklist is available yet.</li>";
 }
 
-function renderOptimizedLoadout(equipment = {}, score = 0) {
-  // Render from the canonical slot list, not arbitrary object keys. This keeps
-  // the visible loadout to one row per supported slot in a stable order.
-  const entries = slots.map(slot => [slot, equipment[slot] || null]).filter(([, item]) => item);
-  if (!entries.length) {
-    loadoutResults.innerHTML = '<div class="result-empty">No optimized loadout is available from the current dataset.</div>';
-    return;
-  }
-  const sourceLabel = "Goal/spec-weighted";
-  loadoutResults.innerHTML = entries.map(([slot, item]) => `
-    <div class="loadout-row" data-equipment-slot="${slot}">
-      <div class="loadout-slot">${slot}</div>
-      <div class="loadout-item">${item.name || "Unnamed item"}</div>
-      <div class="loadout-ilvl">iLvl ${item.itemLevel ?? item.level ?? "—"}</div>
-    </div>
-  `).join("") + `<div class="loadout-summary"><strong>Optimized weighted score: ${formatGearScore(score)}</strong><span>${sourceLabel}</span></div>`;
+function renderOptimizedLoadout(equipment = {}, score = 0, currentEquipment = {}) {
+  // This panel is a target recommendation, not a copy of the character's current gear.
+  // Render every supported slot exactly once and explicitly flag missing candidates.
+  const entries = slots.map(slot => [slot, equipment[slot] || null, currentEquipment[slot] || null]);
+  const sourceLabel = "Recommended target • goal/spec-weighted catalog scoring";
+  loadoutResults.innerHTML = entries.map(([slot, item, current]) => {
+    if (!item) return `
+      <div class="loadout-row" data-equipment-slot="${slot}">
+        <div class="loadout-slot">${slot}</div>
+        <div class="loadout-item">No verified candidate available</div>
+        <div class="loadout-ilvl">Current: ${current?.name || "Empty slot"}</div>
+      </div>
+    `;
+    const sameItem = current && (
+      (item.id != null && current.id != null && String(item.id) === String(current.id)) ||
+      (item.name && current.name && item.name.trim().toLowerCase() === current.name.trim().toLowerCase())
+    );
+    return `
+      <div class="loadout-row" data-equipment-slot="${slot}">
+        <div class="loadout-slot">${slot}</div>
+        <div class="loadout-item">${item.name || "Unnamed item"}</div>
+        <div class="loadout-ilvl">Target iLvl ${item.itemLevel ?? item.level ?? "—"}</div>
+        <div class="loadout-status">${sameItem ? "Already equipped • keep this item" : "Target gear • aim to obtain/equip"}</div>
+        <div class="loadout-current">Currently equipped: ${current?.name || "Empty slot"}</div>
+      </div>
+    `;
+  }).join("") + `<div class="loadout-summary"><strong>Recommended target score: ${formatGearScore(score)}</strong><span>${sourceLabel}. Recommendations are limited to items and stat data currently available in the catalog.</span></div>`;
 }
 function setSelectValue(select, value) {
   if (!value) return;
@@ -365,7 +376,7 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
   optimizationSource.textContent = `Using native goal/spec weights • ${character.goal}`;
 
   renderUpgradeResults(report.topUpgrades);
-  renderOptimizedLoadout(report.optimizedEquipment, report.totalScore);
+  renderOptimizedLoadout(report.optimizedEquipment, report.totalScore, WoWOptimizer.normalizeImportedEquipment(importedCharacter?.equipment || []));
   renderCharacterCoach(report, character);
   const resultPlaceholder = document.querySelector("#resultPlaceholder");
   if (resultPlaceholder) resultPlaceholder.style.display = "none";
