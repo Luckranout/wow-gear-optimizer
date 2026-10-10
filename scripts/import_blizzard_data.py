@@ -1372,6 +1372,85 @@ def build_item_stat_coverage(items):
     }
 
 
+
+def _has_explicit_effect_metadata(record):
+    """Return true only when a source record contains structured effect fields.
+
+    This is a metadata-presence check, not proof that an effect is complete or
+    numerically simulatable. Text descriptions alone are not treated as data.
+    """
+    if not isinstance(record, dict):
+        return False
+
+    item = record.get("item") if isinstance(record.get("item"), dict) else record
+    stats = item.get("stats")
+    has_stats = (
+        any(
+            isinstance(entry, dict)
+            and isinstance(entry.get("value"), (int, float))
+            and not isinstance(entry.get("value"), bool)
+            and entry.get("value") != 0
+            for entry in stats
+        )
+        if isinstance(stats, list)
+        else (
+            any(
+                isinstance(value, (int, float))
+                and not isinstance(value, bool)
+                and value != 0
+                for value in stats.values()
+            )
+            if isinstance(stats, dict)
+            else False
+        )
+    )
+    spells = item.get("spells")
+    has_spells = isinstance(spells, list) and len(spells) > 0
+    has_explicit_effect = any(
+        key in record or key in item
+        for key in ("effect", "effectValue", "statModifiers", "bonusStats")
+    )
+    return has_stats or has_spells or has_explicit_effect
+
+
+def build_enhancement_effect_coverage(gems, enchants, crafted_gear, other_outputs):
+    """Measure structured effect-metadata presence, not effect completeness."""
+    categories = {
+        "gems": gems or [],
+        "enchants": enchants or [],
+        "craftedGear": crafted_gear or [],
+        "otherCraftedOutputs": other_outputs or [],
+    }
+    result = {}
+    total = 0
+    with_metadata = 0
+    for name, records in categories.items():
+        count = len(records)
+        covered = sum(1 for record in records if _has_explicit_effect_metadata(record))
+        total += count
+        with_metadata += covered
+        result[name] = {
+            "candidateCount": count,
+            "recordsWithStructuredEffectMetadata": covered,
+            "recordsMissingStructuredEffectMetadata": count - covered,
+            "structuredEffectMetadataPresencePercent": round(covered / count * 100, 2) if count else 0.0,
+        }
+
+    result["total"] = {
+        "candidateCount": total,
+        "recordsWithStructuredEffectMetadata": with_metadata,
+        "recordsMissingStructuredEffectMetadata": total - with_metadata,
+        "structuredEffectMetadataPresencePercent": round(with_metadata / total * 100, 2) if total else 0.0,
+    }
+    result["metricType"] = "structured-effect-metadata-presence-not-completeness"
+    result["policy"] = (
+        "Presence of source stats, spell records, or explicit structured effect fields only. "
+        "This does not prove the effect is complete, correctly quantified, active in the current patch, "
+        "or supported by the projection engine. Descriptions and recipe reagents alone do not qualify."
+    )
+    return result
+
+
 def main():
     client_id = os.environ.get("BLIZZARD_CLIENT_ID")
     client_secret = os.environ.get("BLIZZARD_CLIENT_SECRET")
@@ -1416,6 +1495,16 @@ def main():
     )
 
     stat_coverage = build_item_stat_coverage(items)
+    enhancement_effect_coverage = build_enhancement_effect_coverage(
+        gems, enchants, crafted_gear, other_crafted_items
+    )
+    print(
+        "Enhancement effect metadata presence: "
+        f"{enhancement_effect_coverage['total']['recordsWithStructuredEffectMetadata']}/"
+        f"{enhancement_effect_coverage['total']['candidateCount']} "
+        f"({enhancement_effect_coverage['total']['structuredEffectMetadataPresencePercent']}%) "
+        "have structured effect metadata; this is not completeness coverage."
+    )
     print(
         "Item stat coverage: "
         f"{stat_coverage['itemsWithVerifiedStats']}/{stat_coverage['candidateItemCount']} "
@@ -1462,6 +1551,7 @@ def main():
         "gearItemCount": len(items),
         "candidateItemCount": len(item_sources),
         "itemStatCoverage": stat_coverage,
+        "enhancementEffectCoverage": enhancement_effect_coverage,
         "pveCandidateItemCount": len(pve_sources),
         "pvpCandidateItemCount": len(pvp_sources),
         "matchedPvEInstances": matched_instances,
