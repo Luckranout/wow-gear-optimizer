@@ -373,7 +373,7 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
   });
 
   renderCharacterStats(report.currentStats.trackedStats);
-  optimizationSource.textContent = report.optimizationContext.source === "SimulationCraft"
+  optimizationSource.textContent = report.recommendationStatus === "simulation-weighted-ranking-not-full-stat-projection"
     ? `Simulation-derived stat weights • ${character.goal} • not a full stat projection`
     : `Static heuristic ranking • ${character.goal} • not spec-specific simulation`;
 
