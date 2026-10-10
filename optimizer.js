@@ -295,6 +295,41 @@ function optimizeEquipment({
     const best = findBestItemForSlot(items, slot, goal, weights);
     optimizedEquipment[slot] = best ? best.item : null;
   }
+
+  // A physical item cannot fill both copies of a slot. Choose the best-scoring
+  // distinct pair when the catalog has alternatives; keep the best single item
+  // only when no second distinct item exists.
+  for (const [firstSlot, secondSlot] of [["Ring 1", "Ring 2"], ["Trinket 1", "Trinket 2"], ["Main Hand", "Off Hand"]]) {
+    const first = (items || []).filter(item => item.slot === firstSlot)
+      .map(item => ({ item, score: scoreItem(item, weights) }))
+      .sort((a, b) => b.score - a.score);
+    const second = (items || []).filter(item => item.slot === secondSlot)
+      .map(item => ({ item, score: scoreItem(item, weights) }))
+      .sort((a, b) => b.score - a.score);
+    let bestPair = null;
+    for (const a of first) {
+      for (const b of second) {
+        const sameId = a.item.id != null && b.item.id != null && String(a.item.id) === String(b.item.id);
+        const sameName = a.item.id == null && b.item.id == null && a.item.name && b.item.name && a.item.name === b.item.name;
+        if (sameId || sameName) continue;
+        const combinedScore = a.score + b.score;
+        if (!bestPair || combinedScore > bestPair.combinedScore) bestPair = { a, b, combinedScore };
+      }
+    }
+    if (bestPair) {
+      optimizedEquipment[firstSlot] = bestPair.a.item;
+      optimizedEquipment[secondSlot] = bestPair.b.item;
+    } else if (first.length && !second.length) {
+      optimizedEquipment[firstSlot] = first[0].item;
+      optimizedEquipment[secondSlot] = null;
+    } else if (second.length && !first.length) {
+      optimizedEquipment[firstSlot] = null;
+      optimizedEquipment[secondSlot] = second[0].item;
+    } else if (first.length && second.length) {
+      optimizedEquipment[firstSlot] = first[0].item;
+      optimizedEquipment[secondSlot] = null;
+    }
+  }
   return {
     character: { ...character, goal },
     equipment: optimizedEquipment,

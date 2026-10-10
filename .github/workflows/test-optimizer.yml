@@ -55,6 +55,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "22"
+      - name: Run retail dataset normalization tests
+        run: node tests/retail-data-normalization.test.js
       - name: Run upgrade optimizer tests
         run: node tests/optimizer-upgrades.test.js
       - name: Run character import UI tests

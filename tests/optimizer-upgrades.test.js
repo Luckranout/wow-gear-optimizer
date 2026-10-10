@@ -415,3 +415,25 @@ if (simulationReport.optimizationContext.source !== "SimulationCraft" ||
   throw new Error("Simulation-derived optimization report context failed");
 }
 console.log("Step 12 simulation scale-factor support passed.");
+
+
+// Regression: duplicated ring/trinket slot candidates must not recommend the
+// same physical item for both copies when distinct alternatives exist.
+const pairedItems = [
+  { id: 101, name: "Ring Alpha", slot: "Ring 1", itemLevel: 300, stats: { Strength: 10 } },
+  { id: 101, name: "Ring Alpha", slot: "Ring 2", itemLevel: 300, stats: { Strength: 10 } },
+  { id: 102, name: "Ring Beta", slot: "Ring 1", itemLevel: 290, stats: { Strength: 8 } },
+  { id: 102, name: "Ring Beta", slot: "Ring 2", itemLevel: 290, stats: { Strength: 8 } },
+  { id: 201, name: "Trinket Alpha", slot: "Trinket 1", itemLevel: 300, stats: { Strength: 10 } },
+  { id: 201, name: "Trinket Alpha", slot: "Trinket 2", itemLevel: 300, stats: { Strength: 10 } },
+  { id: 202, name: "Trinket Beta", slot: "Trinket 1", itemLevel: 290, stats: { Strength: 8 } },
+  { id: 202, name: "Trinket Beta", slot: "Trinket 2", itemLevel: 290, stats: { Strength: 8 } }
+];
+const pairedResult = o.optimizeEquipment({ items: pairedItems, character: o.createCharacterProfile() }).equipment;
+for (const [left, right] of [["Ring 1", "Ring 2"], ["Trinket 1", "Trinket 2"]]) {
+  if (!pairedResult[left] || !pairedResult[right] ||
+      String(pairedResult[left].id) === String(pairedResult[right].id)) {
+    throw new Error(left + " and " + right + " must contain distinct item IDs when alternatives exist");
+  }
+}
+console.log("Distinct paired-slot item regression passed.");

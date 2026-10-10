@@ -59,6 +59,41 @@ function createEmptyRetailDataset() {
   };
 }
 
+function normalizeEquipmentItems(items) {
+  const normalized = [];
+  for (const item of items) {
+    if (!item || typeof item !== "object") continue;
+    const slot = inferEquipmentSlot(item);
+    if (!slot) {
+      // Supporting records (for example, crafting materials) are not optimizer gear.
+      continue;
+    }
+    const normalizedItem = { ...item, slot };
+    normalized.push(normalizedItem);
+    // Rings and trinkets can occupy either copy of their equipment slot.
+    if (slot === "Ring 1") normalized.push({ ...normalizedItem, slot: "Ring 2" });
+    if (slot === "Trinket 1") normalized.push({ ...normalizedItem, slot: "Trinket 2" });
+  }
+  return normalized;
+}
+
+function inferEquipmentSlot(item) {
+  if (typeof item.slot === "string" && WOW_DATA_REQUIRED_SLOTS.includes(item.slot)) return item.slot;
+  const raw = String(item.inventoryType?.name || item.inventoryType || "")
+    .toLowerCase().replace(/[_-]+/g, " ").trim();
+  const slots = {
+    head: "Head", neck: "Neck", shoulder: "Shoulders", shoulders: "Shoulders",
+    cloak: "Back", back: "Back", chest: "Chest", robe: "Chest",
+    wrist: "Wrists", wrists: "Wrists", hand: "Hands", hands: "Hands",
+    waist: "Waist", legs: "Legs", feet: "Feet",
+    finger: "Ring 1", trinket: "Trinket 1",
+    "one hand": "Main Hand", "two hand": "Main Hand", "main hand": "Main Hand",
+    "off hand": "Off Hand", "held in off hand": "Off Hand", shield: "Off Hand",
+    "ranged right": "Main Hand", ranged: "Main Hand", thrown: "Main Hand"
+  };
+  return slots[raw] || null;
+}
+
 function normalizeRetailDataset(input) {
   const base = createEmptyRetailDataset();
   const data = input && typeof input === "object" ? input : {};
@@ -68,7 +103,7 @@ function normalizeRetailDataset(input) {
     ...data,
     schemaVersion: data.schemaVersion || base.schemaVersion,
     mode: "Retail",
-    items: Array.isArray(data.items) ? data.items : [],
+    items: Array.isArray(data.items) ? normalizeEquipmentItems(data.items) : [],
     gems: Array.isArray(data.gems) ? data.gems : [],
     enchants: Array.isArray(data.enchants) ? data.enchants : [],
     embellishments: Array.isArray(data.embellishments) ? data.embellishments : [],
@@ -166,6 +201,7 @@ window.WoWData = {
   schemaVersion: WOW_DATA_SCHEMA_VERSION,
   slots: WOW_DATA_REQUIRED_SLOTS,
   createEmptyRetailDataset,
+  inferEquipmentSlot,
   normalizeRetailDataset,
   validateRetailDataset,
   loadRetailDataset
