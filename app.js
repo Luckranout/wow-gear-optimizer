@@ -78,8 +78,12 @@ async function loadRealmOptions() {
         option.textContent = String(realm.name);
         realmInput.appendChild(option);
       });
-    if (currentRealm && [...realmInput.options].some(option => option.value === currentRealm)) {
+    const availableRealmNames = new Set([...realmInput.options].map(option => option.value));
+    if (currentRealm && availableRealmNames.has(currentRealm)) {
       realmInput.value = currentRealm;
+    } else if (availableRealmNames.has(DEFAULT_REALM_NAME)) {
+      // The displayed default is a real selectable realm, not an empty placeholder.
+      realmInput.value = DEFAULT_REALM_NAME;
     } else {
       realmInput.value = "";
     }
