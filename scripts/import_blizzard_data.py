@@ -1351,12 +1351,24 @@ def build_item_stat_coverage(items):
     total = len(items)
     verified = sum(1 for item in items if item_has_verified_stats(item))
     missing = total - verified
+    coverage_percent = round((verified / total) * 100, 2) if total else 0.0
+    coverage_policy = (
+        "Record-presence metric only: at least one non-zero numeric stat exists in the source item record. "
+        "This does not prove that every expected stat, weapon property, socket, set bonus, or item effect is present. "
+        "Item level alone does not qualify."
+    )
     return {
         "candidateItemCount": total,
+        # Keep the original keys for compatibility with existing consumers.
         "itemsWithVerifiedStats": verified,
         "itemsMissingVerifiedStats": missing,
-        "itemStatCoveragePercent": round((verified / total) * 100, 2) if total else 0.0,
-        "coveragePolicy": "At least one non-zero numeric stat in the source item record; item level alone does not qualify.",
+        "itemStatCoveragePercent": coverage_percent,
+        # Explicit names prevent this presence metric from being mistaken for full stat completeness.
+        "itemsWithAnyNumericStats": verified,
+        "itemsMissingAnyNumericStats": missing,
+        "itemRecordsWithAnyNumericStatsPercent": coverage_percent,
+        "coveragePolicy": coverage_policy,
+        "coverageMetricType": "source-record-stat-presence-not-completeness",
     }
 
 
@@ -1481,7 +1493,7 @@ def main():
         "Blizzard API credentials are never placed in browser JavaScript.",
         "The importer does not scan the historical weapon/armor catalog.",
         "Season membership is source-based, not guessed from item level.",
-        "Item stat coverage is measured from imported numeric stat records; missing stats are reported and never inferred from item level.",
+        "Item stat coverage is a source-record presence metric, not proof of complete item stat/effect coverage; missing stats are reported and never inferred from item level.",
         "Season 2 PvE candidates come from matched Adventure Journal sources.",
         "Season 2 PvP candidates come from Blizzard's PvP Season 2 reward API.",
         "Current Midnight profession recipes are imported for gems, enchants, crafted gear, and other crafted outputs.",

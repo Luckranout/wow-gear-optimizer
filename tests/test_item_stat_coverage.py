@@ -49,7 +49,12 @@ class ItemStatCoverageTests(unittest.TestCase):
         self.assertEqual(report["itemsWithVerifiedStats"], 2)
         self.assertEqual(report["itemsMissingVerifiedStats"], 2)
         self.assertEqual(report["itemStatCoveragePercent"], 50.0)
-        self.assertIn("item level alone does not qualify", report["coveragePolicy"])
+        self.assertEqual(report["itemsWithAnyNumericStats"], 2)
+        self.assertEqual(report["itemsMissingAnyNumericStats"], 2)
+        self.assertEqual(report["itemRecordsWithAnyNumericStatsPercent"], 50.0)
+        self.assertEqual(report["coverageMetricType"], "source-record-stat-presence-not-completeness")
+        self.assertIn("does not prove that every expected stat", report["coveragePolicy"])
+        self.assertIn("item level alone does not qualify", report["coveragePolicy"].lower())
 
     def test_empty_catalog_reports_zero_coverage_without_division_error(self):
         report = MODULE.build_item_stat_coverage([])
@@ -57,6 +62,9 @@ class ItemStatCoverageTests(unittest.TestCase):
         self.assertEqual(report["itemsWithVerifiedStats"], 0)
         self.assertEqual(report["itemsMissingVerifiedStats"], 0)
         self.assertEqual(report["itemStatCoveragePercent"], 0.0)
+        self.assertEqual(report["itemsWithAnyNumericStats"], 0)
+        self.assertEqual(report["itemsMissingAnyNumericStats"], 0)
+        self.assertEqual(report["itemRecordsWithAnyNumericStatsPercent"], 0.0)
 
 
 if __name__ == "__main__":
