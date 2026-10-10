@@ -33,8 +33,19 @@ def audit_table(name, records):
     ids = [next((row.get(key) for key in keys if row.get(key) is not None), None) for row in records]
     identified = sum(value is not None for value in ids)
     unique = len({str(value) for value in ids if value is not None})
+    field_names = sorted({key for row in records for key in row})
+    schema_requirements = {
+        "ItemBonus": ("id", "id_node", "type", "val_1", "val_2", "val_3", "val_4", "index"),
+        "ItemBonusTreeNode": ("id",),
+        "ItemXBonusTree": ("id",),
+        "ItemBonusListLevelDelta": ("id",),
+    }
+    expected_fields = schema_requirements.get(name, ())
     return {
         "recordCount": len(records),
+        "observedFields": field_names,
+        "requiredFields": list(expected_fields),
+        "missingRequiredFields": [field for field in expected_fields if field not in field_names],
         "recordsWithId": identified,
         "uniqueIds": unique,
         "duplicateIdsAmongIdentified": identified - unique,
@@ -52,6 +63,9 @@ def audit_directory(directory):
         result["tables"][name] = audit_table(name, records)
     result["tableCountFound"] = len(result["tables"])
     result["tableCountExpected"] = len(TABLES)
+    result["tablesWithMissingRequiredFields"] = [
+        name for name, report in result["tables"].items() if report.get("missingRequiredFields")
+    ]
     return result
 
 
