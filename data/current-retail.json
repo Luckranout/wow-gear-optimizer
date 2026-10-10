@@ -6,7 +6,7 @@
   "season": 2,
   "patch": "12.1.0",
   "status": "season-2-plus-source-imported",
-  "updatedAt": "2026-10-10T18:03:59.703190+00:00",
+  "updatedAt": "2026-10-10T19:26:38.769853+00:00",
   "source": "Blizzard Game Data API",
   "items": [
     {
@@ -40844,7 +40844,7 @@
     "Blizzard API credentials are never placed in browser JavaScript.",
     "The importer does not scan the historical weapon/armor catalog.",
     "Season membership is source-based, not guessed from item level.",
-    "Item stat coverage is measured from imported numeric stat records; missing stats are reported and never inferred from item level.",
+    "Item stat coverage is a source-record presence metric, not proof of complete item stat/effect coverage; missing stats are reported and never inferred from item level.",
     "Season 2 PvE candidates come from matched Adventure Journal sources.",
     "Season 2 PvP candidates come from Blizzard's PvP Season 2 reward API.",
     "Current Midnight profession recipes are imported for gems, enchants, crafted gear, and other crafted outputs.",
@@ -40863,7 +40863,45 @@
       "itemsWithVerifiedStats": 0,
       "itemsMissingVerifiedStats": 381,
       "itemStatCoveragePercent": 0.0,
-      "coveragePolicy": "At least one non-zero numeric stat in the source item record; item level alone does not qualify."
+      "itemsWithAnyNumericStats": 0,
+      "itemsMissingAnyNumericStats": 381,
+      "itemRecordsWithAnyNumericStatsPercent": 0.0,
+      "coveragePolicy": "Record-presence metric only: at least one non-zero numeric stat exists in the source item record. This does not prove that every expected stat, weapon property, socket, set bonus, or item effect is present. Item level alone does not qualify.",
+      "coverageMetricType": "source-record-stat-presence-not-completeness"
+    },
+    "enhancementEffectCoverage": {
+      "gems": {
+        "candidateCount": 40,
+        "recordsWithStructuredEffectMetadata": 0,
+        "recordsMissingStructuredEffectMetadata": 40,
+        "structuredEffectMetadataPresencePercent": 0.0
+      },
+      "enchants": {
+        "candidateCount": 107,
+        "recordsWithStructuredEffectMetadata": 0,
+        "recordsMissingStructuredEffectMetadata": 107,
+        "structuredEffectMetadataPresencePercent": 0.0
+      },
+      "craftedGear": {
+        "candidateCount": 27,
+        "recordsWithStructuredEffectMetadata": 0,
+        "recordsMissingStructuredEffectMetadata": 27,
+        "structuredEffectMetadataPresencePercent": 0.0
+      },
+      "otherCraftedOutputs": {
+        "candidateCount": 176,
+        "recordsWithStructuredEffectMetadata": 0,
+        "recordsMissingStructuredEffectMetadata": 176,
+        "structuredEffectMetadataPresencePercent": 0.0
+      },
+      "total": {
+        "candidateCount": 350,
+        "recordsWithStructuredEffectMetadata": 0,
+        "recordsMissingStructuredEffectMetadata": 350,
+        "structuredEffectMetadataPresencePercent": 0.0
+      },
+      "metricType": "structured-effect-metadata-presence-not-completeness",
+      "policy": "Presence of source stats, spell records, or explicit structured effect fields only. This does not prove the effect is complete, correctly quantified, active in the current patch, or supported by the projection engine. Descriptions and recipe reagents alone do not qualify."
     },
     "pveCandidateItemCount": 378,
     "pvpCandidateItemCount": 63,
