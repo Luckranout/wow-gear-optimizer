@@ -225,14 +225,16 @@ function renderCharacterCoach(report, character) {
 }
 
 function renderOptimizedLoadout(equipment = {}, score = 0) {
-  const entries = Object.entries(equipment).filter(([, item]) => item);
+  // Render from the canonical slot list, not arbitrary object keys. This keeps
+  // the visible loadout to one row per supported slot in a stable order.
+  const entries = slots.map(slot => [slot, equipment[slot] || null]).filter(([, item]) => item);
   if (!entries.length) {
     loadoutResults.innerHTML = '<div class="result-empty">No optimized loadout is available from the current dataset.</div>';
     return;
   }
   const sourceLabel = "Goal/spec-weighted";
   loadoutResults.innerHTML = entries.map(([slot, item]) => `
-    <div class="loadout-row">
+    <div class="loadout-row" data-equipment-slot="${slot}">
       <div class="loadout-slot">${slot}</div>
       <div class="loadout-item">${item.name || "Unnamed item"}</div>
       <div class="loadout-ilvl">iLvl ${item.itemLevel ?? item.level ?? "—"}</div>
