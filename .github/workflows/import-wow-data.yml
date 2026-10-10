@@ -74,6 +74,34 @@ jobs:
               });
             }
 
+      - name: Verify imported item-stat coverage
+        run: |
+          python - <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+
+          path = Path("data/current-retail.json")
+          if not path.exists():
+              sys.exit("VERIFY FAILED: importer did not create the catalog.")
+
+          with path.open(encoding="utf-8") as handle:
+              dataset = json.load(handle)
+
+          items = dataset.get("items") or []
+          coverage = (dataset.get("apiCheck") or {}).get("itemStatCoverage") or {}
+          verified = coverage.get("itemsWithVerifiedStats", 0)
+          total = len(items)
+          print(f"Catalog items: {total}; items with numeric stats: {verified}")
+
+          if not total:
+              sys.exit("VERIFY FAILED: catalog contains no items; refusing to publish.")
+          if not isinstance(verified, int) or verified <= 0:
+              sys.exit("VERIFY FAILED: no items have verified numeric stats; refusing to publish unusable catalog.")
+
+          print("Basic item-stat presence gate passed. This does not prove complete coverage or correct item variants.")
+          PY
+
       - name: Commit updated dataset
         run: |
           git config user.name "wow-gear-optimizer"
