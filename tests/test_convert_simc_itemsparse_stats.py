@@ -48,6 +48,23 @@ class ItemSparseStatConversionTests(unittest.TestCase):
         }])
         self.assertEqual(report["contextDependentStatIdPairCounts"], {"71": 1})
 
+    def test_bonus_and_resistance_ids_are_classified_not_guessed(self):
+        item = MODULE.convert_record({
+            "id": 4,
+            "stat_type_1": 24, "stat_alloc_1": 5,
+            "stat_type_2": 25, "stat_alloc_2": 7,
+            "stat_type_3": 51, "stat_alloc_3": 2,
+            "stat_type_4": 52, "stat_alloc_4": 3,
+            "stat_type_5": 54, "stat_alloc_5": 4,
+            "stat_type_6": 55, "stat_alloc_6": 6,
+        })
+        self.assertEqual(item["stats"], {})
+        self.assertEqual(
+            {pair["statTypeId"] for pair in item["contextDependentStatPairs"]},
+            {24, 25, 51, 52, 54, 55},
+        )
+        self.assertFalse(item["fullyMapped"])
+
     def test_no_stats_are_invented_from_item_level(self):
         item = MODULE.convert_record({"id": 1, "item_level": 999})
         self.assertEqual(item["stats"], {})
