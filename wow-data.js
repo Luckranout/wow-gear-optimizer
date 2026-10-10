@@ -87,7 +87,7 @@ function inferEquipmentSlot(item) {
     wrist: "Wrists", wrists: "Wrists", hand: "Hands", hands: "Hands",
     waist: "Waist", legs: "Legs", feet: "Feet",
     finger: "Ring 1", trinket: "Trinket 1",
-    "two hand": "Main Hand", "main hand": "Main Hand",
+    "one hand": "Main Hand", "two hand": "Main Hand", "main hand": "Main Hand",
     "off hand": "Off Hand", "held in off hand": "Off Hand", shield: "Off Hand",
     "ranged right": "Main Hand", ranged: "Main Hand", thrown: "Main Hand"
   };
