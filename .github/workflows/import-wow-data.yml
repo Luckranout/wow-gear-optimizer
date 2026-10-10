@@ -37,6 +37,7 @@ jobs:
         env:
           BLIZZARD_CLIENT_ID: ${{ secrets.BLIZZARD_CLIENT_ID }}
           BLIZZARD_CLIENT_SECRET: ${{ secrets.BLIZZARD_CLIENT_SECRET }}
+          PYTHONUNBUFFERED: "1"
         run: python scripts/import_blizzard_data.py
 
       - name: Alert on blocked automatic import
