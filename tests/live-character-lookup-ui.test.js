@@ -33,7 +33,7 @@ console.log("Live character lookup UI contract passed.");
 // Regression coverage includes default-field focus behavior.
 
 
-if (!index.includes('window.WOW_API_BASE_URL = "https://wow-gear-optimizer-nwj9.vercel.app"')) throw new Error("GitHub Pages must point at the production API.");
+if (!index.includes('window.WOW_API_BASE_URL = window.location.hostname.endsWith("github.io") ? "https://wow-gear-optimizer-nwj9.vercel.app" : ""')) throw new Error("GitHub Pages must use the production API while Vercel previews use same-origin API routes.");
 const realmsApi = fs.readFileSync("api/realms.js", "utf8");
 const characterApi = fs.readFileSync("api/character.js", "utf8");
 if (!realmsApi.includes('require("./cors")') || !realmsApi.includes("setCorsHeaders(req, res)")) throw new Error("Realm API must apply the shared CORS policy.");
