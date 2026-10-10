@@ -3,6 +3,8 @@ name: Import WoW Retail Data
 on:
   workflow_dispatch:
   push:
+    branches:
+      - main
     paths:
       - "scripts/import_blizzard_data.py"
       - ".github/workflows/import-wow-data.yml"
@@ -12,6 +14,11 @@ on:
 permissions:
   contents: write
   issues: write
+
+# Avoid overlapping full-catalog scans and only run automatic imports from main.
+concurrency:
+  group: wow-retail-data-import
+  cancel-in-progress: false
 
 jobs:
   import:
