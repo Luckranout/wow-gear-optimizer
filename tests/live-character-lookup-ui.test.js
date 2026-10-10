@@ -36,8 +36,10 @@ console.log("Live character lookup UI contract passed.");
 if (!index.includes('window.WOW_API_BASE_URL = "https://wow-gear-optimizer-nwj9.vercel.app"')) throw new Error("GitHub Pages must point at the production API.");
 const realmsApi = fs.readFileSync("api/realms.js", "utf8");
 const characterApi = fs.readFileSync("api/character.js", "utf8");
-if (!realmsApi.includes("Access-Control-Allow-Origin")) throw new Error("Realm API must allow the GitHub Pages origin.");
-if (!characterApi.includes("Access-Control-Allow-Origin")) throw new Error("Character API must allow the GitHub Pages origin.");
+if (!realmsApi.includes('require("./cors")') || !realmsApi.includes("setCorsHeaders(req, res)")) throw new Error("Realm API must apply the shared CORS policy.");
+if (!characterApi.includes('require("./cors")') || !characterApi.includes("setCorsHeaders(req, res)")) throw new Error("Character API must apply the shared CORS policy.");
+const corsApi = fs.readFileSync("api/cors.js", "utf8");
+if (!corsApi.includes("https://luckranout.github.io")) throw new Error("Shared CORS policy must allow the GitHub Pages origin.");
 
 if (!app.includes('.filter(realm => realm && realm.name)')) throw new Error("Realm loader must retain valid named Blizzard realms.");
 if (!styles.includes(".import-box .form-grid select { min-width: 0; width: 100%; }")) throw new Error("Realm selector must fit its mobile container.");
