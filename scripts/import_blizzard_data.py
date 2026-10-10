@@ -1322,6 +1322,44 @@ def collect_upgrade_and_crest_data(as_of=None):
     }
 
 
+def item_has_verified_stats(item):
+    """Return true only when an item record contains at least one non-zero numeric stat."""
+    stats = item.get("stats")
+    if isinstance(stats, dict):
+        values = stats.values()
+    elif isinstance(stats, list):
+        values = (
+            entry.get("value")
+            for entry in stats
+            if isinstance(entry, dict) and entry.get("value") is not None
+        )
+    else:
+        return False
+
+    for value in values:
+        try:
+            numeric = float(value)
+        except (TypeError, ValueError):
+            continue
+        if numeric != 0:
+            return True
+    return False
+
+
+def build_item_stat_coverage(items):
+    """Report actual stat-data coverage; item level/name are never treated as stat data."""
+    total = len(items)
+    verified = sum(1 for item in items if item_has_verified_stats(item))
+    missing = total - verified
+    return {
+        "candidateItemCount": total,
+        "itemsWithVerifiedStats": verified,
+        "itemsMissingVerifiedStats": missing,
+        "itemStatCoveragePercent": round((verified / total) * 100, 2) if total else 0.0,
+        "coveragePolicy": "At least one non-zero numeric stat in the source item record; item level alone does not qualify.",
+    }
+
+
 def main():
     client_id = os.environ.get("BLIZZARD_CLIENT_ID")
     client_secret = os.environ.get("BLIZZARD_CLIENT_SECRET")
@@ -1365,6 +1403,14 @@ def main():
         reverse=True,
     )
 
+    stat_coverage = build_item_stat_coverage(items)
+    print(
+        "Item stat coverage: "
+        f"{stat_coverage['itemsWithVerifiedStats']}/{stat_coverage['candidateItemCount']} "
+        f"({stat_coverage['itemStatCoveragePercent']}%) have verified numeric stats; "
+        f"{stat_coverage['itemsMissingVerifiedStats']} remain incomplete."
+    )
+
     with open(OUTPUT, "r", encoding="utf-8") as handle:
         dataset = json.load(handle)
 
@@ -1403,6 +1449,7 @@ def main():
         "namespace": NAMESPACE,
         "gearItemCount": len(items),
         "candidateItemCount": len(item_sources),
+        "itemStatCoverage": stat_coverage,
         "pveCandidateItemCount": len(pve_sources),
         "pvpCandidateItemCount": len(pvp_sources),
         "matchedPvEInstances": matched_instances,
@@ -1434,6 +1481,7 @@ def main():
         "Blizzard API credentials are never placed in browser JavaScript.",
         "The importer does not scan the historical weapon/armor catalog.",
         "Season membership is source-based, not guessed from item level.",
+        "Item stat coverage is measured from imported numeric stat records; missing stats are reported and never inferred from item level.",
         "Season 2 PvE candidates come from matched Adventure Journal sources.",
         "Season 2 PvP candidates come from Blizzard's PvP Season 2 reward API.",
         "Current Midnight profession recipes are imported for gems, enchants, crafted gear, and other crafted outputs.",
