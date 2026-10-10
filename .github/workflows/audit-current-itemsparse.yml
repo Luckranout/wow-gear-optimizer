@@ -34,7 +34,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          grep -iE 'DBFilesClient[\\/]+Item-sparse[.]db2' simulationcraft/casc_extract/dbfile > "$RUNNER_TEMP/item-sparse-dbfile"
+          grep -iE 'DBFilesClient[\\/]+ItemSparse[.]db2' simulationcraft/casc_extract/dbfile > "$RUNNER_TEMP/item-sparse-dbfile"
           test "$(wc -l < "$RUNNER_TEMP/item-sparse-dbfile")" -eq 1
           cat "$RUNNER_TEMP/item-sparse-dbfile"
 
@@ -47,7 +47,7 @@ jobs:
             -b "$RUNNER_TEMP/item-sparse-dbfile" \
             -o "$RUNNER_TEMP/wow-data"
 
-          mapfile -t DB2_FILES < <(find "$RUNNER_TEMP/wow-data" -type f -iname 'Item-sparse.db2' -print)
+          mapfile -t DB2_FILES < <(find "$RUNNER_TEMP/wow-data" -type f -iname 'ItemSparse.db2' -print)
           test "${#DB2_FILES[@]}" -eq 1
           echo "ITEMSPARSE_PATH=${DB2_FILES[0]}" >> "$GITHUB_ENV"
           echo "ITEMSPARSE_BUILD_DIR=$(dirname "${DB2_FILES[0]}")" >> "$GITHUB_ENV"
@@ -60,7 +60,7 @@ jobs:
           test -n "$BUILD"
           echo "CLIENT_BUILD=$BUILD" >> "$GITHUB_ENV"
           python simulationcraft/dbc_extract3/dbc_extract.py \
-            -t json -b "$BUILD" -p "$ITEMSPARSE_BUILD_DIR" Item-sparse.db2 \
+            -t json -b "$BUILD" -p "$ITEMSPARSE_BUILD_DIR" ItemSparse.db2 \
             > "$RUNNER_TEMP/ItemSparse.json"
           test -s "$RUNNER_TEMP/ItemSparse.json"
 
