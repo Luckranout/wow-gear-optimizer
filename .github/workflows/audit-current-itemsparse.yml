@@ -5,6 +5,7 @@ on:
   pull_request:
     paths:
       - ".github/workflows/audit-current-itemsparse.yml"
+      - "scripts/audit_item_variant_tables.py"
       - "scripts/audit_simc_item_sparse.py"
 
 permissions:
@@ -38,22 +39,45 @@ jobs:
           test "$(wc -l < "$RUNNER_TEMP/item-sparse-dbfile")" -eq 1
           cat "$RUNNER_TEMP/item-sparse-dbfile"
 
-      - name: Download only ItemSparse from Blizzard CDN
+      - name: Locate item variant and upgrade table file IDs
         shell: bash
         run: |
           set -euo pipefail
-          # SimulationCraft keyfile.py expects a JSON list; an empty list is valid
-          # and avoids the missing self.keys attribute when no local keys are needed.
+          grep -iE 'DBFilesClient[\\/]+(ItemUpgrade|ItemBonus|ItemBonusTreeNode|ItemXBonusTree|ItemBonusListLevelDelta|ItemBonusSeason|ItemEffect|ItemXItemEffect)[.]db2' simulationcraft/casc_extract/dbfile > "$RUNNER_TEMP/item-variant-dbfiles"
+          test "$(wc -l < "$RUNNER_TEMP/item-variant-dbfiles")" -eq 8
+          cat "$RUNNER_TEMP/item-variant-dbfiles"
+
+      - name: Download ItemSparse and variant/upgrade tables from Blizzard CDN
+        shell: bash
+        run: |
+          set -euo pipefail
           printf '[]\n' > "$RUNNER_TEMP/empty-keyfile.json"
+          cat "$RUNNER_TEMP/item-sparse-dbfile" "$RUNNER_TEMP/item-variant-dbfiles" > "$RUNNER_TEMP/required-item-dbfiles"
           python simulationcraft/casc_extract/casc_extract.py \
             -m batch --cdn --product wow -k "$RUNNER_TEMP/empty-keyfile.json" \
-            -b "$RUNNER_TEMP/item-sparse-dbfile" \
+            -b "$RUNNER_TEMP/required-item-dbfiles" \
             -o "$RUNNER_TEMP/wow-data"
 
           mapfile -t DB2_FILES < <(find "$RUNNER_TEMP/wow-data" -type f -iname 'ItemSparse.db2' -print)
           test "${#DB2_FILES[@]}" -eq 1
           echo "ITEMSPARSE_PATH=${DB2_FILES[0]}" >> "$GITHUB_ENV"
           echo "ITEMSPARSE_BUILD_DIR=$(dirname "${DB2_FILES[0]}")" >> "$GITHUB_ENV"
+          echo "ITEM_TABLES_DIR=$(dirname "${DB2_FILES[0]}")" >> "$GITHUB_ENV"
+
+      - name: Export item variant tables to temporary JSON
+        shell: bash
+        run: |
+          set -euo pipefail
+          BUILD="$(basename "$(dirname "$(dirname "$ITEMSPARSE_PATH")")")"
+          pushd simulationcraft/dbc_extract3
+          for table in ItemUpgrade ItemBonus ItemBonusTreeNode ItemXBonusTree ItemBonusListLevelDelta ItemBonusSeason ItemEffect ItemXItemEffect; do
+            mapfile -t files < <(find "$ITEM_TABLES_DIR" -maxdepth 1 -type f -iname "$table.db2" -print)
+            test "${#files[@]}" -eq 1
+            python dbc_extract.py -t json -b "$BUILD" -p "$ITEM_TABLES_DIR" "$table.db2" > "$RUNNER_TEMP/$table.json"
+            test -s "$RUNNER_TEMP/$table.json"
+          done
+          popd
+          python scripts/audit_item_variant_tables.py "$RUNNER_TEMP" --output "$RUNNER_TEMP/item-variant-table-summary.json"
 
       - name: Export build-specific ItemSparse records to temporary JSON
         shell: bash
@@ -103,6 +127,14 @@ jobs:
           json.dump(report, open(target, "w", encoding="utf-8"), indent=2)
           print(json.dumps(report, indent=2))
           PY
+
+      - name: Upload item variant table audit summary
+        uses: actions/upload-artifact@v4
+        with:
+          name: item-variant-table-summary
+          path: ${{ runner.temp }}/item-variant-table-summary.json
+          if-no-files-found: error
+          retention-days: 7
 
       - name: Upload stat-mapping coverage summary
         uses: actions/upload-artifact@v4
