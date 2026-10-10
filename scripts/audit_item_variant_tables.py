@@ -56,6 +56,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("directory", type=Path)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--allow-missing", action="store_true", help="Write an incomplete report and exit successfully when some tables are unavailable in this build.")
     args = parser.parse_args()
     try:
         report = audit_directory(args.directory)
@@ -64,7 +65,9 @@ def main():
     args.output.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(report, indent=2))
     if report["missingTables"]:
-        parser.exit(2, "AUDIT INCOMPLETE: required variant/upgrade tables are missing\n")
+        print("AUDIT INCOMPLETE: missing tables: " + ", ".join(report["missingTables"]))
+        if not args.allow_missing:
+            parser.exit(2, "AUDIT INCOMPLETE: required variant/upgrade tables are missing\n")
 
 
 if __name__ == "__main__":
