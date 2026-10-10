@@ -56,6 +56,42 @@ class ItemStatCoverageTests(unittest.TestCase):
         self.assertIn("does not prove that every expected stat", report["coveragePolicy"])
         self.assertIn("item level alone does not qualify", report["coveragePolicy"].lower())
 
+    def test_enhancement_effect_coverage_counts_only_structured_metadata(self):
+        report = MODULE.build_enhancement_effect_coverage(
+            gems=[
+                {"item": {"stats": [{"value": 12}]}},
+                {"item": {"stats": []}, "description": "Adds a gem bonus"},
+            ],
+            enchants=[
+                {"item": {"spells": [{"spell": {"id": 123}}]}},
+                {"description": "Deals extra damage", "reagents": [{"id": 5}]},
+            ],
+            crafted_gear=[
+                {"item": {"stats": {"haste": 8}}},
+            ],
+            other_outputs=[],
+        )
+        self.assertEqual(report["gems"]["candidateCount"], 2)
+        self.assertEqual(report["gems"]["recordsWithStructuredEffectMetadata"], 1)
+        self.assertEqual(report["gems"]["structuredEffectMetadataPresencePercent"], 50.0)
+        self.assertEqual(report["enchants"]["candidateCount"], 2)
+        self.assertEqual(report["enchants"]["recordsWithStructuredEffectMetadata"], 1)
+        self.assertEqual(report["craftedGear"]["recordsWithStructuredEffectMetadata"], 1)
+        self.assertEqual(report["total"]["candidateCount"], 5)
+        self.assertEqual(report["total"]["recordsWithStructuredEffectMetadata"], 3)
+        self.assertEqual(report["total"]["structuredEffectMetadataPresencePercent"], 60.0)
+        self.assertEqual(
+            report["metricType"],
+            "structured-effect-metadata-presence-not-completeness",
+        )
+        self.assertIn("does not prove the effect is complete", report["policy"])
+
+    def test_empty_enhancement_catalog_reports_zero_coverage(self):
+        report = MODULE.build_enhancement_effect_coverage([], [], [], [])
+        self.assertEqual(report["total"]["candidateCount"], 0)
+        self.assertEqual(report["total"]["recordsWithStructuredEffectMetadata"], 0)
+        self.assertEqual(report["total"]["structuredEffectMetadataPresencePercent"], 0.0)
+
     def test_empty_catalog_reports_zero_coverage_without_division_error(self):
         report = MODULE.build_item_stat_coverage([])
         self.assertEqual(report["candidateItemCount"], 0)
