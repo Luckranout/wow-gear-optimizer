@@ -29,6 +29,16 @@ KNOWN_CONTEXT_DEPENDENT_STAT_IDS = {
     52: "frostResistance (legacy/context-dependent resistance)",
     54: "shadowResistance (legacy/context-dependent resistance)",
     55: "natureResistance (legacy/context-dependent resistance)",
+    6: "spirit (legacy stat; current-retail applicability unverified)",
+    20: "critRangedRating (legacy specialization-specific rating)",
+    38: "attackPower (legacy/context-dependent offensive stat)",
+    39: "rangedAttackPower (legacy/context-dependent offensive stat)",
+    41: "spellHealingDone (deprecated in SimulationCraft enum)",
+    45: "spellPower (legacy/context-dependent offensive stat)",
+    46: "healthRegen (legacy/context-dependent stat)",
+    50: "extraArmor (legacy/context-dependent stat)",
+    56: "arcaneResistance (legacy/context-dependent resistance)",
+    64: "indestructible (effect flag, not a scalar stat)",
 }
 
 VERIFIED_STAT_MAP = {
