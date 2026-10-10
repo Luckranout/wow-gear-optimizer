@@ -29,6 +29,25 @@ class ItemSparseStatConversionTests(unittest.TestCase):
         report = MODULE.convert_records([{"id": 1, "stat_type_1": 999, "stat_alloc_1": 5}])
         self.assertEqual(report["unmappedStatIdPairCounts"], {"999": 1})
 
+    def test_context_dependent_ids_are_not_scored_as_scalar_stats(self):
+        item = MODULE.convert_record({
+            "id": 2,
+            "stat_type_1": 73,
+            "stat_alloc_1": 10,
+            "stat_type_2": 13,
+            "stat_alloc_2": 4,
+        })
+        self.assertEqual(item["stats"], {})
+        self.assertEqual(
+            {pair["statTypeId"] for pair in item["contextDependentStatPairs"]},
+            {13, 73},
+        )
+        self.assertFalse(item["fullyMapped"])
+        report = MODULE.convert_records([{
+            "id": 3, "stat_type_1": 71, "stat_alloc_1": 5
+        }])
+        self.assertEqual(report["contextDependentStatIdPairCounts"], {"71": 1})
+
     def test_no_stats_are_invented_from_item_level(self):
         item = MODULE.convert_record({"id": 1, "item_level": 999})
         self.assertEqual(item["stats"], {})
