@@ -73,6 +73,11 @@ def convert_records(records):
     if not isinstance(records, list) or not records:
         raise ValueError("input must be a non-empty JSON array")
     converted = [convert_record(record) for record in records]
+    unmapped_stat_id_counts = {}
+    for item in converted:
+        for pair in item["unmappedStatPairs"]:
+            key = str(pair["statTypeId"])
+            unmapped_stat_id_counts[key] = unmapped_stat_id_counts.get(key, 0) + 1
     return {
         "source": "SimulationCraft ItemSparse",
         "mappingSource": "SimulationCraft engine/dbc/data_enums.hh item_mod_type",
@@ -82,6 +87,7 @@ def convert_records(records):
         "fullyMappedRecords": sum(r["fullyMapped"] for r in converted),
         "recordsWithUnmappedStats": sum(bool(r["unmappedStatPairs"]) for r in converted),
         "recordsWithMalformedStats": sum(bool(r["malformedStatPairs"]) for r in converted),
+        "unmappedStatIdPairCounts": dict(sorted(unmapped_stat_id_counts.items(), key=lambda pair: int(pair[0]))),
         "items": converted,
     }
 
