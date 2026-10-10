@@ -1,0 +1,96 @@
+name: Audit current WoW ItemSparse data
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - ".github/workflows/audit-current-itemsparse.yml"
+      - "scripts/audit_simc_item_sparse.py"
+
+permissions:
+  contents: read
+
+jobs:
+  audit-item-sparse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out optimizer
+        uses: actions/checkout@v4
+
+      - name: Check out SimulationCraft extraction tools
+        uses: actions/checkout@v4
+        with:
+          repository: simulationcraft/simc
+          ref: midnight
+          path: simulationcraft
+
+      - name: Install extraction dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install requests fixedint bitarray
+
+      - name: Locate ItemSparse file ID in SimulationCraft's current file list
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -iE 'DBFilesClient[\\/]+ItemSparse[.]db2' simulationcraft/casc_extract/dbfile > "$RUNNER_TEMP/item-sparse-dbfile"
+          test "$(wc -l < "$RUNNER_TEMP/item-sparse-dbfile")" -eq 1
+          cat "$RUNNER_TEMP/item-sparse-dbfile"
+
+      - name: Download only ItemSparse from Blizzard CDN
+        shell: bash
+        run: |
+          set -euo pipefail
+          # SimulationCraft keyfile.py expects a JSON list; an empty list is valid
+          # and avoids the missing self.keys attribute when no local keys are needed.
+          printf '[]\n' > "$RUNNER_TEMP/empty-keyfile.json"
+          python simulationcraft/casc_extract/casc_extract.py \
+            -m batch --cdn --product wow -k "$RUNNER_TEMP/empty-keyfile.json" \
+            -b "$RUNNER_TEMP/item-sparse-dbfile" \
+            -o "$RUNNER_TEMP/wow-data"
+
+          mapfile -t DB2_FILES < <(find "$RUNNER_TEMP/wow-data" -type f -iname 'ItemSparse.db2' -print)
+          test "${#DB2_FILES[@]}" -eq 1
+          echo "ITEMSPARSE_PATH=${DB2_FILES[0]}" >> "$GITHUB_ENV"
+          echo "ITEMSPARSE_BUILD_DIR=$(dirname "${DB2_FILES[0]}")" >> "$GITHUB_ENV"
+
+      - name: Export build-specific ItemSparse records to temporary JSON
+        shell: bash
+        run: |
+          set -euo pipefail
+          BUILD="$(basename "$(dirname "$(dirname "$ITEMSPARSE_PATH")")")"
+          test -n "$BUILD"
+          echo "CLIENT_BUILD=$BUILD" >> "$GITHUB_ENV"
+          # The extractor resolves its formats directory relative to its working directory.
+          pushd simulationcraft/dbc_extract3
+          python dbc_extract.py \
+            -t json -b "$BUILD" -p "$ITEMSPARSE_BUILD_DIR" ItemSparse.db2 \
+            > "$RUNNER_TEMP/ItemSparse.json"
+          popd
+          test -s "$RUNNER_TEMP/ItemSparse.json"
+
+      - name: Run non-guessing item-stat audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/audit_simc_item_sparse.py "$RUNNER_TEMP/ItemSparse.json" \
+            --build "$CLIENT_BUILD" --output "$RUNNER_TEMP/item-sparse-audit-full.json"
+          # Publish aggregate counts only; do not upload raw client records or examples.
+          python - <<'PY'
+          import json, os
+          source = os.environ["RUNNER_TEMP"] + "/item-sparse-audit-full.json"
+          target = os.environ["RUNNER_TEMP"] + "/item-sparse-audit-summary.json"
+          report = json.load(open(source, encoding="utf-8"))
+          report.pop("exampleRecords", None)
+          json.dump(report, open(target, "w", encoding="utf-8"), indent=2)
+          print(json.dumps(report, indent=2))
+          PY
+
+      - name: Upload aggregate audit report
+        uses: actions/upload-artifact@v4
+        with:
+          name: item-sparse-audit-summary
+          path: ${{ runner.temp }}/item-sparse-audit-summary.json
+          if-no-files-found: error
+          retention-days: 7
