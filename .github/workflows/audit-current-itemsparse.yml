@@ -43,7 +43,7 @@ jobs:
         run: |
           set -euo pipefail
           python simulationcraft/casc_extract/casc_extract.py \
-            -m batch --cdn -k "" \
+            -m batch --cdn --product wow -k "" \
             -b "$RUNNER_TEMP/item-sparse-dbfile" \
             -o "$RUNNER_TEMP/wow-data"
 
