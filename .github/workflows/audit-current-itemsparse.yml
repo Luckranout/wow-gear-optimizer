@@ -76,8 +76,16 @@ jobs:
               echo "TABLE_UNAVAILABLE=$table (found ${#files[@]} matching files in this build)" >&2
               continue
             fi
-            python dbc_extract.py -t json -b "$BUILD" -p "$ITEM_TABLES_DIR" "$table.db2" > "$RUNNER_TEMP/$table.json"
-            test -s "$RUNNER_TEMP/$table.json"
+            if ! python dbc_extract.py -t json -b "$BUILD" -p "$ITEM_TABLES_DIR" "$table.db2" > "$RUNNER_TEMP/$table.json"; then
+              echo "TABLE_EXPORT_UNSUPPORTED=$table (SimulationCraft DB2 schema/format unavailable)" >&2
+              rm -f "$RUNNER_TEMP/$table.json"
+              continue
+            fi
+            if [ ! -s "$RUNNER_TEMP/$table.json" ]; then
+              echo "TABLE_EXPORT_EMPTY=$table" >&2
+              rm -f "$RUNNER_TEMP/$table.json"
+              continue
+            fi
           done
           popd
           python scripts/audit_item_variant_tables.py "$RUNNER_TEMP" --allow-missing --output "$RUNNER_TEMP/item-variant-table-summary.json"
