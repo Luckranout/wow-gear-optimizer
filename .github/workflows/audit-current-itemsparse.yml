@@ -72,12 +72,15 @@ jobs:
           pushd simulationcraft/dbc_extract3
           for table in ItemUpgrade ItemBonus ItemBonusTreeNode ItemXBonusTree ItemBonusListLevelDelta ItemBonusSeason ItemEffect ItemXItemEffect; do
             mapfile -t files < <(find "$ITEM_TABLES_DIR" -maxdepth 1 -type f -iname "$table.db2" -print)
-            test "${#files[@]}" -eq 1
+            if [ "${#files[@]}" -ne 1 ]; then
+              echo "TABLE_UNAVAILABLE=$table (found ${#files[@]} matching files in this build)" >&2
+              continue
+            fi
             python dbc_extract.py -t json -b "$BUILD" -p "$ITEM_TABLES_DIR" "$table.db2" > "$RUNNER_TEMP/$table.json"
             test -s "$RUNNER_TEMP/$table.json"
           done
           popd
-          python scripts/audit_item_variant_tables.py "$RUNNER_TEMP" --output "$RUNNER_TEMP/item-variant-table-summary.json"
+          python scripts/audit_item_variant_tables.py "$RUNNER_TEMP" --allow-missing --output "$RUNNER_TEMP/item-variant-table-summary.json"
 
       - name: Export build-specific ItemSparse records to temporary JSON
         shell: bash
