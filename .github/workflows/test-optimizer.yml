@@ -68,6 +68,9 @@ jobs:
       - name: Run item stat coverage tests
         run: python -m unittest tests/test_item_stat_coverage.py
 
+      - name: Run item variant table audit tests
+        run: python -m unittest tests/test_audit_item_variant_tables.py
+
       - name: Run ItemSparse stat conversion tests
         run: python -m unittest tests/test_convert_simc_itemsparse_stats.py
 
