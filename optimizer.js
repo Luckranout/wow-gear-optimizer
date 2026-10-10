@@ -153,8 +153,18 @@ function scoreItemStats(item, statWeights = STAT_WEIGHTS) {
     score + value * (statWeights[stat] ?? 0), 0);
 }
 
+function hasUsableItemStats(item) {
+  if (!item || !item.stats) return false;
+  const entries = Array.isArray(item.stats)
+    ? item.stats.map(s => [s.stat?.name || s.name || s.stat, s.value])
+    : Object.entries(item.stats);
+  return entries.some(([stat, value]) =>
+    stat != null && String(stat).trim() !== "" && Number.isFinite(Number(value)) && Number(value) !== 0
+  );
+}
+
 function scoreItem(item, statWeights = STAT_WEIGHTS) {
-  if (!item) return 0;
+  if (!item || !hasUsableItemStats(item)) return 0;
   const itemLevel = Number(item.itemLevel ?? item.level) || 0;
   let effectScore = Number(item.effectValue) || 0;
   if (item.isSetPiece) effectScore += 10;
@@ -278,7 +288,7 @@ function resolveStatWeights({
 
 function findBestItemForSlot(items, slot, goal, statWeights = null) {
   const weights = statWeights || getGoalWeights(goal);
-  return (items || []).filter(item => item.slot === slot)
+  return (items || []).filter(item => item.slot === slot && hasUsableItemStats(item))
     .map(item => ({ item, score: scoreItem(item, weights) }))
     .sort((a, b) => b.score - a.score)[0] || null;
 }
@@ -300,10 +310,10 @@ function optimizeEquipment({
   // distinct pair when the catalog has alternatives; keep the best single item
   // only when no second distinct item exists.
   for (const [firstSlot, secondSlot] of [["Ring 1", "Ring 2"], ["Trinket 1", "Trinket 2"], ["Main Hand", "Off Hand"]]) {
-    const first = (items || []).filter(item => item.slot === firstSlot)
+    const first = (items || []).filter(item => item.slot === firstSlot && hasUsableItemStats(item))
       .map(item => ({ item, score: scoreItem(item, weights) }))
       .sort((a, b) => b.score - a.score);
-    const second = (items || []).filter(item => item.slot === secondSlot)
+    const second = (items || []).filter(item => item.slot === secondSlot && hasUsableItemStats(item))
       .map(item => ({ item, score: scoreItem(item, weights) }))
       .sort((a, b) => b.score - a.score);
     let bestPair = null;
@@ -349,7 +359,7 @@ function findUpgradeOpportunities({
   for (const slot of WOW_EQUIPMENT_SLOTS) {
     const currentItem = currentEquipment[slot];
     const currentScore = scoreItem(currentItem, weights);
-    const candidates = availableItems.filter(item => item.slot === slot)
+    const candidates = availableItems.filter(item => item.slot === slot && hasUsableItemStats(item))
       .map(item => ({ item, score: scoreItem(item, weights) }))
       .filter(candidate => candidate.score > currentScore)
       .sort((a, b) => b.score - a.score);
@@ -366,7 +376,8 @@ function findUpgradeOpportunities({
 
 function rankItems(items, goal = WOW_GOALS.general, statWeights = null) {
   const weights = statWeights || getGoalWeights(goal);
-  return (items || []).map(item => ({ item, score: scoreItem(item, weights) }))
+  return (items || []).filter(hasUsableItemStats)
+    .map(item => ({ item, score: scoreItem(item, weights) }))
     .sort((a, b) => b.score - a.score);
 }
 
@@ -577,7 +588,7 @@ const WOW_OPTIMIZER_TEST_DATA = [
 window.WoWOptimizer = {
   slots: WOW_EQUIPMENT_SLOTS, goals: WOW_GOALS,
   createCharacterProfile, normalizeCharacterStatistics, scoreCharacterStatistics, getCharacterStatSummary, resolveStatWeights, normalizeSimulationScaleFactors, getSimulationWeightContext, findBlizzardSpecialization, getSpecProfileContext,
-  normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, scoreItem, scoreEquipment, getGoalWeights,
+  normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, hasUsableItemStats, scoreItem, scoreEquipment, getGoalWeights,
   findBestItemForSlot, optimizeEquipment, findUpgradeOpportunities, rankItems,
   getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,
   calculateCrestRequirements, isAscendantVenomstoneEligible, recommendUpgradePlan,

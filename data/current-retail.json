@@ -6,7 +6,7 @@
   "season": 2,
   "patch": "12.1.0",
   "status": "season-2-plus-source-imported",
-  "updatedAt": "2026-10-10T09:01:51.803628+00:00",
+  "updatedAt": "2026-10-10T16:55:56.112390+00:00",
   "source": "Blizzard Game Data API",
   "items": [
     {
@@ -40844,6 +40844,7 @@
     "Blizzard API credentials are never placed in browser JavaScript.",
     "The importer does not scan the historical weapon/armor catalog.",
     "Season membership is source-based, not guessed from item level.",
+    "Item stat coverage is measured from imported numeric stat records; missing stats are reported and never inferred from item level.",
     "Season 2 PvE candidates come from matched Adventure Journal sources.",
     "Season 2 PvP candidates come from Blizzard's PvP Season 2 reward API.",
     "Current Midnight profession recipes are imported for gems, enchants, crafted gear, and other crafted outputs.",
@@ -40857,6 +40858,13 @@
     "namespace": "static-us",
     "gearItemCount": 381,
     "candidateItemCount": 441,
+    "itemStatCoverage": {
+      "candidateItemCount": 381,
+      "itemsWithVerifiedStats": 0,
+      "itemsMissingVerifiedStats": 381,
+      "itemStatCoveragePercent": 0.0,
+      "coveragePolicy": "At least one non-zero numeric stat in the source item record; item level alone does not qualify."
+    },
     "pveCandidateItemCount": 378,
     "pvpCandidateItemCount": 63,
     "matchedPvEInstances": [
