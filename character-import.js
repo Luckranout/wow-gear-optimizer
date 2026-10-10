@@ -35,11 +35,25 @@ function parseImportedCharacterJson(text) {
 function formatCharacterStatistics(statistics = {}) {
   const labels = {
     Strength: "Strength", Agility: "Agility", Intellect: "Intellect", Stamina: "Stamina",
-    CriticalStrike: "Critical Strike", Haste: "Haste", Mastery: "Mastery", Versatility: "Versatility"
+    CriticalStrike: "Critical Strike", Haste: "Haste", Mastery: "Mastery", Versatility: "Versatility",
+    Armor: "Armor", Dodge: "Dodge", Parry: "Parry", Block: "Block", Leech: "Leech",
+    Speed: "Speed", Avoidance: "Avoidance", Lifesteal: "Lifesteal", Mana: "Mana",
+    Health: "Health", AttackPower: "Attack Power", SpellPower: "Spell Power"
   };
+  const humanize = key => String(key)
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .replace(/[_-]+/g, " ")
+    .replace(/\\bcrit(ical)? ?strike\\b/i, "Critical Strike")
+    .replace(/\\bvers\\b/i, "Versatility")
+    .replace(/\\bstr\\b/i, "Strength")
+    .replace(/\\bagi\\b/i, "Agility")
+    .replace(/\\bint\\b/i, "Intellect")
+    .replace(/\\bsta\\b/i, "Stamina")
+    .replace(/\\s+/g, " ")
+    .trim();
   return Object.entries(statistics || {})
-    .filter(([key, value]) => labels[key] && Number.isFinite(Number(value)))
-    .map(([key, value]) => ({ key, label: labels[key], value: Number(value) }))
+    .filter(([, value]) => value !== null && value !== "" && Number.isFinite(Number(value)))
+    .map(([key, value]) => ({ key, label: labels[key] || humanize(key), value: Number(value) }))
     .sort((a, b) => a.label.localeCompare(b.label));
 }
 
