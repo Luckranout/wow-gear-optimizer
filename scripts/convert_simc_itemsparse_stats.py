@@ -23,6 +23,12 @@ KNOWN_CONTEXT_DEPENDENT_STAT_IDS = {
     72: "strengthAgility (combined primary stats; requires context)",
     73: "agilityIntellect (combined primary stats; requires context)",
     74: "strengthIntellect (combined primary stats; requires context)",
+    24: "bonusStat1 (generic bonus stat; requires item/effect context)",
+    25: "bonusStat2 (generic bonus stat; requires item/effect context)",
+    51: "fireResistance (legacy/context-dependent resistance)",
+    52: "frostResistance (legacy/context-dependent resistance)",
+    54: "shadowResistance (legacy/context-dependent resistance)",
+    55: "natureResistance (legacy/context-dependent resistance)",
 }
 
 VERIFIED_STAT_MAP = {
