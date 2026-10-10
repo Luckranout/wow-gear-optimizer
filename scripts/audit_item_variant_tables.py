@@ -11,6 +11,9 @@ from pathlib import Path
 
 TABLES = {
     "ItemUpgrade": {"keys": ("id", "ID")},
+    "RulesetItemUpgrade": {"keys": ("id", "ID")},
+    "GarrItemLevelUpgradeData": {"keys": ("id", "ID")},
+    "ItemBonusSeasonUpgradeCost": {"keys": ("id", "ID")},
     "ItemBonus": {"keys": ("id", "ID")},
     "ItemBonusTreeNode": {"keys": ("id", "ID")},
     "ItemXBonusTree": {"keys": ("id", "ID")},
