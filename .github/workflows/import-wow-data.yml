@@ -75,52 +75,7 @@ jobs:
             }
 
       - name: Verify imported item-stat coverage
-        run: |
-          python - <<'PY'
-          import json
-          import math
-          import sys
-          from numbers import Real
-          from pathlib import Path
-
-          path = Path("data/current-retail.json")
-          if not path.exists():
-              sys.exit("VERIFY FAILED: importer did not create the catalog.")
-
-          with path.open(encoding="utf-8") as handle:
-              dataset = json.load(handle)
-
-          items = dataset.get("items")
-          if not isinstance(items, list):
-              sys.exit("VERIFY FAILED: catalog 'items' field is missing or not a list.")
-
-          def has_numeric_stats(item):
-              stats = item.get("stats") if isinstance(item, dict) else None
-              if not isinstance(stats, list):
-                  return False
-              for stat in stats:
-                  if not isinstance(stat, dict):
-                      continue
-                  value = stat.get("value")
-                  if isinstance(value, Real) and not isinstance(value, bool) and math.isfinite(value) and value != 0:
-                      return True
-              return False
-
-          total = len(items)
-          actual_verified = sum(has_numeric_stats(item) for item in items)
-          coverage = (dataset.get("apiCheck") or {}).get("itemStatCoverage") or {}
-          reported_verified = coverage.get("itemsWithVerifiedStats")
-          print(f"Catalog items: {total}; records with actual numeric stat values: {actual_verified}; importer-reported count: {reported_verified}")
-
-          if not total:
-              sys.exit("VERIFY FAILED: catalog contains no items; refusing to publish.")
-          if actual_verified <= 0:
-              sys.exit("VERIFY FAILED: no item record contains a non-zero numeric stat value; refusing to publish.")
-          if reported_verified != actual_verified:
-              sys.exit("VERIFY FAILED: importer coverage count does not match independently counted item records.")
-
-          print("Basic item-stat presence gate passed. This does not prove complete coverage, correct item variants, or accurate stat scaling.")
-          PY
+        run: python scripts/verify_item_stat_coverage.py
 
       - name: Commit updated dataset
         run: |
