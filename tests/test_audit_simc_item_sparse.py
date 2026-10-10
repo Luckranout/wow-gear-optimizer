@@ -37,6 +37,18 @@ class SimcItemSparseAuditTests(unittest.TestCase):
         self.assertTrue(report["exampleRecords"][0]["hotfixed"])
         self.assertIn("not converted", report["policy"])
 
+    def test_legacy_stat_value_field_is_supported(self):
+        report = MODULE.audit_records([{
+            "id": 456,
+            "stat_type_1": 3,
+            "stat_value_1": 12,
+        }])
+        self.assertEqual(report["recordsWithNonzeroStatPairs"], 1)
+        self.assertEqual(
+            report["exampleRecords"][0]["statPairs"],
+            [{"statTypeId": 3, "value": 12}],
+        )
+
     def test_item_level_without_stats_does_not_count(self):
         report = MODULE.audit_records([{"id": 123, "item_level": 999}])
         self.assertEqual(report["recordsWithStatPairs"], 0)
