@@ -29,4 +29,52 @@ assert.strictEqual(optimizer.scoreItem(unverified), 0, "item level alone must no
 assert.strictEqual(optimizer.findBestItemForSlot([unverified], "Head", optimizer.goals.general), null);
 assert.strictEqual(optimizer.findBestItemForSlot([unverified, verified], "Head", optimizer.goals.general).item.id, 2);
 assert.deepStrictEqual(optimizer.rankItems([unverified]).length, 0);
+const heuristicReport = optimizer.createOptimizationReport({
+  character: {
+    ...optimizer.createCharacterProfile(),
+    className: "Mage",
+    specialization: "Frost",
+    goal: optimizer.goals.mythicPlus
+  },
+  availableItems: [verified],
+  dataset: { optimizationProfiles: {} }
+});
+assert.strictEqual(
+  heuristicReport.recommendationStatus,
+  "heuristic-ranking-not-simulation-validated",
+  "fallback ranking must be labelled as a heuristic"
+);
+assert.strictEqual(heuristicReport.numericProjectionAvailable, false);
+assert.strictEqual(
+  heuristicReport.optimizationContext.source,
+  "Static goal heuristic (not spec-specific simulation)"
+);
+assert(
+  heuristicReport.recommendationLimitations.some(text => text.includes("not specialization-specific")),
+  "report must disclose that fallback weights are not specialization-specific"
+);
+
+const simulatedReport = optimizer.createOptimizationReport({
+  character: {
+    ...optimizer.createCharacterProfile(),
+    className: "Mage",
+    specialization: "Frost",
+    simulation: {
+      source: "SimulationCraft import",
+      method: "scale-factors",
+      patch: "test-patch",
+      specialization: "Frost Mage",
+      generatedAt: "2026-10-10T00:00:00.000Z",
+      scaleFactors: { Intellect: 1, Haste: 0.5 }
+    }
+  },
+  availableItems: [verified],
+  dataset: {}
+});
+assert.strictEqual(
+  simulatedReport.recommendationStatus,
+  "simulation-weighted-ranking-not-full-stat-projection"
+);
+assert.strictEqual(simulatedReport.numericProjectionAvailable, false);
+
 console.log("Verified stats and fail-closed recommendation tests passed.");

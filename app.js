@@ -373,7 +373,9 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
   });
 
   renderCharacterStats(report.currentStats.trackedStats);
-  optimizationSource.textContent = `Using native goal/spec weights • ${character.goal}`;
+  optimizationSource.textContent = report.recommendationStatus === "simulation-weighted-ranking-not-full-stat-projection"
+    ? `Simulation-derived stat weights • ${character.goal} • not a full stat projection`
+    : `Static heuristic ranking • ${character.goal} • not spec-specific simulation`;
 
   renderUpgradeResults(report.topUpgrades);
   renderOptimizedLoadout(report.optimizedEquipment, report.totalScore, WoWOptimizer.normalizeImportedEquipment(importedCharacter?.equipment || []));
@@ -387,8 +389,8 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
     : `${character.className} • ${character.specialization}`;
 
   resultMessage.textContent = report.topUpgrades.length
-    ? `${label} • ${character.goal} — ${report.topUpgrades.length} direct gear upgrades found and ranked by the active stat weights.`
-    : `${label} • ${character.goal} — no direct gear upgrades are available in the current dataset.`;
+    ? `${label} • ${character.goal} — ${report.topUpgrades.length} gear candidates ranked. This is a ranking aid, not a verified best-in-slot result or numeric projected-stat calculation.`
+    : `${label} • ${character.goal} — no direct gear candidates ranked from the currently available dataset. This does not prove that no upgrades exist in game.`;
 });
 
 document.querySelector("#clearBtn").addEventListener("click", () => {

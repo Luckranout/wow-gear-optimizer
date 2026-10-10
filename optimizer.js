@@ -569,13 +569,23 @@ function createOptimizationReport({character = createCharacterProfile(), availab
       characterId: simulationContext.characterId,
       generatedAt: simulationContext.generatedAt
     } : {
-      source: "Goal/spec baseline",
-      method: "static-weights",
+      source: "Static goal heuristic (not spec-specific simulation)",
+      method: "static-weights-heuristic",
       patch: null,
       specialization: character.specialization || null,
       characterId: character.characterId ?? null,
       generatedAt: null
     },
+    recommendationStatus: simulationContext
+      ? "simulation-weighted-ranking-not-full-stat-projection"
+      : "heuristic-ranking-not-simulation-validated",
+    numericProjectionAvailable: false,
+    recommendationLimitations: [
+      "Gear ranking is not a full combat simulation.",
+      "Static fallback weights are not specialization-specific.",
+      "Imported item stat presence does not prove complete item or enhancement effects.",
+      "Numeric projected character stats are not calculated by this report."
+    ],
     equipmentSlots: WOW_EQUIPMENT_SLOTS.length, generatedAt: new Date().toISOString()
   };
 }
