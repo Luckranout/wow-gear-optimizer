@@ -2,6 +2,10 @@ name: Audit current WoW ItemSparse data
 
 on:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - ".github/workflows/audit-current-itemsparse.yml"
+      - "scripts/audit_simc_item_sparse.py"
 
 permissions:
   contents: read
