@@ -62,9 +62,12 @@ jobs:
           BUILD="$(basename "$(dirname "$(dirname "$ITEMSPARSE_PATH")")")"
           test -n "$BUILD"
           echo "CLIENT_BUILD=$BUILD" >> "$GITHUB_ENV"
-          python simulationcraft/dbc_extract3/dbc_extract.py \
+          # The extractor resolves its formats directory relative to its working directory.
+          pushd simulationcraft/dbc_extract3
+          python dbc_extract.py \
             -t json -b "$BUILD" -p "$ITEMSPARSE_BUILD_DIR" ItemSparse.db2 \
             > "$RUNNER_TEMP/ItemSparse.json"
+          popd
           test -s "$RUNNER_TEMP/ItemSparse.json"
 
       - name: Run non-guessing item-stat audit
