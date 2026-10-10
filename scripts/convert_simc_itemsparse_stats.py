@@ -13,6 +13,18 @@ from pathlib import Path
 
 # Stable ItemModType IDs confirmed in SimulationCraft's item_mod_type enum.
 # Some historical aliases are deliberately excluded until their current use is audited.
+# IDs whose enum names are known but are intentionally not scored as ordinary
+# scalar stats: combined primary stats need character/class-aware resolution;
+# legacy defensive ratings need a current-retail applicability check.
+KNOWN_CONTEXT_DEPENDENT_STAT_IDS = {
+    13: "dodgeRating (legacy/context-dependent; not enabled for scoring)",
+    14: "parryRating (legacy/context-dependent; not enabled for scoring)",
+    71: "strengthAgilityIntellect (combined primary stats; requires context)",
+    72: "strengthAgility (combined primary stats; requires context)",
+    73: "agilityIntellect (combined primary stats; requires context)",
+    74: "strengthIntellect (combined primary stats; requires context)",
+}
+
 VERIFIED_STAT_MAP = {
     3: "agility",
     4: "strength",
@@ -41,6 +53,7 @@ def convert_record(record):
 
     named_stats = {}
     unmapped = []
+    context_dependent = []
     malformed = []
     for index in range(1, 11):
         stat_type = record.get(f"stat_type_{index}")
@@ -54,7 +67,14 @@ def convert_record(record):
             continue
         stat_name = VERIFIED_STAT_MAP.get(stat_type)
         if stat_name is None:
-            unmapped.append({"statTypeId": stat_type, "value": value})
+            pair = {"statTypeId": stat_type, "value": value}
+            if stat_type in KNOWN_CONTEXT_DEPENDENT_STAT_IDS:
+                context_dependent.append({
+                    **pair,
+                    "knownMeaning": KNOWN_CONTEXT_DEPENDENT_STAT_IDS[stat_type],
+                })
+            else:
+                unmapped.append(pair)
             continue
         named_stats[stat_name] = named_stats.get(stat_name, 0) + value
 
@@ -64,8 +84,9 @@ def convert_record(record):
         "itemLevel": record.get("item_level"),
         "stats": named_stats,
         "unmappedStatPairs": unmapped,
+        "contextDependentStatPairs": context_dependent,
         "malformedStatPairs": malformed,
-        "fullyMapped": bool(named_stats) and not unmapped and not malformed,
+        "fullyMapped": bool(named_stats) and not unmapped and not context_dependent and not malformed,
     }
 
 
@@ -74,7 +95,11 @@ def convert_records(records):
         raise ValueError("input must be a non-empty JSON array")
     converted = [convert_record(record) for record in records]
     unmapped_stat_id_counts = {}
+    context_dependent_stat_id_counts = {}
     for item in converted:
+        for pair in item["contextDependentStatPairs"]:
+            key = str(pair["statTypeId"])
+            context_dependent_stat_id_counts[key] = context_dependent_stat_id_counts.get(key, 0) + 1
         for pair in item["unmappedStatPairs"]:
             key = str(pair["statTypeId"])
             unmapped_stat_id_counts[key] = unmapped_stat_id_counts.get(key, 0) + 1
@@ -86,8 +111,10 @@ def convert_records(records):
         "recordsWithNamedStats": sum(bool(r["stats"]) for r in converted),
         "fullyMappedRecords": sum(r["fullyMapped"] for r in converted),
         "recordsWithUnmappedStats": sum(bool(r["unmappedStatPairs"]) for r in converted),
+        "recordsWithContextDependentStats": sum(bool(r["contextDependentStatPairs"]) for r in converted),
         "recordsWithMalformedStats": sum(bool(r["malformedStatPairs"]) for r in converted),
         "unmappedStatIdPairCounts": dict(sorted(unmapped_stat_id_counts.items(), key=lambda pair: int(pair[0]))),
+        "contextDependentStatIdPairCounts": dict(sorted(context_dependent_stat_id_counts.items(), key=lambda pair: int(pair[0]))),
         "items": converted,
     }
 
