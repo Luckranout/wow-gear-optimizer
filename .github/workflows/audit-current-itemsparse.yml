@@ -87,6 +87,31 @@ jobs:
           print(json.dumps(report, indent=2))
           PY
 
+      - name: Convert verified stat IDs and measure mapping coverage
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/convert_simc_itemsparse_stats.py "$RUNNER_TEMP/ItemSparse.json" \
+            --output "$RUNNER_TEMP/item-sparse-conversion-full.json"
+          # Upload aggregate counts only; never publish raw client records.
+          python - <<'PY'
+          import json, os
+          root = os.environ["RUNNER_TEMP"]
+          report = json.load(open(root + "/item-sparse-conversion-full.json", encoding="utf-8"))
+          report.pop("items", None)
+          target = root + "/item-sparse-conversion-summary.json"
+          json.dump(report, open(target, "w", encoding="utf-8"), indent=2)
+          print(json.dumps(report, indent=2))
+          PY
+
+      - name: Upload stat-mapping coverage summary
+        uses: actions/upload-artifact@v4
+        with:
+          name: item-sparse-conversion-summary
+          path: ${{ runner.temp }}/item-sparse-conversion-summary.json
+          if-no-files-found: error
+          retention-days: 7
+
       - name: Upload aggregate audit report
         uses: actions/upload-artifact@v4
         with:
