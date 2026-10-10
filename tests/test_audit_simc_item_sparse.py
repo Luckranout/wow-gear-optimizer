@@ -20,9 +20,9 @@ class SimcItemSparseAuditTests(unittest.TestCase):
                 "name": "Test item",
                 "item_level": 300,
                 "stat_type_1": 4,
-                "stat_value_1": 27,
+                "stat_alloc_1": 27,
                 "stat_type_2": 0,
-                "stat_value_2": 0,
+                "stat_alloc_2": 0,
                 "hotfixed": True,
             }
         ])
@@ -46,7 +46,7 @@ class SimcItemSparseAuditTests(unittest.TestCase):
         report = MODULE.audit_records([{
             "id": 123,
             "stat_type_1": 4,
-            "stat_value_1": "unknown",
+            "stat_alloc_1": "unknown",
         }])
         self.assertEqual(report["recordsWithMalformedStatFields"], 1)
         self.assertEqual(report["recordsWithNonzeroStatPairs"], 0)
