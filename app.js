@@ -365,6 +365,8 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
   renderUpgradeResults(report.topUpgrades);
   renderOptimizedLoadout(report.optimizedEquipment, report.totalScore);
   renderCharacterCoach(report, character);
+  const resultPlaceholder = document.querySelector("#resultPlaceholder");
+  if (resultPlaceholder) resultPlaceholder.style.display = "none";
 
 
   const label = importedCharacter
@@ -392,6 +394,8 @@ document.querySelector("#clearBtn").addEventListener("click", () => {
   optimizationSource.textContent = "Optimization source will appear after the optimizer runs.";
   renderUpgradeResults([]);
   renderOptimizedLoadout({});
+  const resultPlaceholder = document.querySelector("#resultPlaceholder");
+  if (resultPlaceholder) resultPlaceholder.style.display = "";
   resultMessage.textContent = "Look up a character or choose a class and specialization, then run the optimizer.";
   renderSlots();
 });
