@@ -46,7 +46,9 @@ def audit_records(records):
         malformed = False
         for index in range(1, 11):
             stat_type = record.get(f"stat_type_{index}")
-            stat_value = record.get(f"stat_value_{index}")
+            # SimulationCraft ItemSparse schema names these fields stat_alloc_N.
+            # Accept stat_value_N as a compatibility alias for older/custom exports.
+            stat_value = record.get(f"stat_alloc_{index}", record.get(f"stat_value_{index}"))
             if stat_type is None and stat_value is None:
                 continue
             if not isinstance(stat_type, int) or isinstance(stat_type, bool):
