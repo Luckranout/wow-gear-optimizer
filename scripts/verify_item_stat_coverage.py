@@ -64,11 +64,19 @@ def validate_dataset(dataset):
             problems.append(f"{label} ({item.get('name', 'unnamed')}): missing or unrecognized statsSource provenance")
 
     if problems:
+        missing_stats = sum(
+            isinstance(item, dict) and not has_numeric_stats(item)
+            for item in items
+        )
+        prefix = (
+            f"{missing_stats} item record(s) have no verified non-zero numeric stat; "
+            if missing_stats else ""
+        )
         preview = "; ".join(problems[:20])
         remaining = len(problems) - min(len(problems), 20)
         suffix = f"; and {remaining} more problem(s)" if remaining else ""
         raise ValueError(
-            f"{len(problems)} catalog validation problem(s); refusing to publish: "
+            f"{prefix}{len(problems)} catalog validation problem(s); refusing to publish: "
             f"{preview}{suffix}"
         )
 
