@@ -43,6 +43,19 @@ class ItemVariantTableAuditTests(unittest.TestCase):
         self.assertEqual(effect_check["unresolvedReferenceCount"], 1)
         self.assertEqual(effect_check["sampleUnresolvedIds"], ["999"])
 
+    def test_documented_bonus_tree_child_reference_is_checked(self):
+        report = MODULE.audit_relationships({
+            "ItemBonusTreeNode": [
+                {"id": 1, "id_child": 2},
+                {"id": 2, "id_child": 0},
+                {"id": 3, "id_child": 999},
+            ],
+        })
+        child_check = next(row for row in report if row["sourceTable"] == "ItemBonusTreeNode")
+        self.assertEqual(child_check["nonzeroReferencesChecked"], 2)
+        self.assertEqual(child_check["unresolvedReferenceCount"], 1)
+        self.assertEqual(child_check["sampleUnresolvedIds"], ["999"])
+
     def test_linkage_candidates_are_reported_without_asserting_foreign_keys(self):
         report = MODULE.audit_linkage_candidates({
             "ItemBonus": [{"id_node": 5}, {"id_node": 99}],
