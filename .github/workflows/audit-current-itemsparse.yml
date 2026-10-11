@@ -98,6 +98,21 @@ jobs:
                   {"data_type": "i", "field": "flags"},
               ]
           }
+          item_fields = data["ItemSparse"]["fields"]
+          expected_item_field_names = ["id_curve", "unk_1", "unk_2", "unk_3"]
+          actual_item_field_names = [field["field"] for field in item_fields[31:35]]
+          if actual_item_field_names != expected_item_field_names:
+              raise SystemExit(
+                  "ItemSparse current-build field layout mismatch: expected {} at 31:35, got {}".format(
+                      expected_item_field_names, actual_item_field_names
+                  )
+              )
+          item_fields[31:35] = [
+              {"data_type": "i", "field": "player_level_to_item_level_curve_id", "ref": "Curve"},
+              {"data_type": "i", "field": "item_level_offset_curve_id", "ref": "Curve"},
+              {"data_type": "i", "field": "item_level_offset_item_level"},
+              {"data_type": "i", "field": "item_squish_era_id"},
+          ]
           data["ItemBonusTreeNode"] = {
               "parent": "ItemBonusTree",
               "fields": [
