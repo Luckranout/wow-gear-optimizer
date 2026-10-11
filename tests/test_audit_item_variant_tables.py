@@ -43,6 +43,17 @@ class ItemVariantTableAuditTests(unittest.TestCase):
         self.assertEqual(effect_check["unresolvedReferenceCount"], 1)
         self.assertEqual(effect_check["sampleUnresolvedIds"], ["999"])
 
+    def test_linkage_candidates_are_reported_without_asserting_foreign_keys(self):
+        report = MODULE.audit_linkage_candidates({
+            "ItemBonus": [{"id_node": 5}, {"id_node": 99}],
+            "ItemBonusTreeNode": [{"id": 1, "id_node": 5, "id_parent": 1}],
+            "ItemXBonusTree": [{"id_tree": 5}, {"id_tree": 77}],
+        })
+        bonus_node = next(row for row in report if row["sourceTable"] == "ItemBonus")
+        self.assertEqual(bonus_node["distinctValuesInCommon"], 1)
+        self.assertEqual(bonus_node["sourceValuesWithoutTargetMatch"], 1)
+        self.assertIn("candidate only", bonus_node["interpretation"])
+
     def test_missing_tables_are_explicit(self):
         with tempfile.TemporaryDirectory() as temp:
             path = pathlib.Path(temp)
