@@ -86,6 +86,10 @@ class ItemSparseStatConversionTests(unittest.TestCase):
         )
         self.assertFalse(item["fullyMapped"])
 
+    def test_reads_current_build_ilevel_field(self):
+        item = MODULE.convert_record({"id": 7, "ilevel": 320, "stat_type_1": 4, "stat_alloc_1": 500})
+        self.assertEqual(item["itemLevel"], 320)
+
     def test_no_stats_are_invented_from_item_level(self):
         item = MODULE.convert_record({"id": 1, "item_level": 999})
         self.assertEqual(item["stats"], {})
