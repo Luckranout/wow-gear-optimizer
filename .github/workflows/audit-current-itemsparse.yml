@@ -80,8 +80,8 @@ jobs:
           data = json.loads((target if target.exists() else base).read_text(encoding="utf-8"))
           data["ItemLevelSelectorQualitySet"] = {
               "fields": [
-                  {"data_type": "H", "field": "ilvl_rare"},
-                  {"data_type": "H", "field": "ilvl_epic"},
+                  {"data_type": "h", "field": "ilvl_rare"},
+                  {"data_type": "h", "field": "ilvl_epic"},
               ]
           }
           data["ItemLevelSelectorQuality"] = {
