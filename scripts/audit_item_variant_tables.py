@@ -24,6 +24,8 @@ REQUIRED_FOR_FINAL_STAT_SCALING = {
 
 TABLES = {
     "ItemUpgrade": {"keys": ("id", "ID")},
+    "ItemCreationContext": {"keys": ("id", "ID")},
+    "ItemCreationContextGroup": {"keys": ("id", "ID")},
     "RulesetItemUpgrade": {"keys": ("id", "ID")},
     "GarrItemLevelUpgradeData": {"keys": ("id", "ID")},
     "ItemBonusSeasonUpgradeCost": {"keys": ("id", "ID")},
@@ -78,6 +80,7 @@ def audit_table(name, records):
     schema_requirements = {
         "ItemBonus": (("ID", "id"), ("ParentItemBonusListID", "id_parent"), ("Type", "type"), ("Value", "value", "val_1")),
         "ItemBonusTreeNode": (("ID", "id"), ("ParentItemBonusTreeID", "id_parent"), ("ChildItemBonusListID", "id_child_bonus_list"), ("ChildItemBonusTreeID", "id_child_bonus_tree")),
+        "ItemCreationContext": (("ID", "id"), ("ItemContext", "item_context"), ("ItemCreationContextGroupID", "id_item_creation_context_group")),
         "ItemXBonusTree": (("ID", "id"), ("ItemBonusTreeID", "id_tree"), ("ItemID", "item_id", "id_parent")),
         "ItemBonusListLevelDelta": (("ID", "id"), ("ItemLevelDelta", "item_level_delta")),
     }
@@ -200,6 +203,7 @@ def audit_directory(directory, candidate_item_ids=None):
             "ItemXBonusTree", "ItemBonusTreeNode", "ItemBonusTree",
             "ItemBonus", "ItemBonusList", "ItemBonusListLevelDelta",
             "ItemLevelSelector", "ItemLevelSelectorQualitySet", "ItemLevelSelectorQuality",
+            "ItemCreationContext", "ItemCreationContextGroup",
         }:
             # Small, public game-data samples help validate field semantics before
             # any production resolver treats candidate relationships as authoritative.
@@ -233,8 +237,20 @@ def audit_directory(directory, candidate_item_ids=None):
                 if row.get("id_child_bonus_tree") not in (None, 0, "0")
             }
             reachable_tree_ids.update(child_ids)
+        context_group_ids = {
+            str(row.get("id_item_creation_context_group"))
+            for row in reachable_nodes
+            if row.get("id_item_creation_context_group") not in (None, 0, "0")
+        }
+        context_rows = loaded_tables.get("ItemCreationContext", [])
+        relevant_context_rows = [
+            row for row in context_rows
+            if str(row.get("id_item_creation_context_group")) in context_group_ids
+        ]
         result["candidateItemVariantLinkage"] = {
             "candidateItemCount": len(candidate_ids),
+            "contextGroupIdsReferenced": sorted(int(value) for value in context_group_ids),
+            "contextGroupMappingRows": relevant_context_rows,
             "itemsWithBonusTreeLink": len({str(row.get("id_parent")) for row in candidate_links}),
             "itemBonusTreeLinkCount": len(candidate_links),
             "rootTreeCount": len(root_tree_ids),
