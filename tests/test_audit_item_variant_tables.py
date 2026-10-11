@@ -43,18 +43,20 @@ class ItemVariantTableAuditTests(unittest.TestCase):
         self.assertEqual(effect_check["unresolvedReferenceCount"], 1)
         self.assertEqual(effect_check["sampleUnresolvedIds"], ["999"])
 
-    def test_documented_bonus_tree_child_reference_is_checked(self):
-        report = MODULE.audit_relationships({
+    def test_bonus_tree_child_linkage_stays_diagnostic(self):
+        report = MODULE.audit_linkage_candidates({
             "ItemBonusTreeNode": [
-                {"id": 1, "id_child": 2},
-                {"id": 2, "id_child": 0},
-                {"id": 3, "id_child": 999},
+                {"id": 1, "id_node": 5, "id_child": 2},
+                {"id": 2, "id_node": 6, "id_child": 0},
+                {"id": 3, "id_node": 7, "id_child": 999},
             ],
         })
-        child_check = next(row for row in report if row["sourceTable"] == "ItemBonusTreeNode")
-        self.assertEqual(child_check["nonzeroReferencesChecked"], 2)
-        self.assertEqual(child_check["unresolvedReferenceCount"], 1)
-        self.assertEqual(child_check["sampleUnresolvedIds"], ["999"])
+        child_checks = [row for row in report if row["sourceField"] == "id_child"]
+        self.assertEqual(len(child_checks), 2)
+        self.assertTrue(all("candidate only" in row["interpretation"] for row in child_checks))
+        self.assertNotIn("ItemBonusTreeNode", [row["sourceTable"] for row in MODULE.audit_relationships({
+            "ItemBonusTreeNode": [{"id": 1, "id_child": 999}]
+        })])
 
     def test_linkage_candidates_are_reported_without_asserting_foreign_keys(self):
         report = MODULE.audit_linkage_candidates({
