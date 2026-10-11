@@ -43,8 +43,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          grep -iE 'DBFilesClient[\\/]+(ItemUpgrade|RulesetItemUpgrade|GarrItemLevelUpgradeData|ItemBonusSeasonUpgradeCost|ItemBonus|ItemBonusTreeNode|ItemXBonusTree|ItemBonusListLevelDelta|ItemBonusSeason|ItemEffect|ItemXItemEffect|RulesetRaidLootUpgrade|ChrUpgradeBucketSpell|ChrUpgradeBucket|ChrUpgradeTier|ScalingStatDistribution|ItemLevelSelector|ItemLevelSelectorQualitySet|ItemLevelSelectorQuality|ItemBonusList|ItemBonusListWarforgeLevelDelta|ChallengeModeItemBonusOverride|ItemBonusListGroupEntry|ItemBonusSequenceSpell|ItemBonusTree|ItemBonusListGroup|ItemBonusTreeGroupEntry|ItemBonusSeasonBonusListGroup)[.]db2' simulationcraft/casc_extract/dbfile > "$RUNNER_TEMP/item-variant-dbfiles"
-          test "$(wc -l < "$RUNNER_TEMP/item-variant-dbfiles")" -eq 28
+          grep -iE 'DBFilesClient[\\/]+(ItemUpgrade|RulesetItemUpgrade|GarrItemLevelUpgradeData|ItemBonusSeasonUpgradeCost|ItemBonus|ItemBonusTreeNode|ItemXBonusTree|ItemBonusListLevelDelta|ItemBonusSeason|ItemEffect|ItemXItemEffect|RulesetRaidLootUpgrade|ChrUpgradeBucketSpell|ChrUpgradeBucket|ChrUpgradeTier|ScalingStatDistribution|ItemLevelSelector|ItemLevelSelectorQualitySet|ItemLevelSelectorQuality|ItemBonusList|ItemBonusListWarforgeLevelDelta|ChallengeModeItemBonusOverride|ItemBonusListGroupEntry|ItemBonusSequenceSpell|ItemBonusTree|ItemBonusListGroup|ItemBonusTreeGroupEntry|ItemBonusSeasonBonusListGroup|ScalingStatValues|ItemScalingConfig|ItemGroupIlvlScalingEntry|ItemArmorQuality|ExpectedStat|ExpectedStatMod|ContentTuningXExpectedStatMod|Curve|CurvePoint|GlobalCurve)[.]db2' simulationcraft/casc_extract/dbfile > "$RUNNER_TEMP/item-variant-dbfiles"
+          test "$(wc -l < "$RUNNER_TEMP/item-variant-dbfiles")" -eq 38
           cat "$RUNNER_TEMP/item-variant-dbfiles"
 
       - name: Download ItemSparse and variant/upgrade tables from Blizzard CDN
@@ -110,7 +110,7 @@ jobs:
           print("Added verified quality-table formats for client build {}".format(build))
           PY
           pushd simulationcraft/dbc_extract3
-          for table in ItemUpgrade RulesetItemUpgrade GarrItemLevelUpgradeData ItemBonusSeasonUpgradeCost ItemBonus ItemBonusTreeNode ItemXBonusTree ItemBonusListLevelDelta ItemBonusSeason ItemEffect ItemXItemEffect RulesetRaidLootUpgrade ChrUpgradeBucketSpell ChrUpgradeBucket ChrUpgradeTier ScalingStatDistribution ItemLevelSelector ItemLevelSelectorQualitySet ItemLevelSelectorQuality ItemBonusList ItemBonusListWarforgeLevelDelta ChallengeModeItemBonusOverride ItemBonusListGroupEntry ItemBonusSequenceSpell ItemBonusTree ItemBonusListGroup ItemBonusTreeGroupEntry ItemBonusSeasonBonusListGroup; do
+          for table in ItemUpgrade RulesetItemUpgrade GarrItemLevelUpgradeData ItemBonusSeasonUpgradeCost ItemBonus ItemBonusTreeNode ItemXBonusTree ItemBonusListLevelDelta ItemBonusSeason ItemEffect ItemXItemEffect RulesetRaidLootUpgrade ChrUpgradeBucketSpell ChrUpgradeBucket ChrUpgradeTier ScalingStatDistribution ItemLevelSelector ItemLevelSelectorQualitySet ItemLevelSelectorQuality ItemBonusList ItemBonusListWarforgeLevelDelta ChallengeModeItemBonusOverride ItemBonusListGroupEntry ItemBonusSequenceSpell ItemBonusTree ItemBonusListGroup ItemBonusTreeGroupEntry ItemBonusSeasonBonusListGroup ScalingStatValues ItemScalingConfig ItemGroupIlvlScalingEntry ItemArmorQuality ExpectedStat ExpectedStatMod ContentTuningXExpectedStatMod Curve CurvePoint GlobalCurve; do
             mapfile -t files < <(find "$ITEM_TABLES_DIR" -maxdepth 1 -type f -iname "$table.db2" -print)
             if [ "${#files[@]}" -ne 1 ]; then
               echo "TABLE_UNAVAILABLE=$table (found ${#files[@]} matching files in this build)" >&2
