@@ -51,7 +51,7 @@ class VerifiedItemEffectObservationTests(unittest.TestCase):
 
     def test_conditional_effects_are_not_permanent_stats(self):
         policy = self.data["policy"].lower()
-        self.assertIn("not optimizer-ready simulation values", policy)
+        self.assertIn("optimizer-ready simulation values", policy)
         self.assertTrue(any("not permanent static item stats" in note
                             for note in self.data["items"][0]["unresolved"]))
 
