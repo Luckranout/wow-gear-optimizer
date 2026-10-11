@@ -54,8 +54,19 @@ def validate_dataset(dataset):
                 problems.append(f"{label}: duplicate item ID")
             seen_ids.add(item_id)
 
-        # This importer's catalog is built from equippable combat-item candidates.
-        # Do not silently treat unknown or non-equippable records as cosmetic.
+        # Cosmetic classification is accepted only when backed by an explicit
+        # source label; item level/name alone never determines classification.
+        if item.get("catalogClassification") == "cosmetic":
+            if not str(item.get("classificationSource", "")).startswith(
+                "Wowhead tooltip explicitly labels item Cosmetic"
+            ):
+                problems.append(
+                    f"{label} ({item.get('name', 'unnamed')}): cosmetic classification lacks explicit source provenance"
+                )
+            continue
+
+        # Every non-cosmetic record is treated as combat/unknown and must meet
+        # the complete verified-stat contract. Unknown records remain blocked.
         if item.get("isEquippable") is not True:
             problems.append(f"{label} ({item.get('name', 'unnamed')}): not explicitly marked equippable")
         if not has_numeric_stats(item):
@@ -65,7 +76,9 @@ def validate_dataset(dataset):
 
     if problems:
         missing_stats = sum(
-            isinstance(item, dict) and not has_numeric_stats(item)
+            isinstance(item, dict)
+            and item.get("catalogClassification") != "cosmetic"
+            and not has_numeric_stats(item)
             for item in items
         )
         prefix = (
@@ -80,7 +93,10 @@ def validate_dataset(dataset):
             f"{preview}{suffix}"
         )
 
-    actual_verified = len(items)
+    actual_verified = sum(
+        1 for item in items
+        if isinstance(item, dict) and item.get("catalogClassification") != "cosmetic"
+    )
     coverage = (dataset.get("apiCheck") or {}).get("itemStatCoverage") or {}
     reported_verified = coverage.get("itemsWithVerifiedStats")
     if reported_verified != actual_verified:
