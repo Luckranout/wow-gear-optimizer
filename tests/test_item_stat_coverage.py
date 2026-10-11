@@ -50,16 +50,25 @@ class ItemStatCoverageTests(unittest.TestCase):
     def test_parse_wowhead_tooltip_stats_ignores_missing_or_unrecognized_data(self):
         self.assertEqual(MODULE.parse_wowhead_tooltip_stats(""), [])
         self.assertEqual(MODULE.parse_wowhead_tooltip_stats("<span>Equip: grants power</span>"), [])
+    def test_normalize_preview_stats_reads_blizzard_display_strings(self):
+        stats = MODULE.normalize_preview_stats([
+            {"display": {"display_string": "+16 Agility"}},
+            {"display": {"display_string": "+24 Stamina"}},
+            {"display": {"display_string": "+0 Haste"}},
+        ])
+        self.assertEqual([(item["type"]["name"], item["value"]) for item in stats],
+                         [("agility", 16), ("stamina", 24)])
+
     def test_normalize_item_reads_stats_from_preview_item(self):
         normalized = MODULE.normalize_item({
             "id": 123,
             "name": {"en_US": "Preview Stat Item"},
             "preview_item": {
-                "stats": [{"type": {"name": "Haste"}, "value": 42}]
+                "stats": [{"display": {"display_string": "+42 Haste"}}]
             },
         })
         self.assertEqual(normalized["stats"], [
-            {"type": {"name": "Haste"}, "value": 42}
+            {"type": {"name": "haste"}, "value": 42, "source": "Blizzard preview_item.stats"}
         ])
         self.assertTrue(MODULE.item_has_verified_stats(normalized))
 
