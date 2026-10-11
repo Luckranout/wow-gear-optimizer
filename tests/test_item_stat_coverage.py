@@ -47,6 +47,17 @@ class ItemStatCoverageTests(unittest.TestCase):
         self.assertEqual([(item["type"]["name"], item["value"]) for item in stats],
                          [("strength", 123), ("stamina", 456)])
 
+    def test_explicit_cosmetic_label_detection_uses_word_boundary_and_normalizes_html(self):
+        self.assertTrue(MODULE.tooltip_explicitly_labels_cosmetic(
+            '<div>Item Level 1</div><div><b>Cosmetic</b> Head</div>'
+        ))
+        self.assertFalse(MODULE.tooltip_explicitly_labels_cosmetic(
+            '<div>Cosmetically themed item</div>'
+        ))
+        self.assertFalse(MODULE.tooltip_explicitly_labels_cosmetic(
+            '<div>Item Level 1</div><div>Head</div>'
+        ))
+
     def test_parse_wowhead_tooltip_stats_ignores_missing_or_unrecognized_data(self):
         self.assertEqual(MODULE.parse_wowhead_tooltip_stats(""), [])
         self.assertEqual(MODULE.parse_wowhead_tooltip_stats("<span>Equip: grants power</span>"), [])
