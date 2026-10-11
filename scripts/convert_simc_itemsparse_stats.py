@@ -97,7 +97,7 @@ def convert_record(record):
     return {
         "itemId": item_id,
         "name": record.get("name"),
-        "itemLevel": record.get("item_level"),
+        "itemLevel": record.get("ilevel", record.get("item_level")),
         "stats": named_stats,
         "unmappedStatPairs": unmapped,
         "contextDependentStatPairs": context_dependent,
