@@ -86,4 +86,6 @@ class ItemStatCoverageGateTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "250244 Permafrost Essence"):
             validate_dataset(dataset(items))
 
+
+if __name__ == "__main__":
     unittest.main()
