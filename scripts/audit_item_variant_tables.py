@@ -19,6 +19,7 @@ REQUIRED_FOR_VARIANT_RESOLUTION = {
 }
 REQUIRED_FOR_FINAL_STAT_SCALING = {
     "ItemLevelSelectorQualitySet", "ItemLevelSelectorQuality",
+    "Curve", "CurvePoint", "ItemOffsetCurve", "ItemScalingConfig",
 }
 
 TABLES = {
@@ -60,6 +61,7 @@ TABLES = {
     "Curve": {"keys": ("id", "ID")},
     "CurvePoint": {"keys": ("id", "ID")},
     "GlobalCurve": {"keys": ("id", "ID")},
+    "ItemOffsetCurve": {"keys": ("id", "ID")},
 }
 
 
