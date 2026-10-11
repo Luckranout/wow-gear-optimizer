@@ -52,15 +52,58 @@ def audit_table(name, records):
     }
 
 
+def _record_ids(records):
+    return {
+        str(value)
+        for row in records
+        for value in [row.get("id", row.get("ID"))]
+        if value is not None
+    }
+
+
+def audit_relationships(tables):
+    """Check only known relationship fields when both source and target tables exist."""
+    checks = [
+        ("ItemBonusTreeNode", ("id_parent", "parent_id"), "ItemBonusTreeNode"),
+        ("ItemXBonusTree", ("id_item_bonus_tree", "id_tree", "id_node"), "ItemBonusTreeNode"),
+        ("ItemBonusListLevelDelta", ("id_item_bonus_list", "id_bonus_list"), "ItemBonus"),
+        ("ItemXItemEffect", ("id_item_effect",), "ItemEffect"),
+    ]
+    report = []
+    for source_name, candidate_fields, target_name in checks:
+        if source_name not in tables or target_name not in tables:
+            continue
+        source_rows = tables[source_name]
+        target_ids = _record_ids(tables[target_name])
+        fields_present = [field for field in candidate_fields if any(field in row for row in source_rows)]
+        for field in fields_present:
+            values = [row.get(field) for row in source_rows if row.get(field) not in (None, 0, "0")]
+            missing = [value for value in values if str(value) not in target_ids]
+            report.append({
+                "sourceTable": source_name,
+                "field": field,
+                "targetTable": target_name,
+                "nonzeroReferencesChecked": len(values),
+                "unresolvedReferenceCount": len(missing),
+                "sampleUnresolvedIds": sorted({str(value) for value in missing})[:10],
+                "status": "unresolved" if missing else "resolved",
+            })
+    return report
+
+
 def audit_directory(directory):
     result = {"source": "SimulationCraft DB2 JSON export", "tables": {}, "missingTables": []}
+    loaded_tables = {}
     for name in TABLES:
         path = directory / f"{name}.json"
         if not path.exists():
             result["missingTables"].append(name)
             continue
         records = json.loads(path.read_text(encoding="utf-8"))
+        loaded_tables[name] = records
         result["tables"][name] = audit_table(name, records)
+    result["relationships"] = audit_relationships(loaded_tables)
+    result["unresolvedRelationshipChecks"] = sum(r["unresolvedReferenceCount"] for r in result["relationships"])
     result["tableCountFound"] = len(result["tables"])
     result["tableCountExpected"] = len(TABLES)
     result["tablesWithMissingRequiredFields"] = [
