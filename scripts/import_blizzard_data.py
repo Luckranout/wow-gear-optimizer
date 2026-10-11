@@ -1324,23 +1324,6 @@ def fetch_item_details(token, item_ids, item_sources):
         if item_id in wowhead_diagnostics["explicitCosmeticItems"]:
             item["catalogClassification"] = "cosmetic"
             item["classificationSource"] = "Wowhead tooltip explicitly labels item Cosmetic"
-        if not item_has_verified_stats(item) and item.get("name") == "Permafrost Essence":
-            # Keep source-described proc/equip text as effect metadata, not as
-            # permanent base stats. The tooltip remains available for audit.
-            try:
-                payload = None
-                url = "https://nether.wowhead.com/tooltip/item/{}?dataEnv=1&locale=0".format(int(item_id))
-                request = urllib.request.Request(url, headers={"Accept":"application/json","User-Agent":"WoW-Gear-Optimizer/1.0"})
-                with urllib.request.urlopen(request, timeout=30) as response:
-                    payload = json.load(response)
-                tooltip = payload.get("tooltip", "") if isinstance(payload, dict) else ""
-                if isinstance(tooltip, str) and tooltip.strip():
-                    item["sourceTooltip"] = tooltip
-                    item["effectTextSource"] = "Wowhead tooltip (source text; not converted to base stats)"
-            except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, ValueError, json.JSONDecodeError) as error:
-                print(f"Item {item_id}: unable to retain source effect text ({type(error).__name__}).")
-            except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, ValueError, json.JSONDecodeError) as error:
-                print(f"Item {item_id}: no Wowhead stat fallback ({type(error).__name__}).")
         if item_has_verified_stats(item) and "statsSource" not in item:
             item["statsSource"] = "Blizzard Game Data API"
         items.append(item)
