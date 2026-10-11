@@ -162,8 +162,8 @@ def main():
                 "warning": "ItemSparse stat allocations are not final scaled item stats; these rows are diagnostic only."
             }
     except (OSError, json.JSONDecodeError, ValueError) as error:
-        parser.exit(1, f"CONVERSION FAILED: {error}\\n")
-    args.output.write_text(json.dumps(result, indent=2, ensure_ascii=False) + "\\n", encoding="utf-8")
+        parser.exit(1, f"CONVERSION FAILED: {error}\n")
+    args.output.write_text(json.dumps(result, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     summary = {k: v for k, v in result.items() if k != "items"}
     print(json.dumps(summary, indent=2))
 
