@@ -40,12 +40,12 @@ class ItemStatCoverageGateTests(unittest.TestCase):
             validate_dataset(dataset(items, 0))
 
     def test_accepts_real_numeric_stats_when_count_matches(self):
-        total, verified, cosmetics = validate_dataset(dataset([
+        total, verified, cosmetics, conditional = validate_dataset(dataset([
             {"id": 1, "stats": [{"value": 12}]},
             {"id": 2, "stats": [{"value": 0}, {"value": 7.5}]},
             {"id": 3, "stats": [], "catalogClassification": "cosmetic", "classificationSource": "Wowhead tooltip explicitly labels item Cosmetic", "wowheadTooltipClassificationEvidence": "Explicit Cosmetic label in tooltip"},
         ], 2))
-        self.assertEqual((total, verified, cosmetics), (3, 2, 1))
+        self.assertEqual((total, verified, cosmetics, conditional), (3, 2, 1, 0))
 
     def test_rejects_mismatched_reported_count(self):
         with self.assertRaisesRegex(ValueError, "does not match"):
@@ -63,7 +63,7 @@ class ItemStatCoverageGateTests(unittest.TestCase):
                 "wowheadTooltipClassificationEvidence": "Explicit Cosmetic label in tooltip",
             },
         ]
-        self.assertEqual(validate_dataset(dataset(items)), (2, 1, 1))
+        self.assertEqual(validate_dataset(dataset(items)), (2, 1, 1, 0))
 
     def test_cosmetic_flag_without_source_evidence_does_not_bypass_gate(self):
         items = [
@@ -72,6 +72,20 @@ class ItemStatCoverageGateTests(unittest.TestCase):
         ]
         with self.assertRaisesRegex(ValueError, "lack verified non-zero numeric stats"):
             validate_dataset(dataset(items))
+
+    def test_explicitly_fail_closed_permafrost_can_be_catalogued_without_being_scored(self):
+        items = [
+            {"id": 100, "name": "Combat Ring", "stats": [{"value": 12}]},
+            {
+                "id": 250244,
+                "name": "Permafrost Essence",
+                "stats": [],
+                "optimizationStatus": "unsupported_conditional_effect",
+                "conditionalEffectsSupported": False,
+                "optimizationStatusSource": "Wowhead tooltip confirms Mark of Frost and Frost Barrier conditional effects; scaling/model unresolved",
+            },
+        ]
+        self.assertEqual(validate_dataset(dataset(items)), (2, 1, 0, 1))
 
     def test_permafrost_effect_only_item_does_not_bypass_base_stat_gate(self):
         items = [
