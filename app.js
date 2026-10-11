@@ -89,15 +89,25 @@ async function loadCurrentRetailData() {
 }
 
 function renderSlots() {
-  slotGrid.innerHTML = slots.map(slot => `
-    <div class="slot">
-      <div class="slot-name">${slot}</div>
-      <div class="slot-status">${importedCharacter?.equipment?.find(item => {
-        const normalized = WoWOptimizer.normalizeImportedEquipment(importedCharacter.equipment);
-        return normalized[slot]?.id === item.id;
-      }) ? "Imported character gear" : "Awaiting character import"}</div>
-    </div>
-  `).join("");
+  const normalizedEquipment = importedCharacter
+    ? WoWOptimizer.normalizeImportedEquipment(importedCharacter.equipment || [])
+    : null;
+
+  slotGrid.innerHTML = slots.map(slot => {
+    const item = normalizedEquipment?.[slot] || null;
+    const status = !importedCharacter
+      ? "Awaiting character import"
+      : item
+        ? "Imported character gear"
+        : "No equipped item found";
+
+    return `
+      <div class="slot">
+        <div class="slot-name">${slot}</div>
+        <div class="slot-status">${status}</div>
+      </div>
+    `;
+  }).join("");
 }
 
 function renderCharacterStats(statistics = {}) {
