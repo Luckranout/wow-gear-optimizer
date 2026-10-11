@@ -11,6 +11,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: current-itemsparse-audit
+  cancel-in-progress: true
+
 jobs:
   audit-item-sparse:
     runs-on: ubuntu-latest
@@ -43,8 +47,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          grep -iE 'DBFilesClient[\\/]+(ItemUpgrade|RulesetItemUpgrade|GarrItemLevelUpgradeData|ItemBonusSeasonUpgradeCost|ItemBonus|ItemBonusTreeNode|ItemXBonusTree|ItemBonusListLevelDelta|ItemBonusSeason|ItemEffect|ItemXItemEffect)[.]db2' simulationcraft/casc_extract/dbfile > "$RUNNER_TEMP/item-variant-dbfiles"
-          test "$(wc -l < "$RUNNER_TEMP/item-variant-dbfiles")" -eq 11
+          grep -iE 'DBFilesClient[\\/]+(ItemUpgrade|RulesetItemUpgrade|GarrItemLevelUpgradeData|ItemBonusSeasonUpgradeCost|ItemBonus|ItemBonusTreeNode|ItemXBonusTree|ItemBonusListLevelDelta|ItemBonusSeason|ItemEffect|ItemXItemEffect|RulesetRaidLootUpgrade|ChrUpgradeBucketSpell|ChrUpgradeBucket|ChrUpgradeTier|ScalingStatDistribution|ItemLevelSelector|ItemLevelSelectorQualitySet|ItemLevelSelectorQuality|ItemBonusList|ItemBonusListWarforgeLevelDelta|ChallengeModeItemBonusOverride|ItemBonusListGroupEntry|ItemBonusSequenceSpell|ItemBonusTree|ItemBonusListGroup|ItemBonusTreeGroupEntry|ItemBonusSeasonBonusListGroup|ItemCreationContext|ItemCreationContextGroup|ScalingStatValues|ItemScalingConfig|ItemGroupIlvlScalingEntry|ItemArmorQuality|ExpectedStat|ExpectedStatMod|ContentTuningXExpectedStatMod|Curve|CurvePoint|GlobalCurve|ItemOffsetCurve)[.]db2' simulationcraft/casc_extract/dbfile > "$RUNNER_TEMP/item-variant-dbfiles"
+          test "$(wc -l < "$RUNNER_TEMP/item-variant-dbfiles")" -eq 41
           cat "$RUNNER_TEMP/item-variant-dbfiles"
 
       - name: Download ItemSparse and variant/upgrade tables from Blizzard CDN
@@ -69,8 +73,73 @@ jobs:
         run: |
           set -euo pipefail
           BUILD="$(basename "$(dirname "$(dirname "$ITEMSPARSE_PATH")")")"
+          # SimulationCraft's latest format map predates two current-build tables.
+          # Add only fields verified against WoWDBDefs layouts for this exact build.
+          python - "$BUILD" <<'PY'
+          import json, pathlib, sys
+          build = sys.argv[1]
+          formats = pathlib.Path("simulationcraft/dbc_extract3/formats")
+          target = formats / "{}.json".format(build)
+          base = formats / "12.1.0.69299.json"
+          data = json.loads((target if target.exists() else base).read_text(encoding="utf-8"))
+          data["ItemLevelSelectorQualitySet"] = {
+              "fields": [
+                  {"data_type": "h", "field": "ilvl_rare"},
+                  {"data_type": "h", "field": "ilvl_epic"},
+              ]
+          }
+          data["ItemLevelSelectorQuality"] = {
+              "parent": "ItemLevelSelectorQualitySet",
+              "fields": [
+                  {"data_type": "i", "field": "id_item_bonus_list", "ref": "ItemBonusList"},
+                  {"data_type": "b", "field": "quality"},
+              ]
+          }
+          data["ItemCreationContextGroup"] = {
+              "fields": [{"data_type": "i", "field": "id"}]
+          }
+          data["Curve"] = {
+              "fields": [
+                  {"data_type": "i", "field": "id"},
+                  {"data_type": "i", "field": "type"},
+                  {"data_type": "i", "field": "flags"},
+              ]
+          }
+          item_fields = data["ItemSparse"]["fields"]
+          expected_item_field_names = ["id_curve", "unk_1", "unk_2", "unk_3"]
+          actual_item_field_names = [field["field"] for field in item_fields[31:35]]
+          if actual_item_field_names != expected_item_field_names:
+              raise SystemExit(
+                  "ItemSparse current-build field layout mismatch: expected {} at 31:35, got {}".format(
+                      expected_item_field_names, actual_item_field_names
+                  )
+              )
+          item_fields[31:35] = [
+              {"data_type": "i", "field": "player_level_to_item_level_curve_id", "ref": "Curve"},
+              {"data_type": "i", "field": "item_level_offset_curve_id", "ref": "Curve"},
+              {"data_type": "i", "field": "item_level_offset_item_level"},
+              {"data_type": "i", "field": "item_squish_era_id"},
+          ]
+          data["ItemBonusTreeNode"] = {
+              "parent": "ItemBonusTree",
+              "fields": [
+                  {"data_type": "B", "field": "item_context"},
+                  {"data_type": "H", "field": "id_child_bonus_tree", "ref": "ItemBonusTree"},
+                  {"data_type": "H", "field": "id_child_bonus_list", "ref": "ItemBonusList"},
+                  {"data_type": "H", "field": "id_level_selector", "ref": "ItemLevelSelector"},
+                  {"data_type": "i", "field": "id_node_group"},
+                  {"data_type": "i", "field": "id_group_point_mod_set"},
+                  {"data_type": "i", "field": "min_mythic_plus_level"},
+                  {"data_type": "i", "field": "max_mythic_plus_level"},
+                  {"data_type": "i", "field": "id_item_creation_context_group"},
+                  {"data_type": "i", "field": "flags"},
+              ]
+          }
+          target.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+          print("Added verified quality-table formats for client build {}".format(build))
+          PY
           pushd simulationcraft/dbc_extract3
-          for table in ItemUpgrade RulesetItemUpgrade GarrItemLevelUpgradeData ItemBonusSeasonUpgradeCost ItemBonus ItemBonusTreeNode ItemXBonusTree ItemBonusListLevelDelta ItemBonusSeason ItemEffect ItemXItemEffect; do
+          for table in ItemUpgrade ItemCreationContext ItemCreationContextGroup RulesetItemUpgrade GarrItemLevelUpgradeData ItemBonusSeasonUpgradeCost ItemBonus ItemBonusTreeNode ItemXBonusTree ItemBonusListLevelDelta ItemBonusSeason ItemEffect ItemXItemEffect RulesetRaidLootUpgrade ChrUpgradeBucketSpell ChrUpgradeBucket ChrUpgradeTier ScalingStatDistribution ItemLevelSelector ItemLevelSelectorQualitySet ItemLevelSelectorQuality ItemBonusList ItemBonusListWarforgeLevelDelta ChallengeModeItemBonusOverride ItemBonusListGroupEntry ItemBonusSequenceSpell ItemBonusTree ItemBonusListGroup ItemBonusTreeGroupEntry ItemBonusSeasonBonusListGroup ScalingStatValues ItemScalingConfig ItemGroupIlvlScalingEntry ItemArmorQuality ExpectedStat ExpectedStatMod ContentTuningXExpectedStatMod Curve CurvePoint GlobalCurve ItemOffsetCurve; do
             mapfile -t files < <(find "$ITEM_TABLES_DIR" -maxdepth 1 -type f -iname "$table.db2" -print)
             if [ "${#files[@]}" -ne 1 ]; then
               echo "TABLE_UNAVAILABLE=$table (found ${#files[@]} matching files in this build)" >&2
@@ -88,7 +157,7 @@ jobs:
             fi
           done
           popd
-          python scripts/audit_item_variant_tables.py "$RUNNER_TEMP" --allow-missing --output "$RUNNER_TEMP/item-variant-table-summary.json"
+          python scripts/audit_item_variant_tables.py "$RUNNER_TEMP" --candidate-items data/current-retail.json --allow-missing --output "$RUNNER_TEMP/item-variant-table-summary.json"
 
       - name: Export build-specific ItemSparse records to temporary JSON
         shell: bash
@@ -127,6 +196,7 @@ jobs:
         run: |
           set -euo pipefail
           python scripts/convert_simc_itemsparse_stats.py "$RUNNER_TEMP/ItemSparse.json" \
+            --candidate-items data/current-retail.json \
             --output "$RUNNER_TEMP/item-sparse-conversion-full.json"
           # Upload aggregate counts only; never publish raw client records.
           python - <<'PY'

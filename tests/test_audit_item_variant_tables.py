@@ -43,6 +43,32 @@ class ItemVariantTableAuditTests(unittest.TestCase):
         self.assertEqual(effect_check["unresolvedReferenceCount"], 1)
         self.assertEqual(effect_check["sampleUnresolvedIds"], ["999"])
 
+    def test_bonus_tree_child_linkage_stays_diagnostic(self):
+        report = MODULE.audit_linkage_candidates({
+            "ItemBonusTreeNode": [
+                {"ID": 1, "ChildItemBonusListID": 2, "ChildItemBonusTreeID": 30},
+                {"ID": 2, "ChildItemBonusListID": 0, "ChildItemBonusTreeID": 0},
+                {"ID": 3, "ChildItemBonusListID": 999, "ChildItemBonusTreeID": 999},
+            ],
+            "ItemBonusList": [{"ID": 2}],
+            "ItemBonusTree": [{"ID": 30}],
+        })
+        self.assertEqual(len(report), 2)
+        self.assertTrue(all("candidate only" in row["interpretation"] for row in report))
+        self.assertTrue(all(row["sourceTable"] == "ItemBonusTreeNode" for row in report))
+        self.assertEqual({row["targetTable"] for row in report}, {"ItemBonusList", "ItemBonusTree"})
+
+    def test_linkage_candidates_are_reported_without_asserting_foreign_keys(self):
+        report = MODULE.audit_linkage_candidates({
+            "ItemBonus": [{"id_node": 5}, {"id_node": 99}],
+            "ItemBonusTreeNode": [{"id": 1, "id_node": 5, "id_parent": 1}],
+            "ItemXBonusTree": [{"id_tree": 5}, {"id_tree": 77}],
+        })
+        bonus_node = next(row for row in report if row["sourceTable"] == "ItemBonus")
+        self.assertEqual(bonus_node["distinctValuesInCommon"], 1)
+        self.assertEqual(bonus_node["sourceValuesWithoutTargetMatch"], 1)
+        self.assertIn("candidate only", bonus_node["interpretation"])
+
     def test_missing_tables_are_explicit(self):
         with tempfile.TemporaryDirectory() as temp:
             path = pathlib.Path(temp)
@@ -51,6 +77,40 @@ class ItemVariantTableAuditTests(unittest.TestCase):
             self.assertEqual(report["tableCountFound"], 1)
             self.assertEqual(report["tableCountExpected"], len(MODULE.TABLES))
             self.assertIn("ItemBonus", report["missingTables"])
+
+
+    def test_documented_bonus_tree_and_level_delta_relationships(self):
+        report = MODULE.audit_relationships({
+            "ItemBonusList": [{"id": 10}, {"id": 20}],
+            "ItemBonusListLevelDelta": [{"id": 10}, {"id": 999}],
+            "ItemBonusTree": [{"id": 30}],
+            "ItemXBonusTree": [{"id": 1, "id_parent": 100, "id_tree": 30}],
+            "ItemBonusTreeNode": [{"id": 5, "id_parent": 30}],
+        })
+        tree_link = next(row for row in report if row["sourceTable"] == "ItemXBonusTree")
+        self.assertEqual(tree_link["targetTable"], "ItemBonusTree")
+        self.assertEqual(tree_link["status"], "resolved")
+        level_delta_link = next(row for row in report if row["sourceTable"] == "ItemBonusListLevelDelta")
+        self.assertEqual(level_delta_link["targetTable"], "ItemBonusList")
+        self.assertEqual(level_delta_link["unresolvedReferenceCount"], 1)
+
+
+
+    def test_missing_scaling_tables_prevent_final_stat_verification(self):
+        with tempfile.TemporaryDirectory() as temp:
+            path = pathlib.Path(temp)
+            for table in MODULE.REQUIRED_FOR_VARIANT_RESOLUTION:
+                (path / f"{table}.json").write_text(json.dumps([{"id": 1}]))
+            report = MODULE.audit_directory(path)
+            self.assertFalse(report["scalingTableCoverageComplete"])
+            self.assertFalse(report["finalStatScalingVerified"])
+            self.assertEqual(report["finalStatScalingVerificationStatus"], "not_verified_formula_and_reference_comparison_pending")
+            self.assertEqual(report["missingVariantResolutionTables"], [])
+            self.assertEqual(
+                set(report["missingFinalStatScalingTables"]),
+                MODULE.REQUIRED_FOR_FINAL_STAT_SCALING,
+            )
+
 
 
 if __name__ == "__main__":

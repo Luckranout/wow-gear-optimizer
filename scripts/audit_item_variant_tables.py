@@ -9,8 +9,24 @@ import argparse
 import json
 from pathlib import Path
 
+# These tables are required before raw ItemSparse allocations can be treated as
+# final item stats. Bonus-tree tables resolve item variants; scaling tables are
+# necessary to turn allocations into item-level values.
+REQUIRED_FOR_VARIANT_RESOLUTION = {
+    "ItemBonus", "ItemBonusTreeNode", "ItemXBonusTree",
+    "ItemBonusListLevelDelta", "ItemBonusList", "ItemBonusTree",
+    "ItemBonusListGroupEntry", "ItemBonusListGroup", "ItemLevelSelector",
+    "ItemCreationContext", "ItemCreationContextGroup",
+}
+REQUIRED_FOR_FINAL_STAT_SCALING = {
+    "ItemLevelSelectorQualitySet", "ItemLevelSelectorQuality",
+    "Curve", "CurvePoint", "ItemOffsetCurve", "ItemScalingConfig",
+}
+
 TABLES = {
     "ItemUpgrade": {"keys": ("id", "ID")},
+    "ItemCreationContext": {"keys": ("id", "ID")},
+    "ItemCreationContextGroup": {"keys": ("id", "ID")},
     "RulesetItemUpgrade": {"keys": ("id", "ID")},
     "GarrItemLevelUpgradeData": {"keys": ("id", "ID")},
     "ItemBonusSeasonUpgradeCost": {"keys": ("id", "ID")},
@@ -21,6 +37,34 @@ TABLES = {
     "ItemBonusSeason": {"keys": ("id", "ID")},
     "ItemEffect": {"keys": ("id", "ID")},
     "ItemXItemEffect": {"keys": ("id", "ID")},
+    "RulesetRaidLootUpgrade": {"keys": ("id", "ID")},
+    "ChrUpgradeBucketSpell": {"keys": ("id", "ID")},
+    "ChrUpgradeBucket": {"keys": ("id", "ID")},
+    "ChrUpgradeTier": {"keys": ("id", "ID")},
+    "ScalingStatDistribution": {"keys": ("id", "ID")},
+    "ItemLevelSelector": {"keys": ("id", "ID")},
+    "ItemLevelSelectorQualitySet": {"keys": ("id", "ID")},
+    "ItemLevelSelectorQuality": {"keys": ("id", "ID")},
+    "ItemBonusList": {"keys": ("id", "ID")},
+    "ItemBonusListWarforgeLevelDelta": {"keys": ("id", "ID")},
+    "ChallengeModeItemBonusOverride": {"keys": ("id", "ID")},
+    "ItemBonusListGroupEntry": {"keys": ("id", "ID")},
+    "ItemBonusSequenceSpell": {"keys": ("id", "ID")},
+    "ItemBonusTree": {"keys": ("id", "ID")},
+    "ItemBonusListGroup": {"keys": ("id", "ID")},
+    "ItemBonusTreeGroupEntry": {"keys": ("id", "ID")},
+    "ItemBonusSeasonBonusListGroup": {"keys": ("id", "ID")},
+    "ScalingStatValues": {"keys": ("id", "ID")},
+    "ItemScalingConfig": {"keys": ("id", "ID")},
+    "ItemGroupIlvlScalingEntry": {"keys": ("id", "ID")},
+    "ItemArmorQuality": {"keys": ("id", "ID")},
+    "ExpectedStat": {"keys": ("id", "ID")},
+    "ExpectedStatMod": {"keys": ("id", "ID")},
+    "ContentTuningXExpectedStatMod": {"keys": ("id", "ID")},
+    "Curve": {"keys": ("id", "ID")},
+    "CurvePoint": {"keys": ("id", "ID")},
+    "GlobalCurve": {"keys": ("id", "ID")},
+    "ItemOffsetCurve": {"keys": ("id", "ID")},
 }
 
 
@@ -35,17 +79,19 @@ def audit_table(name, records):
     unique = len({str(value) for value in ids if value is not None})
     field_names = sorted({key for row in records for key in row})
     schema_requirements = {
-        "ItemBonus": ("id", "id_node", "type", "val_1", "val_2", "val_3", "val_4", "index"),
-        "ItemBonusTreeNode": ("id",),
-        "ItemXBonusTree": ("id",),
-        "ItemBonusListLevelDelta": ("id",),
+        "ItemBonus": (("ID", "id"), ("ParentItemBonusListID", "id_parent"), ("Type", "type"), ("Value", "value", "val_1")),
+        "ItemBonusTreeNode": (("ID", "id"), ("ParentItemBonusTreeID", "id_parent"), ("ChildItemBonusListID", "id_child_bonus_list"), ("ChildItemBonusTreeID", "id_child_bonus_tree")),
+        "ItemCreationContext": (("ID", "id"), ("ItemContext", "item_context")),
+        "ItemXBonusTree": (("ID", "id"), ("ItemBonusTreeID", "id_tree"), ("ItemID", "item_id", "id_parent")),
+        "ItemBonusListLevelDelta": (("ID", "id"), ("ItemLevelDelta", "item_level_delta")),
     }
-    expected_fields = schema_requirements.get(name, ())
+    expected_groups = schema_requirements.get(name, ())
+    missing_fields = ["/".join(group) for group in expected_groups if not any(field in field_names for field in group)]
     return {
         "recordCount": len(records),
         "observedFields": field_names,
-        "requiredFields": list(expected_fields),
-        "missingRequiredFields": [field for field in expected_fields if field not in field_names],
+        "requiredFields": ["/".join(group) for group in expected_groups],
+        "missingRequiredFields": missing_fields,
         "recordsWithId": identified,
         "uniqueIds": unique,
         "duplicateIdsAmongIdentified": identified - unique,
@@ -62,14 +108,24 @@ def _record_ids(records):
 
 
 def audit_relationships(tables):
-    """Check only source-verified relationships when both tables are present.
+    """Check relationships documented by the pinned WoWDBDefs definitions.
 
-    Bonus-tree IDs are intentionally not checked here: their target table/field
-    semantics have not yet been established from the current build schema.
+    Overloaded bonus-tree child values remain diagnostic candidates, not foreign keys.
     """
     checks = [
-        ("ItemBonusListLevelDelta", ("id_item_bonus_list", "id_bonus_list"), "ItemBonus"),
-        ("ItemXItemEffect", ("id_item_effect",), "ItemEffect"),
+        ("ItemBonusListLevelDelta", ("ID", "id"), "ItemBonusList"),
+        ("ItemBonus", ("ParentItemBonusListID", "id_parent"), "ItemBonusList"),
+        ("ItemXBonusTree", ("ItemBonusTreeID", "id_tree"), "ItemBonusTree"),
+        ("ItemBonusTreeNode", ("ParentItemBonusTreeID", "id_parent"), "ItemBonusTree"),
+        ("ItemBonusTreeNode", ("ChildItemBonusListID", "id_child_bonus_list"), "ItemBonusList"),
+        ("ItemBonusTreeNode", ("ChildItemBonusTreeID", "id_child_bonus_tree"), "ItemBonusTree"),
+        ("ItemBonusTreeNode", ("ChildItemBonusListGroupID", "id_child_bonus_list_group"), "ItemBonusListGroup"),
+        ("ItemBonusListGroupEntry", ("ItemBonusListID", "id_item_bonus_list"), "ItemBonusList"),
+        ("ItemBonusListGroupEntry", ("ItemBonusListGroupID", "id_item_bonus_list_group"), "ItemBonusListGroup"),
+        ("ItemBonusSeasonBonusListGroup", ("ItemBonusListGroupID", "id_item_bonus_list_group"), "ItemBonusListGroup"),
+        ("ItemBonusSeasonBonusListGroup", ("ItemBonusSeasonID", "id_item_bonus_season"), "ItemBonusSeason"),
+        ("ItemBonusSeasonUpgradeCost", ("ItemBonusSeasonID", "id_item_bonus_season"), "ItemBonusSeason"),
+        ("ItemXItemEffect", ("ItemEffectID", "id_item_effect"), "ItemEffect"),
     ]
     report = []
     for source_name, candidate_fields, target_name in checks:
@@ -77,23 +133,63 @@ def audit_relationships(tables):
             continue
         source_rows = tables[source_name]
         target_ids = _record_ids(tables[target_name])
-        fields_present = [field for field in candidate_fields if any(field in row for row in source_rows)]
-        for field in fields_present:
-            values = [row.get(field) for row in source_rows if row.get(field) not in (None, 0, "0")]
-            missing = [value for value in values if str(value) not in target_ids]
-            report.append({
-                "sourceTable": source_name,
-                "field": field,
-                "targetTable": target_name,
-                "nonzeroReferencesChecked": len(values),
-                "unresolvedReferenceCount": len(missing),
-                "sampleUnresolvedIds": sorted({str(value) for value in missing})[:10],
-                "status": "unresolved" if missing else "resolved",
-            })
+        field = next((name for name in candidate_fields if any(name in row for row in source_rows)), None)
+        if field is None:
+            continue
+        values = [row.get(field) for row in source_rows if row.get(field) not in (None, 0, "0")]
+        missing = [value for value in values if str(value) not in target_ids]
+        report.append({
+            "sourceTable": source_name,
+            "field": field,
+            "targetTable": target_name,
+            "nonzeroReferencesChecked": len(values),
+            "unresolvedReferenceCount": len(missing),
+            "sampleUnresolvedIds": sorted({str(value) for value in missing})[:10],
+            "status": "unresolved" if missing else "resolved",
+        })
     return report
 
 
-def audit_directory(directory):
+def audit_linkage_candidates(tables):
+    """Report field-overlap candidates without asserting undocumented FK semantics."""
+    candidates = [
+        ("ItemBonus", ("id_node", "NodeID"), "ItemBonusTreeNode", ("id_node", "NodeID")),
+        ("ItemBonusTreeNode", ("id_child_bonus_list", "id_child", "ChildItemBonusListID"), "ItemBonusList", ("id", "ID")),
+        ("ItemBonusTreeNode", ("id_child_bonus_tree", "id_child", "ChildItemBonusTreeID"), "ItemBonusTree", ("id", "ID")),
+    ]
+    report = []
+    for source_name, source_fields, target_name, target_fields in candidates:
+        if source_name not in tables or target_name not in tables:
+            continue
+        source_field = next((field for field in source_fields if any(field in row for row in tables[source_name])), None)
+        target_field = next((field for field in target_fields if any(field in row for row in tables[target_name])), None)
+        if source_field is None or target_field is None:
+            continue
+        source_values = {
+            str(row[source_field]) for row in tables[source_name]
+            if row.get(source_field) not in (None, 0, "0")
+        }
+        target_values = {
+            str(row[target_field]) for row in tables[target_name]
+            if row.get(target_field) not in (None, 0, "0")
+        }
+        overlap = source_values & target_values
+        report.append({
+            "sourceTable": source_name,
+            "sourceField": source_field,
+            "targetTable": target_name,
+            "targetField": target_field,
+            "distinctNonzeroSourceValues": len(source_values),
+            "distinctNonzeroTargetValues": len(target_values),
+            "distinctValuesInCommon": len(overlap),
+            "sourceValuesWithoutTargetMatch": len(source_values - target_values),
+            "sampleUnmatchedSourceValues": sorted(source_values - target_values)[:10],
+            "interpretation": "candidate only; confirm foreign-key semantics before treating unmatched values as errors",
+        })
+    return report
+
+
+def audit_directory(directory, candidate_item_ids=None):
     result = {"source": "SimulationCraft DB2 JSON export", "tables": {}, "missingTables": []}
     loaded_tables = {}
     for name in TABLES:
@@ -104,13 +200,120 @@ def audit_directory(directory):
         records = json.loads(path.read_text(encoding="utf-8"))
         loaded_tables[name] = records
         result["tables"][name] = audit_table(name, records)
+        if name in {
+            "ItemXBonusTree", "ItemBonusTreeNode", "ItemBonusTree",
+            "ItemBonus", "ItemBonusList", "ItemBonusListLevelDelta",
+            "ItemLevelSelector", "ItemLevelSelectorQualitySet", "ItemLevelSelectorQuality",
+            "ItemCreationContext", "ItemCreationContextGroup",
+        }:
+            # Small, public game-data samples help validate field semantics before
+            # any production resolver treats candidate relationships as authoritative.
+            result["tables"][name]["sampleRecords"] = records[:5]
     result["relationships"] = audit_relationships(loaded_tables)
+    result["linkageCandidates"] = audit_linkage_candidates(loaded_tables)
+    if candidate_item_ids is not None:
+        candidate_ids = {str(value) for value in candidate_item_ids}
+        item_tree_rows = loaded_tables.get("ItemXBonusTree", [])
+        candidate_links = [
+            row for row in item_tree_rows
+            if str(row.get("id_parent")) in candidate_ids
+        ]
+        root_tree_ids = {str(row.get("id_tree")) for row in candidate_links}
+        node_rows = loaded_tables.get("ItemBonusTreeNode", [])
+        reachable_tree_ids = set(root_tree_ids)
+        visited_tree_ids = set()
+        reachable_nodes = []
+        while True:
+            frontier = reachable_tree_ids - visited_tree_ids
+            if not frontier:
+                break
+            visited_tree_ids.update(frontier)
+            frontier_nodes = [
+                row for row in node_rows if str(row.get("id_parent")) in frontier
+            ]
+            reachable_nodes.extend(frontier_nodes)
+            child_ids = {
+                str(row.get("id_child_bonus_tree"))
+                for row in frontier_nodes
+                if row.get("id_child_bonus_tree") not in (None, 0, "0")
+            }
+            reachable_tree_ids.update(child_ids)
+        context_group_ids = {
+            str(row.get("id_item_creation_context_group"))
+            for row in reachable_nodes
+            if row.get("id_item_creation_context_group") not in (None, 0, "0")
+        }
+        context_rows = loaded_tables.get("ItemCreationContext", [])
+        # The exporter represents ItemCreationContext's non-inline group relation
+        # as id_parent, not as an inline id_item_creation_context_group field.
+        relevant_context_rows = [
+            row for row in context_rows
+            if str(row.get("id_parent")) in context_group_ids
+        ] if context_rows and any("id_parent" in row for row in context_rows) else []
+        context_group_membership_exported = bool(context_rows) and any(
+            "id_parent" in row for row in context_rows
+        )
+        bonus_list_ids = {
+            str(row.get("id_child_bonus_list"))
+            for row in reachable_nodes
+            if row.get("id_child_bonus_list") not in (None, 0, "0")
+        }
+        bonus_list_level_deltas = [
+            row for row in loaded_tables.get("ItemBonusListLevelDelta", [])
+            if str(row.get("id")) in bonus_list_ids
+        ]
+        bonus_list_records = [
+            row for row in loaded_tables.get("ItemBonusList", [])
+            if str(row.get("id")) in bonus_list_ids
+        ]
+        bonus_records = [
+            row for row in loaded_tables.get("ItemBonus", [])
+            if str(row.get("id_parent")) in bonus_list_ids
+        ]
+        group_point_mod_set_ids = sorted({
+            int(row.get("id_group_point_mod_set"))
+            for row in reachable_nodes
+            if row.get("id_group_point_mod_set") not in (None, 0, "0")
+        })
+        result["candidateItemVariantLinkage"] = {
+            "candidateItemCount": len(candidate_ids),
+            "contextGroupIdsReferenced": sorted(int(value) for value in context_group_ids),
+            "contextGroupMappingRows": relevant_context_rows,
+            "contextGroupMembershipExported": context_group_membership_exported,
+            "itemCreationContexts": context_rows,
+            "bonusListIds": sorted(int(value) for value in bonus_list_ids),
+            "bonusListLevelDeltas": bonus_list_level_deltas,
+            "bonusListRecords": bonus_list_records,
+            "bonusRecords": bonus_records,
+            "groupPointModSetIds": group_point_mod_set_ids,
+            "itemsWithBonusTreeLink": len({str(row.get("id_parent")) for row in candidate_links}),
+            "itemBonusTreeLinkCount": len(candidate_links),
+            "rootTreeCount": len(root_tree_ids),
+            "rootTreeIds": sorted(int(value) for value in root_tree_ids),
+            "reachableTreeCount": len(reachable_tree_ids),
+            "reachableTreeIds": sorted(int(value) for value in reachable_tree_ids),
+            "reachableNodeCount": len(reachable_nodes),
+            "itemLinks": candidate_links,
+            "reachableTreeNodes": reachable_nodes,
+            "interpretation": "Recursive child-tree linkage, relevant bonus-list rows, level deltas, and context groups are diagnostic only; group-point-mod-set semantics and scaled final stats remain unverified."
+        }
     result["unresolvedRelationshipChecks"] = sum(r["unresolvedReferenceCount"] for r in result["relationships"])
     result["tableCountFound"] = len(result["tables"])
     result["tableCountExpected"] = len(TABLES)
     result["tablesWithMissingRequiredFields"] = [
         name for name, report in result["tables"].items() if report.get("missingRequiredFields")
     ]
+    result["missingVariantResolutionTables"] = sorted(REQUIRED_FOR_VARIANT_RESOLUTION & set(result["missingTables"]))
+    result["missingFinalStatScalingTables"] = sorted(REQUIRED_FOR_FINAL_STAT_SCALING & set(result["missingTables"]))
+    result["scalingTableCoverageComplete"] = (
+        not result["missingVariantResolutionTables"]
+        and not result["missingFinalStatScalingTables"]
+        and not result["tablesWithMissingRequiredFields"]
+    )
+    # Table presence does not prove the item-level formula is correct.
+    # Keep this false until computed stats pass reference-data comparisons.
+    result["finalStatScalingVerified"] = False
+    result["finalStatScalingVerificationStatus"] = "not_verified_formula_and_reference_comparison_pending"
     return result
 
 
@@ -118,10 +321,18 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("directory", type=Path)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--candidate-items", type=Path, help="Current-retail dataset JSON; include item-to-bonus-tree linkage counts for its candidate IDs.")
     parser.add_argument("--allow-missing", action="store_true", help="Write an incomplete report and exit successfully when some tables are unavailable in this build.")
     args = parser.parse_args()
     try:
-        report = audit_directory(args.directory)
+        candidate_item_ids = None
+        if args.candidate_items:
+            candidate_dataset = json.loads(args.candidate_items.read_text(encoding="utf-8"))
+            candidate_item_ids = [
+                item.get("id") for item in candidate_dataset.get("items", [])
+                if isinstance(item, dict) and item.get("id") is not None
+            ]
+        report = audit_directory(args.directory, candidate_item_ids)
     except (OSError, json.JSONDecodeError, ValueError) as error:
         parser.exit(1, f"AUDIT FAILED: {error}\n")
     args.output.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
