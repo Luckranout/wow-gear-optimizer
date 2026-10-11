@@ -244,12 +244,14 @@ def audit_directory(directory, candidate_item_ids=None):
             if row.get("id_item_creation_context_group") not in (None, 0, "0")
         }
         context_rows = loaded_tables.get("ItemCreationContext", [])
+        # The exporter represents ItemCreationContext's non-inline group relation
+        # as id_parent, not as an inline id_item_creation_context_group field.
         relevant_context_rows = [
             row for row in context_rows
-            if str(row.get("id_item_creation_context_group")) in context_group_ids
-        ] if context_rows and any("id_item_creation_context_group" in row for row in context_rows) else []
+            if str(row.get("id_parent")) in context_group_ids
+        ] if context_rows and any("id_parent" in row for row in context_rows) else []
         context_group_membership_exported = bool(context_rows) and any(
-            "id_item_creation_context_group" in row for row in context_rows
+            "id_parent" in row for row in context_rows
         )
         result["candidateItemVariantLinkage"] = {
             "candidateItemCount": len(candidate_ids),
