@@ -149,5 +149,42 @@ class ItemStatCoverageTests(unittest.TestCase):
         self.assertEqual(report["itemRecordsWithAnyNumericStatsPercent"], 0.0)
 
 
+    def test_wowhead_tooltip_details_detects_explicit_cosmetic_label_without_stats(self):
+        import json
+        from unittest.mock import patch
+
+        class FakeResponse:
+            def __enter__(self):
+                return self
+            def __exit__(self, *args):
+                return False
+            def read(self):
+                return json.dumps({"tooltip": "<div>Dawnblade's Glaives</div><div>Cosmetic</div><div>Use: Add this appearance to your collection.</div>"}).encode("utf-8")
+
+        with patch.object(MODULE.urllib.request, "urlopen", return_value=FakeResponse()):
+            details = MODULE.fetch_wowhead_tooltip_details(258045)
+
+        self.assertTrue(details["explicitlyCosmetic"])
+        self.assertEqual(details["stats"], [])
+        self.assertIn("Cosmetic", details["tooltipText"])
+
+    def test_wowhead_tooltip_details_does_not_infer_cosmetic_without_explicit_label(self):
+        import json
+        from unittest.mock import patch
+
+        class FakeResponse:
+            def __enter__(self):
+                return self
+            def __exit__(self, *args):
+                return False
+            def read(self):
+                return json.dumps({"tooltip": "<div>Permafrost Essence</div><div>Equip: Taking damage has a chance to grant a Mark of Frost.</div>"}).encode("utf-8")
+
+        with patch.object(MODULE.urllib.request, "urlopen", return_value=FakeResponse()):
+            details = MODULE.fetch_wowhead_tooltip_details(250244)
+
+        self.assertFalse(details["explicitlyCosmetic"])
+        self.assertEqual(details["stats"], [])
+
 if __name__ == "__main__":
     unittest.main()
