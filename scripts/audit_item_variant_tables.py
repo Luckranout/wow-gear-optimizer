@@ -206,11 +206,15 @@ def audit_directory(directory):
     ]
     result["missingVariantResolutionTables"] = sorted(REQUIRED_FOR_VARIANT_RESOLUTION & set(result["missingTables"]))
     result["missingFinalStatScalingTables"] = sorted(REQUIRED_FOR_FINAL_STAT_SCALING & set(result["missingTables"]))
-    result["finalStatScalingVerified"] = (
+    result["scalingTableCoverageComplete"] = (
         not result["missingVariantResolutionTables"]
         and not result["missingFinalStatScalingTables"]
         and not result["tablesWithMissingRequiredFields"]
     )
+    # Table presence does not prove the item-level formula is correct.
+    # Keep this false until computed stats pass reference-data comparisons.
+    result["finalStatScalingVerified"] = False
+    result["finalStatScalingVerificationStatus"] = "not_verified_formula_and_reference_comparison_pending"
     return result
 
 
