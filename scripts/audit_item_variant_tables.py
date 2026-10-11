@@ -223,9 +223,10 @@ def audit_directory(directory, candidate_item_ids=None):
             "itemsWithBonusTreeLink": len({str(row.get("id_parent")) for row in candidate_links}),
             "itemBonusTreeLinkCount": len(candidate_links),
             "linkedTreeCount": len(tree_ids),
+            "linkedTreeIds": sorted(int(value) for value in tree_ids),
             "directNodeCount": len(candidate_nodes),
-            "sampleItemLinks": candidate_links[:50],
-            "sampleDirectTreeNodes": candidate_nodes[:100],
+            "itemLinks": candidate_links,
+            "directTreeNodes": candidate_nodes,
             "interpretation": "Source linkage only; child-tree traversal, context eligibility, bonus-list semantics, and scaled stats remain unverified."
         }
     result["unresolvedRelationshipChecks"] = sum(r["unresolvedReferenceCount"] for r in result["relationships"])
