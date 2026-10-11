@@ -1,10 +1,16 @@
 #!/usr/bin/env python3
-"""Fail-closed validation for imported item-stat records."""
+"""Fail-closed validation for the imported combat-item catalog."""
 import json
 import math
 import sys
 from numbers import Real
 from pathlib import Path
+
+
+ALLOWED_STAT_SOURCES = {
+    "Blizzard Game Data API",
+    "Wowhead tooltip (explicit displayed stats)",
+}
 
 
 def has_numeric_stats(item):
@@ -15,7 +21,12 @@ def has_numeric_stats(item):
         if not isinstance(stat, dict):
             continue
         value = stat.get("value")
-        if isinstance(value, Real) and not isinstance(value, bool) and math.isfinite(value) and value != 0:
+        if (
+            isinstance(value, Real)
+            and not isinstance(value, bool)
+            and math.isfinite(value)
+            and value != 0
+        ):
             return True
     return False
 
@@ -28,15 +39,46 @@ def validate_dataset(dataset):
         raise ValueError("catalog 'items' field is missing or not a list")
     if not items:
         raise ValueError("catalog contains no items")
-    actual_verified = sum(has_numeric_stats(item) for item in items)
-    if actual_verified <= 0:
-        raise ValueError("no item record contains a non-zero numeric stat value")
+
+    problems = []
+    seen_ids = set()
+    for index, item in enumerate(items):
+        if not isinstance(item, dict):
+            problems.append(f"record #{index + 1} is not an object")
+            continue
+
+        item_id = item.get("id")
+        label = f"item {item_id}" if item_id is not None else f"record #{index + 1}"
+        if item_id is not None:
+            if item_id in seen_ids:
+                problems.append(f"{label}: duplicate item ID")
+            seen_ids.add(item_id)
+
+        # This importer's catalog is built from equippable combat-item candidates.
+        # Do not silently treat unknown or non-equippable records as cosmetic.
+        if item.get("isEquippable") is not True:
+            problems.append(f"{label} ({item.get('name', 'unnamed')}): not explicitly marked equippable")
+        if not has_numeric_stats(item):
+            problems.append(f"{label} ({item.get('name', 'unnamed')}): no non-zero numeric stats")
+        if item.get("statsSource") not in ALLOWED_STAT_SOURCES:
+            problems.append(f"{label} ({item.get('name', 'unnamed')}): missing or unrecognized statsSource provenance")
+
+    if problems:
+        preview = "; ".join(problems[:20])
+        remaining = len(problems) - min(len(problems), 20)
+        suffix = f"; and {remaining} more problem(s)" if remaining else ""
+        raise ValueError(
+            f"{len(problems)} catalog validation problem(s); refusing to publish: "
+            f"{preview}{suffix}"
+        )
+
+    actual_verified = len(items)
     coverage = (dataset.get("apiCheck") or {}).get("itemStatCoverage") or {}
     reported_verified = coverage.get("itemsWithVerifiedStats")
     if reported_verified != actual_verified:
         raise ValueError(
             f"importer coverage count ({reported_verified!r}) does not match "
-            f"independently counted item records ({actual_verified})"
+            f"independently validated combat-item count ({actual_verified})"
         )
     return len(items), actual_verified
 
@@ -51,8 +93,8 @@ def main():
         total, verified = validate_dataset(dataset)
     except (OSError, json.JSONDecodeError, ValueError) as error:
         sys.exit(f"VERIFY FAILED: {error}; refusing to publish catalog.")
-    print(f"Catalog items: {total}; records with numeric stats: {verified}")
-    print("Basic item-stat presence gate passed. This does not prove complete coverage, correct item variants, or accurate stat scaling.")
+    print(f"Catalog items: {total}; records with verified numeric stats and provenance: {verified}")
+    print("Strict combat-item coverage gate passed.")
 
 
 if __name__ == "__main__":
