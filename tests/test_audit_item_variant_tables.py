@@ -79,5 +79,22 @@ class ItemVariantTableAuditTests(unittest.TestCase):
             self.assertIn("ItemBonus", report["missingTables"])
 
 
+    def test_documented_bonus_tree_and_level_delta_relationships(self):
+        report = MODULE.audit_relationships({
+            "ItemBonusList": [{"id": 10}, {"id": 20}],
+            "ItemBonusListLevelDelta": [{"id": 10}, {"id": 999}],
+            "ItemBonusTree": [{"id": 30}],
+            "ItemXBonusTree": [{"id": 1, "id_parent": 100, "id_tree": 30}],
+            "ItemBonusTreeNode": [{"id": 5, "id_parent": 30}],
+        })
+        tree_link = next(row for row in report if row["sourceTable"] == "ItemXBonusTree")
+        self.assertEqual(tree_link["targetTable"], "ItemBonusTree")
+        self.assertEqual(tree_link["status"], "resolved")
+        level_delta_link = next(row for row in report if row["sourceTable"] == "ItemBonusListLevelDelta")
+        self.assertEqual(level_delta_link["targetTable"], "ItemBonusList")
+        self.assertEqual(level_delta_link["unresolvedReferenceCount"], 1)
+
+
+
 if __name__ == "__main__":
     unittest.main()
