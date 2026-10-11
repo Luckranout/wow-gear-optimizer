@@ -59,6 +59,20 @@ if (realSystem.crests.length !== 5) throw new Error("Generated dataset must cont
 if (realSystem.exchangeRules.length !== 4) throw new Error("Generated dataset must contain 4 crest exchange rules");
 if (!realSystem.ascendantVenomstone || realSystem.ascendantVenomstone.name !== "Ascendant Venomstone") throw new Error("Generated dataset is missing Ascendant Venomstone");
 if (!realSystem.tracks.every(track => track.rankItemLevels?.length === 6)) throw new Error("Every upgrade track must contain 6 ranks");
+const expectedSeasonTwoLadders = {
+  adventurer: [266, 270, 273, 276, 279, 282],
+  veteran: [279, 283, 286, 289, 292, 295],
+  champion: [292, 296, 299, 302, 305, 308],
+  hero: [305, 309, 312, 315, 318, 321],
+  myth: [318, 322, 325, 328, 331, 334]
+};
+for (const [trackId, expectedLevels] of Object.entries(expectedSeasonTwoLadders)) {
+  const track = realSystem.tracks.find(candidate => candidate.id === trackId);
+  const actualLevels = track?.rankItemLevels?.map(rank => rank.itemLevel);
+  if (JSON.stringify(actualLevels) !== JSON.stringify(expectedLevels)) {
+    throw new Error(trackId + " upgrade levels mismatch: " + JSON.stringify(actualLevels));
+  }
+}
 if (!dataset.talents || !Array.isArray(dataset.talents.specializations)) {
   throw new Error("Generated dataset must contain specialization metadata");
 }
