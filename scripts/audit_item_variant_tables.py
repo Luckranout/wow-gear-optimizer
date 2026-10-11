@@ -81,7 +81,7 @@ def audit_table(name, records):
     schema_requirements = {
         "ItemBonus": (("ID", "id"), ("ParentItemBonusListID", "id_parent"), ("Type", "type"), ("Value", "value", "val_1")),
         "ItemBonusTreeNode": (("ID", "id"), ("ParentItemBonusTreeID", "id_parent"), ("ChildItemBonusListID", "id_child_bonus_list"), ("ChildItemBonusTreeID", "id_child_bonus_tree")),
-        "ItemCreationContext": (("ID", "id"), ("ItemContext", "item_context"), ("ItemCreationContextGroupID", "id_item_creation_context_group")),
+        "ItemCreationContext": (("ID", "id"), ("ItemContext", "item_context")),
         "ItemXBonusTree": (("ID", "id"), ("ItemBonusTreeID", "id_tree"), ("ItemID", "item_id", "id_parent")),
         "ItemBonusListLevelDelta": (("ID", "id"), ("ItemLevelDelta", "item_level_delta")),
     }
@@ -247,11 +247,16 @@ def audit_directory(directory, candidate_item_ids=None):
         relevant_context_rows = [
             row for row in context_rows
             if str(row.get("id_item_creation_context_group")) in context_group_ids
-        ]
+        ] if context_rows and any("id_item_creation_context_group" in row for row in context_rows) else []
+        context_group_membership_exported = bool(context_rows) and any(
+            "id_item_creation_context_group" in row for row in context_rows
+        )
         result["candidateItemVariantLinkage"] = {
             "candidateItemCount": len(candidate_ids),
             "contextGroupIdsReferenced": sorted(int(value) for value in context_group_ids),
             "contextGroupMappingRows": relevant_context_rows,
+            "contextGroupMembershipExported": context_group_membership_exported,
+            "itemCreationContexts": context_rows,
             "itemsWithBonusTreeLink": len({str(row.get("id_parent")) for row in candidate_links}),
             "itemBonusTreeLinkCount": len(candidate_links),
             "rootTreeCount": len(root_tree_ids),
@@ -261,7 +266,7 @@ def audit_directory(directory, candidate_item_ids=None):
             "reachableNodeCount": len(reachable_nodes),
             "itemLinks": candidate_links,
             "reachableTreeNodes": reachable_nodes,
-            "interpretation": "Recursive child-tree linkage is diagnostic only; context eligibility, node-group choices, bonus-list semantics, and scaled stats remain unverified."
+            "interpretation": "Recursive child-tree linkage is diagnostic only; context-group membership is included only if the extractor exposes the relation, and node-group choices, bonus-list semantics, and scaled stats remain unverified."
         }
     result["unresolvedRelationshipChecks"] = sum(r["unresolvedReferenceCount"] for r in result["relationships"])
     result["tableCountFound"] = len(result["tables"])
