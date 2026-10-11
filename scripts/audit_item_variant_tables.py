@@ -93,6 +93,41 @@ def audit_relationships(tables):
     return report
 
 
+def audit_linkage_candidates(tables):
+    """Report field-overlap candidates without asserting undocumented FK semantics."""
+    candidates = [
+        ("ItemBonus", "id_node", "ItemBonusTreeNode", "id_node"),
+        ("ItemBonusTreeNode", "id_parent", "ItemBonusTreeNode", "id"),
+        ("ItemXBonusTree", "id_tree", "ItemBonusTreeNode", "id_node"),
+    ]
+    report = []
+    for source_name, source_field, target_name, target_field in candidates:
+        if source_name not in tables or target_name not in tables:
+            continue
+        source_values = {
+            str(row[source_field]) for row in tables[source_name]
+            if row.get(source_field) not in (None, 0, "0")
+        }
+        target_values = {
+            str(row[target_field]) for row in tables[target_name]
+            if row.get(target_field) not in (None, 0, "0")
+        }
+        overlap = source_values & target_values
+        report.append({
+            "sourceTable": source_name,
+            "sourceField": source_field,
+            "targetTable": target_name,
+            "targetField": target_field,
+            "distinctNonzeroSourceValues": len(source_values),
+            "distinctNonzeroTargetValues": len(target_values),
+            "distinctValuesInCommon": len(overlap),
+            "sourceValuesWithoutTargetMatch": len(source_values - target_values),
+            "sampleUnmatchedSourceValues": sorted(source_values - target_values)[:10],
+            "interpretation": "candidate only; confirm foreign-key semantics before treating unmatched values as errors",
+        })
+    return report
+
+
 def audit_directory(directory):
     result = {"source": "SimulationCraft DB2 JSON export", "tables": {}, "missingTables": []}
     loaded_tables = {}
@@ -105,6 +140,7 @@ def audit_directory(directory):
         loaded_tables[name] = records
         result["tables"][name] = audit_table(name, records)
     result["relationships"] = audit_relationships(loaded_tables)
+    result["linkageCandidates"] = audit_linkage_candidates(loaded_tables)
     result["unresolvedRelationshipChecks"] = sum(r["unresolvedReferenceCount"] for r in result["relationships"])
     result["tableCountFound"] = len(result["tables"])
     result["tableCountExpected"] = len(TABLES)
