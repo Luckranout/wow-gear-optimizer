@@ -22,6 +22,7 @@ const normalized = normalizeCharacter(
         name: { en_US: "Example Helm" },
         slot: { type: "HEAD", name: { en_US: "Head" } },
         level: 300,
+        bonus_list: [1234, 5678],
         quality: { id: 4, name: { en_US: "Epic" } }
       }
     ]
@@ -35,6 +36,7 @@ assert.strictEqual(normalized.class.name, "Warrior");
 assert.strictEqual(normalized.activeSpec.name, "Protection");
 assert.strictEqual(normalized.equipmentCount, 1);
 assert.strictEqual(normalized.equipment[0].slotType, "HEAD");
+assert.deepStrictEqual(normalized.equipment[0].bonusList, [1234, 5678]);
 assert.deepStrictEqual(normalized.statistics, { Strength: 100, Haste: 50 });
 
 // The live Blizzard statistics endpoint represents most values as nested
