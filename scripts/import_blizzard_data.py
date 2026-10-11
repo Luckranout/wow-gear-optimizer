@@ -882,6 +882,9 @@ def collect_profession_supporting_data(token):
     recipe_output_cache = {}
     fallback_output_count = 0
     modified_crafting_cache = {}
+    processed_recipe_count = 0
+
+    print(f"Profession index returned {len(profession_refs)} professions.", flush=True)
 
     for profession_ref in profession_refs:
         profession_id = extract_id(profession_ref)
@@ -889,6 +892,7 @@ def collect_profession_supporting_data(token):
         if not profession_id or profession_name not in profession_names:
             continue
 
+        print(f"Loading profession {profession_name} (id {profession_id}).", flush=True)
         profession = get_api_json(
             f"/data/wow/profession/{profession_id}",
             token,
@@ -919,6 +923,14 @@ def collect_profession_supporting_data(token):
                     recipe_id = extract_id(recipe_ref)
                     if not recipe_id:
                         continue
+
+                    processed_recipe_count += 1
+                    if processed_recipe_count == 1 or processed_recipe_count % 25 == 0:
+                        print(
+                            f"Profession recipe progress: {processed_recipe_count} recipes fetched "
+                            f"(latest profession {profession_name}, recipe id {recipe_id}).",
+                            flush=True,
+                        )
 
                     recipe = get_api_json(
                         f"/data/wow/recipe/{recipe_id}",
@@ -1052,8 +1064,11 @@ def fetch_supporting_item_details(token, item_ids):
             source="Blizzard Game Data API — current Midnight profession output",
         ))
 
-        if index % 100 == 0:
-            print(f"Enriched {index}/{len(item_ids)} supporting recipe outputs.")
+        if index == 1 or index % 25 == 0 or index == len(item_ids):
+            print(
+                f"Supporting item progress: {index}/{len(item_ids)} records fetched.",
+                flush=True,
+            )
 
         time.sleep(REQUEST_DELAY_SECONDS)
 
@@ -1452,6 +1467,14 @@ def build_enhancement_effect_coverage(gems, enchants, crafted_gear, other_output
 
 
 def main():
+    run_started = time.monotonic()
+
+    def progress(message):
+        elapsed = time.monotonic() - run_started
+        print(f"[progress +{elapsed:.1f}s] {message}", flush=True)
+
+    progress("Starting Retail import.")
+
     client_id = os.environ.get("BLIZZARD_CLIENT_ID")
     client_secret = os.environ.get("BLIZZARD_CLIENT_SECRET")
 
@@ -1459,7 +1482,9 @@ def main():
         print("Missing BLIZZARD_CLIENT_ID or BLIZZARD_CLIENT_SECRET GitHub secrets.")
         sys.exit(1)
 
+    progress("Requesting Blizzard access token.")
     token = get_access_token(client_id, client_secret)
+    progress("Access token acquired; requesting item-class index.")
 
     item_classes = get_api_json(
         "/data/wow/item-class/index",
@@ -1467,33 +1492,50 @@ def main():
         {"namespace": NAMESPACE, "locale": LOCALE},
     )
 
+    progress("Discovering current PvP season.")
     current_pvp_season_id, current_pvp_season_name = discover_current_pvp_season(token)
-    print(f"Blizzard current PvP season: {current_pvp_season_name} (id {current_pvp_season_id})")
+    print(f"Blizzard current PvP season: {current_pvp_season_name} (id {current_pvp_season_id})", flush=True)
     enforce_supported_season(current_pvp_season_id, current_pvp_season_name)
 
+    progress("Scanning PvE journal instances and encounter loot.")
     pve_sources, matched_instances, missing_sources = collect_season_content_item_ids(token)
+    progress(f"PvE source scan complete: {len(pve_sources)} unique item IDs; scanning PvP rewards and gear.")
     pvp_sources, pvp_metadata = collect_pvp_season_item_ids(
         token, current_pvp_season_id, current_pvp_season_name
     )
     item_sources = merge_item_sources(pve_sources, pvp_sources)
+    progress(f"PvP scan complete; {len(item_sources)} unified item IDs. Importing talent data.")
 
     talent_data = collect_talent_data(token)
+    progress(
+        f"Talent scan complete: {talent_data['specializationCount']} specializations, "
+        f"{talent_data['treeCount']} trees, {talent_data['nodeCount']} nodes. Building upgrade rules."
+    )
     upgrade_data = collect_upgrade_and_crest_data()
 
+    progress("Scanning profession recipes and crafted outputs.")
     profession_recipes, profession_output_ids = collect_profession_supporting_data(token)
+    progress(
+        f"Profession scan complete: {len(profession_recipes)} recipes and "
+        f"{len(profession_output_ids)} output item IDs. Fetching supporting item details."
+    )
     supporting_items = fetch_supporting_item_details(token, profession_output_ids)
+    progress(f"Supporting item detail fetch complete: {len(supporting_items)} records.")
     gems, enchants, crafted_gear, other_crafted_items = classify_profession_outputs(
         profession_recipes,
         supporting_items,
     )
 
+    progress(f"Fetching full item details for {len(item_sources)} source candidates.")
     items = fetch_item_details(token, item_sources.keys(), item_sources)
+    progress(f"Item detail fetch complete: {len(items)} equippable items enriched.")
 
     items.sort(
         key=lambda item: (item.get("level") or 0, item.get("id") or 0),
         reverse=True,
     )
 
+    progress("Calculating item-stat and enhancement-effect coverage.")
     stat_coverage = build_item_stat_coverage(items)
     enhancement_effect_coverage = build_enhancement_effect_coverage(
         gems, enchants, crafted_gear, other_crafted_items
@@ -1593,6 +1635,7 @@ def main():
         "Crafted, vendor, outdoor, Delves, Prey, and other non-Journal sources require their own source-specific importers; they are not silently approximated as Season 2 gear.",
     ]
 
+    progress(f"Writing verified dataset to {OUTPUT}.")
     with open(OUTPUT, "w", encoding="utf-8") as handle:
         json.dump(dataset, handle, indent=2)
         handle.write("\n")
