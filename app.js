@@ -79,8 +79,20 @@ async function loadCurrentRetailData() {
         encounters.map(item => `<option value="${item.id ?? item.name}">${item.name || item.title || "Encounter"}</option>`).join("");
       encounterSelect.disabled = encounters.length === 0;
     }
-    document.querySelector(".status").textContent =
-      `● ${retailDataset.expansion} Season ${retailDataset.season} data loaded`;
+    const statusNode = document.querySelector(".status");
+    const coverage = retailDataset.apiCheck?.itemStatCoverage || {};
+    const total = Number(coverage.candidateItemCount ?? retailDataset.items?.length ?? 0);
+    const withStats = Number(coverage.itemsWithAnyNumericStats ?? coverage.itemsWithVerifiedStats ?? 0);
+    const percent = Number(coverage.itemRecordsWithAnyNumericStatsPercent ?? coverage.itemStatCoveragePercent ?? 0);
+    if (total > 0 && withStats === 0) {
+      statusNode.textContent =
+        `⚠ ${retailDataset.expansion} Season ${retailDataset.season} catalog loaded — item stats unavailable; gear recommendations disabled`;
+      statusNode.classList.add("error");
+    } else {
+      statusNode.textContent =
+        `● ${retailDataset.expansion} Season ${retailDataset.season} data loaded — numeric stats present for ${percent}% of catalog records; completeness not verified`;
+      statusNode.classList.remove("error");
+    }
     return true;
   } catch (error) {
     resultMessage.textContent = `Current Retail data could not be loaded: ${error.message}`;
