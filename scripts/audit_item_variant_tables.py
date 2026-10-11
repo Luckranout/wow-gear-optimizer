@@ -52,17 +52,18 @@ def audit_table(name, records):
     unique = len({str(value) for value in ids if value is not None})
     field_names = sorted({key for row in records for key in row})
     schema_requirements = {
-        "ItemBonus": ("id", "id_node", "type", "val_1", "val_2", "val_3", "val_4", "index"),
-        "ItemBonusTreeNode": ("id",),
-        "ItemXBonusTree": ("id",),
-        "ItemBonusListLevelDelta": ("id",),
+        "ItemBonus": (("ID", "id"), ("ParentItemBonusListID", "id_parent"), ("Type", "type"), ("Value", "value", "val_1")),
+        "ItemBonusTreeNode": (("ID", "id"), ("ParentItemBonusTreeID", "id_parent"), ("ChildItemBonusListID", "id_child_bonus_list"), ("ChildItemBonusTreeID", "id_child_bonus_tree")),
+        "ItemXBonusTree": (("ID", "id"), ("ItemBonusTreeID", "id_tree"), ("ItemID", "item_id")),
+        "ItemBonusListLevelDelta": (("ID", "id"), ("ItemLevelDelta", "item_level_delta")),
     }
-    expected_fields = schema_requirements.get(name, ())
+    expected_groups = schema_requirements.get(name, ())
+    missing_fields = ["/".join(group) for group in expected_groups if not any(field in field_names for field in group)]
     return {
         "recordCount": len(records),
         "observedFields": field_names,
-        "requiredFields": list(expected_fields),
-        "missingRequiredFields": [field for field in expected_fields if field not in field_names],
+        "requiredFields": ["/".join(group) for group in expected_groups],
+        "missingRequiredFields": missing_fields,
         "recordsWithId": identified,
         "uniqueIds": unique,
         "duplicateIdsAmongIdentified": identified - unique,
