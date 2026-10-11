@@ -96,5 +96,20 @@ class ItemVariantTableAuditTests(unittest.TestCase):
 
 
 
+    def test_missing_scaling_tables_prevent_final_stat_verification(self):
+        with tempfile.TemporaryDirectory() as temp:
+            path = pathlib.Path(temp)
+            for table in MODULE.REQUIRED_FOR_VARIANT_RESOLUTION:
+                (path / f"{table}.json").write_text(json.dumps([{"id": 1}]))
+            report = MODULE.audit_directory(path)
+            self.assertFalse(report["finalStatScalingVerified"])
+            self.assertEqual(report["missingVariantResolutionTables"], [])
+            self.assertEqual(
+                set(report["missingFinalStatScalingTables"]),
+                MODULE.REQUIRED_FOR_FINAL_STAT_SCALING,
+            )
+
+
+
 if __name__ == "__main__":
     unittest.main()
