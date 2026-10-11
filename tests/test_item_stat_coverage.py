@@ -37,6 +37,79 @@ class ItemStatCoverageTests(unittest.TestCase):
             "stats": {"haste": 12.5, "criticalStrike": 0}
         }))
 
+    def test_parse_wowhead_tooltip_stats_extracts_only_explicit_numeric_stats(self):
+        stats = MODULE.parse_wowhead_tooltip_stats(
+            '<table><tr><td>+123 Strength</td></tr>'
+            '<tr><td>+456 Stamina</td></tr>'
+            '<tr><td>Equip: Increases damage by 20%</td></tr>'
+            '<tr><td>+0 Haste</td></tr></table>'
+        )
+        self.assertEqual([(item["type"]["name"], item["value"]) for item in stats],
+                         [("strength", 123), ("stamina", 456)])
+
+    def test_explicit_cosmetic_label_detection_uses_word_boundary_and_normalizes_html(self):
+        self.assertTrue(MODULE.tooltip_explicitly_labels_cosmetic(
+            '<div>Item Level 1</div><div><b>Cosmetic</b> Head</div>'
+        ))
+        self.assertFalse(MODULE.tooltip_explicitly_labels_cosmetic(
+            '<div>Cosmetically themed item</div>'
+        ))
+        self.assertFalse(MODULE.tooltip_explicitly_labels_cosmetic(
+            '<div>Item Level 1</div><div>Head</div>'
+        ))
+
+    def test_permafrost_proc_critical_strike_is_not_misread_as_base_stat(self):
+        tooltip = (
+            "<div>Permafrost Essence</div>"
+            "<div>Equip: You gain Nalorakk's Favor of Enduring.</div>"
+            "<div>increasing your Critical Strike by 85 for 15 sec.</div>"
+            "<div>absorbs 73767 damage per mark for 10 sec.</div>"
+        )
+        self.assertEqual(MODULE.parse_wowhead_tooltip_stats(tooltip), [])
+
+    def test_actual_cosmetic_tooltip_text_is_classified(self):
+        tooltip = (
+            "<div>Dawnblade's Glaives</div><div>Cosmetic</div>"
+            "<div>Item Level 1</div><div>Use: Add this appearance to your Warband collection.</div>"
+        )
+        self.assertTrue(MODULE.tooltip_explicitly_labels_cosmetic(tooltip))
+
+    def test_parse_wowhead_tooltip_stats_ignores_missing_or_unrecognized_data(self):
+        self.assertEqual(MODULE.parse_wowhead_tooltip_stats(""), [])
+        self.assertEqual(MODULE.parse_wowhead_tooltip_stats("<span>Equip: grants power</span>"), [])
+
+    def test_parse_wowhead_tooltip_stats_supports_multi_word_labels(self):
+        stats = MODULE.parse_wowhead_tooltip_stats(
+            "<div>+125 Critical Strike</div>"
+            "<div>+86 Haste Rating</div>"
+            "<div>+37 Critical Strike Rating</div>"
+        )
+        self.assertEqual(
+            [(item["type"]["name"], item["value"]) for item in stats],
+            [("criticalStrike", 125), ("haste", 86), ("criticalStrike", 37)],
+        )
+    def test_normalize_preview_stats_reads_blizzard_display_strings(self):
+        stats = MODULE.normalize_preview_stats([
+            {"display": {"display_string": "+16 Agility"}},
+            {"display": {"display_string": "+24 Stamina"}},
+            {"display": {"display_string": "+0 Haste"}},
+        ])
+        self.assertEqual([(item["type"]["name"], item["value"]) for item in stats],
+                         [("agility", 16), ("stamina", 24)])
+
+    def test_normalize_item_reads_stats_from_preview_item(self):
+        normalized = MODULE.normalize_item({
+            "id": 123,
+            "name": {"en_US": "Preview Stat Item"},
+            "preview_item": {
+                "stats": [{"display": {"display_string": "+42 Haste"}}]
+            },
+        })
+        self.assertEqual(normalized["stats"], [
+            {"type": {"name": "haste"}, "value": 42, "source": "Blizzard preview_item.stats"}
+        ])
+        self.assertTrue(MODULE.item_has_verified_stats(normalized))
+
     def test_coverage_reports_count_and_percentage(self):
         items = [
             {"id": 1, "level": 334, "stats": []},
@@ -91,6 +164,17 @@ class ItemStatCoverageTests(unittest.TestCase):
         self.assertEqual(report["total"]["candidateCount"], 0)
         self.assertEqual(report["total"]["recordsWithStructuredEffectMetadata"], 0)
         self.assertEqual(report["total"]["structuredEffectMetadataPresencePercent"], 0.0)
+
+    def test_coverage_excludes_explicitly_classified_cosmetics(self):
+        report = MODULE.build_item_stat_coverage([
+            {"id": 1, "stats": [{"value": 12}]},
+            {"id": 2, "catalogClassification": "cosmetic", "stats": []},
+            {"id": 3, "stats": []},
+        ])
+        self.assertEqual(report["candidateItemCount"], 2)
+        self.assertEqual(report["itemsWithVerifiedStats"], 1)
+        self.assertEqual(report["itemsMissingVerifiedStats"], 1)
+        self.assertEqual(report["itemStatCoveragePercent"], 50.0)
 
     def test_empty_catalog_reports_zero_coverage_without_division_error(self):
         report = MODULE.build_item_stat_coverage([])

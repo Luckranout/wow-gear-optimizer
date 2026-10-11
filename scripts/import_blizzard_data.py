@@ -1,4 +1,6 @@
+import html
 import json
+import re
 import os
 import sys
 import time
@@ -187,6 +189,159 @@ def normalize_name(value):
     return " ".join(str(value).replace("’", "'").split()).strip().lower()
 
 
+def parse_wowhead_tooltip_stats(tooltip):
+    """Extract explicit numeric item stats from Wowhead tooltip HTML."""
+    if not isinstance(tooltip, str) or not tooltip.strip():
+        return []
+    text = html.unescape(re.sub(r"<[^>]+>", " ", tooltip))
+    text = re.sub(r"\s+", " ", text)
+    stat_names = {
+        "strength": "strength", "agility": "agility", "intellect": "intellect",
+        "stamina": "stamina", "critical strike": "criticalStrike",
+        "critical strike rating": "criticalStrike", "haste": "haste",
+        "haste rating": "haste", "mastery": "mastery", "mastery rating": "mastery",
+        "versatility": "versatility", "armor": "armor", "leech": "leech",
+        "avoidance": "avoidance", "speed": "speed",
+    }
+    found = []
+    # Match the longest known label first. A lazy generic label pattern stops
+    # at the first space and misses multi-word stats such as Critical Strike.
+    labels = "|".join(
+        re.escape(label) for label in sorted(stat_names, key=len, reverse=True)
+    )
+    pattern = re.compile(
+        r"([+−-]?\d[\d,]*(?:\.\d+)?)\s+(" + labels + r")(?![A-Za-z])",
+        re.IGNORECASE,
+    )
+    for match in pattern.finditer(text):
+        label = " ".join(match.group(2).lower().split())
+        key = stat_names.get(label)
+        if not key:
+            continue
+        try:
+            value = float(match.group(1).replace(",", "").replace("−", "-"))
+        except ValueError:
+            continue
+        if value == 0:
+            continue
+        if value.is_integer():
+            value = int(value)
+        found.append({"type": {"name": key}, "value": value, "source": "Wowhead tooltip"})
+    unique, seen = [], set()
+    for stat in found:
+        key = (stat["type"]["name"], stat["value"])
+        if key not in seen:
+            seen.add(key)
+            unique.append(stat)
+    return unique
+
+
+def tooltip_explicitly_labels_cosmetic(tooltip):
+    """Return true only when the tooltip explicitly contains the Cosmetic label."""
+    if not isinstance(tooltip, str) or not tooltip.strip():
+        return False
+    plain_text = html.unescape(re.sub(r"<[^>]+>", " ", tooltip))
+    plain_text = re.sub(r"\s+", " ", plain_text).strip()
+    return bool(re.search(r"\bCosmetic\b", plain_text, re.IGNORECASE))
+
+
+def fetch_wowhead_tooltip_stats(item_id, diagnostics=None):
+    """Fetch explicit displayed stats from Wowhead, with bounded retries and shape diagnostics."""
+    url = "https://nether.wowhead.com/tooltip/item/{}?dataEnv=1&locale=0".format(int(item_id))
+    request = urllib.request.Request(url, headers={
+        "Accept": "application/json",
+        "User-Agent": "WoW-Gear-Optimizer/1.0",
+    })
+    payload = None
+    last_error = None
+    for attempt in range(4):
+        try:
+            with urllib.request.urlopen(request, timeout=30) as response:
+                payload = json.load(response)
+            break
+        except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as error:
+            last_error = error
+            if attempt == 3:
+                if diagnostics is not None:
+                    diagnostics["requestErrors"] += 1
+                raise
+            wait = 2 ** attempt
+            if diagnostics is not None:
+                diagnostics["retries"] += 1
+            print(f"Wowhead tooltip request for item {item_id} failed ({type(error).__name__}); retrying in {wait}s...")
+            time.sleep(wait)
+
+    if diagnostics is not None:
+        diagnostics["requestsSucceeded"] += 1
+        if isinstance(payload, dict):
+            diagnostics["responseShapes"][",".join(sorted(str(key) for key in payload.keys())) or "<empty-object>"] = (
+                diagnostics["responseShapes"].get(",".join(sorted(str(key) for key in payload.keys())) or "<empty-object>", 0) + 1
+            )
+        else:
+            diagnostics["responseShapes"][type(payload).__name__] = diagnostics["responseShapes"].get(type(payload).__name__, 0) + 1
+
+    tooltip = payload.get("tooltip") if isinstance(payload, dict) else None
+    if isinstance(tooltip, dict):
+        # Be tolerant of documented/observed wrapper variants without parsing prose.
+        tooltip = tooltip.get("html") or tooltip.get("content") or tooltip.get("text")
+    if not isinstance(tooltip, str) or not tooltip.strip():
+        if diagnostics is not None:
+            diagnostics["emptyTooltip"] += 1
+        return []
+
+    stats = parse_wowhead_tooltip_stats(tooltip)
+    plain_text = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", tooltip))).strip()
+    # Classification is independent of stat parsing and is recorded whenever
+    # the source tooltip explicitly labels the item Cosmetic.
+    if tooltip_explicitly_labels_cosmetic(tooltip):
+        if diagnostics is not None:
+            diagnostics.setdefault("explicitCosmeticItems", set()).add(int(item_id))
+        print(f"Wowhead explicitly labels item {item_id} as Cosmetic.")
+    if diagnostics is not None:
+        if stats:
+            diagnostics["usableStats"] += 1
+        else:
+            diagnostics["tooltipWithoutParsedStats"] += 1
+            # Bounded cleaned text is diagnostic only; never used to infer stats.
+            print(
+                f"Wowhead tooltip parse miss for item {item_id}: "
+                f"length={len(tooltip)}, sample={plain_text[:1800]!r}"
+            )
+    return stats
+
+def normalize_preview_stats(stats):
+    """Convert Blizzard preview_item.stats display strings into numeric stats."""
+    if not isinstance(stats, list):
+        return []
+    aliases = {
+        "strength": "strength", "agility": "agility", "intellect": "intellect",
+        "stamina": "stamina", "critical strike": "criticalStrike",
+        "haste": "haste", "mastery": "mastery", "versatility": "versatility",
+        "armor": "armor", "leech": "leech", "avoidance": "avoidance", "speed": "speed",
+    }
+    result = []
+    for entry in stats:
+        if not isinstance(entry, dict):
+            continue
+        display = entry.get("display") if isinstance(entry.get("display"), dict) else {}
+        label_text = display.get("display_string") or display.get("displayString") or ""
+        match = re.search(r"([+−-]?\d[\d,]*(?:\.\d+)?)\s+([A-Za-z ]+?)\s*$", str(label_text).strip())
+        if not match:
+            continue
+        label = " ".join(match.group(2).lower().split())
+        key = aliases.get(label)
+        if not key:
+            continue
+        try:
+            value = float(match.group(1).replace(",", "").replace("−", "-"))
+        except ValueError:
+            continue
+        if not value:
+            continue
+        if value.is_integer():
+            value = int(value)
+        result.append({"type": {"name": key}, "value": value, "source": "Blizzard preview_item.stats"})
+    return result
 def normalize_item(data, source=None):
     quality = data.get("quality") or {}
     item_class = data.get("item_class") or {}
@@ -215,7 +370,7 @@ def normalize_item(data, source=None):
             "name": localized_name(inventory_type.get("name")) if isinstance(inventory_type, dict) else None,
         },
         "isEquippable": data.get("is_equippable"),
-        "stats": data.get("stats", []),
+        "stats": data.get("stats") or normalize_preview_stats((data.get("preview_item") or {}).get("stats", [])),
         "spells": data.get("spells", []),
         "set": data.get("set"),
         "description": data.get("description"),
@@ -574,6 +729,15 @@ def collect_talent_data(token):
         or []
     )
 
+    print(
+        "Talent-tree index diagnostics: "
+        f"response_type={type(tree_index).__name__}; "
+        f"response_keys={sorted(tree_index.keys()) if isinstance(tree_index, dict) else 'n/a'}; "
+        f"selected_refs={len(tree_refs) if isinstance(tree_refs, list) else 'not-a-list'}; "
+        f"spec_tree_ids={sum(bool(record.get('specTalentTreeId')) for record in talent_records)}; "
+        f"hero_tree_ids={sum(len(record.get('heroTalentTrees') or []) for record in talent_records)}"
+    )
+
     tree_records = []
     seen_tree_keys = set()
 
@@ -600,8 +764,10 @@ def collect_talent_data(token):
                 )
         except urllib.error.HTTPError as error:
             print(
-                f"Talent tree {tree_id} ({tree_type}, spec {spec_id}) "
-                f"returned HTTP {error.code}; skipping."
+                f"Talent tree request failed: endpoint="
+                f"{'/data/wow/talent-tree/' + str(tree_id) + ('/playable-specialization/' + str(spec_id) if tree_type == 'specialization' and spec_id else '')}; "
+                f"type={tree_type}, tree_id={tree_id}, spec_id={spec_id}, "
+                f"HTTP={error.code}; skipping."
             )
             return
 
@@ -1121,6 +1287,11 @@ def merge_item_sources(*source_maps):
 
 def fetch_item_details(token, item_ids, item_sources):
     items = []
+    wowhead_diagnostics = {
+        "requestsSucceeded": 0, "usableStats": 0, "emptyTooltip": 0,
+        "tooltipWithoutParsedStats": 0, "requestErrors": 0, "retries": 0,
+        "responseShapes": {}, "explicitCosmeticItems": set(),
+    }
 
     for index, item_id in enumerate(sorted(item_ids), start=1):
         try:
@@ -1142,6 +1313,19 @@ def fetch_item_details(token, item_ids, item_sources):
         )
         item["seasonScope"] = SEASON_SCOPE
         item["sourceLocations"] = item_sources.get(item_id, [])
+        if not item_has_verified_stats(item):
+            try:
+                fallback_stats = fetch_wowhead_tooltip_stats(item_id, wowhead_diagnostics)
+                if fallback_stats:
+                    item["stats"] = fallback_stats
+                    item["statsSource"] = "Wowhead tooltip (explicit displayed stats)"
+            except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, ValueError, json.JSONDecodeError) as error:
+                print(f"Item {item_id}: no Wowhead stat fallback ({type(error).__name__}).")
+        if item_id in wowhead_diagnostics["explicitCosmeticItems"]:
+            item["catalogClassification"] = "cosmetic"
+            item["classificationSource"] = "Wowhead tooltip explicitly labels item Cosmetic"
+        if item_has_verified_stats(item) and "statsSource" not in item:
+            item["statsSource"] = "Blizzard Game Data API"
         items.append(item)
 
         if index % 50 == 0:
@@ -1149,6 +1333,17 @@ def fetch_item_details(token, item_ids, item_sources):
 
         time.sleep(REQUEST_DELAY_SECONDS)
 
+    print(
+        "Wowhead stat fallback diagnostics: "
+        f"{wowhead_diagnostics['requestsSucceeded']} responses, "
+        f"{wowhead_diagnostics['usableStats']} with parsed stats, "
+        f"{wowhead_diagnostics['emptyTooltip']} empty tooltips, "
+        f"{wowhead_diagnostics['tooltipWithoutParsedStats']} tooltips with no recognized stats, "
+        f"{wowhead_diagnostics['requestErrors']} request errors, "
+        f"{wowhead_diagnostics['retries']} retries; "
+        f"{len(wowhead_diagnostics['explicitCosmeticItems'])} explicitly cosmetic items; "
+        f"response shapes={json.dumps(wowhead_diagnostics['responseShapes'], sort_keys=True)}."
+    )
     return items
 
 
@@ -1170,35 +1365,35 @@ def collect_upgrade_and_crest_data(as_of=None):
             "id": "adventurer",
             "name": "Adventurer",
             "crest": "Adventurer Mistcrest",
-            "ranks": [266, 269, 272, 276, 279, 282],
+            "ranks": [266, 270, 273, 276, 279, 282],
             "maxRank": 6,
         },
         {
             "id": "veteran",
             "name": "Veteran",
             "crest": "Veteran Mistcrest",
-            "ranks": [279, 282, 285, 289, 292, 295],
+            "ranks": [279, 283, 286, 289, 292, 295],
             "maxRank": 6,
         },
         {
             "id": "champion",
             "name": "Champion",
             "crest": "Champion Mistcrest",
-            "ranks": [292, 295, 298, 302, 305, 308],
+            "ranks": [292, 296, 299, 302, 305, 308],
             "maxRank": 6,
         },
         {
             "id": "hero",
             "name": "Hero",
             "crest": "Hero Mistcrest",
-            "ranks": [305, 308, 311, 315, 318, 321],
+            "ranks": [305, 309, 312, 315, 318, 321],
             "maxRank": 6,
         },
         {
             "id": "myth",
             "name": "Myth",
             "crest": "Myth Mistcrest",
-            "ranks": [318, 321, 324, 328, 331, 334],
+            "ranks": [318, 322, 325, 328, 331, 334],
             "maxRank": 6,
         },
     ]
@@ -1348,8 +1543,14 @@ def item_has_verified_stats(item):
 
 def build_item_stat_coverage(items):
     """Report actual stat-data coverage; item level/name are never treated as stat data."""
-    total = len(items)
-    verified = sum(1 for item in items if item_has_verified_stats(item))
+    # Cosmetics are valid catalog records but are not combat-stat candidates.
+    # Only explicit source classification excludes them; unknown records stay in the strict gate.
+    candidates = [
+        item for item in items
+        if not (isinstance(item, dict) and item.get("catalogClassification") == "cosmetic")
+    ]
+    total = len(candidates)
+    verified = sum(1 for item in candidates if item_has_verified_stats(item))
     missing = total - verified
     coverage_percent = round((verified / total) * 100, 2) if total else 0.0
     coverage_policy = (

@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "policy": "Source observations only. Do not treat observations as a scaling formula or optimizer-ready simulation values. Preserve source context and unresolved discrepancies.",
+  "items": [
+    {
+      "itemId": 250244,
+      "name": "Permafrost Essence",
+      "effectName": "Nalorakk's Favor of Enduring",
+      "sourceObservations": [
+        {
+          "source": "User-provided WoWDB screenshot",
+          "sourceType": "tooltip screenshot",
+          "displayedTooltipItemLevel": 108,
+          "criticalStrikePerMark": 28,
+          "markDurationSeconds": 15,
+          "maxMarks": 10,
+          "frostBarrierAbsorptionPerMark": 6794,
+          "frostBarrierDurationSeconds": 10,
+          "trigger": "Taking damage has a chance to grant a Mark of Frost",
+          "defensiveTrigger": "Health below 25%",
+          "reportedProcRatePPM": 8,
+          "procRateStatus": "source-reported; not independently verified",
+          "confidence": "visible tooltip observation"
+        },
+        {
+          "source": "User-provided Warcraft Database screenshot",
+          "sourceType": "tooltip screenshot",
+          "displayedTooltipItemLevel": 214,
+          "criticalStrikePerMark": 6,
+          "markDurationSeconds": 15,
+          "maxMarks": 10,
+          "frostBarrierAbsorptionPerMark": 714,
+          "frostBarrierDurationSeconds": 10,
+          "trigger": "Taking damage has a chance to grant a Mark of Frost",
+          "defensiveTrigger": "Health below 25%",
+          "pageMetadataItemLevel": 28,
+          "notes": "Tooltip and page metadata show inconsistent item-level values; retain both without reconciliation.",
+          "confidence": "visible tooltip observation; item-level context inconsistent"
+        },
+        {
+          "source": "User-provided Warcraft Database screenshot",
+          "sourceType": "tooltip screenshot",
+          "displayedTooltipItemLevel": 246,
+          "criticalStrikePerMark": 6,
+          "markDurationSeconds": 15,
+          "maxMarks": 10,
+          "frostBarrierAbsorptionPerMark": 714,
+          "frostBarrierDurationSeconds": 10,
+          "trigger": "Taking damage has a chance to grant a Mark of Frost",
+          "defensiveTrigger": "Health below 25%",
+          "confidence": "visible tooltip observation"
+        },
+        {
+          "source": "User-provided Wowhead screenshot",
+          "sourceType": "tooltip screenshot",
+          "displayedTooltipItemLevel": 334,
+          "criticalStrikePerMark": 85,
+          "markDurationSeconds": 15,
+          "maxMarks": 10,
+          "frostBarrierAbsorptionPerMark": 73767,
+          "frostBarrierDurationSeconds": 10,
+          "trigger": "Taking damage has a chance to grant a Mark of Frost",
+          "defensiveTrigger": "Health below 25%",
+          "confidence": "visible tooltip observation"
+        }
+      ],
+      "unresolved": [
+        "The item-level scaling relationship is not established by these observations.",
+        "The approximately 8 PPM figure is shown by WoWDB but has not been independently validated.",
+        "Do not interpolate or extrapolate effect values for unobserved item levels.",
+        "These conditional effects are not permanent static item stats."
+      ]
+    }
+  ]
+}
