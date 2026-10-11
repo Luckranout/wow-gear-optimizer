@@ -1451,6 +1451,45 @@ def build_enhancement_effect_coverage(gems, enchants, crafted_gear, other_output
     return result
 
 
+def validate_item_stat_source(token, dataset_path=OUTPUT):
+    """Fail early when Blizzard's item-detail API cannot supply the stats this importer needs.
+
+    This is a guard against wasting a full catalog scan; it does not import stats
+    or replace the required ItemSparse + variant/scaling integration.
+    """
+    try:
+        with open(dataset_path, "r", encoding="utf-8") as handle:
+            dataset = json.load(handle)
+    except (OSError, json.JSONDecodeError) as error:
+        raise RuntimeError(f"Cannot preflight item-stat source without existing catalog: {error}") from error
+
+    items = dataset.get("items") if isinstance(dataset, dict) else None
+    sample = next((item for item in items or [] if isinstance(item, dict) and extract_id(item)), None)
+    if not sample:
+        raise RuntimeError("Cannot preflight item-stat source: existing catalog has no sample item ID.")
+
+    sample_id = extract_id(sample)
+    response = get_api_json(
+        f"/data/wow/item/{sample_id}",
+        token,
+        {"namespace": NAMESPACE, "locale": LOCALE},
+    )
+    stats = response.get("stats")
+    if not isinstance(stats, list) or not any(
+        isinstance(stat, dict)
+        and isinstance(stat.get("value"), (int, float))
+        and not isinstance(stat.get("value"), bool)
+        and stat.get("value") != 0
+        for stat in stats
+    ):
+        raise RuntimeError(
+            f"Item-stat source preflight failed: Blizzard /data/wow/item/{sample_id} "
+            "did not return non-zero numeric stats. Stopping before the long catalog scan. "
+            "Connect the build-matched ItemSparse data and verified item variant/scaling "
+            "resolution before attempting publication."
+        )
+
+
 def main():
     client_id = os.environ.get("BLIZZARD_CLIENT_ID")
     client_secret = os.environ.get("BLIZZARD_CLIENT_SECRET")
@@ -1460,6 +1499,8 @@ def main():
         sys.exit(1)
 
     token = get_access_token(client_id, client_secret)
+
+    validate_item_stat_source(token)
 
     item_classes = get_api_json(
         "/data/wow/item-class/index",
