@@ -150,7 +150,7 @@ jobs:
             fi
           done
           popd
-          python scripts/audit_item_variant_tables.py "$RUNNER_TEMP" --allow-missing --output "$RUNNER_TEMP/item-variant-table-summary.json"
+          python scripts/audit_item_variant_tables.py "$RUNNER_TEMP" --candidate-items data/current-retail.json --allow-missing --output "$RUNNER_TEMP/item-variant-table-summary.json"
 
       - name: Export build-specific ItemSparse records to temporary JSON
         shell: bash
