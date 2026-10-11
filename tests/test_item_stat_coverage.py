@@ -13,6 +13,29 @@ SPEC.loader.exec_module(MODULE)
 
 
 class ItemStatCoverageTests(unittest.TestCase):
+    def test_permafrost_is_flagged_only_with_both_documented_effect_phrases(self):
+        item = {"id": 250244, "name": "Permafrost Essence", "stats": []}
+        result = MODULE.apply_unsupported_conditional_effect_policy(
+            250244,
+            dict(item),
+            "Mark of Frost increases Critical Strike; Frost Barrier absorbs damage.",
+        )
+        self.assertEqual(result["optimizationStatus"], "unsupported_conditional_effect")
+        self.assertFalse(result["conditionalEffectsSupported"])
+        self.assertIn("scaling/model unresolved", result["optimizationStatusSource"])
+
+        missing_phrase = MODULE.apply_unsupported_conditional_effect_policy(
+            250244, dict(item), "Mark of Frost increases Critical Strike."
+        )
+        self.assertNotIn("optimizationStatus", missing_phrase)
+
+        other_item = MODULE.apply_unsupported_conditional_effect_policy(
+            250245,
+            {"id": 250245, "name": "Other item"},
+            "Mark of Frost and Frost Barrier",
+        )
+        self.assertNotIn("optimizationStatus", other_item)
+
     def test_item_level_alone_does_not_count_as_verified_stats(self):
         item = {"id": 1001, "name": "High Item Level", "level": 334, "stats": []}
         self.assertFalse(MODULE.item_has_verified_stats(item))
