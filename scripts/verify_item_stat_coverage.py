@@ -31,6 +31,18 @@ def is_explicitly_cosmetic(item):
     )
 
 
+def is_explicitly_unsupported_conditional_effect(item):
+    """Allow unresolved combat effects in the catalog only when explicitly fail-closed."""
+    if not isinstance(item, dict):
+        return False
+    return (
+        item.get("optimizationStatus") == "unsupported_conditional_effect"
+        and item.get("conditionalEffectsSupported") is False
+        and item.get("optimizationStatusSource")
+        == "Wowhead tooltip confirms Mark of Frost and Frost Barrier conditional effects; scaling/model unresolved"
+    )
+
+
 def validate_dataset(dataset):
     if not isinstance(dataset, dict):
         raise ValueError("dataset root must be an object")
@@ -53,7 +65,9 @@ def validate_dataset(dataset):
 
     missing = [
         item for item in items
-        if not has_numeric_stats(item) and not is_explicitly_cosmetic(item)
+        if not has_numeric_stats(item)
+        and not is_explicitly_cosmetic(item)
+        and not is_explicitly_unsupported_conditional_effect(item)
     ]
     if missing:
         details = []
@@ -69,7 +83,11 @@ def validate_dataset(dataset):
             + "; explicit conditional-effect metadata is not a substitute for base stats"
         )
     cosmetic_exceptions = sum(is_explicitly_cosmetic(item) and not has_numeric_stats(item) for item in items)
-    return len(items), actual_verified, cosmetic_exceptions
+    conditional_effect_exceptions = sum(
+        is_explicitly_unsupported_conditional_effect(item) and not has_numeric_stats(item)
+        for item in items
+    )
+    return len(items), actual_verified, cosmetic_exceptions, conditional_effect_exceptions
 
 
 def main():
@@ -79,10 +97,13 @@ def main():
     try:
         with path.open(encoding="utf-8") as handle:
             dataset = json.load(handle)
-        total, verified, cosmetics = validate_dataset(dataset)
+        total, verified, cosmetics, conditional_effects = validate_dataset(dataset)
     except (OSError, json.JSONDecodeError, ValueError) as error:
         sys.exit(f"VERIFY FAILED: {error}; refusing to publish catalog.")
-    print(f"Catalog items: {total}; records with numeric stats: {verified}; explicit cosmetic exceptions: {cosmetics}")
+    print(
+        f"Catalog items: {total}; records with numeric stats: {verified}; "
+        f"explicit cosmetic exceptions: {cosmetics}; fail-closed conditional-effect exceptions: {conditional_effects}"
+    )
     print("Stat presence gate passed. This does not prove complete coverage, correct item variants, or accurate stat scaling.")
 
 
