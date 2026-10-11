@@ -149,6 +149,17 @@ class ItemStatCoverageTests(unittest.TestCase):
         self.assertEqual(report["total"]["recordsWithStructuredEffectMetadata"], 0)
         self.assertEqual(report["total"]["structuredEffectMetadataPresencePercent"], 0.0)
 
+    def test_coverage_excludes_explicitly_classified_cosmetics(self):
+        report = MODULE.build_item_stat_coverage([
+            {"id": 1, "stats": [{"value": 12}]},
+            {"id": 2, "catalogClassification": "cosmetic", "stats": []},
+            {"id": 3, "stats": []},
+        ])
+        self.assertEqual(report["candidateItemCount"], 2)
+        self.assertEqual(report["itemsWithVerifiedStats"], 1)
+        self.assertEqual(report["itemsMissingVerifiedStats"], 1)
+        self.assertEqual(report["itemStatCoveragePercent"], 50.0)
+
     def test_empty_catalog_reports_zero_coverage_without_division_error(self):
         report = MODULE.build_item_stat_coverage([])
         self.assertEqual(report["candidateItemCount"], 0)
