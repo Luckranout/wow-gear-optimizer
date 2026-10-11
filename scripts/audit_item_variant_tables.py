@@ -18,7 +18,7 @@ REQUIRED_FOR_VARIANT_RESOLUTION = {
     "ItemBonusListGroupEntry", "ItemBonusListGroup", "ItemLevelSelector",
 }
 REQUIRED_FOR_FINAL_STAT_SCALING = {
-    "ScalingStatDistribution", "ItemLevelSelectorQualitySet", "ItemLevelSelectorQuality",
+    "ItemLevelSelectorQualitySet", "ItemLevelSelectorQuality",
 }
 
 TABLES = {
@@ -66,7 +66,7 @@ def audit_table(name, records):
     schema_requirements = {
         "ItemBonus": (("ID", "id"), ("ParentItemBonusListID", "id_parent"), ("Type", "type"), ("Value", "value", "val_1")),
         "ItemBonusTreeNode": (("ID", "id"), ("ParentItemBonusTreeID", "id_parent"), ("ChildItemBonusListID", "id_child_bonus_list"), ("ChildItemBonusTreeID", "id_child_bonus_tree")),
-        "ItemXBonusTree": (("ID", "id"), ("ItemBonusTreeID", "id_tree"), ("ItemID", "item_id")),
+        "ItemXBonusTree": (("ID", "id"), ("ItemBonusTreeID", "id_tree"), ("ItemID", "item_id", "id_parent")),
         "ItemBonusListLevelDelta": (("ID", "id"), ("ItemLevelDelta", "item_level_delta")),
     }
     expected_groups = schema_requirements.get(name, ())
