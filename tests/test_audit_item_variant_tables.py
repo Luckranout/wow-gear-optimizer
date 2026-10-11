@@ -102,7 +102,9 @@ class ItemVariantTableAuditTests(unittest.TestCase):
             for table in MODULE.REQUIRED_FOR_VARIANT_RESOLUTION:
                 (path / f"{table}.json").write_text(json.dumps([{"id": 1}]))
             report = MODULE.audit_directory(path)
+            self.assertFalse(report["scalingTableCoverageComplete"])
             self.assertFalse(report["finalStatScalingVerified"])
+            self.assertEqual(report["finalStatScalingVerificationStatus"], "not_verified_formula_and_reference_comparison_pending")
             self.assertEqual(report["missingVariantResolutionTables"], [])
             self.assertEqual(
                 set(report["missingFinalStatScalingTables"]),
