@@ -11,6 +11,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: current-itemsparse-audit
+  cancel-in-progress: true
+
 jobs:
   audit-item-sparse:
     runs-on: ubuntu-latest
