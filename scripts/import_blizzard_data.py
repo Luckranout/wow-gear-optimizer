@@ -240,6 +240,39 @@ def fetch_wowhead_tooltip_stats(item_id):
     tooltip = payload.get("tooltip") if isinstance(payload, dict) else None
     return parse_wowhead_tooltip_stats(tooltip)
 
+def normalize_preview_stats(stats):
+    """Convert Blizzard preview_item.stats display strings into numeric stats."""
+    if not isinstance(stats, list):
+        return []
+    aliases = {
+        "strength": "strength", "agility": "agility", "intellect": "intellect",
+        "stamina": "stamina", "critical strike": "criticalStrike",
+        "haste": "haste", "mastery": "mastery", "versatility": "versatility",
+        "armor": "armor", "leech": "leech", "avoidance": "avoidance", "speed": "speed",
+    }
+    result = []
+    for entry in stats:
+        if not isinstance(entry, dict):
+            continue
+        display = entry.get("display") if isinstance(entry.get("display"), dict) else {}
+        label_text = display.get("display_string") or display.get("displayString") or ""
+        match = re.search(r"([+−-]?\d[\d,]*(?:\.\d+)?)\s+([A-Za-z ]+?)\s*$", str(label_text).strip())
+        if not match:
+            continue
+        label = " ".join(match.group(2).lower().split())
+        key = aliases.get(label)
+        if not key:
+            continue
+        try:
+            value = float(match.group(1).replace(",", "").replace("−", "-"))
+        except ValueError:
+            continue
+        if not value:
+            continue
+        if value.is_integer():
+            value = int(value)
+        result.append({"type": {"name": key}, "value": value, "source": "Blizzard preview_item.stats"})
+    return result
 def normalize_item(data, source=None):
     quality = data.get("quality") or {}
     item_class = data.get("item_class") or {}
@@ -268,7 +301,7 @@ def normalize_item(data, source=None):
             "name": localized_name(inventory_type.get("name")) if isinstance(inventory_type, dict) else None,
         },
         "isEquippable": data.get("is_equippable"),
-        "stats": data.get("stats") or (data.get("preview_item") or {}).get("stats", []),
+        "stats": data.get("stats") or normalize_preview_stats((data.get("preview_item") or {}).get("stats", [])),
         "spells": data.get("spells", []),
         "set": data.get("set"),
         "description": data.get("description"),
