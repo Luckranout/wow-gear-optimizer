@@ -21,6 +21,23 @@ TABLES = {
     "ItemBonusSeason": {"keys": ("id", "ID")},
     "ItemEffect": {"keys": ("id", "ID")},
     "ItemXItemEffect": {"keys": ("id", "ID")},
+    "RulesetRaidLootUpgrade": {"keys": ("id", "ID")},
+    "ChrUpgradeBucketSpell": {"keys": ("id", "ID")},
+    "ChrUpgradeBucket": {"keys": ("id", "ID")},
+    "ChrUpgradeTier": {"keys": ("id", "ID")},
+    "ScalingStatDistribution": {"keys": ("id", "ID")},
+    "ItemLevelSelector": {"keys": ("id", "ID")},
+    "ItemLevelSelectorQualitySet": {"keys": ("id", "ID")},
+    "ItemLevelSelectorQuality": {"keys": ("id", "ID")},
+    "ItemBonusList": {"keys": ("id", "ID")},
+    "ItemBonusListWarforgeLevelDelta": {"keys": ("id", "ID")},
+    "ChallengeModeItemBonusOverride": {"keys": ("id", "ID")},
+    "ItemBonusListGroupEntry": {"keys": ("id", "ID")},
+    "ItemBonusSequenceSpell": {"keys": ("id", "ID")},
+    "ItemBonusTree": {"keys": ("id", "ID")},
+    "ItemBonusListGroup": {"keys": ("id", "ID")},
+    "ItemBonusTreeGroupEntry": {"keys": ("id", "ID")},
+    "ItemBonusSeasonBonusListGroup": {"keys": ("id", "ID")},
 }
 
 
