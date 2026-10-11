@@ -79,13 +79,20 @@ def _record_ids(records):
 
 
 def audit_relationships(tables):
-    """Check only source-verified relationships when both tables are present.
+    """Check relationships documented by the pinned WoWDBDefs definitions.
 
-    Current-build bonus-tree child semantics remain unverified, so they are
-    reported as linkage candidates rather than strict foreign-key failures.
+    Overloaded bonus-tree child values remain diagnostic candidates, not foreign keys.
     """
     checks = [
-        ("ItemBonusListLevelDelta", ("id_item_bonus_list", "id_bonus_list"), "ItemBonus"),
+        ("ItemBonusListLevelDelta", ("id",), "ItemBonusList"),
+        ("ItemBonus", ("id_parent",), "ItemBonusList"),
+        ("ItemXBonusTree", ("id_tree",), "ItemBonusTree"),
+        ("ItemBonusTreeNode", ("id_parent",), "ItemBonusTree"),
+        ("ItemBonusListGroupEntry", ("id_item_bonus_list",), "ItemBonusList"),
+        ("ItemBonusListGroupEntry", ("id_item_bonus_list_group",), "ItemBonusListGroup"),
+        ("ItemBonusSeasonBonusListGroup", ("id_item_bonus_list_group",), "ItemBonusListGroup"),
+        ("ItemBonusSeasonBonusListGroup", ("id_item_bonus_season",), "ItemBonusSeason"),
+        ("ItemBonusSeasonUpgradeCost", ("id_item_bonus_season",), "ItemBonusSeason"),
         ("ItemXItemEffect", ("id_item_effect",), "ItemEffect"),
     ]
     report = []
@@ -114,10 +121,8 @@ def audit_linkage_candidates(tables):
     """Report field-overlap candidates without asserting undocumented FK semantics."""
     candidates = [
         ("ItemBonus", "id_node", "ItemBonusTreeNode", "id_node"),
-        ("ItemBonusTreeNode", "id_parent", "ItemBonusTreeNode", "id"),
         ("ItemBonusTreeNode", "id_child", "ItemBonusTreeNode", "id"),
         ("ItemBonusTreeNode", "id_child", "ItemBonusTreeNode", "id_node"),
-        ("ItemXBonusTree", "id_tree", "ItemBonusTreeNode", "id_node"),
     ]
     report = []
     for source_name, source_field, target_name, target_field in candidates:
