@@ -204,7 +204,15 @@ def parse_wowhead_tooltip_stats(tooltip):
         "avoidance": "avoidance", "speed": "speed",
     }
     found = []
-    pattern = re.compile(r"([+−-]?\d[\d,]*(?:\.\d+)?)\s+([A-Za-z ]+?)(?=\s|[,;]|$)")
+    # Match the longest known label first. A lazy generic label pattern stops
+    # at the first space and misses multi-word stats such as Critical Strike.
+    labels = "|".join(
+        re.escape(label) for label in sorted(stat_names, key=len, reverse=True)
+    )
+    pattern = re.compile(
+        r"([+−-]?\d[\d,]*(?:\.\d+)?)\s+(" + labels + r")(?![A-Za-z])",
+        re.IGNORECASE,
+    )
     for match in pattern.finditer(text):
         label = " ".join(match.group(2).lower().split())
         key = stat_names.get(label)
