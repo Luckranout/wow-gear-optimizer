@@ -50,6 +50,17 @@ class ItemStatCoverageTests(unittest.TestCase):
     def test_parse_wowhead_tooltip_stats_ignores_missing_or_unrecognized_data(self):
         self.assertEqual(MODULE.parse_wowhead_tooltip_stats(""), [])
         self.assertEqual(MODULE.parse_wowhead_tooltip_stats("<span>Equip: grants power</span>"), [])
+
+    def test_parse_wowhead_tooltip_stats_supports_multi_word_labels(self):
+        stats = MODULE.parse_wowhead_tooltip_stats(
+            "<div>+125 Critical Strike</div>"
+            "<div>+86 Haste Rating</div>"
+            "<div>+37 Critical Strike Rating</div>"
+        )
+        self.assertEqual(
+            [(item["type"]["name"], item["value"]) for item in stats],
+            [("criticalStrike", 125), ("haste", 86), ("criticalStrike", 37)],
+        )
     def test_normalize_preview_stats_reads_blizzard_display_strings(self):
         stats = MODULE.normalize_preview_stats([
             {"display": {"display_string": "+16 Agility"}},
