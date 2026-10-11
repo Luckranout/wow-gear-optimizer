@@ -69,6 +69,8 @@ jobs:
         run: python -m unittest tests/test_season_import_policy.py
       - name: Run item stat coverage tests
         run: python -m unittest tests/test_item_stat_coverage.py
+      - name: Run verified item effect observation tests
+        run: python -m unittest tests/test_verified_item_effect_observations.py
       - name: Run fail-closed item stat verifier tests
         run: python -m unittest tests/test_verify_item_stat_coverage.py
 
