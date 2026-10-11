@@ -213,21 +213,38 @@ def audit_directory(directory, candidate_item_ids=None):
             row for row in item_tree_rows
             if str(row.get("id_parent")) in candidate_ids
         ]
-        tree_ids = {str(row.get("id_tree")) for row in candidate_links}
+        root_tree_ids = {str(row.get("id_tree")) for row in candidate_links}
         node_rows = loaded_tables.get("ItemBonusTreeNode", [])
-        candidate_nodes = [
-            row for row in node_rows if str(row.get("id_parent")) in tree_ids
-        ]
+        reachable_tree_ids = set(root_tree_ids)
+        visited_tree_ids = set()
+        reachable_nodes = []
+        while True:
+            frontier = reachable_tree_ids - visited_tree_ids
+            if not frontier:
+                break
+            visited_tree_ids.update(frontier)
+            frontier_nodes = [
+                row for row in node_rows if str(row.get("id_parent")) in frontier
+            ]
+            reachable_nodes.extend(frontier_nodes)
+            child_ids = {
+                str(row.get("id_child_bonus_tree"))
+                for row in frontier_nodes
+                if row.get("id_child_bonus_tree") not in (None, 0, "0")
+            }
+            reachable_tree_ids.update(child_ids)
         result["candidateItemVariantLinkage"] = {
             "candidateItemCount": len(candidate_ids),
             "itemsWithBonusTreeLink": len({str(row.get("id_parent")) for row in candidate_links}),
             "itemBonusTreeLinkCount": len(candidate_links),
-            "linkedTreeCount": len(tree_ids),
-            "linkedTreeIds": sorted(int(value) for value in tree_ids),
-            "directNodeCount": len(candidate_nodes),
+            "rootTreeCount": len(root_tree_ids),
+            "rootTreeIds": sorted(int(value) for value in root_tree_ids),
+            "reachableTreeCount": len(reachable_tree_ids),
+            "reachableTreeIds": sorted(int(value) for value in reachable_tree_ids),
+            "reachableNodeCount": len(reachable_nodes),
             "itemLinks": candidate_links,
-            "directTreeNodes": candidate_nodes,
-            "interpretation": "Source linkage only; child-tree traversal, context eligibility, bonus-list semantics, and scaled stats remain unverified."
+            "reachableTreeNodes": reachable_nodes,
+            "interpretation": "Recursive child-tree linkage is diagnostic only; context eligibility, node-group choices, bonus-list semantics, and scaled stats remain unverified."
         }
     result["unresolvedRelationshipChecks"] = sum(r["unresolvedReferenceCount"] for r in result["relationships"])
     result["tableCountFound"] = len(result["tables"])
