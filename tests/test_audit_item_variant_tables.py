@@ -30,6 +30,19 @@ class ItemVariantTableAuditTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             MODULE.audit_table("ItemBonus", [1])
 
+    def test_relationship_audit_reports_unresolved_known_reference(self):
+        report = MODULE.audit_relationships({
+            "ItemEffect": [{"id": 10}],
+            "ItemXItemEffect": [
+                {"id": 1, "id_item_effect": 10},
+                {"id": 2, "id_item_effect": 999},
+            ],
+        })
+        effect_check = next(row for row in report if row["sourceTable"] == "ItemXItemEffect")
+        self.assertEqual(effect_check["nonzeroReferencesChecked"], 2)
+        self.assertEqual(effect_check["unresolvedReferenceCount"], 1)
+        self.assertEqual(effect_check["sampleUnresolvedIds"], ["999"])
+
     def test_missing_tables_are_explicit(self):
         with tempfile.TemporaryDirectory() as temp:
             path = pathlib.Path(temp)

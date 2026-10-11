@@ -43,8 +43,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          grep -iE 'DBFilesClient[\\/]+(ItemUpgrade|ItemBonus|ItemBonusTreeNode|ItemXBonusTree|ItemBonusListLevelDelta|ItemBonusSeason|ItemEffect|ItemXItemEffect)[.]db2' simulationcraft/casc_extract/dbfile > "$RUNNER_TEMP/item-variant-dbfiles"
-          test "$(wc -l < "$RUNNER_TEMP/item-variant-dbfiles")" -eq 8
+          grep -iE 'DBFilesClient[\\/]+(ItemUpgrade|RulesetItemUpgrade|GarrItemLevelUpgradeData|ItemBonusSeasonUpgradeCost|ItemBonus|ItemBonusTreeNode|ItemXBonusTree|ItemBonusListLevelDelta|ItemBonusSeason|ItemEffect|ItemXItemEffect)[.]db2' simulationcraft/casc_extract/dbfile > "$RUNNER_TEMP/item-variant-dbfiles"
+          test "$(wc -l < "$RUNNER_TEMP/item-variant-dbfiles")" -eq 11
           cat "$RUNNER_TEMP/item-variant-dbfiles"
 
       - name: Download ItemSparse and variant/upgrade tables from Blizzard CDN
@@ -70,14 +70,22 @@ jobs:
           set -euo pipefail
           BUILD="$(basename "$(dirname "$(dirname "$ITEMSPARSE_PATH")")")"
           pushd simulationcraft/dbc_extract3
-          for table in ItemUpgrade ItemBonus ItemBonusTreeNode ItemXBonusTree ItemBonusListLevelDelta ItemBonusSeason ItemEffect ItemXItemEffect; do
+          for table in ItemUpgrade RulesetItemUpgrade GarrItemLevelUpgradeData ItemBonusSeasonUpgradeCost ItemBonus ItemBonusTreeNode ItemXBonusTree ItemBonusListLevelDelta ItemBonusSeason ItemEffect ItemXItemEffect; do
             mapfile -t files < <(find "$ITEM_TABLES_DIR" -maxdepth 1 -type f -iname "$table.db2" -print)
             if [ "${#files[@]}" -ne 1 ]; then
               echo "TABLE_UNAVAILABLE=$table (found ${#files[@]} matching files in this build)" >&2
               continue
             fi
-            python dbc_extract.py -t json -b "$BUILD" -p "$ITEM_TABLES_DIR" "$table.db2" > "$RUNNER_TEMP/$table.json"
-            test -s "$RUNNER_TEMP/$table.json"
+            if ! python dbc_extract.py -t json -b "$BUILD" -p "$ITEM_TABLES_DIR" "$table.db2" > "$RUNNER_TEMP/$table.json"; then
+              echo "TABLE_EXPORT_UNSUPPORTED=$table (SimulationCraft DB2 schema/format unavailable)" >&2
+              rm -f "$RUNNER_TEMP/$table.json"
+              continue
+            fi
+            if [ ! -s "$RUNNER_TEMP/$table.json" ]; then
+              echo "TABLE_EXPORT_EMPTY=$table" >&2
+              rm -f "$RUNNER_TEMP/$table.json"
+              continue
+            fi
           done
           popd
           python scripts/audit_item_variant_tables.py "$RUNNER_TEMP" --allow-missing --output "$RUNNER_TEMP/item-variant-table-summary.json"
