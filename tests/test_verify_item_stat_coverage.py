@@ -43,9 +43,9 @@ class ItemStatCoverageGateTests(unittest.TestCase):
         total, verified, cosmetics = validate_dataset(dataset([
             {"id": 1, "stats": [{"value": 12}]},
             {"id": 2, "stats": [{"value": 0}, {"value": 7.5}]},
-            {"id": 3, "stats": []},
+            {"id": 3, "stats": [], "catalogClassification": "cosmetic", "classificationSource": "Wowhead tooltip explicitly labels item Cosmetic", "wowheadTooltipClassificationEvidence": "Explicit Cosmetic label in tooltip"},
         ], 2))
-        self.assertEqual((total, verified, cosmetics), (3, 2, 0))
+        self.assertEqual((total, verified, cosmetics), (3, 2, 1))
 
     def test_rejects_mismatched_reported_count(self):
         with self.assertRaisesRegex(ValueError, "does not match"):
