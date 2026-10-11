@@ -69,6 +69,30 @@ jobs:
         run: |
           set -euo pipefail
           BUILD="$(basename "$(dirname "$(dirname "$ITEMSPARSE_PATH")")")"
+          # SimulationCraft's latest format map predates two current-build tables.
+          # Add only fields verified against WoWDBDefs layouts for this exact build.
+          python - "$BUILD" <<'PY'
+          import json, pathlib, sys
+          build = sys.argv[1]
+          formats = pathlib.Path("simulationcraft/dbc_extract3/formats")
+          target = formats / "{}.json".format(build)
+          base = formats / "12.1.0.69299.json"
+          data = json.loads((target if target.exists() else base).read_text(encoding="utf-8"))
+          data["ItemLevelSelectorQualitySet"] = {
+              "fields": [
+                  {"data_type": "h", "field": "ilvl_rare"},
+                  {"data_type": "h", "field": "ilvl_epic"},
+              ]
+          }
+          data["ItemLevelSelectorQuality"] = {
+              "fields": [
+                  {"data_type": "i", "field": "id_item_bonus_list"},
+                  {"data_type": "b", "field": "quality"},
+              ]
+          }
+          target.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+          print("Added verified quality-table formats for client build {}".format(build))
+          PY
           pushd simulationcraft/dbc_extract3
           for table in ItemUpgrade RulesetItemUpgrade GarrItemLevelUpgradeData ItemBonusSeasonUpgradeCost ItemBonus ItemBonusTreeNode ItemXBonusTree ItemBonusListLevelDelta ItemBonusSeason ItemEffect ItemXItemEffect RulesetRaidLootUpgrade ChrUpgradeBucketSpell ChrUpgradeBucket ChrUpgradeTier ScalingStatDistribution ItemLevelSelector ItemLevelSelectorQualitySet ItemLevelSelectorQuality ItemBonusList ItemBonusListWarforgeLevelDelta ChallengeModeItemBonusOverride ItemBonusListGroupEntry ItemBonusSequenceSpell ItemBonusTree ItemBonusListGroup ItemBonusTreeGroupEntry ItemBonusSeasonBonusListGroup; do
             mapfile -t files < <(find "$ITEM_TABLES_DIR" -maxdepth 1 -type f -iname "$table.db2" -print)
