@@ -37,6 +37,19 @@ class ItemStatCoverageTests(unittest.TestCase):
             "stats": {"haste": 12.5, "criticalStrike": 0}
         }))
 
+    def test_parse_wowhead_tooltip_stats_extracts_only_explicit_numeric_stats(self):
+        stats = MODULE.parse_wowhead_tooltip_stats(
+            '<table><tr><td>+123 Strength</td></tr>'
+            '<tr><td>+456 Stamina</td></tr>'
+            '<tr><td>Equip: Increases damage by 20%</td></tr>'
+            '<tr><td>+0 Haste</td></tr></table>'
+        )
+        self.assertEqual([(item["type"]["name"], item["value"]) for item in stats],
+                         [("strength", 123), ("stamina", 456)])
+
+    def test_parse_wowhead_tooltip_stats_ignores_missing_or_unrecognized_data(self):
+        self.assertEqual(MODULE.parse_wowhead_tooltip_stats(""), [])
+        self.assertEqual(MODULE.parse_wowhead_tooltip_stats("<span>Equip: grants power</span>"), [])
     def test_normalize_item_reads_stats_from_preview_item(self):
         normalized = MODULE.normalize_item({
             "id": 123,
