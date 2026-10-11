@@ -107,8 +107,13 @@ function normalizeStatistics(statistics) {
   if (haste !== null) result.Haste = haste;
 
   // Keep already-normalized numeric fields compatible with imported test data.
+  const consumedKeys = new Set([
+    "_links", "character", "health", "strength", "agility", "intellect", "stamina",
+    "armor", "versatility", "mastery", "lifesteal", "speed", "avoidance",
+    "dodge", "parry", "block", "melee_crit", "crit", "melee_haste", "haste"
+  ]);
   for (const [key, value] of Object.entries(statistics)) {
-    if (["_links", "character"].includes(key) || result[key] !== undefined) continue;
+    if (consumedKeys.has(key) || result[key] !== undefined) continue;
     if (typeof value === "number" && Number.isFinite(value)) result[key] = value;
   }
   return result;
