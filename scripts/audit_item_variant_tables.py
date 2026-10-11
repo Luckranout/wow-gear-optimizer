@@ -84,16 +84,19 @@ def audit_relationships(tables):
     Overloaded bonus-tree child values remain diagnostic candidates, not foreign keys.
     """
     checks = [
-        ("ItemBonusListLevelDelta", ("id",), "ItemBonusList"),
-        ("ItemBonus", ("id_parent",), "ItemBonusList"),
-        ("ItemXBonusTree", ("id_tree",), "ItemBonusTree"),
-        ("ItemBonusTreeNode", ("id_parent",), "ItemBonusTree"),
-        ("ItemBonusListGroupEntry", ("id_item_bonus_list",), "ItemBonusList"),
-        ("ItemBonusListGroupEntry", ("id_item_bonus_list_group",), "ItemBonusListGroup"),
-        ("ItemBonusSeasonBonusListGroup", ("id_item_bonus_list_group",), "ItemBonusListGroup"),
-        ("ItemBonusSeasonBonusListGroup", ("id_item_bonus_season",), "ItemBonusSeason"),
-        ("ItemBonusSeasonUpgradeCost", ("id_item_bonus_season",), "ItemBonusSeason"),
-        ("ItemXItemEffect", ("id_item_effect",), "ItemEffect"),
+        ("ItemBonusListLevelDelta", ("ID", "id"), "ItemBonusList"),
+        ("ItemBonus", ("ParentItemBonusListID", "id_parent"), "ItemBonusList"),
+        ("ItemXBonusTree", ("ItemBonusTreeID", "id_tree"), "ItemBonusTree"),
+        ("ItemBonusTreeNode", ("ParentItemBonusTreeID", "id_parent"), "ItemBonusTree"),
+        ("ItemBonusTreeNode", ("ChildItemBonusListID", "id_child_bonus_list"), "ItemBonusList"),
+        ("ItemBonusTreeNode", ("ChildItemBonusTreeID", "id_child_bonus_tree"), "ItemBonusTree"),
+        ("ItemBonusTreeNode", ("ChildItemBonusListGroupID", "id_child_bonus_list_group"), "ItemBonusListGroup"),
+        ("ItemBonusListGroupEntry", ("ItemBonusListID", "id_item_bonus_list"), "ItemBonusList"),
+        ("ItemBonusListGroupEntry", ("ItemBonusListGroupID", "id_item_bonus_list_group"), "ItemBonusListGroup"),
+        ("ItemBonusSeasonBonusListGroup", ("ItemBonusListGroupID", "id_item_bonus_list_group"), "ItemBonusListGroup"),
+        ("ItemBonusSeasonBonusListGroup", ("ItemBonusSeasonID", "id_item_bonus_season"), "ItemBonusSeason"),
+        ("ItemBonusSeasonUpgradeCost", ("ItemBonusSeasonID", "id_item_bonus_season"), "ItemBonusSeason"),
+        ("ItemXItemEffect", ("ItemEffectID", "id_item_effect"), "ItemEffect"),
     ]
     report = []
     for source_name, candidate_fields, target_name in checks:
@@ -101,19 +104,20 @@ def audit_relationships(tables):
             continue
         source_rows = tables[source_name]
         target_ids = _record_ids(tables[target_name])
-        fields_present = [field for field in candidate_fields if any(field in row for row in source_rows)]
-        for field in fields_present:
-            values = [row.get(field) for row in source_rows if row.get(field) not in (None, 0, "0")]
-            missing = [value for value in values if str(value) not in target_ids]
-            report.append({
-                "sourceTable": source_name,
-                "field": field,
-                "targetTable": target_name,
-                "nonzeroReferencesChecked": len(values),
-                "unresolvedReferenceCount": len(missing),
-                "sampleUnresolvedIds": sorted({str(value) for value in missing})[:10],
-                "status": "unresolved" if missing else "resolved",
-            })
+        field = next((name for name in candidate_fields if any(name in row for row in source_rows)), None)
+        if field is None:
+            continue
+        values = [row.get(field) for row in source_rows if row.get(field) not in (None, 0, "0")]
+        missing = [value for value in values if str(value) not in target_ids]
+        report.append({
+            "sourceTable": source_name,
+            "field": field,
+            "targetTable": target_name,
+            "nonzeroReferencesChecked": len(values),
+            "unresolvedReferenceCount": len(missing),
+            "sampleUnresolvedIds": sorted({str(value) for value in missing})[:10],
+            "status": "unresolved" if missing else "resolved",
+        })
     return report
 
 
