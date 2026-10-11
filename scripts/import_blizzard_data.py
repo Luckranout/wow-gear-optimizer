@@ -1258,6 +1258,19 @@ def fetch_item_details(token, item_ids, item_sources):
                 item["statsSource"] = "Wowhead tooltip (explicit displayed stats)"
             if tooltip_details["explicitlyCosmetic"]:
                 item["wowheadTooltipClassificationEvidence"] = "Explicit Cosmetic label in tooltip"
+            # Permafrost Essence's Mark of Frost stacks and health-triggered
+            # Frost Barrier are conditional effects; the observed tooltip values
+            # conflict across item levels, so do not treat its partial stat text
+            # as a complete optimizer-ready model. Require the identifying
+            # tooltip phrases before applying this item-specific fail-closed flag.
+            if (
+                int(item_id) == 250244
+                and "Mark of Frost" in tooltip_details["tooltipText"]
+                and "Frost Barrier" in tooltip_details["tooltipText"]
+            ):
+                item["optimizationStatus"] = "unsupported_conditional_effect"
+                item["conditionalEffectsSupported"] = False
+                item["optimizationStatusSource"] = "Wowhead tooltip confirms Mark of Frost and Frost Barrier conditional effects; scaling/model unresolved"
         except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, ValueError, json.JSONDecodeError) as error:
             print(f"Item {item_id}: no Wowhead tooltip fallback ({type(error).__name__}).")
         if item_has_verified_stats(item) and "statsSource" not in item:
