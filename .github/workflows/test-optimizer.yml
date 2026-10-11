@@ -71,6 +71,9 @@ jobs:
       - name: Run item variant table audit tests
         run: python -m unittest tests/test_audit_item_variant_tables.py
 
+      - name: Run ItemSparse curve-field audit tests
+        run: python -m unittest tests/test_audit_simc_item_sparse.py
+
       - name: Run ItemSparse stat conversion tests
         run: python -m unittest tests/test_convert_simc_itemsparse_stats.py
 
