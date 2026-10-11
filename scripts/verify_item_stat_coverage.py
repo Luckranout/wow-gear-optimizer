@@ -69,7 +69,7 @@ def validate_dataset(dataset):
             for item in items
         )
         prefix = (
-            f"{missing_stats} item record(s) have no verified non-zero numeric stat; "
+            f"no item record has verified stats ({missing_stats} item record(s) lack non-zero numeric stats); "
             if missing_stats else ""
         )
         preview = "; ".join(problems[:20])
