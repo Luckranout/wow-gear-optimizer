@@ -58,6 +58,22 @@ class ItemStatCoverageTests(unittest.TestCase):
             '<div>Item Level 1</div><div>Head</div>'
         ))
 
+    def test_permafrost_proc_critical_strike_is_not_misread_as_base_stat(self):
+        tooltip = (
+            "<div>Permafrost Essence</div>"
+            "<div>Equip: You gain Nalorakk's Favor of Enduring.</div>"
+            "<div>increasing your Critical Strike by 85 for 15 sec.</div>"
+            "<div>absorbs 73767 damage per mark for 10 sec.</div>"
+        )
+        self.assertEqual(MODULE.parse_wowhead_tooltip_stats(tooltip), [])
+
+    def test_actual_cosmetic_tooltip_text_is_classified(self):
+        tooltip = (
+            "<div>Dawnblade's Glaives</div><div>Cosmetic</div>"
+            "<div>Item Level 1</div><div>Use: Add this appearance to your Warband collection.</div>"
+        )
+        self.assertTrue(MODULE.tooltip_explicitly_labels_cosmetic(tooltip))
+
     def test_parse_wowhead_tooltip_stats_ignores_missing_or_unrecognized_data(self):
         self.assertEqual(MODULE.parse_wowhead_tooltip_stats(""), [])
         self.assertEqual(MODULE.parse_wowhead_tooltip_stats("<span>Equip: grants power</span>"), [])
