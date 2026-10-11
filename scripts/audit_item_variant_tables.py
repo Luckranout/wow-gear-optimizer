@@ -62,14 +62,12 @@ def _record_ids(records):
 
 
 def audit_relationships(tables):
-    """Check source-verified relationships when both tables are present.
+    """Check only source-verified relationships when both tables are present.
 
-    SimulationCraft format metadata identifies ItemBonusTreeNode.id_child as a
-    reference to ItemBonusTreeNode records. Other bonus-tree candidate links stay
-    diagnostic until their foreign-key semantics are confirmed.
+    Current-build bonus-tree child semantics remain unverified, so they are
+    reported as linkage candidates rather than strict foreign-key failures.
     """
     checks = [
-        ("ItemBonusTreeNode", ("id_child",), "ItemBonusTreeNode"),
         ("ItemBonusListLevelDelta", ("id_item_bonus_list", "id_bonus_list"), "ItemBonus"),
         ("ItemXItemEffect", ("id_item_effect",), "ItemEffect"),
     ]
@@ -100,6 +98,8 @@ def audit_linkage_candidates(tables):
     candidates = [
         ("ItemBonus", "id_node", "ItemBonusTreeNode", "id_node"),
         ("ItemBonusTreeNode", "id_parent", "ItemBonusTreeNode", "id"),
+        ("ItemBonusTreeNode", "id_child", "ItemBonusTreeNode", "id"),
+        ("ItemBonusTreeNode", "id_child", "ItemBonusTreeNode", "id_node"),
         ("ItemXBonusTree", "id_tree", "ItemBonusTreeNode", "id_node"),
     ]
     report = []
