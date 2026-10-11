@@ -236,17 +236,57 @@ def parse_wowhead_tooltip_stats(tooltip):
     return unique
 
 
-def fetch_wowhead_tooltip_stats(item_id):
-    """Fetch explicit stat values when Blizzard's item endpoint omits them."""
+def fetch_wowhead_tooltip_stats(item_id, diagnostics=None):
+    """Fetch explicit displayed stats from Wowhead, with bounded retries and shape diagnostics."""
     url = "https://nether.wowhead.com/tooltip/item/{}?dataEnv=1&locale=0".format(int(item_id))
     request = urllib.request.Request(url, headers={
         "Accept": "application/json",
         "User-Agent": "WoW-Gear-Optimizer/1.0",
     })
-    with urllib.request.urlopen(request, timeout=20) as response:
-        payload = json.load(response)
+    payload = None
+    last_error = None
+    for attempt in range(4):
+        try:
+            with urllib.request.urlopen(request, timeout=30) as response:
+                payload = json.load(response)
+            break
+        except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as error:
+            last_error = error
+            if attempt == 3:
+                if diagnostics is not None:
+                    diagnostics["requestErrors"] += 1
+                raise
+            wait = 2 ** attempt
+            if diagnostics is not None:
+                diagnostics["retries"] += 1
+            print(f"Wowhead tooltip request for item {item_id} failed ({type(error).__name__}); retrying in {wait}s...")
+            time.sleep(wait)
+
+    if diagnostics is not None:
+        diagnostics["requestsSucceeded"] += 1
+        if isinstance(payload, dict):
+            diagnostics["responseShapes"][",".join(sorted(str(key) for key in payload.keys())) or "<empty-object>"] = (
+                diagnostics["responseShapes"].get(",".join(sorted(str(key) for key in payload.keys())) or "<empty-object>", 0) + 1
+            )
+        else:
+            diagnostics["responseShapes"][type(payload).__name__] = diagnostics["responseShapes"].get(type(payload).__name__, 0) + 1
+
     tooltip = payload.get("tooltip") if isinstance(payload, dict) else None
-    return parse_wowhead_tooltip_stats(tooltip)
+    if isinstance(tooltip, dict):
+        # Be tolerant of documented/observed wrapper variants without parsing prose.
+        tooltip = tooltip.get("html") or tooltip.get("content") or tooltip.get("text")
+    if not isinstance(tooltip, str) or not tooltip.strip():
+        if diagnostics is not None:
+            diagnostics["emptyTooltip"] += 1
+        return []
+
+    stats = parse_wowhead_tooltip_stats(tooltip)
+    if diagnostics is not None:
+        if stats:
+            diagnostics["usableStats"] += 1
+        else:
+            diagnostics["tooltipWithoutParsedStats"] += 1
+    return stats
 
 def normalize_preview_stats(stats):
     """Convert Blizzard preview_item.stats display strings into numeric stats."""
@@ -1215,6 +1255,11 @@ def merge_item_sources(*source_maps):
 
 def fetch_item_details(token, item_ids, item_sources):
     items = []
+    wowhead_diagnostics = {
+        "requestsSucceeded": 0, "usableStats": 0, "emptyTooltip": 0,
+        "tooltipWithoutParsedStats": 0, "requestErrors": 0, "retries": 0,
+        "responseShapes": {},
+    }
 
     for index, item_id in enumerate(sorted(item_ids), start=1):
         try:
@@ -1238,7 +1283,7 @@ def fetch_item_details(token, item_ids, item_sources):
         item["sourceLocations"] = item_sources.get(item_id, [])
         if not item_has_verified_stats(item):
             try:
-                fallback_stats = fetch_wowhead_tooltip_stats(item_id)
+                fallback_stats = fetch_wowhead_tooltip_stats(item_id, wowhead_diagnostics)
                 if fallback_stats:
                     item["stats"] = fallback_stats
                     item["statsSource"] = "Wowhead tooltip (explicit displayed stats)"
@@ -1253,6 +1298,15 @@ def fetch_item_details(token, item_ids, item_sources):
 
         time.sleep(REQUEST_DELAY_SECONDS)
 
+    print(
+        "Wowhead stat fallback diagnostics: "
+        f"{wowhead_diagnostics['requestsSucceeded']} responses, "
+        f"{wowhead_diagnostics['usableStats']} with parsed stats, "
+        f"{wowhead_diagnostics['emptyTooltip']} empty tooltips, "
+        f"{wowhead_diagnostics['tooltipWithoutParsedStats']} tooltips with no recognized stats, "
+        f"{wowhead_diagnostics['requestErrors']} request errors, "
+        f"{wowhead_diagnostics['retries']} retries; response shapes={json.dumps(wowhead_diagnostics['responseShapes'], sort_keys=True)}."
+    )
     return items
 
 
