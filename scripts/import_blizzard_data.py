@@ -286,6 +286,14 @@ def fetch_wowhead_tooltip_stats(item_id, diagnostics=None):
             diagnostics["usableStats"] += 1
         else:
             diagnostics["tooltipWithoutParsedStats"] += 1
+            # Short, tag-stripped sample helps diagnose parser mismatches without
+            # dumping full responses or changing what counts as a verified stat.
+            sample = html.unescape(re.sub(r"<[^>]+>", " ", tooltip))
+            sample = re.sub(r"\\s+", " ", sample).strip()
+            print(
+                f"Wowhead tooltip parse miss for item {item_id}: "
+                f"length={len(tooltip)}, sample={sample[:240]!r}"
+            )
     return stats
 
 def normalize_preview_stats(stats):
