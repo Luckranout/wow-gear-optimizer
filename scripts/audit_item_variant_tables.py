@@ -150,8 +150,8 @@ def audit_linkage_candidates(tables):
     """Report field-overlap candidates without asserting undocumented FK semantics."""
     candidates = [
         ("ItemBonus", ("id_node", "NodeID"), "ItemBonusTreeNode", ("id_node", "NodeID")),
-        ("ItemBonusTreeNode", ("id_child", "ChildItemBonusListID"), "ItemBonusList", ("id", "ID")),
-        ("ItemBonusTreeNode", ("id_child", "ChildItemBonusTreeID"), "ItemBonusTree", ("id", "ID")),
+        ("ItemBonusTreeNode", ("id_child_bonus_list", "id_child", "ChildItemBonusListID"), "ItemBonusList", ("id", "ID")),
+        ("ItemBonusTreeNode", ("id_child_bonus_tree", "id_child", "ChildItemBonusTreeID"), "ItemBonusTree", ("id", "ID")),
     ]
     report = []
     for source_name, source_fields, target_name, target_fields in candidates:
