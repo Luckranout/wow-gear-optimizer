@@ -40,17 +40,50 @@ class ItemStatCoverageGateTests(unittest.TestCase):
             validate_dataset(dataset(items, 0))
 
     def test_accepts_real_numeric_stats_when_count_matches(self):
-        total, verified = validate_dataset(dataset([
+        total, verified, cosmetics = validate_dataset(dataset([
             {"id": 1, "stats": [{"value": 12}]},
             {"id": 2, "stats": [{"value": 0}, {"value": 7.5}]},
             {"id": 3, "stats": []},
         ], 2))
-        self.assertEqual((total, verified), (3, 2))
+        self.assertEqual((total, verified, cosmetics), (3, 2, 0))
 
     def test_rejects_mismatched_reported_count(self):
         with self.assertRaisesRegex(ValueError, "does not match"):
             validate_dataset(dataset([{"id": 1, "stats": [{"value": 12}]}], 0))
 
+    def test_explicitly_source_proven_cosmetic_can_lack_numeric_stats(self):
+        items = [
+            {"id": 100, "name": "Combat Ring", "stats": [{"value": 12}]},
+            {
+                "id": 258045,
+                "name": "Dawnblade's Glaives",
+                "stats": [],
+                "catalogClassification": "cosmetic",
+                "classificationSource": "Wowhead tooltip explicitly labels item Cosmetic",
+                "wowheadTooltipClassificationEvidence": "Explicit Cosmetic label in tooltip",
+            },
+        ]
+        self.assertEqual(validate_dataset(dataset(items)), (2, 1, 1))
 
-if __name__ == "__main__":
+    def test_cosmetic_flag_without_source_evidence_does_not_bypass_gate(self):
+        items = [
+            {"id": 100, "name": "Combat Ring", "stats": [{"value": 12}]},
+            {"id": 258045, "name": "Unverified Item", "stats": [], "catalogClassification": "cosmetic"},
+        ]
+        with self.assertRaisesRegex(ValueError, "lack verified non-zero numeric stats"):
+            validate_dataset(dataset(items))
+
+    def test_permafrost_effect_only_item_does_not_bypass_base_stat_gate(self):
+        items = [
+            {"id": 100, "name": "Combat Ring", "stats": [{"value": 12}]},
+            {
+                "id": 250244,
+                "name": "Permafrost Essence",
+                "stats": [],
+                "effects": [{"description": "Conditional Mark of Frost effect"}],
+            },
+        ]
+        with self.assertRaisesRegex(ValueError, "250244 Permafrost Essence"):
+            validate_dataset(dataset(items))
+
     unittest.main()
