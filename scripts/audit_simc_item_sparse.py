@@ -33,11 +33,24 @@ def audit_records(records):
     records_with_nonzero_stat_pairs = 0
     malformed_stat_records = 0
     examples = []
+    observed_fields = set()
+    curve_reference_counts = {
+        "player_level_to_item_level_curve_id": 0,
+        "item_level_offset_curve_id": 0,
+        "item_level_offset_item_level": 0,
+        "item_squish_era_id": 0,
+    }
 
     for record in records:
         if not isinstance(record, dict):
             malformed_stat_records += 1
             continue
+        observed_fields.update(record.keys())
+        for field in curve_reference_counts:
+            value = record.get(field)
+            if isinstance(value, (int, float)) and not isinstance(value, bool) and value != 0:
+                curve_reference_counts[field] += 1
+
         item_id = record.get("id")
         if isinstance(item_id, int) and not isinstance(item_id, bool) and item_id > 0:
             valid_ids += 1
@@ -81,6 +94,10 @@ def audit_records(records):
         "recordsWithStatPairs": records_with_stat_pairs,
         "recordsWithNonzeroStatPairs": records_with_nonzero_stat_pairs,
         "recordsWithMalformedStatFields": malformed_stat_records,
+        "observedFields": sorted(observed_fields),
+        "itemLevelCurveReferenceCoverage": curve_reference_counts,
+        "currentItemCurveFieldsPresent": all(field in observed_fields for field in curve_reference_counts),
+        "finalStatScalingVerified": False,
         "exampleRecords": examples,
         "policy": (
             "Audit only. Stat type IDs are intentionally not converted to named stats; "
