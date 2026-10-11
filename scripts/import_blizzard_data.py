@@ -1483,7 +1483,7 @@ def validate_item_stat_source(token, dataset_path=OUTPUT):
         for stat in stats
     ):
         raise RuntimeError(
-            "Item-stat source preflight failed: Blizzard /data/wow/item/{sample_id} "
+            f"Item-stat source preflight failed: Blizzard /data/wow/item/{sample_id} "
             "did not return non-zero numeric stats. Stopping before the long catalog scan. "
             "Connect the build-matched ItemSparse data and verified item variant/scaling "
             "resolution before attempting publication."
