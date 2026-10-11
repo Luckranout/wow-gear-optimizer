@@ -16,6 +16,7 @@ REQUIRED_FOR_VARIANT_RESOLUTION = {
     "ItemBonus", "ItemBonusTreeNode", "ItemXBonusTree",
     "ItemBonusListLevelDelta", "ItemBonusList", "ItemBonusTree",
     "ItemBonusListGroupEntry", "ItemBonusListGroup", "ItemLevelSelector",
+    "ItemCreationContext", "ItemCreationContextGroup",
 }
 REQUIRED_FOR_FINAL_STAT_SCALING = {
     "ItemLevelSelectorQualitySet", "ItemLevelSelectorQuality",
