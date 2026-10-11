@@ -153,7 +153,16 @@ function scoreItemStats(item, statWeights = STAT_WEIGHTS) {
     score + value * (statWeights[stat] ?? 0), 0);
 }
 
+function hasUnsupportedConditionalEffects(item) {
+  if (!item || typeof item !== "object") return false;
+  return item.optimizationStatus === "unsupported_conditional_effect" ||
+    item.conditionalEffectsSupported === false;
+}
+
 function hasUsableItemStats(item) {
+  // Do not rank an item as stat-only when its conditional effects are known
+  // but the optimizer does not model them.
+  if (hasUnsupportedConditionalEffects(item)) return false;
   if (!item || !item.stats) return false;
   const entries = Array.isArray(item.stats)
     ? item.stats.map(s => [s.stat?.name || s.name || s.stat, s.value])
@@ -598,7 +607,7 @@ const WOW_OPTIMIZER_TEST_DATA = [
 window.WoWOptimizer = {
   slots: WOW_EQUIPMENT_SLOTS, goals: WOW_GOALS,
   createCharacterProfile, normalizeCharacterStatistics, scoreCharacterStatistics, getCharacterStatSummary, resolveStatWeights, normalizeSimulationScaleFactors, getSimulationWeightContext, findBlizzardSpecialization, getSpecProfileContext,
-  normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, hasUsableItemStats, scoreItem, scoreEquipment, getGoalWeights,
+  normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, hasUnsupportedConditionalEffects, hasUsableItemStats, scoreItem, scoreEquipment, getGoalWeights,
   findBestItemForSlot, optimizeEquipment, findUpgradeOpportunities, rankItems,
   getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,
   calculateCrestRequirements, isAscendantVenomstoneEligible, recommendUpgradePlan,
