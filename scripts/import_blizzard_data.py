@@ -1541,8 +1541,14 @@ def item_has_verified_stats(item):
 
 def build_item_stat_coverage(items):
     """Report actual stat-data coverage; item level/name are never treated as stat data."""
-    total = len(items)
-    verified = sum(1 for item in items if item_has_verified_stats(item))
+    # Cosmetics are valid catalog records but are not combat-stat candidates.
+    # Only explicit source classification excludes them; unknown records stay in the strict gate.
+    candidates = [
+        item for item in items
+        if not (isinstance(item, dict) and item.get("catalogClassification") == "cosmetic")
+    ]
+    total = len(candidates)
+    verified = sum(1 for item in candidates if item_has_verified_stats(item))
     missing = total - verified
     coverage_percent = round((verified / total) * 100, 2) if total else 0.0
     coverage_policy = (
