@@ -139,14 +139,33 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("input", type=Path)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--candidate-items", type=Path, help="Current-retail dataset JSON; report ItemSparse mappings for candidate item IDs.")
     args = parser.parse_args()
     try:
-        result = convert_records(json.loads(args.input.read_text(encoding="utf-8")))
+        source_records = json.loads(args.input.read_text(encoding="utf-8"))
+        result = convert_records(source_records)
+        if args.candidate_items:
+            candidate_dataset = json.loads(args.candidate_items.read_text(encoding="utf-8"))
+            candidate_ids = {
+                item.get("id") for item in candidate_dataset.get("items", [])
+                if isinstance(item, dict) and item.get("id") is not None
+            }
+            candidate_rows = [item for item in result["items"] if item["itemId"] in candidate_ids]
+            result["candidateItemMapping"] = {
+                "candidateItemCount": len(candidate_ids),
+                "matchedItemSparseRecords": len(candidate_rows),
+                "matchedRecordsWithNamedStats": sum(bool(item["stats"]) for item in candidate_rows),
+                "matchedFullyMappedRecords": sum(item["fullyMapped"] for item in candidate_rows),
+                "matchedRecordsWithContextDependentStats": sum(bool(item["contextDependentStatPairs"]) for item in candidate_rows),
+                "matchedRecordsWithUnmappedStats": sum(bool(item["unmappedStatPairs"]) for item in candidate_rows),
+                "items": candidate_rows,
+                "warning": "ItemSparse stat allocations are not final scaled item stats; these rows are diagnostic only."
+            }
     except (OSError, json.JSONDecodeError, ValueError) as error:
-        parser.exit(1, f"CONVERSION FAILED: {error}\n")
-    args.output.write_text(json.dumps(result, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(json.dumps({k: v for k, v in result.items() if k != "items"}, indent=2))
-
+        parser.exit(1, f"CONVERSION FAILED: {error}\\n")
+    args.output.write_text(json.dumps(result, indent=2, ensure_ascii=False) + "\\n", encoding="utf-8")
+    summary = {k: v for k, v in result.items() if k != "items"}
+    print(json.dumps(summary, indent=2))
 
 if __name__ == "__main__":
     main()
