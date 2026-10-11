@@ -46,17 +46,17 @@ class ItemVariantTableAuditTests(unittest.TestCase):
     def test_bonus_tree_child_linkage_stays_diagnostic(self):
         report = MODULE.audit_linkage_candidates({
             "ItemBonusTreeNode": [
-                {"id": 1, "id_node": 5, "id_child": 2},
-                {"id": 2, "id_node": 6, "id_child": 0},
-                {"id": 3, "id_node": 7, "id_child": 999},
+                {"ID": 1, "ChildItemBonusListID": 2, "ChildItemBonusTreeID": 30},
+                {"ID": 2, "ChildItemBonusListID": 0, "ChildItemBonusTreeID": 0},
+                {"ID": 3, "ChildItemBonusListID": 999, "ChildItemBonusTreeID": 999},
             ],
+            "ItemBonusList": [{"ID": 2}],
+            "ItemBonusTree": [{"ID": 30}],
         })
-        child_checks = [row for row in report if row["sourceField"] == "id_child"]
-        self.assertEqual(len(child_checks), 2)
-        self.assertTrue(all("candidate only" in row["interpretation"] for row in child_checks))
-        self.assertNotIn("ItemBonusTreeNode", [row["sourceTable"] for row in MODULE.audit_relationships({
-            "ItemBonusTreeNode": [{"id": 1, "id_child": 999}]
-        })])
+        self.assertEqual(len(report), 2)
+        self.assertTrue(all("candidate only" in row["interpretation"] for row in report))
+        self.assertTrue(all(row["sourceTable"] == "ItemBonusTreeNode" for row in report))
+        self.assertEqual({row["targetTable"] for row in report}, {"ItemBonusList", "ItemBonusTree"})
 
     def test_linkage_candidates_are_reported_without_asserting_foreign_keys(self):
         report = MODULE.audit_linkage_candidates({
