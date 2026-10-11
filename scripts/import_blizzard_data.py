@@ -215,7 +215,7 @@ def normalize_item(data, source=None):
             "name": localized_name(inventory_type.get("name")) if isinstance(inventory_type, dict) else None,
         },
         "isEquippable": data.get("is_equippable"),
-        "stats": data.get("stats", []),
+        "stats": data.get("stats") or (data.get("preview_item") or {}).get("stats", []),
         "spells": data.get("spells", []),
         "set": data.get("set"),
         "description": data.get("description"),
