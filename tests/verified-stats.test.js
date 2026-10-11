@@ -24,6 +24,22 @@ vm.runInNewContext(fs.readFileSync(require.resolve("../optimizer.js"), "utf8"), 
 const optimizer = sandbox.window.WoWOptimizer;
 const unverified = { id: 1, name: "Unknown-stat item", slot: "Head", itemLevel: 999, stats: [] };
 const verified = { id: 2, name: "Verified-stat item", slot: "Head", itemLevel: 100, stats: { Strength: 10 } };
+const unsupportedEffectItem = {
+  id: 250244,
+  name: "Permafrost Essence",
+  slot: "Trinket 1",
+  itemLevel: 334,
+  stats: { CriticalStrike: 85 },
+  optimizationStatus: "unsupported_conditional_effect",
+  effectDescription: "Taking damage can grant Marks of Frost; at low health they form a Frost Barrier."
+};
+assert.strictEqual(optimizer.hasUnsupportedConditionalEffects(unsupportedEffectItem), true);
+assert.strictEqual(optimizer.hasUsableItemStats(unsupportedEffectItem), false,
+  "known unsupported conditional effects must keep an item out of stat-only rankings");
+assert.strictEqual(optimizer.scoreItem(unsupportedEffectItem), 0);
+assert.strictEqual(optimizer.findBestItemForSlot([unsupportedEffectItem], "Trinket 1", optimizer.goals.general), null);
+assert.strictEqual(optimizer.rankItems([unsupportedEffectItem]).length, 0);
+
 assert.strictEqual(optimizer.hasUsableItemStats(unverified), false);
 assert.strictEqual(optimizer.scoreItem(unverified), 0, "item level alone must not produce an optimizer score");
 assert.strictEqual(optimizer.findBestItemForSlot([unverified], "Head", optimizer.goals.general), null);

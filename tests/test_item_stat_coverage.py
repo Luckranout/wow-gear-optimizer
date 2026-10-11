@@ -13,6 +13,29 @@ SPEC.loader.exec_module(MODULE)
 
 
 class ItemStatCoverageTests(unittest.TestCase):
+    def test_permafrost_is_flagged_only_with_both_documented_effect_phrases(self):
+        item = {"id": 250244, "name": "Permafrost Essence", "stats": []}
+        result = MODULE.apply_unsupported_conditional_effect_policy(
+            250244,
+            dict(item),
+            "Mark of Frost increases Critical Strike; Frost Barrier absorbs damage.",
+        )
+        self.assertEqual(result["optimizationStatus"], "unsupported_conditional_effect")
+        self.assertFalse(result["conditionalEffectsSupported"])
+        self.assertIn("scaling/model unresolved", result["optimizationStatusSource"])
+
+        missing_phrase = MODULE.apply_unsupported_conditional_effect_policy(
+            250244, dict(item), "Mark of Frost increases Critical Strike."
+        )
+        self.assertNotIn("optimizationStatus", missing_phrase)
+
+        other_item = MODULE.apply_unsupported_conditional_effect_policy(
+            250245,
+            {"id": 250245, "name": "Other item"},
+            "Mark of Frost and Frost Barrier",
+        )
+        self.assertNotIn("optimizationStatus", other_item)
+
     def test_item_level_alone_does_not_count_as_verified_stats(self):
         item = {"id": 1001, "name": "High Item Level", "level": 334, "stats": []}
         self.assertFalse(MODULE.item_has_verified_stats(item))
@@ -37,16 +60,49 @@ class ItemStatCoverageTests(unittest.TestCase):
             "stats": {"haste": 12.5, "criticalStrike": 0}
         }))
 
+    def test_parse_wowhead_tooltip_stats_extracts_only_explicit_numeric_stats(self):
+        stats = MODULE.parse_wowhead_tooltip_stats(
+            '<table><tr><td>+123 Strength</td></tr>'
+            '<tr><td>+456 Stamina</td></tr>'
+            '<tr><td>Equip: Increases damage by 20%</td></tr>'
+            '<tr><td>+0 Haste</td></tr></table>'
+        )
+        self.assertEqual([(item["type"]["name"], item["value"]) for item in stats],
+                         [("strength", 123), ("stamina", 456)])
+
+    def test_parse_wowhead_tooltip_stats_ignores_missing_or_unrecognized_data(self):
+        self.assertEqual(MODULE.parse_wowhead_tooltip_stats(""), [])
+        self.assertEqual(MODULE.parse_wowhead_tooltip_stats("<span>Equip: grants power</span>"), [])
+
+    def test_parse_wowhead_tooltip_stats_supports_multi_word_labels(self):
+        stats = MODULE.parse_wowhead_tooltip_stats(
+            "<div>+125 Critical Strike</div>"
+            "<div>+86 Haste Rating</div>"
+            "<div>+37 Critical Strike Rating</div>"
+        )
+        self.assertEqual(
+            [(item["type"]["name"], item["value"]) for item in stats],
+            [("criticalStrike", 125), ("haste", 86), ("criticalStrike", 37)],
+        )
+    def test_normalize_preview_stats_reads_blizzard_display_strings(self):
+        stats = MODULE.normalize_preview_stats([
+            {"display": {"display_string": "+16 Agility"}},
+            {"display": {"display_string": "+24 Stamina"}},
+            {"display": {"display_string": "+0 Haste"}},
+        ])
+        self.assertEqual([(item["type"]["name"], item["value"]) for item in stats],
+                         [("agility", 16), ("stamina", 24)])
+
     def test_normalize_item_reads_stats_from_preview_item(self):
         normalized = MODULE.normalize_item({
             "id": 123,
             "name": {"en_US": "Preview Stat Item"},
             "preview_item": {
-                "stats": [{"type": {"name": "Haste"}, "value": 42}]
+                "stats": [{"display": {"display_string": "+42 Haste"}}]
             },
         })
         self.assertEqual(normalized["stats"], [
-            {"type": {"name": "Haste"}, "value": 42}
+            {"type": {"name": "haste"}, "value": 42, "source": "Blizzard preview_item.stats"}
         ])
         self.assertTrue(MODULE.item_has_verified_stats(normalized))
 
@@ -115,6 +171,43 @@ class ItemStatCoverageTests(unittest.TestCase):
         self.assertEqual(report["itemsMissingAnyNumericStats"], 0)
         self.assertEqual(report["itemRecordsWithAnyNumericStatsPercent"], 0.0)
 
+
+    def test_wowhead_tooltip_details_detects_explicit_cosmetic_label_without_stats(self):
+        import json
+        from unittest.mock import patch
+
+        class FakeResponse:
+            def __enter__(self):
+                return self
+            def __exit__(self, *args):
+                return False
+            def read(self):
+                return json.dumps({"tooltip": "<div>Dawnblade's Glaives</div><div>Cosmetic</div><div>Use: Add this appearance to your collection.</div>"}).encode("utf-8")
+
+        with patch.object(MODULE.urllib.request, "urlopen", return_value=FakeResponse()):
+            details = MODULE.fetch_wowhead_tooltip_details(258045)
+
+        self.assertTrue(details["explicitlyCosmetic"])
+        self.assertEqual(details["stats"], [])
+        self.assertIn("Cosmetic", details["tooltipText"])
+
+    def test_wowhead_tooltip_details_does_not_infer_cosmetic_without_explicit_label(self):
+        import json
+        from unittest.mock import patch
+
+        class FakeResponse:
+            def __enter__(self):
+                return self
+            def __exit__(self, *args):
+                return False
+            def read(self):
+                return json.dumps({"tooltip": "<div>Permafrost Essence</div><div>Equip: Taking damage has a chance to grant a Mark of Frost.</div>"}).encode("utf-8")
+
+        with patch.object(MODULE.urllib.request, "urlopen", return_value=FakeResponse()):
+            details = MODULE.fetch_wowhead_tooltip_details(250244)
+
+        self.assertFalse(details["explicitlyCosmetic"])
+        self.assertEqual(details["stats"], [])
 
 if __name__ == "__main__":
     unittest.main()
