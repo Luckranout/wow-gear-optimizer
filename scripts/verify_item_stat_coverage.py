@@ -95,7 +95,10 @@ def validate_dataset(dataset):
 
     actual_verified = sum(
         1 for item in items
-        if isinstance(item, dict) and item.get("catalogClassification") != "cosmetic"
+        if isinstance(item, dict)
+        and item.get("catalogClassification") != "cosmetic"
+        and has_numeric_stats(item)
+        and item.get("statsSource") in ALLOWED_STAT_SOURCES
     )
     coverage = (dataset.get("apiCheck") or {}).get("itemStatCoverage") or {}
     reported_verified = coverage.get("itemsWithVerifiedStats")
