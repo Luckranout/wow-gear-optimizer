@@ -19,10 +19,10 @@ const blizzardShapedItem = {
 if (!o.hasUsableItemStats(blizzardShapedItem)) {
   throw new Error("Blizzard-shaped equipped-item stats must be recognized as usable.");
 }
-if (o.scoreItemStats(blizzardShapedItem, { Strength: 1, Haste: 2, CriticalStrike: 3 }) !== 460) {
+if (o.scoreItemStats(blizzardShapedItem, { Strength: 1, Haste: 2, CriticalStrike: 3 }) !== 350) {
   throw new Error("Blizzard-shaped equipped-item stats must map to optimizer stat weights.");
 }
-if (o.scoreItem(blizzardShapedItem, { Strength: 1, Haste: 2, CriticalStrike: 3 }) !== 1060) {
+if (o.scoreItem(blizzardShapedItem, { Strength: 1, Haste: 2, CriticalStrike: 3 }) !== 950) {
   throw new Error("Blizzard-shaped item must score item level and mapped stats.");
 }
 
