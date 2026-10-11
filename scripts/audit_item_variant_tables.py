@@ -50,6 +50,16 @@ TABLES = {
     "ItemBonusListGroup": {"keys": ("id", "ID")},
     "ItemBonusTreeGroupEntry": {"keys": ("id", "ID")},
     "ItemBonusSeasonBonusListGroup": {"keys": ("id", "ID")},
+    "ScalingStatValues": {"keys": ("id", "ID")},
+    "ItemScalingConfig": {"keys": ("id", "ID")},
+    "ItemGroupIlvlScalingEntry": {"keys": ("id", "ID")},
+    "ItemArmorQuality": {"keys": ("id", "ID")},
+    "ExpectedStat": {"keys": ("id", "ID")},
+    "ExpectedStatMod": {"keys": ("id", "ID")},
+    "ContentTuningXExpectedStatMod": {"keys": ("id", "ID")},
+    "Curve": {"keys": ("id", "ID")},
+    "CurvePoint": {"keys": ("id", "ID")},
+    "GlobalCurve": {"keys": ("id", "ID")},
 }
 
 
