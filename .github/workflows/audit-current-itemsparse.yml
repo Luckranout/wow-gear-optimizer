@@ -189,6 +189,7 @@ jobs:
         run: |
           set -euo pipefail
           python scripts/convert_simc_itemsparse_stats.py "$RUNNER_TEMP/ItemSparse.json" \
+            --candidate-items data/current-retail.json \
             --output "$RUNNER_TEMP/item-sparse-conversion-full.json"
           # Upload aggregate counts only; never publish raw client records.
           python - <<'PY'
