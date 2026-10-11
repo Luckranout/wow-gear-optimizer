@@ -62,12 +62,14 @@ def _record_ids(records):
 
 
 def audit_relationships(tables):
-    """Check only source-verified relationships when both tables are present.
+    """Check source-verified relationships when both tables are present.
 
-    Bonus-tree IDs are intentionally not checked here: their target table/field
-    semantics have not yet been established from the current build schema.
+    SimulationCraft format metadata identifies ItemBonusTreeNode.id_child as a
+    reference to ItemBonusTreeNode records. Other bonus-tree candidate links stay
+    diagnostic until their foreign-key semantics are confirmed.
     """
     checks = [
+        ("ItemBonusTreeNode", ("id_child",), "ItemBonusTreeNode"),
         ("ItemBonusListLevelDelta", ("id_item_bonus_list", "id_bonus_list"), "ItemBonus"),
         ("ItemXItemEffect", ("id_item_effect",), "ItemEffect"),
     ]
