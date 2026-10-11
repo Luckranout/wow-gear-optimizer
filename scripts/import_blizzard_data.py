@@ -236,8 +236,8 @@ def parse_wowhead_tooltip_stats(tooltip):
     return unique
 
 
-def fetch_wowhead_tooltip_stats(item_id):
-    """Fetch explicit stat values when Blizzard's item endpoint omits them."""
+def fetch_wowhead_tooltip_details(item_id):
+    """Fetch explicit tooltip stats and cosmetic label evidence from Wowhead."""
     url = "https://nether.wowhead.com/tooltip/item/{}?dataEnv=1&locale=0".format(int(item_id))
     request = urllib.request.Request(url, headers={
         "Accept": "application/json",
@@ -246,7 +246,19 @@ def fetch_wowhead_tooltip_stats(item_id):
     with urllib.request.urlopen(request, timeout=20) as response:
         payload = json.load(response)
     tooltip = payload.get("tooltip") if isinstance(payload, dict) else None
-    return parse_wowhead_tooltip_stats(tooltip)
+    tooltip_text = html.unescape(re.sub(r"<[^>]+>", " ", tooltip or ""))
+    tooltip_text = re.sub(r"\\s+", " ", tooltip_text).strip()
+    explicitly_cosmetic = bool(re.search(r"\\bCosmetic\\b", tooltip_text, re.IGNORECASE))
+    return {
+        "stats": parse_wowhead_tooltip_stats(tooltip),
+        "explicitlyCosmetic": explicitly_cosmetic,
+        "tooltipText": tooltip_text,
+    }
+
+
+def fetch_wowhead_tooltip_stats(item_id):
+    """Backward-compatible stats-only Wowhead fallback."""
+    return fetch_wowhead_tooltip_details(item_id)["stats"]
 
 def normalize_preview_stats(stats):
     """Convert Blizzard preview_item.stats display strings into numeric stats."""
@@ -1236,14 +1248,18 @@ def fetch_item_details(token, item_ids, item_sources):
         )
         item["seasonScope"] = SEASON_SCOPE
         item["sourceLocations"] = item_sources.get(item_id, [])
-        if not item_has_verified_stats(item):
-            try:
-                fallback_stats = fetch_wowhead_tooltip_stats(item_id)
-                if fallback_stats:
-                    item["stats"] = fallback_stats
-                    item["statsSource"] = "Wowhead tooltip (explicit displayed stats)"
-            except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, ValueError, json.JSONDecodeError) as error:
-                print(f"Item {item_id}: no Wowhead stat fallback ({type(error).__name__}).")
+        try:
+            tooltip_details = fetch_wowhead_tooltip_details(item_id)
+            if tooltip_details["explicitlyCosmetic"]:
+                item["catalogClassification"] = "cosmetic"
+                item["classificationSource"] = "Wowhead tooltip explicitly labels item Cosmetic"
+            if not item_has_verified_stats(item) and tooltip_details["stats"]:
+                item["stats"] = tooltip_details["stats"]
+                item["statsSource"] = "Wowhead tooltip (explicit displayed stats)"
+            if tooltip_details["explicitlyCosmetic"]:
+                item["wowheadTooltipClassificationEvidence"] = "Explicit Cosmetic label in tooltip"
+        except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, ValueError, json.JSONDecodeError) as error:
+            print(f"Item {item_id}: no Wowhead tooltip fallback ({type(error).__name__}).")
         if item_has_verified_stats(item) and "statsSource" not in item:
             item["statsSource"] = "Blizzard Game Data API"
         items.append(item)
