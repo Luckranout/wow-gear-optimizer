@@ -882,6 +882,9 @@ def collect_profession_supporting_data(token):
     recipe_output_cache = {}
     fallback_output_count = 0
     modified_crafting_cache = {}
+    processed_recipe_count = 0
+
+    print(f"Profession index returned {len(profession_refs)} professions.", flush=True)
 
     for profession_ref in profession_refs:
         profession_id = extract_id(profession_ref)
@@ -889,6 +892,7 @@ def collect_profession_supporting_data(token):
         if not profession_id or profession_name not in profession_names:
             continue
 
+        print(f"Loading profession {profession_name} (id {profession_id}).", flush=True)
         profession = get_api_json(
             f"/data/wow/profession/{profession_id}",
             token,
@@ -919,6 +923,14 @@ def collect_profession_supporting_data(token):
                     recipe_id = extract_id(recipe_ref)
                     if not recipe_id:
                         continue
+
+                    processed_recipe_count += 1
+                    if processed_recipe_count == 1 or processed_recipe_count % 25 == 0:
+                        print(
+                            f"Profession recipe progress: {processed_recipe_count} recipes fetched "
+                            f"(latest profession {profession_name}, recipe id {recipe_id}).",
+                            flush=True,
+                        )
 
                     recipe = get_api_json(
                         f"/data/wow/recipe/{recipe_id}",
@@ -1052,8 +1064,11 @@ def fetch_supporting_item_details(token, item_ids):
             source="Blizzard Game Data API — current Midnight profession output",
         ))
 
-        if index % 100 == 0:
-            print(f"Enriched {index}/{len(item_ids)} supporting recipe outputs.")
+        if index == 1 or index % 25 == 0 or index == len(item_ids):
+            print(
+                f"Supporting item progress: {index}/{len(item_ids)} records fetched.",
+                flush=True,
+            )
 
         time.sleep(REQUEST_DELAY_SECONDS)
 
