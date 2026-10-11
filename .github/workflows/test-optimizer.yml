@@ -31,6 +31,8 @@ on:
       - ".github/workflows/import-wow-data.yml"
   pull_request:
     paths:
+      - ".github/workflows/import-wow-data.yml"
+      - ".github/workflows/test-optimizer.yml"
       - "optimizer.js"
       - "wow-data.js"
       - "scripts/**"
@@ -67,6 +69,8 @@ jobs:
         run: python -m unittest tests/test_season_import_policy.py
       - name: Run item stat coverage tests
         run: python -m unittest tests/test_item_stat_coverage.py
+      - name: Run fail-closed item stat verifier tests
+        run: python -m unittest tests/test_verify_item_stat_coverage.py
 
       - name: Run simulation import tests
         run: node tests/simulation-import.test.js
