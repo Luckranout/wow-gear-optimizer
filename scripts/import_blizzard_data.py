@@ -236,6 +236,15 @@ def parse_wowhead_tooltip_stats(tooltip):
     return unique
 
 
+def tooltip_explicitly_labels_cosmetic(tooltip):
+    """Return true only when the tooltip explicitly contains the Cosmetic label."""
+    if not isinstance(tooltip, str) or not tooltip.strip():
+        return False
+    plain_text = html.unescape(re.sub(r"<[^>]+>", " ", tooltip))
+    plain_text = re.sub(r"\s+", " ", plain_text).strip()
+    return bool(re.search(r"\bCosmetic\b", plain_text, re.IGNORECASE))
+
+
 def fetch_wowhead_tooltip_stats(item_id, diagnostics=None):
     """Fetch explicit displayed stats from Wowhead, with bounded retries and shape diagnostics."""
     url = "https://nether.wowhead.com/tooltip/item/{}?dataEnv=1&locale=0".format(int(item_id))
@@ -281,7 +290,7 @@ def fetch_wowhead_tooltip_stats(item_id, diagnostics=None):
         return []
 
     stats = parse_wowhead_tooltip_stats(tooltip)
-    plain_text = re.sub(r"\\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", tooltip))).strip()
+    plain_text = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", tooltip))).strip()
     if diagnostics is not None:
         if stats:
             diagnostics["usableStats"] += 1
@@ -293,7 +302,7 @@ def fetch_wowhead_tooltip_stats(item_id, diagnostics=None):
                 f"Wowhead tooltip parse miss for item {item_id}: "
                 f"length={len(tooltip)}, sample={plain_text[:1800]!r}"
             )
-        if re.search(r"\\bCosmetic\\b", plain_text, re.IGNORECASE):
+        if tooltip_explicitly_labels_cosmetic(tooltip):
             diagnostics.setdefault("explicitCosmeticItems", set()).add(int(item_id))
             print(f"Wowhead explicitly labels item {item_id} as Cosmetic.")
     return stats
