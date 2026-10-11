@@ -253,12 +253,39 @@ def audit_directory(directory, candidate_item_ids=None):
         context_group_membership_exported = bool(context_rows) and any(
             "id_parent" in row for row in context_rows
         )
+        bonus_list_ids = {
+            str(row.get("id_child_bonus_list"))
+            for row in reachable_nodes
+            if row.get("id_child_bonus_list") not in (None, 0, "0")
+        }
+        bonus_list_level_deltas = [
+            row for row in loaded_tables.get("ItemBonusListLevelDelta", [])
+            if str(row.get("id")) in bonus_list_ids
+        ]
+        bonus_list_records = [
+            row for row in loaded_tables.get("ItemBonusList", [])
+            if str(row.get("id")) in bonus_list_ids
+        ]
+        bonus_records = [
+            row for row in loaded_tables.get("ItemBonus", [])
+            if str(row.get("id_parent")) in bonus_list_ids
+        ]
+        group_point_mod_set_ids = sorted({
+            int(row.get("id_group_point_mod_set"))
+            for row in reachable_nodes
+            if row.get("id_group_point_mod_set") not in (None, 0, "0")
+        })
         result["candidateItemVariantLinkage"] = {
             "candidateItemCount": len(candidate_ids),
             "contextGroupIdsReferenced": sorted(int(value) for value in context_group_ids),
             "contextGroupMappingRows": relevant_context_rows,
             "contextGroupMembershipExported": context_group_membership_exported,
             "itemCreationContexts": context_rows,
+            "bonusListIds": sorted(int(value) for value in bonus_list_ids),
+            "bonusListLevelDeltas": bonus_list_level_deltas,
+            "bonusListRecords": bonus_list_records,
+            "bonusRecords": bonus_records,
+            "groupPointModSetIds": group_point_mod_set_ids,
             "itemsWithBonusTreeLink": len({str(row.get("id_parent")) for row in candidate_links}),
             "itemBonusTreeLinkCount": len(candidate_links),
             "rootTreeCount": len(root_tree_ids),
@@ -268,7 +295,7 @@ def audit_directory(directory, candidate_item_ids=None):
             "reachableNodeCount": len(reachable_nodes),
             "itemLinks": candidate_links,
             "reachableTreeNodes": reachable_nodes,
-            "interpretation": "Recursive child-tree linkage is diagnostic only; context-group membership is included only if the extractor exposes the relation, and node-group choices, bonus-list semantics, and scaled stats remain unverified."
+            "interpretation": "Recursive child-tree linkage, relevant bonus-list rows, level deltas, and context groups are diagnostic only; group-point-mod-set semantics and scaled final stats remain unverified."
         }
     result["unresolvedRelationshipChecks"] = sum(r["unresolvedReferenceCount"] for r in result["relationships"])
     result["tableCountFound"] = len(result["tables"])
