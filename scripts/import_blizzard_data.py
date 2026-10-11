@@ -247,8 +247,8 @@ def fetch_wowhead_tooltip_details(item_id):
         payload = json.load(response)
     tooltip = payload.get("tooltip") if isinstance(payload, dict) else None
     tooltip_text = html.unescape(re.sub(r"<[^>]+>", " ", tooltip or ""))
-    tooltip_text = re.sub(r"\\s+", " ", tooltip_text).strip()
-    explicitly_cosmetic = bool(re.search(r"\\bCosmetic\\b", tooltip_text, re.IGNORECASE))
+    tooltip_text = re.sub(r"\s+", " ", tooltip_text).strip()
+    explicitly_cosmetic = bool(re.search(r"\bCosmetic\b", tooltip_text, re.IGNORECASE))
     return {
         "stats": parse_wowhead_tooltip_stats(tooltip),
         "explicitlyCosmetic": explicitly_cosmetic,
