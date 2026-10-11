@@ -9,6 +9,18 @@ import argparse
 import json
 from pathlib import Path
 
+# These tables are required before raw ItemSparse allocations can be treated as
+# final item stats. Bonus-tree tables resolve item variants; scaling tables are
+# necessary to turn allocations into item-level values.
+REQUIRED_FOR_VARIANT_RESOLUTION = {
+    "ItemBonus", "ItemBonusTreeNode", "ItemXBonusTree",
+    "ItemBonusListLevelDelta", "ItemBonusList", "ItemBonusTree",
+    "ItemBonusListGroupEntry", "ItemBonusListGroup", "ItemLevelSelector",
+}
+REQUIRED_FOR_FINAL_STAT_SCALING = {
+    "ScalingStatDistribution", "ItemLevelSelectorQualitySet", "ItemLevelSelectorQuality",
+}
+
 TABLES = {
     "ItemUpgrade": {"keys": ("id", "ID")},
     "RulesetItemUpgrade": {"keys": ("id", "ID")},
@@ -180,6 +192,13 @@ def audit_directory(directory):
     result["tablesWithMissingRequiredFields"] = [
         name for name, report in result["tables"].items() if report.get("missingRequiredFields")
     ]
+    result["missingVariantResolutionTables"] = sorted(REQUIRED_FOR_VARIANT_RESOLUTION & set(result["missingTables"]))
+    result["missingFinalStatScalingTables"] = sorted(REQUIRED_FOR_FINAL_STAT_SCALING & set(result["missingTables"]))
+    result["finalStatScalingVerified"] = (
+        not result["missingVariantResolutionTables"]
+        and not result["missingFinalStatScalingTables"]
+        and not result["tablesWithMissingRequiredFields"]
+    )
     return result
 
 
