@@ -42,6 +42,7 @@ function normalizeEquippedItem(item) {
     set: item.set || null,
     context: item.context ?? null,
     modifiers: item.modifiers || [],
+    bonusList: item.bonus_list || item.bonusList || [],
     upgrade: item.upgrade || null
   };
 }
