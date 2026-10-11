@@ -196,6 +196,14 @@ def audit_directory(directory):
         records = json.loads(path.read_text(encoding="utf-8"))
         loaded_tables[name] = records
         result["tables"][name] = audit_table(name, records)
+        if name in {
+            "ItemXBonusTree", "ItemBonusTreeNode", "ItemBonusTree",
+            "ItemBonus", "ItemBonusList", "ItemBonusListLevelDelta",
+            "ItemLevelSelector", "ItemLevelSelectorQualitySet", "ItemLevelSelectorQuality",
+        }:
+            # Small, public game-data samples help validate field semantics before
+            # any production resolver treats candidate relationships as authoritative.
+            result["tables"][name]["sampleRecords"] = records[:5]
     result["relationships"] = audit_relationships(loaded_tables)
     result["linkageCandidates"] = audit_linkage_candidates(loaded_tables)
     result["unresolvedRelationshipChecks"] = sum(r["unresolvedReferenceCount"] for r in result["relationships"])
