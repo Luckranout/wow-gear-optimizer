@@ -91,6 +91,12 @@ jobs:
                   {"data_type": "b", "field": "quality"},
               ]
           }
+          data["Curve"] = {
+              "fields": [
+                  {"data_type": "B", "field": "type"},
+                  {"data_type": "i", "field": "flags"},
+              ]
+          }
           data["ItemBonusTreeNode"] = {
               "parent": "ItemBonusTree",
               "fields": [
