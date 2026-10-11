@@ -1,4 +1,6 @@
+import html
 import json
+import re
 import os
 import sys
 import time
@@ -186,6 +188,57 @@ def normalize_name(value):
         return ""
     return " ".join(str(value).replace("’", "'").split()).strip().lower()
 
+
+def parse_wowhead_tooltip_stats(tooltip):
+    """Extract explicit numeric item stats from Wowhead tooltip HTML."""
+    if not isinstance(tooltip, str) or not tooltip.strip():
+        return []
+    text = html.unescape(re.sub(r"<[^>]+>", " ", tooltip))
+    text = re.sub(r"\s+", " ", text)
+    stat_names = {
+        "strength": "strength", "agility": "agility", "intellect": "intellect",
+        "stamina": "stamina", "critical strike": "criticalStrike",
+        "critical strike rating": "criticalStrike", "haste": "haste",
+        "haste rating": "haste", "mastery": "mastery", "mastery rating": "mastery",
+        "versatility": "versatility", "armor": "armor", "leech": "leech",
+        "avoidance": "avoidance", "speed": "speed",
+    }
+    found = []
+    pattern = re.compile(r"([+−-]?\d[\d,]*(?:\.\d+)?)\s+([A-Za-z ]+?)(?=\s|[,;]|$)")
+    for match in pattern.finditer(text):
+        label = " ".join(match.group(2).lower().split())
+        key = stat_names.get(label)
+        if not key:
+            continue
+        try:
+            value = float(match.group(1).replace(",", "").replace("−", "-"))
+        except ValueError:
+            continue
+        if value == 0:
+            continue
+        if value.is_integer():
+            value = int(value)
+        found.append({"type": {"name": key}, "value": value, "source": "Wowhead tooltip"})
+    unique, seen = [], set()
+    for stat in found:
+        key = (stat["type"]["name"], stat["value"])
+        if key not in seen:
+            seen.add(key)
+            unique.append(stat)
+    return unique
+
+
+def fetch_wowhead_tooltip_stats(item_id):
+    """Fetch explicit stat values when Blizzard's item endpoint omits them."""
+    url = "https://nether.wowhead.com/tooltip/item/{}?dataEnv=1&locale=0".format(int(item_id))
+    request = urllib.request.Request(url, headers={
+        "Accept": "application/json",
+        "User-Agent": "WoW-Gear-Optimizer/1.0",
+    })
+    with urllib.request.urlopen(request, timeout=20) as response:
+        payload = json.load(response)
+    tooltip = payload.get("tooltip") if isinstance(payload, dict) else None
+    return parse_wowhead_tooltip_stats(tooltip)
 
 def normalize_item(data, source=None):
     quality = data.get("quality") or {}
@@ -1142,6 +1195,16 @@ def fetch_item_details(token, item_ids, item_sources):
         )
         item["seasonScope"] = SEASON_SCOPE
         item["sourceLocations"] = item_sources.get(item_id, [])
+        if not item_has_verified_stats(item):
+            try:
+                fallback_stats = fetch_wowhead_tooltip_stats(item_id)
+                if fallback_stats:
+                    item["stats"] = fallback_stats
+                    item["statsSource"] = "Wowhead tooltip (explicit displayed stats)"
+            except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, ValueError, json.JSONDecodeError) as error:
+                print(f"Item {item_id}: no Wowhead stat fallback ({type(error).__name__}).")
+        if item_has_verified_stats(item) and "statsSource" not in item:
+            item["statsSource"] = "Blizzard Game Data API"
         items.append(item)
 
         if index % 50 == 0:
