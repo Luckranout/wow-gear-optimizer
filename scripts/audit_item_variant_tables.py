@@ -124,13 +124,17 @@ def audit_relationships(tables):
 def audit_linkage_candidates(tables):
     """Report field-overlap candidates without asserting undocumented FK semantics."""
     candidates = [
-        ("ItemBonus", "id_node", "ItemBonusTreeNode", "id_node"),
-        ("ItemBonusTreeNode", "id_child", "ItemBonusTreeNode", "id"),
-        ("ItemBonusTreeNode", "id_child", "ItemBonusTreeNode", "id_node"),
+        ("ItemBonus", ("id_node", "NodeID"), "ItemBonusTreeNode", ("id_node", "NodeID")),
+        ("ItemBonusTreeNode", ("id_child", "ChildItemBonusListID"), "ItemBonusList", ("id", "ID")),
+        ("ItemBonusTreeNode", ("id_child", "ChildItemBonusTreeID"), "ItemBonusTree", ("id", "ID")),
     ]
     report = []
-    for source_name, source_field, target_name, target_field in candidates:
+    for source_name, source_fields, target_name, target_fields in candidates:
         if source_name not in tables or target_name not in tables:
+            continue
+        source_field = next((field for field in source_fields if any(field in row for row in tables[source_name])), None)
+        target_field = next((field for field in target_fields if any(field in row for row in tables[target_name])), None)
+        if source_field is None or target_field is None:
             continue
         source_values = {
             str(row[source_field]) for row in tables[source_name]
