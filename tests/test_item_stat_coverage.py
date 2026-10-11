@@ -37,6 +37,19 @@ class ItemStatCoverageTests(unittest.TestCase):
             "stats": {"haste": 12.5, "criticalStrike": 0}
         }))
 
+    def test_normalize_item_reads_stats_from_preview_item(self):
+        normalized = MODULE.normalize_item({
+            "id": 123,
+            "name": {"en_US": "Preview Stat Item"},
+            "preview_item": {
+                "stats": [{"type": {"name": "Haste"}, "value": 42}]
+            },
+        })
+        self.assertEqual(normalized["stats"], [
+            {"type": {"name": "Haste"}, "value": 42}
+        ])
+        self.assertTrue(MODULE.item_has_verified_stats(normalized))
+
     def test_coverage_reports_count_and_percentage(self):
         items = [
             {"id": 1, "level": 334, "stats": []},
