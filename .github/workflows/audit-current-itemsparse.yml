@@ -93,6 +93,7 @@ jobs:
           }
           data["Curve"] = {
               "fields": [
+                  {"data_type": "i", "field": "id"},
                   {"data_type": "i", "field": "type"},
                   {"data_type": "i", "field": "flags"},
               ]
