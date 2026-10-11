@@ -185,7 +185,7 @@ def audit_linkage_candidates(tables):
     return report
 
 
-def audit_directory(directory):
+def audit_directory(directory, candidate_item_ids=None):
     result = {"source": "SimulationCraft DB2 JSON export", "tables": {}, "missingTables": []}
     loaded_tables = {}
     for name in TABLES:
@@ -206,6 +206,28 @@ def audit_directory(directory):
             result["tables"][name]["sampleRecords"] = records[:5]
     result["relationships"] = audit_relationships(loaded_tables)
     result["linkageCandidates"] = audit_linkage_candidates(loaded_tables)
+    if candidate_item_ids is not None:
+        candidate_ids = {str(value) for value in candidate_item_ids}
+        item_tree_rows = loaded_tables.get("ItemXBonusTree", [])
+        candidate_links = [
+            row for row in item_tree_rows
+            if str(row.get("id_parent")) in candidate_ids
+        ]
+        tree_ids = {str(row.get("id_tree")) for row in candidate_links}
+        node_rows = loaded_tables.get("ItemBonusTreeNode", [])
+        candidate_nodes = [
+            row for row in node_rows if str(row.get("id_parent")) in tree_ids
+        ]
+        result["candidateItemVariantLinkage"] = {
+            "candidateItemCount": len(candidate_ids),
+            "itemsWithBonusTreeLink": len({str(row.get("id_parent")) for row in candidate_links}),
+            "itemBonusTreeLinkCount": len(candidate_links),
+            "linkedTreeCount": len(tree_ids),
+            "directNodeCount": len(candidate_nodes),
+            "sampleItemLinks": candidate_links[:50],
+            "sampleDirectTreeNodes": candidate_nodes[:100],
+            "interpretation": "Source linkage only; child-tree traversal, context eligibility, bonus-list semantics, and scaled stats remain unverified."
+        }
     result["unresolvedRelationshipChecks"] = sum(r["unresolvedReferenceCount"] for r in result["relationships"])
     result["tableCountFound"] = len(result["tables"])
     result["tableCountExpected"] = len(TABLES)
@@ -230,10 +252,18 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("directory", type=Path)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--candidate-items", type=Path, help="Current-retail dataset JSON; include item-to-bonus-tree linkage counts for its candidate IDs.")
     parser.add_argument("--allow-missing", action="store_true", help="Write an incomplete report and exit successfully when some tables are unavailable in this build.")
     args = parser.parse_args()
     try:
-        report = audit_directory(args.directory)
+        candidate_item_ids = None
+        if args.candidate_items:
+            candidate_dataset = json.loads(args.candidate_items.read_text(encoding="utf-8"))
+            candidate_item_ids = [
+                item.get("id") for item in candidate_dataset.get("items", [])
+                if isinstance(item, dict) and item.get("id") is not None
+            ]
+        report = audit_directory(args.directory, candidate_item_ids)
     except (OSError, json.JSONDecodeError, ValueError) as error:
         parser.exit(1, f"AUDIT FAILED: {error}\n")
     args.output.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
