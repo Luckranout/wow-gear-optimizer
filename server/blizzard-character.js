@@ -65,7 +65,58 @@ function normalizeCharacterTalents(specializations) {
 
 function normalizeStatistics(statistics) {
   if (!statistics || typeof statistics !== "object") return {};
-  return Object.fromEntries(Object.entries(statistics).filter(([key]) => !["_links", "character"].includes(key)));
+
+  // Blizzard's character statistics endpoint returns many stats as nested
+  // objects (for example strength.effective and melee_crit.rating), not
+  // top-level numbers. Flatten only documented numeric fields and avoid
+  // converting arbitrary objects to NaN or silently dropping real stats.
+  const readNumber = (value, keys) => {
+    if (typeof value === "number" && Number.isFinite(value)) return value;
+    if (!value || typeof value !== "object") return null;
+    for (const key of keys) {
+      const candidate = value[key];
+      if (typeof candidate === "number" && Number.isFinite(candidate)) return candidate;
+    }
+    return null;
+  };
+  const result = {};
+  const direct = {
+    Health: ["health", ["effective", "value", "base"]],
+    Strength: ["strength", ["effective", "value", "base"]],
+    Agility: ["agility", ["effective", "value", "base"]],
+    Intellect: ["intellect", ["effective", "value", "base"]],
+    Stamina: ["stamina", ["effective", "value", "base"]],
+    Armor: ["armor", ["effective", "value", "base"]],
+    Versatility: ["versatility", ["rating", "effective", "value", "base"]],
+    Mastery: ["mastery", ["rating", "effective", "value", "base"]],
+    Leech: ["lifesteal", ["rating", "effective", "value", "base"]],
+    Speed: ["speed", ["rating", "effective", "value", "base"]],
+    Avoidance: ["avoidance", ["rating", "effective", "value", "base"]],
+    Dodge: ["dodge", ["rating", "effective", "value", "base"]],
+    Parry: ["parry", ["rating", "effective", "value", "base"]],
+    Block: ["block", ["rating", "effective", "value", "base"]]
+  };
+  for (const [label, [sourceKey, fields]] of Object.entries(direct)) {
+    const value = readNumber(statistics[sourceKey], fields);
+    if (value !== null) result[label] = value;
+  }
+
+  const crit = readNumber(statistics.melee_crit ?? statistics.crit, ["rating", "effective", "value", "base"]);
+  const haste = readNumber(statistics.melee_haste ?? statistics.haste, ["rating", "effective", "haste_rating", "value", "base"]);
+  if (crit !== null) result.CriticalStrike = crit;
+  if (haste !== null) result.Haste = haste;
+
+  // Keep already-normalized numeric fields compatible with imported test data.
+  const consumedKeys = new Set([
+    "_links", "character", "health", "strength", "agility", "intellect", "stamina",
+    "armor", "versatility", "mastery", "lifesteal", "speed", "avoidance",
+    "dodge", "parry", "block", "melee_crit", "crit", "melee_haste", "haste"
+  ]);
+  for (const [key, value] of Object.entries(statistics)) {
+    if (consumedKeys.has(key) || result[key] !== undefined) continue;
+    if (typeof value === "number" && Number.isFinite(value)) result[key] = value;
+  }
+  return result;
 }
 
 function normalizeCharacter(profile, equipment, statistics, specializations) {
