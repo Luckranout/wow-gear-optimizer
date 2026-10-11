@@ -3,7 +3,28 @@ const vm = require("vm");
 const context = { window: {} };
 vm.createContext(context);
 vm.runInContext(fs.readFileSync("optimizer.js", "utf8"), context);
+
 const o = context.window.WoWOptimizer;
+
+// Blizzard's live equipped-item response uses stat.type.name/type, not stat.name.
+// These records must be recognized and scored rather than rejected as stat-less.
+const blizzardShapedItem = {
+  itemLevel: 300,
+  stats: [
+    { type: { type: "STRENGTH", name: "Strength" }, value: 120 },
+    { type: { type: "HASTE_RATING", name: "Haste" }, value: 55 },
+    { type: { type: "CRIT_RATING", name: "Critical Strike" }, value: 40 }
+  ]
+};
+if (!o.hasUsableItemStats(blizzardShapedItem)) {
+  throw new Error("Blizzard-shaped equipped-item stats must be recognized as usable.");
+}
+if (o.scoreItemStats(blizzardShapedItem, { Strength: 1, Haste: 2, CriticalStrike: 3 }) !== 460) {
+  throw new Error("Blizzard-shaped equipped-item stats must map to optimizer stat weights.");
+}
+if (o.scoreItem(blizzardShapedItem, { Strength: 1, Haste: 2, CriticalStrike: 3 }) !== 1060) {
+  throw new Error("Blizzard-shaped item must score item level and mapped stats.");
+}
 
 const system = {
   tracks: [
