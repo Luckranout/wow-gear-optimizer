@@ -95,13 +95,6 @@ jobs:
                   {"data_type": "b", "field": "quality"},
               ]
           }
-          data["ItemCreationContext"] = {
-              "fields": [
-                  {"data_type": "i", "field": "id"},
-                  {"data_type": "B", "field": "item_context"},
-                  {"data_type": "i", "field": "id_item_creation_context_group", "ref": "ItemCreationContextGroup"},
-              ]
-          }
           data["ItemCreationContextGroup"] = {
               "fields": [{"data_type": "i", "field": "id"}]
           }
