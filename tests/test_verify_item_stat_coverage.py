@@ -1,55 +1,53 @@
 import unittest
 
-from scripts.verify_item_stat_coverage import validate_dataset
+from scripts.verify_item_stat_coverage import has_numeric_stats, validate_dataset
 
 
-def dataset(items, reported=None):
-    if reported is None:
-        reported = sum(
-            1 for item in items
-            if any(
-                isinstance(stat, dict)
-                and isinstance(stat.get("value"), (int, float))
-                and not isinstance(stat.get("value"), bool)
-                and stat.get("value") != 0
-                for stat in (item.get("stats") or [])
-            )
-        )
+def item(item_id, stats):
+    return {"id": item_id, "stats": stats}
+
+
+def dataset(items):
+    verified = sum(has_numeric_stats(record) for record in items)
     return {
         "items": items,
-        "apiCheck": {"itemStatCoverage": {"itemsWithVerifiedStats": reported}},
+        "apiCheck": {"itemStatCoverage": {
+            "itemsWithVerifiedStats": verified,
+            "itemsMissingVerifiedStats": len(items) - verified,
+            "candidateItemCount": len(items),
+        }},
     }
 
 
 class ItemStatCoverageGateTests(unittest.TestCase):
-    def test_rejects_empty_catalog(self):
-        with self.assertRaisesRegex(ValueError, "contains no items"):
-            validate_dataset(dataset([]))
+    def test_accepts_complete_named_numeric_stats(self):
+        value = dataset([
+            item(1, [{"type": {"name": "Critical Strike"}, "value": 123}]),
+            item(2, [{"stat": {"name": "Haste"}, "value": 45}]),
+        ])
+        self.assertEqual(validate_dataset(value), (2, 2))
 
-    def test_rejects_known_bad_catalog_with_empty_stats(self):
-        with self.assertRaisesRegex(ValueError, "no item record"):
-            validate_dataset(dataset([{"id": 1, "stats": []}, {"id": 2, "stats": []}], 0))
+    def test_rejects_empty_stats_when_any_candidate_is_incomplete(self):
+        with self.assertRaisesRegex(ValueError, "lack named, non-zero numeric stats"):
+            validate_dataset(dataset([item(1, []), item(2, [{"name": "Haste", "value": 12}])]))
 
-    def test_rejects_zero_only_stats(self):
-        with self.assertRaisesRegex(ValueError, "no item record"):
-            validate_dataset(dataset([{"id": 1, "stats": [{"value": 0}]}], 0))
+    def test_rejects_unnamed_numeric_stat(self):
+        self.assertFalse(has_numeric_stats(item(1, [{"value": 123}])))
 
-    def test_rejects_string_boolean_and_nonfinite_values(self):
-        items = [{"id": 1, "stats": [{"value": "12"}, {"value": True}, {"value": float("nan")}]}]
-        with self.assertRaisesRegex(ValueError, "no item record"):
-            validate_dataset(dataset(items, 0))
+    def test_rejects_boolean_and_non_finite_values(self):
+        self.assertFalse(has_numeric_stats(item(1, [{"name": "Haste", "value": True}])))
+        self.assertFalse(has_numeric_stats(item(2, [{"name": "Haste", "value": float("nan")}])))
 
-    def test_accepts_real_numeric_stats_when_count_matches(self):
-        total, verified = validate_dataset(dataset([
-            {"id": 1, "stats": [{"value": 12}]},
-            {"id": 2, "stats": [{"value": 0}, {"value": 7.5}]},
-            {"id": 3, "stats": []},
-        ], 2))
-        self.assertEqual((total, verified), (3, 2))
+    def test_rejects_duplicate_ids(self):
+        with self.assertRaisesRegex(ValueError, "duplicate item IDs"):
+            validate_dataset(dataset([item(1, [{"name": "Haste", "value": 12}]),
+                                      item(1, [{"name": "Crit", "value": 12}])]))
 
-    def test_rejects_mismatched_reported_count(self):
-        with self.assertRaisesRegex(ValueError, "does not match"):
-            validate_dataset(dataset([{"id": 1, "stats": [{"value": 12}]}], 0))
+    def test_rejects_inconsistent_importer_counts(self):
+        value = dataset([item(1, [{"name": "Haste", "value": 12}])])
+        value["apiCheck"]["itemStatCoverage"]["itemsMissingVerifiedStats"] = 1
+        with self.assertRaisesRegex(ValueError, "missing-stat count"):
+            validate_dataset(value)
 
 
 if __name__ == "__main__":
