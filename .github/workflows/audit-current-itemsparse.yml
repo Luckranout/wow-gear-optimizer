@@ -80,22 +80,24 @@ jobs:
           data = json.loads((target if target.exists() else base).read_text(encoding="utf-8"))
           data["ItemLevelSelectorQualitySet"] = {
               "fields": [
-                  {"data_type": "h", "field": "ilvl_rare"},
-                  {"data_type": "h", "field": "ilvl_epic"},
+                  {"data_type": "H", "field": "ilvl_rare"},
+                  {"data_type": "H", "field": "ilvl_epic"},
               ]
           }
           data["ItemLevelSelectorQuality"] = {
+              "parent": "ItemLevelSelectorQualitySet",
               "fields": [
-                  {"data_type": "i", "field": "id_item_bonus_list"},
+                  {"data_type": "i", "field": "id_item_bonus_list", "ref": "ItemBonusList"},
                   {"data_type": "b", "field": "quality"},
               ]
           }
           data["ItemBonusTreeNode"] = {
+              "parent": "ItemBonusTree",
               "fields": [
-                  {"data_type": "b", "field": "item_context"},
-                  {"data_type": "h", "field": "id_child_bonus_tree"},
-                  {"data_type": "h", "field": "id_child_bonus_list"},
-                  {"data_type": "h", "field": "id_level_selector"},
+                  {"data_type": "B", "field": "item_context"},
+                  {"data_type": "H", "field": "id_child_bonus_tree", "ref": "ItemBonusTree"},
+                  {"data_type": "H", "field": "id_child_bonus_list", "ref": "ItemBonusList"},
+                  {"data_type": "H", "field": "id_level_selector", "ref": "ItemLevelSelector"},
                   {"data_type": "i", "field": "id_node_group"},
                   {"data_type": "i", "field": "id_group_point_mod_set"},
                   {"data_type": "i", "field": "min_mythic_plus_level"},
