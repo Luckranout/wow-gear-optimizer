@@ -22,3 +22,10 @@ if (!html.includes("Recommended target gear for your selected class")) {
   throw new Error("Optimized loadout description must explain its target-build purpose");
 }
 console.log("Target gear loadout UI regression checks passed.");
+
+if (!app.includes('"No equipped item found"') ||
+    !app.includes('"Awaiting character import"') ||
+    !app.includes('WoWOptimizer.normalizeImportedEquipment(importedCharacter.equipment || [])')) {
+  throw new Error("Equipment slots must distinguish an empty/missing equipped item from a character that has not been imported");
+}
+console.log("Empty equipment slot status regression check passed.");
