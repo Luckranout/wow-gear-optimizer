@@ -718,6 +718,15 @@ def collect_talent_data(token):
         or []
     )
 
+    print(
+        "Talent-tree index diagnostics: "
+        f"response_type={type(tree_index).__name__}; "
+        f"response_keys={sorted(tree_index.keys()) if isinstance(tree_index, dict) else 'n/a'}; "
+        f"selected_refs={len(tree_refs) if isinstance(tree_refs, list) else 'not-a-list'}; "
+        f"spec_tree_ids={sum(bool(record.get('specTalentTreeId')) for record in talent_records)}; "
+        f"hero_tree_ids={sum(len(record.get('heroTalentTrees') or []) for record in talent_records)}"
+    )
+
     tree_records = []
     seen_tree_keys = set()
 
@@ -744,8 +753,10 @@ def collect_talent_data(token):
                 )
         except urllib.error.HTTPError as error:
             print(
-                f"Talent tree {tree_id} ({tree_type}, spec {spec_id}) "
-                f"returned HTTP {error.code}; skipping."
+                f"Talent tree request failed: endpoint="
+                f"{'/data/wow/talent-tree/' + str(tree_id) + ('/playable-specialization/' + str(spec_id) if tree_type == 'specialization' and spec_id else '')}; "
+                f"type={tree_type}, tree_id={tree_id}, spec_id={spec_id}, "
+                f"HTTP={error.code}; skipping."
             )
             return
 
