@@ -43,6 +43,32 @@ class ItemVariantTableAuditTests(unittest.TestCase):
         self.assertEqual(effect_check["unresolvedReferenceCount"], 1)
         self.assertEqual(effect_check["sampleUnresolvedIds"], ["999"])
 
+    def test_bonus_tree_child_linkage_stays_diagnostic(self):
+        report = MODULE.audit_linkage_candidates({
+            "ItemBonusTreeNode": [
+                {"id": 1, "id_node": 5, "id_child": 2},
+                {"id": 2, "id_node": 6, "id_child": 0},
+                {"id": 3, "id_node": 7, "id_child": 999},
+            ],
+        })
+        child_checks = [row for row in report if row["sourceField"] == "id_child"]
+        self.assertEqual(len(child_checks), 2)
+        self.assertTrue(all("candidate only" in row["interpretation"] for row in child_checks))
+        self.assertNotIn("ItemBonusTreeNode", [row["sourceTable"] for row in MODULE.audit_relationships({
+            "ItemBonusTreeNode": [{"id": 1, "id_child": 999}]
+        })])
+
+    def test_linkage_candidates_are_reported_without_asserting_foreign_keys(self):
+        report = MODULE.audit_linkage_candidates({
+            "ItemBonus": [{"id_node": 5}, {"id_node": 99}],
+            "ItemBonusTreeNode": [{"id": 1, "id_node": 5, "id_parent": 1}],
+            "ItemXBonusTree": [{"id_tree": 5}, {"id_tree": 77}],
+        })
+        bonus_node = next(row for row in report if row["sourceTable"] == "ItemBonus")
+        self.assertEqual(bonus_node["distinctValuesInCommon"], 1)
+        self.assertEqual(bonus_node["sourceValuesWithoutTargetMatch"], 1)
+        self.assertIn("candidate only", bonus_node["interpretation"])
+
     def test_missing_tables_are_explicit(self):
         with tempfile.TemporaryDirectory() as temp:
             path = pathlib.Path(temp)
