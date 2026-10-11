@@ -62,10 +62,12 @@ def _record_ids(records):
 
 
 def audit_relationships(tables):
-    """Check only known relationship fields when both source and target tables exist."""
+    """Check only source-verified relationships when both tables are present.
+
+    Bonus-tree IDs are intentionally not checked here: their target table/field
+    semantics have not yet been established from the current build schema.
+    """
     checks = [
-        ("ItemBonusTreeNode", ("id_parent", "parent_id"), "ItemBonusTreeNode"),
-        ("ItemXBonusTree", ("id_item_bonus_tree", "id_tree", "id_node"), "ItemBonusTreeNode"),
         ("ItemBonusListLevelDelta", ("id_item_bonus_list", "id_bonus_list"), "ItemBonus"),
         ("ItemXItemEffect", ("id_item_effect",), "ItemEffect"),
     ]
