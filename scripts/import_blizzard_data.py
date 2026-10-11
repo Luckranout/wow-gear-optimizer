@@ -281,19 +281,21 @@ def fetch_wowhead_tooltip_stats(item_id, diagnostics=None):
         return []
 
     stats = parse_wowhead_tooltip_stats(tooltip)
+    plain_text = re.sub(r"\\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", tooltip))).strip()
     if diagnostics is not None:
         if stats:
             diagnostics["usableStats"] += 1
         else:
             diagnostics["tooltipWithoutParsedStats"] += 1
-            # Short, tag-stripped sample helps diagnose parser mismatches without
-            # dumping full responses or changing what counts as a verified stat.
-            sample = html.unescape(re.sub(r"<[^>]+>", " ", tooltip))
-            sample = re.sub(r"\\s+", " ", sample).strip()
+            # Full text is bounded by the source tooltip length and exposes the
+            # exact displayed wording needed to diagnose parser misses.
             print(
                 f"Wowhead tooltip parse miss for item {item_id}: "
-                f"length={len(tooltip)}, sample={sample[:240]!r}"
+                f"length={len(tooltip)}, sample={plain_text[:1800]!r}"
             )
+        if re.search(r"\\bCosmetic\\b", plain_text, re.IGNORECASE):
+            diagnostics.setdefault("explicitCosmeticItems", set()).add(int(item_id))
+            print(f"Wowhead explicitly labels item {item_id} as Cosmetic.")
     return stats
 
 def normalize_preview_stats(stats):
@@ -1266,7 +1268,7 @@ def fetch_item_details(token, item_ids, item_sources):
     wowhead_diagnostics = {
         "requestsSucceeded": 0, "usableStats": 0, "emptyTooltip": 0,
         "tooltipWithoutParsedStats": 0, "requestErrors": 0, "retries": 0,
-        "responseShapes": {},
+        "responseShapes": {}, "explicitCosmeticItems": set(),
     }
 
     for index, item_id in enumerate(sorted(item_ids), start=1):
@@ -1295,6 +1297,9 @@ def fetch_item_details(token, item_ids, item_sources):
                 if fallback_stats:
                     item["stats"] = fallback_stats
                     item["statsSource"] = "Wowhead tooltip (explicit displayed stats)"
+                if item_id in wowhead_diagnostics["explicitCosmeticItems"]:
+                    item["catalogClassification"] = "cosmetic"
+                    item["classificationSource"] = "Wowhead tooltip explicitly labels item Cosmetic"
             except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, ValueError, json.JSONDecodeError) as error:
                 print(f"Item {item_id}: no Wowhead stat fallback ({type(error).__name__}).")
         if item_has_verified_stats(item) and "statsSource" not in item:
@@ -1313,7 +1318,9 @@ def fetch_item_details(token, item_ids, item_sources):
         f"{wowhead_diagnostics['emptyTooltip']} empty tooltips, "
         f"{wowhead_diagnostics['tooltipWithoutParsedStats']} tooltips with no recognized stats, "
         f"{wowhead_diagnostics['requestErrors']} request errors, "
-        f"{wowhead_diagnostics['retries']} retries; response shapes={json.dumps(wowhead_diagnostics['responseShapes'], sort_keys=True)}."
+        f"{wowhead_diagnostics['retries']} retries; "
+        f"{len(wowhead_diagnostics['explicitCosmeticItems'])} explicitly cosmetic items; "
+        f"response shapes={json.dumps(wowhead_diagnostics['responseShapes'], sort_keys=True)}."
     )
     return items
 
