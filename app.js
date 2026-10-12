@@ -132,9 +132,9 @@ async function loadEquippedItemIcon(itemId) {
 
 function renderItemSockets(item) {
   const normalized = window.WoWEquipmentSockets?.normalizeEquipmentSockets(item) || { status: "unavailable", sockets: [] };
-  if (normalized.status !== "available") {
-    return '<div class="slot-sockets slot-sockets-unavailable">Socket data unavailable</div>';
-  }
+  // If Blizzard returned no socket/gem entries, don't show a warning on every
+  // ordinary item card. Only render socket UI when there is actual socket data.
+  if (normalized.status !== "available" || !normalized.sockets.length) return "";
   return `<div class="slot-sockets"><span class="slot-sockets-heading">Gem sockets</span>${normalized.sockets.map(socket => {
     const detail = socket.state === "empty"
       ? "Empty socket"
