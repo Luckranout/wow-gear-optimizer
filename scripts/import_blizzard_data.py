@@ -16,7 +16,7 @@ NAMESPACE = "static-us"
 PVP_NAMESPACE = "dynamic-us"
 LOCALE = "en_US"
 REQUEST_DELAY_SECONDS = 0.15
-MAX_RETRIES = 4
+MAX_RETRIES = 3
 
 MINIMUM_SEASON = 2
 SEASON_SCOPE = "Midnight Season 2+"
@@ -89,7 +89,7 @@ def request_json(url, headers=None, data=None):
     )
     for attempt in range(MAX_RETRIES):
         try:
-            with urllib.request.urlopen(request, timeout=60) as response:
+            with urllib.request.urlopen(request, timeout=20) as response:
                 return json.load(response)
         except urllib.error.HTTPError as error:
             if error.code >= 500 and attempt < MAX_RETRIES - 1:
