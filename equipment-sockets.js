@@ -57,4 +57,6 @@ function readSocketType(socket) {
   return null;
 }
 
-module.exports = { normalizeEquipmentSockets };
+const equipmentSocketApi = { normalizeEquipmentSockets };
+if (typeof module !== "undefined" && module.exports) module.exports = equipmentSocketApi;
+if (typeof window !== "undefined") window.WoWEquipmentSockets = equipmentSocketApi;
