@@ -27,6 +27,17 @@ if (socketed.status !== "available" || socketed.sockets[0].gemName !== "Quick Ru
 }
 const emptySocket = normalizeEquipmentSockets({ sockets: [{ socket_type: { name: "Prismatic Socket" } }] });
 if (emptySocket.sockets[0].state !== "empty") throw new Error("A socket with no gem must be identified as empty.");
+const gemSummary = require("../equipment-sockets").summarizeEquipmentGems([
+  { sockets: [
+    { item: { id: 1, name: "Ruby", stats: [{ name: "Strength", value: 10 }] } },
+    {},
+    { item: { id: 2, name: "Sapphire" } }
+  ] }
+]);
+if (gemSummary.installed !== 2 || gemSummary.empty !== 1 || gemSummary.socketsKnown !== 3) {
+  throw new Error("Gem summary must count installed gems and empty sockets separately.");
+}
+if (gemSummary.stats.Strength !== 10) throw new Error("Gem summary must total only explicitly provided gem stats.");
 const unavailableSockets = normalizeEquipmentSockets({});
 if (unavailableSockets.status !== "unavailable") throw new Error("Missing socket data must not be reported as no sockets.");
 if (!app.includes("renderItemSockets(item)") || !app.includes("Socket data unavailable")) {
