@@ -81,6 +81,37 @@ class ItemStatCoverageGateTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "classification lacks explicit source provenance"):
             validate_dataset(dataset([cosmetic], 0))
 
+    def test_accepts_only_source_verified_permafrost_effect_only_exception(self):
+        permafrost = {
+            "id": 250244,
+            "name": "Permafrost Essence",
+            "isEquippable": True,
+            "catalogClassification": "effect-based",
+            "optimizationStatus": "unsupported_conditional_effect",
+            "conditionalEffectsSupported": False,
+            "optimizationStatusSource": "Wowhead tooltip explicitly contains Mark of Frost and Frost Barrier; effect scaling/model unresolved",
+            "stats": [],
+        }
+        total, verified = validate_dataset(dataset([
+            valid_item(1, [{"value": 12}]),
+            permafrost,
+        ], 1))
+        self.assertEqual((total, verified), (2, 1))
+
+    def test_rejects_unproven_or_different_effect_only_exception(self):
+        bad = {
+            "id": 250245,
+            "name": "Other item",
+            "isEquippable": True,
+            "catalogClassification": "effect-based",
+            "optimizationStatus": "unsupported_conditional_effect",
+            "conditionalEffectsSupported": False,
+            "optimizationStatusSource": "Wowhead tooltip explicitly contains Mark of Frost and Frost Barrier; effect scaling/model unresolved",
+            "stats": [],
+        }
+        with self.assertRaisesRegex(ValueError, "lack verified non-zero numeric stats"):
+            validate_dataset(dataset([valid_item(1, [{"value": 12}]), bad], 1))
+
     def test_rejects_mismatched_reported_count(self):
         with self.assertRaisesRegex(ValueError, "does not match"):
             validate_dataset(dataset([valid_item(1, [{"value": 12}])], 0))
