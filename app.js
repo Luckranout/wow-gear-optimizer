@@ -372,7 +372,7 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
     dataset: retailDataset
   });
 
-  renderCharacterStats(report.currentStats.trackedStats);
+  renderCharacterStats(report.currentStats.stats);
   optimizationSource.textContent = report.recommendationStatus === "simulation-weighted-ranking-not-full-stat-projection"
     ? `Simulation-derived stat weights • ${character.goal} • not a full stat projection`
     : `Static heuristic ranking • ${character.goal} • not spec-specific simulation`;
