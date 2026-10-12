@@ -147,6 +147,25 @@ function renderItemSockets(item) {
   }).join("")}</div>`;
 }
 
+function renderGemSummary(equipment = []) {
+  const summary = window.WoWEquipmentSockets?.summarizeEquipmentGems(equipment) || {
+    installed: 0, empty: 0, socketsKnown: 0, stats: {}, statsKnownGems: 0
+  };
+  const target = document.querySelector("#gemSummary");
+  if (!target) return;
+  const counts = summary.socketsKnown
+    ? `<div class="gem-summary-counts"><span><strong>${summary.installed}</strong> gems equipped</span><span><strong>${summary.empty}</strong> empty sockets</span><span><strong>${summary.socketsKnown}</strong> known sockets</span></div>`
+    : '<p class="gem-summary-note">Socket data is not available for the imported equipment.</p>';
+  const statEntries = Object.entries(summary.stats).sort(([a], [b]) => a.localeCompare(b));
+  const stats = statEntries.length
+    ? `<div class="gem-summary-stats"><strong>Gem stats explicitly supplied in the imported data</strong>${statEntries.map(([name, value]) => `<span>${escapeSlotText(name)}: +${escapeSlotText(value)}</span>`).join("")}</div>`
+    : '<p class="gem-summary-note">Individual gem stat bonuses are not included in the available socket data. No values are estimated.</p>';
+  const coverage = summary.installed
+    ? `<p class="gem-summary-note">Stat details available for ${summary.statsKnownGems} of ${summary.installed} equipped gems. This summary is informational and is not added to character stats or optimizer scoring.</p>`
+    : "";
+  target.innerHTML = counts + stats + coverage;
+}
+
 function renderSlots() {
   const normalized = importedCharacter?.equipment
     ? WoWOptimizer.normalizeImportedEquipment(importedCharacter.equipment)
@@ -171,6 +190,7 @@ function renderSlots() {
       </div>
     </div>`;
   }).join("");
+  renderGemSummary(importedCharacter?.equipment || []);
 
   const renderToken = importedCharacter;
   [...slotGrid.querySelectorAll(".slot[data-item-id]")].forEach(async card => {
