@@ -1363,6 +1363,22 @@ def fetch_item_details(token, item_ids, item_sources):
                 "Wowhead tooltip for item 250244: equip effect only; no explicit base stats"
             )
             item["optimizerEligible"] = False
+        # Mindpiercer's Sigil (250224) has no permanent base stats. Its
+        # Wowhead tooltip's 561 Intellect is a temporary 10-second proc, not
+        # an equipped stat. If Blizzard did not provide permanent stats and
+        # the fallback supplied this value, fail closed for optimization.
+        if (
+            item_id == 250224
+            and item.get("statsSource") == "Wowhead tooltip (explicit displayed stats)"
+        ):
+            item["stats"] = []
+            item["statsSource"] = "Wowhead tooltip (effect-only; excluded from permanent stats)"
+            item["catalogClassification"] = "effect-only-unmodeled"
+            item["classificationSource"] = (
+                "Mindpiercer's Sigil tooltip: temporary Intellect proc only; "
+                "no permanent base stats"
+            )
+            item["optimizerEligible"] = False
         if item_has_verified_stats(item) and "statsSource" not in item:
             item["statsSource"] = "Blizzard Game Data API"
         items.append(item)

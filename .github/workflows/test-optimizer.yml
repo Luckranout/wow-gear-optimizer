@@ -65,6 +65,8 @@ jobs:
         run: node tests/character-import-ui.test.js
       - name: Run character importer tests
         run: python -m unittest tests/test_character_import.py
+      - name: Run Mindpiercer temporary Intellect regression test
+        run: python -m unittest tests/test_mindpiercer_importer_regression.py
       - name: Run seasonal importer policy tests
         run: python -m unittest tests/test_season_import_policy.py
       - name: Run Blizzard talent reference ID tests
