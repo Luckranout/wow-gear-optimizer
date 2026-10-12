@@ -6,7 +6,7 @@
   "season": 2,
   "patch": "12.1.0",
   "status": "season-2-plus-source-imported",
-  "updatedAt": "2026-10-12T09:02:41.330990+00:00",
+  "updatedAt": "2026-10-12T20:17:27.830588+00:00",
   "source": "Blizzard Game Data API",
   "items": [
     {
@@ -21982,15 +21982,7 @@
         "name": "Trinket"
       },
       "isEquippable": true,
-      "stats": [
-        {
-          "type": {
-            "name": "intellect"
-          },
-          "value": 561,
-          "source": "Wowhead tooltip"
-        }
-      ],
+      "stats": [],
       "spells": [],
       "set": null,
       "description": null,
@@ -22012,7 +22004,10 @@
           "encounter": "Charonus"
         }
       ],
-      "statsSource": "Wowhead tooltip (explicit displayed stats)"
+      "statsSource": "Wowhead tooltip (effect-only; excluded from permanent stats)",
+      "catalogClassification": "effect-only-unmodeled",
+      "classificationSource": "Mindpiercer's Sigil tooltip: temporary Intellect proc only; no permanent base stats",
+      "optimizerEligible": false
     },
     {
       "id": 250215,
@@ -52206,11 +52201,11 @@
     "gearItemCount": 381,
     "candidateItemCount": 441,
     "itemStatCoverage": {
-      "candidateItemCount": 376,
-      "itemsWithVerifiedStats": 376,
+      "candidateItemCount": 375,
+      "itemsWithVerifiedStats": 375,
       "itemsMissingVerifiedStats": 0,
       "itemStatCoveragePercent": 100.0,
-      "itemsWithAnyNumericStats": 376,
+      "itemsWithAnyNumericStats": 375,
       "itemsMissingAnyNumericStats": 0,
       "itemRecordsWithAnyNumericStatsPercent": 100.0,
       "coveragePolicy": "Record-presence metric only: at least one non-zero numeric stat exists in the source item record. This does not prove that every expected stat, weapon property, socket, set bonus, or item effect is present. Item level alone does not qualify.",
