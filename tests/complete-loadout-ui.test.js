@@ -22,3 +22,18 @@ if (!html.includes("Recommended target gear for your selected class")) {
   throw new Error("Optimized loadout description must explain its target-build purpose");
 }
 console.log("Target gear loadout UI regression checks passed.");
+
+
+for (const required of [
+  "renderLoadoutItemCard(item, \"Recommended target\"",
+  "renderLoadoutItemCard(current, \"Currently equipped\"",
+  "Stat changes if equipped",
+  "data-item-icon-id",
+  "renderLoadoutStatRows(item, current)"
+]) {
+  if (!app.includes(required)) throw new Error("Loadout comparison missing: " + required);
+}
+for (const required of [".loadout-compare-pair", ".compare-icon", ".loadout-stat-delta", "@media(max-width:640px)"]) {
+  if (!css.includes(required)) throw new Error("Loadout comparison styling missing: " + required);
+}
+console.log("Side-by-side loadout comparison UI checks passed.");
