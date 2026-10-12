@@ -39,12 +39,22 @@ function normalizeEquippedItem(item) {
   const itemRef = item.item || {};
   const quality = item.quality || {};
   const slot = item.slot || {};
+  const rawLevel = item.level;
+  // Blizzard can return item level as a structured object. Extract a finite
+  // numeric value instead of allowing the UI to render it as "[object Object]".
+  const itemLevel = typeof rawLevel === "number" && Number.isFinite(rawLevel)
+    ? rawLevel
+    : rawLevel && typeof rawLevel === "object"
+      ? ["value", "effective", "display_string", "base"].map(key => rawLevel[key]).find(value =>
+          typeof value === "number" && Number.isFinite(value)
+        ) ?? null
+      : null;
   return {
     id: resourceId(itemRef),
     name: normalizeName(item.name),
     slot: normalizeEquipmentSlot(slot),
     slotType: slot.type || null,
-    itemLevel: item.level ?? null,
+    itemLevel,
     quality: { id: resourceId(quality), name: normalizeName(quality.name || quality) },
     stats: item.stats || [],
     enchantments: item.enchantments || [],
