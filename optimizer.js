@@ -15,6 +15,50 @@ const WOW_GOALS = {
   general: "General / All-around"
 };
 
+const CLASS_ARMOR_TYPE = {
+  warrior: "plate",
+  paladin: "plate",
+  deathknight: "plate",
+  hunter: "mail",
+  shaman: "mail",
+  evoker: "mail",
+  demonhunter: "leather",
+  druid: "leather",
+  monk: "leather",
+  rogue: "leather",
+  mage: "cloth",
+  priest: "cloth",
+  warlock: "cloth"
+};
+
+const ARMOR_SLOTS = new Set(["Head", "Shoulders", "Chest", "Wrists", "Hands", "Waist", "Legs", "Feet"]);
+
+function normalizeClassName(className) {
+  return String(className || "").toLowerCase().replace(/[\\s'_-]/g, "");
+}
+
+function itemAllowedForClass(item, className) {
+  if (!item || !className) return true;
+  const expectedArmor = CLASS_ARMOR_TYPE[normalizeClassName(className)];
+  if (!expectedArmor) return true;
+
+  const inventoryType = String(item.inventoryType?.name || item.inventoryType || "").trim().toLowerCase();
+  const slot = item.slot || ({
+    head: "Head", shoulder: "Shoulders", shoulders: "Shoulders", chest: "Chest",
+    wrist: "Wrists", wrists: "Wrists", hands: "Hands", hand: "Hands",
+    waist: "Waist", legs: "Legs", feet: "Feet"
+  })[inventoryType];
+  if (!ARMOR_SLOTS.has(slot)) return true;
+
+  const itemClass = String(item.itemClass?.name || item.itemClass || "").trim().toLowerCase();
+  const subclass = String(item.itemSubclass?.name || item.itemSubclass || "").trim().toLowerCase();
+  // Only filter when the catalog explicitly identifies an armor subclass.
+  // Missing or unknown metadata must not silently remove otherwise valid gear.
+  if (itemClass && !itemClass.includes("armor") && !itemClass.includes("armour")) return true;
+  if (["cloth", "leather", "mail", "plate"].includes(subclass)) return subclass === expectedArmor;
+  return true;
+}
+
 function itemMatchesSlot(item, slot) {
   if (!item || !slot) return false;
   if (item.slot === slot) return true;
@@ -303,9 +347,9 @@ function resolveStatWeights({
   return merged;
 }
 
-function findBestItemForSlot(items, slot, goal, statWeights = null) {
+function findBestItemForSlot(items, slot, goal, statWeights = null, className = "") {
   const weights = statWeights || getGoalWeights(goal);
-  return (items || []).filter(item => itemMatchesSlot(item, slot) && hasUsableItemStats(item))
+  return (items || []).filter(item => itemMatchesSlot(item, slot) && itemAllowedForClass(item, className) && hasUsableItemStats(item))
     .map(item => ({ item, score: scoreItem(item, weights) }))
     .sort((a, b) => b.score - a.score)[0] || null;
 }
@@ -319,7 +363,7 @@ function optimizeEquipment({
   const weights = statWeights || getGoalWeights(goal);
   const optimizedEquipment = {};
   for (const slot of WOW_EQUIPMENT_SLOTS) {
-    const best = findBestItemForSlot(items, slot, goal, weights);
+    const best = findBestItemForSlot(items, slot, goal, weights, character.className);
     optimizedEquipment[slot] = best ? best.item : null;
   }
 
@@ -327,10 +371,10 @@ function optimizeEquipment({
   // distinct pair when the catalog has alternatives; keep the best single item
   // only when no second distinct item exists.
   for (const [firstSlot, secondSlot] of [["Ring 1", "Ring 2"], ["Trinket 1", "Trinket 2"], ["Main Hand", "Off Hand"]]) {
-    const first = (items || []).filter(item => item.slot === firstSlot && hasUsableItemStats(item))
+    const first = (items || []).filter(item => item.slot === firstSlot && itemAllowedForClass(item, character.className) && hasUsableItemStats(item))
       .map(item => ({ item, score: scoreItem(item, weights) }))
       .sort((a, b) => b.score - a.score);
-    const second = (items || []).filter(item => item.slot === secondSlot && hasUsableItemStats(item))
+    const second = (items || []).filter(item => item.slot === secondSlot && itemAllowedForClass(item, character.className) && hasUsableItemStats(item))
       .map(item => ({ item, score: scoreItem(item, weights) }))
       .sort((a, b) => b.score - a.score);
     let bestPair = null;
