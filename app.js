@@ -93,7 +93,7 @@ const itemMediaCache = new Map();
 function displayItemLevel(value) {
   if (typeof value === "number" && Number.isFinite(value)) return String(value);
   if (typeof value === "string" && value.trim()) {
-    const match = value.match(/\\d+(?:\\.\\d+)?/);
+    const match = value.match(/\d+(?:\.\d+)?/);
     return match ? match[0] : null;
   }
   if (value && typeof value === "object") {
@@ -101,7 +101,7 @@ function displayItemLevel(value) {
       const candidate = value[key];
       if (typeof candidate === "number" && Number.isFinite(candidate)) return String(candidate);
       if (typeof candidate === "string" && candidate.trim()) {
-        const match = candidate.match(/\\d+(?:\\.\\d+)?/);
+        const match = candidate.match(/\d+(?:\.\d+)?/);
         if (match) return match[0];
       }
     }
