@@ -312,3 +312,30 @@ footer {
   .slot { padding:10px; }
   .slot-icon { flex-basis:40px; width:40px; height:40px; }
 }
+
+
+.slot-sockets {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--border);
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.slot-sockets-heading {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .35px;
+}
+.slot-socket {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+  font-size: 11px;
+}
+.slot-socket-label { color: var(--muted); }
+.slot-socket-value { overflow-wrap: anywhere; }
+.slot-sockets-unavailable { color: var(--muted); font-size: 10px; }
