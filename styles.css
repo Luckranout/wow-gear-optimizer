@@ -387,3 +387,12 @@ footer {
 .gem-summary-stats strong { flex-basis: 100%; }
 .gem-summary-stats span { padding: 6px 8px; border: 1px solid var(--border); border-radius: 8px; }
 .gem-summary-note { margin: 8px 0 0; color: var(--muted); font-size: 12px; line-height: 1.5; }
+
+
+.loadout-upgrade-reason {
+  margin-top:10px;
+  padding-top:10px;
+  border-top:1px solid rgba(42,50,64,.65);
+}
+.loadout-upgrade-reason strong { font-size:12px; }
+.loadout-upgrade-reason p { margin:5px 0 0; color:var(--muted); font-size:12px; line-height:1.5; }
