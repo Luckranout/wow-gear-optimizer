@@ -60,6 +60,8 @@ jobs:
           node-version: "22"
       - name: Run stacking item effect model tests
         run: node tests/stacking-effects.test.js
+      - name: Run catalog inventory slot mapping tests
+        run: node tests/catalog-inventory-slot-mapping.test.js
       - name: Run retail dataset normalization tests
         run: node tests/retail-data-normalization.test.js
       - name: Run upgrade optimizer tests
