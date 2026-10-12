@@ -90,6 +90,25 @@ async function loadCurrentRetailData() {
 
 const itemMediaCache = new Map();
 
+function displayItemLevel(value) {
+  if (typeof value === "number" && Number.isFinite(value)) return String(value);
+  if (typeof value === "string" && value.trim()) {
+    const match = value.match(/\\d+(?:\\.\\d+)?/);
+    return match ? match[0] : null;
+  }
+  if (value && typeof value === "object") {
+    for (const key of ["value", "effective", "display_string", "displayString", "base"]) {
+      const candidate = value[key];
+      if (typeof candidate === "number" && Number.isFinite(candidate)) return String(candidate);
+      if (typeof candidate === "string" && candidate.trim()) {
+        const match = candidate.match(/\\d+(?:\\.\\d+)?/);
+        if (match) return match[0];
+      }
+    }
+  }
+  return null;
+}
+
 function escapeSlotText(value) {
   return String(value ?? "").replace(/[&<>"']/g, character => ({
     "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
@@ -129,7 +148,7 @@ function renderSlots() {
         <div class="slot-icon" aria-label="Item icon for ${escapeSlotText(item.name || slot)}">…</div>
         <div class="slot-details">
           <div class="slot-item-name">${escapeSlotText(item.name || "Unknown item")}</div>
-          <div class="slot-status">${item.itemLevel != null ? `Item level ${escapeSlotText(item.itemLevel)}` : "Equipped item"}</div>
+          <div class="slot-status">${displayItemLevel(item.itemLevel) != null ? `Item level ${escapeSlotText(displayItemLevel(item.itemLevel))}` : "Item level unavailable"}</div>
         </div>
       </div>
     </div>`;
