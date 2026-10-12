@@ -189,9 +189,76 @@ function scoreItem(item, statWeights = STAT_WEIGHTS) {
   return itemLevel * 2 + scoreItemStats(item, statWeights) + effectScore;
 }
 
+function normalizeSetId(item) {
+  const raw = item?.setId ?? item?.set?.id ?? item?.itemSet?.id ?? item?.setName ?? item?.set?.name ?? item?.itemSet?.name;
+  return raw == null || String(raw).trim() === "" ? null : String(raw).trim().toLowerCase();
+}
+
+function getSetBonusContext({ equipment = {}, setBonuses = [], className = "", specialization = "" } = {}) {
+  const counts = {};
+  for (const item of Object.values(equipment || {})) {
+    const setId = normalizeSetId(item);
+    if (setId) counts[setId] = (counts[setId] || 0) + 1;
+  }
+  const normalizedClass = normalizeClassName(className);
+  const normalizedSpec = String(specialization || "").trim().toLowerCase();
+  const activeBonuses = (setBonuses || []).filter(bonus => {
+    const setId = bonus?.setId ?? bonus?.set?.id ?? bonus?.setName ?? bonus?.set?.name;
+    const threshold = Number(bonus?.pieces ?? bonus?.threshold ?? bonus?.requiredPieces);
+    const value = Number(bonus?.bonusScore ?? bonus?.scoreValue);
+    if (setId == null || !Number.isFinite(threshold) || threshold < 2 || !Number.isFinite(value) || value <= 0) return false;
+    if (bonus.className && normalizeClassName(bonus.className) !== normalizedClass) return false;
+    if (bonus.specialization && String(bonus.specialization).trim().toLowerCase() !== normalizedSpec) return false;
+    return (counts[String(setId).trim().toLowerCase()] || 0) >= threshold;
+  }).map(bonus => ({
+    setId: String(bonus.setId ?? bonus.set?.id ?? bonus.setName ?? bonus.set?.name).trim().toLowerCase(),
+    pieces: Number(bonus.pieces ?? bonus.threshold ?? bonus.requiredPieces),
+    bonusScore: Number(bonus.bonusScore ?? bonus.scoreValue),
+    name: bonus.name || bonus.setName || bonus.set?.name || "Tier set",
+    description: bonus.description || null
+  }));
+  return {
+    counts,
+    activeBonuses,
+    bonusScore: activeBonuses.reduce((sum, bonus) => sum + bonus.bonusScore, 0),
+    hasVerifiedScoringData: (setBonuses || []).some(bonus =>
+      Number.isFinite(Number(bonus?.bonusScore ?? bonus?.scoreValue)) &&
+      Number(bonus?.bonusScore ?? bonus?.scoreValue) > 0
+    )
+  };
+}
+
 function scoreEquipment(equipment, statWeights = STAT_WEIGHTS) {
   return WOW_EQUIPMENT_SLOTS.reduce((total, slot) =>
     total + scoreItem(equipment?.[slot], statWeights), 0);
+}
+
+function scoreTierSetAwareLoadout(equipment, statWeights = STAT_WEIGHTS, setBonuses = [], character = {}) {
+  const baseScore = scoreEquipment(equipment, statWeights);
+  const setContext = getSetBonusContext({
+    equipment, setBonuses, className: character.className,
+    specialization: character.specialization
+  });
+  return { score: baseScore + setContext.bonusScore, baseScore, setBonusScore: setContext.bonusScore, setContext };
+}
+
+function scoreItemWithSetPotential(item, statWeights, setBonuses, character) {
+  const baseScore = scoreItem(item, statWeights);
+  const setId = normalizeSetId(item);
+  if (!setId) return baseScore;
+  const className = normalizeClassName(character?.className);
+  const specialization = String(character?.specialization || "").trim().toLowerCase();
+  const potential = (setBonuses || []).reduce((sum, bonus) => {
+    const bonusSetId = bonus?.setId ?? bonus?.set?.id ?? bonus?.setName ?? bonus?.set?.name;
+    const pieces = Number(bonus?.pieces ?? bonus?.threshold ?? bonus?.requiredPieces);
+    const score = Number(bonus?.bonusScore ?? bonus?.scoreValue);
+    if (bonusSetId == null || String(bonusSetId).trim().toLowerCase() !== setId ||
+        !Number.isFinite(pieces) || pieces < 2 || !Number.isFinite(score) || score <= 0) return sum;
+    if (bonus.className && normalizeClassName(bonus.className) !== className) return sum;
+    if (bonus.specialization && String(bonus.specialization).trim().toLowerCase() !== specialization) return sum;
+    return sum + score / pieces;
+  }, 0);
+  return baseScore + potential;
 }
 
 function getGoalWeights(goal) {
@@ -306,7 +373,7 @@ function resolveStatWeights({
 function findBestItemForSlot(items, slot, goal, statWeights = null) {
   const weights = statWeights || getGoalWeights(goal);
   return (items || []).filter(item => itemMatchesSlot(item, slot) && hasUsableItemStats(item))
-    .map(item => ({ item, score: scoreItem(item, weights) }))
+    .map(item => ({ item, score: candidateScore(item) }))
     .sort((a, b) => b.score - a.score)[0] || null;
 }
 
@@ -314,9 +381,14 @@ function optimizeEquipment({
   items = [],
   character = createCharacterProfile(),
   goal = character.goal || WOW_GOALS.general,
-  statWeights = null
+  statWeights = null,
+  tierSetAware = false,
+  setBonuses = []
 } = {}) {
   const weights = statWeights || getGoalWeights(goal);
+  const candidateScore = item => tierSetAware
+    ? scoreItemWithSetPotential(item, weights, setBonuses, character)
+    : scoreItem(item, weights);
   const optimizedEquipment = {};
   for (const slot of WOW_EQUIPMENT_SLOTS) {
     const best = findBestItemForSlot(items, slot, goal, weights);
@@ -357,10 +429,17 @@ function optimizeEquipment({
       optimizedEquipment[secondSlot] = null;
     }
   }
+  const tierSetScore = tierSetAware
+    ? scoreTierSetAwareLoadout(optimizedEquipment, weights, setBonuses, character)
+    : { score: scoreEquipment(optimizedEquipment, weights), baseScore: scoreEquipment(optimizedEquipment, weights), setBonusScore: 0, setContext: getSetBonusContext({ equipment: optimizedEquipment, setBonuses, className: character.className, specialization: character.specialization }) };
   return {
     character: { ...character, goal },
     equipment: optimizedEquipment,
-    score: scoreEquipment(optimizedEquipment, weights)
+    score: tierSetScore.score,
+    baseScore: tierSetScore.baseScore,
+    setBonusScore: tierSetScore.setBonusScore,
+    setContext: tierSetScore.setContext,
+    tierSetAware: Boolean(tierSetAware)
   };
 }
 
@@ -548,7 +627,7 @@ function recommendUpgradePlan({ currentItem, upgradeSystem, availableCrests = {}
   };
 }
 
-function createOptimizationReport({character = createCharacterProfile(), availableItems = [], dataset = null, upgradeSystem = null} = {}) {
+function createOptimizationReport({character = createCharacterProfile(), availableItems = [], dataset = null, upgradeSystem = null, tierSetAware = false} = {}) {
   const goal = character.goal || WOW_GOALS.general;
   const simulation = character.simulation || dataset?.simulation || null;
   const simulationContext = getSimulationWeightContext(simulation);
@@ -560,7 +639,8 @@ function createOptimizationReport({character = createCharacterProfile(), availab
     simulation
   });
   const statSummary = getCharacterStatSummary(character.statistics, statWeights);
-  const optimized = optimizeEquipment({ items: availableItems, character, goal, statWeights });
+  const setBonuses = Array.isArray(dataset?.setBonuses) ? dataset.setBonuses : [];
+  const optimized = optimizeEquipment({ items: availableItems, character, goal, statWeights, tierSetAware, setBonuses });
   const upgrades = findUpgradeOpportunities({
     currentEquipment: character.equipment,
     availableItems,
@@ -577,6 +657,17 @@ function createOptimizationReport({character = createCharacterProfile(), availab
     .filter(Boolean);
   return {
     character, goal, optimizedEquipment: optimized.equipment, totalScore: optimized.score,
+    tierSetAware: optimized.tierSetAware,
+    tierSet: {
+      enabled: Boolean(tierSetAware),
+      bonusScore: optimized.setBonusScore || 0,
+      activeBonuses: optimized.setContext?.activeBonuses || [],
+      setCounts: optimized.setContext?.counts || {},
+      scoringDataAvailable: Boolean(optimized.setContext?.hasVerifiedScoringData),
+      note: tierSetAware && !optimized.setContext?.hasVerifiedScoringData
+        ? "Tier-set mode is on, but this dataset has no verified numeric set-bonus scoring values. Recommendations remain ordinary stat/level rankings until verified bonus values are imported."
+        : null
+    },
     topUpgrades: upgrades, upgradePlans, currentStats: statSummary,
     optimizationContext: simulationContext ? {
       source: simulationContext.source,
@@ -617,6 +708,7 @@ window.WoWOptimizer = {
   createCharacterProfile, normalizeCharacterStatistics, scoreCharacterStatistics, getCharacterStatSummary, resolveStatWeights, normalizeSimulationScaleFactors, getSimulationWeightContext, findBlizzardSpecialization, getSpecProfileContext,
   normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, hasUsableItemStats, scoreItem, scoreEquipment, getGoalWeights,
   findBestItemForSlot, optimizeEquipment, findUpgradeOpportunities, rankItems,
+  normalizeSetId, getSetBonusContext, scoreTierSetAwareLoadout, scoreItemWithSetPotential,
   getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,
   calculateCrestRequirements, isAscendantVenomstoneEligible, recommendUpgradePlan,
   createOptimizationReport, testData: WOW_OPTIMIZER_TEST_DATA
