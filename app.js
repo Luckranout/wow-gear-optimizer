@@ -130,6 +130,42 @@ async function loadEquippedItemIcon(itemId) {
   return itemMediaCache.get(itemId);
 }
 
+function renderItemSockets(item) {
+  const normalized = window.WoWEquipmentSockets?.normalizeEquipmentSockets(item) || { status: "unavailable", sockets: [] };
+  // If Blizzard returned no socket/gem entries, don't show a warning on every
+  // ordinary item card. Only render socket UI when there is actual socket data.
+  if (normalized.status !== "available" || !normalized.sockets.length) return "";
+  return `<div class="slot-sockets"><span class="slot-sockets-heading">Gem sockets</span>${normalized.sockets.map(socket => {
+    const detail = socket.state === "empty"
+      ? "No socket equipped"
+      : socket.gemName
+        ? socket.gemName
+        : socket.gemId
+          ? `Gem equipped (ID ${socket.gemId}; name unavailable)`
+          : "Gem equipped (name unavailable)";
+    return `<div class="slot-socket"><span class="slot-socket-label">${escapeSlotText(socket.label)}</span><span class="slot-socket-value">${escapeSlotText(detail)}</span></div>`;
+  }).join("")}</div>`;
+}
+
+function renderGemSummary(equipment = []) {
+  const summary = window.WoWEquipmentSockets?.summarizeEquipmentGems(equipment) || {
+    installed: 0, empty: 0, socketsKnown: 0, stats: {}, statsKnownGems: 0
+  };
+  const target = document.querySelector("#gemSummary");
+  if (!target) return;
+  const counts = summary.socketsKnown
+    ? `<div class="gem-summary-counts"><span><strong>${summary.installed}</strong> gems equipped</span><span><strong>${summary.empty}</strong> empty sockets</span><span><strong>${summary.socketsKnown}</strong> known sockets</span></div>`
+    : '<p class="gem-summary-note">Socket data is not available for the imported equipment.</p>';
+  const statEntries = Object.entries(summary.stats).sort(([a], [b]) => a.localeCompare(b));
+  const stats = statEntries.length
+    ? `<div class="gem-summary-stats"><strong>Gem stats explicitly supplied in the imported data</strong>${statEntries.map(([name, value]) => `<span>${escapeSlotText(name)}: +${escapeSlotText(value)}</span>`).join("")}</div>`
+    : '<p class="gem-summary-note">Individual gem stat bonuses are not included in the available socket data. No values are estimated.</p>';
+  const coverage = summary.installed
+    ? `<p class="gem-summary-note">Stat details available for ${summary.statsKnownGems} of ${summary.installed} equipped gems. This summary is informational and is not added to character stats or optimizer scoring.</p>`
+    : "";
+  target.innerHTML = counts + stats + coverage;
+}
+
 function renderSlots() {
   const normalized = importedCharacter?.equipment
     ? WoWOptimizer.normalizeImportedEquipment(importedCharacter.equipment)
@@ -149,10 +185,12 @@ function renderSlots() {
         <div class="slot-details">
           <div class="slot-item-name">${escapeSlotText(item.name || "Unknown item")}</div>
           <div class="slot-status">${displayItemLevel(item.itemLevel) != null ? `Item level ${escapeSlotText(displayItemLevel(item.itemLevel))}` : "Item level unavailable"}</div>
+          ${renderItemSockets(item)}
         </div>
       </div>
     </div>`;
   }).join("");
+  renderGemSummary(importedCharacter?.equipment || []);
 
   const renderToken = importedCharacter;
   [...slotGrid.querySelectorAll(".slot[data-item-id]")].forEach(async card => {
