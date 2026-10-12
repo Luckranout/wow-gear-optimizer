@@ -95,6 +95,8 @@ jobs:
         run: node tests/live-character-lookup.test.js
       - name: Run live character lookup UI tests
         run: node tests/live-character-lookup-ui.test.js
+      - name: Run equipped item cards UI tests
+        run: node tests/equipped-item-cards-ui.test.js
       - name: Run personal action plan tests
         run: node tests/personal-action-plan.test.js
       - name: Run gameplay coach tests
