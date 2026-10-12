@@ -13,6 +13,7 @@ function normalizeEquipmentSockets(item = {}) {
         label: `Socket ${index + 1}`,
         gemName: readGemName(gem),
         gemId: readGemId(gem),
+        itemForStats: gem,
         state: gem ? "installed" : "empty"
       }))
     };
@@ -30,6 +31,7 @@ function normalizeEquipmentSockets(item = {}) {
         label: readSocketType(socket) || `Socket ${index + 1}`,
         gemName,
         gemId,
+        itemForStats: gem,
         state: gem ? "installed" : "empty"
       };
     })
@@ -41,6 +43,53 @@ function readGemName(gem) {
   if (!gem || typeof gem !== "object") return null;
   const value = gem.name || gem.gem?.name || gem.item?.name;
   return typeof value === "string" && value.trim() ? value.trim() : null;
+}
+
+function readGemStats(gem) {
+  if (!gem || typeof gem !== "object") return null;
+  const stats = gem.stats || gem.item?.stats || gem.gem?.stats;
+  if (Array.isArray(stats)) {
+    const result = {};
+    for (const entry of stats) {
+      const name = entry?.type?.name || entry?.stat?.name || entry?.name || entry?.type || entry?.stat;
+      const value = Number(entry?.value ?? entry?.amount);
+      if (typeof name === "string" && name.trim() && Number.isFinite(value)) {
+        result[name.trim()] = (result[name.trim()] || 0) + value;
+      }
+    }
+    return Object.keys(result).length ? result : null;
+  }
+  if (stats && typeof stats === "object") {
+    const result = Object.fromEntries(Object.entries(stats).filter(([, value]) =>
+      typeof value === "number" && Number.isFinite(value)
+    ));
+    return Object.keys(result).length ? result : null;
+  }
+  return null;
+}
+
+function summarizeEquipmentGems(equipment = []) {
+  const summary = { installed: 0, empty: 0, socketsKnown: 0, stats: {}, statsKnownGems: 0 };
+  for (const item of Array.isArray(equipment) ? equipment : []) {
+    const normalized = normalizeEquipmentSockets(item);
+    if (normalized.status !== "available") continue;
+    for (const socket of normalized.sockets) {
+      summary.socketsKnown += 1;
+      if (socket.state === "empty") {
+        summary.empty += 1;
+        continue;
+      }
+      summary.installed += 1;
+      const gem = socket.itemForStats;
+      const stats = readGemStats(gem);
+      if (!stats) continue;
+      summary.statsKnownGems += 1;
+      for (const [name, value] of Object.entries(stats)) {
+        summary.stats[name] = (summary.stats[name] || 0) + value;
+      }
+    }
+  }
+  return summary;
 }
 
 function readGemId(gem) {
@@ -57,6 +106,6 @@ function readSocketType(socket) {
   return null;
 }
 
-const equipmentSocketApi = { normalizeEquipmentSockets };
+const equipmentSocketApi = { normalizeEquipmentSockets, summarizeEquipmentGems };
 if (typeof module !== "undefined" && module.exports) module.exports = equipmentSocketApi;
 if (typeof window !== "undefined") window.WoWEquipmentSockets = equipmentSocketApi;
