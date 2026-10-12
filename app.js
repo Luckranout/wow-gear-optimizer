@@ -334,33 +334,83 @@ function renderCharacterCoach(report, character) {
   document.querySelector("#coachPreCombat").innerHTML = coach.gameplay.preCombat.length ? coach.gameplay.preCombat.map(item => `<li>${item}</li>`).join("") : "<li>No curated pre-combat checklist is available yet.</li>";
 }
 
+function getLoadoutItemStats(item) {
+  const stats = {};
+  for (const stat of Array.isArray(item?.stats) ? item.stats : []) {
+    const rawName = stat?.type?.name || stat?.name || stat?.type || stat?.stat;
+    const value = Number(stat?.value ?? stat?.amount);
+    if (!rawName || !Number.isFinite(value)) continue;
+    const key = String(rawName).replace(/([a-z])([A-Z])/g, "$1 $2").replace(/[_-]+/g, " ").trim();
+    stats[key] = (stats[key] || 0) + value;
+  }
+  return stats;
+}
+
+function renderLoadoutStatRows(target, current) {
+  const targetStats = getLoadoutItemStats(target);
+  const currentStats = getLoadoutItemStats(current);
+  const keys = [...new Set([...Object.keys(targetStats), ...Object.keys(currentStats)])].sort();
+  if (!keys.length) return '<p class="compare-no-stats">Verified item stats are unavailable for one or both items.</p>';
+  return keys.map(key => {
+    const hasTarget = Object.hasOwn(targetStats, key);
+    const hasCurrent = Object.hasOwn(currentStats, key);
+    if (!hasTarget || !hasCurrent) return '<div class="compare-stat"><span>' + escapeSlotText(key) + '</span><span class="compare-unknown">Comparison incomplete</span></div>';
+    const delta = targetStats[key] - currentStats[key];
+    const formatted = delta > 0 ? '+' + delta.toLocaleString() : delta.toLocaleString();
+    const status = delta > 0 ? 'gain' : delta < 0 ? 'loss' : 'same';
+    return '<div class="compare-stat"><span>' + escapeSlotText(key) + '</span><strong class="' + status + '">' + formatted + '</strong></div>';
+  }).join("");
+}
+
+function renderLoadoutItemCard(item, label, emptyText) {
+  if (!item) return '<section class="compare-item compare-empty"><h4>' + escapeSlotText(label) + '</h4><p>' + escapeSlotText(emptyText) + '</p></section>';
+  const itemLevel = displayItemLevel(item.itemLevel ?? item.level);
+  const stats = getLoadoutItemStats(item);
+  return '<section class="compare-item">' +
+    '<h4>' + escapeSlotText(label) + '</h4>' +
+    '<div class="compare-item-heading">' +
+      '<span class="compare-icon" data-item-icon-id="' + escapeSlotText(item.id || "") + '">Item</span>' +
+      '<div class="compare-item-meta"><strong>' + escapeSlotText(item.name || "Unnamed item") + '</strong>' +
+      '<span>' + (itemLevel ? 'Item level ' + escapeSlotText(itemLevel) : 'Item level unavailable') + '</span></div>' +
+    '</div>' +
+    '<div class="compare-stats">' + (Object.keys(stats).length
+      ? Object.entries(stats).map(([key, value]) => '<div class="compare-stat"><span>' + escapeSlotText(key) + '</span><strong>' + escapeSlotText(value.toLocaleString()) + '</strong></div>').join("")
+      : '<p class="compare-no-stats">Verified item stats unavailable.</p>') + '</div>' +
+    '</section>';
+}
+
 function renderOptimizedLoadout(equipment = {}, score = 0, currentEquipment = {}) {
-  // This panel is a target recommendation, not a copy of the character's current gear.
-  // Render every supported slot exactly once and explicitly flag missing candidates.
   const entries = slots.map(slot => [slot, equipment[slot] || null, currentEquipment[slot] || null]);
-  const sourceLabel = "Recommended target • goal/spec-weighted catalog scoring";
   loadoutResults.innerHTML = entries.map(([slot, item, current]) => {
-    if (!item) return `
-      <div class="loadout-row" data-equipment-slot="${slot}">
-        <div class="loadout-slot">${slot}</div>
-        <div class="loadout-item">No verified candidate available</div>
-        <div class="loadout-ilvl">Current: ${current?.name || "Empty slot"}</div>
-      </div>
-    `;
-    const sameItem = current && (
+    const sameItem = item && current && (
       (item.id != null && current.id != null && String(item.id) === String(current.id)) ||
       (item.name && current.name && item.name.trim().toLowerCase() === current.name.trim().toLowerCase())
     );
-    return `
-      <div class="loadout-row" data-equipment-slot="${slot}">
-        <div class="loadout-slot">${slot}</div>
-        <div class="loadout-item">${item.name || "Unnamed item"}</div>
-        <div class="loadout-ilvl">Target iLvl ${item.itemLevel ?? item.level ?? "—"}</div>
-        <div class="loadout-status">${sameItem ? "Already equipped • keep this item" : "Target gear • aim to obtain/equip"}</div>
-        <div class="loadout-current">Currently equipped: ${current?.name || "Empty slot"}</div>
-      </div>
-    `;
-  }).join("") + `<div class="loadout-summary"><strong>Recommended target score: ${formatGearScore(score)}</strong><span>${sourceLabel}. Recommendations are limited to items and stat data currently available in the catalog.</span></div>`;
+    return '<article class="loadout-compare-row" data-equipment-slot="' + escapeSlotText(slot) + '">' +
+      '<h3 class="loadout-compare-slot">' + escapeSlotText(slot) + '</h3>' +
+      '<div class="loadout-compare-pair">' +
+        renderLoadoutItemCard(item, "Recommended target", "No verified candidate available") +
+        renderLoadoutItemCard(current, "Currently equipped", "No item equipped / imported") +
+      '</div>' +
+      '<section class="loadout-stat-delta"><h4>Stat changes if equipped</h4>' +
+        (sameItem ? '<p class="compare-no-stats">Already equipped — no change.</p>' : renderLoadoutStatRows(item, current)) +
+      '</section>' +
+    '</article>';
+  }).join("") + '<div class="loadout-summary"><strong>Recommended target score: ' + escapeSlotText(formatGearScore(score)) + '</strong><span>Goal/spec-weighted catalog scoring. Item stats are shown only when present in the catalog or character import; unavailable data is not inferred.</span></div>';
+
+  const renderToken = importedCharacter;
+  [...loadoutResults.querySelectorAll("[data-item-icon-id]")].forEach(async node => {
+    const itemId = Number(node.dataset.itemIconId);
+    const iconUrl = await loadEquippedItemIcon(itemId);
+    if (importedCharacter !== renderToken || !node.isConnected) return;
+    if (iconUrl) {
+      node.innerHTML = '<img src="' + escapeSlotText(iconUrl) + '" alt="" loading="lazy">';
+      node.setAttribute("aria-label", "Item icon");
+    } else {
+      node.classList.add("compare-icon-fallback");
+      node.setAttribute("aria-label", "Item icon unavailable");
+    }
+  });
 }
 function setSelectValue(select, value) {
   if (!value) return;
