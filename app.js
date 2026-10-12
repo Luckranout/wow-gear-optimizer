@@ -130,6 +130,23 @@ async function loadEquippedItemIcon(itemId) {
   return itemMediaCache.get(itemId);
 }
 
+function renderItemSockets(item) {
+  const normalized = window.WoWEquipmentSockets?.normalizeEquipmentSockets(item) || { status: "unavailable", sockets: [] };
+  if (normalized.status !== "available") {
+    return '<div class="slot-sockets slot-sockets-unavailable">Socket data unavailable</div>';
+  }
+  return `<div class="slot-sockets"><span class="slot-sockets-heading">Gem sockets</span>${normalized.sockets.map(socket => {
+    const detail = socket.state === "empty"
+      ? "Empty socket"
+      : socket.gemName
+        ? socket.gemName
+        : socket.gemId
+          ? `Gem equipped (ID ${socket.gemId}; name unavailable)`
+          : "Gem equipped (name unavailable)";
+    return `<div class="slot-socket"><span class="slot-socket-label">${escapeSlotText(socket.label)}</span><span class="slot-socket-value">${escapeSlotText(detail)}</span></div>`;
+  }).join("")}</div>`;
+}
+
 function renderSlots() {
   const normalized = importedCharacter?.equipment
     ? WoWOptimizer.normalizeImportedEquipment(importedCharacter.equipment)
@@ -149,6 +166,7 @@ function renderSlots() {
         <div class="slot-details">
           <div class="slot-item-name">${escapeSlotText(item.name || "Unknown item")}</div>
           <div class="slot-status">${displayItemLevel(item.itemLevel) != null ? `Item level ${escapeSlotText(displayItemLevel(item.itemLevel))}` : "Item level unavailable"}</div>
+          ${renderItemSockets(item)}
         </div>
       </div>
     </div>`;
