@@ -20,5 +20,5 @@ assert.equal(result.equipment.Chest.id, 193764, "catalog Chest inventory type sh
 assert.equal(result.equipment.Back.id, 193763, "catalog Back inventory type should map to Back slot");
 assert.ok(result.equipment["Ring 1"] || result.equipment["Ring 2"], "Finger items should map to a ring slot");
 assert.ok(result.equipment["Trinket 1"] || result.equipment["Trinket 2"], "Trinket inventory type should map to a trinket slot");
-assert.equal(optimizer.scoreItemStats(catalogItems[0], { Intellect: 1 }), 100, "Blizzard type.name stats should be scored");
+assert.equal(optimizer.scoreItem(catalogItems[0], { Intellect: 1 }), 900, "Blizzard type.name stats should contribute to item score");
 console.log("Catalog inventory-type slot mapping tests passed.");
