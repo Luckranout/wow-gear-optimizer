@@ -9,33 +9,43 @@ function normalizeEquipmentSockets(item = {}) {
   if (!sockets.length && gems.length) {
     return {
       status: "available",
-      sockets: gems.map((gem, index) => ({
-        label: `Socket ${index + 1}`,
-        gemName: readGemName(gem),
-        gemId: readGemId(gem),
-        itemForStats: gem,
-        state: gem ? "installed" : "empty"
-      }))
+      sockets: gems.map((gem, index) => {
+        const installed = hasGemEvidence(gem);
+        return {
+          label: `Socket ${index + 1}`,
+          gemName: readGemName(gem),
+          gemId: readGemId(gem),
+          itemForStats: gem,
+          state: installed ? "installed" : "empty"
+        };
+      })
     };
   }
 
   return {
     status: "available",
     sockets: sockets.map((socket, index) => {
+      // Blizzard's character-equipment response represents a socketed gem as
+      // socket.item (name/key href) and may expose its media ID separately.
       const socketItem = socket?.item || socket?.gem || null;
       const fallbackGem = gems[index] || null;
-      const gem = socketItem || fallbackGem;
-      const gemName = readGemName(gem) || readGemName(fallbackGem);
-      const gemId = readGemId(gem) || readGemId(fallbackGem);
+      const gem = hasGemEvidence(socketItem) ? socketItem : fallbackGem;
+      const installed = hasGemEvidence(gem);
       return {
         label: readSocketType(socket) || `Socket ${index + 1}`,
-        gemName,
-        gemId,
+        gemName: readGemName(gem),
+        gemId: readGemId(gem) || readGemId(socket?.media) || readGemId(fallbackGem),
         itemForStats: gem,
-        state: gem ? "installed" : "empty"
+        state: installed ? "installed" : "empty"
       };
     })
   };
+}
+
+function hasGemEvidence(gem) {
+  if (typeof gem === "string") return Boolean(gem.trim());
+  if (!gem || typeof gem !== "object") return false;
+  return Boolean(readGemName(gem) || readGemId(gem) || gem.key?.href || gem.item?.key?.href);
 }
 
 function readGemName(gem) {
@@ -80,8 +90,7 @@ function summarizeEquipmentGems(equipment = []) {
         continue;
       }
       summary.installed += 1;
-      const gem = socket.itemForStats;
-      const stats = readGemStats(gem);
+      const stats = readGemStats(socket.itemForStats);
       if (!stats) continue;
       summary.statsKnownGems += 1;
       for (const [name, value] of Object.entries(stats)) {
@@ -94,8 +103,14 @@ function summarizeEquipmentGems(equipment = []) {
 
 function readGemId(gem) {
   if (!gem || typeof gem !== "object") return null;
-  const id = gem.id ?? gem.item?.id ?? gem.gem?.id;
-  return id != null && String(id).trim() ? String(id) : null;
+  const direct = gem.id ?? gem.item?.id ?? gem.gem?.id;
+  if (direct != null && String(direct).trim()) return String(direct);
+  const href = gem.key?.href || gem.item?.key?.href;
+  if (typeof href === "string") {
+    const match = href.match(/\\/item\\/(\\d+)(?:[/?#]|$)/i);
+    if (match) return match[1];
+  }
+  return null;
 }
 
 function readSocketType(socket) {
