@@ -17,7 +17,7 @@ const numericLevelItem = normalizeEquippedItem({
 });
 if (numericLevelItem.itemLevel !== 639) throw new Error("Numeric item levels must remain numeric.");
 
-for (const needle of ["normalizeImportedEquipment", "item.itemLevel", "item.name", "loadEquippedItemIcon", "/api/item-media?id=", "slot-item-name"]) {
+for (const needle of ["normalizeImportedEquipment", "displayItemLevel(value)", "display_string", "item.itemLevel", "item.name", "loadEquippedItemIcon", "/api/item-media?id=", "slot-item-name"]) {
   if (!app.includes(needle)) throw new Error(`Equipment UI missing expected behavior: ${needle}`);
 }
 if (!styles.includes(".slot-icon img")) throw new Error("Equipment UI must display item artwork.");
