@@ -15,6 +15,23 @@ const WOW_GOALS = {
   general: "General / All-around"
 };
 
+function itemMatchesSlot(item, slot) {
+  if (!item || !slot) return false;
+  if (item.slot === slot) return true;
+  const inventoryType = String(item.inventoryType?.name || item.inventoryType || "").trim().toLowerCase();
+  const map = {
+    head: ["Head"], neck: ["Neck"], shoulder: ["Shoulders"], shoulders: ["Shoulders"],
+    cloak: ["Back"], back: ["Back"], chest: ["Chest"], robe: ["Chest"],
+    wrist: ["Wrists"], wrists: ["Wrists"], hands: ["Hands"], hand: ["Hands"],
+    waist: ["Waist"], legs: ["Legs"], feet: ["Feet"],
+    finger: ["Ring 1", "Ring 2"], ring: ["Ring 1", "Ring 2"],
+    trinket: ["Trinket 1", "Trinket 2"],
+    "one-hand": ["Main Hand"], "main hand": ["Main Hand"], "two-hand": ["Main Hand"],
+    "off hand": ["Off Hand"], "held in off-hand": ["Off Hand"], shield: ["Off Hand"], "off-hand": ["Off Hand"]
+  };
+  return (map[inventoryType] || []).includes(slot);
+}
+
 const STAT_WEIGHTS = {
   Strength: 1, Agility: 1, Intellect: 1, Stamina: 0.15,
   CriticalStrike: 0.8, Haste: 0.8, Mastery: 0.8, Versatility: 0.8
@@ -142,7 +159,7 @@ function scoreItemStats(item, statWeights = STAT_WEIGHTS) {
   if (!item || !item.stats) return 0;
   const stats = Array.isArray(item.stats)
     ? item.stats.map(s => [
-        normalizeItemStatName(s.stat?.name || s.name || s.stat),
+        normalizeItemStatName(s.stat?.name || s.type?.name || s.name || s.stat),
         Number(s.value) || 0
       ])
     : Object.entries(item.stats).map(([stat, value]) => [
@@ -156,7 +173,7 @@ function scoreItemStats(item, statWeights = STAT_WEIGHTS) {
 function hasUsableItemStats(item) {
   if (!item || !item.stats) return false;
   const entries = Array.isArray(item.stats)
-    ? item.stats.map(s => [s.stat?.name || s.name || s.stat, s.value])
+    ? item.stats.map(s => [s.stat?.name || s.type?.name || s.name || s.stat, s.value])
     : Object.entries(item.stats);
   return entries.some(([stat, value]) =>
     stat != null && String(stat).trim() !== "" && Number.isFinite(Number(value)) && Number(value) !== 0
@@ -288,7 +305,7 @@ function resolveStatWeights({
 
 function findBestItemForSlot(items, slot, goal, statWeights = null) {
   const weights = statWeights || getGoalWeights(goal);
-  return (items || []).filter(item => item.slot === slot && hasUsableItemStats(item))
+  return (items || []).filter(item => itemMatchesSlot(item, slot) && hasUsableItemStats(item))
     .map(item => ({ item, score: scoreItem(item, weights) }))
     .sort((a, b) => b.score - a.score)[0] || null;
 }
@@ -359,7 +376,7 @@ function findUpgradeOpportunities({
   for (const slot of WOW_EQUIPMENT_SLOTS) {
     const currentItem = currentEquipment[slot];
     const currentScore = scoreItem(currentItem, weights);
-    const candidates = availableItems.filter(item => item.slot === slot && hasUsableItemStats(item))
+    const candidates = availableItems.filter(item => itemMatchesSlot(item, slot) && hasUsableItemStats(item))
       .map(item => ({ item, score: scoreItem(item, weights) }))
       .filter(candidate => candidate.score > currentScore)
       .sort((a, b) => b.score - a.score);
