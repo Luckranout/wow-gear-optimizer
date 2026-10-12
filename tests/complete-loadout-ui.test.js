@@ -28,6 +28,8 @@ for (const required of [
   "renderLoadoutItemCard(item, \"Recommended target\"",
   "renderLoadoutItemCard(current, \"Currently equipped\"",
   "Stat changes if equipped",
+  "getLoadoutUpgradeReason(item, current, sameItem)",
+  "Why this recommendation?",
   "data-item-icon-id",
   "renderLoadoutStatRows(item, current)"
 ]) {
