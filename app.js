@@ -362,6 +362,28 @@ function renderLoadoutStatRows(target, current) {
   }).join("");
 }
 
+function getLoadoutUpgradeReason(target, current, sameItem = false) {
+  if (!target) return "No eligible catalog item with usable stat data was found for this slot.";
+  if (sameItem) return "You already have this item equipped, so this slot does not need an upgrade.";
+  if (!current) return "No current item was imported for this slot. This is the optimizer's top eligible catalog candidate, but a direct upgrade comparison is not available.";
+  const targetLevel = Number(displayItemLevel(target.itemLevel ?? target.level));
+  const currentLevel = Number(displayItemLevel(current.itemLevel ?? current.level));
+  const levelKnown = Number.isFinite(targetLevel) && Number.isFinite(currentLevel);
+  const levelDelta = levelKnown ? targetLevel - currentLevel : null;
+  const targetStats = getLoadoutItemStats(target);
+  const currentStats = getLoadoutItemStats(current);
+  const commonStats = Object.keys(targetStats).filter(key => Object.hasOwn(currentStats, key));
+  const gains = commonStats.map(key => ({ key, delta: targetStats[key] - currentStats[key] })).filter(entry => entry.delta > 0).sort((a,b) => b.delta-a.delta);
+  const losses = commonStats.map(key => ({ key, delta: targetStats[key] - currentStats[key] })).filter(entry => entry.delta < 0).sort((a,b) => a.delta-b.delta);
+  const parts = [];
+  if (levelKnown && levelDelta > 0) parts.push("higher item level (+" + levelDelta + ")");
+  else if (levelKnown && levelDelta < 0) parts.push("lower item level (" + levelDelta + ")");
+  if (gains.length) parts.push("higher " + gains.slice(0, 2).map(entry => entry.key + " (+" + entry.delta.toLocaleString() + ")").join(" and "));
+  if (losses.length) parts.push("lower " + losses.slice(0, 2).map(entry => entry.key + " (" + entry.delta.toLocaleString() + ")").join(" and "));
+  if (!parts.length) return "It ranked as the top eligible catalog candidate for this slot under the selected goal's available weights, but the item-level/stat comparison is incomplete. Verify the details before replacing your current item.";
+  return "Why it is recommended: " + parts.join("; ") + ". The optimizer ranks available items using the selected goal's weights, not a full combat simulation.";
+}
+
 function renderLoadoutItemCard(item, label, emptyText) {
   if (!item) return '<section class="compare-item compare-empty"><h4>' + escapeSlotText(label) + '</h4><p>' + escapeSlotText(emptyText) + '</p></section>';
   const itemLevel = displayItemLevel(item.itemLevel ?? item.level);
@@ -394,6 +416,7 @@ function renderOptimizedLoadout(equipment = {}, score = 0, currentEquipment = {}
       '</div>' +
       '<section class="loadout-stat-delta"><h4>Stat changes if equipped</h4>' +
         (sameItem ? '<p class="compare-no-stats">Already equipped — no change.</p>' : renderLoadoutStatRows(item, current)) +
+        '<div class="loadout-upgrade-reason"><strong>Why this recommendation?</strong><p>' + escapeSlotText(getLoadoutUpgradeReason(item, current, sameItem)) + '</p></div>' +
       '</section>' +
     '</article>';
   }).join("") + '<div class="loadout-summary"><strong>Recommended target score: ' + escapeSlotText(formatGearScore(score)) + '</strong><span>Goal/spec-weighted catalog scoring. Item stats are shown only when present in the catalog or character import; unavailable data is not inferred.</span></div>';
