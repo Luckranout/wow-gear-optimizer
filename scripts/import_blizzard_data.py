@@ -633,7 +633,7 @@ def collect_pvp_season_item_ids(token, current_pvp_season_id, current_pvp_season
     }
 
 def reference_id(value):
-    """Extract an ID from Blizzard references, including key.href-only references."""
+    """Extract the entity ID from Blizzard references, including key.href-only references."""
     if isinstance(value, int):
         return value
     if isinstance(value, dict):
@@ -643,13 +643,42 @@ def reference_id(value):
 
         for candidate in (value.get("href"), (value.get("key") or {}).get("href")):
             if candidate:
-                # Talent-tree references commonly expose the ID only inside key.href.
-                parts = str(candidate).rstrip("/").split("/")
+                parts = urllib.parse.urlparse(str(candidate)).path.rstrip("/").split("/")
+                for marker in ("playable-specialization", "talent-tree", "playable-class", "pvp-season"):
+                    if marker in parts:
+                        index = parts.index(marker) + 1
+                        if index < len(parts):
+                            try:
+                                return int(parts[index])
+                            except ValueError:
+                                pass
+                # Generic fallback for references whose URL has no known entity segment.
                 for part in reversed(parts):
                     try:
-                        return int(part.split("?")[0])
+                        return int(part)
                     except ValueError:
                         continue
+    return None
+
+
+def talent_tree_reference_id(value):
+    """Extract the talent-tree ID specifically, never the trailing specialization ID."""
+    if isinstance(value, dict):
+        for candidate in (value.get("href"), (value.get("key") or {}).get("href")):
+            if candidate:
+                parts = urllib.parse.urlparse(str(candidate)).path.rstrip("/").split("/")
+                if "talent-tree" in parts:
+                    index = parts.index("talent-tree") + 1
+                    if index < len(parts):
+                        try:
+                            return int(parts[index])
+                        except ValueError:
+                            pass
+        value_id = value.get("id")
+        if isinstance(value_id, int):
+            return value_id
+    elif isinstance(value, int):
+        return value
     return None
 
 
@@ -685,7 +714,7 @@ def collect_talent_data(token):
             continue
 
         spec_tree = spec.get("spec_talent_tree") or spec.get("talent_tree") or {}
-        spec_tree_id = reference_id(spec_tree)
+        spec_tree_id = talent_tree_reference_id(spec_tree)
 
         hero_refs = spec.get("hero_talent_trees") or spec.get("hero_talent_tree") or []
         if isinstance(hero_refs, dict):
@@ -693,7 +722,7 @@ def collect_talent_data(token):
 
         hero_records = []
         for hero_ref in hero_refs:
-            hero_id = reference_id(hero_ref)
+            hero_id = talent_tree_reference_id(hero_ref)
             if hero_id:
                 hero_records.append({
                     "id": hero_id,
@@ -786,7 +815,7 @@ def collect_talent_data(token):
             add_tree(hero["id"], "hero")
 
     for tree_ref in tree_refs:
-        tree_id = reference_id(tree_ref)
+        tree_id = talent_tree_reference_id(tree_ref)
         if not tree_id:
             continue
         linked_specs = (
