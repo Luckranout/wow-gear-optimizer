@@ -40,8 +40,8 @@ if (gemSummary.installed !== 2 || gemSummary.empty !== 1 || gemSummary.socketsKn
 if (gemSummary.stats.Strength !== 10) throw new Error("Gem summary must total only explicitly provided gem stats.");
 const unavailableSockets = normalizeEquipmentSockets({});
 if (unavailableSockets.status !== "unavailable") throw new Error("Missing socket data must not be reported as no sockets.");
-if (!app.includes("renderItemSockets(item)") || !app.includes("Socket data unavailable")) {
-  throw new Error("Equipment cards must render socket state and an honest unavailable fallback.");
+if (!app.includes("renderItemSockets(item)") || !app.includes('if (normalized.status !== "available" || !normalized.sockets.length) return ""')) {
+  throw new Error("Equipment cards must render known socket data and omit socket UI when no socket entries are returned.");
 }
 
 for (const needle of ["normalizeImportedEquipment", "displayItemLevel(value)", "display_string", "item.itemLevel", "item.name", "loadEquippedItemIcon", "/api/item-media?id=", "slot-item-name"]) {
