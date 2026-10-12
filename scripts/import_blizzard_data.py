@@ -1324,6 +1324,16 @@ def fetch_item_details(token, item_ids, item_sources):
         if item_id in wowhead_diagnostics["explicitCosmeticItems"]:
             item["catalogClassification"] = "cosmetic"
             item["classificationSource"] = "Wowhead tooltip explicitly labels item Cosmetic"
+        # Verified Wowhead tooltip for Permafrost Essence (250244) contains
+        # only its equip proc (temporary Critical Strike and absorb values), not
+        # permanent base stats. Keep the record for transparency, but fail closed
+        # for numerical optimization until this effect is modeled.
+        if item_id == 250244 and not item_has_verified_stats(item):
+            item["catalogClassification"] = "effect-only-unmodeled"
+            item["classificationSource"] = (
+                "Wowhead tooltip for item 250244: equip effect only; no explicit base stats"
+            )
+            item["optimizerEligible"] = False
         if item_has_verified_stats(item) and "statsSource" not in item:
             item["statsSource"] = "Blizzard Game Data API"
         items.append(item)
@@ -1547,7 +1557,10 @@ def build_item_stat_coverage(items):
     # Only explicit source classification excludes them; unknown records stay in the strict gate.
     candidates = [
         item for item in items
-        if not (isinstance(item, dict) and item.get("catalogClassification") == "cosmetic")
+        if not (
+            isinstance(item, dict)
+            and item.get("catalogClassification") in {"cosmetic", "effect-only-unmodeled"}
+        )
     ]
     total = len(candidates)
     verified = sum(1 for item in candidates if item_has_verified_stats(item))
