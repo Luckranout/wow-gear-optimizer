@@ -137,7 +137,7 @@ function renderItemSockets(item) {
   if (normalized.status !== "available" || !normalized.sockets.length) return "";
   return `<div class="slot-sockets"><span class="slot-sockets-heading">Gem sockets</span>${normalized.sockets.map(socket => {
     const detail = socket.state === "empty"
-      ? "Empty socket"
+      ? "No socket equipped"
       : socket.gemName
         ? socket.gemName
         : socket.gemId
