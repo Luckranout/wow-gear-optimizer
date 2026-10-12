@@ -58,6 +58,15 @@ class ItemStatCoverageTests(unittest.TestCase):
             '<div>Item Level 1</div><div>Head</div>'
         ))
 
+    def test_effect_only_unmodeled_item_is_excluded_from_stat_coverage(self):
+        report = MODULE.build_item_stat_coverage([
+            {"id": 250244, "catalogClassification": "effect-only-unmodeled", "stats": []},
+            {"id": 42, "stats": [{"value": 12}]},
+        ])
+        self.assertEqual(report["candidateItemCount"], 1)
+        self.assertEqual(report["itemsWithVerifiedStats"], 1)
+        self.assertEqual(report["itemsMissingVerifiedStats"], 0)
+
     def test_permafrost_proc_critical_strike_is_not_misread_as_base_stat(self):
         tooltip = (
             "<div>Permafrost Essence</div>"
