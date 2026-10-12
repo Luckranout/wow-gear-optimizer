@@ -291,6 +291,12 @@ def fetch_wowhead_tooltip_stats(item_id, diagnostics=None):
 
     stats = parse_wowhead_tooltip_stats(tooltip)
     plain_text = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", tooltip))).strip()
+    # Keep the narrowly scoped Permafrost Essence effect-only case grounded
+    # in the actual tooltip text. These conditional effects are not static stats.
+    if int(item_id) == 250244 and "mark of frost" in plain_text.lower() and "frost barrier" in plain_text.lower():
+        if diagnostics is not None:
+            diagnostics.setdefault("explicitConditionalEffectItems", set()).add(int(item_id))
+        print("Wowhead tooltip explicitly confirms Permafrost Essence conditional effects; not treating them as static stats.")
     # Classification is independent of stat parsing and is recorded whenever
     # the source tooltip explicitly labels the item Cosmetic.
     if tooltip_explicitly_labels_cosmetic(tooltip):
@@ -1290,7 +1296,7 @@ def fetch_item_details(token, item_ids, item_sources):
     wowhead_diagnostics = {
         "requestsSucceeded": 0, "usableStats": 0, "emptyTooltip": 0,
         "tooltipWithoutParsedStats": 0, "requestErrors": 0, "retries": 0,
-        "responseShapes": {}, "explicitCosmeticItems": set(),
+        "responseShapes": {}, "explicitCosmeticItems": set(), "explicitConditionalEffectItems": set(),
     }
 
     for index, item_id in enumerate(sorted(item_ids), start=1):
@@ -1324,6 +1330,11 @@ def fetch_item_details(token, item_ids, item_sources):
         if item_id in wowhead_diagnostics["explicitCosmeticItems"]:
             item["catalogClassification"] = "cosmetic"
             item["classificationSource"] = "Wowhead tooltip explicitly labels item Cosmetic"
+        if item_id in wowhead_diagnostics["explicitConditionalEffectItems"] and not item_has_verified_stats(item):
+            item["catalogClassification"] = "effect-based"
+            item["optimizationStatus"] = "unsupported_conditional_effect"
+            item["conditionalEffectsSupported"] = False
+            item["optimizationStatusSource"] = "Wowhead tooltip explicitly contains Mark of Frost and Frost Barrier; effect scaling/model unresolved"
         if item_has_verified_stats(item) and "statsSource" not in item:
             item["statsSource"] = "Blizzard Game Data API"
         items.append(item)

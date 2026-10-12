@@ -31,6 +31,22 @@ def has_numeric_stats(item):
     return False
 
 
+def is_verified_unsupported_conditional_effect(item):
+    """Allow only the specifically documented Permafrost Essence effect-only record."""
+    return (
+        isinstance(item, dict)
+        and item.get("id") == 250244
+        and item.get("name") == "Permafrost Essence"
+        and item.get("isEquippable") is True
+        and item.get("catalogClassification") == "effect-based"
+        and item.get("optimizationStatus") == "unsupported_conditional_effect"
+        and item.get("conditionalEffectsSupported") is False
+        and item.get("optimizationStatusSource")
+        == "Wowhead tooltip explicitly contains Mark of Frost and Frost Barrier; effect scaling/model unresolved"
+        and not has_numeric_stats(item)
+    )
+
+
 def validate_dataset(dataset):
     if not isinstance(dataset, dict):
         raise ValueError("dataset root must be an object")
@@ -65,8 +81,12 @@ def validate_dataset(dataset):
                 )
             continue
 
-        # Every non-cosmetic record is treated as combat/unknown and must meet
-        # the complete verified-stat contract. Unknown records remain blocked.
+        # One verified effect-based exception is retained but explicitly excluded
+        # from static-stat optimization. This exception cannot cover other IDs.
+        if is_verified_unsupported_conditional_effect(item):
+            continue
+
+        # Every other non-cosmetic record must meet the complete verified-stat contract.
         if item.get("isEquippable") is not True:
             problems.append(f"{label} ({item.get('name', 'unnamed')}): not explicitly marked equippable")
         if not has_numeric_stats(item):
@@ -78,6 +98,7 @@ def validate_dataset(dataset):
         missing_stats = sum(
             isinstance(item, dict)
             and item.get("catalogClassification") != "cosmetic"
+            and not is_verified_unsupported_conditional_effect(item)
             and not has_numeric_stats(item)
             for item in items
         )
@@ -97,6 +118,7 @@ def validate_dataset(dataset):
         1 for item in items
         if isinstance(item, dict)
         and item.get("catalogClassification") != "cosmetic"
+        and not is_verified_unsupported_conditional_effect(item)
         and has_numeric_stats(item)
         and item.get("statsSource") in ALLOWED_STAT_SOURCES
     )
@@ -120,7 +142,8 @@ def main():
         total, verified = validate_dataset(dataset)
     except (OSError, json.JSONDecodeError, ValueError) as error:
         sys.exit(f"VERIFY FAILED: {error}; refusing to publish catalog.")
-    print(f"Catalog items: {total}; records with verified numeric stats and provenance: {verified}")
+    effect_only = sum(is_verified_unsupported_conditional_effect(item) for item in dataset["items"])
+    print(f"Catalog items: {total}; records with verified numeric stats and provenance: {verified}; effect-only records excluded from static ranking: {effect_only}")
     print("Strict combat-item coverage gate passed.")
 
 
