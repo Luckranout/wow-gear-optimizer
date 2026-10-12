@@ -24,6 +24,7 @@ const slots = [
 const classSelect = document.querySelector("#classSelect");
 const specSelect = document.querySelector("#specSelect");
 const goalSelect = document.querySelector("#goalSelect");
+const tierSetAwareToggle = document.querySelector("#tierSetAwareToggle");
 const encounterSelect = document.querySelector("#encounterSelect");
 const slotGrid = document.querySelector("#slotGrid");
 const resultMessage = document.querySelector("#resultMessage");
@@ -476,16 +477,27 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
     character.simulation = importedSimulation;
   }
 
+  const tierSetAware = Boolean(tierSetAwareToggle?.checked);
   const report = WoWOptimizer.createOptimizationReport({
     character,
     availableItems: retailDataset.items || [],
-    dataset: retailDataset
+    dataset: retailDataset,
+    tierSetAware
   });
 
   renderCharacterStats(report.currentStats.trackedStats);
-  optimizationSource.textContent = report.recommendationStatus === "simulation-weighted-ranking-not-full-stat-projection"
+  optimizationSource.textContent = (report.recommendationStatus === "simulation-weighted-ranking-not-full-stat-projection"
     ? `Simulation-derived stat weights • ${character.goal} • not a full stat projection`
-    : `Static heuristic ranking • ${character.goal} • not spec-specific simulation`;
+    : `Static heuristic ranking • ${character.goal} • not spec-specific simulation`) +
+    (report.tierSetAware ? ` • tier-set-aware mode${report.tierSet.scoringDataAvailable ? ` • set bonus score +${formatGearScore(report.tierSet.bonusScore)}` : " • set scoring data unavailable"}` : "");
+  if (report.tierSetAware && report.tierSet.note) {
+    resultMessage.textContent = report.tierSet.note;
+  } else if (report.tierSetAware) {
+    const active = report.tierSet.activeBonuses.map(bonus => `${bonus.name} (${bonus.pieces}-piece)`).join(", ");
+    resultMessage.textContent = active
+      ? `Tier-set-aware mode applied: ${active}. This is a heuristic ranking, not a combat simulation.`
+      : "Tier-set-aware mode applied. No configured set threshold is active in the recommended loadout.";
+  }
 
   renderUpgradeResults(report.topUpgrades);
   renderOptimizedLoadout(report.optimizedEquipment, report.totalScore, WoWOptimizer.normalizeImportedEquipment(importedCharacter?.equipment || []));
