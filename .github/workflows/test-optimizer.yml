@@ -14,7 +14,7 @@ on:
       - main
       - step-4-upgrade-optimizer
     paths:
-      - "optimizer.js"
+      - "stacking-effects.js"\n      - "optimizer.js"
       - "wow-data.js"
       - "scripts/**"
       - "tests/**"
