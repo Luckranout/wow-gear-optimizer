@@ -26,7 +26,8 @@ if (socketed.status !== "available" || socketed.sockets[0].gemName !== "Quick Ru
   throw new Error("Equipped socket data should expose the actual gem name when Blizzard provides it.");
 }
 const emptySocket = normalizeEquipmentSockets({ sockets: [{ socket_type: { name: "Prismatic Socket" } }] });
-if (emptySocket.sockets[0].state !== "empty") throw new Error("A socket with no gem must be identified as empty.");
+if (emptySocket.sockets[0].state !== "empty") throw new Error("A socket placement with no gem must be identified as empty.");
+if (!app.includes('? "No socket equipped"')) throw new Error("A known socket placement without a gem must display No socket equipped.");
 const gemSummary = require("../equipment-sockets").summarizeEquipmentGems([
   { sockets: [
     { item: { id: 1, name: "Ruby", stats: [{ name: "Strength", value: 10 }] } },
