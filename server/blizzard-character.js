@@ -23,6 +23,18 @@ function resourceId(value) {
   return Number.isInteger(value) ? value : null;
 }
 
+function normalizeEquipmentSlot(slot) {
+  const name = String(normalizeName(slot?.name || slot) || "").trim();
+  const type = String(slot?.type || "").toUpperCase();
+  const aliases = {
+    WRIST: "Wrists", WRISTS: "Wrists", HAND: "Hands", HANDS: "Hands",
+    FINGER: "Finger", TRINKET: "Trinket", MAIN_HAND: "Main Hand", OFF_HAND: "Off Hand",
+    HEAD: "Head", NECK: "Neck", SHOULDER: "Shoulders", SHOULDERS: "Shoulders",
+    BACK: "Back", CHEST: "Chest", WAIST: "Waist", LEGS: "Legs", FEET: "Feet"
+  };
+  return aliases[type] || aliases[name.toUpperCase()] || name;
+}
+
 function normalizeEquippedItem(item) {
   const itemRef = item.item || {};
   const quality = item.quality || {};
@@ -30,7 +42,7 @@ function normalizeEquippedItem(item) {
   return {
     id: resourceId(itemRef),
     name: normalizeName(item.name),
-    slot: normalizeName(slot.name || slot),
+    slot: normalizeEquipmentSlot(slot),
     slotType: slot.type || null,
     itemLevel: item.level ?? null,
     quality: { id: resourceId(quality), name: normalizeName(quality.name || quality) },
@@ -65,7 +77,33 @@ function normalizeCharacterTalents(specializations) {
 
 function normalizeStatistics(statistics) {
   if (!statistics || typeof statistics !== "object") return {};
-  return Object.fromEntries(Object.entries(statistics).filter(([key]) => !["_links", "character"].includes(key)));
+  const normalized = {};
+  const aliases = {
+    strength: "Strength", agility: "Agility", intellect: "Intellect", stamina: "Stamina",
+    critical_strike: "CriticalStrike", criticalstrike: "CriticalStrike",
+    haste: "Haste", mastery: "Mastery", versatility: "Versatility",
+    armor: "Armor", dodge: "Dodge", parry: "Parry", block: "Block",
+    leech: "Leech", speed: "Speed", avoidance: "Avoidance",
+    lifesteal: "Lifesteal", mana: "Mana", health: "Health",
+    attack_power: "AttackPower", spell_power: "SpellPower"
+  };
+  for (const [rawKey, rawValue] of Object.entries(statistics)) {
+    if (["_links", "character"].includes(rawKey)) continue;
+    const key = aliases[rawKey.toLowerCase()] || rawKey;
+    if (typeof rawValue === "number" && Number.isFinite(rawValue)) {
+      normalized[key] = rawValue;
+      continue;
+    }
+    if (!rawValue || typeof rawValue !== "object" || Array.isArray(rawValue)) continue;
+    // Blizzard exposes primary stats as base/effective and rating stats as
+    // rating/rating_bonus. Prefer effective or rating; never coerce an object.
+    const preferred = ["effective", "rating", "value", "base"];
+    const valueKey = preferred.find(candidate =>
+      typeof rawValue[candidate] === "number" && Number.isFinite(rawValue[candidate])
+    );
+    if (valueKey) normalized[key] = rawValue[valueKey];
+  }
+  return normalized;
 }
 
 function normalizeCharacter(profile, equipment, statistics, specializations) {
