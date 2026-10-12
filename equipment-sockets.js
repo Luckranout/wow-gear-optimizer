@@ -107,7 +107,7 @@ function readGemId(gem) {
   if (direct != null && String(direct).trim()) return String(direct);
   const href = gem.key?.href || gem.item?.key?.href;
   if (typeof href === "string") {
-    const match = href.match(/\\/item\\/(\\d+)(?:[/?#]|$)/i);
+    const match = href.match(/\/item\/(\d+)(?:[/?#]|$)/i);
     if (match) return match[1];
   }
   return null;
