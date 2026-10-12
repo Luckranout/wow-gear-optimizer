@@ -339,3 +339,14 @@ footer {
 .slot-socket-label { color: var(--muted); }
 .slot-socket-value { overflow-wrap: anywhere; }
 .slot-sockets-unavailable { color: var(--muted); font-size: 10px; }
+
+
+/* Equipped gem summary */
+.gem-summary { margin: 0 0 16px; padding: 14px; border: 1px solid var(--border); border-radius: 12px; background: #0c1017; }
+.gem-summary-counts { display: flex; flex-wrap: wrap; gap: 10px; }
+.gem-summary-counts span { padding: 8px 10px; border-radius: 8px; background: #111722; color: var(--muted); font-size: 12px; }
+.gem-summary-counts strong { color: var(--text); }
+.gem-summary-stats { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; font-size: 12px; }
+.gem-summary-stats strong { flex-basis: 100%; }
+.gem-summary-stats span { padding: 6px 8px; border: 1px solid var(--border); border-radius: 8px; }
+.gem-summary-note { margin: 8px 0 0; color: var(--muted); font-size: 12px; line-height: 1.5; }
