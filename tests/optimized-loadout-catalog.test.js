@@ -29,3 +29,34 @@ if (!eligible.length) {
 if (eligible.some(item => !slots.includes(item.slot))) {
   throw new Error("At least one eligible catalog item has an unsupported normalized equipment slot.");
 }
+
+const optimized = optimizer.optimizeEquipment({
+  items: data.items,
+  character: optimizer.createCharacterProfile()
+});
+const missingRecommendations = slots.filter(slot => !optimized.equipment[slot]);
+const recommendations = Object.fromEntries(slots.map(slot => {
+  const item = optimized.equipment[slot];
+  return [slot, item ? {
+    id: item.id ?? null,
+    name: item.name,
+    itemLevel: item.itemLevel ?? item.level ?? null,
+    stats: item.stats
+  } : null];
+}));
+
+console.log("Recommended item by slot:", JSON.stringify(recommendations, null, 2));
+console.log("Slots without a recommendation:", missingRecommendations.length
+  ? missingRecommendations.join(", ") : "none");
+
+if (missingRecommendations.length) {
+  throw new Error("Optimizer failed to recommend an item for: " + missingRecommendations.join(", "));
+}
+
+for (const [firstSlot, secondSlot] of [["Ring 1", "Ring 2"], ["Trinket 1", "Trinket 2"]]) {
+  const first = optimized.equipment[firstSlot];
+  const second = optimized.equipment[secondSlot];
+  if (first && second && first.id != null && String(first.id) === String(second.id)) {
+    throw new Error("Optimizer selected the same catalog item for " + firstSlot + " and " + secondSlot);
+  }
+}
