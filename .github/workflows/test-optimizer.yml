@@ -14,7 +14,8 @@ on:
       - main
       - step-4-upgrade-optimizer
     paths:
-      - "stacking-effects.js"\n      - "optimizer.js"
+      - "stacking-effects.js"
+      - "optimizer.js"
       - "wow-data.js"
       - "scripts/**"
       - "tests/**"
@@ -57,6 +58,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "22"
+      - name: Run stacking item effect model tests
+        run: node tests/stacking-effects.test.js
       - name: Run retail dataset normalization tests
         run: node tests/retail-data-normalization.test.js
       - name: Run upgrade optimizer tests
