@@ -88,16 +88,88 @@ async function loadCurrentRetailData() {
   }
 }
 
+const itemMediaCache = new Map();
+
+function displayItemLevel(value) {
+  if (typeof value === "number" && Number.isFinite(value)) return String(value);
+  if (typeof value === "string" && value.trim()) {
+    const match = value.match(/\d+(?:\.\d+)?/);
+    return match ? match[0] : null;
+  }
+  if (value && typeof value === "object") {
+    for (const key of ["value", "effective", "display_string", "displayString", "base"]) {
+      const candidate = value[key];
+      if (typeof candidate === "number" && Number.isFinite(candidate)) return String(candidate);
+      if (typeof candidate === "string" && candidate.trim()) {
+        const match = candidate.match(/\d+(?:\.\d+)?/);
+        if (match) return match[0];
+      }
+    }
+  }
+  return null;
+}
+
+function escapeSlotText(value) {
+  return String(value ?? "").replace(/[&<>"']/g, character => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  })[character]);
+}
+
+async function loadEquippedItemIcon(itemId) {
+  if (!itemId) return null;
+  if (!itemMediaCache.has(itemId)) {
+    const request = fetch(`${API_BASE_URL}/api/item-media?id=${encodeURIComponent(itemId)}`)
+      .then(async response => {
+        if (!response.ok) return null;
+        const data = await response.json();
+        return typeof data.icon === "string" && /^https:\/\//i.test(data.icon) ? data.icon : null;
+      })
+      .catch(() => null);
+    itemMediaCache.set(itemId, request);
+  }
+  return itemMediaCache.get(itemId);
+}
+
 function renderSlots() {
-  slotGrid.innerHTML = slots.map(slot => `
-    <div class="slot">
-      <div class="slot-name">${slot}</div>
-      <div class="slot-status">${importedCharacter?.equipment?.find(item => {
-        const normalized = WoWOptimizer.normalizeImportedEquipment(importedCharacter.equipment);
-        return normalized[slot]?.id === item.id;
-      }) ? "Imported character gear" : "Awaiting character import"}</div>
-    </div>
-  `).join("");
+  const normalized = importedCharacter?.equipment
+    ? WoWOptimizer.normalizeImportedEquipment(importedCharacter.equipment)
+    : {};
+  slotGrid.innerHTML = slots.map(slot => {
+    const item = normalized[slot];
+    if (!item) {
+      return `<div class="slot">
+        <div class="slot-name">${escapeSlotText(slot)}</div>
+        <div class="slot-empty">No equipped item returned by Blizzard</div>
+      </div>`;
+    }
+    return `<div class="slot" data-item-id="${escapeSlotText(item.id)}">
+      <div class="slot-name">${escapeSlotText(slot)}</div>
+      <div class="slot-item">
+        <div class="slot-icon" aria-label="Item icon for ${escapeSlotText(item.name || slot)}">…</div>
+        <div class="slot-details">
+          <div class="slot-item-name">${escapeSlotText(item.name || "Unknown item")}</div>
+          <div class="slot-status">${displayItemLevel(item.itemLevel) != null ? `Item level ${escapeSlotText(displayItemLevel(item.itemLevel))}` : "Item level unavailable"}</div>
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+
+  const renderToken = importedCharacter;
+  [...slotGrid.querySelectorAll(".slot[data-item-id]")].forEach(async card => {
+    const itemId = Number(card.dataset.itemId);
+    const iconUrl = await loadEquippedItemIcon(itemId);
+    if (importedCharacter !== renderToken || !card.isConnected) return;
+    const icon = card.querySelector(".slot-icon");
+    if (!icon) return;
+    if (iconUrl) {
+      icon.innerHTML = `<img src="${escapeSlotText(iconUrl)}" alt="" loading="lazy" />`;
+      icon.setAttribute("aria-label", "Equipped item icon");
+    } else {
+      icon.textContent = "Item";
+      icon.setAttribute("aria-label", "Item icon unavailable");
+      icon.classList.add("slot-icon-fallback");
+    }
+  });
 }
 
 function renderCharacterStats(statistics = {}) {
