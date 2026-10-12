@@ -211,4 +211,20 @@ async function fetchCharacter({ realm, character, clientId, clientSecret }) {
   return normalizeCharacter(profile, equipped, stats, specializationData);
 }
 
-module.exports = { slugify, normalizeEquippedItem, normalizeStatistics, normalizeCharacterTalents, normalizeCharacter, fetchCharacter, fetchRealms };
+async function fetchItemMedia({ itemId, clientId, clientSecret }) {
+  const id = Number(itemId);
+  if (!Number.isSafeInteger(id) || id <= 0) {
+    const error = new Error("A valid item ID is required.");
+    error.statusCode = 400;
+    error.publicMessage = error.message;
+    throw error;
+  }
+  const token = await getAccessToken(clientId, clientSecret);
+  const url = `${API_BASE}/data/wow/media/item/${id}?namespace=static-us&locale=${LOCALE}`;
+  const data = await requestJson(url, token);
+  const assets = Array.isArray(data.assets) ? data.assets : [];
+  const icon = assets.find(asset => asset.key === "icon" && typeof asset.value === "string")?.value || null;
+  return { itemId: id, icon };
+}
+
+module.exports = { slugify, normalizeEquippedItem, normalizeStatistics, normalizeCharacterTalents, normalizeCharacter, fetchCharacter, fetchRealms, fetchItemMedia };
