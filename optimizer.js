@@ -142,7 +142,7 @@ function scoreItemStats(item, statWeights = STAT_WEIGHTS) {
   if (!item || !item.stats) return 0;
   const stats = Array.isArray(item.stats)
     ? item.stats.map(s => [
-        normalizeItemStatName(s.stat?.name || s.name || s.stat),
+        normalizeItemStatName(s.type?.name || s.stat?.name || s.name || s.stat),
         Number(s.value) || 0
       ])
     : Object.entries(item.stats).map(([stat, value]) => [
@@ -156,7 +156,7 @@ function scoreItemStats(item, statWeights = STAT_WEIGHTS) {
 function hasUsableItemStats(item) {
   if (!item || !item.stats) return false;
   const entries = Array.isArray(item.stats)
-    ? item.stats.map(s => [s.stat?.name || s.name || s.stat, s.value])
+    ? item.stats.map(s => [s.type?.name || s.stat?.name || s.name || s.stat, s.value])
     : Object.entries(item.stats);
   return entries.some(([stat, value]) =>
     stat != null && String(stat).trim() !== "" && Number.isFinite(Number(value)) && Number(value) !== 0

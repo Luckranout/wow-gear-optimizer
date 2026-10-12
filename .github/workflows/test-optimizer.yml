@@ -61,6 +61,10 @@ jobs:
         run: node tests/retail-data-normalization.test.js
       - name: Run upgrade optimizer tests
         run: node tests/optimizer-upgrades.test.js
+      - name: Run Blizzard item stat shape regression test
+        run: node tests/optimizer-stat-shape.test.js
+      - name: Run optimized loadout catalog coverage test
+        run: node tests/optimized-loadout-catalog.test.js
       - name: Run character import UI tests
         run: node tests/character-import-ui.test.js
       - name: Run character importer tests
