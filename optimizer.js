@@ -34,7 +34,7 @@ const CLASS_ARMOR_TYPE = {
 const ARMOR_SLOTS = new Set(["Head", "Shoulders", "Chest", "Wrists", "Hands", "Waist", "Legs", "Feet"]);
 
 function normalizeClassName(className) {
-  return String(className || "").toLowerCase().replace(/[\\s'_-]/g, "");
+  return String(className || "").toLowerCase().replace(/[\s'_-]/g, "");
 }
 
 function itemAllowedForClass(item, className) {
