@@ -292,3 +292,23 @@ footer {
   .import-box .form-grid label { width: 100%; }
   .import-box .form-grid select { width: 100%; min-height: 48px; font-size: 16px; }
 }
+
+
+/* Equipped character item cards */
+.slot { min-width:0; }
+.slot-item { display:flex; align-items:center; gap:10px; margin-top:10px; min-width:0; }
+.slot-icon {
+  flex:0 0 48px; width:48px; height:48px; display:flex; align-items:center; justify-content:center;
+  border:1px solid #394454; border-radius:8px; background:#111722; color:var(--muted); font-size:11px;
+  overflow:hidden;
+}
+.slot-icon img { display:block; width:100%; height:100%; object-fit:cover; }
+.slot-icon-fallback { font-size:10px; }
+.slot-details { min-width:0; }
+.slot-item-name { font-size:12px; line-height:1.4; font-weight:750; overflow-wrap:anywhere; }
+.slot-status,.slot-empty { color:#9aa6b6; font-size:11px; margin-top:5px; line-height:1.4; }
+@media (max-width: 520px) {
+  .slot-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+  .slot { padding:10px; }
+  .slot-icon { flex-basis:40px; width:40px; height:40px; }
+}
