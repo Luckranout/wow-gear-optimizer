@@ -65,12 +65,22 @@ def validate_dataset(dataset):
                 )
             continue
 
-        # This one item has a verified effect-only tooltip. It remains visible
-        # in the catalog but is explicitly ineligible for numerical optimization.
+        # Effect-only records are permitted only for specifically reviewed items
+        # with explicit source provenance. These remain visible but unscored.
         if item.get("catalogClassification") == "effect-only-unmodeled":
-            if item_id != 250244 or item.get("optimizerEligible") is not False or not str(
-                item.get("classificationSource", "")
-            ).startswith("Wowhead tooltip for item 250244: equip effect only; no explicit base stats"):
+            classification_source = str(item.get("classificationSource", ""))
+            supported_effect_only = (
+                item_id == 250244
+                and classification_source.startswith(
+                    "Wowhead tooltip for item 250244: equip effect only; no explicit base stats"
+                )
+            ) or (
+                item_id == 250224
+                and classification_source.startswith(
+                    "Mindpiercer's Sigil tooltip: temporary Intellect proc only; no permanent base stats"
+                )
+            )
+            if not supported_effect_only or item.get("optimizerEligible") is not False:
                 problems.append(
                     f"{label} ({item.get('name', 'unnamed')}): unsupported effect-only classification lacks verified provenance"
                 )

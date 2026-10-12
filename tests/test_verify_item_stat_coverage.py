@@ -81,6 +81,39 @@ class ItemStatCoverageGateTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "classification lacks explicit source provenance"):
             validate_dataset(dataset([cosmetic], 0))
 
+    def test_accepts_verified_mindpiercer_effect_only_without_permanent_stats(self):
+        item = {
+            "id": 250224,
+            "name": "Mindpiercer's Sigil",
+            "isEquippable": True,
+            "stats": [],
+            "statsSource": "Wowhead tooltip (effect-only; excluded from permanent stats)",
+            "catalogClassification": "effect-only-unmodeled",
+            "classificationSource": (
+                "Mindpiercer's Sigil tooltip: temporary Intellect proc only; "
+                "no permanent base stats"
+            ),
+            "optimizerEligible": False,
+        }
+        total, verified = validate_dataset(dataset([
+            valid_item(1, [{"value": 12}]),
+            item,
+        ], 1))
+        self.assertEqual((total, verified), (2, 1))
+
+    def test_rejects_effect_only_classification_for_unreviewed_item(self):
+        item = {
+            "id": 999,
+            "name": "Unreviewed item",
+            "isEquippable": True,
+            "stats": [],
+            "catalogClassification": "effect-only-unmodeled",
+            "classificationSource": "Temporary effect",
+            "optimizerEligible": False,
+        }
+        with self.assertRaisesRegex(ValueError, "lacks verified provenance"):
+            validate_dataset(dataset([item], 0))
+
     def test_rejects_mismatched_reported_count(self):
         with self.assertRaisesRegex(ValueError, "does not match"):
             validate_dataset(dataset([valid_item(1, [{"value": 12}])], 0))
