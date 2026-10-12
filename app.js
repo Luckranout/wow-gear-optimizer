@@ -510,9 +510,11 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
     ? `${character.characterName} • ${character.className} • ${character.specialization}`
     : `${character.className} • ${character.specialization}`;
 
-  resultMessage.textContent = report.topUpgrades.length
-    ? `${label} • ${character.goal} — ${report.topUpgrades.length} gear candidates ranked. This is a ranking aid, not a verified best-in-slot result or numeric projected-stat calculation.`
-    : `${label} • ${character.goal} — no direct gear candidates ranked from the currently available dataset. This does not prove that no upgrades exist in game.`;
+  if (!(report.tierSetAware && report.tierSet.note)) {
+    resultMessage.textContent = report.topUpgrades.length
+      ? `${label} • ${character.goal} — ${report.topUpgrades.length} gear candidates ranked. This is a ranking aid, not a verified best-in-slot result or numeric projected-stat calculation.`
+      : `${label} • ${character.goal} — no direct gear candidates ranked from the currently available dataset. This does not prove that no upgrades exist in game.`;
+  }
 });
 
 document.querySelector("#clearBtn").addEventListener("click", () => {
