@@ -65,6 +65,19 @@ def validate_dataset(dataset):
                 )
             continue
 
+        # This one item has a verified effect-only tooltip. It remains visible
+        # in the catalog but is explicitly ineligible for numerical optimization.
+        if item.get("catalogClassification") == "effect-only-unmodeled":
+            if item_id != 250244 or item.get("optimizerEligible") is not False or not str(
+                item.get("classificationSource", "")
+            ).startswith("Wowhead tooltip for item 250244: equip effect only; no explicit base stats"):
+                problems.append(
+                    f"{label} ({item.get('name', 'unnamed')}): unsupported effect-only classification lacks verified provenance"
+                )
+            if has_numeric_stats(item):
+                problems.append(f"{label} ({item.get('name', 'unnamed')}): effect-only item must not carry fabricated base stats")
+            continue
+
         # Every non-cosmetic record is treated as combat/unknown and must meet
         # the complete verified-stat contract. Unknown records remain blocked.
         if item.get("isEquippable") is not True:
@@ -77,7 +90,7 @@ def validate_dataset(dataset):
     if problems:
         missing_stats = sum(
             isinstance(item, dict)
-            and item.get("catalogClassification") != "cosmetic"
+            and item.get("catalogClassification") not in {"cosmetic", "effect-only-unmodeled"}
             and not has_numeric_stats(item)
             for item in items
         )
@@ -96,7 +109,7 @@ def validate_dataset(dataset):
     actual_verified = sum(
         1 for item in items
         if isinstance(item, dict)
-        and item.get("catalogClassification") != "cosmetic"
+        and item.get("catalogClassification") not in {"cosmetic", "effect-only-unmodeled"}
         and has_numeric_stats(item)
         and item.get("statsSource") in ALLOWED_STAT_SOURCES
     )
