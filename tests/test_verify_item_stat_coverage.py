@@ -109,7 +109,7 @@ class ItemStatCoverageGateTests(unittest.TestCase):
             "optimizationStatusSource": "Wowhead tooltip explicitly contains Mark of Frost and Frost Barrier; effect scaling/model unresolved",
             "stats": [],
         }
-        with self.assertRaisesRegex(ValueError, "lack verified non-zero numeric stats"):
+        with self.assertRaisesRegex(ValueError, "no non-zero numeric stats"):
             validate_dataset(dataset([valid_item(1, [{"value": 12}]), bad], 1))
 
     def test_rejects_mismatched_reported_count(self):
