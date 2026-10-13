@@ -247,8 +247,39 @@ function validateTierSetCatalogue(catalogue) {
   }
   if (classes.size !== 13) errors.push("Tier-set catalogue does not cover 13 unique classes.");
   if (catalogue.thresholds?.join(",") !== "2,4") errors.push("Tier-set thresholds must be 2-piece and 4-piece.");
-  if (catalogue.itemMatching?.status !== "incomplete") {
-    errors.push("Item matching status must remain explicit until verified item IDs are supplied.");
+  const matchingStatus = catalogue.itemMatching?.status;
+  if (!["incomplete", "partial", "complete"].includes(matchingStatus)) {
+    errors.push("Tier-set item matching status must be incomplete, partial, or complete.");
+  }
+  for (const set of catalogue.sets || []) {
+    const pieces = Array.isArray(set.pieces) ? set.pieces : [];
+    if (set.itemIdsVerified) {
+      const expectedVariants = catalogue.itemMatching?.expectedVariants || [];
+      const itemIds = new Set();
+      for (const piece of pieces) {
+        if (!Number.isInteger(Number(piece?.itemId)) || !piece?.setId || !piece?.slot ||
+            !expectedVariants.includes(piece?.variant) || !piece?.sourceUrl) {
+          errors.push(`Verified tier set ${set.setName} contains an incomplete item-matching record.`);
+          break;
+        }
+        itemIds.add(Number(piece.itemId));
+      }
+      if (itemIds.size !== 5 || pieces.length !== 5 * expectedVariants.length) {
+        errors.push(`Verified tier set ${set.setName} must map five pieces across every expected variant.`);
+      }
+    } else if (pieces.length) {
+      errors.push(`Tier set ${set.setName} has piece records but is not marked itemIdsVerified.`);
+    }
+  }
+  const verifiedSets = (catalogue.sets || []).filter(set => set.itemIdsVerified).length;
+  if (matchingStatus === "incomplete" && verifiedSets > 0) {
+    errors.push("Tier-set matching cannot be incomplete when verified set pieces are present.");
+  }
+  if (matchingStatus === "complete" && verifiedSets !== (catalogue.sets || []).length) {
+    errors.push("Tier-set matching cannot be complete while any class set is unverified.");
+  }
+  if (matchingStatus === "partial" && (verifiedSets === 0 || verifiedSets === (catalogue.sets || []).length)) {
+    errors.push("Partial tier-set matching requires both verified and unverified class sets.");
   }
   return errors;
 }
