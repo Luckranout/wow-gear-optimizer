@@ -183,32 +183,50 @@ function normalizeCharacterStatistics(statistics = {}) {
   return normalized;
 }
 
-// Progressive diminishing returns for secondary-stat rating-derived percentages only.
-// Pass the linear pre-DR percentage from rating, never total haste including Bloodlust/Heroism.
-const SECONDARY_RATING_DR_BANDS = [
-  { rawLimit: 30, multiplier: 1.0 }, { rawLimit: 40, multiplier: 0.9 },
-  { rawLimit: 50, multiplier: 0.8 }, { rawLimit: 60, multiplier: 0.7 },
-  { rawLimit: 80, multiplier: 0.6 }, { rawLimit: 200, multiplier: 0.5 }
-];
-const SECONDARY_RATING_DR_CAP = 126;
-function applySecondaryRatingDiminishingReturns(rawRatingPercent) {
-  const raw = Number(rawRatingPercent);
-  if (!Number.isFinite(raw) || raw <= 0) return 0;
-  const cappedRaw = Math.min(raw, 200);
-  let previousLimit = 0, effective = 0;
-  for (const band of SECONDARY_RATING_DR_BANDS) {
-    effective += Math.max(0, Math.min(cappedRaw, band.rawLimit) - previousLimit) * band.multiplier;
-    previousLimit = band.rawLimit;
-    if (cappedRaw <= band.rawLimit) break;
+// Level-90 secondary-stat rating diminishing returns, based on the supplied rating bands.
+// Each band's penalty applies progressively to rating inside that band only.
+// Keep rating-derived stats separate from temporary percentage buffs (e.g. Bloodlust/Heroism).
+const SECONDARY_RATING_DR_LEVEL = 90;
+const SECONDARY_RATING_DR_TABLE = {
+  Haste: [1320, 1760, 2200, 2640, 3080, 8800],
+  CriticalStrike: [1380, 1840, 2300, 2760, 3220, 9200],
+  Mastery: [1380, 1840, 2300, 2760, 3220, 9200],
+  Versatility: [1620, 2160, 2700, 3240, 3780, 10800]
+};
+const SECONDARY_RATING_DR_MULTIPLIERS = [1, 0.9, 0.8, 0.7, 0.6, 0.5, 0];
+const SECONDARY_RATING_DR_CAP_PERCENT = 126;
+function applySecondaryRatingDiminishingReturns(rawRating, stat, characterLevel = SECONDARY_RATING_DR_LEVEL) {
+  const rating = Number(rawRating);
+  if (!Number.isFinite(rating) || rating <= 0) return 0;
+  // This table is only supported for the supplied level-90 data. Do not silently
+  // apply it to characters at a different level.
+  if (Number(characterLevel) !== SECONDARY_RATING_DR_LEVEL) return null;
+  const key = normalizeItemStatName(stat);
+  const thresholds = SECONDARY_RATING_DR_TABLE[key];
+  if (!thresholds) return null;
+  let previous = 0;
+  let effective = 0;
+  for (let band = 0; band < thresholds.length; band++) {
+    const limit = thresholds[band];
+    const amount = Math.max(0, Math.min(rating, limit) - previous);
+    effective += amount * SECONDARY_RATING_DR_MULTIPLIERS[band];
+    previous = limit;
+    if (rating <= limit) return effective;
   }
-  return Math.min(SECONDARY_RATING_DR_CAP, effective);
+  // Rating above the last threshold has 100% penalty and adds no effective rating.
+  return effective;
 }
-function getSecondaryRatingDiminishingReturns(rawRatingPercent) {
-  const raw = Number(rawRatingPercent);
-  const rawRating = Number.isFinite(raw) ? Math.max(0, raw) : 0;
-  const effectivePercent = applySecondaryRatingDiminishingReturns(rawRating);
-  return { rawRatingPercent: rawRating, effectivePercent,
-    lostPercent: Math.max(0, rawRating - effectivePercent), capped: rawRating >= 200 };
+function getSecondaryRatingDiminishingReturns(rawRating, stat, characterLevel = SECONDARY_RATING_DR_LEVEL) {
+  const rating = Number(rawRating);
+  const normalizedRating = Number.isFinite(rating) ? Math.max(0, rating) : 0;
+  const effectiveRating = applySecondaryRatingDiminishingReturns(normalizedRating, stat, characterLevel);
+  return {
+    stat: normalizeItemStatName(stat), characterLevel: Number(characterLevel),
+    rawRating: normalizedRating, effectiveRating,
+    lostRating: effectiveRating === null ? null : Math.max(0, normalizedRating - effectiveRating),
+    unsupportedLevel: Number(characterLevel) !== SECONDARY_RATING_DR_LEVEL,
+    unsupportedStat: !SECONDARY_RATING_DR_TABLE[normalizeItemStatName(stat)]
+  };
 }
 
 function scoreCharacterStatistics(statistics = {}, statWeights = STAT_WEIGHTS) {
@@ -1027,7 +1045,7 @@ const WOW_OPTIMIZER_TEST_DATA = [
 
 window.WoWOptimizer = {
   slots: WOW_EQUIPMENT_SLOTS, goals: WOW_GOALS,
-  applySecondaryRatingDiminishingReturns, getSecondaryRatingDiminishingReturns,
+  applySecondaryRatingDiminishingReturns, getSecondaryRatingDiminishingReturns, SECONDARY_RATING_DR_TABLE,
   createCharacterProfile, normalizeCharacterStatistics, scoreCharacterStatistics, getCharacterStatSummary, resolveStatWeights, normalizeSimulationScaleFactors, getSimulationWeightContext, findBlizzardSpecialization, getSpecProfileContext,
   normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, hasUsableItemStats, scoreItem, scoreEquipment, getGoalWeights,
   findBestItemForSlot, itemMatchesSlot, itemAllowedForClassWeapon, itemAllowedForSpecialization, getWeaponMetadata, normalizeWeaponType, optimizeEquipment, findUpgradeOpportunities, rankItems,
