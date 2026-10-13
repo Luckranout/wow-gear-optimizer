@@ -362,6 +362,52 @@ function resolveCatalogItemAgainstEquippedVariant(candidate, equippedItem) {
   return candidate;
 }
 
+const MATRIX_CATALYST_TIER_SLOTS = new Set(["Head", "Shoulders", "Chest", "Hands", "Legs"]);
+const MATRIX_CATALYST_NON_TIER_SLOTS = new Set(["Back", "Wrists", "Waist", "Feet"]);
+
+function evaluateMatrixCatalystOption({ item, charges = 0, convertedItem = null } = {}) {
+  const slot = item?.slot || "";
+  const itemClass = String(item?.itemClass?.name || item?.itemClass || "").toLowerCase();
+  const hasArmorClass = itemClass === "armor";
+  const tierSlot = MATRIX_CATALYST_TIER_SLOTS.has(slot);
+  const nonTierSlot = MATRIX_CATALYST_NON_TIER_SLOTS.has(slot);
+  const chargeCount = Math.max(0, Math.floor(Number(charges) || 0));
+
+  if (!item || !hasArmorClass || (!tierSlot && !nonTierSlot)) {
+    return { eligible: false, reason: "Item is not an eligible armor piece in a supported Catalyst slot.", cost: 0 };
+  }
+  if (chargeCount < 1) {
+    return { eligible: false, reason: "No Matrix Catalyst charge is available.", cost: 0 };
+  }
+
+  const baseLevel = Number(item.itemLevel ?? item.level);
+  const convertedLevel = Number(convertedItem?.itemLevel ?? convertedItem?.level);
+  const baseTrack = item.upgradeTrack?.name || item.upgradeTrack || item.upgrade?.track || null;
+  const convertedTrack = convertedItem?.upgradeTrack?.name || convertedItem?.upgradeTrack || convertedItem?.upgrade?.track || null;
+  const levelPreserved = Number.isFinite(baseLevel) && Number.isFinite(convertedLevel)
+    ? baseLevel === convertedLevel
+    : null;
+  const trackPreserved = baseTrack && convertedTrack ? String(baseTrack) === String(convertedTrack) : null;
+
+  return {
+    eligible: true,
+    reason: null,
+    slot,
+    slotType: tierSlot ? "tier" : "non-tier",
+    cost: 1,
+    remainingCharges: chargeCount - 1,
+    itemLevel: Number.isFinite(baseLevel) ? baseLevel : null,
+    upgradeTrack: baseTrack,
+    grantsTierSetBonus: tierSlot,
+    convertedItemAvailable: Boolean(convertedItem),
+    convertedItem: convertedItem || null,
+    convertedStatsKnown: Array.isArray(convertedItem?.stats) && convertedItem.stats.length > 0,
+    levelPreserved,
+    trackPreserved,
+    needsVerification: !convertedItem || levelPreserved === false || trackPreserved === false
+  };
+}
+
 function diagnoseSlotCandidates(items, slot, className = "") {
   const catalog = Array.isArray(items) ? items : [];
   const slotMatches = catalog.filter(item => itemMatchesSlot(item, slot));
@@ -711,7 +757,7 @@ window.WoWOptimizer = {
   slots: WOW_EQUIPMENT_SLOTS, goals: WOW_GOALS,
   createCharacterProfile, normalizeCharacterStatistics, scoreCharacterStatistics, getCharacterStatSummary, resolveStatWeights, normalizeSimulationScaleFactors, getSimulationWeightContext, findBlizzardSpecialization, getSpecProfileContext,
   normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, hasUsableItemStats, scoreItem, scoreEquipment, getGoalWeights,
-  findBestItemForSlot, diagnoseSlotCandidates, optimizeEquipment, findUpgradeOpportunities, rankItems,
+  findBestItemForSlot, diagnoseSlotCandidates, evaluateMatrixCatalystOption, optimizeEquipment, findUpgradeOpportunities, rankItems,
   getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,
   calculateCrestRequirements, isAscendantVenomstoneEligible, recommendUpgradePlan,
   createOptimizationReport, testData: WOW_OPTIMIZER_TEST_DATA
