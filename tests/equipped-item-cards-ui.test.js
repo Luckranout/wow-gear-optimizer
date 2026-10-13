@@ -73,3 +73,10 @@ if (!styles.includes(".slot-icon-wrap:hover .item-hover-tooltip") ||
   throw new Error("Item tooltip must appear on hover/focus and display item artwork.");
 }
 console.log("Item icon hover tooltip UI contract passed.");
+
+if (!app.includes("function getItemQualityClass(item)") ||
+    !app.includes("item-quality-epic") ||
+    !styles.includes(".item-hover-name.item-quality-epic")) {
+  throw new Error("Tooltip item names should use World of Warcraft rarity colors when quality is supplied.");
+}
+console.log("WoW item-quality tooltip styling regression passed.");
