@@ -195,6 +195,52 @@ const SECONDARY_RATING_DR_TABLE = {
 };
 const SECONDARY_RATING_DR_MULTIPLIERS = [1, 0.9, 0.8, 0.7, 0.6, 0.5, 0];
 const SECONDARY_RATING_DR_CAP_PERCENT = 126;
+// Soft targets are the first supplied thresholds; the last threshold is a hard
+// cap for eligible level-90 loadouts. The soft target influences scoring only
+// when candidates are otherwise competitive; it is not a stat-equality target.
+const SECONDARY_RATING_DR_SOFT_TARGETS = Object.freeze({
+  Haste: 1320,
+  CriticalStrike: 1380,
+  Mastery: 1380,
+  Versatility: 1620
+});
+function getSecondaryRatingTotals(equipment = {}) {
+  const totals = {};
+  for (const item of Object.values(equipment || {})) {
+    if (!item || !item.stats) continue;
+    const entries = Array.isArray(item.stats)
+      ? item.stats.map(s => [
+          normalizeItemStatName(s.stat?.name || s.type?.name || s.name || s.stat),
+          Number(s.value?.value ?? s.value?.amount ?? s.amount ?? s.value) || 0
+        ])
+      : Object.entries(item.stats).map(([stat, value]) => [
+          normalizeItemStatName(stat),
+          Number(value?.value ?? value?.amount ?? value) || 0
+        ]);
+    for (const [stat, value] of entries) {
+      if (Object.hasOwn(SECONDARY_RATING_DR_TABLE, stat)) totals[stat] = (totals[stat] || 0) + value;
+    }
+  }
+  return totals;
+}
+function getSecondaryRatingHardCapViolations(equipment = {}, characterLevel = null) {
+  if (Number(characterLevel) !== SECONDARY_RATING_DR_LEVEL) return [];
+  const totals = getSecondaryRatingTotals(equipment);
+  return Object.entries(SECONDARY_RATING_DR_TABLE).flatMap(([stat, thresholds]) => {
+    const rating = totals[stat] || 0;
+    const maximum = thresholds[thresholds.length - 1];
+    return rating > maximum ? [{ stat, rating, maximum, excess: rating - maximum }] : [];
+  });
+}
+function getSecondaryRatingSoftTargetPenalty(equipment = {}, characterLevel = null) {
+  if (Number(characterLevel) !== SECONDARY_RATING_DR_LEVEL) return 0;
+  const totals = getSecondaryRatingTotals(equipment);
+  // Small regularizer, deliberately subordinate to actual effective stat score.
+  // It nudges the optimizer away from the first penalty band without imposing
+  // an artificial equality between secondary stats.
+  return Object.entries(SECONDARY_RATING_DR_SOFT_TARGETS).reduce((penalty, [stat, target]) =>
+    penalty + Math.max(0, (totals[stat] || 0) - target) * 0.01, 0);
+}
 function applySecondaryRatingDiminishingReturns(rawRating, stat, characterLevel = SECONDARY_RATING_DR_LEVEL) {
   const rating = Number(rawRating);
   if (!Number.isFinite(rating) || rating <= 0) return 0;
@@ -486,6 +532,7 @@ function scoreEquipmentWithRatingDiminishingReturns(equipment = {}, statWeights 
       score += effective * (statWeights[stat] ?? 0);
     }
   }
+  score -= getSecondaryRatingSoftTargetPenalty(equipment, characterLevel);
   return score;
 }
 
@@ -732,7 +779,10 @@ function optimizeEquipment({
   // Improve the complete loadout, not only individual slots. Only explicit,
   // source-backed threshold score values affect tradeoffs between item stats
   // and tier bonuses; unknown effects remain visible in the report.
-  const loadoutScore = equipment => scoreLoadout(equipment, weights, setBonuses, character.specialization || "", character.level).score;
+  const loadoutScore = equipment => {
+    if (getSecondaryRatingHardCapViolations(equipment, character.level).length) return -Infinity;
+    return scoreLoadout(equipment, weights, setBonuses, character.specialization || "", character.level).score;
+  };
   for (let pass = 0; pass < 3; pass++) {
     let changed = false;
     for (const slot of WOW_EQUIPMENT_SLOTS) {
@@ -1086,7 +1136,7 @@ const WOW_OPTIMIZER_TEST_DATA = [
 
 window.WoWOptimizer = {
   slots: WOW_EQUIPMENT_SLOTS, goals: WOW_GOALS,
-  applySecondaryRatingDiminishingReturns, getSecondaryRatingDiminishingReturns, SECONDARY_RATING_DR_TABLE,
+  applySecondaryRatingDiminishingReturns, getSecondaryRatingDiminishingReturns, SECONDARY_RATING_DR_TABLE, SECONDARY_RATING_DR_SOFT_TARGETS, getSecondaryRatingTotals, getSecondaryRatingHardCapViolations,
   createCharacterProfile, normalizeCharacterStatistics, scoreCharacterStatistics, getCharacterStatSummary, resolveStatWeights, normalizeSimulationScaleFactors, getSimulationWeightContext, findBlizzardSpecialization, getSpecProfileContext,
   normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, hasUsableItemStats, scoreItem, scoreEquipment, getGoalWeights,
   findBestItemForSlot, itemMatchesSlot, itemAllowedForClassWeapon, itemAllowedForSpecialization, getWeaponMetadata, normalizeWeaponType, optimizeEquipment, findUpgradeOpportunities, rankItems,
