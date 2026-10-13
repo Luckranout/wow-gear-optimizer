@@ -438,9 +438,21 @@ function optimizeEquipment({
   setBonuses = []
 } = {}) {
   const weights = statWeights || getGoalWeights(goal);
+  // The live character's equipped variants are valid candidates too. The catalog
+  // may contain only a low-level/base version of an item or omit that variant
+  // entirely; excluding current gear can produce recommendations far below the
+  // character's equipped item level.
+  const equippedItems = Object.entries(character.equipment || {})
+    .filter(([, item]) => item && typeof item === "object")
+    .map(([slot, item]) => ({ ...item, slot: item.slot || slot }));
+  const candidateItems = [...(items || []), ...equippedItems]
+    .filter((item, index, all) => all.findIndex(other =>
+      String(other.id ?? other.name) === String(item.id ?? item.name) &&
+      String(other.slot || "") === String(item.slot || "")
+    ) === index);
   const optimizedEquipment = {};
   for (const slot of WOW_EQUIPMENT_SLOTS) {
-    const best = findBestItemForSlot(items, slot, goal, weights, character.className, character.equipment?.[slot]);
+    const best = findBestItemForSlot(candidateItems, slot, goal, weights, character.className, character.equipment?.[slot]);
     optimizedEquipment[slot] = best ? best.item : null;
   }
 
@@ -448,10 +460,10 @@ function optimizeEquipment({
   // distinct pair when the catalog has alternatives; keep the best single item
   // only when no second distinct item exists.
   for (const [firstSlot, secondSlot] of [["Ring 1", "Ring 2"], ["Trinket 1", "Trinket 2"], ["Main Hand", "Off Hand"]]) {
-    const first = (items || []).filter(item => item.slot === firstSlot && itemAllowedForClass(item, character.className) && hasUsableItemStats(item))
+    const first = candidateItems.filter(item => item.slot === firstSlot && itemAllowedForClass(item, character.className) && hasUsableItemStats(item))
       .map(item => ({ item, score: scoreItem(item, weights) }))
       .sort((a, b) => b.score - a.score);
-    const second = (items || []).filter(item => item.slot === secondSlot && itemAllowedForClass(item, character.className) && hasUsableItemStats(item))
+    const second = candidateItems.filter(item => item.slot === secondSlot && itemAllowedForClass(item, character.className) && hasUsableItemStats(item))
       .map(item => ({ item, score: scoreItem(item, weights) }))
       .sort((a, b) => b.score - a.score);
     let bestPair = null;
@@ -488,7 +500,7 @@ function optimizeEquipment({
     for (const slot of WOW_EQUIPMENT_SLOTS) {
       const current = optimizedEquipment[slot];
       const currentScore = loadoutScore(optimizedEquipment);
-      const candidates = (items || []).filter(item =>
+      const candidates = candidateItems.filter(item =>
         itemMatchesSlot(item, slot) &&
         itemAllowedForClass(item, character.className) &&
         hasUsableItemStats(item)
