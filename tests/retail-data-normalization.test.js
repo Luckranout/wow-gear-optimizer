@@ -54,6 +54,13 @@ if (validation.length) throw new Error("Normalized test dataset failed validatio
 (async () => {
   const real = await dataLayer.loadRetailDataset();
   if (!real.items.length) throw new Error("Real retail dataset produced no equipment candidates");
+  const shamanTierCandidates = real.items.filter(item => [271483,271481,271486,271484,271482].includes(Number(item.id)) && item.seasonScope === "Midnight Season 2");
+  if (shamanTierCandidates.length !== 20) throw new Error("Expected 20 verified Shaman tier candidates (four PvE variants for each of five slots), got " + shamanTierCandidates.length);
+  for (const slot of ["Head","Shoulders","Chest","Hands","Legs"]) {
+    if (!shamanTierCandidates.some(item => item.slot === slot && Number(item.itemLevel) > 0 && item.stats?.length)) {
+      throw new Error("Missing source-backed Shaman tier candidate for " + slot);
+    }
+  }
   if (dataLayer.validateRetailDataset(real).length) throw new Error("Real retail dataset failed validation");
   console.log("Retail equipment slot normalization passed (" + real.items.length + " optimizer candidates).");
 })().catch(error => { console.error(error); process.exitCode = 1; });
