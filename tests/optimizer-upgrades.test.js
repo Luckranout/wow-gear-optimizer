@@ -25,6 +25,35 @@ if (fsData.itemMatching.status !== "partial" || !fsData.itemMatching.verifiedCla
   throw new Error("Tier catalogue must report partial verified coverage instead of claiming all classes are complete");
 }
 
+const shamanBonusDefinition = {
+  id: shamanTier.id,
+  setId: shamanTier.id,
+  name: shamanTier.setName,
+  pieces: shamanTier.pieces,
+  thresholds: [
+    { pieces: 2, effect: "Enhancement 2-piece verified", scoreValue: null },
+    { pieces: 4, effect: "Enhancement 4-piece verified", scoreValue: null }
+  ]
+};
+const equipTierPieces = count => Object.fromEntries(
+  expectedShamanPieces.slice(0, count).map(([id, slot]) => [slot, { id, name: shamanTier.pieces.find(p => p.itemId === id).name, slot }])
+);
+const twoPieceStatus = o.getSetBonusStatus(equipTierPieces(2), [shamanBonusDefinition], "Enhancement");
+if (twoPieceStatus.bonuses.find(b => b.requiredPieces === 2)?.active !== true ||
+    twoPieceStatus.bonuses.find(b => b.requiredPieces === 4)?.active !== false) {
+  throw new Error("Two equipped Shaman tier pieces must activate 2-piece only");
+}
+const fourPieceStatus = o.getSetBonusStatus(equipTierPieces(4), [shamanBonusDefinition], "Enhancement");
+if (fourPieceStatus.bonuses.find(b => b.requiredPieces === 2)?.active !== true ||
+    fourPieceStatus.bonuses.find(b => b.requiredPieces === 4)?.active !== true) {
+  throw new Error("Four equipped Shaman tier pieces must activate both 2-piece and 4-piece");
+}
+const fivePieceStatus = o.getSetBonusStatus(equipTierPieces(5), [shamanBonusDefinition], "Enhancement");
+if (fivePieceStatus.counts[shamanTier.id] !== 5 ||
+    fivePieceStatus.bonuses.find(b => b.requiredPieces === 4)?.active !== true) {
+  throw new Error("The fifth Shaman tier piece must remain optional and preserve 4-piece");
+}
+
 const system = {
   tracks: [
     { id: "hero", name: "Hero", crest: "Hero Mistcrest", maxRank: 6,
