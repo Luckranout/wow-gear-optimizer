@@ -336,10 +336,37 @@ function renderCharacterCoach(report, character) {
 
 function getLoadoutItemStats(item) {
   const stats = {};
+  const normalizeStatKey = rawName => {
+    const words = String(rawName)
+      .replace(/([a-z])([A-Z])/g, "$1 $2")
+      .replace(/[_-]+/g, " ")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, " ")
+      .trim()
+      .split(/\\s+/)
+      .filter(Boolean);
+    const compact = words.join("");
+    // Canonicalize common Blizzard/catalog aliases before comparing.
+    const aliases = {
+      crit: "criticalstrike",
+      critical: "criticalstrike",
+      criticalstrike: "criticalstrike",
+      haste: "haste",
+      mastery: "mastery",
+      versatility: "versatility",
+      vers: "versatility",
+      agi: "agility",
+      int: "intellect",
+      str: "strength",
+      stam: "stamina"
+    };
+    const canonical = aliases[compact] || compact;
+    return canonical.replace(/^[a-z]/, letter => letter.toUpperCase());
+  };
   const addStat = (rawName, rawValue) => {
     const value = Number(rawValue);
     if (!rawName || !Number.isFinite(value)) return;
-    const key = String(rawName).replace(/([a-z])([A-Z])/g, "$1 $2").replace(/[_-]+/g, " ").trim();
+    const key = normalizeStatKey(rawName);
     stats[key] = (stats[key] || 0) + value;
   };
 
