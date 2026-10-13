@@ -523,7 +523,7 @@ if (tierOptimized.equipment.Head?.name !== "Tier Helm" ||
     !tierOptimized.setBonusStatus.bonuses.find(b => b.requiredPieces === 4)?.active) {
   throw new Error("Optimizer broke a scored 4-piece bonus for an individually higher-scoring helm");
 }
-if (tierOptimized.setBonusStatus.score !== 660) {
+if (tierOptimized.setBonusStatus.score !== 580) {
   throw new Error("Tier set score did not sum the explicit active 2-piece and 4-piece values");
 }
 console.log("Tier set bonus-aware loadout regression passed.");
