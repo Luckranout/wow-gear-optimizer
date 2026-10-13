@@ -569,7 +569,7 @@ const retainedLoadout = o.optimizeEquipment({
     ...o.createCharacterProfile(),
     className: "Warrior",
     specialization: "Protection",
-    equipment: { ...o.createCharacterProfile().equipment, Head: variantRegressionCurrentHelm }
+    equipment: { ...o.createCharacterProfile().equipment, Head: currentHelm }
   }
 });
 if (retainedLoadout.equipment.Head?.id !== currentHelm.id) {
