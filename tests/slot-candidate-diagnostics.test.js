@@ -24,3 +24,46 @@ assert.equal(report.excludedByStats[0].name, "Shoulders Without Stats");
 assert.equal(typeof optimizer.diagnoseSlotCandidates, "function");
 
 console.log("Slot candidate diagnostics tests passed.");
+
+ 
+// Audit the real checked-in retail catalog in CI, without needing a Vercel preview.
+const catalogPath = "data/current-retail.json";
+if (fs.existsSync(catalogPath)) {
+  const dataset = JSON.parse(fs.readFileSync(catalogPath, "utf8"));
+  const catalogItems = Array.isArray(dataset) ? dataset : (dataset.items || []);
+  const targetId = 271481;
+  const targetName = "Hissing Mantle of the Ophidian Oracle";
+  const matches = catalogItems.filter(item =>
+    String(item.id ?? item.itemId ?? "") === String(targetId) ||
+    String(item.name ?? "").toLowerCase() === targetName.toLowerCase()
+  );
+
+  console.log("\\n=== REAL RETAIL CATALOG AUDIT ===");
+  console.log("Catalog item count:", catalogItems.length);
+  console.log("Target ID:", targetId, "| Target name:", targetName);
+  console.log("Target matches:", JSON.stringify(matches.map(item => ({
+    id: item.id ?? item.itemId ?? null,
+    name: item.name ?? null,
+    slot: item.slot ?? null,
+    inventoryType: item.inventoryType?.name || item.inventoryType || null,
+    itemLevel: item.itemLevel ?? item.level ?? null,
+    itemClass: item.itemClass?.name || item.itemClass || null,
+    itemSubclass: item.itemSubclass?.name || item.itemSubclass || null,
+    stats: item.stats ?? null
+  })), null, 2));
+
+  if (matches.length) {
+    console.log("Shoulder eligibility diagnostics:", JSON.stringify(
+      optimizer.diagnoseSlotCandidates(catalogItems, "Shoulders", "Shaman"), null, 2
+    ));
+  } else {
+    console.log("RESULT: Target item is ABSENT from data/current-retail.json.");
+    console.log("Name-near matches:", JSON.stringify(catalogItems
+      .filter(item => String(item.name ?? "").toLowerCase().includes("ophidian oracle"))
+      .slice(0, 10)
+      .map(item => ({ id: item.id ?? item.itemId ?? null, name: item.name ?? null })),
+      null, 2));
+  }
+} else {
+  console.log("REAL CATALOG AUDIT SKIPPED: data/current-retail.json is not present in this checkout.");
+}
