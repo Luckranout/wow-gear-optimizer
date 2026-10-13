@@ -570,3 +570,33 @@ if (isActive(thresholdStates[0], 2) !== false || isActive(thresholdStates[0], 4)
 }
 console.log("Tier set 1→2, 3→4, and optional fifth-piece threshold regressions passed.");
 console.log("Tier set bonus-aware loadout regression passed.");
+
+// Regression: source-backed piece IDs resolve set membership when live item
+// records omit their set field; specialization effects remain data-driven and
+// no faction/class gate is applied by the counting engine.
+const sourceBackedSet = [{
+  setId: "all-class-fixture",
+  name: "All-class test fixture",
+  pieces: [{ itemId: 930001, name: "Piece One" }, { itemId: 930002, name: "Piece Two" }],
+  thresholds: [{
+    pieces: 2,
+    effects: {
+      Arms: "Arms-specific test effect",
+      Restoration: "Restoration-specific test effect"
+    }
+  }],
+  source: "verified-test-fixture"
+}];
+const idOnlyLoadout = {
+  Head: { id: 930001, name: "Piece One", slot: "Head" },
+  Chest: { id: 930002, name: "Piece Two", slot: "Chest" }
+};
+const armsStatus = o.getSetBonusStatus(idOnlyLoadout, sourceBackedSet, "Arms");
+const restoStatus = o.getSetBonusStatus(idOnlyLoadout, sourceBackedSet, "Restoration");
+if (armsStatus.counts["all-class-fixture"] !== 2 ||
+    armsStatus.bonuses[0]?.active !== true ||
+    armsStatus.bonuses[0]?.effect !== "Arms-specific test effect" ||
+    restoStatus.bonuses[0]?.effect !== "Restoration-specific test effect") {
+  throw new Error("Source-backed set piece IDs or specialization-specific effects failed");
+}
+
