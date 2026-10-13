@@ -389,13 +389,10 @@ function renderLoadoutStatRows(target, current) {
   const targetStats = getLoadoutItemStats(target);
   const currentStats = getLoadoutItemStats(current);
   const keys = [...new Set([...Object.keys(targetStats), ...Object.keys(currentStats)])].sort();
-  // If neither item has usable stat data, don't fabricate a comparison. When
-  // both items have stat data, an absent secondary stat means zero on that item,
-  // not an unknown value; this allows real tradeoffs (e.g. Haste gained while
-  // Versatility is lost) to be shown explicitly.
-  if (!keys.length) return '<p class="compare-no-stats">Verified item stats are unavailable for one or both items.</p>';
-  if (!Object.keys(targetStats).length || !Object.keys(currentStats).length) {
-    return '<p class="compare-no-stats">Verified item stats are unavailable for one or both items.</p>';
+  // Missing data is an explicit unknown, never a zero-stat item. Do not turn
+  // an incomplete catalog/import record into a numeric comparison.
+  if (!keys.length || !Object.keys(targetStats).length || !Object.keys(currentStats).length) {
+    return '<p class="compare-no-stats">Comparison incomplete — verified stats are unavailable for one or both items. Do not treat this candidate as a confirmed upgrade.</p>';
   }
   return keys.map(key => {
     const targetValue = Object.hasOwn(targetStats, key) ? targetStats[key] : 0;
@@ -469,15 +466,22 @@ function renderOptimizedLoadout(equipment = {}, score = 0, currentEquipment = {}
     // Item IDs/names can be shared by different upgrade variants. Only hide
     // the target when the equipped and optimized records are the same variant.
     const sameItem = Boolean(sameIdentity && sameLevel && sameStats);
+    const hasTargetStats = Object.keys(targetStats).length > 0;
+    const hasEquippedStats = Object.keys(equippedStats).length > 0;
+    const incompleteComparison = Boolean(item && current && (!hasTargetStats || !hasEquippedStats));
+    const lowerLevelUnverified = Boolean(item && current && Number.isFinite(itemLevel) && Number.isFinite(currentLevel) && itemLevel < currentLevel && incompleteComparison);
+    const suppressAsVerifiedUpgrade = incompleteComparison || lowerLevelUnverified;
+    const targetLabel = sameItem ? "No better item identified" : suppressAsVerifiedUpgrade ? "Unverified candidate — not a confirmed upgrade" : "Recommended target";
+    const targetEmptyText = sameItem ? "No distinct upgrade found in the current catalog" : suppressAsVerifiedUpgrade ? "Required item stats are missing. Keep the equipped item until this comparison can be verified." : "No verified candidate available";
     return '<article class="loadout-compare-row" data-equipment-slot="' + escapeSlotText(slot) + '">' +
       '<h3 class="loadout-compare-slot">' + escapeSlotText(slot) + '</h3>' +
       '<div class="loadout-compare-pair">' +
-        renderLoadoutItemCard(sameItem ? null : item, sameItem ? "No better item identified" : "Recommended target", sameItem ? "No distinct upgrade found in the current catalog" : "No verified candidate available") +
+        renderLoadoutItemCard(sameItem || suppressAsVerifiedUpgrade ? null : item, targetLabel, targetEmptyText) +
         renderLoadoutItemCard(current, "Currently equipped", "No item equipped / imported") +
       '</div>' +
       '<section class="loadout-stat-delta"><h4>Stat changes if equipped</h4>' +
         (sameItem ? '<p class="compare-no-stats">No change — no distinct upgrade was identified in the current item catalog.</p>' : renderLoadoutStatRows(item, current)) +
-        '<div class="loadout-upgrade-reason"><strong>Why this recommendation?</strong><p>' + escapeSlotText(sameItem ? "The optimizer selected your current item because it did not identify a distinct better candidate in the available catalog. This is not a new-item recommendation." : getLoadoutUpgradeReason(item, current, sameItem)) + '</p></div>' +
+        '<div class="loadout-upgrade-reason"><strong>Why this recommendation?</strong><p>' + escapeSlotText(sameItem ? "The optimizer selected your current item because it did not identify a distinct better candidate in the available catalog. This is not a new-item recommendation." : suppressAsVerifiedUpgrade ? "This comparison is incomplete because verified stats are missing for one or both items. The candidate is not shown as a confirmed upgrade; retain the equipped item until catalog data is repaired." : getLoadoutUpgradeReason(item, current, sameItem)) + '</p></div>' +
       '</section>' +
     '</article>';
   }).join("") + '<div class="loadout-summary"><strong>Recommended target score: ' + escapeSlotText(formatGearScore(score)) + '</strong><span>Goal/spec-weighted catalog scoring. Item stats are shown only when present in the catalog or character import; unavailable data is not inferred.</span></div>';
