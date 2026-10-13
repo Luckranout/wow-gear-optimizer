@@ -987,3 +987,49 @@ if (variantLoadout.equipment.Head?.id !== sameIdHighVariant.id ||
 }
 console.log("Same-ID item-level variant selection regression passed.");
 
+
+
+// Hard-cap response regression: all four secondary stats over cap must pause
+// optimization and return a user-choice status rather than silently accepting it.
+const allFourOverCap = {
+  ...o.createCharacterProfile(),
+  level: 90,
+  equipment: {
+    ...o.createCharacterProfile().equipment,
+    Head: { id: 991001, slot: "Head", itemLevel: 300, stats: { Haste: 9000 } },
+    Chest: { id: 991002, slot: "Chest", itemLevel: 300, stats: { CriticalStrike: 9400 } },
+    Legs: { id: 991003, slot: "Legs", itemLevel: 300, stats: { Mastery: 9400 } },
+    Feet: { id: 991004, slot: "Feet", itemLevel: 300, stats: { Versatility: 11000 } }
+  }
+};
+const allFourReport = o.optimizeEquipment({ items: [], character: allFourOverCap });
+if (allFourReport.ratingConstraintStatus?.requiresUserChoice !== true ||
+    allFourReport.ratingConstraintStatus?.allSecondaryStatsOverCap !== true ||
+    allFourReport.ratingConstraintStatus?.originalViolations?.length !== 4) {
+  throw new Error("All four secondary stats over cap must ask the user to choose a priority stat");
+}
+
+// When only one stat is over cap and a lower-rating alternative exists, the
+// optimizer should replace gear to reduce the violation and disclose the repair.
+const partialOverCap = {
+  ...o.createCharacterProfile(),
+  level: 90,
+  equipment: {
+    ...o.createCharacterProfile().equipment,
+    Head: { id: 991011, name: "Over-cap Haste Helm", slot: "Head", itemLevel: 300, stats: { Haste: 9000 } }
+  }
+};
+const lowerHasteAlternative = {
+  id: 991012, name: "Cap-safe Haste Helm", slot: "Head", itemLevel: 290, stats: { Haste: 500 }
+};
+const partialCapReport = o.optimizeEquipment({
+  items: [lowerHasteAlternative],
+  character: partialOverCap,
+  statWeights: { Haste: 1 }
+});
+if (partialCapReport.ratingConstraintStatus?.balanced !== true ||
+    partialCapReport.ratingConstraintStatus?.remainingViolations?.length !== 0 ||
+    partialCapReport.equipment.Head?.id !== lowerHasteAlternative.id) {
+  throw new Error("A single over-cap stat should be rebalanced when a compliant candidate exists");
+}
+console.log("Hard-cap alert, priority-choice, and automatic rebalance regressions passed.");
