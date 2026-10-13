@@ -338,7 +338,7 @@ function normalizeLoadoutStatName(rawName) {
   const spaced = String(rawName || "")
     .replace(/([a-z])([A-Z])/g, "$1 $2")
     .replace(/[_-]+/g, " ")
-    .replace(/\\s+/g, " ")
+    .replace(/\s+/g, " ")
     .trim()
     .toLowerCase();
   const compact = spaced.replace(/[^a-z0-9]/g, "");
@@ -350,7 +350,7 @@ function normalizeLoadoutStatName(rawName) {
     bonusarmor: "Bonus Armor", leech: "Leech", avoidance: "Avoidance", speed: "Speed",
     attackpower: "Attack Power", weapondps: "Weapon DPS"
   };
-  return aliases[compact] || spaced.replace(/\\b[a-z]/g, letter => letter.toUpperCase());
+  return aliases[compact] || spaced.replace(/\b[a-z]/g, letter => letter.toUpperCase());
 }
 
 function getLoadoutItemStats(item) {
