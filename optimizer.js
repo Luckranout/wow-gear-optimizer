@@ -420,13 +420,27 @@ function resolveStatWeights({
   const goalWeights = getGoalWeights(goal);
   const simulationContext = getSimulationWeightContext(simulation);
   if (simulationContext) return { ...goalWeights, ...simulationContext.scaleFactors };
-  if (!statProfiles || typeof statProfiles !== "object") return goalWeights;
 
-  const classProfiles = statProfiles[className];
+  const classProfiles = statProfiles && typeof statProfiles === "object"
+    ? statProfiles[className]
+    : null;
   const profile = classProfiles?.[specialization];
-  if (!profile || typeof profile !== "object") return goalWeights;
-
   const merged = { ...goalWeights };
+
+  // Enhancement-specific fallback when no character simulation/profile exists.
+  // These are priority heuristics from current-season gearing guides, not DPS
+  // scale factors. Item level remains a major signal in scoreItem; the profile
+  // distinguishes the important secondary stats from Versatility.
+  if (normalizeClassName(className) === "shaman" &&
+      String(specialization || "").trim().toLowerCase() === "enhancement") {
+    merged.Agility = 1.25;
+    merged.CriticalStrike = 0.9;
+    merged.Mastery = 0.9;
+    merged.Haste = 0.9;
+    merged.Versatility = 0.55;
+  }
+
+  if (!profile || typeof profile !== "object") return merged;
   for (const [stat, value] of Object.entries(profile)) {
     const numericValue = Number(value);
     if (Number.isFinite(numericValue) && numericValue >= 0) {
