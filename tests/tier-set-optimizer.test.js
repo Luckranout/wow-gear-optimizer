@@ -62,9 +62,9 @@ const fourPiece = optimizer.getSetBonusContext({
   specialization: "Fire"
 });
 assert.equal(fourPiece.counts["midnight-tier"], 4, "set count must reflect equipped pieces");
-assert.deepEqual(
-  fourPiece.activeBonuses.map(bonus => bonus.pieces).sort(),
-  [2, 4],
+assert.equal(
+  fourPiece.activeBonuses.map(bonus => bonus.pieces).sort().join(","),
+  "2,4",
   "four pieces should activate both the configured 2-piece and 4-piece thresholds"
 );
 assert.equal(fourPiece.bonusScore, 800, "active 2-piece and 4-piece scores should be added once each");
