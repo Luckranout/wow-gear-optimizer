@@ -238,6 +238,61 @@ function scoreEquipment(equipment, statWeights = STAT_WEIGHTS) {
     total + scoreItem(equipment?.[slot], statWeights), 0);
 }
 
+function getItemSetId(item) {
+  const set = item?.set;
+  const raw = item?.tierSetId ?? item?.setId ??
+    (set && typeof set === "object" ? (set.id ?? set.name) : set);
+  if (raw === null || raw === undefined || String(raw).trim() === "") return null;
+  return String(raw).trim().toLowerCase();
+}
+
+function getSetBonusStatus(equipment = {}, setBonuses = []) {
+  const counts = {};
+  for (const item of Object.values(equipment || {})) {
+    const setId = getItemSetId(item);
+    if (setId) counts[setId] = (counts[setId] || 0) + 1;
+  }
+
+  const bonuses = [];
+  for (const definition of setBonuses || []) {
+    const setId = String(definition?.setId ?? definition?.id ?? definition?.name ?? "").trim().toLowerCase();
+    if (!setId) continue;
+    const pieces = counts[setId] || 0;
+    for (const threshold of definition.thresholds || []) {
+      const requiredPieces = Number(threshold.pieces);
+      if (!Number.isFinite(requiredPieces) || requiredPieces < 2) continue;
+      bonuses.push({
+        setId,
+        setName: definition.name || definition.setName || definition.setId || definition.id || setId,
+        requiredPieces,
+        equippedPieces: pieces,
+        active: pieces >= requiredPieces,
+        // Only verified, explicitly supplied values affect scoring. Unknown
+        // bonus effects are reported, never assigned invented weights.
+        scoreValue: Number.isFinite(Number(threshold.scoreValue)) ? Number(threshold.scoreValue) : null,
+        effect: threshold.effect || threshold.description || null,
+        source: threshold.source || definition.source || null
+      });
+    }
+  }
+  return { counts, bonuses };
+}
+
+function scoreSetBonuses(equipment = {}, setBonuses = []) {
+  const status = getSetBonusStatus(equipment, setBonuses);
+  const score = status.bonuses.reduce((total, bonus) =>
+    total + (bonus.active && bonus.scoreValue !== null ? bonus.scoreValue : 0), 0);
+  return { ...status, score };
+}
+
+function scoreLoadout(equipment = {}, statWeights = STAT_WEIGHTS, setBonuses = []) {
+  const setScore = scoreSetBonuses(equipment, setBonuses);
+  return {
+    score: scoreEquipment(equipment, statWeights) + setScore.score,
+    setBonuses: setScore
+  };
+}
+
 function getGoalWeights(goal) {
   const weights = { ...STAT_WEIGHTS };
   switch (goal) {
@@ -378,7 +433,8 @@ function optimizeEquipment({
   items = [],
   character = createCharacterProfile(),
   goal = character.goal || WOW_GOALS.general,
-  statWeights = null
+  statWeights = null,
+  setBonuses = []
 } = {}) {
   const weights = statWeights || getGoalWeights(goal);
   const optimizedEquipment = {};
@@ -421,10 +477,45 @@ function optimizeEquipment({
       optimizedEquipment[secondSlot] = null;
     }
   }
+
+  // Improve the complete loadout, not only individual slots. Only explicit,
+  // source-backed threshold score values affect tradeoffs between item stats
+  // and tier bonuses; unknown effects remain visible in the report.
+  const loadoutScore = equipment => scoreLoadout(equipment, weights, setBonuses).score;
+  for (let pass = 0; pass < 3; pass++) {
+    let changed = false;
+    for (const slot of WOW_EQUIPMENT_SLOTS) {
+      const current = optimizedEquipment[slot];
+      const currentScore = loadoutScore(optimizedEquipment);
+      const candidates = (items || []).filter(item =>
+        itemMatchesSlot(item, slot) &&
+        itemAllowedForClass(item, character.className) &&
+        hasUsableItemStats(item)
+      );
+      let bestItem = current;
+      let bestScore = currentScore;
+      for (const candidate of candidates) {
+        const trial = { ...optimizedEquipment, [slot]: candidate };
+        const trialScore = loadoutScore(trial);
+        if (trialScore > bestScore) {
+          bestScore = trialScore;
+          bestItem = candidate;
+        }
+      }
+      if (bestItem !== current) {
+        optimizedEquipment[slot] = bestItem;
+        changed = true;
+      }
+    }
+    if (!changed) break;
+  }
+
+  const scored = scoreLoadout(optimizedEquipment, weights, setBonuses);
   return {
     character: { ...character, goal },
     equipment: optimizedEquipment,
-    score: scoreEquipment(optimizedEquipment, weights)
+    score: scored.score,
+    setBonusStatus: scored.setBonuses
   };
 }
 
@@ -624,7 +715,7 @@ function createOptimizationReport({character = createCharacterProfile(), availab
     simulation
   });
   const statSummary = getCharacterStatSummary(character.statistics, statWeights);
-  const optimized = optimizeEquipment({ items: availableItems, character, goal, statWeights });
+  const setBonuses = dataset?.tierSetBonuses || dataset?.setBonuses || [];\n  const optimized = optimizeEquipment({ items: availableItems, character, goal, statWeights, setBonuses });
   const upgrades = findUpgradeOpportunities({
     currentEquipment: character.equipment,
     availableItems,
@@ -640,7 +731,7 @@ function createOptimizationReport({character = createCharacterProfile(), availab
     }) : null)
     .filter(Boolean);
   return {
-    character, goal, optimizedEquipment: optimized.equipment, totalScore: optimized.score,
+    character, goal, optimizedEquipment: optimized.equipment, totalScore: optimized.score,\n    setBonusStatus: optimized.setBonusStatus,
     topUpgrades: upgrades, upgradePlans, currentStats: statSummary,
     optimizationContext: simulationContext ? {
       source: simulationContext.source,
@@ -681,7 +772,7 @@ window.WoWOptimizer = {
   createCharacterProfile, normalizeCharacterStatistics, scoreCharacterStatistics, getCharacterStatSummary, resolveStatWeights, normalizeSimulationScaleFactors, getSimulationWeightContext, findBlizzardSpecialization, getSpecProfileContext,
   normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, hasUsableItemStats, scoreItem, scoreEquipment, getGoalWeights,
   findBestItemForSlot, optimizeEquipment, findUpgradeOpportunities, rankItems,
-  getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,
+  getItemSetId, getSetBonusStatus, scoreSetBonuses, scoreLoadout,\n  getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,
   calculateCrestRequirements, isAscendantVenomstoneEligible, recommendUpgradePlan,
   createOptimizationReport, testData: WOW_OPTIMIZER_TEST_DATA
 };
