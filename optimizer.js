@@ -362,6 +362,37 @@ function resolveCatalogItemAgainstEquippedVariant(candidate, equippedItem) {
   return candidate;
 }
 
+function diagnoseSlotCandidates(items, slot, className = "") {
+  const catalog = Array.isArray(items) ? items : [];
+  const slotMatches = catalog.filter(item => itemMatchesSlot(item, slot));
+  const classEligible = slotMatches.filter(item => itemAllowedForClass(item, className));
+  const usableStats = classEligible.filter(item => hasUsableItemStats(item));
+  const summarize = item => ({
+    id: item.id ?? null,
+    name: item.name ?? null,
+    slot: item.slot ?? null,
+    inventoryType: item.inventoryType?.name || item.inventoryType || null,
+    itemLevel: Number(item.itemLevel ?? item.level) || null,
+    itemClass: item.itemClass?.name || item.itemClass || null,
+    itemSubclass: item.itemSubclass?.name || item.itemSubclass || null,
+    statsPresent: Boolean(item.stats),
+    usableStats: hasUsableItemStats(item),
+    optimizerEligible: item.optimizerEligible !== false
+  });
+  return {
+    requestedSlot: slot,
+    className: className || null,
+    catalogCount: catalog.length,
+    slotMatchCount: slotMatches.length,
+    classEligibleCount: classEligible.length,
+    usableStatsCount: usableStats.length,
+    excludedBySlot: catalog.filter(item => !itemMatchesSlot(item, slot)).slice(0, 10).map(summarize),
+    excludedByClass: slotMatches.filter(item => !itemAllowedForClass(item, className)).slice(0, 10).map(summarize),
+    excludedByStats: classEligible.filter(item => !hasUsableItemStats(item)).slice(0, 10).map(summarize),
+    candidates: usableStats.slice(0, 20).map(summarize)
+  };
+}
+
 function findBestItemForSlot(items, slot, goal, statWeights = null, className = "", equippedItem = null) {
   const weights = statWeights || getGoalWeights(goal);
   const candidates = (items || [])
@@ -680,7 +711,7 @@ window.WoWOptimizer = {
   slots: WOW_EQUIPMENT_SLOTS, goals: WOW_GOALS,
   createCharacterProfile, normalizeCharacterStatistics, scoreCharacterStatistics, getCharacterStatSummary, resolveStatWeights, normalizeSimulationScaleFactors, getSimulationWeightContext, findBlizzardSpecialization, getSpecProfileContext,
   normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, hasUsableItemStats, scoreItem, scoreEquipment, getGoalWeights,
-  findBestItemForSlot, optimizeEquipment, findUpgradeOpportunities, rankItems,
+  findBestItemForSlot, diagnoseSlotCandidates, optimizeEquipment, findUpgradeOpportunities, rankItems,
   getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,
   calculateCrestRequirements, isAscendantVenomstoneEligible, recommendUpgradePlan,
   createOptimizationReport, testData: WOW_OPTIMIZER_TEST_DATA
