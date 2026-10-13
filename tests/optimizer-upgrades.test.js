@@ -481,3 +481,49 @@ if (variantReport.equipment.Head?.itemLevel !== 334) {
 if (variantReport.equipment.Head?.stats?.CriticalStrike !== 120) {
   throw new Error("Optimizer did not preserve the verified equipped variant's stats");
 }
+
+
+// Regression: set bonuses are counted across the complete loadout and only
+// explicitly supplied threshold values affect the optimizer's score.
+const tierSetBonuses = [{
+  setId: "midnight-tier-test",
+  name: "Test Tier Set",
+  source: "verified-test-fixture",
+  thresholds: [
+    { pieces: 2, scoreValue: 80, effect: "Test 2-piece effect" },
+    { pieces: 4, scoreValue: 500, effect: "Test 4-piece effect" },
+    { pieces: 6, effect: "Unscored test effect must not invent a value" }
+  ]
+}];
+const tierPieces = [
+  { id: 920001, name: "Tier Helm", slot: "Head", itemLevel: 300, stats: { Strength: 10 }, set: { id: "midnight-tier-test", name: "Test Tier Set" } },
+  { id: 920002, name: "Tier Shoulders", slot: "Shoulders", itemLevel: 300, stats: { Strength: 10 }, set: { id: "midnight-tier-test", name: "Test Tier Set" } },
+  { id: 920003, name: "Tier Chest", slot: "Chest", itemLevel: 300, stats: { Strength: 10 }, set: { id: "midnight-tier-test", name: "Test Tier Set" } },
+  { id: 920004, name: "Tier Legs", slot: "Legs", itemLevel: 300, stats: { Strength: 10 }, set: { id: "midnight-tier-test", name: "Test Tier Set" } },
+  { id: 920005, name: "Higher Item Level Helm", slot: "Head", itemLevel: 400, stats: { Strength: 100 } }
+];
+const tierStatus = o.getSetBonusStatus({
+  Head: tierPieces[0], Shoulders: tierPieces[1], Chest: tierPieces[2], Legs: tierPieces[3]
+}, tierSetBonuses);
+if (tierStatus.counts["midnight-tier-test"] !== 4 ||
+    !tierStatus.bonuses.find(b => b.requiredPieces === 4)?.active ||
+    tierStatus.bonuses.find(b => b.requiredPieces === 6)?.scoreValue !== null) {
+  throw new Error("Tier set piece counting or unknown-score handling failed");
+}
+const tierOptimized = o.optimizeEquipment({
+  items: tierPieces,
+  character: {
+    ...o.createCharacterProfile(),
+    className: "Warrior",
+    specialization: "Arms"
+  },
+  setBonuses: tierSetBonuses
+});
+if (tierOptimized.equipment.Head?.name !== "Tier Helm" ||
+    !tierOptimized.setBonusStatus.bonuses.find(b => b.requiredPieces === 4)?.active) {
+  throw new Error("Optimizer broke a scored 4-piece bonus for an individually higher-scoring helm");
+}
+if (tierOptimized.setBonusStatus.score !== 660) {
+  throw new Error("Tier set score did not sum the explicit active 2-piece and 4-piece values");
+}
+console.log("Tier set bonus-aware loadout regression passed.");
