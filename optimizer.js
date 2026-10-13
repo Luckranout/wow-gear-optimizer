@@ -604,7 +604,8 @@ function optimizeEquipment({
         const sameId = a.item.id != null && b.item.id != null && String(a.item.id) === String(b.item.id);
         const sameName = a.item.id == null && b.item.id == null && a.item.name && b.item.name && a.item.name === b.item.name;
         if (sameId || sameName) continue;
-        if (firstSlot === "Main Hand" && getWeaponMetadata(a.item).twoHanded) continue;\n        const combinedScore = a.score + b.score;
+        if (firstSlot === "Main Hand" && getWeaponMetadata(a.item).twoHanded) continue;
+        const combinedScore = a.score + b.score;
         if (!bestPair || combinedScore > bestPair.combinedScore) bestPair = { a, b, combinedScore };
       }
     }
