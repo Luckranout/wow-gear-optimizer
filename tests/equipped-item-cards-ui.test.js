@@ -54,3 +54,30 @@ if (!server.includes('asset.key === "icon"')) throw new Error("Item media must u
 if (!endpoint.includes("setCorsHeaders")) throw new Error("Item media API must use shared CORS handling.");
 if (!endpoint.includes("BLIZZARD_CLIENT_SECRET")) throw new Error("Blizzard credentials must remain server-side.");
 console.log("Equipped item cards UI contract passed.");
+
+
+// Item icons should expose a keyboard-accessible hover/focus tooltip with artwork,
+// item level, and the item's explicitly supplied stats.
+for (const required of [
+  "renderItemHoverTooltip(item)",
+  "data-item-tooltip-image-id",
+  "item-hover-stats",
+  "item-hover-stat",
+  "hover or focus to view stats"
+]) {
+  if (!app.includes(required)) throw new Error("Item hover tooltip missing behavior: " + required);
+}
+if (!styles.includes(".slot-icon-wrap:hover .item-hover-tooltip") ||
+    !styles.includes(".compare-icon-wrap:focus-within .item-hover-tooltip") ||
+    !styles.includes(".item-hover-image")) {
+  throw new Error("Item tooltip must appear on hover/focus and display item artwork.");
+}
+console.log("Item icon hover tooltip UI contract passed.");
+
+if (!app.includes("function getItemQualityClass(item)") ||
+    !app.includes('4: "epic"') ||
+    !app.includes('"item-quality-" + qualityName') ||
+    !styles.includes(".item-hover-name.item-quality-epic")) {
+  throw new Error("Tooltip item names should map supplied item quality to World of Warcraft rarity colors.");
+}
+console.log("WoW item-quality tooltip styling regression passed.");

@@ -396,3 +396,58 @@ footer {
 }
 .loadout-upgrade-reason strong { font-size:12px; }
 .loadout-upgrade-reason p { margin:5px 0 0; color:var(--muted); font-size:12px; line-height:1.5; }
+
+
+/* Item tooltip shown when an item icon is hovered or keyboard-focused. */
+.slot-icon-wrap,.compare-icon-wrap { position:relative; display:inline-flex; flex:0 0 auto; vertical-align:middle; }
+.slot-icon-wrap { align-self:center; }
+.item-hover-tooltip {
+  display:none;
+  position:absolute;
+  z-index:1000;
+  left:calc(100% + 10px);
+  top:0;
+  width: min(300px, calc(100vw - 32px));
+  padding:12px;
+  border:1px solid #8c6a32;
+  border-radius:10px;
+  background:linear-gradient(180deg,#171c26,#090c12);
+  box-shadow:0 14px 36px rgba(0,0,0,.72);
+  color:var(--text);
+  text-align:left;
+  pointer-events:none;
+}
+.slot-icon-wrap:hover .item-hover-tooltip,
+.slot-icon-wrap:focus-within .item-hover-tooltip,
+.compare-icon-wrap:hover .item-hover-tooltip,
+.compare-icon-wrap:focus-within .item-hover-tooltip { display:block; }
+.slot-icon-wrap .item-hover-tooltip { top:-6px; }
+.compare-icon-wrap .item-hover-tooltip { top:-6px; }
+.item-hover-heading { display:flex; gap:10px; align-items:center; padding-bottom:9px; border-bottom:1px solid var(--border); }
+.item-hover-image { width:64px; height:64px; flex:0 0 64px; border:1px solid #8c6a32; border-radius:7px; background:#0b0f16; object-fit:cover; }
+.item-hover-heading strong { display:block; color:#f0c76a; font-size:13px; line-height:1.4; overflow-wrap:anywhere; }
+.item-hover-heading span { display:block; color:var(--muted); font-size:11px; margin-top:4px; }
+.item-hover-stats { display:grid; gap:5px; margin-top:8px; }
+.item-hover-stat { display:flex; justify-content:space-between; gap:12px; font-size:12px; line-height:1.35; }
+.item-hover-stat span { color:#c6ced9; }
+.item-hover-stat strong { color:#fff; font-variant-numeric:tabular-nums; }
+.item-hover-no-stats { color:var(--muted); font-size:11px; }
+@media(max-width:640px) {
+  .item-hover-tooltip { left:0; top:calc(100% + 8px); }
+  .slot-icon-wrap .item-hover-tooltip,.compare-icon-wrap .item-hover-tooltip { left:0; top:calc(100% + 8px); }
+}
+
+/* WoW-style item rarity colors for names in the hover tooltip. */
+.item-hover-name { color:#f0c76a; }
+.item-hover-name.item-quality-poor { color:#9d9d9d; }
+.item-hover-name.item-quality-common { color:#ffffff; }
+.item-hover-name.item-quality-uncommon { color:#1eff00; }
+.item-hover-name.item-quality-rare { color:#0070dd; }
+.item-hover-name.item-quality-epic { color:#a335ee; }
+.item-hover-name.item-quality-legendary { color:#ff8000; }
+.item-hover-name.item-quality-artifact { color:#e6cc80; }
+.item-hover-name.item-quality-heirloom { color:#00ccff; }
+.item-hover-name.item-quality-wow-token { color:#00ccff; }
+
+.item-hover-name { display:block; font-size:13px; line-height:1.4; font-weight:700; overflow-wrap:anywhere; text-decoration:none; }
+.item-hover-name:hover,.item-hover-name:focus-visible { text-decoration:underline; }

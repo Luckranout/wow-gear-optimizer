@@ -116,6 +116,37 @@ function escapeSlotText(value) {
   })[character]);
 }
 
+
+function getItemQualityClass(item) {
+  const quality = item?.quality;
+  const rawName = typeof quality === "string" ? quality : quality?.name;
+  const name = String(rawName || "").toLowerCase();
+  const id = Number(typeof quality === "object" ? quality?.id : item?.qualityId);
+  const qualityById = { 0: "poor", 1: "common", 2: "uncommon", 3: "rare", 4: "epic", 5: "legendary", 6: "artifact", 7: "heirloom", 8: "wow-token" };
+  const qualityName = name || qualityById[id] || "";
+  return ["poor", "common", "uncommon", "rare", "epic", "legendary", "artifact", "heirloom", "wow-token"].includes(qualityName)
+    ? "item-quality-" + qualityName
+    : "item-quality-unknown";
+}
+
+function renderItemHoverTooltip(item) {
+  if (!item) return "";
+  const level = displayItemLevel(item.itemLevel ?? item.level);
+  const stats = typeof getLoadoutItemStats === "function" ? getLoadoutItemStats(item) : {};
+  const statRows = Object.entries(stats).map(([name, value]) =>
+    '<div class="item-hover-stat"><span>' + escapeSlotText(name) + '</span><strong>' + escapeSlotText(value.toLocaleString()) + '</strong></div>'
+  ).join("");
+  const qualityClass = getItemQualityClass(item);
+  return '<div class="item-hover-tooltip" role="tooltip">' +
+    '<div class="item-hover-heading">' +
+      '<img class="item-hover-image" data-item-tooltip-image-id="' + escapeSlotText(item.id || "") + '" alt="" />' +
+      '<div><a class="item-hover-name ' + qualityClass + '" href="https://www.wowhead.com/item=' + encodeURIComponent(String(item.id || "")) + '" target="_blank" rel="noopener noreferrer">' + escapeSlotText(item.name || "Unknown item") + '</a>' +
+      '<span>' + (level ? 'Item level ' + escapeSlotText(level) : 'Item level unavailable') + '</span></div>' +
+    '</div>' +
+    '<div class="item-hover-stats">' + (statRows || '<span class="item-hover-no-stats">Verified stats unavailable</span>') + '</div>' +
+  '</div>';
+}
+
 async function loadEquippedItemIcon(itemId) {
   if (!itemId) return null;
   if (!itemMediaCache.has(itemId)) {
@@ -182,7 +213,7 @@ function renderSlots() {
     return `<div class="slot" data-item-id="${escapeSlotText(item.id)}">
       <div class="slot-name">${escapeSlotText(slot)}</div>
       <div class="slot-item">
-        <div class="slot-icon" aria-label="Item icon for ${escapeSlotText(item.name || slot)}">…</div>
+        <div class="slot-icon-wrap"><div class="slot-icon" tabindex="0" aria-label="Item icon for ${escapeSlotText(item.name || slot)}">…</div>${renderItemHoverTooltip(item)}</div>
         <div class="slot-details">
           <div class="slot-item-name">${escapeSlotText(item.name || "Unknown item")}</div>
           <div class="slot-status">${displayItemLevel(item.itemLevel) != null ? `Item level ${escapeSlotText(displayItemLevel(item.itemLevel))}` : "Item level unavailable"}</div>
@@ -202,7 +233,9 @@ function renderSlots() {
     if (!icon) return;
     if (iconUrl) {
       icon.innerHTML = `<img src="${escapeSlotText(iconUrl)}" alt="" loading="lazy" />`;
-      icon.setAttribute("aria-label", "Equipped item icon");
+      const tooltipImage = card.querySelector(".item-hover-image");
+      if (tooltipImage) tooltipImage.src = iconUrl;
+      icon.setAttribute("aria-label", "Equipped item icon; hover or focus to view stats");
     } else {
       icon.textContent = "Item";
       icon.setAttribute("aria-label", "Item icon unavailable");
@@ -433,7 +466,7 @@ function renderLoadoutItemCard(item, label, emptyText) {
   return '<section class="compare-item">' +
     '<h4>' + escapeSlotText(label) + '</h4>' +
     '<div class="compare-item-heading">' +
-      '<span class="compare-icon" data-item-icon-id="' + escapeSlotText(item.id || "") + '">Item</span>' +
+      '<span class="compare-icon-wrap"><span class="compare-icon" tabindex="0" data-item-icon-id="' + escapeSlotText(item.id || "") + '" aria-label="Item icon; hover or focus to view stats">Item</span>' + renderItemHoverTooltip(item) + '</span>' +
       '<div class="compare-item-meta"><strong>' + escapeSlotText(item.name || "Unnamed item") + '</strong>' +
       '<span>' + (itemLevel ? 'Item level ' + escapeSlotText(itemLevel) : 'Item level unavailable') + '</span></div>' +
     '</div>' +
@@ -493,7 +526,9 @@ function renderOptimizedLoadout(equipment = {}, score = 0, currentEquipment = {}
     if (importedCharacter !== renderToken || !node.isConnected) return;
     if (iconUrl) {
       node.innerHTML = '<img src="' + escapeSlotText(iconUrl) + '" alt="" loading="lazy">';
-      node.setAttribute("aria-label", "Item icon");
+      const tooltip = node.parentElement?.querySelector(".item-hover-image");
+      if (tooltip) tooltip.src = iconUrl;
+      node.setAttribute("aria-label", "Item icon; hover or focus to view stats");
     } else {
       node.classList.add("compare-icon-fallback");
       node.setAttribute("aria-label", "Item icon unavailable");
