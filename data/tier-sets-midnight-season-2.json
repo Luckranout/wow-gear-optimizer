@@ -37,7 +37,42 @@
           "Your Magus of the Dead and Lord of the Dead cast a more powerful Necrotic Bolt instead of Frostbolt, and Withering Grasp instead of Shadow Bolt.",
           "Necrotic Bolt's damage and Withering Grasp's damage are increased by 130% against targets below 35% health."
         ]
-      ]
+      ],
+      "eligibleSlots": [
+        "Head",
+        "Shoulders",
+        "Chest",
+        "Hands",
+        "Legs"
+      ],
+      "appearanceVariants": [
+        {
+          "variant": "Raid Finder",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Normal",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Heroic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Mythic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Gladiator",
+          "sourceType": "PvP"
+        },
+        {
+          "variant": "Elite",
+          "sourceType": "PvP"
+        }
+      ],
+      "pieces": [],
+      "itemIdsVerified": false
     },
     {
       "class": "Demon Hunter",
@@ -58,7 +93,42 @@
           "Sigil of Flame damage over time is increased by 50%. Soul Cleave increases Sigil of Flame duration on your primary target by 2 sec.",
           "Immolation Aura and Sigil of Spite deal 100% increased damage against targets affected by Sigil of Flame."
         ]
-      ]
+      ],
+      "eligibleSlots": [
+        "Head",
+        "Shoulders",
+        "Chest",
+        "Hands",
+        "Legs"
+      ],
+      "appearanceVariants": [
+        {
+          "variant": "Raid Finder",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Normal",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Heroic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Mythic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Gladiator",
+          "sourceType": "PvP"
+        },
+        {
+          "variant": "Elite",
+          "sourceType": "PvP"
+        }
+      ],
+      "pieces": [],
+      "itemIdsVerified": false
     },
     {
       "class": "Druid",
@@ -84,7 +154,42 @@
           "Rejuvenation has a 15% chance to grant Genesis, causing all heal-over-time effects to heal for 15% more for 8 sec. Applications may overlap.",
           "Nature's Swiftness, Tranquility, and Incarnation: Tree of Life or Convoke the Spirits have a 100% chance to grant Genesis, whose duration is increased by 4 sec."
         ]
-      ]
+      ],
+      "eligibleSlots": [
+        "Head",
+        "Shoulders",
+        "Chest",
+        "Hands",
+        "Legs"
+      ],
+      "appearanceVariants": [
+        {
+          "variant": "Raid Finder",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Normal",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Heroic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Mythic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Gladiator",
+          "sourceType": "PvP"
+        },
+        {
+          "variant": "Elite",
+          "sourceType": "PvP"
+        }
+      ],
+      "pieces": [],
+      "itemIdsVerified": false
     },
     {
       "class": "Evoker",
@@ -105,7 +210,42 @@
           "Consuming Essence Burst sends a Living Flame at your target at 100% effectiveness, or a nearby injured target if the target is full health.",
           "Green spells restore 5% more health, and Verdant Embrace has a 100% chance to grant Essence Burst."
         ]
-      ]
+      ],
+      "eligibleSlots": [
+        "Head",
+        "Shoulders",
+        "Chest",
+        "Hands",
+        "Legs"
+      ],
+      "appearanceVariants": [
+        {
+          "variant": "Raid Finder",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Normal",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Heroic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Mythic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Gladiator",
+          "sourceType": "PvP"
+        },
+        {
+          "variant": "Elite",
+          "sourceType": "PvP"
+        }
+      ],
+      "pieces": [],
+      "itemIdsVerified": false
     },
     {
       "class": "Hunter",
@@ -126,7 +266,42 @@
           "The source overview lists a 4-piece effect: each Boomstick blast extends Mongoose Fury by 1 sec and increases its effects by 10%.",
           "Mongoose Fury also increases Wildfire Bomb damage by 10%."
         ]
-      ]
+      ],
+      "eligibleSlots": [
+        "Head",
+        "Shoulders",
+        "Chest",
+        "Hands",
+        "Legs"
+      ],
+      "appearanceVariants": [
+        {
+          "variant": "Raid Finder",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Normal",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Heroic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Mythic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Gladiator",
+          "sourceType": "PvP"
+        },
+        {
+          "variant": "Elite",
+          "sourceType": "PvP"
+        }
+      ],
+      "pieces": [],
+      "itemIdsVerified": false
     },
     {
       "class": "Mage",
@@ -147,7 +322,42 @@
           "Each stack of Freezing Shattered has a 4% chance to generate an Icicle. Glacial Spike damage increased by 20%.",
           "Casting Glacial Spike has a chance to rapidly generate 5 Icicles over 1 sec. Shatter damage increased by 5%."
         ]
-      ]
+      ],
+      "eligibleSlots": [
+        "Head",
+        "Shoulders",
+        "Chest",
+        "Hands",
+        "Legs"
+      ],
+      "appearanceVariants": [
+        {
+          "variant": "Raid Finder",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Normal",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Heroic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Mythic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Gladiator",
+          "sourceType": "PvP"
+        },
+        {
+          "variant": "Elite",
+          "sourceType": "PvP"
+        }
+      ],
+      "pieces": [],
+      "itemIdsVerified": false
     },
     {
       "class": "Monk",
@@ -168,7 +378,42 @@
           "Fists of Fury strikes an additional time at the start of its channel at 50% effectiveness.",
           "Fists of Fury increases the damage of your next Rising Sun Kick by 10% or Spinning Crane Kick by 20% each strike, stacking up to 6 times."
         ]
-      ]
+      ],
+      "eligibleSlots": [
+        "Head",
+        "Shoulders",
+        "Chest",
+        "Hands",
+        "Legs"
+      ],
+      "appearanceVariants": [
+        {
+          "variant": "Raid Finder",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Normal",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Heroic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Mythic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Gladiator",
+          "sourceType": "PvP"
+        },
+        {
+          "variant": "Elite",
+          "sourceType": "PvP"
+        }
+      ],
+      "pieces": [],
+      "itemIdsVerified": false
     },
     {
       "class": "Paladin",
@@ -189,7 +434,42 @@
           "Divine Purpose has an additional 10% chance to activate; consuming it grants Divine Power, increasing Holy damage by 10% for 12 sec.",
           "Consuming Divine Purpose grants Divine Arbiter, empowering other Holy Power spenders to unleash an arbiter of light dealing Holy damage."
         ]
-      ]
+      ],
+      "eligibleSlots": [
+        "Head",
+        "Shoulders",
+        "Chest",
+        "Hands",
+        "Legs"
+      ],
+      "appearanceVariants": [
+        {
+          "variant": "Raid Finder",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Normal",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Heroic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Mythic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Gladiator",
+          "sourceType": "PvP"
+        },
+        {
+          "variant": "Elite",
+          "sourceType": "PvP"
+        }
+      ],
+      "pieces": [],
+      "itemIdsVerified": false
     },
     {
       "class": "Priest",
@@ -210,7 +490,42 @@
           "Tentacle Slam cooldown is reduced by 3 sec and its damage increased by 100%.",
           "Tentacle Slam always grants a free use of Void Volley at 100% effectiveness."
         ]
-      ]
+      ],
+      "eligibleSlots": [
+        "Head",
+        "Shoulders",
+        "Chest",
+        "Hands",
+        "Legs"
+      ],
+      "appearanceVariants": [
+        {
+          "variant": "Raid Finder",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Normal",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Heroic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Mythic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Gladiator",
+          "sourceType": "PvP"
+        },
+        {
+          "variant": "Elite",
+          "sourceType": "PvP"
+        }
+      ],
+      "pieces": [],
+      "itemIdsVerified": false
     },
     {
       "class": "Rogue",
@@ -231,7 +546,42 @@
           "Backstab costs 10 less Energy and deals 100% increased damage. Shuriken Storm costs 5 less Energy and deals 60% increased damage.",
           "Lingering Shadow also benefits Eviscerate and Black Powder at 100% effectiveness."
         ]
-      ]
+      ],
+      "eligibleSlots": [
+        "Head",
+        "Shoulders",
+        "Chest",
+        "Hands",
+        "Legs"
+      ],
+      "appearanceVariants": [
+        {
+          "variant": "Raid Finder",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Normal",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Heroic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Mythic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Gladiator",
+          "sourceType": "PvP"
+        },
+        {
+          "variant": "Elite",
+          "sourceType": "PvP"
+        }
+      ],
+      "pieces": [],
+      "itemIdsVerified": false
     },
     {
       "class": "Shaman",
@@ -252,7 +602,42 @@
           "Healing Wave and Chain Heal have a chance to create a Healing Rain at the target's location for 8 sec.",
           "Each second, an ally inside Healing Rain gains a watery shield. The overview currently displays 0 absorption, so this effect's numeric tooltip requires verification."
         ]
-      ]
+      ],
+      "eligibleSlots": [
+        "Head",
+        "Shoulders",
+        "Chest",
+        "Hands",
+        "Legs"
+      ],
+      "appearanceVariants": [
+        {
+          "variant": "Raid Finder",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Normal",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Heroic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Mythic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Gladiator",
+          "sourceType": "PvP"
+        },
+        {
+          "variant": "Elite",
+          "sourceType": "PvP"
+        }
+      ],
+      "pieces": [],
+      "itemIdsVerified": false
     },
     {
       "class": "Warlock",
@@ -273,7 +658,42 @@
           "Incinerate damage increased by 25% and has a 10% increased chance to evoke an Echo of Sargeras.",
           "Targets damaged by Echo of Sargeras take 6% increased damage from your spells and abilities for 6 sec."
         ]
-      ]
+      ],
+      "eligibleSlots": [
+        "Head",
+        "Shoulders",
+        "Chest",
+        "Hands",
+        "Legs"
+      ],
+      "appearanceVariants": [
+        {
+          "variant": "Raid Finder",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Normal",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Heroic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Mythic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Gladiator",
+          "sourceType": "PvP"
+        },
+        {
+          "variant": "Elite",
+          "sourceType": "PvP"
+        }
+      ],
+      "pieces": [],
+      "itemIdsVerified": false
     },
     {
       "class": "Warrior",
@@ -294,7 +714,42 @@
           "Free Revenges deal 15% additional damage and cause your next Shield Slam to deal 20% additional damage.",
           "Ravager and free Revenges cause targets to bleed over 12 sec. Ravager cooldown is reduced by 30 sec."
         ]
-      ]
+      ],
+      "eligibleSlots": [
+        "Head",
+        "Shoulders",
+        "Chest",
+        "Hands",
+        "Legs"
+      ],
+      "appearanceVariants": [
+        {
+          "variant": "Raid Finder",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Normal",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Heroic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Mythic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Gladiator",
+          "sourceType": "PvP"
+        },
+        {
+          "variant": "Elite",
+          "sourceType": "PvP"
+        }
+      ],
+      "pieces": [],
+      "itemIdsVerified": false
     }
   ],
   "itemMatching": {
@@ -306,6 +761,21 @@
       "variant",
       "sourceUrl"
     ],
-    "note": "Do not infer item membership from class, faction, appearance, or item level. Add verified item IDs for Raid Finder, Normal, Heroic, Mythic, Gladiator, Elite, and relevant Catalyst/conversion variants before claiming exact equipped-piece matching."
+    "expectedSlots": [
+      "Head",
+      "Shoulders",
+      "Chest",
+      "Hands",
+      "Legs"
+    ],
+    "expectedVariants": [
+      "Raid Finder",
+      "Normal",
+      "Heroic",
+      "Mythic",
+      "Gladiator",
+      "Elite"
+    ],
+    "note": "Wowhead documents five tier slots and six appearance variants per class set. Exact item IDs for these variants have not yet been verified, so piece records remain empty and optimizer must not infer membership from appearance or item level."
   }
 }
