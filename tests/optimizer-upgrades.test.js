@@ -555,7 +555,7 @@ console.log("Imported stat normalization and lower-level ring regression passed.
 
 // Regression: the optimizer must retain current equipped gear as a candidate
 // when the catalog only offers an unrelated, much lower-item-level target.
-const variantRegressionCurrentHelm = {
+const currentHelm = {
   id: 777001, name: "Current High-Level Helm", slot: "Head", itemLevel: 318,
   stats: { Strength: 162, Intellect: 162, Stamina: 3254, CriticalStrike: 116, Mastery: 72 }
 };
