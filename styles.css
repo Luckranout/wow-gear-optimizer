@@ -234,6 +234,43 @@ footer {
   .upgrade-grid { grid-template-columns:1fr; }
 }
 
+.loadout-compare-row {
+  background:#0c1017;
+  border:1px solid var(--border);
+  border-radius:13px;
+  padding:14px;
+  margin-bottom:10px;
+  min-width:0;
+}
+.loadout-compare-slot { margin:0 0 12px; font-size:14px; }
+.loadout-compare-pair { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:12px; }
+.compare-item { min-width:0; border:1px solid var(--border); background:#111722; border-radius:10px; padding:12px; }
+.compare-item h4,.loadout-stat-delta h4 { margin:0 0 10px; font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; }
+.compare-item-heading { display:flex; align-items:center; gap:10px; min-width:0; margin-bottom:10px; }
+.compare-icon { flex:0 0 48px; width:48px; height:48px; border:1px solid var(--border); border-radius:8px; display:grid; place-items:center; color:var(--muted); font-size:10px; overflow:hidden; }
+.compare-icon img { width:100%; height:100%; object-fit:cover; }
+.compare-icon-fallback { background:#0b0f16; }
+.compare-item-meta { display:grid; gap:5px; min-width:0; overflow-wrap:anywhere; }
+.compare-item-meta strong { font-size:13px; }
+.compare-item-meta span { font-size:12px; color:var(--muted); }
+.compare-stats { display:grid; gap:5px; }
+.compare-stat { display:flex; justify-content:space-between; gap:10px; font-size:12px; line-height:1.4; padding-top:4px; border-top:1px solid rgba(42,50,64,.65); }
+.compare-stat span { color:var(--muted); overflow-wrap:anywhere; }
+.compare-stat strong { font-variant-numeric:tabular-nums; }
+.compare-stat .gain,.compare-stat strong.gain { color:var(--green); }
+.compare-stat .loss,.compare-stat strong.loss { color:#ff8585; }
+.compare-stat strong.same { color:var(--muted); }
+.compare-unknown,.compare-no-stats { color:var(--muted); font-size:12px; }
+.compare-no-stats { margin:0; line-height:1.5; }
+.loadout-stat-delta { margin-top:12px; padding:12px; background:rgba(7,10,15,.55); border-radius:9px; }
+.loadout-stat-delta h4 { margin-bottom:7px; }
+@media(max-width:640px) {
+  .loadout-compare-row { padding:10px; }
+  .loadout-compare-pair { grid-template-columns:minmax(0,1fr); gap:8px; }
+  .compare-item { padding:10px; }
+  .compare-icon { flex-basis:40px; width:40px; height:40px; }
+}
+
 .loadout-list { display:grid; gap:8px; }
 .loadout-row {
   display:grid;
@@ -351,6 +388,14 @@ footer {
 .gem-summary-stats span { padding: 6px 8px; border: 1px solid var(--border); border-radius: 8px; }
 .gem-summary-note { margin: 8px 0 0; color: var(--muted); font-size: 12px; line-height: 1.5; }
 
+
+.loadout-upgrade-reason {
+  margin-top:10px;
+  padding-top:10px;
+  border-top:1px solid rgba(42,50,64,.65);
+}
+.loadout-upgrade-reason strong { font-size:12px; }
+.loadout-upgrade-reason p { margin:5px 0 0; color:var(--muted); font-size:12px; line-height:1.5; }
 
 /* Experimental tier-set-aware optimization control */
 .tier-set-mode-option {
