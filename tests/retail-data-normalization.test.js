@@ -5,6 +5,18 @@ const context = { window: {}, fetch: async () => ({ ok: true, json: async () => 
 vm.createContext(context);
 vm.runInContext(fs.readFileSync("wow-data.js", "utf8"), context);
 const dataLayer = context.window.WoWData;
+const tierCatalogue = JSON.parse(fs.readFileSync("data/tier-sets-midnight-season-2.json", "utf8"));
+const tierCatalogueErrors = dataLayer.validateTierSetCatalogue(tierCatalogue);
+if (tierCatalogueErrors.length) {
+  throw new Error("Tier-set catalogue validation failed: " + tierCatalogueErrors.join("; "));
+}
+if (tierCatalogue.sets.length !== 13 ||
+    new Set(tierCatalogue.sets.map(set => set.class)).size !== 13 ||
+    tierCatalogue.thresholds.join(",") !== "2,4" ||
+    tierCatalogue.itemMatching.status !== "incomplete") {
+  throw new Error("Tier-set catalogue must cover all classes and keep unverified item matching explicit");
+}
+
 
 const samples = [
   [{ id: 1, name: "Helm", inventoryType: { name: "Head" } }, "Head"],
