@@ -347,11 +347,31 @@ function resolveStatWeights({
   return merged;
 }
 
-function findBestItemForSlot(items, slot, goal, statWeights = null, className = "") {
+function resolveCatalogItemAgainstEquippedVariant(candidate, equippedItem) {
+  if (!candidate || !equippedItem || candidate.id == null || equippedItem.id == null) return candidate;
+  if (String(candidate.id) !== String(equippedItem.id)) return candidate;
+
+  const candidateLevel = Number(candidate.itemLevel ?? candidate.level);
+  const equippedLevel = Number(equippedItem.itemLevel ?? equippedItem.level);
+  // The catalog endpoint may describe only the base item while Blizzard's
+  // character profile contains the actual upgraded variant. Never replace
+  // that verified equipped variant with a lower-level base record.
+  if (Number.isFinite(candidateLevel) && Number.isFinite(equippedLevel) && equippedLevel > candidateLevel) {
+    return equippedItem;
+  }
+  return candidate;
+}
+
+function findBestItemForSlot(items, slot, goal, statWeights = null, className = "", equippedItem = null) {
   const weights = statWeights || getGoalWeights(goal);
-  return (items || []).filter(item => itemMatchesSlot(item, slot) && itemAllowedForClass(item, className) && hasUsableItemStats(item))
-    .map(item => ({ item, score: scoreItem(item, weights) }))
-    .sort((a, b) => b.score - a.score)[0] || null;
+  const candidates = (items || [])
+    .filter(item => itemMatchesSlot(item, slot) && itemAllowedForClass(item, className) && hasUsableItemStats(item))
+    .map(item => resolveCatalogItemAgainstEquippedVariant(item, equippedItem))
+    .filter((item, index, all) => all.findIndex(other =>
+      String(other.id ?? other.name) === String(item.id ?? item.name)
+    ) === index)
+    .map(item => ({ item, score: scoreItem(item, weights) }));
+  return candidates.sort((a, b) => b.score - a.score)[0] || null;
 }
 
 function optimizeEquipment({
@@ -363,7 +383,7 @@ function optimizeEquipment({
   const weights = statWeights || getGoalWeights(goal);
   const optimizedEquipment = {};
   for (const slot of WOW_EQUIPMENT_SLOTS) {
-    const best = findBestItemForSlot(items, slot, goal, weights, character.className);
+    const best = findBestItemForSlot(items, slot, goal, weights, character.className, character.equipment?.[slot]);
     optimizedEquipment[slot] = best ? best.item : null;
   }
 
