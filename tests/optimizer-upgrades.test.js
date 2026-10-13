@@ -701,3 +701,41 @@ if (armsStatus.counts["all-class-fixture"] !== 2 ||
   throw new Error("Source-backed set piece IDs or specialization-specific effects failed");
 }
 
+
+
+// Weapon compatibility regression: Enhancement should not be offered a staff,
+// while Elemental may use one. A two-handed mace is a valid main-hand option,
+// but must never be paired with an off-hand weapon.
+const staff = { id: 910001, name: "Validation Intellect Staff", slot: "Main Hand", inventoryType: "Staff", itemSubclass: "Staff", itemLevel: 219, stats: { Intellect: 288, Stamina: 1005 } };
+const oneHandAxe = { id: 910002, name: "Validation One-Hand Axe", slot: "Main Hand", inventoryType: "One-Hand", itemSubclass: "Axe", itemLevel: 295, stats: { Agility: 66, Haste: 53 } };
+const offHandAxe = { id: 910003, name: "Validation Off-Hand Axe", slot: "Off Hand", inventoryType: "One-Hand", itemSubclass: "Axe", itemLevel: 295, stats: { Agility: 62, Mastery: 40 } };
+const twoHandMace = { id: 910004, name: "Validation Two-Hand Mace", slot: "Main Hand", inventoryType: "Two-Hand", itemSubclass: "Mace", itemLevel: 310, stats: { Agility: 90, Haste: 50 } };
+if (o.itemAllowedForSpecialization(staff, "Main Hand", "Shaman", "Enhancement") !== false) {
+  throw new Error("Enhancement must not recommend a staff");
+}
+if (o.itemAllowedForSpecialization(staff, "Main Hand", "Shaman", "Elemental") !== true) {
+  throw new Error("Elemental must retain valid staff candidates");
+}
+if (o.itemAllowedForSpecialization(oneHandAxe, "Main Hand", "Shaman", "Enhancement") !== true ||
+    o.itemAllowedForSpecialization(offHandAxe, "Off Hand", "Shaman", "Enhancement") !== true) {
+  throw new Error("Enhancement should retain valid one-handed weapon candidates");
+}
+if (o.itemAllowedForSpecialization(twoHandMace, "Main Hand", "Shaman", "Enhancement") !== true) {
+  throw new Error("Enhancement should retain eligible two-handed mace candidates");
+}
+const enhancementCharacter = o.createCharacterProfile();
+enhancementCharacter.className = "Shaman";
+enhancementCharacter.specialization = "Enhancement";
+enhancementCharacter.equipment["Main Hand"] = { ...oneHandAxe };
+enhancementCharacter.equipment["Off Hand"] = { ...offHandAxe };
+const weaponResult = o.optimizeEquipment({
+  items: [staff, oneHandAxe, offHandAxe, twoHandMace],
+  character: enhancementCharacter,
+  statWeights: { Agility: 2, Intellect: 0, Stamina: 0, Haste: 1, Mastery: 1 }
+});
+if (weaponResult.equipment["Main Hand"]?.id === staff.id) {
+  throw new Error("Enhancement loadout optimizer selected a staff");
+}
+if (weaponResult.equipment["Main Hand"]?.id === twoHandMace.id && weaponResult.equipment["Off Hand"]) {
+  throw new Error("Optimizer must not combine a two-handed main-hand weapon with an off-hand item");
+}
