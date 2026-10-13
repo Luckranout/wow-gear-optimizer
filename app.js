@@ -375,6 +375,11 @@ function getLoadoutUpgradeReason(target, current, sameItem = false) {
   const commonStats = Object.keys(targetStats).filter(key => Object.hasOwn(currentStats, key));
   const gains = commonStats.map(key => ({ key, delta: targetStats[key] - currentStats[key] })).filter(entry => entry.delta > 0).sort((a,b) => b.delta-a.delta);
   const losses = commonStats.map(key => ({ key, delta: targetStats[key] - currentStats[key] })).filter(entry => entry.delta < 0).sort((a,b) => a.delta-b.delta);
+  const comparisonIncomplete = Object.keys(targetStats).some(key => !Object.hasOwn(currentStats, key)) ||
+    Object.keys(currentStats).some(key => !Object.hasOwn(targetStats, key));
+  if (levelKnown && levelDelta < 0 && comparisonIncomplete) {
+    return "Not a verified upgrade: this candidate has a lower displayed item level (" + levelDelta + ") and the stat comparison is incomplete. Keep your currently equipped item until a complete, trustworthy comparison is available.";
+  }
   const parts = [];
   if (levelKnown && levelDelta > 0) parts.push("higher item level (+" + levelDelta + ")");
   else if (levelKnown && levelDelta < 0) parts.push("lower item level (" + levelDelta + ")");
