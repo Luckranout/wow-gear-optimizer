@@ -5,6 +5,26 @@ vm.createContext(context);
 vm.runInContext(fs.readFileSync("optimizer.js", "utf8"), context);
 const o = context.window.WoWOptimizer;
 
+
+const fsData = JSON.parse(fs.readFileSync("data/tier-sets-midnight-season-2.json", "utf8"));
+const shamanTier = fsData.sets.find(set => set.class === "Shaman");
+if (!shamanTier || shamanTier.itemIdsVerified !== true || shamanTier.pieces.length !== 30) {
+  throw new Error("Enhancement Shaman tier piece catalogue must verify all five items across six variants");
+}
+const expectedShamanPieces = [
+  [271483, "Head"], [271481, "Shoulders"], [271486, "Chest"],
+  [271484, "Hands"], [271482, "Legs"]
+];
+for (const [itemId, slot] of expectedShamanPieces) {
+  const records = shamanTier.pieces.filter(piece => piece.itemId === itemId && piece.slot === slot);
+  if (records.length !== 6 || records.some(piece => piece.setId !== shamanTier.id || !piece.sourceUrl)) {
+    throw new Error(`Shaman tier item ${itemId} must map to ${slot} across all six variants`);
+  }
+}
+if (fsData.itemMatching.status !== "partial" || !fsData.itemMatching.verifiedClasses.includes("Shaman")) {
+  throw new Error("Tier catalogue must report partial verified coverage instead of claiming all classes are complete");
+}
+
 const system = {
   tracks: [
     { id: "hero", name: "Hero", crest: "Hero Mistcrest", maxRank: 6,
