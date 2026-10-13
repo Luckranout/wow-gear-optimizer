@@ -526,4 +526,23 @@ if (tierOptimized.equipment.Head?.name !== "Tier Helm" ||
 if (tierOptimized.setBonusStatus.score !== 580) {
   throw new Error("Tier set score did not sum the explicit active 2-piece and 4-piece values");
 }
+// Explicit threshold transitions: the fifth eligible piece is optional.
+const fifthTierPiece = { id: 920006, name: "Tier Feet", slot: "Feet", itemLevel: 300, stats: { Strength: 10 }, set: { id: "midnight-tier-test", name: "Test Tier Set" } };
+const tierLoadouts = [
+  { Head: tierPieces[0] },
+  { Head: tierPieces[0], Shoulders: tierPieces[1] },
+  { Head: tierPieces[0], Shoulders: tierPieces[1], Chest: tierPieces[2] },
+  { Head: tierPieces[0], Shoulders: tierPieces[1], Chest: tierPieces[2], Legs: tierPieces[3] },
+  { Head: tierPieces[0], Shoulders: tierPieces[1], Chest: tierPieces[2], Legs: tierPieces[3], Feet: fifthTierPiece }
+];
+const thresholdStates = tierLoadouts.map(loadout => o.getSetBonusStatus(loadout, tierSetBonuses).bonuses);
+const isActive = (bonuses, pieces) => bonuses.find(b => b.requiredPieces === pieces)?.active;
+if (isActive(thresholdStates[0], 2) !== false || isActive(thresholdStates[0], 4) !== false ||
+    isActive(thresholdStates[1], 2) !== true || isActive(thresholdStates[1], 4) !== false ||
+    isActive(thresholdStates[2], 2) !== true || isActive(thresholdStates[2], 4) !== false ||
+    isActive(thresholdStates[3], 2) !== true || isActive(thresholdStates[3], 4) !== true ||
+    isActive(thresholdStates[4], 2) !== true || isActive(thresholdStates[4], 4) !== true) {
+  throw new Error("Tier set bonuses must activate at exactly 2 and 4 pieces; the fifth piece must remain optional");
+}
+console.log("Tier set 1→2, 3→4, and optional fifth-piece threshold regressions passed.");
 console.log("Tier set bonus-aware loadout regression passed.");
