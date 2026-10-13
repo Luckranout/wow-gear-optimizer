@@ -13,7 +13,11 @@ if (tierCatalogueErrors.length) {
 if (tierCatalogue.sets.length !== 13 ||
     new Set(tierCatalogue.sets.map(set => set.class)).size !== 13 ||
     tierCatalogue.thresholds.join(",") !== "2,4" ||
-    tierCatalogue.itemMatching.status !== "incomplete") {
+    tierCatalogue.itemMatching.status !== "incomplete" ||
+    tierCatalogue.sets.some(set =>
+      set.eligibleSlots?.join(",") !== "Head,Shoulders,Chest,Hands,Legs" ||
+      set.appearanceVariants?.length !== 6 ||
+      set.itemIdsVerified !== false)) {
   throw new Error("Tier-set catalogue must cover all classes and keep unverified item matching explicit");
 }
 
