@@ -5,6 +5,145 @@ vm.createContext(context);
 vm.runInContext(fs.readFileSync("optimizer.js", "utf8"), context);
 const o = context.window.WoWOptimizer;
 
+// Level-90 progressive rating-band DR regression using the supplied per-stat thresholds.
+const drCases = [
+  [1320,"Haste",1320], [1760,"Haste",1716], [2200,"Haste",2068],
+  [2640,"Haste",2376], [3080,"Haste",2640], [8800,"Haste",5500], [9000,"Haste",5500],
+  [1840,"CriticalStrike",1794], [2300,"CriticalStrike",2162],
+  [2160,"Versatility",2106], [2700,"Versatility",2538],
+  [1840,"Mastery",1794]
+];
+for (const [rating, stat, expected] of drCases) {
+  const actual = o.applySecondaryRatingDiminishingReturns(rating, stat, 90);
+  if (actual === null || Math.abs(actual - expected) > 1e-9) {
+    throw new Error(`DR mismatch for ${stat} at ${rating}: expected ${expected}, got ${actual}`);
+  }
+}
+if (o.applySecondaryRatingDiminishingReturns(2000,"Haste",80) !== null ||
+    o.applySecondaryRatingDiminishingReturns(2000,"Agility",90) !== null) {
+  throw new Error("DR must refuse unsupported levels and non-secondary stats");
+}
+console.log("Level-90 progressive secondary-rating DR regression passed.");
+
+// First penalty band is a soft target; the final supplied rating threshold is
+// a hard limit for level-90 loadout candidates.
+const belowSoftTarget = { Head: { itemLevel: 100, stats: { Haste: 1320 } } };
+const aboveSoftTarget = { Head: { itemLevel: 100, stats: { Haste: 1500 } } };
+if (o.getSecondaryRatingSoftTargetPenalty(belowSoftTarget, 90) !== 0 ||
+    !(o.getSecondaryRatingSoftTargetPenalty(aboveSoftTarget, 90) > 0)) {
+  throw new Error("First-band soft target should add no penalty below threshold and a small penalty above it");
+}
+const atHardCap = { Head: { itemLevel: 100, stats: { Haste: 8800 } } };
+const aboveHardCap = { Head: { itemLevel: 100, stats: { Haste: 8801 } } };
+if (o.getSecondaryRatingHardCapViolations(atHardCap, 90).length !== 0 ||
+    o.getSecondaryRatingHardCapViolations(aboveHardCap, 90)[0]?.stat !== "Haste") {
+  throw new Error("Final rating threshold should be a hard cap");
+}
+if (o.getSecondaryRatingHardCapViolations(aboveHardCap, 80).length !== 0) {
+  throw new Error("Hard cap must not apply the level-90 table to unsupported levels");
+}
+console.log("Soft first-band target and hard final-cap regression passed.");
+
+
+// Upgrade shortlist must score a candidate against the full equipped rating totals.
+// With 1,320 Haste already equipped, +264 Haste yields only 237.6 effective rating;
+// +264 Mastery is therefore the stronger candidate when weights are equal.
+const contextualGear = {
+  Chest: { id: 989001, name: "Equipped Haste Chest", slot: "Chest", itemLevel: 100, stats: { Haste: 1320 } }
+};
+const contextualCandidates = [
+  { id: 989002, name: "Haste Helm", slot: "Head", itemLevel: 100, stats: { Haste: 264 } },
+  { id: 989003, name: "Mastery Helm", slot: "Head", itemLevel: 100, stats: { Mastery: 264 } }
+];
+const contextualUpgrades = o.findUpgradeOpportunities({
+  currentEquipment: contextualGear,
+  availableItems: contextualCandidates,
+  statWeights: { Haste: 1, Mastery: 1 },
+  className: "Shaman",
+  specialization: "Enhancement",
+  characterLevel: 90,
+  limit: 6
+});
+const contextualHead = contextualUpgrades.find(upgrade => upgrade.slot === "Head");
+if (contextualHead?.recommendedItem?.id !== 989003) {
+  throw new Error("Context-aware upgrade shortlist should prefer Mastery when existing Haste rating is in a penalty band");
+}
+const contextualBaseline = o.scoreLoadout(contextualGear, { Haste: 1, Mastery: 1 }, [], "Enhancement", 90).score;
+const contextualExpected = o.scoreLoadout(
+  { ...contextualGear, Head: contextualCandidates[1] },
+  { Haste: 1, Mastery: 1 }, [], "Enhancement", 90
+).score;
+if (Math.abs(contextualHead.improvement - (contextualExpected - contextualBaseline)) > 1e-9) {
+  throw new Error("Upgrade shortlist improvement must reflect full-loadout scoring");
+}
+console.log("Context-aware upgrade shortlist diminishing-returns regression passed.");
+
+
+// Screenshot example: at 1,320 Haste rating, the next 264 rating is entirely
+// in the 10% penalty band, so it adds 237.6 effective rating (5.4 percentage points).
+const exampleHasteBefore = o.applySecondaryRatingDiminishingReturns(1320, "Haste", 90);
+const exampleHasteAfter = o.applySecondaryRatingDiminishingReturns(1584, "Haste", 90);
+if (Math.abs(exampleHasteBefore - 1320) > 1e-9 ||
+    Math.abs((exampleHasteAfter - exampleHasteBefore) - 237.6) > 1e-9) {
+  throw new Error("Level-90 Haste example should yield 35.4% equivalent rating from 1,584 rating");
+}
+
+// Complete-loadout scoring uses aggregate rating totals only when level 90 is known.
+const drGear = { Head: { itemLevel: 100, stats: { Haste: 1760 } } };
+const rawGearScore = o.scoreEquipmentWithRatingDiminishingReturns(drGear, { Haste: 1 }, null);
+const level90GearScore = o.scoreEquipmentWithRatingDiminishingReturns(drGear, { Haste: 1 }, 90);
+if (!(level90GearScore < rawGearScore)) throw new Error("Level-90 loadout scoring must apply aggregate rating DR");
+const unsupportedLevelScore = o.scoreEquipmentWithRatingDiminishingReturns(drGear, { Haste: 1 }, 80);
+if (unsupportedLevelScore !== rawGearScore) throw new Error("Unsupported levels must retain the unadjusted score");
+
+const fsData = JSON.parse(fs.readFileSync("data/tier-sets-midnight-season-2.json", "utf8"));
+const shamanTier = fsData.sets.find(set => set.class === "Shaman");
+if (!shamanTier || shamanTier.itemIdsVerified !== true || shamanTier.pieces.length !== 30) {
+  throw new Error("Enhancement Shaman tier piece catalogue must verify all five items across six variants");
+}
+const expectedShamanPieces = [
+  [271483, "Head"], [271481, "Shoulders"], [271486, "Chest"],
+  [271484, "Hands"], [271482, "Legs"]
+];
+for (const [itemId, slot] of expectedShamanPieces) {
+  const records = shamanTier.pieces.filter(piece => piece.itemId === itemId && piece.slot === slot);
+  if (records.length !== 6 || records.some(piece => piece.setId !== shamanTier.id || !piece.sourceUrl)) {
+    throw new Error(`Shaman tier item ${itemId} must map to ${slot} across all six variants`);
+  }
+}
+if (fsData.itemMatching.status !== "partial" || !fsData.itemMatching.verifiedClasses.includes("Shaman")) {
+  throw new Error("Tier catalogue must report partial verified coverage instead of claiming all classes are complete");
+}
+
+const shamanBonusDefinition = {
+  id: shamanTier.id,
+  setId: shamanTier.id,
+  name: shamanTier.setName,
+  pieces: shamanTier.pieces,
+  thresholds: [
+    { pieces: 2, effect: "Enhancement 2-piece verified", scoreValue: null },
+    { pieces: 4, effect: "Enhancement 4-piece verified", scoreValue: null }
+  ]
+};
+const equipTierPieces = count => Object.fromEntries(
+  expectedShamanPieces.slice(0, count).map(([id, slot]) => [slot, { id, name: shamanTier.pieces.find(p => p.itemId === id).name, slot }])
+);
+const twoPieceStatus = o.getSetBonusStatus(equipTierPieces(2), [shamanBonusDefinition], "Enhancement");
+if (twoPieceStatus.bonuses.find(b => b.requiredPieces === 2)?.active !== true ||
+    twoPieceStatus.bonuses.find(b => b.requiredPieces === 4)?.active !== false) {
+  throw new Error("Two equipped Shaman tier pieces must activate 2-piece only");
+}
+const fourPieceStatus = o.getSetBonusStatus(equipTierPieces(4), [shamanBonusDefinition], "Enhancement");
+if (fourPieceStatus.bonuses.find(b => b.requiredPieces === 2)?.active !== true ||
+    fourPieceStatus.bonuses.find(b => b.requiredPieces === 4)?.active !== true) {
+  throw new Error("Four equipped Shaman tier pieces must activate both 2-piece and 4-piece");
+}
+const fivePieceStatus = o.getSetBonusStatus(equipTierPieces(5), [shamanBonusDefinition], "Enhancement");
+if (fivePieceStatus.counts[shamanTier.id] !== 5 ||
+    fivePieceStatus.bonuses.find(b => b.requiredPieces === 4)?.active !== true) {
+  throw new Error("The fifth Shaman tier piece must remain optional and preserve 4-piece");
+}
+
 const system = {
   tracks: [
     { id: "hero", name: "Hero", crest: "Hero Mistcrest", maxRank: 6,
@@ -428,6 +567,28 @@ if (simulationReport.optimizationContext.source !== "SimulationCraft" ||
     simulationReport.currentStats.weightedScore <= 0) {
   throw new Error("Simulation-derived optimization report context failed");
 }
+// Enhancement Shaman must not fall back to the generic all-stats-equal secondary weights.
+const enhancementWeights = o.resolveStatWeights({
+  className: "Shaman",
+  specialization: "Enhancement",
+  goal: "General / All-around"
+});
+if (!(enhancementWeights.Agility > enhancementWeights.CriticalStrike &&
+      enhancementWeights.CriticalStrike === enhancementWeights.Mastery &&
+      enhancementWeights.Mastery === enhancementWeights.Haste &&
+      enhancementWeights.Haste > enhancementWeights.Versatility)) {
+  throw new Error("Enhancement Shaman fallback must prioritize Agility, keep Crit/Mastery/Haste close, and de-prioritize Versatility");
+}
+const enhancementWithSimulation = o.resolveStatWeights({
+  className: "Shaman",
+  specialization: "Enhancement",
+  simulation: { source: "test simulation", scaleFactors: { Haste: 1.7, Mastery: 1.6 } }
+});
+if (enhancementWithSimulation.Haste !== 1.7 || enhancementWithSimulation.Mastery !== 1.6) {
+  throw new Error("Character-specific simulation weights must override the Enhancement fallback");
+}
+console.log("Enhancement Shaman stat-priority fallback regression passed.");
+
 console.log("Step 12 simulation scale-factor support passed.");
 
 
@@ -451,6 +612,60 @@ for (const [left, right] of [["Ring 1", "Ring 2"], ["Trinket 1", "Trinket 2"]]) 
   }
 }
 console.log("Distinct paired-slot item regression passed.");
+
+// Regression: live Blizzard stat maps may use lowercase names and nested values.
+// Their stats must contribute to the score instead of silently becoming zero.
+const lowercaseLiveRing = {
+  id: 990001, name: "Live Equipped Ring", slot: "Ring 1", itemLevel: 311,
+  stats: { stamina: 1689, haste: 232, versatility: 121 }
+};
+const lowerRingScore = o.scoreItem(lowercaseLiveRing);
+const equivalentCatalogRing = {
+  id: 990002, name: "Equivalent Catalog Ring", slot: "Ring 1", itemLevel: 311,
+  stats: { Stamina: 1689, Haste: 232, Versatility: 121 }
+};
+if (Math.abs(lowerRingScore - o.scoreItem(equivalentCatalogRing)) > 0.001) {
+  throw new Error("Lowercase imported ring stats must score identically to normalized catalog stats");
+}
+const lowRing = {
+  id: 990003, name: "Low-Level Ring", slot: "Ring 1", itemLevel: 219,
+  stats: { stamina: 565, haste: 123, versatility: 35 }
+};
+const ringReport = o.optimizeEquipment({
+  items: [lowRing],
+  character: {
+    ...o.createCharacterProfile(),
+    equipment: { ...o.createCharacterProfile().equipment, "Ring 1": lowercaseLiveRing }
+  }
+});
+if (ringReport.equipment["Ring 1"]?.id !== lowercaseLiveRing.id) {
+  throw new Error("Optimizer must not recommend a lower-scoring ilvl 219 ring over the equipped ilvl 311 ring");
+}
+console.log("Imported stat normalization and lower-level ring regression passed.");
+
+// Regression: the optimizer must retain current equipped gear as a candidate
+// when the catalog only offers an unrelated, much lower-item-level target.
+const currentHelm = {
+  id: 777001, name: "Current High-Level Helm", slot: "Head", itemLevel: 318,
+  stats: { Strength: 162, Intellect: 162, Stamina: 3254, CriticalStrike: 116, Mastery: 72 }
+};
+const lowCatalogHelm = {
+  id: 777002, name: "Low-Level Catalog Helm", slot: "Head", itemLevel: 219,
+  stats: { Strength: 65, Intellect: 65, Stamina: 1005, CriticalStrike: 32, Haste: 75 }
+};
+const retainedLoadout = o.optimizeEquipment({
+  items: [lowCatalogHelm],
+  character: {
+    ...o.createCharacterProfile(),
+    className: "Warrior",
+    specialization: "Protection",
+    equipment: { ...o.createCharacterProfile().equipment, Head: currentHelm }
+  }
+});
+if (retainedLoadout.equipment.Head?.id !== currentHelm.id) {
+  throw new Error("Optimizer selected an unrelated lower-level catalog item over the equipped helm");
+}
+
 
 
 // Regression: the catalog's base item record must not replace the character's
@@ -481,3 +696,340 @@ if (variantReport.equipment.Head?.itemLevel !== 334) {
 if (variantReport.equipment.Head?.stats?.CriticalStrike !== 120) {
   throw new Error("Optimizer did not preserve the verified equipped variant's stats");
 }
+
+
+// Regression: set bonuses are counted across the complete loadout and only
+// explicitly supplied threshold values affect the optimizer's score.
+const tierSetBonuses = [{
+  setId: "midnight-tier-test",
+  name: "Test Tier Set",
+  source: "verified-test-fixture",
+  thresholds: [
+    { pieces: 2, scoreValue: 80, effect: "Test 2-piece effect" },
+    { pieces: 4, scoreValue: 500, effect: "Test 4-piece effect" },
+    { pieces: 6, effect: "Unscored test effect must not invent a value" }
+  ]
+}];
+const tierPieces = [
+  { id: 920001, name: "Tier Helm", slot: "Head", itemLevel: 300, stats: { Strength: 10 }, set: { id: "midnight-tier-test", name: "Test Tier Set" } },
+  { id: 920002, name: "Tier Shoulders", slot: "Shoulders", itemLevel: 300, stats: { Strength: 10 }, set: { id: "midnight-tier-test", name: "Test Tier Set" } },
+  { id: 920003, name: "Tier Chest", slot: "Chest", itemLevel: 300, stats: { Strength: 10 }, set: { id: "midnight-tier-test", name: "Test Tier Set" } },
+  { id: 920004, name: "Tier Legs", slot: "Legs", itemLevel: 300, stats: { Strength: 10 }, set: { id: "midnight-tier-test", name: "Test Tier Set" } },
+  { id: 920005, name: "Higher Item Level Helm", slot: "Head", itemLevel: 400, stats: { Strength: 100 } }
+];
+const tierStatus = o.getSetBonusStatus({
+  Head: tierPieces[0], Shoulders: tierPieces[1], Chest: tierPieces[2], Legs: tierPieces[3]
+}, tierSetBonuses);
+if (tierStatus.counts["midnight-tier-test"] !== 4 ||
+    !tierStatus.bonuses.find(b => b.requiredPieces === 4)?.active ||
+    tierStatus.bonuses.find(b => b.requiredPieces === 6)?.scoreValue !== null) {
+  throw new Error("Tier set piece counting or unknown-score handling failed");
+}
+const tierOptimized = o.optimizeEquipment({
+  items: tierPieces,
+  character: {
+    ...o.createCharacterProfile(),
+    className: "Warrior",
+    specialization: "Arms"
+  },
+  setBonuses: tierSetBonuses
+});
+if (tierOptimized.equipment.Head?.name !== "Tier Helm" ||
+    !tierOptimized.setBonusStatus.bonuses.find(b => b.requiredPieces === 4)?.active) {
+  throw new Error("Optimizer broke a scored 4-piece bonus for an individually higher-scoring helm");
+}
+if (tierOptimized.setBonusStatus.score !== 580) {
+  throw new Error("Tier set score did not sum the explicit active 2-piece and 4-piece values");
+}
+// Explicit threshold transitions: the fifth eligible piece is optional.
+const fifthTierPiece = { id: 920006, name: "Tier Feet", slot: "Feet", itemLevel: 300, stats: { Strength: 10 }, set: { id: "midnight-tier-test", name: "Test Tier Set" } };
+const tierLoadouts = [
+  { Head: tierPieces[0] },
+  { Head: tierPieces[0], Shoulders: tierPieces[1] },
+  { Head: tierPieces[0], Shoulders: tierPieces[1], Chest: tierPieces[2] },
+  { Head: tierPieces[0], Shoulders: tierPieces[1], Chest: tierPieces[2], Legs: tierPieces[3] },
+  { Head: tierPieces[0], Shoulders: tierPieces[1], Chest: tierPieces[2], Legs: tierPieces[3], Feet: fifthTierPiece }
+];
+const thresholdStates = tierLoadouts.map(loadout => o.getSetBonusStatus(loadout, tierSetBonuses).bonuses);
+const isActive = (bonuses, pieces) => bonuses.find(b => b.requiredPieces === pieces)?.active;
+if (isActive(thresholdStates[0], 2) !== false || isActive(thresholdStates[0], 4) !== false ||
+    isActive(thresholdStates[1], 2) !== true || isActive(thresholdStates[1], 4) !== false ||
+    isActive(thresholdStates[2], 2) !== true || isActive(thresholdStates[2], 4) !== false ||
+    isActive(thresholdStates[3], 2) !== true || isActive(thresholdStates[3], 4) !== true ||
+    isActive(thresholdStates[4], 2) !== true || isActive(thresholdStates[4], 4) !== true) {
+  throw new Error("Tier set bonuses must activate at exactly 2 and 4 pieces; the fifth piece must remain optional");
+}
+console.log("Tier set 1→2, 3→4, and optional fifth-piece threshold regressions passed.");
+console.log("Tier set bonus-aware loadout regression passed.");
+
+// Regression: source-backed piece IDs resolve set membership when live item
+// records omit their set field; specialization effects remain data-driven and
+// no faction/class gate is applied by the counting engine.
+const sourceBackedSet = [{
+  setId: "all-class-fixture",
+  name: "All-class test fixture",
+  pieces: [{ itemId: 930001, name: "Piece One" }, { itemId: 930002, name: "Piece Two" }],
+  thresholds: [{
+    pieces: 2,
+    effects: {
+      Arms: "Arms-specific test effect",
+      Restoration: "Restoration-specific test effect"
+    }
+  }],
+  source: "verified-test-fixture"
+}];
+const idOnlyLoadout = {
+  Head: { id: 930001, name: "Piece One", slot: "Head" },
+  Chest: { id: 930002, name: "Piece Two", slot: "Chest" }
+};
+const armsStatus = o.getSetBonusStatus(idOnlyLoadout, sourceBackedSet, "Arms");
+const restoStatus = o.getSetBonusStatus(idOnlyLoadout, sourceBackedSet, "Restoration");
+if (armsStatus.counts["all-class-fixture"] !== 2 ||
+    armsStatus.bonuses[0]?.active !== true ||
+    armsStatus.bonuses[0]?.effect !== "Arms-specific test effect" ||
+    restoStatus.bonuses[0]?.effect !== "Restoration-specific test effect") {
+  throw new Error("Source-backed set piece IDs or specialization-specific effects failed");
+}
+
+
+
+// Weapon compatibility regression: Enhancement should not be offered a staff,
+// while Elemental may use one. A two-handed mace is a valid main-hand option,
+// but must never be paired with an off-hand weapon.
+const staff = { id: 910001, name: "Validation Intellect Staff", slot: "Main Hand", inventoryType: "Staff", itemSubclass: "Staff", itemLevel: 219, stats: { Intellect: 288, Stamina: 1005 } };
+const oneHandAxe = { id: 910002, name: "Validation One-Hand Axe", slot: "Main Hand", inventoryType: "One-Hand", itemSubclass: "Axe", itemLevel: 295, stats: { Agility: 66, Haste: 53 } };
+const offHandAxe = { id: 910003, name: "Validation Off-Hand Axe", slot: "Off Hand", inventoryType: "One-Hand", itemSubclass: "Axe", itemLevel: 295, stats: { Agility: 62, Mastery: 40 } };
+const twoHandMace = { id: 910004, name: "Validation Two-Hand Mace", slot: "Main Hand", inventoryType: "Two-Hand", itemSubclass: "Mace", itemLevel: 310, stats: { Agility: 90, Haste: 50 } };
+if (o.itemAllowedForSpecialization(staff, "Main Hand", "Shaman", "Enhancement") !== false) {
+  throw new Error("Enhancement must not recommend a staff");
+}
+if (o.itemAllowedForSpecialization(staff, "Main Hand", "Shaman", "Elemental") !== true) {
+  throw new Error("Elemental must retain valid staff candidates");
+}
+if (o.itemAllowedForSpecialization(oneHandAxe, "Main Hand", "Shaman", "Enhancement") !== true ||
+    o.itemAllowedForSpecialization(offHandAxe, "Off Hand", "Shaman", "Enhancement") !== true) {
+  throw new Error("Enhancement should retain valid one-handed weapon candidates");
+}
+if (o.itemAllowedForSpecialization(twoHandMace, "Main Hand", "Shaman", "Enhancement") !== true) {
+  throw new Error("Enhancement should retain eligible two-handed mace candidates");
+}
+const enhancementCharacter = o.createCharacterProfile();
+enhancementCharacter.className = "Shaman";
+enhancementCharacter.specialization = "Enhancement";
+enhancementCharacter.equipment["Main Hand"] = { ...oneHandAxe };
+enhancementCharacter.equipment["Off Hand"] = { ...offHandAxe };
+const weaponResult = o.optimizeEquipment({
+  items: [staff, oneHandAxe, offHandAxe, twoHandMace],
+  character: enhancementCharacter,
+  statWeights: { Agility: 2, Intellect: 0, Stamina: 0, Haste: 1, Mastery: 1 }
+});
+if (weaponResult.equipment["Main Hand"]?.id === staff.id) {
+  throw new Error("Enhancement loadout optimizer selected a staff");
+}
+if (weaponResult.equipment["Main Hand"]?.id === twoHandMace.id && weaponResult.equipment["Off Hand"]) {
+  throw new Error("Optimizer must not combine a two-handed main-hand weapon with an off-hand item");
+}
+
+
+// Class weapon-proficiency regression: class eligibility is independent of spec
+// preference. A staff is a Shaman/Mage weapon, but not a Paladin weapon.
+const classWeapon = (id, subclass) => ({
+  id, name: "Weapon " + subclass, slot: "Main Hand", itemSubclass: subclass,
+  inventoryType: subclass === "Staff" ? "Staff" : "One-Hand",
+  itemLevel: 300, stats: { Agility: 50, Intellect: 50 }
+});
+if (!o.itemAllowedForClassWeapon(classWeapon(920001, "Staff"), "Main Hand", "Shaman")) {
+  throw new Error("Shaman weapon proficiency should allow staves");
+}
+if (o.itemAllowedForClassWeapon(classWeapon(920002, "Staff"), "Main Hand", "Paladin")) {
+  throw new Error("Paladin weapon proficiency should reject staves");
+}
+if (!o.itemAllowedForClassWeapon(classWeapon(920003, "Sword"), "Main Hand", "Paladin")) {
+  throw new Error("Paladin weapon proficiency should allow swords");
+}
+if (!o.itemAllowedForClassWeapon(classWeapon(920004, "Warglaive"), "Main Hand", "Demon Hunter")) {
+  throw new Error("Demon Hunter weapon proficiency should allow warglaives");
+}
+if (o.itemAllowedForClassWeapon(classWeapon(920005, "Warglaive"), "Main Hand", "Warrior")) {
+  throw new Error("Warrior weapon proficiency should reject warglaives");
+}
+
+// Regression: the "Best available gear upgrades" cards must enforce the same
+// class/spec weapon rules as the complete-loadout optimizer. The previous
+// slot-only scan could surface an Intellect staff for Enhancement Shaman.
+const enhancementStaffOnly = {
+  id: 980001,
+  name: "Venomancer's Winged Channeler",
+  slot: "Main Hand",
+  inventoryType: "Staff",
+  itemSubclass: "Staff",
+  itemLevel: 219,
+  stats: { Intellect: 288, Stamina: 1005 }
+};
+const enhancementUpgradeCards = o.findUpgradeOpportunities({
+  currentEquipment: {
+    "Main Hand": {
+      id: 980002, name: "Current Agility Weapon", slot: "Main Hand",
+      inventoryType: "One-Hand", itemSubclass: "Axe", itemLevel: 295,
+      stats: { Agility: 66, Haste: 53 }
+    }
+  },
+  availableItems: [enhancementStaffOnly],
+  goal: o.goals.mythicPlus,
+  className: "Shaman",
+  specialization: "Enhancement"
+});
+if (enhancementUpgradeCards.some(upgrade => upgrade.recommendedItem?.id === enhancementStaffOnly.id)) {
+  throw new Error("Enhancement upgrade cards must not recommend an Intellect staff");
+}
+console.log("Class/spec-aware upgrade-card weapon filtering regression passed.");
+
+// Regression: Blizzard imported equipment can encode each stat as {value: n}.
+// Such equipped items must remain scoreable so a lower-item-level catalog
+// ring is not recommended merely because its stats are plain numbers.
+const nestedStatEquippedRing = {
+  id: 981001, name: "Equipped High-Level Ring", slot: "Ring 1", itemLevel: 305,
+  stats: {
+    stamina: { value: 1572 },
+    critical_strike: { value: 102 },
+    mastery: { value: 238 }
+  }
+};
+const plainStatLowRing = {
+  id: 981002, name: "Low-Level Catalog Ring", slot: "Ring 1", itemLevel: 219,
+  stats: { stamina: 565, critical_strike: 132, haste: 26 }
+};
+if (!o.hasUsableItemStats(nestedStatEquippedRing) || o.scoreItem(nestedStatEquippedRing) <= 0) {
+  throw new Error("Nested imported equipped stats must be recognized and scored");
+}
+const nestedRingResult = o.optimizeEquipment({
+  items: [plainStatLowRing],
+  character: {
+    ...o.createCharacterProfile(),
+    className: "Shaman",
+    specialization: "Enhancement",
+    equipment: { ...o.createCharacterProfile().equipment, "Ring 1": nestedStatEquippedRing }
+  }
+});
+if (nestedRingResult.equipment["Ring 1"]?.id !== nestedStatEquippedRing.id) {
+  throw new Error("A lower-ilvl ring must not replace a higher-scoring equipped ring due to nested stat values");
+}
+console.log("Nested Blizzard stat-value scoring regression passed.");
+
+// Regression: the Best Available Gear Upgrades panel is a six-item shortlist
+// with at most one ring, one trinket, and one weapon across their paired slots.
+const shortlistSlots = [
+  ["Head", 1001], ["Shoulders", 1002], ["Chest", 1003], ["Hands", 1004],
+  ["Ring 1", 1005], ["Ring 2", 1006],
+  ["Trinket 1", 1007], ["Trinket 2", 1008],
+  ["Main Hand", 1009], ["Off Hand", 1010], ["Legs", 1011]
+];
+const shortlistItems = shortlistSlots.map(([slot, id], index) => ({
+  id,
+  name: "Shortlist " + slot,
+  slot,
+  itemLevel: 300 + index,
+  inventoryType: slot === "Main Hand" || slot === "Off Hand" ? "One-Hand" : undefined,
+  itemSubclass: slot === "Main Hand" || slot === "Off Hand" ? "Axe" : undefined,
+  stats: { Strength: 100 + index, Haste: 20 + index }
+}));
+const shortlist = o.findUpgradeOpportunities({
+  currentEquipment: {},
+  availableItems: shortlistItems,
+  className: "Warrior",
+  specialization: "Arms",
+  limit: 6
+});
+const shortlistCount = category => shortlist.filter(upgrade => {
+  if (category === "ring") return upgrade.slot === "Ring 1" || upgrade.slot === "Ring 2";
+  if (category === "trinket") return upgrade.slot === "Trinket 1" || upgrade.slot === "Trinket 2";
+  if (category === "weapon") return upgrade.slot === "Main Hand" || upgrade.slot === "Off Hand";
+  return false;
+}).length;
+if (shortlist.length !== 6) throw new Error("Upgrade shortlist must return six recommendations when six eligible candidates exist");
+if (shortlistCount("ring") > 1 || shortlistCount("trinket") > 1 || shortlistCount("weapon") > 1) {
+  throw new Error("Upgrade shortlist must cap rings, trinkets, and weapons at one each");
+}
+// Duplicate-slot candidates may still win their category if their score is higher;
+ // the invariant is that no category appears more than once, verified above.
+console.log("Six-upgrade shortlist category-cap regression passed.");
+
+// Regression: multiple raid-difficulty records share the same base item ID.
+// Complete-loadout optimization must retain the highest-scoring variant rather
+// than whichever low-item-level record happens to appear first in the dataset.
+const sameIdLowVariant = {
+  id: 982001, name: "Season Tier Helm", slot: "Head", itemLevel: 279,
+  inventoryType: "Head", itemClass: "Armor", itemSubclass: "Mail",
+  stats: { Agility: 90, Haste: 30 }
+};
+const sameIdHighVariant = {
+  ...sameIdLowVariant, itemLevel: 318,
+  stats: { Agility: 150, Haste: 50 }
+};
+const variantRegressionCurrentHelm = {
+  id: 982002, name: "Equipped Helm", slot: "Head", itemLevel: 295,
+  inventoryType: "Head", itemClass: "Armor", itemSubclass: "Mail",
+  stats: { Agility: 100, Haste: 35 }
+};
+const variantCharacter = {
+  ...o.createCharacterProfile(),
+  className: "Shaman",
+  specialization: "Enhancement",
+  equipment: { ...o.createCharacterProfile().equipment, Head: variantRegressionCurrentHelm }
+};
+const variantLoadout = o.optimizeEquipment({
+  items: [sameIdLowVariant, sameIdHighVariant],
+  character: variantCharacter
+});
+if (variantLoadout.equipment.Head?.id !== sameIdHighVariant.id ||
+    Number(variantLoadout.equipment.Head?.itemLevel) !== 318) {
+  throw new Error("Complete loadout must select the highest-scoring same-ID item-level variant");
+}
+console.log("Same-ID item-level variant selection regression passed.");
+
+
+
+// Hard-cap response regression: all four secondary stats over cap must pause
+// optimization and return a user-choice status rather than silently accepting it.
+const allFourOverCap = {
+  ...o.createCharacterProfile(),
+  level: 90,
+  equipment: {
+    ...o.createCharacterProfile().equipment,
+    Head: { id: 991001, slot: "Head", itemLevel: 300, stats: { Haste: 9000 } },
+    Chest: { id: 991002, slot: "Chest", itemLevel: 300, stats: { CriticalStrike: 9400 } },
+    Legs: { id: 991003, slot: "Legs", itemLevel: 300, stats: { Mastery: 9400 } },
+    Feet: { id: 991004, slot: "Feet", itemLevel: 300, stats: { Versatility: 11000 } }
+  }
+};
+const allFourReport = o.optimizeEquipment({ items: [], character: allFourOverCap });
+if (allFourReport.ratingConstraintStatus?.requiresUserChoice !== true ||
+    allFourReport.ratingConstraintStatus?.allSecondaryStatsOverCap !== true ||
+    allFourReport.ratingConstraintStatus?.originalViolations?.length !== 4) {
+  throw new Error("All four secondary stats over cap must ask the user to choose a priority stat");
+}
+
+// When only one stat is over cap and a lower-rating alternative exists, the
+// optimizer should replace gear to reduce the violation and disclose the repair.
+const partialOverCap = {
+  ...o.createCharacterProfile(),
+  level: 90,
+  equipment: {
+    ...o.createCharacterProfile().equipment,
+    Head: { id: 991011, name: "Over-cap Haste Helm", slot: "Head", itemLevel: 300, stats: { Haste: 9000 } }
+  }
+};
+const lowerHasteAlternative = {
+  id: 991012, name: "Cap-safe Haste Helm", slot: "Head", itemLevel: 290, stats: { Haste: 500 }
+};
+const partialCapReport = o.optimizeEquipment({
+  items: [lowerHasteAlternative],
+  character: partialOverCap,
+  statWeights: { Haste: 1 }
+});
+if (partialCapReport.ratingConstraintStatus?.balanced !== true ||
+    partialCapReport.ratingConstraintStatus?.remainingViolations?.length !== 0 ||
+    partialCapReport.equipment.Head?.id !== lowerHasteAlternative.id) {
+  throw new Error("A single over-cap stat should be rebalanced when a compliant candidate exists");
+}
+console.log("Hard-cap alert, priority-choice, and automatic rebalance regressions passed.");

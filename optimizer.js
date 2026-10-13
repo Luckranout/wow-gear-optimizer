@@ -32,6 +32,37 @@ const CLASS_ARMOR_TYPE = {
 };
 
 const ARMOR_SLOTS = new Set(["Head", "Shoulders", "Chest", "Wrists", "Hands", "Waist", "Legs", "Feet"]);
+const CLASS_WEAPON_PROFICIENCIES = {
+  warrior: ["axe", "dagger", "fist weapon", "gun", "mace", "polearm", "staff", "sword", "bow", "crossbow"],
+  paladin: ["axe", "mace", "polearm", "sword"],
+  hunter: ["axe", "dagger", "fist weapon", "gun", "polearm", "staff", "sword", "bow", "crossbow"],
+  rogue: ["axe", "dagger", "fist weapon", "mace", "sword", "bow", "crossbow", "gun"],
+  priest: ["dagger", "mace", "staff", "wand"],
+  deathknight: ["axe", "mace", "polearm", "sword"],
+  shaman: ["axe", "dagger", "fist weapon", "mace", "staff"],
+  mage: ["dagger", "staff", "sword", "wand"],
+  warlock: ["dagger", "staff", "sword", "wand"],
+  monk: ["axe", "fist weapon", "mace", "polearm", "staff", "sword"],
+  druid: ["dagger", "fist weapon", "mace", "polearm", "staff"],
+  demonhunter: ["axe", "dagger", "fist weapon", "sword", "warglaive"],
+  evoker: ["axe", "dagger", "fist weapon", "mace", "sword", "staff"]
+};
+
+function normalizeWeaponType(value) {
+  const key = String(value || "").trim().toLowerCase().replace(/[_-]+/g, " ");
+  const aliases = {
+    axes: "axe", "one handed axe": "axe", "two handed axe": "axe",
+    daggers: "dagger", "one handed dagger": "dagger",
+    "fist weapons": "fist weapon", fist: "fist weapon",
+    maces: "mace", "one handed mace": "mace", "two handed mace": "mace",
+    staves: "staff", polearms: "polearm", swords: "sword",
+    "one handed sword": "sword", "two handed sword": "sword",
+    bows: "bow", guns: "gun", crossbows: "crossbow", wands: "wand",
+    glaive: "warglaive", glaives: "warglaive", "war glaive": "warglaive"
+  };
+  return aliases[key] || key;
+}
+
 
 function normalizeClassName(className) {
   return String(className || "").toLowerCase().replace(/[\s'_-]/g, "");
@@ -59,9 +90,53 @@ function itemAllowedForClass(item, className) {
   return true;
 }
 
+function getWeaponMetadata(item) {
+  const inventoryType = String(item?.inventoryType?.name || item?.inventoryType || "").trim().toLowerCase();
+  const subclass = String(item?.itemSubclass?.name || item?.itemSubclass || item?.weaponType || "").trim().toLowerCase();
+  const name = String(item?.name || "").toLowerCase();
+  const weaponType = subclass || (name.includes("staff") || inventoryType.includes("staff") ? "staff" :
+    name.includes("mace") || inventoryType.includes("mace") ? "mace" : "");
+  const twoHanded = inventoryType.includes("two-hand") || inventoryType.includes("two hand") ||
+    inventoryType.includes("twohand") || inventoryType.includes("staff") ||
+    (item?.twoHanded === true);
+  const oneHanded = inventoryType.includes("one-hand") || inventoryType.includes("one hand") ||
+    inventoryType.includes("onehand") || item?.twoHanded === false;
+  return { inventoryType, weaponType, twoHanded, oneHanded };
+}
+
+function itemAllowedForClassWeapon(item, slot, className) {
+  if (slot !== "Main Hand" && slot !== "Off Hand") return true;
+  const classKey = normalizeClassName(className);
+  const allowed = CLASS_WEAPON_PROFICIENCIES[classKey];
+  if (!allowed) return true;
+  const rawType = item?.itemSubclass?.name || item?.itemSubclass || item?.weaponType || "";
+  const weaponType = normalizeWeaponType(rawType);
+  // Missing/unrecognized weapon-subclass metadata is not enough evidence to
+  // reject an item. The importer/catalog should provide itemSubclass for strict filtering.
+  if (!weaponType || !allowed.includes(weaponType)) {
+    return !weaponType;
+  }
+  return true;
+}
+
+function itemAllowedForSpecialization(item, slot, className, specialization) {
+  if (normalizeClassName(className) !== "shaman") return true;
+  const spec = String(specialization || "").trim().toLowerCase();
+  if (spec !== "enhancement") return true;
+  if (slot !== "Main Hand" && slot !== "Off Hand") return true;
+  const weapon = getWeaponMetadata(item);
+  // Enhancement defaults to dual wield. Do not recommend staffs or unknown
+  // two-hand weapons; allow a verified two-handed mace as a main-hand option.
+  if (weapon.weaponType.includes("staff") || weapon.inventoryType.includes("staff") ||
+      String(item?.name || "").toLowerCase().includes("staff")) return false;
+  if (slot === "Off Hand" && weapon.twoHanded) return false;
+  if (slot === "Main Hand" && weapon.twoHanded &&
+      !(weapon.weaponType.includes("mace") || String(item?.name || "").toLowerCase().includes("mace"))) return false;
+  return true;
+}
+
 function itemMatchesSlot(item, slot) {
   if (!item || !slot) return false;
-  if (item.slot === slot) return true;
   const inventoryType = String(item.inventoryType?.name || item.inventoryType || "").trim().toLowerCase();
   const map = {
     head: ["Head"], neck: ["Neck"], shoulder: ["Shoulders"], shoulders: ["Shoulders"],
@@ -70,9 +145,19 @@ function itemMatchesSlot(item, slot) {
     waist: ["Waist"], legs: ["Legs"], feet: ["Feet"],
     finger: ["Ring 1", "Ring 2"], ring: ["Ring 1", "Ring 2"],
     trinket: ["Trinket 1", "Trinket 2"],
-    "one-hand": ["Main Hand"], "main hand": ["Main Hand"], "two-hand": ["Main Hand"],
+    "one-hand": ["Main Hand", "Off Hand"], "one hand": ["Main Hand", "Off Hand"],
+    "main hand": ["Main Hand"], "two-hand": ["Main Hand"], "two hand": ["Main Hand"],
+    staff: ["Main Hand"], mace: ["Main Hand", "Off Hand"], axe: ["Main Hand", "Off Hand"],
+    dagger: ["Main Hand", "Off Hand"], "fist weapon": ["Main Hand", "Off Hand"],
     "off hand": ["Off Hand"], "held in off-hand": ["Off Hand"], shield: ["Off Hand"], "off-hand": ["Off Hand"]
   };
+  if (item.slot === slot) {
+    // Explicit slot metadata does not override incompatible weapon-hand metadata.
+    if ((slot === "Main Hand" || slot === "Off Hand") && inventoryType && map[inventoryType]) {
+      return map[inventoryType].includes(slot);
+    }
+    return true;
+  }
   return (map[inventoryType] || []).includes(slot);
 }
 
@@ -96,6 +181,98 @@ function normalizeCharacterStatistics(statistics = {}) {
     normalized[aliases[key] || rawKey] = numericValue;
   }
   return normalized;
+}
+
+// Level-90 secondary-stat rating diminishing returns, based on the supplied rating bands.
+// Each band's penalty applies progressively to rating inside that band only.
+// Keep rating-derived stats separate from temporary percentage buffs (e.g. Bloodlust/Heroism).
+const SECONDARY_RATING_DR_LEVEL = 90;
+const SECONDARY_RATING_DR_TABLE = {
+  Haste: [1320, 1760, 2200, 2640, 3080, 8800],
+  CriticalStrike: [1380, 1840, 2300, 2760, 3220, 9200],
+  Mastery: [1380, 1840, 2300, 2760, 3220, 9200],
+  Versatility: [1620, 2160, 2700, 3240, 3780, 10800]
+};
+const SECONDARY_RATING_DR_MULTIPLIERS = [1, 0.9, 0.8, 0.7, 0.6, 0.5, 0];
+const SECONDARY_RATING_DR_CAP_PERCENT = 126;
+// Soft targets are the first supplied thresholds; the last threshold is a hard
+// cap for eligible level-90 loadouts. The soft target influences scoring only
+// when candidates are otherwise competitive; it is not a stat-equality target.
+const SECONDARY_RATING_DR_SOFT_TARGETS = Object.freeze({
+  Haste: 1320,
+  CriticalStrike: 1380,
+  Mastery: 1380,
+  Versatility: 1620
+});
+function getSecondaryRatingTotals(equipment = {}) {
+  const totals = {};
+  for (const item of Object.values(equipment || {})) {
+    if (!item || !item.stats) continue;
+    const entries = Array.isArray(item.stats)
+      ? item.stats.map(s => [
+          normalizeItemStatName(s.stat?.name || s.type?.name || s.name || s.stat),
+          Number(s.value?.value ?? s.value?.amount ?? s.amount ?? s.value) || 0
+        ])
+      : Object.entries(item.stats).map(([stat, value]) => [
+          normalizeItemStatName(stat),
+          Number(value?.value ?? value?.amount ?? value) || 0
+        ]);
+    for (const [stat, value] of entries) {
+      if (Object.hasOwn(SECONDARY_RATING_DR_TABLE, stat)) totals[stat] = (totals[stat] || 0) + value;
+    }
+  }
+  return totals;
+}
+function getSecondaryRatingHardCapViolations(equipment = {}, characterLevel = null) {
+  if (Number(characterLevel) !== SECONDARY_RATING_DR_LEVEL) return [];
+  const totals = getSecondaryRatingTotals(equipment);
+  return Object.entries(SECONDARY_RATING_DR_TABLE).flatMap(([stat, thresholds]) => {
+    const rating = totals[stat] || 0;
+    const maximum = thresholds[thresholds.length - 1];
+    return rating > maximum ? [{ stat, rating, maximum, excess: rating - maximum }] : [];
+  });
+}
+function getSecondaryRatingSoftTargetPenalty(equipment = {}, characterLevel = null) {
+  if (Number(characterLevel) !== SECONDARY_RATING_DR_LEVEL) return 0;
+  const totals = getSecondaryRatingTotals(equipment);
+  // Small regularizer, deliberately subordinate to actual effective stat score.
+  // It nudges the optimizer away from the first penalty band without imposing
+  // an artificial equality between secondary stats.
+  return Object.entries(SECONDARY_RATING_DR_SOFT_TARGETS).reduce((penalty, [stat, target]) =>
+    penalty + Math.max(0, (totals[stat] || 0) - target) * 0.01, 0);
+}
+function applySecondaryRatingDiminishingReturns(rawRating, stat, characterLevel = SECONDARY_RATING_DR_LEVEL) {
+  const rating = Number(rawRating);
+  if (!Number.isFinite(rating) || rating <= 0) return 0;
+  // This table is only supported for the supplied level-90 data. Do not silently
+  // apply it to characters at a different level.
+  if (Number(characterLevel) !== SECONDARY_RATING_DR_LEVEL) return null;
+  const key = normalizeItemStatName(stat);
+  const thresholds = SECONDARY_RATING_DR_TABLE[key];
+  if (!thresholds) return null;
+  let previous = 0;
+  let effective = 0;
+  for (let band = 0; band < thresholds.length; band++) {
+    const limit = thresholds[band];
+    const amount = Math.max(0, Math.min(rating, limit) - previous);
+    effective += amount * SECONDARY_RATING_DR_MULTIPLIERS[band];
+    previous = limit;
+    if (rating <= limit) return effective;
+  }
+  // Rating above the last threshold has 100% penalty and adds no effective rating.
+  return effective;
+}
+function getSecondaryRatingDiminishingReturns(rawRating, stat, characterLevel = SECONDARY_RATING_DR_LEVEL) {
+  const rating = Number(rawRating);
+  const normalizedRating = Number.isFinite(rating) ? Math.max(0, rating) : 0;
+  const effectiveRating = applySecondaryRatingDiminishingReturns(normalizedRating, stat, characterLevel);
+  return {
+    stat: normalizeItemStatName(stat), characterLevel: Number(characterLevel),
+    rawRating: normalizedRating, effectiveRating,
+    lostRating: effectiveRating === null ? null : Math.max(0, normalizedRating - effectiveRating),
+    unsupportedLevel: Number(characterLevel) !== SECONDARY_RATING_DR_LEVEL,
+    unsupportedStat: !SECONDARY_RATING_DR_TABLE[normalizeItemStatName(stat)]
+  };
 }
 
 function scoreCharacterStatistics(statistics = {}, statWeights = STAT_WEIGHTS) {
@@ -204,11 +381,11 @@ function scoreItemStats(item, statWeights = STAT_WEIGHTS) {
   const stats = Array.isArray(item.stats)
     ? item.stats.map(s => [
         normalizeItemStatName(s.stat?.name || s.type?.name || s.name || s.stat),
-        Number(s.value) || 0
+        Number(s.value ?? s.amount) || 0
       ])
     : Object.entries(item.stats).map(([stat, value]) => [
         normalizeItemStatName(stat),
-        Number(value) || 0
+        Number(value?.value ?? value?.amount ?? value) || 0
       ]);
   return stats.reduce((score, [stat, value]) =>
     score + value * (statWeights[stat] ?? 0), 0);
@@ -216,9 +393,18 @@ function scoreItemStats(item, statWeights = STAT_WEIGHTS) {
 
 function hasUsableItemStats(item) {
   if (!item || !item.stats) return false;
+  // Blizzard character imports and catalog records can represent stat values
+  // as numbers, {value}, or {amount}. Treat the same shapes as scoreItemStats;
+  // otherwise equipped items can score as zero and a lower-ilvl catalog item
+  // may be incorrectly recommended over them.
   const entries = Array.isArray(item.stats)
-    ? item.stats.map(s => [s.stat?.name || s.type?.name || s.name || s.stat, s.value])
-    : Object.entries(item.stats);
+    ? item.stats.map(s => [
+        s.stat?.name || s.type?.name || s.name || s.stat,
+        s.value?.value ?? s.value?.amount ?? s.amount ?? s.value
+      ])
+    : Object.entries(item.stats).map(([stat, value]) => [
+        stat, value?.value ?? value?.amount ?? value
+      ]);
   return entries.some(([stat, value]) =>
     stat != null && String(stat).trim() !== "" && Number.isFinite(Number(value)) && Number(value) !== 0
   );
@@ -236,6 +422,126 @@ function scoreItem(item, statWeights = STAT_WEIGHTS) {
 function scoreEquipment(equipment, statWeights = STAT_WEIGHTS) {
   return WOW_EQUIPMENT_SLOTS.reduce((total, slot) =>
     total + scoreItem(equipment?.[slot], statWeights), 0);
+}
+
+function normalizeSetIdentity(value) {
+  if (value === null || value === undefined || String(value).trim() === "") return null;
+  return String(value).trim().toLowerCase();
+}
+
+function getItemSetId(item, setBonuses = []) {
+  const set = item?.set;
+  const raw = item?.tierSetId ?? item?.setId ??
+    (set && typeof set === "object" ? (set.id ?? set.name) : set);
+  if (raw !== null && raw !== undefined && String(raw).trim() !== "") {
+    return normalizeSetIdentity(raw);
+  }
+
+  // Blizzard item records do not always expose a set identity on the equipped
+  // item. Fall back to explicit, source-backed item IDs/names in the set
+  // definitions; never infer set membership from class, faction, or item level.
+  const itemId = Number(item?.id ?? item?.itemId);
+  const itemName = normalizeSetIdentity(item?.name);
+  for (const definition of setBonuses || []) {
+    const setId = normalizeSetIdentity(definition?.setId ?? definition?.id ?? definition?.name);
+    if (!setId) continue;
+    const pieces = Array.isArray(definition.pieces) ? definition.pieces : [];
+    const matches = pieces.some(piece => {
+      if (typeof piece === "number" || typeof piece === "string") {
+        return (Number.isFinite(itemId) && Number(piece) === itemId) ||
+          (itemName && normalizeSetIdentity(piece) === itemName);
+      }
+      if (!piece || typeof piece !== "object") return false;
+      const pieceId = Number(piece.itemId ?? piece.id);
+      const pieceName = normalizeSetIdentity(piece.name);
+      return (Number.isFinite(itemId) && Number.isFinite(pieceId) && itemId === pieceId) ||
+        (itemName && pieceName === itemName);
+    });
+    if (matches) return setId;
+  }
+  return null;
+}
+
+function getSetBonusStatus(equipment = {}, setBonuses = [], specialization = "") {
+  const counts = {};
+  for (const item of Object.values(equipment || {})) {
+    const setId = getItemSetId(item, setBonuses);
+    if (setId) counts[setId] = (counts[setId] || 0) + 1;
+  }
+
+  const bonuses = [];
+  for (const definition of setBonuses || []) {
+    const setId = normalizeSetIdentity(definition?.setId ?? definition?.id ?? definition?.name);
+    if (!setId) continue;
+    const pieces = counts[setId] || 0;
+    for (const threshold of definition.thresholds || []) {
+      const requiredPieces = Number(threshold.pieces);
+      if (!Number.isFinite(requiredPieces) || requiredPieces < 2) continue;
+      const effects = threshold.effects && typeof threshold.effects === "object" ? threshold.effects : null;
+      const selectedEffect = effects
+        ? (effects[specialization] ?? effects[String(specialization).toLowerCase()] ?? null)
+        : null;
+      bonuses.push({
+        setId,
+        setName: definition.name || definition.setName || definition.setId || definition.id || setId,
+        requiredPieces,
+        equippedPieces: pieces,
+        active: pieces >= requiredPieces,
+        scoreValue: threshold.scoreValue !== null && threshold.scoreValue !== undefined && Number.isFinite(Number(threshold.scoreValue))
+          ? Number(threshold.scoreValue) : null,
+        effect: selectedEffect || threshold.effect || threshold.description || null,
+        effects: effects || null,
+        source: threshold.source || definition.source || null
+      });
+    }
+  }
+  return { counts, bonuses };
+}
+
+function scoreSetBonuses(equipment = {}, setBonuses = [], specialization = "") {
+  const status = getSetBonusStatus(equipment, setBonuses, specialization);
+  const score = status.bonuses.reduce((total, bonus) =>
+    total + (bonus.active && bonus.scoreValue !== null ? bonus.scoreValue : 0), 0);
+  return { ...status, score };
+}
+
+function scoreEquipmentWithRatingDiminishingReturns(equipment = {}, statWeights = STAT_WEIGHTS, characterLevel = null) {
+  // Only apply the supplied threshold table when level is explicitly known to be 90.
+  // Otherwise preserve the existing rating score rather than applying wrong-level data.
+  if (Number(characterLevel) !== SECONDARY_RATING_DR_LEVEL) return scoreEquipment(equipment, statWeights);
+  const secondaryStats = new Set(Object.keys(SECONDARY_RATING_DR_TABLE));
+  const totals = {};
+  let score = 0;
+  for (const item of Object.values(equipment || {})) {
+    if (!item || !hasUsableItemStats(item)) continue;
+    score += (Number(item.itemLevel ?? item.level) || 0) * 2;
+    score += Number(item.effectValue) || 0;
+    if (item.isSetPiece) score += 10;
+    if (item.isUniqueEffect) score += 5;
+    const entries = Array.isArray(item.stats)
+      ? item.stats.map(s => [normalizeItemStatName(s.stat?.name || s.type?.name || s.name || s.stat), Number(s.value ?? s.amount) || 0])
+      : Object.entries(item.stats || {}).map(([stat, value]) => [normalizeItemStatName(stat), Number(value?.value ?? value?.amount ?? value) || 0]);
+    for (const [stat, value] of entries) {
+      if (secondaryStats.has(stat)) totals[stat] = (totals[stat] || 0) + value;
+      else score += value * (statWeights[stat] ?? 0);
+    }
+  }
+  for (const stat of secondaryStats) {
+    if (totals[stat] !== undefined) {
+      const effective = applySecondaryRatingDiminishingReturns(totals[stat], stat, characterLevel);
+      score += effective * (statWeights[stat] ?? 0);
+    }
+  }
+  score -= getSecondaryRatingSoftTargetPenalty(equipment, characterLevel);
+  return score;
+}
+
+function scoreLoadout(equipment = {}, statWeights = STAT_WEIGHTS, setBonuses = [], specialization = "", characterLevel = null) {
+  const setScore = scoreSetBonuses(equipment, setBonuses, specialization);
+  return {
+    score: scoreEquipmentWithRatingDiminishingReturns(equipment, statWeights, characterLevel) + setScore.score,
+    setBonuses: setScore
+  };
 }
 
 function getGoalWeights(goal) {
@@ -331,13 +637,27 @@ function resolveStatWeights({
   const goalWeights = getGoalWeights(goal);
   const simulationContext = getSimulationWeightContext(simulation);
   if (simulationContext) return { ...goalWeights, ...simulationContext.scaleFactors };
-  if (!statProfiles || typeof statProfiles !== "object") return goalWeights;
 
-  const classProfiles = statProfiles[className];
+  const classProfiles = statProfiles && typeof statProfiles === "object"
+    ? statProfiles[className]
+    : null;
   const profile = classProfiles?.[specialization];
-  if (!profile || typeof profile !== "object") return goalWeights;
-
   const merged = { ...goalWeights };
+
+  // Enhancement-specific fallback when no character simulation/profile exists.
+  // These are priority heuristics from current-season gearing guides, not DPS
+  // scale factors. Item level remains a major signal in scoreItem; the profile
+  // distinguishes the important secondary stats from Versatility.
+  if (normalizeClassName(className) === "shaman" &&
+      String(specialization || "").trim().toLowerCase() === "enhancement") {
+    merged.Agility = 1.25;
+    merged.CriticalStrike = 0.9;
+    merged.Mastery = 0.9;
+    merged.Haste = 0.9;
+    merged.Versatility = 0.55;
+  }
+
+  if (!profile || typeof profile !== "object") return merged;
   for (const [stat, value] of Object.entries(profile)) {
     const numericValue = Number(value);
     if (Number.isFinite(numericValue) && numericValue >= 0) {
@@ -362,28 +682,61 @@ function resolveCatalogItemAgainstEquippedVariant(candidate, equippedItem) {
   return candidate;
 }
 
-function findBestItemForSlot(items, slot, goal, statWeights = null, className = "", equippedItem = null) {
+function findBestItemForSlot(items, slot, goal, statWeights = null, className = "", equippedItem = null, specialization = "") {
   const weights = statWeights || getGoalWeights(goal);
-  const candidates = (items || [])
-    .filter(item => itemMatchesSlot(item, slot) && itemAllowedForClass(item, className) && hasUsableItemStats(item))
-    .map(item => resolveCatalogItemAgainstEquippedVariant(item, equippedItem))
-    .filter((item, index, all) => all.findIndex(other =>
-      String(other.id ?? other.name) === String(item.id ?? item.name)
-    ) === index)
-    .map(item => ({ item, score: scoreItem(item, weights) }));
-  return candidates.sort((a, b) => b.score - a.score)[0] || null;
+  const bestByIdentity = new Map();
+  for (const candidate of (items || [])) {
+    if (!itemMatchesSlot(candidate, slot) ||
+        !itemAllowedForClass(candidate, className) ||
+        !itemAllowedForClassWeapon(candidate, slot, className) ||
+        !itemAllowedForSpecialization(candidate, slot, className, specialization) ||
+        !hasUsableItemStats(candidate)) continue;
+
+    // A seasonal catalogue can contain multiple difficulty/upgrade variants
+    // sharing the same base item ID. Resolve an equipped upgraded copy first,
+    // then retain the highest-scoring variant for each identity instead of
+    // accidentally keeping the first (often lowest-ilvl) record in the file.
+    const item = resolveCatalogItemAgainstEquippedVariant(candidate, equippedItem);
+    const key = String(item.id ?? item.name) + "|" + slot;
+    const score = scoreItem(item, weights);
+    const previous = bestByIdentity.get(key);
+    if (!previous || score > previous.score) bestByIdentity.set(key, { item, score });
+  }
+  return [...bestByIdentity.values()].sort((a, b) => b.score - a.score)[0] || null;
 }
 
 function optimizeEquipment({
   items = [],
   character = createCharacterProfile(),
   goal = character.goal || WOW_GOALS.general,
-  statWeights = null
+  statWeights = null,
+  setBonuses = []
 } = {}) {
   const weights = statWeights || getGoalWeights(goal);
+  // The live character's equipped variants are valid candidates too. The catalog
+  // may contain only a low-level/base version of an item or omit that variant
+  // entirely; excluding current gear can produce recommendations far below the
+  // character's equipped item level.
+  const equippedItems = Object.entries(character.equipment || {})
+    .filter(([, item]) => item && typeof item === "object")
+    .map(([slot, item]) => ({ ...item, slot: item.slot || slot }));
+  const candidateItemsByIdentity = new Map();
+  for (const rawItem of [...(items || []), ...equippedItems]) {
+    if (!rawItem || typeof rawItem !== "object") continue;
+    const slot = rawItem.slot;
+    const equippedItem = character.equipment?.[slot];
+    const item = resolveCatalogItemAgainstEquippedVariant(rawItem, equippedItem);
+    const key = String(item.id ?? item.name) + "|" + String(slot || "");
+    const score = scoreItem(item, weights);
+    const previous = candidateItemsByIdentity.get(key);
+    if (!previous || score > previous.score) {
+      candidateItemsByIdentity.set(key, { item, score });
+    }
+  }
+  const candidateItems = [...candidateItemsByIdentity.values()].map(entry => entry.item);
   const optimizedEquipment = {};
   for (const slot of WOW_EQUIPMENT_SLOTS) {
-    const best = findBestItemForSlot(items, slot, goal, weights, character.className, character.equipment?.[slot]);
+    const best = findBestItemForSlot(candidateItems, slot, goal, weights, character.className, character.equipment?.[slot], character.specialization);
     optimizedEquipment[slot] = best ? best.item : null;
   }
 
@@ -391,10 +744,10 @@ function optimizeEquipment({
   // distinct pair when the catalog has alternatives; keep the best single item
   // only when no second distinct item exists.
   for (const [firstSlot, secondSlot] of [["Ring 1", "Ring 2"], ["Trinket 1", "Trinket 2"], ["Main Hand", "Off Hand"]]) {
-    const first = (items || []).filter(item => item.slot === firstSlot && itemAllowedForClass(item, character.className) && hasUsableItemStats(item))
+    const first = candidateItems.filter(item => itemMatchesSlot(item, firstSlot) && itemAllowedForClass(item, character.className) && itemAllowedForClassWeapon(item, firstSlot, character.className) && itemAllowedForSpecialization(item, firstSlot, character.className, character.specialization) && hasUsableItemStats(item))
       .map(item => ({ item, score: scoreItem(item, weights) }))
       .sort((a, b) => b.score - a.score);
-    const second = (items || []).filter(item => item.slot === secondSlot && itemAllowedForClass(item, character.className) && hasUsableItemStats(item))
+    const second = candidateItems.filter(item => itemMatchesSlot(item, secondSlot) && itemAllowedForClass(item, character.className) && itemAllowedForClassWeapon(item, secondSlot, character.className) && itemAllowedForSpecialization(item, secondSlot, character.className, character.specialization) && hasUsableItemStats(item))
       .map(item => ({ item, score: scoreItem(item, weights) }))
       .sort((a, b) => b.score - a.score);
     let bestPair = null;
@@ -403,6 +756,7 @@ function optimizeEquipment({
         const sameId = a.item.id != null && b.item.id != null && String(a.item.id) === String(b.item.id);
         const sameName = a.item.id == null && b.item.id == null && a.item.name && b.item.name && a.item.name === b.item.name;
         if (sameId || sameName) continue;
+        if (firstSlot === "Main Hand" && getWeaponMetadata(a.item).twoHanded) continue;
         const combinedScore = a.score + b.score;
         if (!bestPair || combinedScore > bestPair.combinedScore) bestPair = { a, b, combinedScore };
       }
@@ -421,10 +775,142 @@ function optimizeEquipment({
       optimizedEquipment[secondSlot] = null;
     }
   }
+
+  // Hard-cap policy: if all four secondary stats are already over their caps,
+  // stop and ask the player which stat to prioritize before changing the build.
+  // If only some stats are over cap, repair those violations first using valid
+  // slot candidates, choosing each swap by the reduction in total cap excess.
+  const originalViolations = getSecondaryRatingHardCapViolations(character.equipment || {}, character.level);
+  const originalTotals = getSecondaryRatingTotals(character.equipment || {});
+  const allSecondaryStatsOverCap = Number(character.level) === SECONDARY_RATING_DR_LEVEL &&
+    Object.keys(SECONDARY_RATING_DR_TABLE).every(stat =>
+      (originalTotals[stat] || 0) > SECONDARY_RATING_DR_TABLE[stat].at(-1));
+  const preferredSecondaryStat = Object.hasOwn(SECONDARY_RATING_DR_TABLE, character.preferredSecondaryStat)
+    ? character.preferredSecondaryStat : null;
+  // Once the player chooses a focus, give that stat a modest scoring preference
+  // while still treating its final threshold as an absolute ceiling.
+  if (preferredSecondaryStat) {
+    weights[preferredSecondaryStat] = (Number(weights[preferredSecondaryStat]) || 1) * 1.25;
+  }
+  if (allSecondaryStatsOverCap && !preferredSecondaryStat) {
+    return {
+      character: { ...character, goal },
+      equipment: { ...(character.equipment || {}) },
+      score: scoreLoadout(character.equipment || {}, weights, setBonuses, character.specialization || "", character.level).score,
+      setBonusStatus: getSetBonusStatus(character.equipment || {}, setBonuses, character.specialization || ""),
+      ratingConstraintStatus: {
+        requiresUserChoice: true, allSecondaryStatsOverCap: true,
+        preferredSecondaryStat: null, originalViolations,
+        remainingViolations: originalViolations, balanced: false
+      }
+    };
+  }
+
+  const capExcess = equipment => getSecondaryRatingHardCapViolations(equipment, character.level)
+    .reduce((sum, violation) => sum + violation.excess, 0);
+  const isCandidateAllowed = (item, slot) => itemMatchesSlot(item, slot) &&
+    itemAllowedForClass(item, character.className) &&
+    itemAllowedForClassWeapon(item, slot, character.className) &&
+    itemAllowedForSpecialization(item, slot, character.className, character.specialization) &&
+    hasUsableItemStats(item);
+  // Repair only when the imported character has cap violations. A selected
+  // priority stat breaks ties but can never override a hard ceiling.
+  for (let pass = 0; pass < WOW_EQUIPMENT_SLOTS.length * 2; pass++) {
+    const currentExcess = capExcess(optimizedEquipment);
+    if (currentExcess <= 0) break;
+    let bestRepair = null;
+    for (const slot of WOW_EQUIPMENT_SLOTS) {
+      for (const candidate of candidateItems.filter(item => isCandidateAllowed(item, slot))) {
+        const trial = { ...optimizedEquipment, [slot]: candidate };
+        if (slot === "Main Hand" && getWeaponMetadata(candidate).twoHanded) trial["Off Hand"] = null;
+        const nextExcess = capExcess(trial);
+        if (nextExcess >= currentExcess) continue;
+        const chosenStatPenalty = preferredSecondaryStat
+          ? Math.max(0, (getSecondaryRatingTotals(trial)[preferredSecondaryStat] || 0) -
+              SECONDARY_RATING_DR_TABLE[preferredSecondaryStat].at(-1)) * 1000000
+          : 0;
+        const candidateValue = nextExcess * 1000000000 + chosenStatPenalty -
+          scoreLoadout(trial, weights, setBonuses, character.specialization || "", character.level).score;
+        if (!bestRepair || candidateValue < bestRepair.candidateValue) {
+          bestRepair = { slot, candidate, trial, candidateValue };
+        }
+      }
+    }
+    if (!bestRepair) break;
+    Object.assign(optimizedEquipment, bestRepair.trial);
+  }
+
+  // Improve the complete loadout, not only individual slots. A hard-cap
+  // violating state is not allowed to win; infeasibility is reported explicitly.
+  const loadoutScore = equipment => {
+    if (getSecondaryRatingHardCapViolations(equipment, character.level).length) return -Infinity;
+    return scoreLoadout(equipment, weights, setBonuses, character.specialization || "", character.level).score;
+  };
+  for (let pass = 0; pass < 3; pass++) {
+    let changed = false;
+    for (const slot of WOW_EQUIPMENT_SLOTS) {
+      const current = optimizedEquipment[slot];
+      const currentScore = loadoutScore(optimizedEquipment);
+      const candidates = candidateItems.filter(item =>
+        itemMatchesSlot(item, slot) &&
+        itemAllowedForClass(item, character.className) &&
+        itemAllowedForClassWeapon(item, slot, character.className) &&
+        itemAllowedForSpecialization(item, slot, character.className, character.specialization) &&
+        hasUsableItemStats(item)
+      );
+      let bestItem = current;
+      let bestScore = currentScore;
+      for (const candidate of candidates) {
+        const pairedSlot = ({
+          "Ring 1": "Ring 2", "Ring 2": "Ring 1",
+          "Trinket 1": "Trinket 2", "Trinket 2": "Trinket 1"
+        })[slot];
+        const pairedItem = pairedSlot ? optimizedEquipment[pairedSlot] : null;
+        if (pairedItem && candidate.id != null && pairedItem.id != null &&
+            String(candidate.id) === String(pairedItem.id)) continue;
+        if (pairedItem && candidate.id == null && pairedItem.id == null &&
+            candidate.name && pairedItem.name && candidate.name === pairedItem.name) continue;
+
+        // A two-handed main-hand weapon occupies both weapon slots. Clear the
+        // off hand in the same trial; never score an invalid 2H + off-hand loadout.
+        if (slot === "Off Hand" && getWeaponMetadata(optimizedEquipment["Main Hand"]).twoHanded) continue;
+        const trial = { ...optimizedEquipment, [slot]: candidate };
+        if (slot === "Main Hand" && getWeaponMetadata(candidate).twoHanded) {
+          trial["Off Hand"] = null;
+        }
+        const trialScore = loadoutScore(trial);
+        if (trialScore > bestScore) {
+          bestScore = trialScore;
+          bestItem = candidate;
+        }
+      }
+      if (bestItem !== current) {
+        optimizedEquipment[slot] = bestItem;
+        if (slot === "Main Hand" && getWeaponMetadata(bestItem).twoHanded) {
+          optimizedEquipment["Off Hand"] = null;
+        }
+        changed = true;
+      }
+    }
+    if (!changed) break;
+  }
+
+  const scored = scoreLoadout(optimizedEquipment, weights, setBonuses, character.specialization || "", character.level);
+  const remainingViolations = getSecondaryRatingHardCapViolations(optimizedEquipment, character.level);
   return {
     character: { ...character, goal },
     equipment: optimizedEquipment,
-    score: scoreEquipment(optimizedEquipment, weights)
+    score: scored.score,
+    setBonusStatus: scored.setBonuses,
+    ratingConstraintStatus: {
+      requiresUserChoice: false,
+      allSecondaryStatsOverCap,
+      preferredSecondaryStat,
+      originalViolations,
+      remainingViolations,
+      balanced: remainingViolations.length === 0,
+      unableToFullyBalance: remainingViolations.length > 0
+    }
   };
 }
 
@@ -433,28 +919,69 @@ function findUpgradeOpportunities({
   availableItems = [],
   goal = WOW_GOALS.general,
   statWeights = null,
-  limit = 5
+  className = "",
+  specialization = "",
+  characterLevel = null,
+  setBonuses = [],
+  limit = 6
 } = {}) {
   const weights = statWeights || getGoalWeights(goal);
   const upgrades = [];
+  const baselineLoadoutScore = scoreLoadout(
+    currentEquipment, weights, setBonuses, specialization, characterLevel
+  ).score;
+
   for (const slot of WOW_EQUIPMENT_SLOTS) {
     const currentItem = currentEquipment[slot];
     const currentScore = scoreItem(currentItem, weights);
-    const candidates = availableItems.filter(item => itemMatchesSlot(item, slot) && hasUsableItemStats(item))
-      .map(item => ({ item, score: scoreItem(item, weights) }))
-      .filter(candidate => candidate.score > currentScore)
+    const candidates = availableItems.filter(item =>
+      itemMatchesSlot(item, slot) &&
+      itemAllowedForClass(item, className) &&
+      itemAllowedForClassWeapon(item, slot, className) &&
+      itemAllowedForSpecialization(item, slot, className, specialization) &&
+      hasUsableItemStats(item)
+    )
+      .map(item => {
+        const trialEquipment = { ...currentEquipment, [slot]: item };
+        const trialScore = scoreLoadout(
+          trialEquipment, weights, setBonuses, specialization, characterLevel
+        ).score;
+        return { item, score: trialScore, itemScore: scoreItem(item, weights) };
+      })
+      .filter(candidate => candidate.score > baselineLoadoutScore)
       .sort((a, b) => b.score - a.score);
+
     if (candidates.length) {
       const best = candidates[0];
       upgrades.push({
         slot, currentItem, recommendedItem: best.item, currentScore,
-        recommendedScore: best.score, improvement: best.score - currentScore
+        recommendedScore: best.score, improvement: best.score - baselineLoadoutScore
       });
     }
   }
-  return upgrades.sort((a, b) => b.improvement - a.improvement).slice(0, limit);
-}
 
+  // The summary is a six-upgrade shortlist, not one card per equipment slot.
+  // Keep at most one ring, one trinket, and one weapon across both hands.
+  // A two-handed main-hand recommendation also occupies the weapon allowance
+  // and must not be paired with an off-hand recommendation.
+  const categoryFor = upgrade => {
+    if (upgrade.slot === "Ring 1" || upgrade.slot === "Ring 2") return "ring";
+    if (upgrade.slot === "Trinket 1" || upgrade.slot === "Trinket 2") return "trinket";
+    if (upgrade.slot === "Main Hand" || upgrade.slot === "Off Hand") return "weapon";
+    return upgrade.slot;
+  };
+  const sorted = upgrades.sort((a, b) => b.improvement - a.improvement);
+  const selected = [];
+  const usedCategories = new Set();
+  for (const upgrade of sorted) {
+    const category = categoryFor(upgrade);
+    if (usedCategories.has(category)) continue;
+    selected.push(upgrade);
+    usedCategories.add(category);
+    if (selected.length >= Math.max(0, Number(limit) || 6)) break;
+  }
+  return selected;
+}
 function rankItems(items, goal = WOW_GOALS.general, statWeights = null) {
   const weights = statWeights || getGoalWeights(goal);
   return (items || []).filter(hasUsableItemStats)
@@ -624,13 +1151,18 @@ function createOptimizationReport({character = createCharacterProfile(), availab
     simulation
   });
   const statSummary = getCharacterStatSummary(character.statistics, statWeights);
-  const optimized = optimizeEquipment({ items: availableItems, character, goal, statWeights });
+  const setBonuses = dataset?.tierSetBonuses || dataset?.setBonuses || [];
+  const optimized = optimizeEquipment({ items: availableItems, character, goal, statWeights, setBonuses });
   const upgrades = findUpgradeOpportunities({
     currentEquipment: character.equipment,
     availableItems,
     goal,
     statWeights,
-    limit: 5
+    className: character.className,
+    specialization: character.specialization,
+    characterLevel: character.level,
+    setBonuses,
+    limit: 6
   });
   const system = upgradeSystem || getUpgradeSystem(dataset);
   const upgradePlans = WOW_EQUIPMENT_SLOTS
@@ -641,6 +1173,10 @@ function createOptimizationReport({character = createCharacterProfile(), availab
     .filter(Boolean);
   return {
     character, goal, optimizedEquipment: optimized.equipment, totalScore: optimized.score,
+    setBonusStatus: optimized.setBonusStatus,
+    ratingConstraintStatus: optimized.ratingConstraintStatus || {
+      requiresUserChoice: false, balanced: true, remainingViolations: []
+    },
     topUpgrades: upgrades, upgradePlans, currentStats: statSummary,
     optimizationContext: simulationContext ? {
       source: simulationContext.source,
@@ -678,9 +1214,11 @@ const WOW_OPTIMIZER_TEST_DATA = [
 
 window.WoWOptimizer = {
   slots: WOW_EQUIPMENT_SLOTS, goals: WOW_GOALS,
+  applySecondaryRatingDiminishingReturns, getSecondaryRatingDiminishingReturns, SECONDARY_RATING_DR_TABLE, SECONDARY_RATING_DR_SOFT_TARGETS, getSecondaryRatingTotals, getSecondaryRatingHardCapViolations, getSecondaryRatingSoftTargetPenalty,
   createCharacterProfile, normalizeCharacterStatistics, scoreCharacterStatistics, getCharacterStatSummary, resolveStatWeights, normalizeSimulationScaleFactors, getSimulationWeightContext, findBlizzardSpecialization, getSpecProfileContext,
   normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, hasUsableItemStats, scoreItem, scoreEquipment, getGoalWeights,
-  findBestItemForSlot, optimizeEquipment, findUpgradeOpportunities, rankItems,
+  findBestItemForSlot, itemMatchesSlot, itemAllowedForClassWeapon, itemAllowedForSpecialization, getWeaponMetadata, normalizeWeaponType, optimizeEquipment, findUpgradeOpportunities, rankItems,
+  getItemSetId, getSetBonusStatus, scoreSetBonuses, scoreEquipmentWithRatingDiminishingReturns, scoreLoadout,
   getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,
   calculateCrestRequirements, isAscendantVenomstoneEligible, recommendUpgradePlan,
   createOptimizationReport, testData: WOW_OPTIMIZER_TEST_DATA

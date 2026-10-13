@@ -25,10 +25,10 @@ console.log("Target gear loadout UI regression checks passed.");
 
 
 for (const required of [
-  "renderLoadoutItemCard(item, \"Recommended target\"",
+  "renderLoadoutItemCard(sameItem || suppressAsVerifiedUpgrade ? null : item",
   "renderLoadoutItemCard(current, \"Currently equipped\"",
   "Stat changes if equipped",
-  "getLoadoutUpgradeReason(item, current, sameItem)",
+  "suppressAsVerifiedUpgrade ? \"This comparison is incomplete because verified stats are missing for one or both items. The candidate is not shown as a confirmed upgrade; retain the equipped item until catalog data is repaired.\" : getLoadoutUpgradeReason(item, current, sameItem)",
   "Why this recommendation?",
   "data-item-icon-id",
   "renderLoadoutStatRows(item, current)"
@@ -39,3 +39,24 @@ for (const required of [".loadout-compare-pair", ".compare-icon", ".loadout-stat
   if (!css.includes(required)) throw new Error("Loadout comparison styling missing: " + required);
 }
 console.log("Side-by-side loadout comparison UI checks passed.");
+
+// Live Blizzard character stats may be object maps, unlike catalog stat arrays.
+// Ensure the comparison renderer handles both representations.
+if (!app.includes('item?.stats && typeof item.stats === "object"') ||
+    !app.includes('Object.entries(item.stats)')) {
+  throw new Error("Loadout stat comparison must support object-map stats from live character gear");
+}
+console.log("Live character object-map stat comparison regression passed.");
+
+// The UI should treat a stat absent from one otherwise-valid item as zero,
+// so stat tradeoffs are visible instead of mislabeled as incomplete.
+const statRowsStart = app.indexOf("function renderLoadoutStatRows");
+const statRowsEnd = app.indexOf("function getLoadoutUpgradeReason", statRowsStart);
+const statRowsSource = app.slice(statRowsStart, statRowsEnd);
+if (!statRowsSource.includes("Object.hasOwn(targetStats, key) ? targetStats[key] : 0") ||
+    !statRowsSource.includes("Object.hasOwn(currentStats, key) ? currentStats[key] : 0")) {
+  throw new Error("Loadout stat comparison must show zero for a stat absent from one item when both items have stat data");
+}
+console.log("Missing-item-stat zero-delta comparison regression passed.");
+
+
