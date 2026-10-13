@@ -1,0 +1,1666 @@
+{
+  "schemaVersion": 1,
+  "game": "World of Warcraft",
+  "mode": "Retail",
+  "expansion": "Midnight",
+  "season": 2,
+  "patch": "12.1",
+  "source": {
+    "name": "Wowhead Midnight Season 2 Tier Set Overview and item pages",
+    "url": "https://www.wowhead.com/guide/classes/shaman/enhancement/midnight-season-2",
+    "accessedAt": "2026-10-13",
+    "scope": "Tier bonus descriptions plus verified base item IDs and slots for Shaman set pieces. Numeric set bonus scoring remains disabled absent simulation-derived values."
+  },
+  "thresholds": [
+    2,
+    4
+  ],
+  "fifthPieceOptional": true,
+  "scoringPolicy": "Bonus descriptions are informational. Do not assign numeric optimization weights unless separately verified by simulation or an explicit source-backed profile.",
+  "sets": [
+    {
+      "class": "Death Knight",
+      "setName": "Baleful Grave-Knight's Crucible",
+      "specs": [
+        [
+          "Blood",
+          "When you Death Strike, gain a stack of Blood Debt, increasing Strength by 0.5%, up to 5.0%. When Blood Debt reaches 10 stacks, your next Marrowrend consumes it granting 10% Strength for 10 sec.",
+          "When consuming Blood Debt, your next Marrowrend generates 3 additional Boneshield and deals Shadow damage to your target and nearby enemies."
+        ],
+        [
+          "Frost",
+          "Each time Remorseless Winter damages at least 1 enemy, gain Freezing Tempest which grants 2% attack speed and 4% increased Icy Death Torrent damage for 5 sec, stacking.",
+          "Remorseless Winter deals damage 25% more frequently, and Freezing Tempest lasts 5 sec longer."
+        ],
+        [
+          "Unholy",
+          "Your Magus of the Dead and Lord of the Dead cast a more powerful Necrotic Bolt instead of Frostbolt, and Withering Grasp instead of Shadow Bolt.",
+          "Necrotic Bolt's damage and Withering Grasp's damage are increased by 130% against targets below 35% health."
+        ]
+      ],
+      "eligibleSlots": [
+        "Head",
+        "Shoulders",
+        "Chest",
+        "Hands",
+        "Legs"
+      ],
+      "appearanceVariants": [
+        {
+          "variant": "Raid Finder",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Normal",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Heroic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Mythic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Gladiator",
+          "sourceType": "PvP"
+        },
+        {
+          "variant": "Elite",
+          "sourceType": "PvP"
+        }
+      ],
+      "pieces": [],
+      "itemIdsVerified": false
+    },
+    {
+      "class": "Demon Hunter",
+      "setName": "Abyssal Doomhound's Pursuit",
+      "specs": [
+        [
+          "Devourer",
+          "Harvesting 4 or more Soul Fragments with Reap has a 20% chance to make your next Consume instant and explode in a Soulburst.",
+          "Soulburst generates 8 Soul Fragments and grants Moment of Craving. Reap deals 20% increased damage."
+        ],
+        [
+          "Havoc",
+          "Blade Dance, Chaos Strike, and Essence Break have 12% increased damage.",
+          "Essence Break applies and benefits from Cycle of Hatred, has 35% increased initial strike damage, and 2 sec increased duration."
+        ],
+        [
+          "Vengeance",
+          "Sigil of Flame damage over time is increased by 50%. Soul Cleave increases Sigil of Flame duration on your primary target by 2 sec.",
+          "Immolation Aura and Sigil of Spite deal 100% increased damage against targets affected by Sigil of Flame."
+        ]
+      ],
+      "eligibleSlots": [
+        "Head",
+        "Shoulders",
+        "Chest",
+        "Hands",
+        "Legs"
+      ],
+      "appearanceVariants": [
+        {
+          "variant": "Raid Finder",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Normal",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Heroic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Mythic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Gladiator",
+          "sourceType": "PvP"
+        },
+        {
+          "variant": "Elite",
+          "sourceType": "PvP"
+        }
+      ],
+      "pieces": [],
+      "itemIdsVerified": false
+    },
+    {
+      "class": "Druid",
+      "setName": "Bark of the Enigmatic Dreamwatcher",
+      "specs": [
+        [
+          "Balance",
+          "Starsurge damage increased by 20%. Starfall also deals instant Astral damage to all valid enemies in range when cast.",
+          "Your damage is increased by 10% while in any Eclipse, waning to 2% at the midpoint then waxing back to 10%."
+        ],
+        [
+          "Feral",
+          "When Incarnation: Avatar of Ashamane or Berserk ends, you deal 10% increased damage for 0.75 sec per combo point spent during it.",
+          "Incarnation: Avatar of Ashamane or Berserk lasts 10 sec longer."
+        ],
+        [
+          "Guardian",
+          "Thrash has a 20% chance to make your next Mangle deal 100% increased damage.",
+          "Thrash calls up 3 thorns that deal Nature damage and extends Incarnation: Guardian of Ursoc or Berserk by up to 5 sec."
+        ],
+        [
+          "Restoration",
+          "Rejuvenation has a 15% chance to grant Genesis, causing all heal-over-time effects to heal for 15% more for 8 sec. Applications may overlap.",
+          "Nature's Swiftness, Tranquility, and Incarnation: Tree of Life or Convoke the Spirits have a 100% chance to grant Genesis, whose duration is increased by 4 sec."
+        ]
+      ],
+      "eligibleSlots": [
+        "Head",
+        "Shoulders",
+        "Chest",
+        "Hands",
+        "Legs"
+      ],
+      "appearanceVariants": [
+        {
+          "variant": "Raid Finder",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Normal",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Heroic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Mythic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Gladiator",
+          "sourceType": "PvP"
+        },
+        {
+          "variant": "Elite",
+          "sourceType": "PvP"
+        }
+      ],
+      "pieces": [],
+      "itemIdsVerified": false
+    },
+    {
+      "class": "Evoker",
+      "setName": "Echo of Calamity",
+      "specs": [
+        [
+          "Augmentation",
+          "Upheaval's cooldown is reduced by 10 sec.",
+          "Upheaval magnifies Fate Mirror effects for 8 sec, increasing echoed damage to 45%."
+        ],
+        [
+          "Devastation",
+          "Shattering Star damage is increased by 50% and always casts as if maximum empower level was reached.",
+          "Causality reduces remaining cooldown of empower spells by an additional 0.1 sec each proc. Eternity Surge deals 10% increased damage."
+        ],
+        [
+          "Preservation",
+          "Consuming Essence Burst sends a Living Flame at your target at 100% effectiveness, or a nearby injured target if the target is full health.",
+          "Green spells restore 5% more health, and Verdant Embrace has a 100% chance to grant Essence Burst."
+        ]
+      ],
+      "eligibleSlots": [
+        "Head",
+        "Shoulders",
+        "Chest",
+        "Hands",
+        "Legs"
+      ],
+      "appearanceVariants": [
+        {
+          "variant": "Raid Finder",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Normal",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Heroic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Mythic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Gladiator",
+          "sourceType": "PvP"
+        },
+        {
+          "variant": "Elite",
+          "sourceType": "PvP"
+        }
+      ],
+      "pieces": [],
+      "itemIdsVerified": false
+    },
+    {
+      "class": "Hunter",
+      "setName": "Skulking Viper's Ambush",
+      "specs": [
+        [
+          "Beast Mastery",
+          "Barbed Shot causes your pets to stomp one additional time at 50% effectiveness.",
+          "Stomp makes your next Cobra Shot benefit from Beast Cleave at 20% effectiveness or strike the primary target for 15% additional damage, stacking up to 4 times."
+        ],
+        [
+          "Marksmanship",
+          "Explosive Shot lasts 1 sec longer and deals 5% increased damage.",
+          "Aimed Shot and Rapid Fire damage increase by 5%; each Explosive Shot burst reduces their cooldown by 0.5 sec."
+        ],
+        [
+          "Survival",
+          "The source overview lists a 4-piece effect: each Boomstick blast extends Mongoose Fury by 1 sec and increases its effects by 10%.",
+          "Mongoose Fury also increases Wildfire Bomb damage by 10%."
+        ]
+      ],
+      "eligibleSlots": [
+        "Head",
+        "Shoulders",
+        "Chest",
+        "Hands",
+        "Legs"
+      ],
+      "appearanceVariants": [
+        {
+          "variant": "Raid Finder",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Normal",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Heroic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Mythic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Gladiator",
+          "sourceType": "PvP"
+        },
+        {
+          "variant": "Elite",
+          "sourceType": "PvP"
+        }
+      ],
+      "pieces": [],
+      "itemIdsVerified": false
+    },
+    {
+      "class": "Mage",
+      "setName": "Primal Leywarden's Attire",
+      "specs": [
+        [
+          "Arcane",
+          "Arcane Missiles fires 1 additional Missile and deals 20% increased damage.",
+          "Each wave of Arcane Missiles increases the damage of your next Arcane Blast, Arcane Pulse, or Prismatic Bolt by 5%, up to 40%."
+        ],
+        [
+          "Fire",
+          "Pyroclasm causes Flamestrike and Pyroblast to always critically strike.",
+          "Pyroclasm reduces cast time of Flamestrike and Pyroblast by 20% and increases its damage bonus by 25%."
+        ],
+        [
+          "Frost",
+          "Each stack of Freezing Shattered has a 4% chance to generate an Icicle. Glacial Spike damage increased by 20%.",
+          "Casting Glacial Spike has a chance to rapidly generate 5 Icicles over 1 sec. Shatter damage increased by 5%."
+        ]
+      ],
+      "eligibleSlots": [
+        "Head",
+        "Shoulders",
+        "Chest",
+        "Hands",
+        "Legs"
+      ],
+      "appearanceVariants": [
+        {
+          "variant": "Raid Finder",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Normal",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Heroic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Mythic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Gladiator",
+          "sourceType": "PvP"
+        },
+        {
+          "variant": "Elite",
+          "sourceType": "PvP"
+        }
+      ],
+      "pieces": [],
+      "itemIdsVerified": false
+    },
+    {
+      "class": "Monk",
+      "setName": "Guile of the Monkey King",
+      "specs": [
+        [
+          "Brewmaster",
+          "Breath of Fire ignites your next Keg Smash, adding Flamestrike damage to its primary target and reduced damage to others.",
+          "Ignited Keg Smashes cause enemies struck to take 8% increased damage from Physical abilities and leave flames dealing Fire damage for 5 sec."
+        ],
+        [
+          "Mistweaver",
+          "Rising Sun Kick deals 30% increased damage and Rushing Wind Kick healing is increased by 100%.",
+          "Rising Sun Kick and Rushing Wind Kick can make the next cast ignore its cooldown and reduce its mana cost by 100%."
+        ],
+        [
+          "Windwalker",
+          "Fists of Fury strikes an additional time at the start of its channel at 50% effectiveness.",
+          "Fists of Fury increases the damage of your next Rising Sun Kick by 10% or Spinning Crane Kick by 20% each strike, stacking up to 6 times."
+        ]
+      ],
+      "eligibleSlots": [
+        "Head",
+        "Shoulders",
+        "Chest",
+        "Hands",
+        "Legs"
+      ],
+      "appearanceVariants": [
+        {
+          "variant": "Raid Finder",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Normal",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Heroic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Mythic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Gladiator",
+          "sourceType": "PvP"
+        },
+        {
+          "variant": "Elite",
+          "sourceType": "PvP"
+        }
+      ],
+      "pieces": [],
+      "itemIdsVerified": false
+    },
+    {
+      "class": "Paladin",
+      "setName": "Radiance of the Consecrated Flame",
+      "specs": [
+        [
+          "Holy",
+          "Infusion of Light increases Flash of Light healing and Greater Judgment absorb by an additional 100%.",
+          "Judgment has a 20% chance to grant Infusion of Light. Holy Light always grants it, but mana cost is increased by 50%."
+        ],
+        [
+          "Protection",
+          "Consecration is 30% larger and enemies inside are illuminated, increasing your abilities' critical strike chance against them by 5%.",
+          "Enemies struck by Judgment or Blessed Hammer / Hammer of the Righteous / Crusader Strike take additional Holy damage, increased further on critical strikes."
+        ],
+        [
+          "Retribution",
+          "Divine Purpose has an additional 10% chance to activate; consuming it grants Divine Power, increasing Holy damage by 10% for 12 sec.",
+          "Consuming Divine Purpose grants Divine Arbiter, empowering other Holy Power spenders to unleash an arbiter of light dealing Holy damage."
+        ]
+      ],
+      "eligibleSlots": [
+        "Head",
+        "Shoulders",
+        "Chest",
+        "Hands",
+        "Legs"
+      ],
+      "appearanceVariants": [
+        {
+          "variant": "Raid Finder",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Normal",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Heroic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Mythic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Gladiator",
+          "sourceType": "PvP"
+        },
+        {
+          "variant": "Elite",
+          "sourceType": "PvP"
+        }
+      ],
+      "pieces": [],
+      "itemIdsVerified": false
+    },
+    {
+      "class": "Priest",
+      "setName": "Cosmic Penitent's Raiment",
+      "specs": [
+        [
+          "Discipline",
+          "Penance damage and healing increased by 20%. Casting Penance reduces Mind Blast cooldown by 2 sec.",
+          "After Mind Blast, your next Power Word: Shield or Void Shield absorbs 25% more damage."
+        ],
+        [
+          "Holy",
+          "Each target affected by Renew increases critical strike chance of spells and abilities by 2%, up to 6%.",
+          "Renew healing increased by 10%. Light's Resurgence always leaves Renew on the first target healed by Prayer of Mending."
+        ],
+        [
+          "Shadow",
+          "Tentacle Slam cooldown is reduced by 3 sec and its damage increased by 100%.",
+          "Tentacle Slam always grants a free use of Void Volley at 100% effectiveness."
+        ]
+      ],
+      "eligibleSlots": [
+        "Head",
+        "Shoulders",
+        "Chest",
+        "Hands",
+        "Legs"
+      ],
+      "appearanceVariants": [
+        {
+          "variant": "Raid Finder",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Normal",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Heroic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Mythic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Gladiator",
+          "sourceType": "PvP"
+        },
+        {
+          "variant": "Elite",
+          "sourceType": "PvP"
+        }
+      ],
+      "pieces": [],
+      "itemIdsVerified": false
+    },
+    {
+      "class": "Rogue",
+      "setName": "Chosen Bloodslayer's Hexweave",
+      "specs": [
+        [
+          "Assassination",
+          "Envenom damage increased by 10% and increases damage dealt by 3%.",
+          "Deadly Poison increases bleed damage on target by 10%; auto-attacks against Amplifying Poison targets deal 3% more damage per stack; Wound Poison hits twice."
+        ],
+        [
+          "Outlaw",
+          "Dispatch damage increased by 15%.",
+          "Sinister Strike and Ambush have a 20% chance to make next Dispatch free and deal maximum-combo-point damage."
+        ],
+        [
+          "Subtlety",
+          "Backstab costs 10 less Energy and deals 100% increased damage. Shuriken Storm costs 5 less Energy and deals 60% increased damage.",
+          "Lingering Shadow also benefits Eviscerate and Black Powder at 100% effectiveness."
+        ]
+      ],
+      "eligibleSlots": [
+        "Head",
+        "Shoulders",
+        "Chest",
+        "Hands",
+        "Legs"
+      ],
+      "appearanceVariants": [
+        {
+          "variant": "Raid Finder",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Normal",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Heroic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Mythic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Gladiator",
+          "sourceType": "PvP"
+        },
+        {
+          "variant": "Elite",
+          "sourceType": "PvP"
+        }
+      ],
+      "pieces": [],
+      "itemIdsVerified": false
+    },
+    {
+      "class": "Shaman",
+      "setName": "Ophidian Oracle's Prophecy",
+      "specs": [
+        [
+          "Elemental",
+          "Earth Shock, Earthquake, and Elemental Blast damage increased by 25%.",
+          "When Stormkeeper or Ascendance fades, your next 2 Lightning Bolts, Chain Lightnings, or Lava Bursts deal 25% increased damage and your next Earthquake, Earth Shock, or Elemental Blast costs 100% less Maelstrom."
+        ],
+        [
+          "Enhancement",
+          "Voltaic Blaze causes your primary target to erupt in a Fire Nova every 2 sec for 6 sec; Fire Nova deals 200% increased damage to that target.",
+          "Fire Nova reduces Crash Lightning cooldown by 2 sec and increases the damage of your next Crash Lightning by 8%, stacking up to 5 times."
+        ],
+        [
+          "Restoration",
+          "Healing Wave and Chain Heal have a chance to create a Healing Rain at the target's location for 8 sec.",
+          "Each second, an ally inside Healing Rain gains a watery shield. The overview currently displays 0 absorption, so this effect's numeric tooltip requires verification."
+        ]
+      ],
+      "eligibleSlots": [
+        "Head",
+        "Shoulders",
+        "Chest",
+        "Hands",
+        "Legs"
+      ],
+      "appearanceVariants": [
+        {
+          "variant": "Raid Finder",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Normal",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Heroic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Mythic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Gladiator",
+          "sourceType": "PvP"
+        },
+        {
+          "variant": "Elite",
+          "sourceType": "PvP"
+        }
+      ],
+      "pieces": [
+        {
+          "itemId": 271483,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Serpent Crown of the Ophidian Oracle",
+          "slot": "Head",
+          "variant": "Raid Finder",
+          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle",
+          "itemLevel": 285,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 119,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 49,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 112,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
+        },
+        {
+          "itemId": 271483,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Serpent Crown of the Ophidian Oracle",
+          "slot": "Head",
+          "variant": "Normal",
+          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle",
+          "itemLevel": 298,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 135,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 52,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 120,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
+        },
+        {
+          "itemId": 271483,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Serpent Crown of the Ophidian Oracle",
+          "slot": "Head",
+          "variant": "Heroic",
+          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle",
+          "itemLevel": 311,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 152,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 55,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 127,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
+        },
+        {
+          "itemId": 271483,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Serpent Crown of the Ophidian Oracle",
+          "slot": "Head",
+          "variant": "Mythic",
+          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle",
+          "itemLevel": 324,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 172,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 59,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 134,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
+        },
+        {
+          "itemId": 271483,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Serpent Crown of the Ophidian Oracle",
+          "slot": "Head",
+          "variant": "Gladiator",
+          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271483,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Serpent Crown of the Ophidian Oracle",
+          "slot": "Head",
+          "variant": "Elite",
+          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271481,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hissing Mantle of the Ophidian Oracle",
+          "slot": "Shoulders",
+          "variant": "Raid Finder",
+          "sourceUrl": "https://www.wowhead.com/item=271481/hissing-mantle-of-the-ophidian-oracle",
+          "itemLevel": 282,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 87,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 41,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 78,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
+        },
+        {
+          "itemId": 271481,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hissing Mantle of the Ophidian Oracle",
+          "slot": "Shoulders",
+          "variant": "Normal",
+          "sourceUrl": "https://www.wowhead.com/item=271481/hissing-mantle-of-the-ophidian-oracle",
+          "itemLevel": 295,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 98,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 44,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 83,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
+        },
+        {
+          "itemId": 271481,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hissing Mantle of the Ophidian Oracle",
+          "slot": "Shoulders",
+          "variant": "Heroic",
+          "sourceUrl": "https://www.wowhead.com/item=271481/hissing-mantle-of-the-ophidian-oracle",
+          "itemLevel": 308,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 111,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 46,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 89,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
+        },
+        {
+          "itemId": 271481,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hissing Mantle of the Ophidian Oracle",
+          "slot": "Shoulders",
+          "variant": "Mythic",
+          "sourceUrl": "https://www.wowhead.com/item=271481/hissing-mantle-of-the-ophidian-oracle",
+          "itemLevel": 321,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 125,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 49,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 94,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
+        },
+        {
+          "itemId": 271481,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hissing Mantle of the Ophidian Oracle",
+          "slot": "Shoulders",
+          "variant": "Gladiator",
+          "sourceUrl": "https://www.wowhead.com/item=271481/hissing-mantle-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271481,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hissing Mantle of the Ophidian Oracle",
+          "slot": "Shoulders",
+          "variant": "Elite",
+          "sourceUrl": "https://www.wowhead.com/item=271481/hissing-mantle-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271486,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Fanged Raiment of the Ophidian Oracle",
+          "slot": "Chest",
+          "variant": "Raid Finder",
+          "sourceUrl": "https://www.wowhead.com/item=271486/fanged-raiment-of-the-ophidian-oracle",
+          "itemLevel": 285,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 119,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 113,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 48,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
+        },
+        {
+          "itemId": 271486,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Fanged Raiment of the Ophidian Oracle",
+          "slot": "Chest",
+          "variant": "Normal",
+          "sourceUrl": "https://www.wowhead.com/item=271486/fanged-raiment-of-the-ophidian-oracle",
+          "itemLevel": 298,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 135,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 120,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 52,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
+        },
+        {
+          "itemId": 271486,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Fanged Raiment of the Ophidian Oracle",
+          "slot": "Chest",
+          "variant": "Heroic",
+          "sourceUrl": "https://www.wowhead.com/item=271486/fanged-raiment-of-the-ophidian-oracle",
+          "itemLevel": 311,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 152,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 128,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 55,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
+        },
+        {
+          "itemId": 271486,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Fanged Raiment of the Ophidian Oracle",
+          "slot": "Chest",
+          "variant": "Mythic",
+          "sourceUrl": "https://www.wowhead.com/item=271486/fanged-raiment-of-the-ophidian-oracle",
+          "itemLevel": 324,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 172,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 135,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 58,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
+        },
+        {
+          "itemId": 271486,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Fanged Raiment of the Ophidian Oracle",
+          "slot": "Chest",
+          "variant": "Gladiator",
+          "sourceUrl": "https://www.wowhead.com/item=271486/fanged-raiment-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271486,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Fanged Raiment of the Ophidian Oracle",
+          "slot": "Chest",
+          "variant": "Elite",
+          "sourceUrl": "https://www.wowhead.com/item=271486/fanged-raiment-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271484,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hexing Grips of the Ophidian Oracle",
+          "slot": "Hands",
+          "variant": "Raid Finder",
+          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle",
+          "itemLevel": 282,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 87,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 36,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 83,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
+        },
+        {
+          "itemId": 271484,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hexing Grips of the Ophidian Oracle",
+          "slot": "Hands",
+          "variant": "Normal",
+          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle",
+          "itemLevel": 295,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 98,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 39,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 88,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
+        },
+        {
+          "itemId": 271484,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hexing Grips of the Ophidian Oracle",
+          "slot": "Hands",
+          "variant": "Heroic",
+          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle",
+          "itemLevel": 308,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 111,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 41,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 94,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
+        },
+        {
+          "itemId": 271484,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hexing Grips of the Ophidian Oracle",
+          "slot": "Hands",
+          "variant": "Mythic",
+          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle",
+          "itemLevel": 321,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 125,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 43,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 99,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
+        },
+        {
+          "itemId": 271484,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hexing Grips of the Ophidian Oracle",
+          "slot": "Hands",
+          "variant": "Gladiator",
+          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271484,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hexing Grips of the Ophidian Oracle",
+          "slot": "Hands",
+          "variant": "Elite",
+          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271482,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Leggings of the Ophidian Oracle",
+          "slot": "Legs",
+          "variant": "Raid Finder",
+          "sourceUrl": "https://www.wowhead.com/item=271482/leggings-of-the-ophidian-oracle",
+          "itemLevel": 285,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 119,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 56,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 105,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
+        },
+        {
+          "itemId": 271482,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Leggings of the Ophidian Oracle",
+          "slot": "Legs",
+          "variant": "Normal",
+          "sourceUrl": "https://www.wowhead.com/item=271482/leggings-of-the-ophidian-oracle",
+          "itemLevel": 298,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 135,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 60,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 112,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
+        },
+        {
+          "itemId": 271482,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Leggings of the Ophidian Oracle",
+          "slot": "Legs",
+          "variant": "Heroic",
+          "sourceUrl": "https://www.wowhead.com/item=271482/leggings-of-the-ophidian-oracle",
+          "itemLevel": 311,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 152,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 64,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 119,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
+        },
+        {
+          "itemId": 271482,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Leggings of the Ophidian Oracle",
+          "slot": "Legs",
+          "variant": "Mythic",
+          "sourceUrl": "https://www.wowhead.com/item=271482/leggings-of-the-ophidian-oracle",
+          "itemLevel": 324,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 172,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 67,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 125,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
+        },
+        {
+          "itemId": 271482,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Leggings of the Ophidian Oracle",
+          "slot": "Legs",
+          "variant": "Gladiator",
+          "sourceUrl": "https://www.wowhead.com/item=271482/leggings-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271482,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Leggings of the Ophidian Oracle",
+          "slot": "Legs",
+          "variant": "Elite",
+          "sourceUrl": "https://www.wowhead.com/item=271482/leggings-of-the-ophidian-oracle"
+        }
+      ],
+      "itemIdsVerified": true,
+      "id": "ophidian-oracle-prophecy"
+    },
+    {
+      "class": "Warlock",
+      "setName": "Damned Necrolyte's Shattered Restraints",
+      "specs": [
+        [
+          "Affliction",
+          "Wither or Corruption damage increased by 25%. Agony damage increased by 15%.",
+          "Each active Unstable Affliction increases spell and ability damage by 2%, up to 6%. Seed of Corruption applies Unstable Affliction at 20% effectiveness."
+        ],
+        [
+          "Demonology",
+          "Wild Imp damage increased by 10%. Implosion damage increased by 20%.",
+          "When energy depletes, Wild Imps have a 20% chance to fling themselves at their target and Implode at 250% effectiveness to the main target and 225% to others."
+        ],
+        [
+          "Destruction",
+          "Incinerate damage increased by 25% and has a 10% increased chance to evoke an Echo of Sargeras.",
+          "Targets damaged by Echo of Sargeras take 6% increased damage from your spells and abilities for 6 sec."
+        ]
+      ],
+      "eligibleSlots": [
+        "Head",
+        "Shoulders",
+        "Chest",
+        "Hands",
+        "Legs"
+      ],
+      "appearanceVariants": [
+        {
+          "variant": "Raid Finder",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Normal",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Heroic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Mythic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Gladiator",
+          "sourceType": "PvP"
+        },
+        {
+          "variant": "Elite",
+          "sourceType": "PvP"
+        }
+      ],
+      "pieces": [],
+      "itemIdsVerified": false
+    },
+    {
+      "class": "Warrior",
+      "setName": "Jade Warlord's Dominion",
+      "specs": [
+        [
+          "Arms",
+          "Mortal Strike and Execute damage increased by 10%; Slam also deals damage to nearby enemies when you Slam a target.",
+          "Overpower damage increased by 15%. Mortal Strike and Overpower increase next Slam damage by 20%, stacking up to 5 times."
+        ],
+        [
+          "Fury",
+          "Raging Blow damage increased by 15%. During Recklessness, Raging Blow extends Recklessness by 2 sec, up to 6 sec.",
+          "Bloodthirst damage increased by 10%. During Recklessness, Bloodthirst increases Recklessness critical strike bonus by 5%, up to 10%."
+        ],
+        [
+          "Protection",
+          "Free Revenges deal 15% additional damage and cause your next Shield Slam to deal 20% additional damage.",
+          "Ravager and free Revenges cause targets to bleed over 12 sec. Ravager cooldown is reduced by 30 sec."
+        ]
+      ],
+      "eligibleSlots": [
+        "Head",
+        "Shoulders",
+        "Chest",
+        "Hands",
+        "Legs"
+      ],
+      "appearanceVariants": [
+        {
+          "variant": "Raid Finder",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Normal",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Heroic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Mythic",
+          "sourceType": "PvE"
+        },
+        {
+          "variant": "Gladiator",
+          "sourceType": "PvP"
+        },
+        {
+          "variant": "Elite",
+          "sourceType": "PvP"
+        }
+      ],
+      "pieces": [],
+      "itemIdsVerified": false
+    }
+  ],
+  "itemMatching": {
+    "status": "partial",
+    "requiredFields": [
+      "itemId",
+      "setId",
+      "slot",
+      "variant",
+      "sourceUrl"
+    ],
+    "expectedSlots": [
+      "Head",
+      "Shoulders",
+      "Chest",
+      "Hands",
+      "Legs"
+    ],
+    "expectedVariants": [
+      "Raid Finder",
+      "Normal",
+      "Heroic",
+      "Mythic",
+      "Gladiator",
+      "Elite"
+    ],
+    "note": "Verified Shaman Ophidian Oracle's Prophecy base item IDs and slots from Wowhead item pages. The same item ID persists across the six item-level/appearance variants; exact item bonus IDs are not needed for set membership. Other class set pieces remain unverified and are not inferred.",
+    "verifiedClasses": [
+      "Shaman"
+    ]
+  }
+}

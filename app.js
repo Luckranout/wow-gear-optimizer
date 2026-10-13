@@ -31,6 +31,7 @@ const importStatus = document.querySelector("#importStatus");
 const statsGrid = document.querySelector("#statsGrid");
 const upgradeResults = document.querySelector("#upgradeResults");
 const loadoutResults = document.querySelector("#loadoutResults");
+const secondaryRatingNotice = document.querySelector("#secondaryRatingNotice");
 const optimizationSource = document.querySelector("#optimizationSource");
 const characterNameInput = document.querySelector("#characterNameInput");
 const realmInput = document.querySelector("#realmInput");
@@ -336,12 +337,55 @@ function renderCharacterCoach(report, character) {
 
 function getLoadoutItemStats(item) {
   const stats = {};
-  for (const stat of Array.isArray(item?.stats) ? item.stats : []) {
-    const rawName = stat?.type?.name || stat?.name || stat?.type || stat?.stat;
-    const value = Number(stat?.value ?? stat?.amount);
-    if (!rawName || !Number.isFinite(value)) continue;
-    const key = String(rawName).replace(/([a-z])([A-Z])/g, "$1 $2").replace(/[_-]+/g, " ").trim();
+  const normalizeStatKey = rawName => {
+    const words = String(rawName)
+      .replace(/([a-z])([A-Z])/g, "$1 $2")
+      .replace(/[_-]+/g, " ")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, " ")
+      .trim()
+      .split(/\\s+/)
+      .filter(Boolean);
+    const compact = words.join("");
+    // Canonicalize common Blizzard/catalog aliases before comparing.
+    const aliases = {
+      crit: "criticalstrike",
+      critical: "criticalstrike",
+      criticalstrike: "criticalstrike",
+      critrating: "criticalstrike",
+      hasterating: "haste",
+      masteryrating: "mastery",
+      versatilityrating: "versatility",
+      bonusarmor: "bonusarmor",
+      haste: "haste",
+      mastery: "mastery",
+      versatility: "versatility",
+      vers: "versatility",
+      agi: "agility",
+      int: "intellect",
+      str: "strength",
+      stam: "stamina"
+    };
+    const canonical = aliases[compact] || compact;
+    return canonical.replace(/^[a-z]/, letter => letter.toUpperCase());
+  };
+  const addStat = (rawName, rawValue) => {
+    const value = Number(rawValue);
+    if (!rawName || !Number.isFinite(value)) return;
+    const key = normalizeStatKey(rawName);
     stats[key] = (stats[key] || 0) + value;
+  };
+
+  // Blizzard character equipment can supply stats as an object map, while
+  // catalog records often use an array of typed stat entries. Support both so
+  // comparisons don't incorrectly label every stat "Comparison incomplete".
+  if (Array.isArray(item?.stats)) {
+    for (const stat of item.stats) {
+      const rawName = stat?.type?.name || stat?.name || stat?.type || stat?.stat;
+      addStat(rawName, stat?.value ?? stat?.amount);
+    }
+  } else if (item?.stats && typeof item.stats === "object") {
+    for (const [rawName, rawValue] of Object.entries(item.stats)) addStat(rawName, rawValue);
   }
   return stats;
 }
@@ -350,12 +394,15 @@ function renderLoadoutStatRows(target, current) {
   const targetStats = getLoadoutItemStats(target);
   const currentStats = getLoadoutItemStats(current);
   const keys = [...new Set([...Object.keys(targetStats), ...Object.keys(currentStats)])].sort();
-  if (!keys.length) return '<p class="compare-no-stats">Verified item stats are unavailable for one or both items.</p>';
+  // Missing data is an explicit unknown, never a zero-stat item. Do not turn
+  // an incomplete catalog/import record into a numeric comparison.
+  if (!keys.length || !Object.keys(targetStats).length || !Object.keys(currentStats).length) {
+    return '<p class="compare-no-stats">Comparison incomplete — verified stats are unavailable for one or both items. Do not treat this candidate as a confirmed upgrade.</p>';
+  }
   return keys.map(key => {
-    const hasTarget = Object.hasOwn(targetStats, key);
-    const hasCurrent = Object.hasOwn(currentStats, key);
-    if (!hasTarget || !hasCurrent) return '<div class="compare-stat"><span>' + escapeSlotText(key) + '</span><span class="compare-unknown">Comparison incomplete</span></div>';
-    const delta = targetStats[key] - currentStats[key];
+    const targetValue = Object.hasOwn(targetStats, key) ? targetStats[key] : 0;
+    const currentValue = Object.hasOwn(currentStats, key) ? currentStats[key] : 0;
+    const delta = targetValue - currentValue;
     const formatted = delta > 0 ? '+' + delta.toLocaleString() : delta.toLocaleString();
     const status = delta > 0 ? 'gain' : delta < 0 ? 'loss' : 'same';
     return '<div class="compare-stat"><span>' + escapeSlotText(key) + '</span><strong class="' + status + '">' + formatted + '</strong></div>';
@@ -375,7 +422,8 @@ function getLoadoutUpgradeReason(target, current, sameItem = false) {
   const commonStats = Object.keys(targetStats).filter(key => Object.hasOwn(currentStats, key));
   const gains = commonStats.map(key => ({ key, delta: targetStats[key] - currentStats[key] })).filter(entry => entry.delta > 0).sort((a,b) => b.delta-a.delta);
   const losses = commonStats.map(key => ({ key, delta: targetStats[key] - currentStats[key] })).filter(entry => entry.delta < 0).sort((a,b) => a.delta-b.delta);
-  const comparisonIncomplete = Object.keys(targetStats).some(key => !Object.hasOwn(currentStats, key)) ||
+  const comparisonIncomplete = !Object.keys(targetStats).length || !Object.keys(currentStats).length ||
+    Object.keys(targetStats).some(key => !Object.hasOwn(currentStats, key)) ||
     Object.keys(currentStats).some(key => !Object.hasOwn(targetStats, key));
   if (levelKnown && levelDelta < 0 && comparisonIncomplete) {
     return "Not a verified upgrade: this candidate has a lower displayed item level (" + levelDelta + ") and the stat comparison is incomplete. Keep your currently equipped item until a complete, trustworthy comparison is available.";
@@ -409,19 +457,42 @@ function renderLoadoutItemCard(item, label, emptyText) {
 function renderOptimizedLoadout(equipment = {}, score = 0, currentEquipment = {}) {
   const entries = slots.map(slot => [slot, equipment[slot] || null, currentEquipment[slot] || null]);
   loadoutResults.innerHTML = entries.map(([slot, item, current]) => {
-    const sameItem = item && current && (
+    const sameIdentity = item && current && (
       (item.id != null && current.id != null && String(item.id) === String(current.id)) ||
       (item.name && current.name && item.name.trim().toLowerCase() === current.name.trim().toLowerCase())
     );
+    const itemLevel = Number(displayItemLevel(item?.itemLevel ?? item?.level));
+    const currentLevel = Number(displayItemLevel(current?.itemLevel ?? current?.level));
+    const sameLevel = Number.isFinite(itemLevel) && Number.isFinite(currentLevel)
+      ? itemLevel === currentLevel
+      : itemLevel === currentLevel;
+    const targetStats = getLoadoutItemStats(item);
+    const equippedStats = getLoadoutItemStats(current);
+    const statKeys = [...new Set([...Object.keys(targetStats), ...Object.keys(equippedStats)])];
+    const sameStats = statKeys.every(key =>
+      Object.hasOwn(targetStats, key) &&
+      Object.hasOwn(equippedStats, key) &&
+      targetStats[key] === equippedStats[key]
+    );
+    // Item IDs/names can be shared by different upgrade variants. Only hide
+    // the target when the equipped and optimized records are the same variant.
+    const sameItem = Boolean(sameIdentity && sameLevel && sameStats);
+    const hasTargetStats = Object.keys(targetStats).length > 0;
+    const hasEquippedStats = Object.keys(equippedStats).length > 0;
+    const incompleteComparison = Boolean(item && current && (!hasTargetStats || !hasEquippedStats));
+    const lowerLevelUnverified = Boolean(item && current && Number.isFinite(itemLevel) && Number.isFinite(currentLevel) && itemLevel < currentLevel && incompleteComparison);
+    const suppressAsVerifiedUpgrade = incompleteComparison || lowerLevelUnverified;
+    const targetLabel = sameItem ? "No better item identified" : suppressAsVerifiedUpgrade ? "Unverified candidate — not a confirmed upgrade" : "Recommended target";
+    const targetEmptyText = sameItem ? "No distinct upgrade found in the current catalog" : suppressAsVerifiedUpgrade ? "Required item stats are missing. Keep the equipped item until this comparison can be verified." : "No verified candidate available";
     return '<article class="loadout-compare-row" data-equipment-slot="' + escapeSlotText(slot) + '">' +
       '<h3 class="loadout-compare-slot">' + escapeSlotText(slot) + '</h3>' +
       '<div class="loadout-compare-pair">' +
-        renderLoadoutItemCard(item, "Recommended target", "No verified candidate available") +
+        renderLoadoutItemCard(sameItem || suppressAsVerifiedUpgrade ? null : item, targetLabel, targetEmptyText) +
         renderLoadoutItemCard(current, "Currently equipped", "No item equipped / imported") +
       '</div>' +
       '<section class="loadout-stat-delta"><h4>Stat changes if equipped</h4>' +
-        (sameItem ? '<p class="compare-no-stats">Already equipped — no change.</p>' : renderLoadoutStatRows(item, current)) +
-        '<div class="loadout-upgrade-reason"><strong>Why this recommendation?</strong><p>' + escapeSlotText(getLoadoutUpgradeReason(item, current, sameItem)) + '</p></div>' +
+        (sameItem ? '<p class="compare-no-stats">No change — no distinct upgrade was identified in the current item catalog.</p>' : renderLoadoutStatRows(item, current)) +
+        '<div class="loadout-upgrade-reason"><strong>Why this recommendation?</strong><p>' + escapeSlotText(sameItem ? "The optimizer selected your current item because it did not identify a distinct better candidate in the available catalog. This is not a new-item recommendation." : suppressAsVerifiedUpgrade ? "This comparison is incomplete because verified stats are missing for one or both items. The candidate is not shown as a confirmed upgrade; retain the equipped item until catalog data is repaired." : getLoadoutUpgradeReason(item, current, sameItem)) + '</p></div>' +
       '</section>' +
     '</article>';
   }).join("") + '<div class="loadout-summary"><strong>Recommended target score: ' + escapeSlotText(formatGearScore(score)) + '</strong><span>Goal/spec-weighted catalog scoring. Item stats are shown only when present in the catalog or character import; unavailable data is not inferred.</span></div>';
@@ -554,11 +625,47 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
     character.simulation = importedSimulation;
   }
 
+  const prioritySelect = secondaryRatingNotice?.querySelector("#secondaryRatingPriority");
+  if (prioritySelect?.value) character.preferredSecondaryStat = prioritySelect.value;
   const report = WoWOptimizer.createOptimizationReport({
     character,
     availableItems: retailDataset.items || [],
     dataset: retailDataset
   });
+
+  const ratingStatus = report.ratingConstraintStatus;
+  if (secondaryRatingNotice) {
+    secondaryRatingNotice.hidden = false;
+    if (ratingStatus?.requiresUserChoice) {
+      secondaryRatingNotice.innerHTML =
+        '<strong>Secondary-stat hard-cap warning:</strong> Haste, Crit, Mastery, and Versatility are all above their hard ceilings. Choose which stat you want the optimizer to prioritize while it brings the other stats under their hard ceilings, then run optimization again. ' +
+        '<label for="secondaryRatingPriority">Priority stat</label> ' +
+        '<select id="secondaryRatingPriority"><option value="">Choose a stat…</option>' +
+        '<option value="Haste">Haste</option><option value="CriticalStrike">Critical Strike</option>' +
+        '<option value="Mastery">Mastery</option><option value="Versatility">Versatility</option></select> ' +
+        '<button type="button" id="applySecondaryRatingPriority">Optimize with priority</button>';
+      secondaryRatingNotice.querySelector("#applySecondaryRatingPriority")?.addEventListener("click", () => {
+        const select = secondaryRatingNotice.querySelector("#secondaryRatingPriority");
+        if (!select?.value) {
+          select?.focus();
+          resultMessage.textContent = "Choose a secondary stat to prioritize before optimizing.";
+          return;
+        }
+        document.querySelector("#optimizeBtn").click();
+      });
+    } else if (ratingStatus?.originalViolations?.length) {
+      const original = ratingStatus.originalViolations.map(v => v.stat + " (" + v.rating.toLocaleString() + " / " + v.maximum.toLocaleString() + ")").join(", ");
+      if (ratingStatus.balanced) {
+        secondaryRatingNotice.innerHTML = '<strong>Secondary-stat balance:</strong> The optimizer adjusted the loadout to bring all secondary stats under their hard ceilings. Previous violations: ' + original + '.';
+      } else {
+        const remaining = (ratingStatus.remainingViolations || []).map(v => v.stat + " (" + v.rating.toLocaleString() + " / " + v.maximum.toLocaleString() + ")").join(", ");
+        secondaryRatingNotice.innerHTML = '<strong>Hard-cap warning:</strong> The optimizer reduced the violations but could not bring every stat under its hard ceiling with the available catalog. Still over cap: ' + remaining + '. Add or select more gear options to find a compliant loadout.';
+      }
+    } else {
+      secondaryRatingNotice.hidden = true;
+      secondaryRatingNotice.textContent = "";
+    }
+  }
 
   renderCharacterStats(report.currentStats.trackedStats);
   optimizationSource.textContent = report.recommendationStatus === "simulation-weighted-ranking-not-full-stat-projection"
@@ -576,9 +683,15 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
     ? `${character.characterName} • ${character.className} • ${character.specialization}`
     : `${character.className} • ${character.specialization}`;
 
-  resultMessage.textContent = report.topUpgrades.length
-    ? `${label} • ${character.goal} — ${report.topUpgrades.length} gear candidates ranked. This is a ranking aid, not a verified best-in-slot result or numeric projected-stat calculation.`
-    : `${label} • ${character.goal} — no direct gear candidates ranked from the currently available dataset. This does not prove that no upgrades exist in game.`;
+  if (report.topUpgrades.length) {
+    resultMessage.textContent = `${label} • ${character.goal} — ${report.topUpgrades.length} gear candidates ranked. This is a ranking aid, not a verified best-in-slot result or numeric projected-stat calculation.`;
+  } else {
+    const diagnostics = WoWOptimizer.slots.map(slot => {
+      const audit = WoWOptimizer.diagnoseSlotCandidates(retailDataset.items || [], slot, character.className);
+      return `${slot}: ${audit.usableStatsCount} usable / ${audit.slotMatchCount} slot matches (class eligible ${audit.classEligibleCount}; disabled ${audit.excludedByEligibility.length}; missing stats ${audit.excludedByStats.length})`;
+    });
+    resultMessage.textContent = `${label} • ${character.goal} — no direct gear candidates ranked. Catalog diagnostics by slot: ${diagnostics.join(" | ")}. This distinguishes missing or filtered catalog data from a verified absence of upgrades.`;
+  }
 });
 
 document.querySelector("#clearBtn").addEventListener("click", () => {

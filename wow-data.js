@@ -188,6 +188,57 @@ async function loadRetailDataset(url = "data/current-retail.json") {
 
   const raw = await response.json();
   const data = normalizeRetailDataset(raw);
+
+  // Tier bonus descriptions are versioned separately from the large generated
+  // item dataset. Failure is surfaced rather than silently claiming complete
+  // tier-set coverage.
+  const tierResponse = await fetch("data/tier-sets-midnight-season-2.json", { cache: "no-store" });
+  if (!tierResponse.ok) {
+    throw new Error(`Tier-set catalogue request failed: HTTP ${tierResponse.status}`);
+  }
+  const tierCatalogue = await tierResponse.json();
+  const catalogErrors = validateTierSetCatalogue(tierCatalogue);
+  if (catalogErrors.length) throw new Error(catalogErrors.join(" "));
+
+  data.tierSetCatalogue = tierCatalogue;
+  const sourceBackedBonuses = (tierCatalogue.sets || []).map(set => ({
+    setId: set.id || String(set.setName || "").trim().toLowerCase(),
+    name: set.setName,
+    class: set.class,
+    source: tierCatalogue.source?.url || null,
+    pieces: Array.isArray(set.pieces) ? set.pieces : [],
+    thresholds: [2, 4].map((pieces, index) => ({
+      pieces,
+      effects: Object.fromEntries((set.specs || []).map(spec => [spec[0], spec[index + 1]])),
+      scoreValue: null
+    }))
+  }));
+  // Add source-backed Shaman tier candidates for four PvE difficulty variants.
+  // PvP variants are mapped for set detection but remain excluded from candidates
+  // until their stat and item-level records are verified.
+  const verifiedTierCandidates = (tierCatalogue.sets || []).flatMap(set =>
+    (set.pieces || []).filter(piece => piece.candidate === true && Number.isFinite(Number(piece.itemLevel)) &&
+      Array.isArray(piece.stats) && piece.stats.length > 0).map(piece => ({
+        id: piece.itemId,
+        name: piece.name,
+        slot: piece.slot,
+        itemLevel: Number(piece.itemLevel),
+        level: Number(piece.itemLevel),
+        inventoryType: { name: ({Head:"Head",Shoulders:"Shoulder",Chest:"Chest",Hands:"Hands",Legs:"Legs"})[piece.slot] },
+        itemClass: { name: "Armor" },
+        itemSubclass: { name: "Mail" },
+        stats: piece.stats,
+        setId: piece.setId,
+        set: piece.setId,
+        source: "Wowhead Midnight Season 2 item page",
+        sourceUrl: piece.sourceUrl,
+        seasonScope: "Midnight Season 2"
+      }))
+  );
+  data.items.push(...verifiedTierCandidates);
+
+  data.setBonuses = [...(data.setBonuses || []), ...sourceBackedBonuses];
+
   const errors = validateRetailDataset(data);
 
   if (errors.length) {
@@ -197,6 +248,66 @@ async function loadRetailDataset(url = "data/current-retail.json") {
   return data;
 }
 
+function validateTierSetCatalogue(catalogue) {
+  const errors = [];
+  if (!catalogue || catalogue.expansion !== "Midnight" || Number(catalogue.season) !== 2) {
+    return ["Tier-set catalogue must identify Midnight Season 2."];
+  }
+  if (!Array.isArray(catalogue.sets) || catalogue.sets.length !== 13) {
+    errors.push("Tier-set catalogue must include all 13 classes.");
+  }
+  const classes = new Set();
+  for (const set of catalogue.sets || []) {
+    if (!set?.class || !set?.setName || !Array.isArray(set.specs) || !set.specs.length) {
+      errors.push("Each tier set must include a class, set name, and specialization bonus records.");
+      continue;
+    }
+    classes.add(set.class);
+    for (const spec of set.specs) {
+      if (!Array.isArray(spec) || spec.length < 3 || !spec[0] || !spec[1] || !spec[2]) {
+        errors.push(`Tier set ${set.setName} has an incomplete specialization bonus record.`);
+      }
+    }
+  }
+  if (classes.size !== 13) errors.push("Tier-set catalogue does not cover 13 unique classes.");
+  if (catalogue.thresholds?.join(",") !== "2,4") errors.push("Tier-set thresholds must be 2-piece and 4-piece.");
+  const matchingStatus = catalogue.itemMatching?.status;
+  if (!["incomplete", "partial", "complete"].includes(matchingStatus)) {
+    errors.push("Tier-set item matching status must be incomplete, partial, or complete.");
+  }
+  for (const set of catalogue.sets || []) {
+    const pieces = Array.isArray(set.pieces) ? set.pieces : [];
+    if (set.itemIdsVerified) {
+      const expectedVariants = catalogue.itemMatching?.expectedVariants || [];
+      const itemIds = new Set();
+      for (const piece of pieces) {
+        if (!Number.isInteger(Number(piece?.itemId)) || !piece?.setId || !piece?.slot ||
+            !expectedVariants.includes(piece?.variant) || !piece?.sourceUrl) {
+          errors.push(`Verified tier set ${set.setName} contains an incomplete item-matching record.`);
+          break;
+        }
+        itemIds.add(Number(piece.itemId));
+      }
+      if (itemIds.size !== 5 || pieces.length !== 5 * expectedVariants.length) {
+        errors.push(`Verified tier set ${set.setName} must map five pieces across every expected variant.`);
+      }
+    } else if (pieces.length) {
+      errors.push(`Tier set ${set.setName} has piece records but is not marked itemIdsVerified.`);
+    }
+  }
+  const verifiedSets = (catalogue.sets || []).filter(set => set.itemIdsVerified).length;
+  if (matchingStatus === "incomplete" && verifiedSets > 0) {
+    errors.push("Tier-set matching cannot be incomplete when verified set pieces are present.");
+  }
+  if (matchingStatus === "complete" && verifiedSets !== (catalogue.sets || []).length) {
+    errors.push("Tier-set matching cannot be complete while any class set is unverified.");
+  }
+  if (matchingStatus === "partial" && (verifiedSets === 0 || verifiedSets === (catalogue.sets || []).length)) {
+    errors.push("Partial tier-set matching requires both verified and unverified class sets.");
+  }
+  return errors;
+}
+
 window.WoWData = {
   schemaVersion: WOW_DATA_SCHEMA_VERSION,
   slots: WOW_DATA_REQUIRED_SLOTS,
@@ -204,5 +315,6 @@ window.WoWData = {
   inferEquipmentSlot,
   normalizeRetailDataset,
   validateRetailDataset,
-  loadRetailDataset
+  loadRetailDataset,
+  validateTierSetCatalogue
 };
