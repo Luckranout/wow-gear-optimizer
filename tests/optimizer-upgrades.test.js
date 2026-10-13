@@ -555,7 +555,7 @@ console.log("Imported stat normalization and lower-level ring regression passed.
 
 // Regression: the optimizer must retain current equipped gear as a candidate
 // when the catalog only offers an unrelated, much lower-item-level target.
-const currentHelm = {
+const variantRegressionCurrentHelm = {
   id: 777001, name: "Current High-Level Helm", slot: "Head", itemLevel: 318,
   stats: { Strength: 162, Intellect: 162, Stamina: 3254, CriticalStrike: 116, Mastery: 72 }
 };
@@ -569,7 +569,7 @@ const retainedLoadout = o.optimizeEquipment({
     ...o.createCharacterProfile(),
     className: "Warrior",
     specialization: "Protection",
-    equipment: { ...o.createCharacterProfile().equipment, Head: currentHelm }
+    equipment: { ...o.createCharacterProfile().equipment, Head: variantRegressionCurrentHelm }
   }
 });
 if (retainedLoadout.equipment.Head?.id !== currentHelm.id) {
@@ -876,7 +876,7 @@ const sameIdHighVariant = {
   ...sameIdLowVariant, itemLevel: 318,
   stats: { Agility: 150, Haste: 50 }
 };
-const currentHelm = {
+const variantRegressionCurrentHelm = {
   id: 982002, name: "Equipped Helm", slot: "Head", itemLevel: 295,
   inventoryType: "Head", itemClass: "Armor", itemSubclass: "Mail",
   stats: { Agility: 100, Haste: 35 }
@@ -885,7 +885,7 @@ const variantCharacter = {
   ...o.createCharacterProfile(),
   className: "Shaman",
   specialization: "Enhancement",
-  equipment: { ...o.createCharacterProfile().equipment, Head: currentHelm }
+  equipment: { ...o.createCharacterProfile().equipment, Head: variantRegressionCurrentHelm }
 };
 const variantLoadout = o.optimizeEquipment({
   items: [sameIdLowVariant, sameIdHighVariant],
