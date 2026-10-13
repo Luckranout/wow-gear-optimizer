@@ -334,13 +334,44 @@ function renderCharacterCoach(report, character) {
   document.querySelector("#coachPreCombat").innerHTML = coach.gameplay.preCombat.length ? coach.gameplay.preCombat.map(item => `<li>${item}</li>`).join("") : "<li>No curated pre-combat checklist is available yet.</li>";
 }
 
+function normalizeLoadoutStatName(rawName) {
+  const spaced = String(rawName || "")
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .replace(/[_-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase();
+  const compact = spaced.replace(/[^a-z0-9]/g, "");
+  const aliases = {
+    strength: "Strength", agility: "Agility", intellect: "Intellect", stamina: "Stamina",
+    criticalstrike: "Critical Strike", criticalstrikerating: "Critical Strike",
+    haste: "Haste", hasterating: "Haste", mastery: "Mastery", masteryrating: "Mastery",
+    versatility: "Versatility", versatilityrating: "Versatility", armor: "Armor",
+    bonusarmor: "Bonus Armor", leech: "Leech", avoidance: "Avoidance", speed: "Speed",
+    attackpower: "Attack Power", weapondps: "Weapon DPS"
+  };
+  return aliases[compact] || spaced.replace(/\b[a-z]/g, letter => letter.toUpperCase());
+}
+
 function getLoadoutItemStats(item) {
   const stats = {};
-  for (const stat of Array.isArray(item?.stats) ? item.stats : []) {
-    const rawName = stat?.type?.name || stat?.name || stat?.type || stat?.stat;
-    const value = Number(stat?.value ?? stat?.amount);
-    if (!rawName || !Number.isFinite(value)) continue;
-    const key = String(rawName).replace(/([a-z])([A-Z])/g, "$1 $2").replace(/[_-]+/g, " ").trim();
+  const rawStats = item?.stats;
+  const entries = Array.isArray(rawStats)
+    ? rawStats.map(stat => [
+        stat?.type?.name || stat?.name || (typeof stat?.type === "string" ? stat.type : null) || stat?.stat,
+        stat?.value ?? stat?.amount
+      ])
+    : rawStats && typeof rawStats === "object"
+      ? Object.entries(rawStats).map(([name, value]) => [
+          name,
+          value && typeof value === "object" ? value.value ?? value.amount : value
+        ])
+      : [];
+  for (const [rawName, rawValue] of entries) {
+    const value = Number(rawValue);
+    if (!rawName || rawValue == null || rawValue === "" || !Number.isFinite(value)) continue;
+    const key = normalizeLoadoutStatName(rawName);
+    if (!key) continue;
     stats[key] = (stats[key] || 0) + value;
   }
   return stats;
