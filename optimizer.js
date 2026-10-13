@@ -59,9 +59,38 @@ function itemAllowedForClass(item, className) {
   return true;
 }
 
+function getWeaponMetadata(item) {
+  const inventoryType = String(item?.inventoryType?.name || item?.inventoryType || "").trim().toLowerCase();
+  const subclass = String(item?.itemSubclass?.name || item?.itemSubclass || item?.weaponType || "").trim().toLowerCase();
+  const name = String(item?.name || "").toLowerCase();
+  const weaponType = subclass || (name.includes("staff") || inventoryType.includes("staff") ? "staff" :
+    name.includes("mace") || inventoryType.includes("mace") ? "mace" : "");
+  const twoHanded = inventoryType.includes("two-hand") || inventoryType.includes("two hand") ||
+    inventoryType.includes("twohand") || inventoryType.includes("staff") ||
+    (item?.twoHanded === true);
+  const oneHanded = inventoryType.includes("one-hand") || inventoryType.includes("one hand") ||
+    inventoryType.includes("onehand") || item?.twoHanded === false;
+  return { inventoryType, weaponType, twoHanded, oneHanded };
+}
+
+function itemAllowedForSpecialization(item, slot, className, specialization) {
+  if (normalizeClassName(className) !== "shaman") return true;
+  const spec = String(specialization || "").trim().toLowerCase();
+  if (spec !== "enhancement") return true;
+  if (slot !== "Main Hand" && slot !== "Off Hand") return true;
+  const weapon = getWeaponMetadata(item);
+  // Enhancement defaults to dual wield. Do not recommend staffs or unknown
+  // two-hand weapons; allow a verified two-handed mace as a main-hand option.
+  if (weapon.weaponType.includes("staff") || weapon.inventoryType.includes("staff") ||
+      String(item?.name || "").toLowerCase().includes("staff")) return false;
+  if (slot === "Off Hand" && weapon.twoHanded) return false;
+  if (slot === "Main Hand" && weapon.twoHanded &&
+      !(weapon.weaponType.includes("mace") || String(item?.name || "").toLowerCase().includes("mace"))) return false;
+  return true;
+}
+
 function itemMatchesSlot(item, slot) {
   if (!item || !slot) return false;
-  if (item.slot === slot) return true;
   const inventoryType = String(item.inventoryType?.name || item.inventoryType || "").trim().toLowerCase();
   const map = {
     head: ["Head"], neck: ["Neck"], shoulder: ["Shoulders"], shoulders: ["Shoulders"],
@@ -70,9 +99,19 @@ function itemMatchesSlot(item, slot) {
     waist: ["Waist"], legs: ["Legs"], feet: ["Feet"],
     finger: ["Ring 1", "Ring 2"], ring: ["Ring 1", "Ring 2"],
     trinket: ["Trinket 1", "Trinket 2"],
-    "one-hand": ["Main Hand"], "main hand": ["Main Hand"], "two-hand": ["Main Hand"],
+    "one-hand": ["Main Hand", "Off Hand"], "one hand": ["Main Hand", "Off Hand"],
+    "main hand": ["Main Hand"], "two-hand": ["Main Hand"], "two hand": ["Main Hand"],
+    staff: ["Main Hand"], mace: ["Main Hand", "Off Hand"], axe: ["Main Hand", "Off Hand"],
+    dagger: ["Main Hand", "Off Hand"], "fist weapon": ["Main Hand", "Off Hand"],
     "off hand": ["Off Hand"], "held in off-hand": ["Off Hand"], shield: ["Off Hand"], "off-hand": ["Off Hand"]
   };
+  if (item.slot === slot) {
+    // Explicit slot metadata does not override incompatible weapon-hand metadata.
+    if ((slot === "Main Hand" || slot === "Off Hand") && inventoryType) {
+      return (map[inventoryType] || []).includes(slot);
+    }
+    return true;
+  }
   return (map[inventoryType] || []).includes(slot);
 }
 
@@ -465,10 +504,10 @@ function resolveCatalogItemAgainstEquippedVariant(candidate, equippedItem) {
   return candidate;
 }
 
-function findBestItemForSlot(items, slot, goal, statWeights = null, className = "", equippedItem = null) {
+function findBestItemForSlot(items, slot, goal, statWeights = null, className = "", equippedItem = null, specialization = "") {
   const weights = statWeights || getGoalWeights(goal);
   const candidates = (items || [])
-    .filter(item => itemMatchesSlot(item, slot) && itemAllowedForClass(item, className) && hasUsableItemStats(item))
+    .filter(item => itemMatchesSlot(item, slot) && itemAllowedForClass(item, className) && itemAllowedForSpecialization(item, slot, className, specialization) && hasUsableItemStats(item))
     .map(item => resolveCatalogItemAgainstEquippedVariant(item, equippedItem))
     .filter((item, index, all) => all.findIndex(other =>
       String(other.id ?? other.name) === String(item.id ?? item.name)
@@ -499,7 +538,7 @@ function optimizeEquipment({
     ) === index);
   const optimizedEquipment = {};
   for (const slot of WOW_EQUIPMENT_SLOTS) {
-    const best = findBestItemForSlot(candidateItems, slot, goal, weights, character.className, character.equipment?.[slot]);
+    const best = findBestItemForSlot(candidateItems, slot, goal, weights, character.className, character.equipment?.[slot], character.specialization);
     optimizedEquipment[slot] = best ? best.item : null;
   }
 
@@ -507,10 +546,10 @@ function optimizeEquipment({
   // distinct pair when the catalog has alternatives; keep the best single item
   // only when no second distinct item exists.
   for (const [firstSlot, secondSlot] of [["Ring 1", "Ring 2"], ["Trinket 1", "Trinket 2"], ["Main Hand", "Off Hand"]]) {
-    const first = candidateItems.filter(item => item.slot === firstSlot && itemAllowedForClass(item, character.className) && hasUsableItemStats(item))
+    const first = candidateItems.filter(item => itemMatchesSlot(item, firstSlot) && itemAllowedForClass(item, character.className) && itemAllowedForSpecialization(item, firstSlot, character.className, character.specialization) && hasUsableItemStats(item))
       .map(item => ({ item, score: scoreItem(item, weights) }))
       .sort((a, b) => b.score - a.score);
-    const second = candidateItems.filter(item => item.slot === secondSlot && itemAllowedForClass(item, character.className) && hasUsableItemStats(item))
+    const second = candidateItems.filter(item => itemMatchesSlot(item, secondSlot) && itemAllowedForClass(item, character.className) && itemAllowedForSpecialization(item, secondSlot, character.className, character.specialization) && hasUsableItemStats(item))
       .map(item => ({ item, score: scoreItem(item, weights) }))
       .sort((a, b) => b.score - a.score);
     let bestPair = null;
@@ -519,7 +558,7 @@ function optimizeEquipment({
         const sameId = a.item.id != null && b.item.id != null && String(a.item.id) === String(b.item.id);
         const sameName = a.item.id == null && b.item.id == null && a.item.name && b.item.name && a.item.name === b.item.name;
         if (sameId || sameName) continue;
-        const combinedScore = a.score + b.score;
+        if (firstSlot === "Main Hand" && getWeaponMetadata(a.item).twoHanded) continue;\n        const combinedScore = a.score + b.score;
         if (!bestPair || combinedScore > bestPair.combinedScore) bestPair = { a, b, combinedScore };
       }
     }
@@ -842,7 +881,7 @@ window.WoWOptimizer = {
   slots: WOW_EQUIPMENT_SLOTS, goals: WOW_GOALS,
   createCharacterProfile, normalizeCharacterStatistics, scoreCharacterStatistics, getCharacterStatSummary, resolveStatWeights, normalizeSimulationScaleFactors, getSimulationWeightContext, findBlizzardSpecialization, getSpecProfileContext,
   normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, hasUsableItemStats, scoreItem, scoreEquipment, getGoalWeights,
-  findBestItemForSlot, optimizeEquipment, findUpgradeOpportunities, rankItems,
+  findBestItemForSlot, itemMatchesSlot, itemAllowedForSpecialization, getWeaponMetadata, optimizeEquipment, findUpgradeOpportunities, rankItems,
   getItemSetId, getSetBonusStatus, scoreSetBonuses, scoreLoadout,
   getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,
   calculateCrestRequirements, isAscendantVenomstoneEligible, recommendUpgradePlan,
