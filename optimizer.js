@@ -776,9 +776,67 @@ function optimizeEquipment({
     }
   }
 
-  // Improve the complete loadout, not only individual slots. Only explicit,
-  // source-backed threshold score values affect tradeoffs between item stats
-  // and tier bonuses; unknown effects remain visible in the report.
+  // Hard-cap policy: if all four secondary stats are already over their caps,
+  // stop and ask the player which stat to prioritize before changing the build.
+  // If only some stats are over cap, repair those violations first using valid
+  // slot candidates, choosing each swap by the reduction in total cap excess.
+  const originalViolations = getSecondaryRatingHardCapViolations(character.equipment || {}, character.level);
+  const originalTotals = getSecondaryRatingTotals(character.equipment || {});
+  const allSecondaryStatsOverCap = Number(character.level) === SECONDARY_RATING_DR_LEVEL &&
+    Object.keys(SECONDARY_RATING_DR_TABLE).every(stat =>
+      (originalTotals[stat] || 0) > SECONDARY_RATING_DR_TABLE[stat].at(-1));
+  const preferredSecondaryStat = Object.hasOwn(SECONDARY_RATING_DR_TABLE, character.preferredSecondaryStat)
+    ? character.preferredSecondaryStat : null;
+  if (allSecondaryStatsOverCap && !preferredSecondaryStat) {
+    return {
+      character: { ...character, goal },
+      equipment: { ...(character.equipment || {}) },
+      score: scoreLoadout(character.equipment || {}, weights, setBonuses, character.specialization || "", character.level).score,
+      setBonusStatus: getSetBonusStatus(character.equipment || {}, setBonuses, character.specialization || ""),
+      ratingConstraintStatus: {
+        requiresUserChoice: true, allSecondaryStatsOverCap: true,
+        preferredSecondaryStat: null, originalViolations,
+        remainingViolations: originalViolations, balanced: false
+      }
+    };
+  }
+
+  const capExcess = equipment => getSecondaryRatingHardCapViolations(equipment, character.level)
+    .reduce((sum, violation) => sum + violation.excess, 0);
+  const isCandidateAllowed = (item, slot) => itemMatchesSlot(item, slot) &&
+    itemAllowedForClass(item, character.className) &&
+    itemAllowedForClassWeapon(item, slot, character.className) &&
+    itemAllowedForSpecialization(item, slot, character.className, character.specialization) &&
+    hasUsableItemStats(item);
+  // Repair only when the imported character has cap violations. A selected
+  // priority stat breaks ties but can never override a hard ceiling.
+  for (let pass = 0; pass < WOW_EQUIPMENT_SLOTS.length * 2; pass++) {
+    const currentExcess = capExcess(optimizedEquipment);
+    if (currentExcess <= 0) break;
+    let bestRepair = null;
+    for (const slot of WOW_EQUIPMENT_SLOTS) {
+      for (const candidate of candidateItems.filter(item => isCandidateAllowed(item, slot))) {
+        const trial = { ...optimizedEquipment, [slot]: candidate };
+        if (slot === "Main Hand" && getWeaponMetadata(candidate).twoHanded) trial["Off Hand"] = null;
+        const nextExcess = capExcess(trial);
+        if (nextExcess >= currentExcess) continue;
+        const chosenStatPenalty = preferredSecondaryStat
+          ? Math.max(0, (getSecondaryRatingTotals(trial)[preferredSecondaryStat] || 0) -
+              SECONDARY_RATING_DR_TABLE[preferredSecondaryStat].at(-1)) * 1000000
+          : 0;
+        const candidateValue = nextExcess * 1000000000 + chosenStatPenalty -
+          scoreLoadout(trial, weights, setBonuses, character.specialization || "", character.level).score;
+        if (!bestRepair || candidateValue < bestRepair.candidateValue) {
+          bestRepair = { slot, candidate, trial, candidateValue };
+        }
+      }
+    }
+    if (!bestRepair) break;
+    Object.assign(optimizedEquipment, bestRepair.trial);
+  }
+
+  // Improve the complete loadout, not only individual slots. A hard-cap
+  // violating state is not allowed to win; infeasibility is reported explicitly.
   const loadoutScore = equipment => {
     if (getSecondaryRatingHardCapViolations(equipment, character.level).length) return -Infinity;
     return scoreLoadout(equipment, weights, setBonuses, character.specialization || "", character.level).score;
@@ -833,11 +891,21 @@ function optimizeEquipment({
   }
 
   const scored = scoreLoadout(optimizedEquipment, weights, setBonuses, character.specialization || "", character.level);
+  const remainingViolations = getSecondaryRatingHardCapViolations(optimizedEquipment, character.level);
   return {
     character: { ...character, goal },
     equipment: optimizedEquipment,
     score: scored.score,
-    setBonusStatus: scored.setBonuses
+    setBonusStatus: scored.setBonuses,
+    ratingConstraintStatus: {
+      requiresUserChoice: false,
+      allSecondaryStatsOverCap,
+      preferredSecondaryStat,
+      originalViolations,
+      remainingViolations,
+      balanced: remainingViolations.length === 0,
+      unableToFullyBalance: remainingViolations.length > 0
+    }
   };
 }
 
