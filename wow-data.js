@@ -188,6 +188,33 @@ async function loadRetailDataset(url = "data/current-retail.json") {
 
   const raw = await response.json();
   const data = normalizeRetailDataset(raw);
+
+  // Tier bonus descriptions are versioned separately from the large generated
+  // item dataset. Failure is surfaced rather than silently claiming complete
+  // tier-set coverage.
+  const tierResponse = await fetch("data/tier-sets-midnight-season-2.json", { cache: "no-store" });
+  if (!tierResponse.ok) {
+    throw new Error(`Tier-set catalogue request failed: HTTP ${tierResponse.status}`);
+  }
+  const tierCatalogue = await tierResponse.json();
+  const catalogErrors = validateTierSetCatalogue(tierCatalogue);
+  if (catalogErrors.length) throw new Error(catalogErrors.join(" "));
+
+  data.tierSetCatalogue = tierCatalogue;
+  const sourceBackedBonuses = (tierCatalogue.sets || []).map(set => ({
+    setId: set.id || String(set.setName || "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+    name: set.setName,
+    class: set.class,
+    source: tierCatalogue.source?.url || null,
+    pieces: Array.isArray(set.pieces) ? set.pieces : [],
+    thresholds: [2, 4].map((pieces, index) => ({
+      pieces,
+      effects: Object.fromEntries((set.specs || []).map(spec => [spec[0], spec[index + 1]])),
+      scoreValue: null
+    }))
+  }));
+  data.setBonuses = [...(data.setBonuses || []), ...sourceBackedBonuses];
+
   const errors = validateRetailDataset(data);
 
   if (errors.length) {
@@ -197,6 +224,35 @@ async function loadRetailDataset(url = "data/current-retail.json") {
   return data;
 }
 
+function validateTierSetCatalogue(catalogue) {
+  const errors = [];
+  if (!catalogue || catalogue.expansion !== "Midnight" || Number(catalogue.season) !== 2) {
+    return ["Tier-set catalogue must identify Midnight Season 2."];
+  }
+  if (!Array.isArray(catalogue.sets) || catalogue.sets.length !== 13) {
+    errors.push("Tier-set catalogue must include all 13 classes.");
+  }
+  const classes = new Set();
+  for (const set of catalogue.sets || []) {
+    if (!set?.class || !set?.setName || !Array.isArray(set.specs) || !set.specs.length) {
+      errors.push("Each tier set must include a class, set name, and specialization bonus records.");
+      continue;
+    }
+    classes.add(set.class);
+    for (const spec of set.specs) {
+      if (!Array.isArray(spec) || spec.length < 3 || !spec[0] || !spec[1] || !spec[2]) {
+        errors.push(`Tier set ${set.setName} has an incomplete specialization bonus record.`);
+      }
+    }
+  }
+  if (classes.size !== 13) errors.push("Tier-set catalogue does not cover 13 unique classes.");
+  if (catalogue.thresholds?.join(",") !== "2,4") errors.push("Tier-set thresholds must be 2-piece and 4-piece.");
+  if (catalogue.itemMatching?.status !== "incomplete") {
+    errors.push("Item matching status must remain explicit until verified item IDs are supplied.");
+  }
+  return errors;
+}
+
 window.WoWData = {
   schemaVersion: WOW_DATA_SCHEMA_VERSION,
   slots: WOW_DATA_REQUIRED_SLOTS,
@@ -204,5 +260,6 @@ window.WoWData = {
   inferEquipmentSlot,
   normalizeRetailDataset,
   validateRetailDataset,
-  loadRetailDataset
+  loadRetailDataset,
+  validateTierSetCatalogue
 };
