@@ -8,7 +8,7 @@ const o = context.window.WoWOptimizer;
 // Level-90 progressive rating-band DR regression using the supplied per-stat thresholds.
 const drCases = [
   [1320,"Haste",1320], [1760,"Haste",1716], [2200,"Haste",2068],
-  [2640,"Haste",2376], [3080,"Haste",2684], [8800,"Haste",5540], [9000,"Haste",5540],
+  [2640,"Haste",2376], [3080,"Haste",2640], [8800,"Haste",5500], [9000,"Haste",5500],
   [1840,"CriticalStrike",1794], [2300,"CriticalStrike",2162],
   [2160,"Versatility",2106], [2700,"Versatility",2538],
   [1840,"Mastery",1794]
