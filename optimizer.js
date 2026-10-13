@@ -269,7 +269,7 @@ function getSetBonusStatus(equipment = {}, setBonuses = []) {
         active: pieces >= requiredPieces,
         // Only verified, explicitly supplied values affect scoring. Unknown
         // bonus effects are reported, never assigned invented weights.
-        scoreValue: Number.isFinite(Number(threshold.scoreValue)) ? Number(threshold.scoreValue) : null,
+        scoreValue: threshold.scoreValue !== null && threshold.scoreValue !== undefined && Number.isFinite(Number(threshold.scoreValue))\n          ? Number(threshold.scoreValue) : null,
         effect: threshold.effect || threshold.description || null,
         source: threshold.source || definition.source || null
       });
