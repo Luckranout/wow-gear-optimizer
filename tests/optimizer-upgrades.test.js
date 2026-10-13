@@ -5,15 +5,25 @@ vm.createContext(context);
 vm.runInContext(fs.readFileSync("optimizer.js", "utf8"), context);
 const o = context.window.WoWOptimizer;
 
-// Progressive secondary-rating DR regression using the documented illustrative conversion.
-const drCases = [[0,0],[30,30],[31,30.9],[40,39],[41,39.8],[50,47],[60,54],[80,66],[200,126],[240,126]];
-for (const [rawPercent, expected] of drCases) {
-  const actual = o.applySecondaryRatingDiminishingReturns(rawPercent);
-  if (Math.abs(actual - expected) > 1e-9) throw new Error(`DR mismatch at ${rawPercent}%: expected ${expected}, got ${actual}`);
+// Level-90 progressive rating-band DR regression using the supplied per-stat thresholds.
+const drCases = [
+  [1320,"Haste",1320], [1760,"Haste",1716], [2200,"Haste",2068],
+  [2640,"Haste",2376], [3080,"Haste",2684], [8800,"Haste",5540], [9000,"Haste",5540],
+  [1840,"CriticalStrike",1794], [2300,"CriticalStrike",2162],
+  [2160,"Versatility",2106], [2700,"Versatility",2538],
+  [1840,"Mastery",1794]
+];
+for (const [rating, stat, expected] of drCases) {
+  const actual = o.applySecondaryRatingDiminishingReturns(rating, stat, 90);
+  if (actual === null || Math.abs(actual - expected) > 1e-9) {
+    throw new Error(`DR mismatch for ${stat} at ${rating}: expected ${expected}, got ${actual}`);
+  }
 }
-if (o.applySecondaryRatingDiminishingReturns(-10) !== 0) throw new Error("Negative rating must clamp to zero");
-console.log("Progressive secondary-rating diminishing returns regression passed.");
-
+if (o.applySecondaryRatingDiminishingReturns(2000,"Haste",80) !== null ||
+    o.applySecondaryRatingDiminishingReturns(2000,"Agility",90) !== null) {
+  throw new Error("DR must refuse unsupported levels and non-secondary stats");
+}
+console.log("Level-90 progressive secondary-rating DR regression passed.");
 
 const fsData = JSON.parse(fs.readFileSync("data/tier-sets-midnight-season-2.json", "utf8"));
 const shamanTier = fsData.sets.find(set => set.class === "Shaman");
