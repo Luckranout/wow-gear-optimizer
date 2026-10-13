@@ -763,3 +763,34 @@ if (!o.itemAllowedForClassWeapon(classWeapon(920004, "Warglaive"), "Main Hand", 
 if (o.itemAllowedForClassWeapon(classWeapon(920005, "Warglaive"), "Main Hand", "Warrior")) {
   throw new Error("Warrior weapon proficiency should reject warglaives");
 }
+
+// Regression: the "Best available gear upgrades" cards must enforce the same
+// class/spec weapon rules as the complete-loadout optimizer. The previous
+// slot-only scan could surface an Intellect staff for Enhancement Shaman.
+const enhancementStaffOnly = {
+  id: 980001,
+  name: "Venomancer's Winged Channeler",
+  slot: "Main Hand",
+  inventoryType: "Staff",
+  itemSubclass: "Staff",
+  itemLevel: 219,
+  stats: { Intellect: 288, Stamina: 1005 }
+};
+const enhancementUpgradeCards = o.findUpgradeOpportunities({
+  currentEquipment: {
+    "Main Hand": {
+      id: 980002, name: "Current Agility Weapon", slot: "Main Hand",
+      inventoryType: "One-Hand", itemSubclass: "Axe", itemLevel: 295,
+      stats: { Agility: 66, Haste: 53 }
+    }
+  },
+  availableItems: [enhancementStaffOnly],
+  goal: o.goals.mythicPlus,
+  className: "Shaman",
+  specialization: "Enhancement"
+});
+if (enhancementUpgradeCards.some(upgrade => upgrade.recommendedItem?.id === enhancementStaffOnly.id)) {
+  throw new Error("Enhancement upgrade cards must not recommend an Intellect staff");
+}
+console.log("Class/spec-aware upgrade-card weapon filtering regression passed.");
+
