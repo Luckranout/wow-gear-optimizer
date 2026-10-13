@@ -238,40 +238,73 @@ function scoreEquipment(equipment, statWeights = STAT_WEIGHTS) {
     total + scoreItem(equipment?.[slot], statWeights), 0);
 }
 
-function getItemSetId(item) {
+function normalizeSetIdentity(value) {
+  if (value === null || value === undefined || String(value).trim() === "") return null;
+  return String(value).trim().toLowerCase();
+}
+
+function getItemSetId(item, setBonuses = []) {
   const set = item?.set;
   const raw = item?.tierSetId ?? item?.setId ??
     (set && typeof set === "object" ? (set.id ?? set.name) : set);
-  if (raw === null || raw === undefined || String(raw).trim() === "") return null;
-  return String(raw).trim().toLowerCase();
+  if (raw !== null && raw !== undefined && String(raw).trim() !== "") {
+    return normalizeSetIdentity(raw);
+  }
+
+  // Blizzard item records do not always expose a set identity on the equipped
+  // item. Fall back to explicit, source-backed item IDs/names in the set
+  // definitions; never infer set membership from class, faction, or item level.
+  const itemId = Number(item?.id ?? item?.itemId);
+  const itemName = normalizeSetIdentity(item?.name);
+  for (const definition of setBonuses || []) {
+    const setId = normalizeSetIdentity(definition?.setId ?? definition?.id ?? definition?.name);
+    if (!setId) continue;
+    const pieces = Array.isArray(definition.pieces) ? definition.pieces : [];
+    const matches = pieces.some(piece => {
+      if (typeof piece === "number" || typeof piece === "string") {
+        return (Number.isFinite(itemId) && Number(piece) === itemId) ||
+          (itemName && normalizeSetIdentity(piece) === itemName);
+      }
+      if (!piece || typeof piece !== "object") return false;
+      const pieceId = Number(piece.itemId ?? piece.id);
+      const pieceName = normalizeSetIdentity(piece.name);
+      return (Number.isFinite(itemId) && Number.isFinite(pieceId) && itemId === pieceId) ||
+        (itemName && pieceName === itemName);
+    });
+    if (matches) return setId;
+  }
+  return null;
 }
 
-function getSetBonusStatus(equipment = {}, setBonuses = []) {
+function getSetBonusStatus(equipment = {}, setBonuses = [], specialization = "") {
   const counts = {};
   for (const item of Object.values(equipment || {})) {
-    const setId = getItemSetId(item);
+    const setId = getItemSetId(item, setBonuses);
     if (setId) counts[setId] = (counts[setId] || 0) + 1;
   }
 
   const bonuses = [];
   for (const definition of setBonuses || []) {
-    const setId = String(definition?.setId ?? definition?.id ?? definition?.name ?? "").trim().toLowerCase();
+    const setId = normalizeSetIdentity(definition?.setId ?? definition?.id ?? definition?.name);
     if (!setId) continue;
     const pieces = counts[setId] || 0;
     for (const threshold of definition.thresholds || []) {
       const requiredPieces = Number(threshold.pieces);
       if (!Number.isFinite(requiredPieces) || requiredPieces < 2) continue;
+      const effects = threshold.effects && typeof threshold.effects === "object" ? threshold.effects : null;
+      const selectedEffect = effects
+        ? (effects[specialization] ?? effects[String(specialization).toLowerCase()] ?? null)
+        : null;
       bonuses.push({
         setId,
         setName: definition.name || definition.setName || definition.setId || definition.id || setId,
         requiredPieces,
         equippedPieces: pieces,
         active: pieces >= requiredPieces,
-        // Only verified, explicitly supplied values affect scoring. Unknown
-        // bonus effects are reported, never assigned invented weights.
         scoreValue: threshold.scoreValue !== null && threshold.scoreValue !== undefined && Number.isFinite(Number(threshold.scoreValue))
           ? Number(threshold.scoreValue) : null,
-        effect: threshold.effect || threshold.description || null,
+        effect: selectedEffect || threshold.effect || threshold.description || null,
+        effects: effects || null,
         source: threshold.source || definition.source || null
       });
     }
@@ -279,15 +312,15 @@ function getSetBonusStatus(equipment = {}, setBonuses = []) {
   return { counts, bonuses };
 }
 
-function scoreSetBonuses(equipment = {}, setBonuses = []) {
-  const status = getSetBonusStatus(equipment, setBonuses);
+function scoreSetBonuses(equipment = {}, setBonuses = [], specialization = "") {
+  const status = getSetBonusStatus(equipment, setBonuses, specialization);
   const score = status.bonuses.reduce((total, bonus) =>
     total + (bonus.active && bonus.scoreValue !== null ? bonus.scoreValue : 0), 0);
   return { ...status, score };
 }
 
-function scoreLoadout(equipment = {}, statWeights = STAT_WEIGHTS, setBonuses = []) {
-  const setScore = scoreSetBonuses(equipment, setBonuses);
+function scoreLoadout(equipment = {}, statWeights = STAT_WEIGHTS, setBonuses = [], specialization = "") {
+  const setScore = scoreSetBonuses(equipment, setBonuses, specialization);
   return {
     score: scoreEquipment(equipment, statWeights) + setScore.score,
     setBonuses: setScore
