@@ -495,6 +495,15 @@ function optimizeEquipment({
       let bestItem = current;
       let bestScore = currentScore;
       for (const candidate of candidates) {
+        const pairedSlot = ({
+          "Ring 1": "Ring 2", "Ring 2": "Ring 1",
+          "Trinket 1": "Trinket 2", "Trinket 2": "Trinket 1"
+        })[slot];
+        const pairedItem = pairedSlot ? optimizedEquipment[pairedSlot] : null;
+        if (pairedItem && candidate.id != null && pairedItem.id != null &&
+            String(candidate.id) === String(pairedItem.id)) continue;
+        if (pairedItem && candidate.id == null && pairedItem.id == null &&
+            candidate.name && pairedItem.name && candidate.name === pairedItem.name) continue;
         const trial = { ...optimizedEquipment, [slot]: candidate };
         const trialScore = loadoutScore(trial);
         if (trialScore > bestScore) {
