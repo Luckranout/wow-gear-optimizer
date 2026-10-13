@@ -37,4 +37,44 @@ assert.equal(report.tierSetAware, true, "report should expose tier-set mode stat
 assert.equal(report.tierSet.scoringDataAvailable, false, "missing verified bonus scores must be disclosed");
 assert.ok(report.tierSet.note.includes("no verified numeric set-bonus scoring values"), "missing metadata warning should be explicit");
 
+
+
+// Threshold boundary regressions: a set item alone must not activate either bonus.
+const onePiece = optimizer.getSetBonusContext({
+  equipment: { Head: items[0] },
+  setBonuses: bonuses,
+  className: "Mage",
+  specialization: "Fire"
+});
+assert.equal(onePiece.bonusScore, 0, "one tier piece must not activate a 2-piece or 4-piece bonus");
+assert.equal(onePiece.activeBonuses.length, 0, "below-threshold context must report no active bonuses");
+
+// Four distinct equipped slots activate both configured thresholds exactly once.
+const fourPiece = optimizer.getSetBonusContext({
+  equipment: {
+    Head: items[0],
+    Chest: items[1],
+    Hands: { id: 5, slot: "Hands", setId: "midnight-tier" },
+    Legs: { id: 6, slot: "Legs", setId: "midnight-tier" }
+  },
+  setBonuses: bonuses,
+  className: "Mage",
+  specialization: "Fire"
+});
+assert.equal(fourPiece.counts["midnight-tier"], 4, "set count must reflect equipped pieces");
+assert.deepEqual(
+  fourPiece.activeBonuses.map(bonus => bonus.pieces).sort(),
+  [2, 4],
+  "four pieces should activate both the configured 2-piece and 4-piece thresholds"
+);
+assert.equal(fourPiece.bonusScore, 800, "active 2-piece and 4-piece scores should be added once each");
+
+const wrongClass = optimizer.getSetBonusContext({
+  equipment: { Head: items[0], Chest: items[1] },
+  setBonuses: bonuses,
+  className: "Warrior",
+  specialization: "Arms"
+});
+assert.equal(wrongClass.bonusScore, 0, "class-specific set scores must not leak to another class");
+
 console.log("Tier-set-aware optimizer tests passed.");
