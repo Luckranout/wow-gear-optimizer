@@ -25,6 +25,15 @@ if (o.applySecondaryRatingDiminishingReturns(2000,"Haste",80) !== null ||
 }
 console.log("Level-90 progressive secondary-rating DR regression passed.");
 
+// Screenshot example: at 1,320 Haste rating, the next 264 rating is entirely
+// in the 10% penalty band, so it adds 237.6 effective rating (5.4 percentage points).
+const exampleHasteBefore = o.applySecondaryRatingDiminishingReturns(1320, "Haste", 90);
+const exampleHasteAfter = o.applySecondaryRatingDiminishingReturns(1584, "Haste", 90);
+if (Math.abs(exampleHasteBefore - 1320) > 1e-9 ||
+    Math.abs((exampleHasteAfter - exampleHasteBefore) - 237.6) > 1e-9) {
+  throw new Error("Level-90 Haste example should yield 35.4% equivalent rating from 1,584 rating");
+}
+
 // Complete-loadout scoring uses aggregate rating totals only when level 90 is known.
 const drGear = { Head: { itemLevel: 100, stats: { Haste: 1760 } } };
 const rawGearScore = o.scoreEquipmentWithRatingDiminishingReturns(drGear, { Haste: 1 }, null);
