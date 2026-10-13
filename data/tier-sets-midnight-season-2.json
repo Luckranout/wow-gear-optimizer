@@ -643,7 +643,39 @@
           "name": "Serpent Crown of the Ophidian Oracle",
           "slot": "Head",
           "variant": "Raid Finder",
-          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle"
+          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle",
+          "itemLevel": 285,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 119,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 49,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 112,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
         },
         {
           "itemId": 271483,
@@ -651,7 +683,39 @@
           "name": "Serpent Crown of the Ophidian Oracle",
           "slot": "Head",
           "variant": "Normal",
-          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle"
+          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle",
+          "itemLevel": 298,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 135,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 52,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 120,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
         },
         {
           "itemId": 271483,
@@ -659,7 +723,39 @@
           "name": "Serpent Crown of the Ophidian Oracle",
           "slot": "Head",
           "variant": "Heroic",
-          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle"
+          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle",
+          "itemLevel": 311,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 152,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 55,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 127,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
         },
         {
           "itemId": 271483,
@@ -667,7 +763,39 @@
           "name": "Serpent Crown of the Ophidian Oracle",
           "slot": "Head",
           "variant": "Mythic",
-          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle"
+          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle",
+          "itemLevel": 324,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 172,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 59,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 134,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
         },
         {
           "itemId": 271483,
@@ -691,7 +819,39 @@
           "name": "Hissing Mantle of the Ophidian Oracle",
           "slot": "Shoulders",
           "variant": "Raid Finder",
-          "sourceUrl": "https://www.wowhead.com/item=271481/hissing-mantle-of-the-ophidian-oracle"
+          "sourceUrl": "https://www.wowhead.com/item=271481/hissing-mantle-of-the-ophidian-oracle",
+          "itemLevel": 282,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 87,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 41,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 78,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
         },
         {
           "itemId": 271481,
@@ -699,7 +859,39 @@
           "name": "Hissing Mantle of the Ophidian Oracle",
           "slot": "Shoulders",
           "variant": "Normal",
-          "sourceUrl": "https://www.wowhead.com/item=271481/hissing-mantle-of-the-ophidian-oracle"
+          "sourceUrl": "https://www.wowhead.com/item=271481/hissing-mantle-of-the-ophidian-oracle",
+          "itemLevel": 295,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 98,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 44,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 83,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
         },
         {
           "itemId": 271481,
@@ -707,7 +899,39 @@
           "name": "Hissing Mantle of the Ophidian Oracle",
           "slot": "Shoulders",
           "variant": "Heroic",
-          "sourceUrl": "https://www.wowhead.com/item=271481/hissing-mantle-of-the-ophidian-oracle"
+          "sourceUrl": "https://www.wowhead.com/item=271481/hissing-mantle-of-the-ophidian-oracle",
+          "itemLevel": 308,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 111,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 46,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 89,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
         },
         {
           "itemId": 271481,
@@ -715,7 +939,39 @@
           "name": "Hissing Mantle of the Ophidian Oracle",
           "slot": "Shoulders",
           "variant": "Mythic",
-          "sourceUrl": "https://www.wowhead.com/item=271481/hissing-mantle-of-the-ophidian-oracle"
+          "sourceUrl": "https://www.wowhead.com/item=271481/hissing-mantle-of-the-ophidian-oracle",
+          "itemLevel": 321,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 125,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 49,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 94,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
         },
         {
           "itemId": 271481,
@@ -739,7 +995,39 @@
           "name": "Fanged Raiment of the Ophidian Oracle",
           "slot": "Chest",
           "variant": "Raid Finder",
-          "sourceUrl": "https://www.wowhead.com/item=271486/fanged-raiment-of-the-ophidian-oracle"
+          "sourceUrl": "https://www.wowhead.com/item=271486/fanged-raiment-of-the-ophidian-oracle",
+          "itemLevel": 285,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 119,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 113,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 48,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
         },
         {
           "itemId": 271486,
@@ -747,7 +1035,39 @@
           "name": "Fanged Raiment of the Ophidian Oracle",
           "slot": "Chest",
           "variant": "Normal",
-          "sourceUrl": "https://www.wowhead.com/item=271486/fanged-raiment-of-the-ophidian-oracle"
+          "sourceUrl": "https://www.wowhead.com/item=271486/fanged-raiment-of-the-ophidian-oracle",
+          "itemLevel": 298,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 135,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 120,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 52,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
         },
         {
           "itemId": 271486,
@@ -755,7 +1075,39 @@
           "name": "Fanged Raiment of the Ophidian Oracle",
           "slot": "Chest",
           "variant": "Heroic",
-          "sourceUrl": "https://www.wowhead.com/item=271486/fanged-raiment-of-the-ophidian-oracle"
+          "sourceUrl": "https://www.wowhead.com/item=271486/fanged-raiment-of-the-ophidian-oracle",
+          "itemLevel": 311,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 152,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 128,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 55,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
         },
         {
           "itemId": 271486,
@@ -763,7 +1115,39 @@
           "name": "Fanged Raiment of the Ophidian Oracle",
           "slot": "Chest",
           "variant": "Mythic",
-          "sourceUrl": "https://www.wowhead.com/item=271486/fanged-raiment-of-the-ophidian-oracle"
+          "sourceUrl": "https://www.wowhead.com/item=271486/fanged-raiment-of-the-ophidian-oracle",
+          "itemLevel": 324,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 172,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 135,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 58,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
         },
         {
           "itemId": 271486,
@@ -787,7 +1171,39 @@
           "name": "Hexing Grips of the Ophidian Oracle",
           "slot": "Hands",
           "variant": "Raid Finder",
-          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle"
+          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle",
+          "itemLevel": 282,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 87,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 36,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 83,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
         },
         {
           "itemId": 271484,
@@ -795,7 +1211,39 @@
           "name": "Hexing Grips of the Ophidian Oracle",
           "slot": "Hands",
           "variant": "Normal",
-          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle"
+          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle",
+          "itemLevel": 295,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 98,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 39,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 88,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
         },
         {
           "itemId": 271484,
@@ -803,7 +1251,39 @@
           "name": "Hexing Grips of the Ophidian Oracle",
           "slot": "Hands",
           "variant": "Heroic",
-          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle"
+          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle",
+          "itemLevel": 308,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 111,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 41,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 94,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
         },
         {
           "itemId": 271484,
@@ -811,7 +1291,39 @@
           "name": "Hexing Grips of the Ophidian Oracle",
           "slot": "Hands",
           "variant": "Mythic",
-          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle"
+          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle",
+          "itemLevel": 321,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 125,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 43,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 99,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
         },
         {
           "itemId": 271484,
@@ -835,7 +1347,39 @@
           "name": "Leggings of the Ophidian Oracle",
           "slot": "Legs",
           "variant": "Raid Finder",
-          "sourceUrl": "https://www.wowhead.com/item=271482/leggings-of-the-ophidian-oracle"
+          "sourceUrl": "https://www.wowhead.com/item=271482/leggings-of-the-ophidian-oracle",
+          "itemLevel": 285,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 119,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 56,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 105,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
         },
         {
           "itemId": 271482,
@@ -843,7 +1387,39 @@
           "name": "Leggings of the Ophidian Oracle",
           "slot": "Legs",
           "variant": "Normal",
-          "sourceUrl": "https://www.wowhead.com/item=271482/leggings-of-the-ophidian-oracle"
+          "sourceUrl": "https://www.wowhead.com/item=271482/leggings-of-the-ophidian-oracle",
+          "itemLevel": 298,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 135,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 60,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 112,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
         },
         {
           "itemId": 271482,
@@ -851,7 +1427,39 @@
           "name": "Leggings of the Ophidian Oracle",
           "slot": "Legs",
           "variant": "Heroic",
-          "sourceUrl": "https://www.wowhead.com/item=271482/leggings-of-the-ophidian-oracle"
+          "sourceUrl": "https://www.wowhead.com/item=271482/leggings-of-the-ophidian-oracle",
+          "itemLevel": 311,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 152,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 64,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 119,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
         },
         {
           "itemId": 271482,
@@ -859,7 +1467,39 @@
           "name": "Leggings of the Ophidian Oracle",
           "slot": "Legs",
           "variant": "Mythic",
-          "sourceUrl": "https://www.wowhead.com/item=271482/leggings-of-the-ophidian-oracle"
+          "sourceUrl": "https://www.wowhead.com/item=271482/leggings-of-the-ophidian-oracle",
+          "itemLevel": 324,
+          "candidate": true,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 172,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 67,
+              "source": "Wowhead item page; season variant"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 125,
+              "source": "Wowhead item page; season variant"
+            }
+          ]
         },
         {
           "itemId": 271482,
