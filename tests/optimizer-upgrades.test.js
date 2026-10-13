@@ -864,3 +864,36 @@ if (shortlistCount("ring") > 1 || shortlistCount("trinket") > 1 || shortlistCoun
  // the invariant is that no category appears more than once, verified above.
 console.log("Six-upgrade shortlist category-cap regression passed.");
 
+// Regression: multiple raid-difficulty records share the same base item ID.
+// Complete-loadout optimization must retain the highest-scoring variant rather
+// than whichever low-item-level record happens to appear first in the dataset.
+const sameIdLowVariant = {
+  id: 982001, name: "Season Tier Helm", slot: "Head", itemLevel: 279,
+  inventoryType: "Head", itemClass: "Armor", itemSubclass: "Mail",
+  stats: { Agility: 90, Haste: 30 }
+};
+const sameIdHighVariant = {
+  ...sameIdLowVariant, itemLevel: 318,
+  stats: { Agility: 150, Haste: 50 }
+};
+const currentHelm = {
+  id: 982002, name: "Equipped Helm", slot: "Head", itemLevel: 295,
+  inventoryType: "Head", itemClass: "Armor", itemSubclass: "Mail",
+  stats: { Agility: 100, Haste: 35 }
+};
+const variantCharacter = {
+  ...o.createCharacterProfile(),
+  className: "Shaman",
+  specialization: "Enhancement",
+  equipment: { ...o.createCharacterProfile().equipment, Head: currentHelm }
+};
+const variantLoadout = o.optimizeEquipment({
+  items: [sameIdLowVariant, sameIdHighVariant],
+  character: variantCharacter
+});
+if (variantLoadout.equipment.Head?.id !== sameIdHighVariant.id ||
+    Number(variantLoadout.equipment.Head?.itemLevel) !== 318) {
+  throw new Error("Complete loadout must select the highest-scoring same-ID item-level variant");
+}
+console.log("Same-ID item-level variant selection regression passed.");
+
