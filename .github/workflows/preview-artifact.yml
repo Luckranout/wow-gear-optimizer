@@ -1,0 +1,31 @@
+name: Build Static Preview Artifact
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - preview/github-actions-artifact
+
+permissions:
+  contents: read
+
+jobs:
+  package-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out preview branch
+        uses: actions/checkout@v4
+
+      - name: Package static app files
+        uses: actions/upload-artifact@v4
+        with:
+          name: wow-gear-optimizer-static-preview
+          path: |
+            .
+            !.git/**
+            !.github/**
+            !node_modules/**
+            !tests/**
+            !scripts/**
+          if-no-files-found: error
+          retention-days: 7
