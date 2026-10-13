@@ -451,3 +451,33 @@ for (const [left, right] of [["Ring 1", "Ring 2"], ["Trinket 1", "Trinket 2"]]) 
   }
 }
 console.log("Distinct paired-slot item regression passed.");
+
+
+// Regression: the catalog's base item record must not replace the character's
+// verified upgraded version of that same item in the optimized loadout.
+const baseSkullguard = {
+  id: 268229, name: "Skullguard of the Risen Sacrifice", slot: "Head",
+  itemLevel: 219, itemClass: "Armor", itemSubclass: "Plate",
+  stats: { Strength: 100, Stamina: 100 }
+};
+const equippedSkullguard = {
+  id: 268229, name: "Skullguard of the Risen Sacrifice", slot: "Head",
+  itemLevel: 334, itemClass: "Armor", itemSubclass: "Plate",
+  stats: { Strength: 220, Stamina: 220, CriticalStrike: 120 }
+};
+const variantReport = o.optimizeEquipment({
+  items: [baseSkullguard],
+  character: {
+    ...o.createCharacterProfile(),
+    className: "Warrior",
+    specialization: "Protection",
+    equipment: { ...o.createCharacterProfile().equipment, Head: equippedSkullguard }
+  },
+  goal: "mythic+"
+});
+if (variantReport.equipment.Head?.itemLevel !== 334) {
+  throw new Error("Optimizer replaced equipped item variant ilvl 334 with base catalog variant ilvl 219");
+}
+if (variantReport.equipment.Head?.stats?.CriticalStrike !== 120) {
+  throw new Error("Optimizer did not preserve the verified equipped variant's stats");
+}
