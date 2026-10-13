@@ -25,6 +25,26 @@ if (o.applySecondaryRatingDiminishingReturns(2000,"Haste",80) !== null ||
 }
 console.log("Level-90 progressive secondary-rating DR regression passed.");
 
+// First penalty band is a soft target; the final supplied rating threshold is
+// a hard limit for level-90 loadout candidates.
+const belowSoftTarget = { Head: { itemLevel: 100, stats: { Haste: 1320 } } };
+const aboveSoftTarget = { Head: { itemLevel: 100, stats: { Haste: 1500 } } };
+if (o.getSecondaryRatingSoftTargetPenalty(belowSoftTarget, 90) !== 0 ||
+    !(o.getSecondaryRatingSoftTargetPenalty(aboveSoftTarget, 90) > 0)) {
+  throw new Error("First-band soft target should add no penalty below threshold and a small penalty above it");
+}
+const atHardCap = { Head: { itemLevel: 100, stats: { Haste: 8800 } } };
+const aboveHardCap = { Head: { itemLevel: 100, stats: { Haste: 8801 } } };
+if (o.getSecondaryRatingHardCapViolations(atHardCap, 90).length !== 0 ||
+    o.getSecondaryRatingHardCapViolations(aboveHardCap, 90)[0]?.stat !== "Haste") {
+  throw new Error("Final rating threshold should be a hard cap");
+}
+if (o.getSecondaryRatingHardCapViolations(aboveHardCap, 80).length !== 0) {
+  throw new Error("Hard cap must not apply the level-90 table to unsupported levels");
+}
+console.log("Soft first-band target and hard final-cap regression passed.");
+
+
 // Upgrade shortlist must score a candidate against the full equipped rating totals.
 // With 1,320 Haste already equipped, +264 Haste yields only 237.6 effective rating;
 // +264 Mastery is therefore the stronger candidate when weights are equal.
