@@ -725,7 +725,8 @@ function createOptimizationReport({character = createCharacterProfile(), availab
     simulation
   });
   const statSummary = getCharacterStatSummary(character.statistics, statWeights);
-  const setBonuses = dataset?.tierSetBonuses || dataset?.setBonuses || [];\n  const optimized = optimizeEquipment({ items: availableItems, character, goal, statWeights, setBonuses });
+  const setBonuses = dataset?.tierSetBonuses || dataset?.setBonuses || [];
+  const optimized = optimizeEquipment({ items: availableItems, character, goal, statWeights, setBonuses });
   const upgrades = findUpgradeOpportunities({
     currentEquipment: character.equipment,
     availableItems,
