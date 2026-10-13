@@ -636,6 +636,8 @@ function optimizeEquipment({
       const candidates = candidateItems.filter(item =>
         itemMatchesSlot(item, slot) &&
         itemAllowedForClass(item, character.className) &&
+        itemAllowedForClassWeapon(item, slot, character.className) &&
+        itemAllowedForSpecialization(item, slot, character.className, character.specialization) &&
         hasUsableItemStats(item)
       );
       let bestItem = current;
@@ -650,7 +652,14 @@ function optimizeEquipment({
             String(candidate.id) === String(pairedItem.id)) continue;
         if (pairedItem && candidate.id == null && pairedItem.id == null &&
             candidate.name && pairedItem.name && candidate.name === pairedItem.name) continue;
+
+        // A two-handed main-hand weapon occupies both weapon slots. Clear the
+        // off hand in the same trial; never score an invalid 2H + off-hand loadout.
+        if (slot === "Off Hand" && getWeaponMetadata(optimizedEquipment["Main Hand"]).twoHanded) continue;
         const trial = { ...optimizedEquipment, [slot]: candidate };
+        if (slot === "Main Hand" && getWeaponMetadata(candidate).twoHanded) {
+          trial["Off Hand"] = null;
+        }
         const trialScore = loadoutScore(trial);
         if (trialScore > bestScore) {
           bestScore = trialScore;
