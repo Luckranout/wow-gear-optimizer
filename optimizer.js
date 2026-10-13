@@ -742,7 +742,8 @@ function createOptimizationReport({character = createCharacterProfile(), availab
     }) : null)
     .filter(Boolean);
   return {
-    character, goal, optimizedEquipment: optimized.equipment, totalScore: optimized.score,\n    setBonusStatus: optimized.setBonusStatus,
+    character, goal, optimizedEquipment: optimized.equipment, totalScore: optimized.score,
+    setBonusStatus: optimized.setBonusStatus,
     topUpgrades: upgrades, upgradePlans, currentStats: statSummary,
     optimizationContext: simulationContext ? {
       source: simulationContext.source,
@@ -783,7 +784,8 @@ window.WoWOptimizer = {
   createCharacterProfile, normalizeCharacterStatistics, scoreCharacterStatistics, getCharacterStatSummary, resolveStatWeights, normalizeSimulationScaleFactors, getSimulationWeightContext, findBlizzardSpecialization, getSpecProfileContext,
   normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, hasUsableItemStats, scoreItem, scoreEquipment, getGoalWeights,
   findBestItemForSlot, optimizeEquipment, findUpgradeOpportunities, rankItems,
-  getItemSetId, getSetBonusStatus, scoreSetBonuses, scoreLoadout,\n  getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,
+  getItemSetId, getSetBonusStatus, scoreSetBonuses, scoreLoadout,
+  getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,
   calculateCrestRequirements, isAscendantVenomstoneEligible, recommendUpgradePlan,
   createOptimizationReport, testData: WOW_OPTIMIZER_TEST_DATA
 };
