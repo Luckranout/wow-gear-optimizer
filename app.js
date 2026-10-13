@@ -31,6 +31,7 @@ const importStatus = document.querySelector("#importStatus");
 const statsGrid = document.querySelector("#statsGrid");
 const upgradeResults = document.querySelector("#upgradeResults");
 const loadoutResults = document.querySelector("#loadoutResults");
+const secondaryRatingNotice = document.querySelector("#secondaryRatingNotice");
 const optimizationSource = document.querySelector("#optimizationSource");
 const characterNameInput = document.querySelector("#characterNameInput");
 const realmInput = document.querySelector("#realmInput");
@@ -609,11 +610,47 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
     character.simulation = importedSimulation;
   }
 
+  const prioritySelect = secondaryRatingNotice?.querySelector("#secondaryRatingPriority");
+  if (prioritySelect?.value) character.preferredSecondaryStat = prioritySelect.value;
   const report = WoWOptimizer.createOptimizationReport({
     character,
     availableItems: retailDataset.items || [],
     dataset: retailDataset
   });
+
+  const ratingStatus = report.ratingConstraintStatus;
+  if (secondaryRatingNotice) {
+    secondaryRatingNotice.hidden = false;
+    if (ratingStatus?.requiresUserChoice) {
+      secondaryRatingNotice.innerHTML =
+        '<strong>Secondary-stat hard-cap warning:</strong> Haste, Crit, Mastery, and Versatility are all above their hard ceilings. Choose which stat you want the optimizer to prioritize while it brings the other stats under their hard ceilings, then run optimization again. ' +
+        '<label for="secondaryRatingPriority">Priority stat</label> ' +
+        '<select id="secondaryRatingPriority"><option value="">Choose a stat…</option>' +
+        '<option value="Haste">Haste</option><option value="CriticalStrike">Critical Strike</option>' +
+        '<option value="Mastery">Mastery</option><option value="Versatility">Versatility</option></select> ' +
+        '<button type="button" id="applySecondaryRatingPriority">Optimize with priority</button>';
+      secondaryRatingNotice.querySelector("#applySecondaryRatingPriority")?.addEventListener("click", () => {
+        const select = secondaryRatingNotice.querySelector("#secondaryRatingPriority");
+        if (!select?.value) {
+          select?.focus();
+          resultMessage.textContent = "Choose a secondary stat to prioritize before optimizing.";
+          return;
+        }
+        document.querySelector("#optimizeBtn").click();
+      });
+    } else if (ratingStatus?.originalViolations?.length) {
+      const original = ratingStatus.originalViolations.map(v => v.stat + " (" + v.rating.toLocaleString() + " / " + v.maximum.toLocaleString() + ")").join(", ");
+      if (ratingStatus.balanced) {
+        secondaryRatingNotice.innerHTML = '<strong>Secondary-stat balance:</strong> The optimizer adjusted the loadout to bring all secondary stats under their hard ceilings. Previous violations: ' + original + '.';
+      } else {
+        const remaining = (ratingStatus.remainingViolations || []).map(v => v.stat + " (" + v.rating.toLocaleString() + " / " + v.maximum.toLocaleString() + ")").join(", ");
+        secondaryRatingNotice.innerHTML = '<strong>Hard-cap warning:</strong> The optimizer reduced the violations but could not bring every stat under its hard ceiling with the available catalog. Still over cap: ' + remaining + '. Add or select more gear options to find a compliant loadout.';
+      }
+    } else {
+      secondaryRatingNotice.hidden = true;
+      secondaryRatingNotice.textContent = "";
+    }
+  }
 
   renderCharacterStats(report.currentStats.trackedStats);
   optimizationSource.textContent = report.recommendationStatus === "simulation-weighted-ranking-not-full-stat-projection"
