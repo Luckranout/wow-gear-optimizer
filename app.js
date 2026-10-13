@@ -336,12 +336,23 @@ function renderCharacterCoach(report, character) {
 
 function getLoadoutItemStats(item) {
   const stats = {};
-  for (const stat of Array.isArray(item?.stats) ? item.stats : []) {
-    const rawName = stat?.type?.name || stat?.name || stat?.type || stat?.stat;
-    const value = Number(stat?.value ?? stat?.amount);
-    if (!rawName || !Number.isFinite(value)) continue;
+  const addStat = (rawName, rawValue) => {
+    const value = Number(rawValue);
+    if (!rawName || !Number.isFinite(value)) return;
     const key = String(rawName).replace(/([a-z])([A-Z])/g, "$1 $2").replace(/[_-]+/g, " ").trim();
     stats[key] = (stats[key] || 0) + value;
+  };
+
+  // Blizzard character equipment can supply stats as an object map, while
+  // catalog records often use an array of typed stat entries. Support both so
+  // comparisons don't incorrectly label every stat "Comparison incomplete".
+  if (Array.isArray(item?.stats)) {
+    for (const stat of item.stats) {
+      const rawName = stat?.type?.name || stat?.name || stat?.type || stat?.stat;
+      addStat(rawName, stat?.value ?? stat?.amount);
+    }
+  } else if (item?.stats && typeof item.stats === "object") {
+    for (const [rawName, rawValue] of Object.entries(item.stats)) addStat(rawName, rawValue);
   }
   return stats;
 }
