@@ -1160,6 +1160,8 @@ function createOptimizationReport({character = createCharacterProfile(), availab
     statWeights,
     className: character.className,
     specialization: character.specialization,
+    characterLevel: character.level,
+    setBonuses,
     limit: 6
   });
   const system = upgradeSystem || getUpgradeSystem(dataset);
