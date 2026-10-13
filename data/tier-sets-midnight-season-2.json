@@ -6,10 +6,10 @@
   "season": 2,
   "patch": "12.1",
   "source": {
-    "name": "Wowhead Midnight Season 2 Tier Set Overview",
-    "url": "https://www.wowhead.com/guide/midnight/season-2-tier-set-bonus-appearance-overview",
-    "accessedAt": "2026-10-12",
-    "scope": "Bonus descriptions and class/spec mapping. Item-ID variants must be verified against Blizzard item data before exact item matching is considered complete."
+    "name": "Wowhead Midnight Season 2 Tier Set Overview and item pages",
+    "url": "https://www.wowhead.com/guide/classes/shaman/enhancement/midnight-season-2",
+    "accessedAt": "2026-10-13",
+    "scope": "Tier bonus descriptions plus verified base item IDs and slots for Shaman set pieces. Numeric set bonus scoring remains disabled absent simulation-derived values."
   },
   "thresholds": [
     2,
@@ -636,8 +636,250 @@
           "sourceType": "PvP"
         }
       ],
-      "pieces": [],
-      "itemIdsVerified": false
+      "pieces": [
+        {
+          "itemId": 271483,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Serpent Crown of the Ophidian Oracle",
+          "slot": "Head",
+          "variant": "Raid Finder",
+          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271483,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Serpent Crown of the Ophidian Oracle",
+          "slot": "Head",
+          "variant": "Normal",
+          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271483,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Serpent Crown of the Ophidian Oracle",
+          "slot": "Head",
+          "variant": "Heroic",
+          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271483,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Serpent Crown of the Ophidian Oracle",
+          "slot": "Head",
+          "variant": "Mythic",
+          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271483,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Serpent Crown of the Ophidian Oracle",
+          "slot": "Head",
+          "variant": "Gladiator",
+          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271483,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Serpent Crown of the Ophidian Oracle",
+          "slot": "Head",
+          "variant": "Elite",
+          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271481,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hissing Mantle of the Ophidian Oracle",
+          "slot": "Shoulders",
+          "variant": "Raid Finder",
+          "sourceUrl": "https://www.wowhead.com/item=271481/hissing-mantle-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271481,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hissing Mantle of the Ophidian Oracle",
+          "slot": "Shoulders",
+          "variant": "Normal",
+          "sourceUrl": "https://www.wowhead.com/item=271481/hissing-mantle-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271481,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hissing Mantle of the Ophidian Oracle",
+          "slot": "Shoulders",
+          "variant": "Heroic",
+          "sourceUrl": "https://www.wowhead.com/item=271481/hissing-mantle-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271481,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hissing Mantle of the Ophidian Oracle",
+          "slot": "Shoulders",
+          "variant": "Mythic",
+          "sourceUrl": "https://www.wowhead.com/item=271481/hissing-mantle-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271481,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hissing Mantle of the Ophidian Oracle",
+          "slot": "Shoulders",
+          "variant": "Gladiator",
+          "sourceUrl": "https://www.wowhead.com/item=271481/hissing-mantle-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271481,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hissing Mantle of the Ophidian Oracle",
+          "slot": "Shoulders",
+          "variant": "Elite",
+          "sourceUrl": "https://www.wowhead.com/item=271481/hissing-mantle-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271486,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Fanged Raiment of the Ophidian Oracle",
+          "slot": "Chest",
+          "variant": "Raid Finder",
+          "sourceUrl": "https://www.wowhead.com/item=271486/fanged-raiment-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271486,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Fanged Raiment of the Ophidian Oracle",
+          "slot": "Chest",
+          "variant": "Normal",
+          "sourceUrl": "https://www.wowhead.com/item=271486/fanged-raiment-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271486,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Fanged Raiment of the Ophidian Oracle",
+          "slot": "Chest",
+          "variant": "Heroic",
+          "sourceUrl": "https://www.wowhead.com/item=271486/fanged-raiment-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271486,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Fanged Raiment of the Ophidian Oracle",
+          "slot": "Chest",
+          "variant": "Mythic",
+          "sourceUrl": "https://www.wowhead.com/item=271486/fanged-raiment-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271486,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Fanged Raiment of the Ophidian Oracle",
+          "slot": "Chest",
+          "variant": "Gladiator",
+          "sourceUrl": "https://www.wowhead.com/item=271486/fanged-raiment-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271486,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Fanged Raiment of the Ophidian Oracle",
+          "slot": "Chest",
+          "variant": "Elite",
+          "sourceUrl": "https://www.wowhead.com/item=271486/fanged-raiment-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271484,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hexing Grips of the Ophidian Oracle",
+          "slot": "Hands",
+          "variant": "Raid Finder",
+          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271484,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hexing Grips of the Ophidian Oracle",
+          "slot": "Hands",
+          "variant": "Normal",
+          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271484,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hexing Grips of the Ophidian Oracle",
+          "slot": "Hands",
+          "variant": "Heroic",
+          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271484,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hexing Grips of the Ophidian Oracle",
+          "slot": "Hands",
+          "variant": "Mythic",
+          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271484,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hexing Grips of the Ophidian Oracle",
+          "slot": "Hands",
+          "variant": "Gladiator",
+          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271484,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hexing Grips of the Ophidian Oracle",
+          "slot": "Hands",
+          "variant": "Elite",
+          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271482,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Leggings of the Ophidian Oracle",
+          "slot": "Legs",
+          "variant": "Raid Finder",
+          "sourceUrl": "https://www.wowhead.com/item=271482/leggings-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271482,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Leggings of the Ophidian Oracle",
+          "slot": "Legs",
+          "variant": "Normal",
+          "sourceUrl": "https://www.wowhead.com/item=271482/leggings-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271482,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Leggings of the Ophidian Oracle",
+          "slot": "Legs",
+          "variant": "Heroic",
+          "sourceUrl": "https://www.wowhead.com/item=271482/leggings-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271482,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Leggings of the Ophidian Oracle",
+          "slot": "Legs",
+          "variant": "Mythic",
+          "sourceUrl": "https://www.wowhead.com/item=271482/leggings-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271482,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Leggings of the Ophidian Oracle",
+          "slot": "Legs",
+          "variant": "Gladiator",
+          "sourceUrl": "https://www.wowhead.com/item=271482/leggings-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271482,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Leggings of the Ophidian Oracle",
+          "slot": "Legs",
+          "variant": "Elite",
+          "sourceUrl": "https://www.wowhead.com/item=271482/leggings-of-the-ophidian-oracle"
+        }
+      ],
+      "itemIdsVerified": true,
+      "id": "ophidian-oracle-prophecy"
     },
     {
       "class": "Warlock",
@@ -753,7 +995,7 @@
     }
   ],
   "itemMatching": {
-    "status": "incomplete",
+    "status": "partial",
     "requiredFields": [
       "itemId",
       "setId",
@@ -776,6 +1018,9 @@
       "Gladiator",
       "Elite"
     ],
-    "note": "Wowhead documents five tier slots and six appearance variants per class set. Exact item IDs for these variants have not yet been verified, so piece records remain empty and optimizer must not infer membership from appearance or item level."
+    "note": "Verified Shaman Ophidian Oracle's Prophecy base item IDs and slots from Wowhead item pages. The same item ID persists across the six item-level/appearance variants; exact item bonus IDs are not needed for set membership. Other class set pieces remain unverified and are not inferred.",
+    "verifiedClasses": [
+      "Shaman"
+    ]
   }
 }
