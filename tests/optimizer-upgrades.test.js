@@ -794,3 +794,35 @@ if (enhancementUpgradeCards.some(upgrade => upgrade.recommendedItem?.id === enha
 }
 console.log("Class/spec-aware upgrade-card weapon filtering regression passed.");
 
+// Regression: Blizzard imported equipment can encode each stat as {value: n}.
+// Such equipped items must remain scoreable so a lower-item-level catalog
+// ring is not recommended merely because its stats are plain numbers.
+const nestedStatEquippedRing = {
+  id: 981001, name: "Equipped High-Level Ring", slot: "Ring 1", itemLevel: 305,
+  stats: {
+    stamina: { value: 1572 },
+    critical_strike: { value: 102 },
+    mastery: { value: 238 }
+  }
+};
+const plainStatLowRing = {
+  id: 981002, name: "Low-Level Catalog Ring", slot: "Ring 1", itemLevel: 219,
+  stats: { stamina: 565, critical_strike: 132, haste: 26 }
+};
+if (!o.hasUsableItemStats(nestedStatEquippedRing) || o.scoreItem(nestedStatEquippedRing) <= 0) {
+  throw new Error("Nested imported equipped stats must be recognized and scored");
+}
+const nestedRingResult = o.optimizeEquipment({
+  items: [plainStatLowRing],
+  character: {
+    ...o.createCharacterProfile(),
+    className: "Shaman",
+    specialization: "Enhancement",
+    equipment: { ...o.createCharacterProfile().equipment, "Ring 1": nestedStatEquippedRing }
+  }
+});
+if (nestedRingResult.equipment["Ring 1"]?.id !== nestedStatEquippedRing.id) {
+  throw new Error("A lower-ilvl ring must not replace a higher-scoring equipped ring due to nested stat values");
+}
+console.log("Nested Blizzard stat-value scoring regression passed.");
+
