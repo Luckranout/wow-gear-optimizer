@@ -1212,7 +1212,7 @@ const WOW_OPTIMIZER_TEST_DATA = [
 
 window.WoWOptimizer = {
   slots: WOW_EQUIPMENT_SLOTS, goals: WOW_GOALS,
-  applySecondaryRatingDiminishingReturns, getSecondaryRatingDiminishingReturns, SECONDARY_RATING_DR_TABLE, SECONDARY_RATING_DR_SOFT_TARGETS, getSecondaryRatingTotals, getSecondaryRatingHardCapViolations,
+  applySecondaryRatingDiminishingReturns, getSecondaryRatingDiminishingReturns, SECONDARY_RATING_DR_TABLE, SECONDARY_RATING_DR_SOFT_TARGETS, getSecondaryRatingTotals, getSecondaryRatingHardCapViolations, getSecondaryRatingSoftTargetPenalty,
   createCharacterProfile, normalizeCharacterStatistics, scoreCharacterStatistics, getCharacterStatSummary, resolveStatWeights, normalizeSimulationScaleFactors, getSimulationWeightContext, findBlizzardSpecialization, getSpecProfileContext,
   normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, hasUsableItemStats, scoreItem, scoreEquipment, getGoalWeights,
   findBestItemForSlot, itemMatchesSlot, itemAllowedForClassWeapon, itemAllowedForSpecialization, getWeaponMetadata, normalizeWeaponType, optimizeEquipment, findUpgradeOpportunities, rankItems,
