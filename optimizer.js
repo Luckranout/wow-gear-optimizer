@@ -668,6 +668,9 @@ function optimizeEquipment({
       }
       if (bestItem !== current) {
         optimizedEquipment[slot] = bestItem;
+        if (slot === "Main Hand" && getWeaponMetadata(bestItem).twoHanded) {
+          optimizedEquipment["Off Hand"] = null;
+        }
         changed = true;
       }
     }
