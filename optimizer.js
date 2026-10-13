@@ -561,14 +561,25 @@ function resolveCatalogItemAgainstEquippedVariant(candidate, equippedItem) {
 
 function findBestItemForSlot(items, slot, goal, statWeights = null, className = "", equippedItem = null, specialization = "") {
   const weights = statWeights || getGoalWeights(goal);
-  const candidates = (items || [])
-    .filter(item => itemMatchesSlot(item, slot) && itemAllowedForClass(item, className) && itemAllowedForClassWeapon(item, slot, className) && itemAllowedForSpecialization(item, slot, className, specialization) && hasUsableItemStats(item))
-    .map(item => resolveCatalogItemAgainstEquippedVariant(item, equippedItem))
-    .filter((item, index, all) => all.findIndex(other =>
-      String(other.id ?? other.name) === String(item.id ?? item.name)
-    ) === index)
-    .map(item => ({ item, score: scoreItem(item, weights) }));
-  return candidates.sort((a, b) => b.score - a.score)[0] || null;
+  const bestByIdentity = new Map();
+  for (const candidate of (items || [])) {
+    if (!itemMatchesSlot(candidate, slot) ||
+        !itemAllowedForClass(candidate, className) ||
+        !itemAllowedForClassWeapon(candidate, slot, className) ||
+        !itemAllowedForSpecialization(candidate, slot, className, specialization) ||
+        !hasUsableItemStats(candidate)) continue;
+
+    // A seasonal catalogue can contain multiple difficulty/upgrade variants
+    // sharing the same base item ID. Resolve an equipped upgraded copy first,
+    // then retain the highest-scoring variant for each identity instead of
+    // accidentally keeping the first (often lowest-ilvl) record in the file.
+    const item = resolveCatalogItemAgainstEquippedVariant(candidate, equippedItem);
+    const key = String(item.id ?? item.name) + "|" + slot;
+    const score = scoreItem(item, weights);
+    const previous = bestByIdentity.get(key);
+    if (!previous || score > previous.score) bestByIdentity.set(key, { item, score });
+  }
+  return [...bestByIdentity.values()].sort((a, b) => b.score - a.score)[0] || null;
 }
 
 function optimizeEquipment({
@@ -586,11 +597,20 @@ function optimizeEquipment({
   const equippedItems = Object.entries(character.equipment || {})
     .filter(([, item]) => item && typeof item === "object")
     .map(([slot, item]) => ({ ...item, slot: item.slot || slot }));
-  const candidateItems = [...(items || []), ...equippedItems]
-    .filter((item, index, all) => all.findIndex(other =>
-      String(other.id ?? other.name) === String(item.id ?? item.name) &&
-      String(other.slot || "") === String(item.slot || "")
-    ) === index);
+  const candidateItemsByIdentity = new Map();
+  for (const rawItem of [...(items || []), ...equippedItems]) {
+    if (!rawItem || typeof rawItem !== "object") continue;
+    const slot = rawItem.slot;
+    const equippedItem = character.equipment?.[slot];
+    const item = resolveCatalogItemAgainstEquippedVariant(rawItem, equippedItem);
+    const key = String(item.id ?? item.name) + "|" + String(slot || "");
+    const score = scoreItem(item, weights);
+    const previous = candidateItemsByIdentity.get(key);
+    if (!previous || score > previous.score) {
+      candidateItemsByIdentity.set(key, { item, score });
+    }
+  }
+  const candidateItems = [...candidateItemsByIdentity.values()].map(entry => entry.item);
   const optimizedEquipment = {};
   for (const slot of WOW_EQUIPMENT_SLOTS) {
     const best = findBestItemForSlot(candidateItems, slot, goal, weights, character.className, character.equipment?.[slot], character.specialization);
