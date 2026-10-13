@@ -787,6 +787,11 @@ function optimizeEquipment({
       (originalTotals[stat] || 0) > SECONDARY_RATING_DR_TABLE[stat].at(-1));
   const preferredSecondaryStat = Object.hasOwn(SECONDARY_RATING_DR_TABLE, character.preferredSecondaryStat)
     ? character.preferredSecondaryStat : null;
+  // Once the player chooses a focus, give that stat a modest scoring preference
+  // while still treating its final threshold as an absolute ceiling.
+  if (preferredSecondaryStat) {
+    weights[preferredSecondaryStat] = (Number(weights[preferredSecondaryStat]) || 1) * 1.25;
+  }
   if (allSecondaryStatsOverCap && !preferredSecondaryStat) {
     return {
       character: { ...character, goal },
