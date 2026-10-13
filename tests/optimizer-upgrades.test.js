@@ -5,6 +5,15 @@ vm.createContext(context);
 vm.runInContext(fs.readFileSync("optimizer.js", "utf8"), context);
 const o = context.window.WoWOptimizer;
 
+// Progressive secondary-rating DR regression using the documented illustrative conversion.
+const drCases = [[0,0],[30,30],[31,30.9],[40,39],[41,39.8],[50,47],[60,54],[80,66],[200,126],[240,126]];
+for (const [rawPercent, expected] of drCases) {
+  const actual = o.applySecondaryRatingDiminishingReturns(rawPercent);
+  if (Math.abs(actual - expected) > 1e-9) throw new Error(`DR mismatch at ${rawPercent}%: expected ${expected}, got ${actual}`);
+}
+if (o.applySecondaryRatingDiminishingReturns(-10) !== 0) throw new Error("Negative rating must clamp to zero");
+console.log("Progressive secondary-rating diminishing returns regression passed.");
+
 
 const fsData = JSON.parse(fs.readFileSync("data/tier-sets-midnight-season-2.json", "utf8"));
 const shamanTier = fsData.sets.find(set => set.class === "Shaman");
