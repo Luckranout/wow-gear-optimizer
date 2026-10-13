@@ -1167,6 +1167,9 @@ function createOptimizationReport({character = createCharacterProfile(), availab
   return {
     character, goal, optimizedEquipment: optimized.equipment, totalScore: optimized.score,
     setBonusStatus: optimized.setBonusStatus,
+    ratingConstraintStatus: optimized.ratingConstraintStatus || {
+      requiresUserChoice: false, balanced: true, remainingViolations: []
+    },
     topUpgrades: upgrades, upgradePlans, currentStats: statSummary,
     optimizationContext: simulationContext ? {
       source: simulationContext.source,
