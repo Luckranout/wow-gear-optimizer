@@ -428,6 +428,28 @@ if (simulationReport.optimizationContext.source !== "SimulationCraft" ||
     simulationReport.currentStats.weightedScore <= 0) {
   throw new Error("Simulation-derived optimization report context failed");
 }
+// Enhancement Shaman must not fall back to the generic all-stats-equal secondary weights.
+const enhancementWeights = o.resolveStatWeights({
+  className: "Shaman",
+  specialization: "Enhancement",
+  goal: "General / All-around"
+});
+if (!(enhancementWeights.Agility > enhancementWeights.CriticalStrike &&
+      enhancementWeights.CriticalStrike === enhancementWeights.Mastery &&
+      enhancementWeights.Mastery === enhancementWeights.Haste &&
+      enhancementWeights.Haste > enhancementWeights.Versatility)) {
+  throw new Error("Enhancement Shaman fallback must prioritize Agility, keep Crit/Mastery/Haste close, and de-prioritize Versatility");
+}
+const enhancementWithSimulation = o.resolveStatWeights({
+  className: "Shaman",
+  specialization: "Enhancement",
+  simulation: { source: "test simulation", scaleFactors: { Haste: 1.7, Mastery: 1.6 } }
+});
+if (enhancementWithSimulation.Haste !== 1.7 || enhancementWithSimulation.Mastery !== 1.6) {
+  throw new Error("Character-specific simulation weights must override the Enhancement fallback");
+}
+console.log("Enhancement Shaman stat-priority fallback regression passed.");
+
 console.log("Step 12 simulation scale-factor support passed.");
 
 
