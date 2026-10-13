@@ -25,6 +25,14 @@ if (o.applySecondaryRatingDiminishingReturns(2000,"Haste",80) !== null ||
 }
 console.log("Level-90 progressive secondary-rating DR regression passed.");
 
+// Complete-loadout scoring uses aggregate rating totals only when level 90 is known.
+const drGear = { Head: { itemLevel: 100, stats: { Haste: 1760 } } };
+const rawGearScore = o.scoreEquipmentWithRatingDiminishingReturns(drGear, { Haste: 1 }, null);
+const level90GearScore = o.scoreEquipmentWithRatingDiminishingReturns(drGear, { Haste: 1 }, 90);
+if (!(level90GearScore < rawGearScore)) throw new Error("Level-90 loadout scoring must apply aggregate rating DR");
+const unsupportedLevelScore = o.scoreEquipmentWithRatingDiminishingReturns(drGear, { Haste: 1 }, 80);
+if (unsupportedLevelScore !== rawGearScore) throw new Error("Unsupported levels must retain the unadjusted score");
+
 const fsData = JSON.parse(fs.readFileSync("data/tier-sets-midnight-season-2.json", "utf8"));
 const shamanTier = fsData.sets.find(set => set.class === "Shaman");
 if (!shamanTier || shamanTier.itemIdsVerified !== true || shamanTier.pieces.length !== 30) {
