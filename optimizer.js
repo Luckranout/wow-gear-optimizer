@@ -301,9 +301,18 @@ function scoreItemStats(item, statWeights = STAT_WEIGHTS) {
 
 function hasUsableItemStats(item) {
   if (!item || !item.stats) return false;
+  // Blizzard character imports and catalog records can represent stat values
+  // as numbers, {value}, or {amount}. Treat the same shapes as scoreItemStats;
+  // otherwise equipped items can score as zero and a lower-ilvl catalog item
+  // may be incorrectly recommended over them.
   const entries = Array.isArray(item.stats)
-    ? item.stats.map(s => [s.stat?.name || s.type?.name || s.name || s.stat, s.value])
-    : Object.entries(item.stats);
+    ? item.stats.map(s => [
+        s.stat?.name || s.type?.name || s.name || s.stat,
+        s.value?.value ?? s.value?.amount ?? s.amount ?? s.value
+      ])
+    : Object.entries(item.stats).map(([stat, value]) => [
+        stat, value?.value ?? value?.amount ?? value
+      ]);
   return entries.some(([stat, value]) =>
     stat != null && String(stat).trim() !== "" && Number.isFinite(Number(value)) && Number(value) !== 0
   );
