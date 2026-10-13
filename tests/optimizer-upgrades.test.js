@@ -826,3 +826,42 @@ if (nestedRingResult.equipment["Ring 1"]?.id !== nestedStatEquippedRing.id) {
 }
 console.log("Nested Blizzard stat-value scoring regression passed.");
 
+// Regression: the Best Available Gear Upgrades panel is a six-item shortlist
+// with at most one ring, one trinket, and one weapon across their paired slots.
+const shortlistSlots = [
+  ["Head", 1001], ["Shoulders", 1002], ["Chest", 1003], ["Hands", 1004],
+  ["Ring 1", 1005], ["Ring 2", 1006],
+  ["Trinket 1", 1007], ["Trinket 2", 1008],
+  ["Main Hand", 1009], ["Off Hand", 1010], ["Legs", 1011]
+];
+const shortlistItems = shortlistSlots.map(([slot, id], index) => ({
+  id,
+  name: "Shortlist " + slot,
+  slot,
+  itemLevel: 300 + index,
+  inventoryType: slot === "Main Hand" || slot === "Off Hand" ? "One-Hand" : undefined,
+  itemSubclass: slot === "Main Hand" || slot === "Off Hand" ? "Axe" : undefined,
+  stats: { Strength: 100 + index, Haste: 20 + index }
+}));
+const shortlist = o.findUpgradeOpportunities({
+  currentEquipment: {},
+  availableItems: shortlistItems,
+  className: "Warrior",
+  specialization: "Arms",
+  limit: 6
+});
+const shortlistCount = category => shortlist.filter(upgrade => {
+  if (category === "ring") return upgrade.slot === "Ring 1" || upgrade.slot === "Ring 2";
+  if (category === "trinket") return upgrade.slot === "Trinket 1" || upgrade.slot === "Trinket 2";
+  if (category === "weapon") return upgrade.slot === "Main Hand" || upgrade.slot === "Off Hand";
+  return false;
+}).length;
+if (shortlist.length !== 6) throw new Error("Upgrade shortlist must return six recommendations when six eligible candidates exist");
+if (shortlistCount("ring") > 1 || shortlistCount("trinket") > 1 || shortlistCount("weapon") > 1) {
+  throw new Error("Upgrade shortlist must cap rings, trinkets, and weapons at one each");
+}
+if (shortlist.some(upgrade => upgrade.recommendedItem.id === 1006 || upgrade.recommendedItem.id === 1008 || upgrade.recommendedItem.id === 1010)) {
+  throw new Error("Lower-ranked duplicate ring/trinket/weapon slots must not bypass the shortlist category caps");
+}
+console.log("Six-upgrade shortlist category-cap regression passed.");
+
