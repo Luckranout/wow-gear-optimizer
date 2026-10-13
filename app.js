@@ -117,6 +117,18 @@ function escapeSlotText(value) {
 }
 
 
+function getItemQualityClass(item) {
+  const quality = item?.quality;
+  const rawName = typeof quality === "string" ? quality : quality?.name;
+  const name = String(rawName || "").toLowerCase();
+  const id = Number(typeof quality === "object" ? quality?.id : item?.qualityId);
+  const qualityById = { 0: "poor", 1: "common", 2: "uncommon", 3: "rare", 4: "epic", 5: "legendary", 6: "artifact", 7: "heirloom", 8: "wow-token" };
+  const qualityName = name || qualityById[id] || "";
+  return ["poor", "common", "uncommon", "rare", "epic", "legendary", "artifact", "heirloom", "wow-token"].includes(qualityName)
+    ? "item-quality-" + qualityName
+    : "item-quality-unknown";
+}
+
 function renderItemHoverTooltip(item) {
   if (!item) return "";
   const level = displayItemLevel(item.itemLevel ?? item.level);
@@ -124,10 +136,11 @@ function renderItemHoverTooltip(item) {
   const statRows = Object.entries(stats).map(([name, value]) =>
     '<div class="item-hover-stat"><span>' + escapeSlotText(name) + '</span><strong>' + escapeSlotText(value.toLocaleString()) + '</strong></div>'
   ).join("");
+  const qualityClass = getItemQualityClass(item);
   return '<div class="item-hover-tooltip" role="tooltip">' +
     '<div class="item-hover-heading">' +
       '<img class="item-hover-image" data-item-tooltip-image-id="' + escapeSlotText(item.id || "") + '" alt="" />' +
-      '<div><strong>' + escapeSlotText(item.name || "Unknown item") + '</strong>' +
+      '<div><strong class="item-hover-name ' + qualityClass + '">' + escapeSlotText(item.name || "Unknown item") + '</strong>' +
       '<span>' + (level ? 'Item level ' + escapeSlotText(level) : 'Item level unavailable') + '</span></div>' +
     '</div>' +
     '<div class="item-hover-stats">' + (statRows || '<span class="item-hover-no-stats">Verified stats unavailable</span>') + '</div>' +
