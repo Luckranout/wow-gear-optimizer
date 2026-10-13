@@ -204,11 +204,11 @@ function scoreItemStats(item, statWeights = STAT_WEIGHTS) {
   const stats = Array.isArray(item.stats)
     ? item.stats.map(s => [
         normalizeItemStatName(s.stat?.name || s.type?.name || s.name || s.stat),
-        Number(s.value) || 0
+        Number(s.value ?? s.amount) || 0
       ])
     : Object.entries(item.stats).map(([stat, value]) => [
         normalizeItemStatName(stat),
-        Number(value) || 0
+        Number(value?.value ?? value?.amount ?? value) || 0
       ]);
   return stats.reduce((score, [stat, value]) =>
     score + value * (statWeights[stat] ?? 0), 0);
