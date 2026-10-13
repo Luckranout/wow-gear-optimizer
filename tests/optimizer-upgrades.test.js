@@ -25,6 +25,40 @@ if (o.applySecondaryRatingDiminishingReturns(2000,"Haste",80) !== null ||
 }
 console.log("Level-90 progressive secondary-rating DR regression passed.");
 
+// Upgrade shortlist must score a candidate against the full equipped rating totals.
+// With 1,320 Haste already equipped, +264 Haste yields only 237.6 effective rating;
+// +264 Mastery is therefore the stronger candidate when weights are equal.
+const contextualGear = {
+  Chest: { id: 989001, name: "Equipped Haste Chest", slot: "Chest", itemLevel: 100, stats: { Haste: 1320 } }
+};
+const contextualCandidates = [
+  { id: 989002, name: "Haste Helm", slot: "Head", itemLevel: 100, stats: { Haste: 264 } },
+  { id: 989003, name: "Mastery Helm", slot: "Head", itemLevel: 100, stats: { Mastery: 264 } }
+];
+const contextualUpgrades = o.findUpgradeOpportunities({
+  currentEquipment: contextualGear,
+  availableItems: contextualCandidates,
+  statWeights: { Haste: 1, Mastery: 1 },
+  className: "Shaman",
+  specialization: "Enhancement",
+  characterLevel: 90,
+  limit: 6
+});
+const contextualHead = contextualUpgrades.find(upgrade => upgrade.slot === "Head");
+if (contextualHead?.recommendedItem?.id !== 989003) {
+  throw new Error("Context-aware upgrade shortlist should prefer Mastery when existing Haste rating is in a penalty band");
+}
+const contextualBaseline = o.scoreLoadout(contextualGear, { Haste: 1, Mastery: 1 }, [], "Enhancement", 90).score;
+const contextualExpected = o.scoreLoadout(
+  { ...contextualGear, Head: contextualCandidates[1] },
+  { Haste: 1, Mastery: 1 }, [], "Enhancement", 90
+).score;
+if (Math.abs(contextualHead.improvement - (contextualExpected - contextualBaseline)) > 1e-9) {
+  throw new Error("Upgrade shortlist improvement must reflect full-loadout scoring");
+}
+console.log("Context-aware upgrade shortlist diminishing-returns regression passed.");
+
+
 // Screenshot example: at 1,320 Haste rating, the next 264 rating is entirely
 // in the 10% penalty band, so it adds 237.6 effective rating (5.4 percentage points).
 const exampleHasteBefore = o.applySecondaryRatingDiminishingReturns(1320, "Haste", 90);
