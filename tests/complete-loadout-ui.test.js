@@ -39,3 +39,12 @@ for (const required of [".loadout-compare-pair", ".compare-icon", ".loadout-stat
   if (!css.includes(required)) throw new Error("Loadout comparison styling missing: " + required);
 }
 console.log("Side-by-side loadout comparison UI checks passed.");
+
+// Live Blizzard character stats may be object maps, unlike catalog stat arrays.
+// Ensure the comparison renderer handles both representations.
+if (!app.includes('typeof item?.stats === "object"') ||
+    !app.includes('Object.entries(item.stats)')) {
+  throw new Error("Loadout stat comparison must support object-map stats from live character gear");
+}
+console.log("Live character object-map stat comparison regression passed.");
+
