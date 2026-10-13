@@ -452,6 +452,36 @@ for (const [left, right] of [["Ring 1", "Ring 2"], ["Trinket 1", "Trinket 2"]]) 
 }
 console.log("Distinct paired-slot item regression passed.");
 
+// Regression: live Blizzard stat maps may use lowercase names and nested values.
+// Their stats must contribute to the score instead of silently becoming zero.
+const lowercaseLiveRing = {
+  id: 990001, name: "Live Equipped Ring", slot: "Ring 1", itemLevel: 311,
+  stats: { stamina: 1689, haste: 232, versatility: 121 }
+};
+const lowerRingScore = o.scoreItem(lowercaseLiveRing);
+const equivalentCatalogRing = {
+  id: 990002, name: "Equivalent Catalog Ring", slot: "Ring 1", itemLevel: 311,
+  stats: { Stamina: 1689, Haste: 232, Versatility: 121 }
+};
+if (Math.abs(lowerRingScore - o.scoreItem(equivalentCatalogRing)) > 0.001) {
+  throw new Error("Lowercase imported ring stats must score identically to normalized catalog stats");
+}
+const lowRing = {
+  id: 990003, name: "Low-Level Ring", slot: "Ring 1", itemLevel: 219,
+  stats: { stamina: 565, haste: 123, versatility: 35 }
+};
+const ringReport = o.optimizeEquipment({
+  items: [lowRing],
+  character: {
+    ...o.createCharacterProfile(),
+    equipment: { ...o.createCharacterProfile().equipment, "Ring 1": lowercaseLiveRing }
+  }
+});
+if (ringReport.equipment["Ring 1"]?.id !== lowercaseLiveRing.id) {
+  throw new Error("Optimizer must not recommend a lower-scoring ilvl 219 ring over the equipped ilvl 311 ring");
+}
+console.log("Imported stat normalization and lower-level ring regression passed.");
+
 // Regression: the optimizer must retain current equipped gear as a candidate
 // when the catalog only offers an unrelated, much lower-item-level target.
 const currentHelm = {
