@@ -39,3 +39,9 @@ for (const required of [".loadout-compare-pair", ".compare-icon", ".loadout-stat
   if (!css.includes(required)) throw new Error("Loadout comparison styling missing: " + required);
 }
 console.log("Side-by-side loadout comparison UI checks passed.");
+
+if (!app.includes("Not a verified upgrade: this candidate has a lower displayed item level") ||
+    !app.includes("Keep your currently equipped item until a complete, trustworthy comparison is available.")) {
+  throw new Error("Lower-level recommendations with incomplete stat comparisons must be clearly marked as not verified upgrades");
+}
+console.log("Incomplete lower-level recommendation safety warning checks passed.");
