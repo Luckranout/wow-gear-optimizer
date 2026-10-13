@@ -930,7 +930,7 @@ function createOptimizationReport({character = createCharacterProfile(), availab
     statWeights,
     className: character.className,
     specialization: character.specialization,
-    limit: 5
+    limit: 6
   });
   const system = upgradeSystem || getUpgradeSystem(dataset);
   const upgradePlans = WOW_EQUIPMENT_SLOTS
