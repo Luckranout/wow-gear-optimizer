@@ -691,6 +691,8 @@ function findUpgradeOpportunities({
   availableItems = [],
   goal = WOW_GOALS.general,
   statWeights = null,
+  className = "",
+  specialization = "",
   limit = 5
 } = {}) {
   const weights = statWeights || getGoalWeights(goal);
@@ -698,7 +700,17 @@ function findUpgradeOpportunities({
   for (const slot of WOW_EQUIPMENT_SLOTS) {
     const currentItem = currentEquipment[slot];
     const currentScore = scoreItem(currentItem, weights);
-    const candidates = availableItems.filter(item => itemMatchesSlot(item, slot) && hasUsableItemStats(item))
+    // Upgrade cards must use the same class/spec eligibility rules as the
+    // optimized loadout. Otherwise a slot-only scan can recommend a weapon
+    // (for example an Intellect staff for Enhancement) that the loadout engine
+    // correctly rejects.
+    const candidates = availableItems.filter(item =>
+      itemMatchesSlot(item, slot) &&
+      itemAllowedForClass(item, className) &&
+      itemAllowedForClassWeapon(item, slot, className) &&
+      itemAllowedForSpecialization(item, slot, className, specialization) &&
+      hasUsableItemStats(item)
+    )
       .map(item => ({ item, score: scoreItem(item, weights) }))
       .filter(candidate => candidate.score > currentScore)
       .sort((a, b) => b.score - a.score);
@@ -889,6 +901,8 @@ function createOptimizationReport({character = createCharacterProfile(), availab
     availableItems,
     goal,
     statWeights,
+    className: character.className,
+    specialization: character.specialization,
     limit: 5
   });
   const system = upgradeSystem || getUpgradeSystem(dataset);
