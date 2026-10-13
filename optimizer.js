@@ -180,6 +180,51 @@ function hasUsableItemStats(item) {
   );
 }
 
+const CLASS_ARMOR_TYPE = {
+  warrior: "plate",
+  paladin: "plate",
+  deathknight: "plate",
+  hunter: "mail",
+  shaman: "mail",
+  evoker: "mail",
+  demonhunter: "leather",
+  druid: "leather",
+  monk: "leather",
+  rogue: "leather",
+  mage: "cloth",
+  priest: "cloth",
+  warlock: "cloth"
+};
+
+const ARMOR_SLOTS = new Set(["Head", "Shoulders", "Chest", "Wrists", "Hands", "Waist", "Legs", "Feet"]);
+
+function normalizeClassName(className) {
+  return String(className || "").toLowerCase().replace(/[\s'_-]/g, "");
+}
+
+function itemAllowedForClass(item, className) {
+  if (!item || !className) return true;
+  const expectedArmor = CLASS_ARMOR_TYPE[normalizeClassName(className)];
+  if (!expectedArmor) return true;
+
+  const inventoryType = String(item.inventoryType?.name || item.inventoryType || "").trim().toLowerCase();
+  const slot = item.slot || ({
+    head: "Head", shoulder: "Shoulders", shoulders: "Shoulders", chest: "Chest",
+    wrist: "Wrists", wrists: "Wrists", hands: "Hands", hand: "Hands",
+    waist: "Waist", legs: "Legs", feet: "Feet"
+  })[inventoryType];
+  if (!ARMOR_SLOTS.has(slot)) return true;
+
+  const itemClass = String(item.itemClass?.name || item.itemClass || "").trim().toLowerCase();
+  const subclass = String(item.itemSubclass?.name || item.itemSubclass || "").trim().toLowerCase();
+  // Only filter when the catalog explicitly identifies an armor subclass.
+  // Missing or unknown metadata must not silently remove otherwise valid gear.
+  if (itemClass && !itemClass.includes("armor") && !itemClass.includes("armour")) return true;
+  if (["cloth", "leather", "mail", "plate"].includes(subclass)) return subclass === expectedArmor;
+  return true;
+}
+
+
 function scoreItem(item, statWeights = STAT_WEIGHTS) {
   if (!item || !hasUsableItemStats(item)) return 0;
   const itemLevel = Number(item.itemLevel ?? item.level) || 0;
