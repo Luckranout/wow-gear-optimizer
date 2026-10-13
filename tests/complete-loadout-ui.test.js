@@ -25,10 +25,10 @@ console.log("Target gear loadout UI regression checks passed.");
 
 
 for (const required of [
-  "renderLoadoutItemCard(item, \"Recommended target\"",
+  "renderLoadoutItemCard(sameItem ? null : item",
   "renderLoadoutItemCard(current, \"Currently equipped\"",
   "Stat changes if equipped",
-  "getLoadoutUpgradeReason(item, current, sameItem)",
+  "sameItem ? \"The optimizer selected your current item because it did not identify a distinct better candidate in the available catalog. This is not a new-item recommendation.\" : getLoadoutUpgradeReason(item, current, sameItem)",
   "Why this recommendation?",
   "data-item-icon-id",
   "renderLoadoutStatRows(item, current)"
