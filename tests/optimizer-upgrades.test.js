@@ -452,6 +452,30 @@ for (const [left, right] of [["Ring 1", "Ring 2"], ["Trinket 1", "Trinket 2"]]) 
 }
 console.log("Distinct paired-slot item regression passed.");
 
+// Regression: the optimizer must retain current equipped gear as a candidate
+// when the catalog only offers an unrelated, much lower-item-level target.
+const currentHelm = {
+  id: 777001, name: "Current High-Level Helm", slot: "Head", itemLevel: 318,
+  stats: { Strength: 162, Intellect: 162, Stamina: 3254, CriticalStrike: 116, Mastery: 72 }
+};
+const lowCatalogHelm = {
+  id: 777002, name: "Low-Level Catalog Helm", slot: "Head", itemLevel: 219,
+  stats: { Strength: 65, Intellect: 65, Stamina: 1005, CriticalStrike: 32, Haste: 75 }
+};
+const retainedLoadout = o.optimizeEquipment({
+  items: [lowCatalogHelm],
+  character: {
+    ...o.createCharacterProfile(),
+    className: "Warrior",
+    specialization: "Protection",
+    equipment: { ...o.createCharacterProfile().equipment, Head: currentHelm }
+  }
+});
+if (retainedLoadout.equipment.Head?.id !== currentHelm.id) {
+  throw new Error("Optimizer selected an unrelated lower-level catalog item over the equipped helm");
+}
+
+
 
 // Regression: the catalog's base item record must not replace the character's
 // verified upgraded version of that same item in the optimized loadout.
