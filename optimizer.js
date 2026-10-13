@@ -459,10 +459,40 @@ function scoreSetBonuses(equipment = {}, setBonuses = [], specialization = "") {
   return { ...status, score };
 }
 
-function scoreLoadout(equipment = {}, statWeights = STAT_WEIGHTS, setBonuses = [], specialization = "") {
+function scoreEquipmentWithRatingDiminishingReturns(equipment = {}, statWeights = STAT_WEIGHTS, characterLevel = null) {
+  // Only apply the supplied threshold table when level is explicitly known to be 90.
+  // Otherwise preserve the existing rating score rather than applying wrong-level data.
+  if (Number(characterLevel) !== SECONDARY_RATING_DR_LEVEL) return scoreEquipment(equipment, statWeights);
+  const secondaryStats = new Set(Object.keys(SECONDARY_RATING_DR_TABLE));
+  const totals = {};
+  let score = 0;
+  for (const item of Object.values(equipment || {})) {
+    if (!item || !hasUsableItemStats(item)) continue;
+    score += (Number(item.itemLevel ?? item.level) || 0) * 2;
+    score += Number(item.effectValue) || 0;
+    if (item.isSetPiece) score += 10;
+    if (item.isUniqueEffect) score += 5;
+    const entries = Array.isArray(item.stats)
+      ? item.stats.map(s => [normalizeItemStatName(s.stat?.name || s.type?.name || s.name || s.stat), Number(s.value ?? s.amount) || 0])
+      : Object.entries(item.stats || {}).map(([stat, value]) => [normalizeItemStatName(stat), Number(value?.value ?? value?.amount ?? value) || 0]);
+    for (const [stat, value] of entries) {
+      if (secondaryStats.has(stat)) totals[stat] = (totals[stat] || 0) + value;
+      else score += value * (statWeights[stat] ?? 0);
+    }
+  }
+  for (const stat of secondaryStats) {
+    if (totals[stat] !== undefined) {
+      const effective = applySecondaryRatingDiminishingReturns(totals[stat], stat, characterLevel);
+      score += effective * (statWeights[stat] ?? 0);
+    }
+  }
+  return score;
+}
+
+function scoreLoadout(equipment = {}, statWeights = STAT_WEIGHTS, setBonuses = [], specialization = "", characterLevel = null) {
   const setScore = scoreSetBonuses(equipment, setBonuses, specialization);
   return {
-    score: scoreEquipment(equipment, statWeights) + setScore.score,
+    score: scoreEquipmentWithRatingDiminishingReturns(equipment, statWeights, characterLevel) + setScore.score,
     setBonuses: setScore
   };
 }
@@ -702,7 +732,7 @@ function optimizeEquipment({
   // Improve the complete loadout, not only individual slots. Only explicit,
   // source-backed threshold score values affect tradeoffs between item stats
   // and tier bonuses; unknown effects remain visible in the report.
-  const loadoutScore = equipment => scoreLoadout(equipment, weights, setBonuses, character.specialization || "").score;
+  const loadoutScore = equipment => scoreLoadout(equipment, weights, setBonuses, character.specialization || "", character.level).score;
   for (let pass = 0; pass < 3; pass++) {
     let changed = false;
     for (const slot of WOW_EQUIPMENT_SLOTS) {
@@ -752,7 +782,7 @@ function optimizeEquipment({
     if (!changed) break;
   }
 
-  const scored = scoreLoadout(optimizedEquipment, weights, setBonuses, character.specialization || "");
+  const scored = scoreLoadout(optimizedEquipment, weights, setBonuses, character.specialization || "", character.level);
   return {
     character: { ...character, goal },
     equipment: optimizedEquipment,
@@ -1049,7 +1079,7 @@ window.WoWOptimizer = {
   createCharacterProfile, normalizeCharacterStatistics, scoreCharacterStatistics, getCharacterStatSummary, resolveStatWeights, normalizeSimulationScaleFactors, getSimulationWeightContext, findBlizzardSpecialization, getSpecProfileContext,
   normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, hasUsableItemStats, scoreItem, scoreEquipment, getGoalWeights,
   findBestItemForSlot, itemMatchesSlot, itemAllowedForClassWeapon, itemAllowedForSpecialization, getWeaponMetadata, normalizeWeaponType, optimizeEquipment, findUpgradeOpportunities, rankItems,
-  getItemSetId, getSetBonusStatus, scoreSetBonuses, scoreLoadout,
+  getItemSetId, getSetBonusStatus, scoreSetBonuses, scoreEquipmentWithRatingDiminishingReturns, scoreLoadout,
   getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,
   calculateCrestRequirements, isAscendantVenomstoneEligible, recommendUpgradePlan,
   createOptimizationReport, testData: WOW_OPTIMIZER_TEST_DATA
