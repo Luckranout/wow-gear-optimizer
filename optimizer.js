@@ -798,10 +798,15 @@ function findUpgradeOpportunities({
   statWeights = null,
   className = "",
   specialization = "",
+  characterLevel = null,
+  setBonuses = [],
   limit = 6
 } = {}) {
   const weights = statWeights || getGoalWeights(goal);
   const upgrades = [];
+  const baselineLoadoutScore = scoreLoadout(
+    currentEquipment, weights, setBonuses, specialization, characterLevel
+  ).score;
 
   for (const slot of WOW_EQUIPMENT_SLOTS) {
     const currentItem = currentEquipment[slot];
@@ -813,15 +818,21 @@ function findUpgradeOpportunities({
       itemAllowedForSpecialization(item, slot, className, specialization) &&
       hasUsableItemStats(item)
     )
-      .map(item => ({ item, score: scoreItem(item, weights) }))
-      .filter(candidate => candidate.score > currentScore)
+      .map(item => {
+        const trialEquipment = { ...currentEquipment, [slot]: item };
+        const trialScore = scoreLoadout(
+          trialEquipment, weights, setBonuses, specialization, characterLevel
+        ).score;
+        return { item, score: trialScore, itemScore: scoreItem(item, weights) };
+      })
+      .filter(candidate => candidate.score > baselineLoadoutScore)
       .sort((a, b) => b.score - a.score);
 
     if (candidates.length) {
       const best = candidates[0];
       upgrades.push({
         slot, currentItem, recommendedItem: best.item, currentScore,
-        recommendedScore: best.score, improvement: best.score - currentScore
+        recommendedScore: best.score, improvement: best.score - baselineLoadoutScore
       });
     }
   }
