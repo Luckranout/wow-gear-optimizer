@@ -48,3 +48,15 @@ if (!app.includes('item?.stats && typeof item.stats === "object"') ||
 }
 console.log("Live character object-map stat comparison regression passed.");
 
+// The UI should treat a stat absent from one otherwise-valid item as zero,
+// so stat tradeoffs are visible instead of mislabeled as incomplete.
+const statRowsStart = app.indexOf("function renderLoadoutStatRows");
+const statRowsEnd = app.indexOf("function getLoadoutUpgradeReason", statRowsStart);
+const statRowsSource = app.slice(statRowsStart, statRowsEnd);
+if (!statRowsSource.includes("Object.hasOwn(targetStats, key) ? targetStats[key] : 0") ||
+    !statRowsSource.includes("Object.hasOwn(currentStats, key) ? currentStats[key] : 0")) {
+  throw new Error("Loadout stat comparison must show zero for a stat absent from one item when both items have stat data");
+}
+console.log("Missing-item-stat zero-delta comparison regression passed.");
+
+
