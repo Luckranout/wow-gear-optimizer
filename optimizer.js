@@ -32,6 +32,37 @@ const CLASS_ARMOR_TYPE = {
 };
 
 const ARMOR_SLOTS = new Set(["Head", "Shoulders", "Chest", "Wrists", "Hands", "Waist", "Legs", "Feet"]);
+const CLASS_WEAPON_PROFICIENCIES = {
+  warrior: ["axe", "dagger", "fist weapon", "gun", "mace", "polearm", "staff", "sword", "bow", "crossbow"],
+  paladin: ["axe", "mace", "polearm", "sword"],
+  hunter: ["axe", "dagger", "fist weapon", "gun", "polearm", "staff", "sword", "bow", "crossbow"],
+  rogue: ["axe", "dagger", "fist weapon", "mace", "sword", "bow", "crossbow", "gun"],
+  priest: ["dagger", "mace", "staff", "wand"],
+  deathknight: ["axe", "mace", "polearm", "sword"],
+  shaman: ["axe", "dagger", "fist weapon", "mace", "staff"],
+  mage: ["dagger", "staff", "sword", "wand"],
+  warlock: ["dagger", "staff", "sword", "wand"],
+  monk: ["axe", "fist weapon", "mace", "polearm", "staff", "sword"],
+  druid: ["dagger", "fist weapon", "mace", "polearm", "staff"],
+  demonhunter: ["axe", "dagger", "fist weapon", "sword", "warglaive"],
+  evoker: ["axe", "dagger", "fist weapon", "mace", "sword", "staff"]
+};
+
+function normalizeWeaponType(value) {
+  const key = String(value || "").trim().toLowerCase().replace(/[_-]+/g, " ");
+  const aliases = {
+    axes: "axe", "one handed axe": "axe", "two handed axe": "axe",
+    daggers: "dagger", "one handed dagger": "dagger",
+    "fist weapons": "fist weapon", fist: "fist weapon",
+    maces: "mace", "one handed mace": "mace", "two handed mace": "mace",
+    staves: "staff", polearms: "polearm", swords: "sword",
+    "one handed sword": "sword", "two handed sword": "sword",
+    bows: "bow", guns: "gun", crossbows: "crossbow", wands: "wand",
+    glaive: "warglaive", glaives: "warglaive", "war glaive": "warglaive"
+  };
+  return aliases[key] || key;
+}
+
 
 function normalizeClassName(className) {
   return String(className || "").toLowerCase().replace(/[\s'_-]/g, "");
@@ -71,6 +102,21 @@ function getWeaponMetadata(item) {
   const oneHanded = inventoryType.includes("one-hand") || inventoryType.includes("one hand") ||
     inventoryType.includes("onehand") || item?.twoHanded === false;
   return { inventoryType, weaponType, twoHanded, oneHanded };
+}
+
+function itemAllowedForClassWeapon(item, slot, className) {
+  if (slot !== "Main Hand" && slot !== "Off Hand") return true;
+  const classKey = normalizeClassName(className);
+  const allowed = CLASS_WEAPON_PROFICIENCIES[classKey];
+  if (!allowed) return true;
+  const rawType = item?.itemSubclass?.name || item?.itemSubclass || item?.weaponType || "";
+  const weaponType = normalizeWeaponType(rawType);
+  // Missing/unrecognized weapon-subclass metadata is not enough evidence to
+  // reject an item. The importer/catalog should provide itemSubclass for strict filtering.
+  if (!weaponType || !allowed.includes(weaponType)) {
+    return !weaponType;
+  }
+  return true;
 }
 
 function itemAllowedForSpecialization(item, slot, className, specialization) {
@@ -507,7 +553,7 @@ function resolveCatalogItemAgainstEquippedVariant(candidate, equippedItem) {
 function findBestItemForSlot(items, slot, goal, statWeights = null, className = "", equippedItem = null, specialization = "") {
   const weights = statWeights || getGoalWeights(goal);
   const candidates = (items || [])
-    .filter(item => itemMatchesSlot(item, slot) && itemAllowedForClass(item, className) && itemAllowedForSpecialization(item, slot, className, specialization) && hasUsableItemStats(item))
+    .filter(item => itemMatchesSlot(item, slot) && itemAllowedForClass(item, className) && itemAllowedForClassWeapon(item, slot, className) && itemAllowedForSpecialization(item, slot, className, specialization) && hasUsableItemStats(item))
     .map(item => resolveCatalogItemAgainstEquippedVariant(item, equippedItem))
     .filter((item, index, all) => all.findIndex(other =>
       String(other.id ?? other.name) === String(item.id ?? item.name)
@@ -546,10 +592,10 @@ function optimizeEquipment({
   // distinct pair when the catalog has alternatives; keep the best single item
   // only when no second distinct item exists.
   for (const [firstSlot, secondSlot] of [["Ring 1", "Ring 2"], ["Trinket 1", "Trinket 2"], ["Main Hand", "Off Hand"]]) {
-    const first = candidateItems.filter(item => itemMatchesSlot(item, firstSlot) && itemAllowedForClass(item, character.className) && itemAllowedForSpecialization(item, firstSlot, character.className, character.specialization) && hasUsableItemStats(item))
+    const first = candidateItems.filter(item => itemMatchesSlot(item, firstSlot) && itemAllowedForClass(item, character.className) && itemAllowedForClassWeapon(item, firstSlot, character.className) && itemAllowedForSpecialization(item, firstSlot, character.className, character.specialization) && hasUsableItemStats(item))
       .map(item => ({ item, score: scoreItem(item, weights) }))
       .sort((a, b) => b.score - a.score);
-    const second = candidateItems.filter(item => itemMatchesSlot(item, secondSlot) && itemAllowedForClass(item, character.className) && itemAllowedForSpecialization(item, secondSlot, character.className, character.specialization) && hasUsableItemStats(item))
+    const second = candidateItems.filter(item => itemMatchesSlot(item, secondSlot) && itemAllowedForClass(item, character.className) && itemAllowedForClassWeapon(item, secondSlot, character.className) && itemAllowedForSpecialization(item, secondSlot, character.className, character.specialization) && hasUsableItemStats(item))
       .map(item => ({ item, score: scoreItem(item, weights) }))
       .sort((a, b) => b.score - a.score);
     let bestPair = null;
@@ -881,7 +927,7 @@ window.WoWOptimizer = {
   slots: WOW_EQUIPMENT_SLOTS, goals: WOW_GOALS,
   createCharacterProfile, normalizeCharacterStatistics, scoreCharacterStatistics, getCharacterStatSummary, resolveStatWeights, normalizeSimulationScaleFactors, getSimulationWeightContext, findBlizzardSpecialization, getSpecProfileContext,
   normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, hasUsableItemStats, scoreItem, scoreEquipment, getGoalWeights,
-  findBestItemForSlot, itemMatchesSlot, itemAllowedForSpecialization, getWeaponMetadata, optimizeEquipment, findUpgradeOpportunities, rankItems,
+  findBestItemForSlot, itemMatchesSlot, itemAllowedForClassWeapon, itemAllowedForSpecialization, getWeaponMetadata, normalizeWeaponType, optimizeEquipment, findUpgradeOpportunities, rankItems,
   getItemSetId, getSetBonusStatus, scoreSetBonuses, scoreLoadout,
   getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,
   calculateCrestRequirements, isAscendantVenomstoneEligible, recommendUpgradePlan,
