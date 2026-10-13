@@ -39,3 +39,14 @@ for (const required of [".loadout-compare-pair", ".compare-icon", ".loadout-stat
   if (!css.includes(required)) throw new Error("Loadout comparison styling missing: " + required);
 }
 console.log("Side-by-side loadout comparison UI checks passed.");
+
+
+for (const required of [
+  "function normalizeLoadoutStatName(rawName)",
+  'criticalstrike: "Critical Strike"',
+  "Object.entries(rawStats)",
+  "stat?.type?.name"
+]) {
+  if (!app.includes(required)) throw new Error("Loadout stat normalization missing: " + required);
+}
+console.log("Loadout stat-name and data-shape normalization checks passed.");
