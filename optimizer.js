@@ -107,8 +107,8 @@ function itemMatchesSlot(item, slot) {
   };
   if (item.slot === slot) {
     // Explicit slot metadata does not override incompatible weapon-hand metadata.
-    if ((slot === "Main Hand" || slot === "Off Hand") && inventoryType) {
-      return (map[inventoryType] || []).includes(slot);
+    if ((slot === "Main Hand" || slot === "Off Hand") && inventoryType && map[inventoryType]) {
+      return map[inventoryType].includes(slot);
     }
     return true;
   }
