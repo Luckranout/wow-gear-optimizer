@@ -348,7 +348,7 @@ function normalizeLoadoutStatName(rawName) {
     haste: "Haste", hasterating: "Haste", mastery: "Mastery", masteryrating: "Mastery",
     versatility: "Versatility", versatilityrating: "Versatility", armor: "Armor",
     bonusarmor: "Bonus Armor", leech: "Leech", avoidance: "Avoidance", speed: "Speed",
-    attackpower: "Attack Power", weapon dps: "Weapon DPS"
+    attackpower: "Attack Power", weapondps: "Weapon DPS"
   };
   return aliases[compact] || spaced.replace(/\\b[a-z]/g, letter => letter.toUpperCase());
 }
