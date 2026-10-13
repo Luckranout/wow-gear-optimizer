@@ -415,10 +415,26 @@ function renderLoadoutItemCard(item, label, emptyText) {
 function renderOptimizedLoadout(equipment = {}, score = 0, currentEquipment = {}) {
   const entries = slots.map(slot => [slot, equipment[slot] || null, currentEquipment[slot] || null]);
   loadoutResults.innerHTML = entries.map(([slot, item, current]) => {
-    const sameItem = item && current && (
+    const sameIdentity = item && current && (
       (item.id != null && current.id != null && String(item.id) === String(current.id)) ||
       (item.name && current.name && item.name.trim().toLowerCase() === current.name.trim().toLowerCase())
     );
+    const itemLevel = Number(displayItemLevel(item?.itemLevel ?? item?.level));
+    const currentLevel = Number(displayItemLevel(current?.itemLevel ?? current?.level));
+    const sameLevel = Number.isFinite(itemLevel) && Number.isFinite(currentLevel)
+      ? itemLevel === currentLevel
+      : itemLevel === currentLevel;
+    const targetStats = getLoadoutItemStats(item);
+    const equippedStats = getLoadoutItemStats(current);
+    const statKeys = [...new Set([...Object.keys(targetStats), ...Object.keys(equippedStats)])];
+    const sameStats = statKeys.every(key =>
+      Object.hasOwn(targetStats, key) &&
+      Object.hasOwn(equippedStats, key) &&
+      targetStats[key] === equippedStats[key]
+    );
+    // Item IDs/names can be shared by different upgrade variants. Only hide
+    // the target when the equipped and optimized records are the same variant.
+    const sameItem = Boolean(sameIdentity && sameLevel && sameStats);
     return '<article class="loadout-compare-row" data-equipment-slot="' + escapeSlotText(slot) + '">' +
       '<h3 class="loadout-compare-slot">' + escapeSlotText(slot) + '</h3>' +
       '<div class="loadout-compare-pair">' +
