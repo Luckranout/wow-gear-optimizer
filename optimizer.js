@@ -527,7 +527,7 @@ function optimizeEquipment({
   // Improve the complete loadout, not only individual slots. Only explicit,
   // source-backed threshold score values affect tradeoffs between item stats
   // and tier bonuses; unknown effects remain visible in the report.
-  const loadoutScore = equipment => scoreLoadout(equipment, weights, setBonuses).score;
+  const loadoutScore = equipment => scoreLoadout(equipment, weights, setBonuses, character.specialization || \"\").score;
   for (let pass = 0; pass < 3; pass++) {
     let changed = false;
     for (const slot of WOW_EQUIPMENT_SLOTS) {
@@ -565,7 +565,7 @@ function optimizeEquipment({
     if (!changed) break;
   }
 
-  const scored = scoreLoadout(optimizedEquipment, weights, setBonuses);
+  const scored = scoreLoadout(optimizedEquipment, weights, setBonuses, character.specialization || \"\");
   return {
     character: { ...character, goal },
     equipment: optimizedEquipment,
