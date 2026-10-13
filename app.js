@@ -422,12 +422,12 @@ function renderOptimizedLoadout(equipment = {}, score = 0, currentEquipment = {}
     return '<article class="loadout-compare-row" data-equipment-slot="' + escapeSlotText(slot) + '">' +
       '<h3 class="loadout-compare-slot">' + escapeSlotText(slot) + '</h3>' +
       '<div class="loadout-compare-pair">' +
-        renderLoadoutItemCard(item, "Recommended target", "No verified candidate available") +
+        renderLoadoutItemCard(sameItem ? null : item, sameItem ? "No better item identified" : "Recommended target", sameItem ? "No distinct upgrade found in the current catalog" : "No verified candidate available") +
         renderLoadoutItemCard(current, "Currently equipped", "No item equipped / imported") +
       '</div>' +
       '<section class="loadout-stat-delta"><h4>Stat changes if equipped</h4>' +
-        (sameItem ? '<p class="compare-no-stats">Already equipped — no change.</p>' : renderLoadoutStatRows(item, current)) +
-        '<div class="loadout-upgrade-reason"><strong>Why this recommendation?</strong><p>' + escapeSlotText(getLoadoutUpgradeReason(item, current, sameItem)) + '</p></div>' +
+        (sameItem ? '<p class="compare-no-stats">No change — no distinct upgrade was identified in the current item catalog.</p>' : renderLoadoutStatRows(item, current)) +
+        '<div class="loadout-upgrade-reason"><strong>Why this recommendation?</strong><p>' + escapeSlotText(sameItem ? "The optimizer selected your current item because it did not identify a distinct better candidate in the available catalog. This is not a new-item recommendation." : getLoadoutUpgradeReason(item, current, sameItem)) + '</p></div>' +
       '</section>' +
     '</article>';
   }).join("") + '<div class="loadout-summary"><strong>Recommended target score: ' + escapeSlotText(formatGearScore(score)) + '</strong><span>Goal/spec-weighted catalog scoring. Item stats are shown only when present in the catalog or character import; unavailable data is not inferred.</span></div>';
