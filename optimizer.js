@@ -183,6 +183,34 @@ function normalizeCharacterStatistics(statistics = {}) {
   return normalized;
 }
 
+// Progressive diminishing returns for secondary-stat rating-derived percentages only.
+// Pass the linear pre-DR percentage from rating, never total haste including Bloodlust/Heroism.
+const SECONDARY_RATING_DR_BANDS = [
+  { rawLimit: 30, multiplier: 1.0 }, { rawLimit: 40, multiplier: 0.9 },
+  { rawLimit: 50, multiplier: 0.8 }, { rawLimit: 60, multiplier: 0.7 },
+  { rawLimit: 80, multiplier: 0.6 }, { rawLimit: 200, multiplier: 0.5 }
+];
+const SECONDARY_RATING_DR_CAP = 126;
+function applySecondaryRatingDiminishingReturns(rawRatingPercent) {
+  const raw = Number(rawRatingPercent);
+  if (!Number.isFinite(raw) || raw <= 0) return 0;
+  const cappedRaw = Math.min(raw, 200);
+  let previousLimit = 0, effective = 0;
+  for (const band of SECONDARY_RATING_DR_BANDS) {
+    effective += Math.max(0, Math.min(cappedRaw, band.rawLimit) - previousLimit) * band.multiplier;
+    previousLimit = band.rawLimit;
+    if (cappedRaw <= band.rawLimit) break;
+  }
+  return Math.min(SECONDARY_RATING_DR_CAP, effective);
+}
+function getSecondaryRatingDiminishingReturns(rawRatingPercent) {
+  const raw = Number(rawRatingPercent);
+  const rawRating = Number.isFinite(raw) ? Math.max(0, raw) : 0;
+  const effectivePercent = applySecondaryRatingDiminishingReturns(rawRating);
+  return { rawRatingPercent: rawRating, effectivePercent,
+    lostPercent: Math.max(0, rawRating - effectivePercent), capped: rawRating >= 200 };
+}
+
 function scoreCharacterStatistics(statistics = {}, statWeights = STAT_WEIGHTS) {
   const normalized = normalizeCharacterStatistics(statistics);
   return Object.entries(normalized).reduce((score, [stat, value]) =>
@@ -999,6 +1027,7 @@ const WOW_OPTIMIZER_TEST_DATA = [
 
 window.WoWOptimizer = {
   slots: WOW_EQUIPMENT_SLOTS, goals: WOW_GOALS,
+  applySecondaryRatingDiminishingReturns, getSecondaryRatingDiminishingReturns,
   createCharacterProfile, normalizeCharacterStatistics, scoreCharacterStatistics, getCharacterStatSummary, resolveStatWeights, normalizeSimulationScaleFactors, getSimulationWeightContext, findBlizzardSpecialization, getSpecProfileContext,
   normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, hasUsableItemStats, scoreItem, scoreEquipment, getGoalWeights,
   findBestItemForSlot, itemMatchesSlot, itemAllowedForClassWeapon, itemAllowedForSpecialization, getWeaponMetadata, normalizeWeaponType, optimizeEquipment, findUpgradeOpportunities, rankItems,
