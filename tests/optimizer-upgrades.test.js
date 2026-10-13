@@ -739,3 +739,27 @@ if (weaponResult.equipment["Main Hand"]?.id === staff.id) {
 if (weaponResult.equipment["Main Hand"]?.id === twoHandMace.id && weaponResult.equipment["Off Hand"]) {
   throw new Error("Optimizer must not combine a two-handed main-hand weapon with an off-hand item");
 }
+
+
+// Class weapon-proficiency regression: class eligibility is independent of spec
+// preference. A staff is a Shaman/Mage weapon, but not a Paladin weapon.
+const classWeapon = (id, subclass) => ({
+  id, name: "Weapon " + subclass, slot: "Main Hand", itemSubclass: subclass,
+  inventoryType: subclass === "Staff" ? "Staff" : "One-Hand",
+  itemLevel: 300, stats: { Agility: 50, Intellect: 50 }
+});
+if (!o.itemAllowedForClassWeapon(classWeapon(920001, "Staff"), "Main Hand", "Shaman")) {
+  throw new Error("Shaman weapon proficiency should allow staves");
+}
+if (o.itemAllowedForClassWeapon(classWeapon(920002, "Staff"), "Main Hand", "Paladin")) {
+  throw new Error("Paladin weapon proficiency should reject staves");
+}
+if (!o.itemAllowedForClassWeapon(classWeapon(920003, "Sword"), "Main Hand", "Paladin")) {
+  throw new Error("Paladin weapon proficiency should allow swords");
+}
+if (!o.itemAllowedForClassWeapon(classWeapon(920004, "Warglaive"), "Main Hand", "Demon Hunter")) {
+  throw new Error("Demon Hunter weapon proficiency should allow warglaives");
+}
+if (o.itemAllowedForClassWeapon(classWeapon(920005, "Warglaive"), "Main Hand", "Warrior")) {
+  throw new Error("Warrior weapon proficiency should reject warglaives");
+}
