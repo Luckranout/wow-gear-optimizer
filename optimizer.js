@@ -418,7 +418,7 @@ function resolveStatWeights({
 function findBestItemForSlot(items, slot, goal, statWeights = null) {
   const weights = statWeights || getGoalWeights(goal);
   return (items || []).filter(item => itemMatchesSlot(item, slot) && hasUsableItemStats(item))
-    .map(item => ({ item, score: candidateScore(item) }))
+    .map(item => ({ item, score: scoreItem(item, weights) }))
     .sort((a, b) => b.score - a.score)[0] || null;
 }
 
