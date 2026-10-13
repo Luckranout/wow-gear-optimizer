@@ -154,3 +154,9 @@ jobs:
         run: node tests/upgrade-spending.test.js
       - name: Run upgrade spending UI tests
         run: node tests/upgrade-spending-ui.test.js
+
+      - name: Run slot candidate diagnostics tests
+        run: node tests/slot-candidate-diagnostics.test.js
+
+      - name: Run Matrix Catalyst planning tests
+        run: node tests/matrix-catalyst-planning.test.js

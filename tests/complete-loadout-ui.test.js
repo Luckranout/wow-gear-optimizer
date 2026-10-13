@@ -60,3 +60,13 @@ if (!statRowsSource.includes("Object.hasOwn(targetStats, key) ? targetStats[key]
 console.log("Missing-item-stat zero-delta comparison regression passed.");
 
 
+
+if (!app.includes("Not a verified upgrade: this candidate has a lower displayed item level") ||
+    !app.includes("Keep your currently equipped item until a complete, trustworthy comparison is available.")) {
+  throw new Error("Lower-level recommendations with incomplete stat comparisons must be marked as unverified");
+}
+if (!app.includes('critrating: "criticalstrike"') ||
+    !app.includes('versatilityrating: "versatility"')) {
+  throw new Error("Loadout stat aliases must normalize Blizzard rating keys");
+}
+console.log("Lower-level safety and stat alias regression checks passed.");
