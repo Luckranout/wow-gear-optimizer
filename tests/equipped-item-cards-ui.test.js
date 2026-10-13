@@ -75,8 +75,9 @@ if (!styles.includes(".slot-icon-wrap:hover .item-hover-tooltip") ||
 console.log("Item icon hover tooltip UI contract passed.");
 
 if (!app.includes("function getItemQualityClass(item)") ||
-    !app.includes("item-quality-epic") ||
+    !app.includes('4: "epic"') ||
+    !app.includes('"item-quality-" + qualityName') ||
     !styles.includes(".item-hover-name.item-quality-epic")) {
-  throw new Error("Tooltip item names should use World of Warcraft rarity colors when quality is supplied.");
+  throw new Error("Tooltip item names should map supplied item quality to World of Warcraft rarity colors.");
 }
 console.log("WoW item-quality tooltip styling regression passed.");
