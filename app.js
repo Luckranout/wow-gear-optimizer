@@ -140,7 +140,7 @@ function renderItemHoverTooltip(item) {
   return '<div class="item-hover-tooltip" role="tooltip">' +
     '<div class="item-hover-heading">' +
       '<img class="item-hover-image" data-item-tooltip-image-id="' + escapeSlotText(item.id || "") + '" alt="" />' +
-      '<div><strong class="item-hover-name ' + qualityClass + '">' + escapeSlotText(item.name || "Unknown item") + '</strong>' +
+      '<div><a class="item-hover-name ' + qualityClass + '" href="https://www.wowhead.com/item=' + encodeURIComponent(String(item.id || "")) + '" target="_blank" rel="noopener noreferrer">' + escapeSlotText(item.name || "Unknown item") + '</a>' +
       '<span>' + (level ? 'Item level ' + escapeSlotText(level) : 'Item level unavailable') + '</span></div>' +
     '</div>' +
     '<div class="item-hover-stats">' + (statRows || '<span class="item-hover-no-stats">Verified stats unavailable</span>') + '</div>' +
