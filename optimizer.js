@@ -702,17 +702,14 @@ function findUpgradeOpportunities({
   statWeights = null,
   className = "",
   specialization = "",
-  limit = 5
+  limit = 6
 } = {}) {
   const weights = statWeights || getGoalWeights(goal);
   const upgrades = [];
+
   for (const slot of WOW_EQUIPMENT_SLOTS) {
     const currentItem = currentEquipment[slot];
     const currentScore = scoreItem(currentItem, weights);
-    // Upgrade cards must use the same class/spec eligibility rules as the
-    // optimized loadout. Otherwise a slot-only scan can recommend a weapon
-    // (for example an Intellect staff for Enhancement) that the loadout engine
-    // correctly rejects.
     const candidates = availableItems.filter(item =>
       itemMatchesSlot(item, slot) &&
       itemAllowedForClass(item, className) &&
@@ -723,6 +720,7 @@ function findUpgradeOpportunities({
       .map(item => ({ item, score: scoreItem(item, weights) }))
       .filter(candidate => candidate.score > currentScore)
       .sort((a, b) => b.score - a.score);
+
     if (candidates.length) {
       const best = candidates[0];
       upgrades.push({
@@ -731,9 +729,29 @@ function findUpgradeOpportunities({
       });
     }
   }
-  return upgrades.sort((a, b) => b.improvement - a.improvement).slice(0, limit);
-}
 
+  // The summary is a six-upgrade shortlist, not one card per equipment slot.
+  // Keep at most one ring, one trinket, and one weapon across both hands.
+  // A two-handed main-hand recommendation also occupies the weapon allowance
+  // and must not be paired with an off-hand recommendation.
+  const categoryFor = upgrade => {
+    if (upgrade.slot === "Ring 1" || upgrade.slot === "Ring 2") return "ring";
+    if (upgrade.slot === "Trinket 1" || upgrade.slot === "Trinket 2") return "trinket";
+    if (upgrade.slot === "Main Hand" || upgrade.slot === "Off Hand") return "weapon";
+    return upgrade.slot;
+  };
+  const sorted = upgrades.sort((a, b) => b.improvement - a.improvement);
+  const selected = [];
+  const usedCategories = new Set();
+  for (const upgrade of sorted) {
+    const category = categoryFor(upgrade);
+    if (usedCategories.has(category)) continue;
+    selected.push(upgrade);
+    usedCategories.add(category);
+    if (selected.length >= Math.max(0, Number(limit) || 6)) break;
+  }
+  return selected;
+}
 function rankItems(items, goal = WOW_GOALS.general, statWeights = null) {
   const weights = statWeights || getGoalWeights(goal);
   return (items || []).filter(hasUsableItemStats)
