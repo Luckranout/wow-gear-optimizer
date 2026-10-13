@@ -396,3 +396,18 @@ footer {
 }
 .loadout-upgrade-reason strong { font-size:12px; }
 .loadout-upgrade-reason p { margin:5px 0 0; color:var(--muted); font-size:12px; line-height:1.5; }
+
+
+/* Keep the live character lookup form from squeezing the realm dropdown. */
+.import-box { min-width: 0; }
+.import-box > .form-grid { min-width: 0; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.import-box > .form-grid label { display: block; min-width: 0; }
+.import-box > .form-grid input,
+.import-box > .form-grid select { display: block; width: 100%; min-width: 0; max-width: 100%; box-sizing: border-box; }
+.import-box > .form-grid select { overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 800px) {
+  .import-box > .form-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+}
+@media (max-width: 520px) {
+  .import-box > .form-grid { grid-template-columns: minmax(0, 1fr); }
+}
