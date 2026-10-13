@@ -1,7 +1,7 @@
 const fs = require("fs");
 const vm = require("vm");
 
-const context = { window: {}, fetch: async () => ({ ok: true, json: async () => JSON.parse(fs.readFileSync("data/current-retail.json", "utf8")) }) };
+const context = { window: {}, fetch: async url => ({ ok: true, json: async () => JSON.parse(fs.readFileSync(String(url).includes("tier-sets-midnight-season-2.json") ? "data/tier-sets-midnight-season-2.json" : "data/current-retail.json", "utf8")) }) };
 vm.createContext(context);
 vm.runInContext(fs.readFileSync("wow-data.js", "utf8"), context);
 const dataLayer = context.window.WoWData;
