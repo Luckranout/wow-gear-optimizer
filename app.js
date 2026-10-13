@@ -388,12 +388,18 @@ function renderLoadoutStatRows(target, current) {
   const targetStats = getLoadoutItemStats(target);
   const currentStats = getLoadoutItemStats(current);
   const keys = [...new Set([...Object.keys(targetStats), ...Object.keys(currentStats)])].sort();
+  // If neither item has usable stat data, don't fabricate a comparison. When
+  // both items have stat data, an absent secondary stat means zero on that item,
+  // not an unknown value; this allows real tradeoffs (e.g. Haste gained while
+  // Versatility is lost) to be shown explicitly.
   if (!keys.length) return '<p class="compare-no-stats">Verified item stats are unavailable for one or both items.</p>';
+  if (!Object.keys(targetStats).length || !Object.keys(currentStats).length) {
+    return '<p class="compare-no-stats">Verified item stats are unavailable for one or both items.</p>';
+  }
   return keys.map(key => {
-    const hasTarget = Object.hasOwn(targetStats, key);
-    const hasCurrent = Object.hasOwn(currentStats, key);
-    if (!hasTarget || !hasCurrent) return '<div class="compare-stat"><span>' + escapeSlotText(key) + '</span><span class="compare-unknown">Comparison incomplete</span></div>';
-    const delta = targetStats[key] - currentStats[key];
+    const targetValue = Object.hasOwn(targetStats, key) ? targetStats[key] : 0;
+    const currentValue = Object.hasOwn(currentStats, key) ? currentStats[key] : 0;
+    const delta = targetValue - currentValue;
     const formatted = delta > 0 ? '+' + delta.toLocaleString() : delta.toLocaleString();
     const status = delta > 0 ? 'gain' : delta < 0 ? 'loss' : 'same';
     return '<div class="compare-stat"><span>' + escapeSlotText(key) + '</span><strong class="' + status + '">' + formatted + '</strong></div>';
