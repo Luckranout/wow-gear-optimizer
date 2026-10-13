@@ -213,6 +213,30 @@ async function loadRetailDataset(url = "data/current-retail.json") {
       scoreValue: null
     }))
   }));
+  // Add source-backed Shaman tier candidates for four PvE difficulty variants.
+  // PvP variants are mapped for set detection but remain excluded from candidates
+  // until their stat and item-level records are verified.
+  const verifiedTierCandidates = (tierCatalogue.sets || []).flatMap(set =>
+    (set.pieces || []).filter(piece => piece.candidate === true && Number.isFinite(Number(piece.itemLevel)) &&
+      Array.isArray(piece.stats) && piece.stats.length > 0).map(piece => ({
+        id: piece.itemId,
+        name: piece.name,
+        slot: piece.slot,
+        itemLevel: Number(piece.itemLevel),
+        level: Number(piece.itemLevel),
+        inventoryType: { name: ({Head:"Head",Shoulders:"Shoulder",Chest:"Chest",Hands:"Hands",Legs:"Legs"})[piece.slot] },
+        itemClass: { name: "Armor" },
+        itemSubclass: { name: "Mail" },
+        stats: piece.stats,
+        setId: piece.setId,
+        set: piece.setId,
+        source: "Wowhead Midnight Season 2 item page",
+        sourceUrl: piece.sourceUrl,
+        seasonScope: "Midnight Season 2"
+      }))
+  );
+  data.items.push(...verifiedTierCandidates);
+
   data.setBonuses = [...(data.setBonuses || []), ...sourceBackedBonuses];
 
   const errors = validateRetailDataset(data);
