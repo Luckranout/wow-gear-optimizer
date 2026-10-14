@@ -922,6 +922,7 @@ console.log("Nested Blizzard stat-value scoring regression passed.");
 // with at most one ring, one trinket, and one weapon across their paired slots.
 const shortlistSlots = [
   ["Head", 1001], ["Shoulders", 1002], ["Chest", 1003], ["Hands", 1004],
+  ["Waist", 1012], ["Legs", 1011], ["Neck", 1013], ["Back", 1014],
   ["Ring 1", 1005], ["Ring 2", 1006],
   ["Trinket 1", 1007], ["Trinket 2", 1008],
   ["Main Hand", 1009], ["Off Hand", 1010], ["Legs", 1011]
