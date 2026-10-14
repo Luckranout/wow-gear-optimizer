@@ -79,6 +79,24 @@ SEASON_CONTENT_NAMES = {
     "The Tidebound Grotto",
 }
 
+# Source-backed tier sets whose pieces can be awarded through raid tokens/Catalyst
+# rather than appearing as direct Journal encounter loot.
+SEASON_TIER_SET_NAMES = {
+    "Baleful Grave-Knight's Crucible",
+    "Abyssal Doomhound's Pursuit",
+    "Bark of the Enigmatic Dreamwatcher",
+    "Echo of Calamity",
+    "Skulking Viper's Ambush",
+    "Primal Leywarden's Attire",
+    "Guile of the Monkey King",
+    "Radiance of the Consecrated Flame",
+    "Cosmic Penitent Raiment",
+    "Chosen Bloodslayer's Hexweave",
+    "Ophidian Oracle's Prophecy",
+    "Damned Necrolyte's Shattered Restraints",
+    "Jade Warlord's Dominion",
+}
+
 
 def request_json(url, headers=None, data=None):
     request = urllib.request.Request(
@@ -464,6 +482,87 @@ def collect_season_content_item_ids(token):
         print(f"Season 2 PvE sources not present in Journal yet: {sorted(missing_sources)}")
 
     return item_sources, sorted(matched_instances), sorted(missing_sources)
+
+
+def normalize_tier_set_name(value):
+    """Match source-backed set names across possessive-apostrophe variants."""
+    normalized = normalize_name(value).replace("'s", "").replace("’s", "")
+    return re.sub(r"[^a-z0-9]+", "", normalized)
+
+
+def collect_season_tier_set_item_ids(token):
+    """Collect current-season tier pieces that direct Journal loot scans can omit."""
+    response = get_api_json(
+        "/data/wow/item-set/index",
+        token,
+        {"namespace": NAMESPACE, "locale": LOCALE},
+    )
+    set_refs = response.get("item_sets") or response.get("sets") or []
+    wanted = {normalize_tier_set_name(name) for name in SEASON_TIER_SET_NAMES}
+    matched_sets = []
+    item_sources = {}
+
+    for set_ref in set_refs:
+        set_id = extract_id(set_ref)
+        set_name = localized_name(set_ref.get("name")) if isinstance(set_ref, dict) else None
+        if normalize_tier_set_name(set_name) not in wanted or not set_id:
+            continue
+
+        detail = get_api_json(
+            f"/data/wow/item-set/{set_id}",
+            token,
+            {"namespace": NAMESPACE, "locale": LOCALE},
+        )
+        detail_name = localized_name(detail.get("name")) or set_name
+        if normalize_tier_set_name(detail_name) not in wanted:
+            continue
+        matched_sets.append(detail_name)
+
+        for item_ref in detail.get("items", []) or []:
+            item_record = item_ref.get("item") if isinstance(item_ref, dict) else item_ref
+            item_id = extract_id(item_record)
+            # Blizzard Item Set API commonly exposes each piece directly as
+            # {id, name, key: {href}}, not nested under an "item" property.
+            if not item_id:
+                item_id = extract_id(item_ref)
+            if not item_id:
+                continue
+            item_sources.setdefault(item_id, []).append({
+                "seasonScope": SEASON_SCOPE,
+                "category": "PvE",
+                "instance": "The Venomous Abyss",
+                "sourceType": "tier-set",
+                "itemSet": detail_name,
+                "itemSetId": set_id,
+            })
+        time.sleep(REQUEST_DELAY_SECONDS)
+
+    matched_names = {normalize_tier_set_name(name) for name in matched_sets}
+    missing_sets = sorted(name for name in SEASON_TIER_SET_NAMES if normalize_tier_set_name(name) not in matched_names)
+    print(
+        f"Season tier-set scan: {len(matched_sets)}/{len(SEASON_TIER_SET_NAMES)} "
+        f"sets matched, {len(item_sources)} unique tier item IDs."
+    )
+    if missing_sets:
+        print(f"Season 2 tier sets not exposed by Blizzard item-set index: {missing_sets}")
+    return item_sources, sorted(matched_sets), missing_sets
+
+
+def validate_season_tier_set_coverage(matched_sets, missing_sets, item_sources=None):
+    """Fail closed rather than publishing missing or empty current-season tier-set coverage."""
+    if missing_sets:
+        missing = ", ".join(missing_sets)
+        raise RuntimeError(
+            "Refusing to publish an incomplete Season 2 tier-set catalog. "
+            f"Matched {len(matched_sets)}/{len(SEASON_TIER_SET_NAMES)} expected sets; "
+            f"missing: {missing}. Check Blizzard Item Set API coverage and set-name mapping."
+        )
+    if item_sources is not None and not item_sources:
+        raise RuntimeError(
+            "Refusing to publish a Season 2 catalog with zero tier-set item IDs. "
+            "Blizzard returned matching set names but no extractable item references."
+        )
+    return True
 
 
 def extract_pvp_item_ids(value, item_sources, path=""):
@@ -1731,10 +1830,12 @@ def main():
     enforce_supported_season(current_pvp_season_id, current_pvp_season_name)
 
     pve_sources, matched_instances, missing_sources = collect_season_content_item_ids(token)
+    tier_set_sources, matched_tier_sets, missing_tier_sets = collect_season_tier_set_item_ids(token)
+    validate_season_tier_set_coverage(matched_tier_sets, missing_tier_sets, tier_set_sources)
     pvp_sources, pvp_metadata = collect_pvp_season_item_ids(
         token, current_pvp_season_id, current_pvp_season_name
     )
-    item_sources = merge_item_sources(pve_sources, pvp_sources)
+    item_sources = merge_item_sources(pve_sources, tier_set_sources, pvp_sources)
 
     talent_data = collect_talent_data(token)
     upgrade_data = collect_upgrade_and_crest_data()
@@ -1812,6 +1913,9 @@ def main():
         "itemStatCoverage": stat_coverage,
         "enhancementEffectCoverage": enhancement_effect_coverage,
         "pveCandidateItemCount": len(pve_sources),
+        "tierSetCandidateItemCount": len(tier_set_sources),
+        "matchedTierSets": matched_tier_sets,
+        "missingTierSets": missing_tier_sets,
         "pvpCandidateItemCount": len(pvp_sources),
         "matchedPvEInstances": matched_instances,
         "missingPvESources": missing_sources,
@@ -1844,6 +1948,7 @@ def main():
         "Season membership is source-based, not guessed from item level.",
         "Item stat coverage is a source-record presence metric, not proof of complete item stat/effect coverage; missing stats are reported and never inferred from item level.",
         "Season 2 PvE candidates come from matched Adventure Journal sources.",
+        "Current Season 2 tier-set pieces are supplemented from Blizzard's Item Set API because token/Catalyst pieces may not appear as direct encounter loot.",
         "Season 2 PvP candidates come from Blizzard's PvP Season 2 reward API.",
         "Current Midnight profession recipes are imported for gems, enchants, crafted gear, and other crafted outputs.",
         "Midnight Season 2 upgrade tracks, Mistcrests, exchange rules, and Ascendant Venomstone eligibility are stored explicitly; upgrade tracks are not inferred from item level.",

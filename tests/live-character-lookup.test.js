@@ -67,3 +67,42 @@ const realmsApi = fs.readFileSync("api/realms.js", "utf8");
 assert.ok(realmsApi.includes("fetchRealms"), "Realm API must use the cached Blizzard realm loader.");
 assert.ok(realmsApi.includes("s-maxage=21600"), "Realm API must advertise its cache lifetime.");
 console.log("Blizzard realm API contract passed.");
+
+
+const { normalizeBlizzardItemSearchResult } = require("../server/blizzard-character");
+const liveNeck = normalizeBlizzardItemSearchResult({
+  data: {
+    id: 271900,
+    name: { en_US: "Live Season Neck" },
+    level: 310,
+    inventory_type: { type: "NECK", name: { en_US: "Neck" } },
+    item_class: { id: 4, name: { en_US: "Armor" } },
+    item_subclass: { id: 0, name: { en_US: "Miscellaneous" } },
+    is_equippable: true,
+    stats: [{ type: { name: "Haste" }, value: 120 }]
+  }
+});
+assert.strictEqual(liveNeck.slot, "Neck");
+assert.strictEqual(liveNeck.itemLevel, 310);
+assert.strictEqual(liveNeck.isEquippable, true);
+assert.strictEqual(liveNeck.source, "Live Blizzard Item Search API");
+const liveShoulders = normalizeBlizzardItemSearchResult({
+  data: {
+    id: 271481,
+    name: { en_US: "Hissing Mantle of the Ophidian Oracle" },
+    level: 219,
+    inventory_type: { type: "SHOULDER", name: { en_US: "Shoulder" } },
+    item_class: { id: 4, name: { en_US: "Armor" } },
+    item_subclass: { id: 3, name: { en_US: "Mail" } },
+    is_equippable: true,
+    stats: [{ type: { name: "Haste" }, value: 56 }]
+  }
+});
+assert.strictEqual(liveShoulders.slot, "Shoulders");
+assert.strictEqual(liveShoulders.id, 271481);
+assert.strictEqual(normalizeBlizzardItemSearchResult({ data: { id: 4, name: "Wrong slot", inventory_type: { type: "HEAD", name: { en_US: "Head" } } } }).slot, null);
+
+const slotCandidatesApi = fs.readFileSync("api/slot-candidates.js", "utf8");
+assert.ok(slotCandidatesApi.includes("fetchSlotCandidates"), "Slot candidate endpoint must query Blizzard directly.");
+assert.ok(slotCandidatesApi.includes("Only Neck and Shoulders"), "Slot candidate endpoint must restrict requested slots.");
+console.log("Live Blizzard Neck/Shoulder candidate normalization tests passed.");

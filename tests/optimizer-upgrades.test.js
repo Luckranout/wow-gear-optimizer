@@ -52,8 +52,8 @@ const contextualGear = {
   Chest: { id: 989001, name: "Equipped Haste Chest", slot: "Chest", itemLevel: 100, stats: { Haste: 1320 } }
 };
 const contextualCandidates = [
-  { id: 989002, name: "Haste Helm", slot: "Head", itemLevel: 100, stats: { Haste: 264 } },
-  { id: 989003, name: "Mastery Helm", slot: "Head", itemLevel: 100, stats: { Mastery: 264 } }
+  { id: 989002, name: "Haste Helm", slot: "Head", itemClass: "Armor", itemSubclass: "Mail", itemLevel: 100, stats: { Haste: 264 } },
+  { id: 989003, name: "Mastery Helm", slot: "Head", itemClass: "Armor", itemSubclass: "Mail", itemLevel: 100, stats: { Mastery: 264 } }
 ];
 const contextualUpgrades = o.findUpgradeOpportunities({
   currentEquipment: contextualGear,
@@ -647,10 +647,12 @@ console.log("Imported stat normalization and lower-level ring regression passed.
 // when the catalog only offers an unrelated, much lower-item-level target.
 const currentHelm = {
   id: 777001, name: "Current High-Level Helm", slot: "Head", itemLevel: 318,
+  itemClass: "Armor", itemSubclass: "Plate",
   stats: { Strength: 162, Intellect: 162, Stamina: 3254, CriticalStrike: 116, Mastery: 72 }
 };
 const lowCatalogHelm = {
   id: 777002, name: "Low-Level Catalog Helm", slot: "Head", itemLevel: 219,
+  itemClass: "Armor", itemSubclass: "Plate",
   stats: { Strength: 65, Intellect: 65, Stamina: 1005, CriticalStrike: 32, Haste: 75 }
 };
 const retainedLoadout = o.optimizeEquipment({
@@ -711,11 +713,11 @@ const tierSetBonuses = [{
   ]
 }];
 const tierPieces = [
-  { id: 920001, name: "Tier Helm", slot: "Head", itemLevel: 300, stats: { Strength: 10 }, set: { id: "midnight-tier-test", name: "Test Tier Set" } },
-  { id: 920002, name: "Tier Shoulders", slot: "Shoulders", itemLevel: 300, stats: { Strength: 10 }, set: { id: "midnight-tier-test", name: "Test Tier Set" } },
-  { id: 920003, name: "Tier Chest", slot: "Chest", itemLevel: 300, stats: { Strength: 10 }, set: { id: "midnight-tier-test", name: "Test Tier Set" } },
-  { id: 920004, name: "Tier Legs", slot: "Legs", itemLevel: 300, stats: { Strength: 10 }, set: { id: "midnight-tier-test", name: "Test Tier Set" } },
-  { id: 920005, name: "Higher Item Level Helm", slot: "Head", itemLevel: 400, stats: { Strength: 100 } }
+  { id: 920001, name: "Tier Helm", slot: "Head", itemLevel: 300, itemClass: "Armor", itemSubclass: "Plate", stats: { Strength: 10 }, set: { id: "midnight-tier-test", name: "Test Tier Set" } },
+  { id: 920002, name: "Tier Shoulders", slot: "Shoulders", itemLevel: 300, itemClass: "Armor", itemSubclass: "Plate", stats: { Strength: 10 }, set: { id: "midnight-tier-test", name: "Test Tier Set" } },
+  { id: 920003, name: "Tier Chest", slot: "Chest", itemLevel: 300, itemClass: "Armor", itemSubclass: "Plate", stats: { Strength: 10 }, set: { id: "midnight-tier-test", name: "Test Tier Set" } },
+  { id: 920004, name: "Tier Legs", slot: "Legs", itemLevel: 300, itemClass: "Armor", itemSubclass: "Plate", stats: { Strength: 10 }, set: { id: "midnight-tier-test", name: "Test Tier Set" } },
+  { id: 920005, name: "Higher Item Level Helm", slot: "Head", itemLevel: 400, itemClass: "Armor", itemSubclass: "Plate", stats: { Strength: 100 } }
 ];
 const tierStatus = o.getSetBonusStatus({
   Head: tierPieces[0], Shoulders: tierPieces[1], Chest: tierPieces[2], Legs: tierPieces[3]
@@ -742,7 +744,7 @@ if (tierOptimized.setBonusStatus.score !== 580) {
   throw new Error("Tier set score did not sum the explicit active 2-piece and 4-piece values");
 }
 // Explicit threshold transitions: the fifth eligible piece is optional.
-const fifthTierPiece = { id: 920006, name: "Tier Feet", slot: "Feet", itemLevel: 300, stats: { Strength: 10 }, set: { id: "midnight-tier-test", name: "Test Tier Set" } };
+const fifthTierPiece = { id: 920006, name: "Tier Feet", slot: "Feet", itemLevel: 300, itemClass: "Armor", itemSubclass: "Plate", stats: { Strength: 10 }, set: { id: "midnight-tier-test", name: "Test Tier Set" } };
 const tierLoadouts = [
   { Head: tierPieces[0] },
   { Head: tierPieces[0], Shoulders: tierPieces[1] },
@@ -920,17 +922,20 @@ console.log("Nested Blizzard stat-value scoring regression passed.");
 // with at most one ring, one trinket, and one weapon across their paired slots.
 const shortlistSlots = [
   ["Head", 1001], ["Shoulders", 1002], ["Chest", 1003], ["Hands", 1004],
+  ["Waist", 1012], ["Legs", 1011], ["Neck", 1013], ["Back", 1014],
   ["Ring 1", 1005], ["Ring 2", 1006],
   ["Trinket 1", 1007], ["Trinket 2", 1008],
-  ["Main Hand", 1009], ["Off Hand", 1010], ["Legs", 1011]
+  ["Main Hand", 1009], ["Off Hand", 1010]
 ];
 const shortlistItems = shortlistSlots.map(([slot, id], index) => ({
   id,
   name: "Shortlist " + slot,
   slot,
   itemLevel: 300 + index,
+  itemClass: ["Head", "Shoulders", "Chest", "Hands", "Legs"].includes(slot) ? "Armor" : undefined,
+  itemSubclass: slot === "Main Hand" || slot === "Off Hand" ? "Axe" :
+    ["Head", "Shoulders", "Chest", "Hands", "Waist", "Legs"].includes(slot) ? "Plate" : undefined,
   inventoryType: slot === "Main Hand" || slot === "Off Hand" ? "One-Hand" : undefined,
-  itemSubclass: slot === "Main Hand" || slot === "Off Hand" ? "Axe" : undefined,
   stats: { Strength: 100 + index, Haste: 20 + index }
 }));
 const shortlist = o.findUpgradeOpportunities({
@@ -1033,3 +1038,37 @@ if (partialCapReport.ratingConstraintStatus?.balanced !== true ||
   throw new Error("A single over-cap stat should be rebalanced when a compliant candidate exists");
 }
 console.log("Hard-cap alert, priority-choice, and automatic rebalance regressions passed.");
+
+// Whole-loadout balancing regression: a lower-Haste necklace must be selected
+// when it brings the full level-90 loadout under the Haste hard cap, even if
+// the current necklace carries more raw Haste.
+const hasteBalanceCharacter = {
+  ...o.createCharacterProfile(),
+  level: 90,
+  className: "Shaman",
+  specialization: "Enhancement",
+  equipment: {
+    ...o.createCharacterProfile().equipment,
+    Head: { id: 992001, slot: "Head", itemClass: "Armor", itemSubclass: "Mail", itemLevel: 300, stats: { Haste: 8000 } },
+    Neck: { id: 992002, name: "Haste-heavy Necklace", slot: "Neck", itemLevel: 300, stats: { Haste: 1000 } }
+  }
+};
+const balancedNecklace = {
+  id: 992003,
+  name: "Balanced Necklace",
+  slot: "Neck",
+  itemLevel: 300,
+  stats: { Haste: 100, Mastery: 200 }
+};
+const wholeLoadoutBalance = o.optimizeEquipment({
+  items: [balancedNecklace],
+  character: hasteBalanceCharacter,
+  statWeights: { Haste: 1, Mastery: 1 }
+});
+if (wholeLoadoutBalance.equipment.Neck?.id !== balancedNecklace.id ||
+    wholeLoadoutBalance.ratingConstraintStatus?.balanced !== true ||
+    wholeLoadoutBalance.ratingConstraintStatus?.remainingViolations?.length !== 0) {
+  throw new Error("Whole-loadout optimizer must choose a cap-safe necklace and report balanced secondary ratings");
+}
+console.log("Whole-loadout necklace stat-balancing regression passed.");
+

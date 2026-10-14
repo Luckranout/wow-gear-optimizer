@@ -385,6 +385,11 @@ function getLoadoutItemStats(item) {
       crit: "criticalstrike",
       critical: "criticalstrike",
       criticalstrike: "criticalstrike",
+      critrating: "criticalstrike",
+      hasterating: "haste",
+      masteryrating: "mastery",
+      versatilityrating: "versatility",
+      bonusarmor: "bonusarmor",
       haste: "haste",
       mastery: "mastery",
       versatility: "versatility",
@@ -450,6 +455,12 @@ function getLoadoutUpgradeReason(target, current, sameItem = false) {
   const commonStats = Object.keys(targetStats).filter(key => Object.hasOwn(currentStats, key));
   const gains = commonStats.map(key => ({ key, delta: targetStats[key] - currentStats[key] })).filter(entry => entry.delta > 0).sort((a,b) => b.delta-a.delta);
   const losses = commonStats.map(key => ({ key, delta: targetStats[key] - currentStats[key] })).filter(entry => entry.delta < 0).sort((a,b) => a.delta-b.delta);
+  const comparisonIncomplete = !Object.keys(targetStats).length || !Object.keys(currentStats).length ||
+    Object.keys(targetStats).some(key => !Object.hasOwn(currentStats, key)) ||
+    Object.keys(currentStats).some(key => !Object.hasOwn(targetStats, key));
+  if (levelKnown && levelDelta < 0 && comparisonIncomplete) {
+    return "Not a verified upgrade: this candidate has a lower displayed item level (" + levelDelta + ") and the stat comparison is incomplete. Keep your currently equipped item until a complete, trustworthy comparison is available.";
+  }
   const parts = [];
   if (levelKnown && levelDelta > 0) parts.push("higher item level (+" + levelDelta + ")");
   else if (levelKnown && levelDelta < 0) parts.push("lower item level (" + levelDelta + ")");
@@ -622,7 +633,7 @@ goalSelect.addEventListener("change", () => {
   }
 });
 
-document.querySelector("#optimizeBtn").addEventListener("click", () => {
+document.querySelector("#optimizeBtn").addEventListener("click", async () => {
   if (!retailDataset) {
     resultMessage.textContent = "Current Retail data is still loading. Try again in a moment.";
     return;
@@ -651,9 +662,35 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
 
   const prioritySelect = secondaryRatingNotice?.querySelector("#secondaryRatingPriority");
   if (prioritySelect?.value) character.preferredSecondaryStat = prioritySelect.value;
+  let availableItems = Array.isArray(retailDataset.items) ? [...retailDataset.items] : [];
+  let liveSlotCandidateStatus = "";
+  let liveSlotCandidateDiagnostics = null;
+  if (importedCharacter) {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/slot-candidates?slots=Neck,Shoulders`);
+      const data = await response.json();
+      if (!response.ok) throw new Error(data?.error || `Blizzard slot lookup failed (HTTP ${response.status}).`);
+      const byId = new Map(availableItems.map(item => [String(item.id ?? item.itemId), item]));
+      let added = 0;
+      for (const item of Array.isArray(data.items) ? data.items : []) {
+        if (!item || !item.id || !["Neck", "Shoulders"].includes(item.slot)) continue;
+        const key = String(item.id);
+        if (!byId.has(key)) {
+          byId.set(key, item);
+          added += 1;
+        }
+      }
+      availableItems = [...byId.values()];
+      liveSlotCandidateDiagnostics = data.counts && typeof data.counts === "object" ? data.counts : null;
+      liveSlotCandidateStatus = ` • Live Blizzard Neck/Shoulder search: ${data.items?.length || 0} candidates, ${added} added to this run${data.cached ? " (cached)" : ""}`;
+    } catch (error) {
+      liveSlotCandidateStatus = ` • Live Neck/Shoulder lookup unavailable; using existing catalog only (${error.message})`;
+    }
+  }
+
   const report = WoWOptimizer.createOptimizationReport({
     character,
-    availableItems: retailDataset.items || [],
+    availableItems,
     dataset: retailDataset
   });
 
@@ -707,9 +744,24 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
     ? `${character.characterName} • ${character.className} • ${character.specialization}`
     : `${character.className} • ${character.specialization}`;
 
-  resultMessage.textContent = report.topUpgrades.length
-    ? `${label} • ${character.goal} — ${report.topUpgrades.length} gear candidates ranked. This is a ranking aid, not a verified best-in-slot result or numeric projected-stat calculation.`
-    : `${label} • ${character.goal} — no direct gear candidates ranked from the currently available dataset. This does not prove that no upgrades exist in game.`;
+  const liveSlotDiagnosticText = ["Neck", "Shoulders"].map(slot => {
+    const audit = WoWOptimizer.diagnoseSlotCandidates(availableItems, slot, character.className);
+    const live = liveSlotCandidateDiagnostics?.[slot];
+    const liveText = live
+      ? `Blizzard scanned ${live.scanned}, returned ${live.returned}, usable stats ${live.usableStats}, marked equippable ${live.equippable}`
+      : "Blizzard search counts unavailable";
+    return `${slot} diagnostics: ${liveText}; catalog slot matches ${audit.slotMatchCount}, class eligible ${audit.classEligibleCount}, optimizer eligible ${audit.optimizerEligibleCount}, usable stats ${audit.usableStatsCount}, excluded for class ${audit.excludedByClass.length}, missing stats ${audit.excludedByStats.length}, disabled ${audit.excludedByEligibility.length}`;
+  }).join(". ");
+
+  if (report.topUpgrades.length) {
+    resultMessage.textContent = `${label} • ${character.goal} — ${report.topUpgrades.length} gear candidates ranked.${liveSlotCandidateStatus} ${liveSlotDiagnosticText}. This is a ranking aid, not a verified best-in-slot result or numeric projected-stat calculation.`;
+  } else {
+    const diagnostics = WoWOptimizer.slots.map(slot => {
+      const audit = WoWOptimizer.diagnoseSlotCandidates(availableItems, slot, character.className);
+      return `${slot}: ${audit.usableStatsCount} usable / ${audit.slotMatchCount} slot matches (class eligible ${audit.classEligibleCount}; disabled ${audit.excludedByEligibility.length}; missing stats ${audit.excludedByStats.length})`;
+    });
+    resultMessage.textContent = `${label} • ${character.goal} — no direct gear candidates ranked.${liveSlotCandidateStatus} ${liveSlotDiagnosticText}. Catalog diagnostics by slot: ${diagnostics.join(" | ")}. This distinguishes missing or filtered catalog data from a verified absence of upgrades.`;
+  }
 });
 
 document.querySelector("#clearBtn").addEventListener("click", () => {

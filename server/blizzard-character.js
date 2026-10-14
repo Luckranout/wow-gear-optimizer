@@ -237,4 +237,116 @@ async function fetchItemMedia({ itemId, clientId, clientSecret }) {
   return { itemId: id, icon };
 }
 
-module.exports = { slugify, normalizeEquippedItem, normalizeStatistics, normalizeCharacterTalents, normalizeCharacter, fetchCharacter, fetchRealms, fetchItemMedia };
+
+const SLOT_CANDIDATE_CACHE_MS = 30 * 60 * 1000;
+const SLOT_CANDIDATE_LIMIT = 300;
+const slotCandidateCache = new Map();
+
+function normalizeBlizzardItemSearchResult(result) {
+  const item = result?.data && typeof result.data === "object" ? result.data : result;
+  if (!item || !Number.isSafeInteger(Number(item.id))) return null;
+  const localized = value => normalizeName(value);
+  const inventoryType = item.inventory_type || {};
+  const itemClass = item.item_class || {};
+  const itemSubclass = item.item_subclass || {};
+  const stats = Array.isArray(item.stats) ? item.stats : [];
+  const slotAliases = {
+    NECK: "Neck", SHOULDER: "Shoulders", SHOULDERS: "Shoulders"
+  };
+  const inventoryName = localized(inventoryType.name) || "";
+  const inventoryTypeCode = String(inventoryType.type || "").toUpperCase();
+  const slot = slotAliases[inventoryTypeCode] ||
+    (inventoryName.toLowerCase() === "neck" ? "Neck" :
+      ["shoulder", "shoulders"].includes(inventoryName.toLowerCase()) ? "Shoulders" : null);
+  return {
+    id: Number(item.id),
+    name: localized(item.name),
+    level: Number.isFinite(Number(item.level)) ? Number(item.level) : null,
+    itemLevel: Number.isFinite(Number(item.level)) ? Number(item.level) : null,
+    slot,
+    inventoryType: { id: resourceId(inventoryType), name: inventoryName, type: inventoryTypeCode || null },
+    itemClass: { id: resourceId(itemClass), name: localized(itemClass.name) },
+    itemSubclass: { id: resourceId(itemSubclass), name: localized(itemSubclass.name) },
+    quality: { id: resourceId(item.quality), name: localized(item.quality?.name) },
+    isEquippable: item.is_equippable === true,
+    stats,
+    source: "Live Blizzard Item Search API"
+  };
+}
+
+async function fetchSlotCandidates({ slots = ["Neck", "Shoulders"], clientId, clientSecret }) {
+  const allowedSlots = new Set(["Neck", "Shoulders"]);
+  const requested = [...new Set((Array.isArray(slots) ? slots : []).map(String))]
+    .filter(slot => allowedSlots.has(slot));
+  if (!requested.length) {
+    const error = new Error("Request Neck, Shoulders, or both.");
+    error.statusCode = 400;
+    error.publicMessage = error.message;
+    throw error;
+  }
+
+  const cacheKey = requested.slice().sort().join(",");
+  const cached = slotCandidateCache.get(cacheKey);
+  if (cached && cached.expiresAt > Date.now()) return { ...cached.value, cached: true };
+
+  const token = await getAccessToken(clientId, clientSecret);
+  const inventoryTypes = { Neck: "NECK", Shoulders: "SHOULDER" };
+  const itemsById = new Map();
+  const counts = {};
+
+  for (const slot of requested) {
+    const params = new URLSearchParams({
+      namespace: "static-us",
+      locale: LOCALE,
+      "inventory_type.type": inventoryTypes[slot],
+      orderby: "-level",
+      _pageSize: "100"
+    });
+    let page = 1;
+    let pageCount = 1;
+    let scanned = 0;
+    while (page <= pageCount && scanned < SLOT_CANDIDATE_LIMIT) {
+      params.set("_page", String(page));
+      const url = `${API_BASE}/data/wow/search/item?${params.toString()}`;
+      const response = await requestJson(url, token);
+      const results = Array.isArray(response.results) ? response.results : [];
+      pageCount = Math.max(1, Number(response.pageCount) || 1);
+      for (const result of results) {
+        const normalized = normalizeBlizzardItemSearchResult(result);
+        if (!normalized || normalized.slot !== slot || !normalized.name) continue;
+        itemsById.set(normalized.id, normalized);
+      }
+      scanned += results.length;
+      page += 1;
+    }
+    const slotItems = [...itemsById.values()].filter(item => item.slot === slot);
+    const hasUsableSearchStats = item => Array.isArray(item.stats) && item.stats.some(stat => {
+      if (!stat) return false;
+      const statName = stat.stat?.name || stat.type?.name || stat.name || stat.stat || stat.type;
+      const rawValue = stat.value?.value ?? stat.value?.amount ?? stat.amount ?? stat.value;
+      return Boolean(statName) && Number.isFinite(Number(rawValue)) && Number(rawValue) !== 0;
+    });
+    counts[slot] = {
+      scanned,
+      returned: slotItems.length,
+      usableStats: slotItems.filter(hasUsableSearchStats).length,
+      equippable: slotItems.filter(item => item.isEquippable === true).length,
+      missingUsableStats: slotItems.filter(item => !hasUsableSearchStats(item)).length,
+      notMarkedEquippable: slotItems.filter(item => item.isEquippable !== true).length
+    };
+  }
+
+  const value = {
+    items: [...itemsById.values()].sort((a, b) =>
+      (b.itemLevel || 0) - (a.itemLevel || 0) || a.id - b.id
+    ),
+    counts,
+    source: "Blizzard Game Data API",
+    fetchedAt: new Date().toISOString(),
+    cached: false
+  };
+  slotCandidateCache.set(cacheKey, { value, expiresAt: Date.now() + SLOT_CANDIDATE_CACHE_MS });
+  return value;
+}
+
+module.exports = { slugify, normalizeEquippedItem, normalizeStatistics, normalizeCharacterTalents, normalizeCharacter, fetchCharacter, fetchRealms, fetchItemMedia, fetchSlotCandidates, normalizeBlizzardItemSearchResult };
