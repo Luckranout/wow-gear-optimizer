@@ -1293,12 +1293,14 @@ def collect_profession_supporting_data(token):
     fallback_output_count = 0
     modified_crafting_cache = {}
 
-    for profession_ref in profession_refs:
+    print(f"Profession scan: {len(profession_refs)} professions exposed by Blizzard.", flush=True)
+    for profession_index, profession_ref in enumerate(profession_refs, start=1):
         profession_id = extract_id(profession_ref)
         profession_name = localized_name(profession_ref.get("name")) if isinstance(profession_ref, dict) else None
         if not profession_id or profession_name not in profession_names:
             continue
 
+        print(f"Profession scan [{profession_index}/{len(profession_refs)}]: loading {profession_name} (id {profession_id}).", flush=True)
         profession = get_api_json(
             f"/data/wow/profession/{profession_id}",
             token,
@@ -1316,16 +1318,24 @@ def collect_profession_supporting_data(token):
             print(f"Profession {profession_name}: no Midnight skill tier exposed.")
             continue
 
-        for tier_id, tier_name in current_tiers:
+        for tier_index, (tier_id, tier_name) in enumerate(current_tiers, start=1):
+            print(f"Profession {profession_name}: loading Midnight tier {tier_name} ({tier_index}/{len(current_tiers)}).", flush=True)
             skill_tier = get_api_json(
                 f"/data/wow/profession/{profession_id}/skill-tier/{tier_id}",
                 token,
                 {"namespace": NAMESPACE, "locale": LOCALE},
             )
 
-            for category in skill_tier.get("categories", []) or []:
+            categories = skill_tier.get("categories", []) or []
+            tier_recipe_count = sum(len(category.get("recipes", []) or []) for category in categories)
+            print(f"Profession {profession_name}/{tier_name}: {len(categories)} categories, {tier_recipe_count} recipe references.", flush=True)
+            processed_recipe_count = 0
+            for category in categories:
                 category_name = localized_name(category.get("name")) or ""
                 for recipe_ref in category.get("recipes", []) or []:
+                    processed_recipe_count += 1
+                    if processed_recipe_count == 1 or processed_recipe_count % 25 == 0 or processed_recipe_count == tier_recipe_count:
+                        print(f"Profession {profession_name}/{tier_name}: processing recipe {processed_recipe_count}/{tier_recipe_count}.", flush=True)
                     recipe_id = extract_id(recipe_ref)
                     if not recipe_id:
                         continue
@@ -1945,14 +1955,18 @@ def main():
     print(f"Blizzard current PvP season: {current_pvp_season_name} (id {current_pvp_season_id})")
     enforce_supported_season(current_pvp_season_id, current_pvp_season_name)
 
+    print("Import phase 1/7: collecting Midnight profession recipes.", flush=True)
     profession_recipes, profession_output_ids = collect_profession_supporting_data(token)
+    print(f"Import phase 2/7: enriching {len(profession_output_ids)} profession output items.", flush=True)
     supporting_items = fetch_supporting_item_details(token, profession_output_ids)
     gems, enchants, crafted_gear, other_crafted_items = classify_profession_outputs(
         profession_recipes,
         supporting_items,
     )
 
+    print("Import phase 3/7: scanning Season 2 PvE Journal sources.", flush=True)
     pve_sources, matched_instances, missing_sources = collect_season_content_item_ids(token)
+    print("Import phase 4/7: collecting Season 2 PvP rewards and gear.", flush=True)
     pvp_sources, pvp_metadata = collect_pvp_season_item_ids(
         token, current_pvp_season_id, current_pvp_season_name
     )
@@ -1984,6 +1998,7 @@ def main():
     verified_source_evidence = merge_item_sources(
         pve_sources, pvp_sources, crafted_source_map
     )
+    print("Import phase 5/7: discovering eligible equipment sections.", flush=True)
     section_ids, section_item_sources = collect_equipment_section_ids(
         token, get_api_json, verified_season_item_ids,
         source_evidence=verified_source_evidence,
@@ -2022,7 +2037,9 @@ def main():
     # Keep the unified dataset limited to the same verified slot-section IDs.
     items = list(items_by_id.values())
 
+    print("Import phase 6/7: collecting talent data.", flush=True)
     talent_data = collect_talent_data(token)
+    print("Import phase 7/7: assembling and validating the dataset.", flush=True)
     upgrade_data = collect_upgrade_and_crest_data()
 
     items.sort(
