@@ -34,7 +34,8 @@ NAMESPACE = "static-us"
 PVP_NAMESPACE = "dynamic-us"
 LOCALE = "en_US"
 REQUEST_DELAY_SECONDS = 0.15
-MAX_RETRIES = 4
+REQUEST_TIMEOUT_SECONDS = 20
+MAX_RETRIES = 3
 REQUESTS_PER_SECOND = 40
 REQUEST_INTERVAL_SECONDS = 1.0 / REQUESTS_PER_SECOND
 ITEM_CACHE_PATH = os.environ.get("BLIZZARD_ITEM_CACHE_PATH", "data/blizzard-item-cache.sqlite3")
@@ -67,7 +68,7 @@ def _cacheable_item_url(url, method):
     if method != "GET":
         return False
     parsed = urllib.parse.urlsplit(url)
-    return bool(re.fullmatch(r"/data/wow/item/\d+", parsed.path)) and parsed.netloc == "us.api.blizzard.com"
+    return bool(re.fullmatch(r"/data/wow/(?:item|recipe)/\d+", parsed.path)) and parsed.netloc == "us.api.blizzard.com"
 
 def _read_cached_item(url):
     if not _cacheable_item_url(url, "GET"):
@@ -83,7 +84,7 @@ def _read_cached_item(url):
         payload, cached_at = row
         if time.time() - cached_at > ITEM_CACHE_TTL_SECONDS:
             return None
-        print(f"Item cache hit: {urllib.parse.urlsplit(url).path}")
+        print(f"Blizzard response cache hit: {urllib.parse.urlsplit(url).path}")
         return json.loads(payload)
     except (sqlite3.Error, json.JSONDecodeError) as error:
         print(f"Item cache read skipped ({type(error).__name__}); fetching from source.")
@@ -193,7 +194,7 @@ def request_json(url, headers=None, data=None):
     for attempt in range(MAX_RETRIES):
         started = time.monotonic()
         try:
-            with throttled_urlopen(request, timeout=35) as response:
+            with throttled_urlopen(request, timeout=REQUEST_TIMEOUT_SECONDS) as response:
                 payload = json.load(response)
             _write_cached_item(url, payload)
             return payload
