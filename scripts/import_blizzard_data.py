@@ -2,6 +2,7 @@ import html
 import json
 import re
 import os
+import random
 import sys
 import time
 import urllib.error
@@ -33,7 +34,7 @@ NAMESPACE = "static-us"
 PVP_NAMESPACE = "dynamic-us"
 LOCALE = "en_US"
 REQUEST_DELAY_SECONDS = 0.15
-MAX_RETRIES = 3
+MAX_RETRIES = 4
 REQUESTS_PER_SECOND = 40
 REQUEST_INTERVAL_SECONDS = 1.0 / REQUESTS_PER_SECOND
 ITEM_CACHE_PATH = os.environ.get("BLIZZARD_ITEM_CACHE_PATH", "data/blizzard-item-cache.sqlite3")
@@ -192,7 +193,7 @@ def request_json(url, headers=None, data=None):
     for attempt in range(MAX_RETRIES):
         started = time.monotonic()
         try:
-            with throttled_urlopen(request, timeout=20) as response:
+            with throttled_urlopen(request, timeout=35) as response:
                 payload = json.load(response)
             _write_cached_item(url, payload)
             return payload
@@ -220,7 +221,7 @@ def request_json(url, headers=None, data=None):
         except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as error:
             elapsed = time.monotonic() - started
             if attempt < MAX_RETRIES - 1:
-                wait = min(2 ** attempt, 30)
+                wait = min(2 ** attempt + random.uniform(0.0, 0.5), 30)
                 print(
                     f"Blizzard request {endpoint} failed on attempt "
                     f"{attempt + 1}/{MAX_RETRIES} after {elapsed:.1f}s "
