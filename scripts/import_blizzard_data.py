@@ -7,7 +7,10 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
-from datetime import datetime, timezone
+import sqlite3
+import threading
+from datetime import datetime, timezone, timedelta
+from email.utils import parsedate_to_datetime
 
 try:
     from .equipment_catalog_sections import (
@@ -31,6 +34,88 @@ PVP_NAMESPACE = "dynamic-us"
 LOCALE = "en_US"
 REQUEST_DELAY_SECONDS = 0.15
 MAX_RETRIES = 3
+REQUESTS_PER_SECOND = 40
+REQUEST_INTERVAL_SECONDS = 1.0 / REQUESTS_PER_SECOND
+ITEM_CACHE_PATH = os.environ.get("BLIZZARD_ITEM_CACHE_PATH", "data/blizzard-item-cache.sqlite3")
+ITEM_CACHE_TTL_SECONDS = 7 * 24 * 60 * 60
+_request_lock = threading.Lock()
+_last_request_started = 0.0
+
+def throttled_urlopen(request, timeout):
+    """Apply one process-wide start-time limit to every outbound HTTP request."""
+    global _last_request_started
+    with _request_lock:
+        now = time.monotonic()
+        wait = REQUEST_INTERVAL_SECONDS - (now - _last_request_started)
+        if wait > 0:
+            time.sleep(wait)
+        _last_request_started = time.monotonic()
+    return urllib.request.urlopen(request, timeout=timeout)
+
+def _item_cache_connection():
+    os.makedirs(os.path.dirname(ITEM_CACHE_PATH) or ".", exist_ok=True)
+    connection = sqlite3.connect(ITEM_CACHE_PATH, timeout=30)
+    connection.execute(
+        "CREATE TABLE IF NOT EXISTS item_response_cache ("
+        "cache_key TEXT PRIMARY KEY, payload TEXT NOT NULL, cached_at REAL NOT NULL)"
+    )
+    connection.commit()
+    return connection
+
+def _cacheable_item_url(url, method):
+    if method != "GET":
+        return False
+    parsed = urllib.parse.urlsplit(url)
+    return bool(re.fullmatch(r"/data/wow/item/\d+", parsed.path)) and parsed.netloc == "us.api.blizzard.com"
+
+def _read_cached_item(url):
+    if not _cacheable_item_url(url, "GET"):
+        return None
+    try:
+        with _item_cache_connection() as connection:
+            row = connection.execute(
+                "SELECT payload, cached_at FROM item_response_cache WHERE cache_key = ?",
+                (url,),
+            ).fetchone()
+        if not row:
+            return None
+        payload, cached_at = row
+        if time.time() - cached_at > ITEM_CACHE_TTL_SECONDS:
+            return None
+        print(f"Item cache hit: {urllib.parse.urlsplit(url).path}")
+        return json.loads(payload)
+    except (sqlite3.Error, json.JSONDecodeError) as error:
+        print(f"Item cache read skipped ({type(error).__name__}); fetching from source.")
+        return None
+
+def _write_cached_item(url, payload):
+    if not _cacheable_item_url(url, "GET"):
+        return
+    try:
+        serialized = json.dumps(payload, separators=(",", ":"), ensure_ascii=False)
+        with _item_cache_connection() as connection:
+            connection.execute(
+                "INSERT INTO item_response_cache(cache_key, payload, cached_at) VALUES (?, ?, ?) "
+                "ON CONFLICT(cache_key) DO UPDATE SET payload=excluded.payload, cached_at=excluded.cached_at",
+                (url, serialized, time.time()),
+            )
+    except (sqlite3.Error, TypeError, ValueError) as error:
+        print(f"Item cache write skipped ({type(error).__name__}); continuing with live data.")
+
+def _retry_after_seconds(error):
+    value = error.headers.get("Retry-After") if error.headers else None
+    if not value:
+        return None
+    try:
+        return max(0.0, float(value))
+    except (TypeError, ValueError):
+        try:
+            retry_at = parsedate_to_datetime(value)
+            if retry_at.tzinfo is None:
+                retry_at = retry_at.replace(tzinfo=timezone.utc)
+            return max(0.0, (retry_at - datetime.now(timezone.utc)).total_seconds())
+        except (TypeError, ValueError, OverflowError):
+            return None
 
 MINIMUM_SEASON = 2
 SEASON_SCOPE = "Midnight Season 2+"
@@ -95,29 +180,35 @@ SEASON_CONTENT_NAMES = {
 
 
 def request_json(url, headers=None, data=None):
-    request = urllib.request.Request(
-        url,
-        headers=headers or {},
-        data=data,
-        method="POST" if data is not None else "GET",
-    )
+    method = "POST" if data is not None else "GET"
+    request = urllib.request.Request(url, headers=headers or {}, data=data, method=method)
     # Log only the host and path: query strings can contain credentials or tokens.
     parsed_url = urllib.parse.urlsplit(url)
     endpoint = f"{parsed_url.netloc}{parsed_url.path}"
+    cached = _read_cached_item(url) if _cacheable_item_url(url, method) else None
+    if cached is not None:
+        return cached
+
     for attempt in range(MAX_RETRIES):
         started = time.monotonic()
         try:
-            with urllib.request.urlopen(request, timeout=20) as response:
-                return json.load(response)
+            with throttled_urlopen(request, timeout=20) as response:
+                payload = json.load(response)
+            _write_cached_item(url, payload)
+            return payload
         except urllib.error.HTTPError as error:
             elapsed = time.monotonic() - started
             retryable = error.code == 429 or error.code >= 500
             if retryable and attempt < MAX_RETRIES - 1:
-                wait = 2 ** attempt
+                exponential_wait = min(2 ** attempt, 30)
+                retry_after = _retry_after_seconds(error) if error.code == 429 else None
+                wait = retry_after if retry_after is not None else exponential_wait
                 print(
                     f"Blizzard request {endpoint} returned HTTP {error.code} "
                     f"on attempt {attempt + 1}/{MAX_RETRIES} after {elapsed:.1f}s; "
-                    f"retrying in {wait}s..."
+                    f"retrying in {wait:.1f}s"
+                    + (" (Retry-After)" if retry_after is not None else " (exponential backoff)")
+                    + "..."
                 )
                 time.sleep(wait)
                 continue
@@ -126,20 +217,20 @@ def request_json(url, headers=None, data=None):
                 f"on attempt {attempt + 1}/{MAX_RETRIES} ({elapsed:.1f}s)."
             )
             raise
-        except (urllib.error.URLError, TimeoutError) as error:
+        except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as error:
             elapsed = time.monotonic() - started
             if attempt < MAX_RETRIES - 1:
-                wait = 2 ** attempt
+                wait = min(2 ** attempt, 30)
                 print(
                     f"Blizzard request {endpoint} failed on attempt "
                     f"{attempt + 1}/{MAX_RETRIES} after {elapsed:.1f}s "
-                    f"({error}); retrying in {wait}s..."
+                    f"({type(error).__name__}); retrying in {wait}s..."
                 )
                 time.sleep(wait)
                 continue
             print(
                 f"Blizzard request {endpoint} failed after {MAX_RETRIES} attempts "
-                f"({elapsed:.1f}s on final attempt): {error}"
+                f"({elapsed:.1f}s on final attempt): {type(error).__name__}"
             )
             raise
 
@@ -293,7 +384,7 @@ def fetch_wowhead_tooltip_stats(item_id, diagnostics=None):
     last_error = None
     for attempt in range(4):
         try:
-            with urllib.request.urlopen(request, timeout=30) as response:
+            with throttled_urlopen(request, timeout=30) as response:
                 payload = json.load(response)
             break
         except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as error:
