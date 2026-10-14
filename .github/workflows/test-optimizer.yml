@@ -96,6 +96,8 @@ jobs:
       - name: Run equipped gear comparison tests
         run: node tests/equipped-gear-comparison.test.js
 
+      - name: Run slot candidate diagnostics tests
+        run: node tests/slot-candidate-diagnostics.test.js
       - name: Run complete loadout UI tests
         run: node tests/complete-loadout-ui.test.js
       - name: Run live character lookup tests
