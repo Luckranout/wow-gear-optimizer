@@ -27,11 +27,11 @@ class BlizzardRequestRetryTests(unittest.TestCase):
 
         self.assertEqual(result, {"ok": True})
         self.assertEqual(urlopen.call_count, 3)
-        self.assertEqual(urlopen.call_args.kwargs["timeout"], 35)
+        self.assertEqual(urlopen.call_args.kwargs["timeout"], importer.REQUEST_TIMEOUT_SECONDS)
         self.assertEqual([call.args[0] for call in sleep.call_args_list], [1, 2])
         messages = "\n".join(str(call.args[0]) for call in printer.call_args_list)
         self.assertIn("us.api.blizzard.com/data/wow/search/item", messages)
-        self.assertIn("attempt 1/4", messages)
+        self.assertIn("attempt 1/3", messages)
         self.assertNotIn("DO_NOT_LOG", messages)
 
     def test_shared_throttler_waits_to_respect_request_interval(self):
@@ -83,6 +83,22 @@ class BlizzardRequestRetryTests(unittest.TestCase):
                 second = importer.request_json(url)
 
             self.assertEqual(first, {"id": 123, "name": "Test Item"})
+            self.assertEqual(second, first)
+            urlopen.assert_called_once()
+
+    def test_recipe_response_cache_reuses_successful_recipe_detail(self):
+        with tempfile.TemporaryDirectory() as directory:
+            cache_path = os.path.join(directory, "cache.sqlite3")
+            response = MagicMock()
+            response.__enter__.return_value.read.return_value = b'{"id": 52572, "name": "Test Recipe"}'
+            url = "https://us.api.blizzard.com/data/wow/recipe/52572?namespace=static-us&locale=en_US"
+            with patch.object(importer, "ITEM_CACHE_PATH", cache_path), patch.object(
+                importer.urllib.request, "urlopen", return_value=response
+            ) as urlopen, patch.object(importer, "REQUEST_INTERVAL_SECONDS", 0):
+                first = importer.request_json(url)
+                second = importer.request_json(url)
+
+            self.assertEqual(first, {"id": 52572, "name": "Test Recipe"})
             self.assertEqual(second, first)
             urlopen.assert_called_once()
 
