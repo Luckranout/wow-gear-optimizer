@@ -13,9 +13,9 @@ from pathlib import Path
 PAGE_SIZE = 1000
 REQUEST_DELAY_SECONDS = 0.15
 
-# Season 2 dungeon gear starts at item level 259 (Normal difficulty).
-# Legacy Journal loot can appear beside current-season loot in the same encounters.
-MIN_CURRENT_SEASON_PVE_ITEM_LEVEL = 259
+# Broad lower bound for the supplied Midnight catch-up/outdoor gear range.
+# Item level is only a legacy-loot sanity check; source provenance remains required.
+MIN_CURRENT_SEASON_PVE_ITEM_LEVEL = 250
 SECTION_SEARCHES = {
     "rings": ("FINGER",),
     "necklaces": ("NECK",),
