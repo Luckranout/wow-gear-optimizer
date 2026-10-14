@@ -84,6 +84,7 @@ class EquipmentSectionPaginationTests(unittest.TestCase):
             11: {"id": 11, "name": "Season Ring", "level": 292, "is_equippable": True, "inventory_type": {"type": "FINGER", "name": "Finger"}},
             12: {"id": 12, "name": "Season Head", "level": 292, "is_equippable": True, "inventory_type": {"type": "HEAD", "name": "Head"}},
             13: {"id": 13, "name": "Catch-up Ring", "level": 250, "is_equippable": True, "inventory_type": {"type": "FINGER", "name": "Finger"}},
+            14: {"id": 14, "name": "Below Threshold Ring", "level": 249, "is_equippable": True, "inventory_type": {"type": "FINGER", "name": "Finger"}},
         }
         calls = []
 
@@ -94,19 +95,20 @@ class EquipmentSectionPaginationTests(unittest.TestCase):
 
         with patch("builtins.print") as printer:
             sections, sources = collect_equipment_section_ids(
-                "token", get_detail, {10, 11, 12, 13}, sleep=lambda _s: None,
+                "token", get_detail, {10, 11, 12, 13, 14}, sleep=lambda _s: None,
                 source_evidence={
                     10: [{"category": "PvE", "seasonScope": "Midnight Season 2+", "encounter": "Legacy loot table"}],
                     11: [{"category": "PvE", "seasonScope": "Midnight Season 2+", "encounter": "Test encounter"}],
                     12: [{"category": "Crafted Gear", "seasonScope": "Midnight Season 2+", "professionRecipeSource": "Test recipe"}],
                     13: [{"category": "PvE", "seasonScope": "Midnight Season 2+", "activity": "Catch-up/outdoor reward"}],
+                    14: [{"category": "PvE", "seasonScope": "Midnight Season 2+", "activity": "Legacy loot test"}],
                 },
             )
         self.assertEqual(sections, {"rings": {11, 13}, "head": {12}})
         self.assertEqual(set(sources), {11, 12, 13})
-        self.assertEqual(len(calls), 4)
+        self.assertEqual(len(calls), 5)
         diagnostics = "\\n".join(str(call.args[0]) for call in printer.call_args_list)
-        self.assertIn("verified_source_ids=2", diagnostics)
+        self.assertIn("verified_source_ids=5", diagnostics)
         self.assertIn("section_counts=", diagnostics)
         self.assertEqual(sources[11][0]["encounter"], "Test encounter")
         self.assertEqual(sources[12][0]["professionRecipeSource"], "Test recipe")
