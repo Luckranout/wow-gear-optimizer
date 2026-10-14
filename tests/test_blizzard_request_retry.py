@@ -96,8 +96,7 @@ class BlizzardRequestRetryTests(unittest.TestCase):
 
     def test_final_failure_names_endpoint_and_stops_after_bounded_retries(self):
         with patch.object(
-            importer.urllib.request,
-            "urlopen",
+            importer, "throttled_urlopen",
             side_effect=urllib.error.URLError("ssl handshake timeout"),
         ) as urlopen, patch.object(importer.time, "sleep"), patch(
             "builtins.print"
