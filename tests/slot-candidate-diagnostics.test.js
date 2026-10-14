@@ -32,6 +32,46 @@ assert.equal(
 );
 assert.equal(typeof optimizer.diagnoseSlotCandidates, "function");
 
+// Hard armor proficiency matrix: only the character's armor type is eligible.
+const armorMatrix = [
+  ["Warrior", "Plate", true], ["Warrior", "Mail", false], ["Warrior", "Leather", false], ["Warrior", "Cloth", false],
+  ["Paladin", "Plate", true], ["Paladin", "Mail", false], ["Paladin", "Leather", false], ["Paladin", "Cloth", false],
+  ["Death Knight", "Plate", true], ["Death Knight", "Mail", false], ["Death Knight", "Leather", false], ["Death Knight", "Cloth", false],
+  ["Hunter", "Mail", true], ["Hunter", "Plate", false], ["Hunter", "Leather", false], ["Hunter", "Cloth", false],
+  ["Shaman", "Mail", true], ["Shaman", "Plate", false], ["Shaman", "Leather", false], ["Shaman", "Cloth", false],
+  ["Evoker", "Mail", true], ["Evoker", "Plate", false], ["Evoker", "Leather", false], ["Evoker", "Cloth", false],
+  ["Demon Hunter", "Leather", true], ["Demon Hunter", "Plate", false], ["Demon Hunter", "Mail", false], ["Demon Hunter", "Cloth", false],
+  ["Druid", "Leather", true], ["Druid", "Plate", false], ["Druid", "Mail", false], ["Druid", "Cloth", false],
+  ["Monk", "Leather", true], ["Monk", "Plate", false], ["Monk", "Mail", false], ["Monk", "Cloth", false],
+  ["Rogue", "Leather", true], ["Rogue", "Plate", false], ["Rogue", "Mail", false], ["Rogue", "Cloth", false],
+  ["Mage", "Cloth", true], ["Mage", "Plate", false], ["Mage", "Mail", false], ["Mage", "Leather", false],
+  ["Priest", "Cloth", true], ["Priest", "Plate", false], ["Priest", "Mail", false], ["Priest", "Leather", false],
+  ["Warlock", "Cloth", true], ["Warlock", "Plate", false], ["Warlock", "Mail", false], ["Warlock", "Leather", false]
+];
+for (const [className, armorType, expected] of armorMatrix) {
+  const armorItem = {
+    id: 8000 + armorMatrix.indexOf(armorMatrix.find(entry => entry[0] === className && entry[1] === armorType)),
+    name: armorType + " Shoulders",
+    slot: "Shoulders",
+    itemClass: { name: "Armor" },
+    itemSubclass: { name: armorType },
+    itemLevel: 300,
+    stats: { Haste: 20 }
+  };
+  assert.equal(
+    optimizer.diagnoseSlotCandidates([armorItem], "Shoulders", className).classEligibleCount,
+    expected ? 1 : 0,
+    className + " must " + (expected ? "accept " : "reject ") + armorType + " armor"
+  );
+}
+const unknownArmor = { slot: "Shoulders", itemClass: { name: "Armor" }, itemLevel: 300, stats: { Haste: 20 } };
+assert.equal(optimizer.diagnoseSlotCandidates([unknownArmor], "Shoulders", "Warrior").classEligibleCount, 0,
+  "armor with unknown subclass must be rejected for armor slots");
+const unrestrictedNeck = { slot: "Neck", itemClass: { name: "Armor" }, itemSubclass: { name: "Cloth" }, itemLevel: 300, stats: { Haste: 20 } };
+assert.equal(optimizer.diagnoseSlotCandidates([unrestrictedNeck], "Neck", "Warrior").classEligibleCount, 1,
+  "neck items must not be filtered by armor proficiency");
+
+
 // Regression: a much lower-level shoulder must not replace a stronger equipped item
 // merely because it is the best candidate remaining in a sparse catalog.
 const equippedShoulders = {
