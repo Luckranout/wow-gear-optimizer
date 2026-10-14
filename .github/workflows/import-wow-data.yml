@@ -23,6 +23,9 @@ concurrency:
 
 jobs:
   import:
+    # Feature-branch pushes are code/test iteration, not permission to start a 45-minute full import.
+    # Use workflow_dispatch for deliberate validation; main and scheduled imports remain enabled.
+    if: github.event_name != 'push' || github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
