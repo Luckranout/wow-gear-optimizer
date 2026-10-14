@@ -1922,8 +1922,12 @@ def main():
         f"union_ids={len(verified_season_item_ids)}; "
         f"sample_union_ids={sorted(verified_season_item_ids)[:12]}"
     )
+    verified_source_evidence = merge_item_sources(
+        pve_sources, pvp_sources, crafted_source_map
+    )
     section_ids, section_item_sources = collect_equipment_section_ids(
-        token, get_api_json, verified_season_item_ids
+        token, get_api_json, verified_season_item_ids,
+        source_evidence=verified_source_evidence,
     )
     # Validate the entire expected slot set before writing any section files.
     # A missing Neck/Shoulders result must stop the import rather than leave a
