@@ -761,14 +761,28 @@ def collect_talent_data(token):
         token,
         {"namespace": NAMESPACE, "locale": LOCALE},
     )
-    tree_refs = (
-        tree_index.get("spec_talent_trees")
-        or tree_index.get("hero_talent_trees")
-        or tree_index.get("class_talent_trees")
-        or tree_index.get("talent_trees")
-        or tree_index.get("trees")
-        or []
-    )
+    # Collect all exposed tree collections. An "or" chain silently drops
+    # spec/hero collections whenever class_talent_trees is present.
+    tree_refs = []
+    seen_index_refs = set()
+    for collection_key in (
+        "class_talent_trees",
+        "spec_talent_trees",
+        "hero_talent_trees",
+        "talent_trees",
+        "trees",
+    ):
+        collection = tree_index.get(collection_key) or []
+        if isinstance(collection, dict):
+            collection = [collection]
+        if not isinstance(collection, list):
+            continue
+        for ref in collection:
+            tree_id = talent_tree_reference_id(ref)
+            ref_key = (collection_key, tree_id)
+            if tree_id and ref_key not in seen_index_refs:
+                seen_index_refs.add(ref_key)
+                tree_refs.append({**ref, "_indexCollection": collection_key} if isinstance(ref, dict) else ref)
 
     print(
         "Talent-tree index diagnostics: "
@@ -840,11 +854,24 @@ def collect_talent_data(token):
             if linked_spec_id in spec_ids:
                 add_tree(tree_id, "specialization", linked_spec_id)
 
+    def extract_nodes(value):
+        """Read nodes from direct or wrapped Blizzard talent-tree payloads."""
+        if isinstance(value, dict):
+            direct = value.get("nodes")
+            if isinstance(direct, list):
+                return direct
+            for key in ("spec_talent_tree", "class_talent_tree", "hero_talent_tree", "talent_tree", "data"):
+                nested = value.get(key)
+                found = extract_nodes(nested)
+                if found:
+                    return found
+        return []
+
     node_count = 0
     apex_count = 0
     for tree in tree_records:
-        data = tree.get("data") or {}
-        nodes = data.get("nodes") or []
+        nodes = extract_nodes(tree.get("data") or {})
+        tree["nodeCount"] = len(nodes)
         node_count += len(nodes)
         for node in nodes:
             if "apex" in json.dumps(node, ensure_ascii=False).lower():
