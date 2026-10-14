@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - feature/sectioned-equipment-catalog
     paths:
       - "scripts/import_blizzard_data.py"
       - ".github/workflows/import-wow-data.yml"
@@ -15,7 +16,7 @@ permissions:
   contents: write
   issues: write
 
-# Avoid overlapping full-catalog scans and only run automatic imports from main.
+# Avoid overlapping full-catalog scans. Feature-branch runs are for authenticated validation before merge.
 concurrency:
   group: wow-retail-data-import
   cancel-in-progress: false
