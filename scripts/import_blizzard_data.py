@@ -33,7 +33,6 @@ OUTPUT = "data/current-retail.json"
 NAMESPACE = "static-us"
 PVP_NAMESPACE = "dynamic-us"
 LOCALE = "en_US"
-REQUEST_DELAY_SECONDS = 0.15
 REQUEST_TIMEOUT_SECONDS = 20
 MAX_RETRIES = 3
 REQUESTS_PER_SECOND = 40
@@ -635,9 +634,9 @@ def collect_season_content_item_ids(token):
                     "encounter": localized_name(encounter.get("name")),
                 })
 
-            time.sleep(REQUEST_DELAY_SECONDS)
+            # Global throttled_urlopen already enforces the request interval.
 
-        time.sleep(REQUEST_DELAY_SECONDS)
+        # Global throttled_urlopen already enforces the request interval.
 
     matched_normalized = {normalize_name(name) for name in matched_instances}
     for canonical, display_name in wanted.items():
@@ -931,7 +930,7 @@ def collect_talent_data(token):
             "seasonScope": SEASON_SCOPE,
         })
         spec_ids.add(spec_id)
-        time.sleep(REQUEST_DELAY_SECONDS)
+        # Global throttled_urlopen already enforces the request interval.
 
     tree_index = get_api_json(
         "/data/wow/talent-tree/index",
@@ -1010,7 +1009,7 @@ def collect_talent_data(token):
             "data": tree,
             "seasonScope": SEASON_SCOPE,
         })
-        time.sleep(REQUEST_DELAY_SECONDS)
+        # Global throttled_urlopen already enforces the request interval.
 
     for record in talent_records:
         add_tree(record["specTalentTreeId"], "specialization", record["id"])
@@ -1215,7 +1214,7 @@ def fetch_modified_crafting_slot_metadata(token, slots, cache):
                 )
                 cache[cache_key] = {}
 
-            time.sleep(REQUEST_DELAY_SECONDS)
+            # Global throttled_urlopen already enforces the request interval.
 
         resolved = cache[cache_key]
         categories = []
@@ -1240,7 +1239,7 @@ def fetch_modified_crafting_slot_metadata(token, slots, cache):
                     )
                     cache[category_key] = {}
 
-                time.sleep(REQUEST_DELAY_SECONDS)
+                # Global throttled_urlopen already enforces the request interval.
 
             category_data = cache[category_key]
             categories.append({
@@ -1347,12 +1346,13 @@ def collect_profession_supporting_data(token):
                         {"namespace": NAMESPACE, "locale": LOCALE},
                     )
 
-                    crafted_item = recipe.get("crafted_item") or {}
+                    crafted_item = (
+                        recipe.get("crafted_item")
+                        or recipe.get("alliance_crafted_item")
+                        or recipe.get("horde_crafted_item")
+                        or {}
+                    )
                     crafted_item_id = extract_id(crafted_item)
-                    if recipe_id == 52572:
-                        print("QUICK PERIDOT RECIPE DEBUG:")
-                        print(json.dumps(recipe, indent=2))
-
                     if not crafted_item_id and profession_name != "Enchanting":
                         crafted_item_id = find_recipe_output_item_id(
                             token,
@@ -1425,7 +1425,7 @@ def collect_profession_supporting_data(token):
                         "seasonScope": SEASON_SCOPE,
                         "source": "Blizzard Game Data API — current Midnight profession recipe",
                     })
-                    time.sleep(REQUEST_DELAY_SECONDS)
+                    # Global throttled_urlopen already enforces the request interval.
 
         profession_counts[profession_name] = len(
             [r for r in recipes if r["profession"] == profession_name]
@@ -1476,7 +1476,7 @@ def fetch_supporting_item_details(token, item_ids):
         if index % 100 == 0:
             print(f"Enriched {index}/{len(item_ids)} supporting recipe outputs.")
 
-        time.sleep(REQUEST_DELAY_SECONDS)
+        # Global throttled_urlopen already enforces the request interval.
 
     return records
 
@@ -1612,7 +1612,7 @@ def fetch_item_details(token, item_ids, item_sources):
         if index % 50 == 0:
             print(f"Enriched {index}/{len(item_ids)} candidate items.")
 
-        time.sleep(REQUEST_DELAY_SECONDS)
+        # Global throttled_urlopen already enforces the request interval.
 
     print(
         "Wowhead stat fallback diagnostics: "
