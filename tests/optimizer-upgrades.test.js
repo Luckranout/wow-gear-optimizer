@@ -713,11 +713,11 @@ const tierSetBonuses = [{
   ]
 }];
 const tierPieces = [
-  { id: 920001, name: "Tier Helm", slot: "Head", itemLevel: 300, stats: { Strength: 10 }, set: { id: "midnight-tier-test", name: "Test Tier Set" } },
-  { id: 920002, name: "Tier Shoulders", slot: "Shoulders", itemLevel: 300, stats: { Strength: 10 }, set: { id: "midnight-tier-test", name: "Test Tier Set" } },
-  { id: 920003, name: "Tier Chest", slot: "Chest", itemLevel: 300, stats: { Strength: 10 }, set: { id: "midnight-tier-test", name: "Test Tier Set" } },
-  { id: 920004, name: "Tier Legs", slot: "Legs", itemLevel: 300, stats: { Strength: 10 }, set: { id: "midnight-tier-test", name: "Test Tier Set" } },
-  { id: 920005, name: "Higher Item Level Helm", slot: "Head", itemLevel: 400, stats: { Strength: 100 } }
+  { id: 920001, name: "Tier Helm", slot: "Head", itemLevel: 300, itemClass: "Armor", itemSubclass: "Plate", stats: { Strength: 10 }, set: { id: "midnight-tier-test", name: "Test Tier Set" } },
+  { id: 920002, name: "Tier Shoulders", slot: "Shoulders", itemLevel: 300, itemClass: "Armor", itemSubclass: "Plate", stats: { Strength: 10 }, set: { id: "midnight-tier-test", name: "Test Tier Set" } },
+  { id: 920003, name: "Tier Chest", slot: "Chest", itemLevel: 300, itemClass: "Armor", itemSubclass: "Plate", stats: { Strength: 10 }, set: { id: "midnight-tier-test", name: "Test Tier Set" } },
+  { id: 920004, name: "Tier Legs", slot: "Legs", itemLevel: 300, itemClass: "Armor", itemSubclass: "Plate", stats: { Strength: 10 }, set: { id: "midnight-tier-test", name: "Test Tier Set" } },
+  { id: 920005, name: "Higher Item Level Helm", slot: "Head", itemLevel: 400, itemClass: "Armor", itemSubclass: "Plate", stats: { Strength: 100 } }
 ];
 const tierStatus = o.getSetBonusStatus({
   Head: tierPieces[0], Shoulders: tierPieces[1], Chest: tierPieces[2], Legs: tierPieces[3]
@@ -744,7 +744,7 @@ if (tierOptimized.setBonusStatus.score !== 580) {
   throw new Error("Tier set score did not sum the explicit active 2-piece and 4-piece values");
 }
 // Explicit threshold transitions: the fifth eligible piece is optional.
-const fifthTierPiece = { id: 920006, name: "Tier Feet", slot: "Feet", itemLevel: 300, stats: { Strength: 10 }, set: { id: "midnight-tier-test", name: "Test Tier Set" } };
+const fifthTierPiece = { id: 920006, name: "Tier Feet", slot: "Feet", itemLevel: 300, itemClass: "Armor", itemSubclass: "Plate", stats: { Strength: 10 }, set: { id: "midnight-tier-test", name: "Test Tier Set" } };
 const tierLoadouts = [
   { Head: tierPieces[0] },
   { Head: tierPieces[0], Shoulders: tierPieces[1] },
