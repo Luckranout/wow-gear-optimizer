@@ -1769,13 +1769,34 @@ def main():
     print(f"Blizzard current PvP season: {current_pvp_season_name} (id {current_pvp_season_id})")
     enforce_supported_season(current_pvp_season_id, current_pvp_season_name)
 
+    profession_recipes, profession_output_ids = collect_profession_supporting_data(token)
+    supporting_items = fetch_supporting_item_details(token, profession_output_ids)
+    gems, enchants, crafted_gear, other_crafted_items = classify_profession_outputs(
+        profession_recipes,
+        supporting_items,
+    )
+
     pve_sources, matched_instances, missing_sources = collect_season_content_item_ids(token)
     pvp_sources, pvp_metadata = collect_pvp_season_item_ids(
         token, current_pvp_season_id, current_pvp_season_name
     )
-    # Slot searches are NOT season-aware. Only IDs independently identified in
-    # the verified Season 2 PvE and PvP source scans may enter the equipment catalog.
-    verified_season_item_ids = set(pve_sources) | set(pvp_sources)
+    # Slot searches are NOT season-aware. Only IDs independently verified from
+    # current-season PvE/PvP sources or Midnight profession recipes may enter.
+    crafted_gear_ids = {
+        recipe.get("item", {}).get("id")
+        for recipe in crafted_gear
+        if isinstance(recipe.get("item"), dict)
+        and isinstance(recipe.get("item", {}).get("id"), int)
+    }
+    crafted_source_map = {
+        item_id: [{
+            "seasonScope": SEASON_SCOPE,
+            "category": "Crafted Gear",
+            "professionRecipeSource": "Midnight profession skill-tier recipe output",
+        }]
+        for item_id in crafted_gear_ids
+    }
+    verified_season_item_ids = set(pve_sources) | set(pvp_sources) | crafted_gear_ids
     section_ids, section_item_sources = collect_equipment_section_ids(
         token, get_api_json, verified_season_item_ids
     )
@@ -1783,7 +1804,7 @@ def main():
         "Sectioned equipment catalog discovered: "
         + ", ".join(f"{section}={len(ids)}" for section, ids in section_ids.items())
     )
-    item_sources = merge_item_sources(pve_sources, pvp_sources, section_item_sources)
+    item_sources = merge_item_sources(pve_sources, pvp_sources, crafted_source_map, section_item_sources)
 
     # Process one slot section at a time: enrich only that section's verified
     # candidates, validate it, and atomically persist it before starting the next.
@@ -1811,13 +1832,6 @@ def main():
 
     talent_data = collect_talent_data(token)
     upgrade_data = collect_upgrade_and_crest_data()
-
-    profession_recipes, profession_output_ids = collect_profession_supporting_data(token)
-    supporting_items = fetch_supporting_item_details(token, profession_output_ids)
-    gems, enchants, crafted_gear, other_crafted_items = classify_profession_outputs(
-        profession_recipes,
-        supporting_items,
-    )
 
     items.sort(
         key=lambda item: (item.get("level") or 0, item.get("id") or 0),
