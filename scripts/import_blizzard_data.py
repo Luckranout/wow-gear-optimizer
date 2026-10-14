@@ -9,10 +9,16 @@ import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
 
-from equipment_catalog_sections import (
-    collect_equipment_section_ids,
-    write_section_catalogs,
-)
+try:
+    from .equipment_catalog_sections import (
+        collect_equipment_section_ids,
+        write_section_catalogs,
+    )
+except ImportError:  # Support direct execution as a GitHub Actions script.
+    from equipment_catalog_sections import (
+        collect_equipment_section_ids,
+        write_section_catalogs,
+    )
 
 API_BASE = "https://us.api.blizzard.com"
 TOKEN_URL = "https://oauth.battle.net/token"
