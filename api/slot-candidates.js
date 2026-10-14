@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const { setCorsHeaders } = require("./cors");
 
-const SECTION_DIR = path.join(process.cwd(), "data", "equipment-sections");
+let sectionDir = path.join(process.cwd(), "data", "equipment-sections");
 const SLOT_SECTION = {
   "Head": "head", "Neck": "necklaces", "Shoulders": "shoulders",
   "Back": "back", "Chest": "chest", "Wrists": "wrists", "Hands": "hands",
@@ -20,18 +20,16 @@ const CLASS_ARMOR = {
 const ARMOR_SLOTS = new Set(["Head", "Shoulders", "Chest", "Wrists", "Hands", "Waist", "Legs", "Feet"]);
 
 function normalizeClass(value) {
-  return String(value || "").toLowerCase().replace(/[\s'_-]/g, "");
+  return String(value || "").toLowerCase().replace(/[\\s'_-]/g, "");
 }
 function slotMatches(item, slot) {
-  if (slot === "Ring 1" || slot === "Ring 2") return /finger|ring/i.test(String(item.inventoryType?.name || item.inventoryType || ""));
-  if (slot === "Trinket 1" || slot === "Trinket 2") return /trinket/i.test(String(item.inventoryType?.name || item.inventoryType || ""));
-  if (slot === "Main Hand" || slot === "Off Hand") {
-    const inv = String(item.inventoryType?.name || item.inventoryType || "").toLowerCase();
-    if (slot === "Off Hand") return /off.?hand|shield|holdable/i.test(inv) || /one.?hand/i.test(inv);
-    return /main.?hand|two.?hand|weapon|staff|sword|axe|mace|dagger|polearm|fist|bow|gun|crossbow/i.test(inv);
-  }
-  if (item.slot === slot) return true;
   const inv = String(item.inventoryType?.name || item.inventoryType || "").toLowerCase();
+  if (slot === "Ring 1" || slot === "Ring 2") return /finger|ring/.test(inv);
+  if (slot === "Trinket 1" || slot === "Trinket 2") return /trinket/.test(inv);
+  if (slot === "Main Hand") return /main.?hand|two.?hand|weapon|staff|sword|axe|mace|dagger|polearm|fist|bow|gun|crossbow/.test(inv);
+  if (slot === "Off Hand") return /off.?hand|shield|holdable|offhand/.test(inv) ||
+    (item.equipSlots && Array.isArray(item.equipSlots) && item.equipSlots.includes("Off Hand"));
+  if (item.slot === slot) return true;
   const aliases = {
     Head: /head/, Neck: /neck/, Shoulders: /shoulder/, Back: /cloak|back/,
     Chest: /chest|robe/, Wrists: /wrist/, Hands: /hand/, Waist: /waist/,
@@ -47,6 +45,20 @@ function allowedForClass(item, className, slot) {
   const subclass = String(item.itemSubclass?.name || item.itemSubclass || "").toLowerCase();
   return (itemClass.includes("armor") || itemClass.includes("armour")) && subclass === expected;
 }
+function hasUsableStats(item) {
+  const values = item.stats ?? item.statValues ?? item.stat_values ?? item.attributes;
+  if (Array.isArray(values)) return values.some(stat => Number(stat?.value ?? stat?.amount ?? stat) > 0);
+  if (values && typeof values === "object") return Object.values(values).some(value => Number(value?.value ?? value?.amount ?? value) > 0);
+  return Number(item.intellect || item.strength || item.agility || item.stamina || 0) > 0;
+}
+function createResponse() {
+  return {
+    statusCode: 200, headers: {}, body: undefined,
+    setHeader(name, value) { this.headers[name.toLowerCase()] = value; return this; },
+    status(code) { this.statusCode = code; return this; },
+    json(value) { this.body = value; return this; }
+  };
+}
 async function handler(req, res) {
   setCorsHeaders(req, res);
   if (req.method !== "GET") {
@@ -58,7 +70,7 @@ async function handler(req, res) {
   const className = String(req.query?.class || "");
   if (!section) return res.status(400).json({ error: "Unsupported equipment slot." });
   if (!className) return res.status(400).json({ error: "Class is required to enforce armor restrictions." });
-  const file = path.join(SECTION_DIR, section + ".json");
+  const file = path.join(sectionDir, section + ".json");
   try {
     const payload = JSON.parse(fs.readFileSync(file, "utf8"));
     if (payload.complete !== true || !Array.isArray(payload.items)) {
@@ -67,6 +79,7 @@ async function handler(req, res) {
     const items = payload.items.filter(item =>
       item.isEquippable === true &&
       item.seasonScope === "Midnight Season 2+" &&
+      hasUsableStats(item) &&
       slotMatches(item, slot) &&
       allowedForClass(item, className, slot)
     );
@@ -78,7 +91,10 @@ async function handler(req, res) {
     }
     return res.status(500).json({ error: "Unable to load the verified equipment section." });
   }
+}
+handler._test = {
+  SLOT_SECTION, slotMatches, allowedForClass, normalizeClass, hasUsableStats,
+  createResponse,
+  setSectionDir(dir) { sectionDir = dir; }
 };
-
-handler._test = { SLOT_SECTION, slotMatches, allowedForClass, normalizeClass };
 module.exports = handler;
