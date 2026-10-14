@@ -6,6 +6,7 @@ on:
       - "scripts/equipment_catalog_sections.py"
       - "scripts/import_blizzard_data.py"
       - "tests/test_equipment_catalog_sections.py"
+      - "tests/test_blizzard_request_retry.py"
       - ".github/workflows/test-equipment-catalog.yml"
   workflow_dispatch:
 
@@ -24,5 +25,7 @@ jobs:
           python-version: "3.12"
       - name: Test section pagination and persistence
         run: python -m unittest discover -s tests -p "test_equipment_catalog_sections.py" -v
+      - name: Test Blizzard request retry diagnostics
+        run: python -m unittest discover -s tests -p "test_blizzard_request_retry.py" -v
       - name: Compile importer and section module
         run: python -m py_compile scripts/import_blizzard_data.py scripts/equipment_catalog_sections.py
