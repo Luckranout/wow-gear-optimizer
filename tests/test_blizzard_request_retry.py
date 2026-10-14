@@ -34,6 +34,19 @@ class BlizzardRequestRetryTests(unittest.TestCase):
         self.assertIn("attempt 1/3", messages)
         self.assertNotIn("DO_NOT_LOG", messages)
 
+    def test_shared_throttler_waits_to_respect_request_interval(self):
+        with patch.object(importer.time, "monotonic", side_effect=[10.0, 10.0, 10.01, 10.025]), patch.object(
+            importer.time, "sleep"
+        ) as sleep, patch.object(importer.urllib.request, "urlopen", return_value="response") as urlopen, patch.object(
+            importer, "_last_request_started", 0.0
+        ):
+            self.assertEqual(importer.throttled_urlopen("request-1", timeout=1), "response")
+            self.assertEqual(importer.throttled_urlopen("request-2", timeout=1), "response")
+
+        sleep.assert_called_once()
+        self.assertAlmostEqual(sleep.call_args.args[0], importer.REQUEST_INTERVAL_SECONDS - 0.01)
+        self.assertEqual(urlopen.call_count, 2)
+
     def test_http_429_honors_retry_after_header(self):
         headers = Message()
         headers["Retry-After"] = "7"
