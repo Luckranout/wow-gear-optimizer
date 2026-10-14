@@ -647,10 +647,12 @@ console.log("Imported stat normalization and lower-level ring regression passed.
 // when the catalog only offers an unrelated, much lower-item-level target.
 const currentHelm = {
   id: 777001, name: "Current High-Level Helm", slot: "Head", itemLevel: 318,
+  itemClass: "Armor", itemSubclass: "Plate",
   stats: { Strength: 162, Intellect: 162, Stamina: 3254, CriticalStrike: 116, Mastery: 72 }
 };
 const lowCatalogHelm = {
   id: 777002, name: "Low-Level Catalog Helm", slot: "Head", itemLevel: 219,
+  itemClass: "Armor", itemSubclass: "Plate",
   stats: { Strength: 65, Intellect: 65, Stamina: 1005, CriticalStrike: 32, Haste: 75 }
 };
 const retainedLoadout = o.optimizeEquipment({
