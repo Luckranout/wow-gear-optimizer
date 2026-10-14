@@ -87,6 +87,42 @@ assert.equal(trinketAudit.candidates[0].source, "Blizzard Game Data API");
 assert.deepEqual(Array.from(trinketAudit.candidates[0].statNames), ["Intellect", "Agility", "Strength"]);
 assert.equal(trinketAudit.candidates[0].upgradeTrack, null);
 
+// Regression: use the exact normalized Blizzard item shape (inventoryType.name,
+// level, itemClass/itemSubclass, and type.name stats), without a synthetic slot field.
+const liveNormalizedShoulder = {
+  id: 271481,
+  name: "Hissing Mantle of the Ophidian Oracle",
+  level: 219,
+  inventoryType: { name: "Shoulder" },
+  itemClass: { name: "Armor" },
+  itemSubclass: { name: "Mail" },
+  isEquippable: true,
+  stats: [
+    { type: { name: "agility" }, value: 48 },
+    { type: { name: "intellect" }, value: 48 },
+    { type: { name: "stamina" }, value: 754 },
+    { type: { name: "critical strike" }, value: 25 },
+    { type: { name: "haste" }, value: 56 }
+  ]
+};
+assert.equal(
+  optimizer.itemMatchesSlot(liveNormalizedShoulder, "Shoulders"),
+  true,
+  "Blizzard inventoryType.name=Shoulder must map into the Shoulders slot"
+);
+const liveShoulderAudit = optimizer.diagnoseSlotCandidates(
+  [liveNormalizedShoulder], "Shoulders", "Shaman"
+);
+assert.equal(liveShoulderAudit.slotMatchCount, 1);
+assert.equal(liveShoulderAudit.classEligibleCount, 1);
+assert.equal(liveShoulderAudit.usableStatsCount, 1);
+assert.equal(liveShoulderAudit.candidates[0].id, 271481);
+const liveGuardedShoulder = optimizer.findBestItemForSlot(
+  [liveNormalizedShoulder], "Shoulders", "general", null, "Shaman", equippedShoulders
+);
+assert.equal(liveGuardedShoulder.item.id, equippedShoulders.id);
+assert.equal(liveGuardedShoulder.retainedEquipped, true);
+
 console.log("Slot candidate diagnostics tests passed.");
 
  
