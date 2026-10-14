@@ -508,6 +508,32 @@ def normalize_item(data, source=None):
     }
 
 
+def get_mythic_keystone_season(token, season_id=SUPPORTED_SEASON_ID):
+    """Fetch authoritative Mythic+ season metadata from Blizzard's dynamic namespace."""
+    response = get_api_json(
+        f"/data/wow/mythic-keystone/season/{season_id}",
+        token,
+        {"namespace": PVP_NAMESPACE, "locale": LOCALE},
+    )
+    returned_id = extract_id(response)
+    season_name = localized_name(response.get("season_name") or response.get("name"))
+    if returned_id != season_id:
+        raise RuntimeError(
+            f"Blizzard Mythic+ season lookup returned id {returned_id!r}; "
+            f"expected supported season id {season_id}."
+        )
+    if not isinstance(response.get("periods"), list) or not response.get("periods"):
+        raise RuntimeError(
+            f"Blizzard Mythic+ season {season_id} returned no periods; "
+            "refusing to treat the season source as verified."
+        )
+    print(
+        f"Blizzard Mythic+ season verified: id={returned_id}, "
+        f"name={season_name or 'unknown'}, periods={len(response['periods'])}."
+    )
+    return response
+
+
 def get_season_instances(token):
     response = get_api_json(
         "/data/wow/journal-instance/index",
@@ -518,6 +544,10 @@ def get_season_instances(token):
 
 
 def collect_season_content_item_ids(token):
+    # Verify the requested season against Blizzard's official season endpoint.
+    # The season response contains season metadata/periods, not a complete loot
+    # catalog; Journal encounters remain the source of item-level loot evidence.
+    mythic_season = get_mythic_keystone_season(token, SUPPORTED_SEASON_ID)
     item_sources = {}
     matched_instances = []
     missing_sources = []
