@@ -4,6 +4,7 @@ import unittest
 from pathlib import Path
 
 from scripts.equipment_catalog_sections import (
+    PAGE_SIZE,
     SECTION_SEARCHES,
     collect_equipment_section_ids,
     fetch_inventory_type_ids,
@@ -37,11 +38,11 @@ class EquipmentSectionPaginationTests(unittest.TestCase):
         def search(_path, _token, params):
             calls.append(params["_page"])
             if params["_page"] == 1:
-                return {"results": [{"id": 21}]}
+                return {"results": [{"id": index} for index in range(1, PAGE_SIZE + 1)]}
             return {"results": []}
 
         ids = fetch_inventory_type_ids("token", "NECK", search, sleep=lambda _s: None)
-        self.assertEqual(ids, {21})
+        self.assertEqual(ids, set(range(1, PAGE_SIZE + 1)))
         self.assertEqual(calls, [1, 2])
 
     def test_section_plan_covers_all_supported_slot_families(self):
