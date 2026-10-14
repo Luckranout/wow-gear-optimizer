@@ -1785,6 +1785,30 @@ def main():
     )
     item_sources = merge_item_sources(pve_sources, pvp_sources, section_item_sources)
 
+    # Process one slot section at a time: enrich only that section's verified
+    # candidates, validate it, and atomically persist it before starting the next.
+    # A failure stops the import without marking later sections as complete.
+    section_summary = {}
+    items_by_id = {}
+    for section, ids in section_ids.items():
+        section_ids_with_sources = {
+            item_id: item_sources.get(item_id, [])
+            for item_id in ids
+        }
+        print(f"Starting section {section}: {len(ids)} verified candidates.")
+        section_items = fetch_item_details(
+            token, ids, section_ids_with_sources
+        )
+        section_result = write_section_catalogs(
+            {section: ids}, section_items, remove_stale=False
+        )
+        section_summary.update(section_result)
+        items_by_id.update({item.get("id"): item for item in section_items if item.get("id")})
+        print(f"Completed section {section}: {section_result.get(section, 0)} items saved.")
+
+    # Keep the unified dataset limited to the same verified slot-section IDs.
+    items = list(items_by_id.values())
+
     talent_data = collect_talent_data(token)
     upgrade_data = collect_upgrade_and_crest_data()
 
@@ -1793,16 +1817,6 @@ def main():
     gems, enchants, crafted_gear, other_crafted_items = classify_profession_outputs(
         profession_recipes,
         supporting_items,
-    )
-
-    items = fetch_item_details(token, item_sources.keys(), item_sources)
-
-    # Persist every equipment section independently. A section is replaced only
-    # after its complete search result set has been enriched and validated.
-    section_summary = write_section_catalogs(section_ids, items)
-    print(
-        "Persisted equipment sections: "
-        + ", ".join(f"{section}={count}" for section, count in section_summary.items())
     )
 
     items.sort(
