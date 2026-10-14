@@ -163,17 +163,20 @@ def collect_equipment_section_ids(token, get_api_json, allowed_item_ids, sleep=t
             print(f"Equipment source rejected without provenance: id={item_id}; no source evidence.")
             continue
 
-        # Do not treat low-level legacy loot as current-season gear solely because
-        # its dungeon is in the Season 2 rotation. Keep independent PvP/crafted
-        # provenance even when those items are below the PvE level floor.
-        pve_evidence = [source for source in evidence if isinstance(source, dict) and source.get("category") == "PvE"]
-        independent_evidence = [source for source in evidence if not (isinstance(source, dict) and source.get("category") == "PvE")]
+        # Season 2 catalog boundary: ilvl 249 and below is old content.
+        # Apply this boundary consistently to PvE, PvP, and crafted gear; provenance
+        # is still required for items at or above the boundary.
         item_level = detail.get("level")
-        if pve_evidence and (not isinstance(item_level, (int, float)) or item_level < MIN_CURRENT_SEASON_PVE_ITEM_LEVEL):
-            print(f"Equipment source rejected as legacy PvE loot: id={item_id}; item_level={item_level!r}; minimum={MIN_CURRENT_SEASON_PVE_ITEM_LEVEL}.")
-            evidence = independent_evidence
-            if not evidence:
-                continue
+        if (
+            not isinstance(item_level, (int, float))
+            or isinstance(item_level, bool)
+            or item_level < MIN_CURRENT_SEASON_PVE_ITEM_LEVEL
+        ):
+            print(
+                f"Equipment source rejected below Season 2 item-level boundary: "
+                f"id={item_id}; item_level={item_level!r}; minimum={MIN_CURRENT_SEASON_PVE_ITEM_LEVEL}."
+            )
+            continue
         for section in matched_sections:
             section_ids.setdefault(section, set()).add(item_id)
             for source in evidence:
