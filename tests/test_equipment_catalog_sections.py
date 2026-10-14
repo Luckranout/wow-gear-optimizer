@@ -57,12 +57,15 @@ class EquipmentSectionPaginationTests(unittest.TestCase):
         self.assertIn("WEAPONOFFHAND", SECTION_SEARCHES["off-hand"])
         self.assertIn("WEAPON", SECTION_SEARCHES["off-hand"])
 
-    def test_collect_fails_closed_if_a_section_is_empty(self):
+    def test_unverified_or_empty_sections_are_omitted(self):
         def empty_search(_path, _token, _params):
             return {"maxPage": 1, "results": []}
 
-        with self.assertRaisesRegex(RuntimeError, "returned no items"):
-            collect_equipment_section_ids("token", empty_search, {1, 2}, sleep=lambda _s: None)
+        sections, sources = collect_equipment_section_ids(
+            "token", empty_search, {1, 2}, sleep=lambda _s: None
+        )
+        self.assertEqual(sections, {})
+        self.assertEqual(sources, {})
 
     def test_catalog_only_includes_ids_verified_by_season_sources(self):
         def search(_path, _token, params):
