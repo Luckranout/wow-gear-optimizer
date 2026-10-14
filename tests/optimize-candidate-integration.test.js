@@ -8,7 +8,7 @@ const html = fs.readFileSync("index.html", "utf8");
 // Integration contract: Optimize must identify empty/incompatible slots, request
 // candidates for those slots, merge them without duplicate item IDs, and then
 // pass the combined pool to the real optimizer report.
-assert.match(app, /missingSlots\s*=\s*slots\.filter/);
+assert.match(app, /const missingSlots = WoWOptimizer\\.slots\\.filter/);
 assert.match(app, /fetch\(\x60\$\{API_BASE_URL\}\/api\/slot-candidates\?slot=/);
 assert.match(app, /class=\$\{encodeURIComponent\(character\.className\)\}/);
 assert.match(app, /Promise\.all\(missingSlots\.map/);
