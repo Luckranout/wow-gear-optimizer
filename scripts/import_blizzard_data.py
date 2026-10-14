@@ -521,6 +521,10 @@ def collect_season_tier_set_item_ids(token):
         for item_ref in detail.get("items", []) or []:
             item_record = item_ref.get("item") if isinstance(item_ref, dict) else item_ref
             item_id = extract_id(item_record)
+            # Blizzard Item Set API commonly exposes each piece directly as
+            # {id, name, key: {href}}, not nested under an "item" property.
+            if not item_id:
+                item_id = extract_id(item_ref)
             if not item_id:
                 continue
             item_sources.setdefault(item_id, []).append({
