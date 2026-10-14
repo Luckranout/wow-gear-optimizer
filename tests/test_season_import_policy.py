@@ -63,6 +63,14 @@ class SeasonImportPolicyTests(unittest.TestCase):
                 ["Cosmic Penitent Raiment"],
             )
 
+    def test_tier_set_coverage_validation_fails_closed_when_no_item_ids_are_extracted(self):
+        expected = sorted(MODULE.SEASON_TIER_SET_NAMES)
+        with self.assertRaisesRegex(RuntimeError, "zero tier-set item IDs"):
+            MODULE.validate_season_tier_set_coverage(expected, [], {})
+        self.assertTrue(
+            MODULE.validate_season_tier_set_coverage(expected, [], {271481: [{"sourceType": "tier-set"}]})
+        )
+
     def test_current_season_tier_pieces_are_collected_from_item_set_api(self):
         self.assertEqual(
             MODULE.normalize_tier_set_name("Cosmic Penitent Raiment"),
