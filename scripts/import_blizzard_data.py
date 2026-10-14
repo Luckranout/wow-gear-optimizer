@@ -12,6 +12,7 @@ from datetime import datetime, timezone
 try:
     from .equipment_catalog_sections import (
         collect_equipment_section_ids,
+        validate_required_sections,
         write_section_catalogs,
     )
 except ImportError:  # Support direct execution and importlib-based tests.
@@ -1800,6 +1801,10 @@ def main():
     section_ids, section_item_sources = collect_equipment_section_ids(
         token, get_api_json, verified_season_item_ids
     )
+    # Validate the entire expected slot set before writing any section files.
+    # A missing Neck/Shoulders result must stop the import rather than leave a
+    # stale catalog in place or publish a partially refreshed set of sections.
+    validate_required_sections(section_ids)
     print(
         "Sectioned equipment catalog discovered: "
         + ", ".join(f"{section}={len(ids)}" for section, ids in section_ids.items())
