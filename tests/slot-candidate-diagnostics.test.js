@@ -135,6 +135,28 @@ const catalogPath = "data/current-retail.json";
 if (fs.existsSync(catalogPath)) {
   const dataset = JSON.parse(fs.readFileSync(catalogPath, "utf8"));
   const catalogItems = Array.isArray(dataset) ? dataset : (dataset.items || []);
+  // Report slot coverage even when the known target is absent from the
+  // checked-in catalog, so missing Neck/Shoulders candidates are visible in CI.
+  for (const slot of ["Neck", "Shoulders"]) {
+    const slotReport = optimizer.diagnoseSlotCandidates(catalogItems, slot, "Shaman");
+    console.log(`Catalog ${slot} coverage:`, JSON.stringify({
+      catalogCount: slotReport.catalogCount,
+      slotMatchCount: slotReport.slotMatchCount,
+      classEligibleCount: slotReport.classEligibleCount,
+      optimizerEligibleCount: slotReport.optimizerEligibleCount,
+      usableStatsCount: slotReport.usableStatsCount,
+      candidates: slotReport.candidates.slice(0, 5).map(item => ({
+        id: item.id, name: item.name, itemLevel: item.itemLevel
+      })),
+      excludedByClass: slotReport.excludedByClass.slice(0, 3).map(item => ({
+        id: item.id, name: item.name, itemSubclass: item.itemSubclass
+      })),
+      excludedByStats: slotReport.excludedByStats.slice(0, 3).map(item => ({
+        id: item.id, name: item.name
+      }))
+    }, null, 2));
+  }
+
   const targetId = 271481;
   const targetName = "Hissing Mantle of the Ophidian Oracle";
   const matches = catalogItems.filter(item =>
