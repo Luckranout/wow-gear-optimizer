@@ -1,0 +1,3043 @@
+{
+  "schemaVersion": 1,
+  "section": "chest",
+  "source": "Blizzard Game Data API item search",
+  "complete": true,
+  "candidateCount": 33,
+  "items": [
+    {
+      "id": 158355,
+      "name": "Loa-Blessed Chestguard",
+      "level": 59,
+      "requiredLevel": 50,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 3,
+        "name": "Mail"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 11,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 11,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 13,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/158355?namespace=static-12.1.5_70077-us"
+        },
+        "id": 158355
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2172,
+          "encounter": "Dazar, The First King"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2172,
+          "encounter": "Dazar, The First King",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 159257,
+      "name": "Robes of the Reborn Serpent",
+      "level": 59,
+      "requiredLevel": 50,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 11,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 13,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/159257?namespace=static-12.1.5_70077-us"
+        },
+        "id": 159257
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 159303,
+      "name": "Vest of Reverent Adoration",
+      "level": 59,
+      "requiredLevel": 50,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 2,
+        "name": "Leather"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 11,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 11,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 13,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/159303?namespace=static-12.1.5_70077-us"
+        },
+        "id": 159303
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2172,
+          "encounter": "Dazar, The First King"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2172,
+          "encounter": "Dazar, The First King",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 159370,
+      "name": "Corrupted Hexxer's Vestments",
+      "level": 59,
+      "requiredLevel": 50,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 3,
+        "name": "Mail"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 11,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 11,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 13,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/159370?namespace=static-12.1.5_70077-us"
+        },
+        "id": 159370
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 159424,
+      "name": "Desert Guardian's Breastplate",
+      "level": 59,
+      "requiredLevel": 50,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 4,
+        "name": "Plate"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 11,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "strength"
+          },
+          "value": 11,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 13,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/159424?namespace=static-12.1.5_70077-us"
+        },
+        "id": 159424
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 193753,
+      "name": "Breastplate of Soaring Terror",
+      "level": 250,
+      "requiredLevel": 58,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 4,
+        "name": "Plate"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 11,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "strength"
+          },
+          "value": 11,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 16,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 8,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 14,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/193753?namespace=static-12.1.5_70077-us"
+        },
+        "id": 193753
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Ruby Life Pools",
+          "instanceId": 1202,
+          "encounterId": 2503,
+          "encounter": "Kyrakka and Erkhart Stormvein"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Ruby Life Pools",
+          "instanceId": 1202,
+          "encounterId": 2503,
+          "encounter": "Kyrakka and Erkhart Stormvein",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 193764,
+      "name": "Invader's Firestorm Chestguard",
+      "level": 250,
+      "requiredLevel": 58,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 2,
+        "name": "Leather"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 11,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 11,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 16,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "versatility"
+          },
+          "value": 8,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 13,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/193764?namespace=static-12.1.5_70077-us"
+        },
+        "id": 193764
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Ruby Life Pools",
+          "instanceId": 1202,
+          "encounterId": 2485,
+          "encounter": "Kokia Blazehoof"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Ruby Life Pools",
+          "instanceId": 1202,
+          "encounterId": 2485,
+          "encounter": "Kokia Blazehoof",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 237829,
+      "name": "Spellbreaker's Shelter",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 4,
+        "name": "Plate"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 83,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "strength"
+          },
+          "value": 83,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 1385,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "versatility"
+          },
+          "value": 65,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 65,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/237829?namespace=static-12.1.5_70077-us"
+        },
+        "id": 237829
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "Crafted Gear",
+          "professionRecipeSource": "Midnight profession skill-tier recipe output"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "Crafted Gear",
+          "professionRecipeSource": "Midnight profession skill-tier recipe output",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 237901,
+      "name": "Thalassian Competitor's Plate Breastplate",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 4,
+        "name": "Plate"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 43,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "strength"
+          },
+          "value": 43,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 542,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 37,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 37,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/237901?namespace=static-12.1.5_70077-us"
+        },
+        "id": 237901
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 239032,
+      "name": "Robes of the Reborn Serpent",
+      "level": 59,
+      "requiredLevel": 50,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 9,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 5,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 7,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/239032?namespace=static-12.1.5_70077-us"
+        },
+        "id": 239032
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 239034,
+      "name": "Corrupted Hexxer's Vestments",
+      "level": 59,
+      "requiredLevel": 50,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 3,
+        "name": "Mail"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 9,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "versatility"
+          },
+          "value": 8,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 4,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/239034?namespace=static-12.1.5_70077-us"
+        },
+        "id": 239034
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 239036,
+      "name": "Desert Guardian's Breastplate",
+      "level": 59,
+      "requiredLevel": 50,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 4,
+        "name": "Plate"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "strength"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 9,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 5,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 7,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/239036?namespace=static-12.1.5_70077-us"
+        },
+        "id": 239036
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 239046,
+      "name": "Loa-Blessed Chestguard",
+      "level": 59,
+      "requiredLevel": 50,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 3,
+        "name": "Mail"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 9,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 8,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "versatility"
+          },
+          "value": 4,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/239046?namespace=static-12.1.5_70077-us"
+        },
+        "id": 239046
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2172,
+          "encounter": "Dazar, The First King"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2172,
+          "encounter": "Dazar, The First King"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2172,
+          "encounter": "Dazar, The First King",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2172,
+          "encounter": "Dazar, The First King",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 239048,
+      "name": "Vest of Reverent Adoration",
+      "level": 59,
+      "requiredLevel": 50,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 2,
+        "name": "Leather"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 9,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 7,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 5,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/239048?namespace=static-12.1.5_70077-us"
+        },
+        "id": 239048
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2172,
+          "encounter": "Dazar, The First King"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2172,
+          "encounter": "Dazar, The First King"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2172,
+          "encounter": "Dazar, The First King",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2172,
+          "encounter": "Dazar, The First King",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 239685,
+      "name": "Thalassian Competitor's Cloth Tunic",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 43,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 542,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "versatility"
+          },
+          "value": 37,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 37,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/239685?namespace=static-12.1.5_70077-us"
+        },
+        "id": 239685
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 244554,
+      "name": "Thalassian Competitor's Leather Chestpiece",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 2,
+        "name": "Leather"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 43,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 43,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 542,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 37,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 37,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244554?namespace=static-12.1.5_70077-us"
+        },
+        "id": 244554
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 244562,
+      "name": "Thalassian Competitor's Chain Tunic",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 3,
+        "name": "Mail"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 43,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 43,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 542,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 37,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 37,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244562?namespace=static-12.1.5_70077-us"
+        },
+        "id": 244562
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 244613,
+      "name": "Row Walker's Insurance",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 2,
+        "name": "Leather"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 83,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 83,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 1385,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 74,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 56,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244613?namespace=static-12.1.5_70077-us"
+        },
+        "id": 244613
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "Crafted Gear",
+          "professionRecipeSource": "Midnight profession skill-tier recipe output"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "Crafted Gear",
+          "professionRecipeSource": "Midnight profession skill-tier recipe output",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 251139,
+      "name": "Summoner's Searing Shirt",
+      "level": 108,
+      "requiredLevel": 78,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 7,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 11,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 5,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 9,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/251139?namespace=static-12.1.5_70077-us"
+        },
+        "id": 251139
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Murder Row",
+          "instanceId": 1304,
+          "encounterId": 2682,
+          "encounter": "Lithiel Cinderfury"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Murder Row",
+          "instanceId": 1304,
+          "encounterId": 2682,
+          "encounter": "Lithiel Cinderfury",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 251147,
+      "name": "Hoarded Harvest Wrap",
+      "level": 108,
+      "requiredLevel": 78,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 7,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 11,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "versatility"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 9,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/251147?namespace=static-12.1.5_70077-us"
+        },
+        "id": 251147
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Den of Nalorakk",
+          "instanceId": 1311,
+          "encounterId": 2776,
+          "encounter": "The Hoardmonger"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Den of Nalorakk",
+          "instanceId": 1311,
+          "encounterId": 2776,
+          "encounter": "The Hoardmonger",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 251151,
+      "name": "Sentinel Challenger's Prize",
+      "level": 108,
+      "requiredLevel": 78,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 4,
+        "name": "Plate"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 7,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "strength"
+          },
+          "value": 7,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 11,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 9,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 5,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/251151?namespace=static-12.1.5_70077-us"
+        },
+        "id": 251151
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Den of Nalorakk",
+          "instanceId": 1311,
+          "encounterId": 2777,
+          "encounter": "Sentinel of Winter"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Den of Nalorakk",
+          "instanceId": 1311,
+          "encounterId": 2777,
+          "encounter": "Sentinel of Winter",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 251159,
+      "name": "War Trial Vestments",
+      "level": 108,
+      "requiredLevel": 78,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 2,
+        "name": "Leather"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 7,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 7,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 11,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 5,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 9,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/251159?namespace=static-12.1.5_70077-us"
+        },
+        "id": 251159
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Den of Nalorakk",
+          "instanceId": 1311,
+          "encounterId": 2778,
+          "encounter": "Nalorakk"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Den of Nalorakk",
+          "instanceId": 1311,
+          "encounterId": 2778,
+          "encounter": "Nalorakk",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 251193,
+      "name": "Taproot Ribs",
+      "level": 108,
+      "requiredLevel": 78,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 4,
+        "name": "Plate"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 7,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "strength"
+          },
+          "value": 7,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 11,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 9,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "versatility"
+          },
+          "value": 5,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/251193?namespace=static-12.1.5_70077-us"
+        },
+        "id": 251193
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Blinding Vale",
+          "instanceId": 1309,
+          "encounterId": 2771,
+          "encounter": "Lightwarden Ruia"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Blinding Vale",
+          "instanceId": 1309,
+          "encounterId": 2771,
+          "encounter": "Lightwarden Ruia",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 251226,
+      "name": "Hide of Pestilence",
+      "level": 108,
+      "requiredLevel": 78,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 2,
+        "name": "Leather"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 7,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 7,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 11,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 8,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "versatility"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/251226?namespace=static-12.1.5_70077-us"
+        },
+        "id": 251226
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Voidscar Arena",
+          "instanceId": 1313,
+          "encounterId": 2792,
+          "encounter": "Atroxus"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Voidscar Arena",
+          "instanceId": 1313,
+          "encounterId": 2792,
+          "encounter": "Atroxus",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 251233,
+      "name": "Manipulator's Vest",
+      "level": 108,
+      "requiredLevel": 78,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 3,
+        "name": "Mail"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 7,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 7,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 11,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 9,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 5,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/251233?namespace=static-12.1.5_70077-us"
+        },
+        "id": 251233
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Voidscar Arena",
+          "instanceId": 1313,
+          "encounterId": 2793,
+          "encounter": "Charonus"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Voidscar Arena",
+          "instanceId": 1313,
+          "encounterId": 2793,
+          "encounter": "Charonus",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 268221,
+      "name": "Tidebound Sorcereress's Robes",
+      "level": 219,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 65,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 1005,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 72,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 36,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/268221?namespace=static-12.1.5_70077-us"
+        },
+        "id": 268221
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Tidebound Grotto",
+          "instanceId": 1317,
+          "encounterId": 2849,
+          "encounter": "Nymrissa Wavecaller"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Tidebound Grotto",
+          "instanceId": 1317,
+          "encounterId": 2849,
+          "encounter": "Nymrissa Wavecaller",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 268222,
+      "name": "Reckless Spirit Breastplate",
+      "level": 219,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 4,
+        "name": "Plate"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 65,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "strength"
+          },
+          "value": 65,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 1005,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 76,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 31,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/268222?namespace=static-12.1.5_70077-us"
+        },
+        "id": 268222
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Venomous Abyss",
+          "instanceId": 1320,
+          "encounterId": 2883,
+          "encounter": "The Coiled Altar"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Venomous Abyss",
+          "instanceId": 1320,
+          "encounterId": 2883,
+          "encounter": "The Coiled Altar",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 268223,
+      "name": "Ophidian Fangmail",
+      "level": 219,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 3,
+        "name": "Mail"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 65,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 65,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 1005,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 35,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 72,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/268223?namespace=static-12.1.5_70077-us"
+        },
+        "id": 268223
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Venomous Abyss",
+          "instanceId": 1320,
+          "encounterId": 2887,
+          "encounter": "The Twin Fangs"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Venomous Abyss",
+          "instanceId": 1320,
+          "encounterId": 2887,
+          "encounter": "The Twin Fangs",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 268235,
+      "name": "Vestment of the Awakening",
+      "level": 219,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 2,
+        "name": "Leather"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 65,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 65,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 1005,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 74,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 33,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/268235?namespace=static-12.1.5_70077-us"
+        },
+        "id": 268235
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Venomous Abyss",
+          "instanceId": 1320,
+          "encounterId": 2888,
+          "encounter": "Nek'zali the Soulcoiler"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Venomous Abyss",
+          "instanceId": 1320,
+          "encounterId": 2888,
+          "encounter": "Nek'zali the Soulcoiler",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 271876,
+      "name": "Awoken Dreadfang Cuirass",
+      "level": 219,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 3,
+        "name": "Mail"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 65,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 65,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 1005,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 107,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/271876?namespace=static-12.1.5_70077-us"
+        },
+        "id": 271876
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Venomous Abyss",
+          "instanceId": 1320,
+          "encounterId": 2895,
+          "encounter": "Ula'tek"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Venomous Abyss",
+          "instanceId": 1320,
+          "encounterId": 2895,
+          "encounter": "Ula'tek",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 273785,
+      "name": "Primordial Robe of Rites",
+      "level": 219,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 10,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 15,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 10,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 9,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/273785?namespace=static-12.1.5_70077-us"
+        },
+        "id": 273785
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Altar of Fangs",
+          "instanceId": 1322,
+          "encounterId": 2878,
+          "encounter": "Rav'i"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Altar of Fangs",
+          "instanceId": 1322,
+          "encounterId": 2878,
+          "encounter": "Rav'i",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 273787,
+      "name": "Aged Interwoven Scaleplate",
+      "level": 219,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 4,
+        "name": "Plate"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 10,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "strength"
+          },
+          "value": 10,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 15,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 10,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "versatility"
+          },
+          "value": 9,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/273787?namespace=static-12.1.5_70077-us"
+        },
+        "id": 273787
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Altar of Fangs",
+          "instanceId": 1322,
+          "encounterId": 2879,
+          "encounter": "The Writhing Coil"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Altar of Fangs",
+          "instanceId": 1322,
+          "encounterId": 2879,
+          "encounter": "The Writhing Coil",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 273789,
+      "name": "Chestguard of Corroded Scales",
+      "level": 219,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 3,
+        "name": "Mail"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Chest"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 10,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 10,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 15,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 9,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 10,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/273789?namespace=static-12.1.5_70077-us"
+        },
+        "id": 273789
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Altar of Fangs",
+          "instanceId": 1322,
+          "encounterId": 2880,
+          "encounter": "Zul'jan"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Altar of Fangs",
+          "instanceId": 1322,
+          "encounterId": 2880,
+          "encounter": "Zul'jan",
+          "catalogSection": "chest",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    }
+  ]
+}

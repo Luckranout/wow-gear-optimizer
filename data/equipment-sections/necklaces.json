@@ -1,0 +1,663 @@
+{
+  "schemaVersion": 1,
+  "section": "necklaces",
+  "source": "Blizzard Game Data API item search",
+  "complete": true,
+  "candidateCount": 8,
+  "items": [
+    {
+      "id": 240952,
+      "name": "Thalassian Competitor's Amulet",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 0,
+        "name": "Miscellaneous"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Neck"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 305,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 75,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 75,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/240952?namespace=static-12.1.5_70077-us"
+        },
+        "id": 240952
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search",
+          "catalogSection": "necklaces",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 251142,
+      "name": "Pendant of Malefic Fury",
+      "level": 108,
+      "requiredLevel": 78,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 0,
+        "name": "Miscellaneous"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Neck"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 14,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/251142?namespace=static-12.1.5_70077-us"
+        },
+        "id": 251142
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Murder Row",
+          "instanceId": 1304,
+          "encounterId": 2682,
+          "encounter": "Lithiel Cinderfury"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Murder Row",
+          "instanceId": 1304,
+          "encounterId": 2682,
+          "encounter": "Lithiel Cinderfury",
+          "catalogSection": "necklaces",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 251173,
+      "name": "Yoke of the Charging Bear",
+      "level": 108,
+      "requiredLevel": 78,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 0,
+        "name": "Miscellaneous"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Neck"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 7,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 13,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/251173?namespace=static-12.1.5_70077-us"
+        },
+        "id": 251173
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Den of Nalorakk",
+          "instanceId": 1311,
+          "encounterId": 2778,
+          "encounter": "Nalorakk"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Den of Nalorakk",
+          "instanceId": 1311,
+          "encounterId": 2778,
+          "encounter": "Nalorakk"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Den of Nalorakk",
+          "instanceId": 1311,
+          "encounterId": 2778,
+          "encounter": "Nalorakk",
+          "catalogSection": "necklaces",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Den of Nalorakk",
+          "instanceId": 1311,
+          "encounterId": 2778,
+          "encounter": "Nalorakk",
+          "catalogSection": "necklaces",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 251234,
+      "name": "Graft of the Domanaar",
+      "level": 108,
+      "requiredLevel": 78,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 0,
+        "name": "Miscellaneous"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Neck"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 13,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 7,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/251234?namespace=static-12.1.5_70077-us"
+        },
+        "id": 251234
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Voidscar Arena",
+          "instanceId": 1313,
+          "encounterId": 2793,
+          "encounter": "Charonus"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Voidscar Arena",
+          "instanceId": 1313,
+          "encounterId": 2793,
+          "encounter": "Charonus",
+          "catalogSection": "necklaces",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 268250,
+      "name": "Sentinel's Vitriolic Chain",
+      "level": 219,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 0,
+        "name": "Miscellaneous"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Neck"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 565,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 37,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 121,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": "Curse of her blood purge you.",
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/268250?namespace=static-12.1.5_70077-us"
+        },
+        "id": 268250
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Venomous Abyss",
+          "instanceId": 1320,
+          "encounterId": 2874,
+          "encounter": "Entombed Sentinels"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Venomous Abyss",
+          "instanceId": 1320,
+          "encounterId": 2874,
+          "encounter": "Entombed Sentinels",
+          "catalogSection": "necklaces",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 268251,
+      "name": "Amulet of the Twin Fangs",
+      "level": 219,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 0,
+        "name": "Miscellaneous"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Neck"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 565,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 24,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 134,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": "The hunger of Ula'tek's most ancient spawn grew until the very end.",
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/268251?namespace=static-12.1.5_70077-us"
+        },
+        "id": 268251
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Venomous Abyss",
+          "instanceId": 1320,
+          "encounterId": 2887,
+          "encounter": "The Twin Fangs"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Venomous Abyss",
+          "instanceId": 1320,
+          "encounterId": 2887,
+          "encounter": "The Twin Fangs",
+          "catalogSection": "necklaces",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 268265,
+      "name": "Aqirbane Reliquary",
+      "level": 219,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 0,
+        "name": "Miscellaneous"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Neck"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 565,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 40,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 40,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "versatility"
+          },
+          "value": 40,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 40,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": "The aqir fled before her vicious onslaught, but the rivers of venom left in her wake were indiscriminate.",
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/268265?namespace=static-12.1.5_70077-us"
+        },
+        "id": 268265
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Venomous Abyss",
+          "instanceId": 1320,
+          "encounterId": 2895,
+          "encounter": "Ula'tek"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Venomous Abyss",
+          "instanceId": 1320,
+          "encounterId": 2895,
+          "encounter": "Ula'tek",
+          "catalogSection": "necklaces",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 273781,
+      "name": "Strand of Warding Fangs",
+      "level": 219,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 0,
+        "name": "Miscellaneous"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Neck"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 8,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 16,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 12,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/273781?namespace=static-12.1.5_70077-us"
+        },
+        "id": 273781
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Altar of Fangs",
+          "instanceId": 1322,
+          "encounterId": 2879,
+          "encounter": "The Writhing Coil"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Altar of Fangs",
+          "instanceId": 1322,
+          "encounterId": 2879,
+          "encounter": "The Writhing Coil",
+          "catalogSection": "necklaces",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    }
+  ]
+}

@@ -1,0 +1,2308 @@
+{
+  "schemaVersion": 1,
+  "section": "shoulders",
+  "source": "Blizzard Game Data API item search",
+  "complete": true,
+  "candidateCount": 25,
+  "items": [
+    {
+      "id": 158344,
+      "name": "Mantle of Ceremonial Ascension",
+      "level": 59,
+      "requiredLevel": 50,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Shoulder"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 8,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 10,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/158344?namespace=static-12.1.5_70077-us"
+        },
+        "id": 158344
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2172,
+          "encounter": "Dazar, The First King"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2172,
+          "encounter": "Dazar, The First King",
+          "catalogSection": "shoulders",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 159254,
+      "name": "Brood Cleanser's Amice",
+      "level": 59,
+      "requiredLevel": 50,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Shoulder"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 8,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 10,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/159254?namespace=static-12.1.5_70077-us"
+        },
+        "id": 159254
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss",
+          "catalogSection": "shoulders",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss",
+          "catalogSection": "shoulders",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 159368,
+      "name": "Spaulders of Prime Emperor",
+      "level": 59,
+      "requiredLevel": 50,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 3,
+        "name": "Mail"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Shoulder"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 8,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 8,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 10,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/159368?namespace=static-12.1.5_70077-us"
+        },
+        "id": 159368
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2172,
+          "encounter": "Dazar, The First King"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2172,
+          "encounter": "Dazar, The First King",
+          "catalogSection": "shoulders",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 159423,
+      "name": "Pauldrons of the Great Unifier",
+      "level": 59,
+      "requiredLevel": 50,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 4,
+        "name": "Plate"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Shoulder"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 8,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "strength"
+          },
+          "value": 8,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 10,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/159423?namespace=static-12.1.5_70077-us"
+        },
+        "id": 159423
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2172,
+          "encounter": "Dazar, The First King"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2172,
+          "encounter": "Dazar, The First King",
+          "catalogSection": "shoulders",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 159439,
+      "name": "C'thraxxi Binders Pauldrons",
+      "level": 59,
+      "requiredLevel": 50,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 4,
+        "name": "Plate"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Shoulder"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 8,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "strength"
+          },
+          "value": 8,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 10,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/159439?namespace=static-12.1.5_70077-us"
+        },
+        "id": 159439
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss",
+          "catalogSection": "shoulders",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss",
+          "catalogSection": "shoulders",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 237906,
+      "name": "Thalassian Competitor's Plate Pauldrons",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 4,
+        "name": "Plate"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Shoulder"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 32,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "strength"
+          },
+          "value": 32,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 407,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 28,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 28,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/237906?namespace=static-12.1.5_70077-us"
+        },
+        "id": 237906
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search",
+          "catalogSection": "shoulders",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 239031,
+      "name": "Brood Cleanser's Amice",
+      "level": 59,
+      "requiredLevel": 50,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Shoulder"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 4,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 7,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 4,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 4,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/239031?namespace=static-12.1.5_70077-us"
+        },
+        "id": 239031
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss",
+          "catalogSection": "shoulders",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss",
+          "catalogSection": "shoulders",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 239037,
+      "name": "C'thraxxi Binders Pauldrons",
+      "level": 59,
+      "requiredLevel": 50,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 4,
+        "name": "Plate"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Shoulder"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 4,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "strength"
+          },
+          "value": 4,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 7,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 3,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/239037?namespace=static-12.1.5_70077-us"
+        },
+        "id": 239037
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss",
+          "catalogSection": "shoulders",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2145,
+          "encounter": "Avatar of Sethraliss",
+          "catalogSection": "shoulders",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 239045,
+      "name": "Mantle of Ceremonial Ascension",
+      "level": 59,
+      "requiredLevel": 50,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Shoulder"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 4,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 7,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 3,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/239045?namespace=static-12.1.5_70077-us"
+        },
+        "id": 239045
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2172,
+          "encounter": "Dazar, The First King"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2172,
+          "encounter": "Dazar, The First King"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2172,
+          "encounter": "Dazar, The First King",
+          "catalogSection": "shoulders",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2172,
+          "encounter": "Dazar, The First King",
+          "catalogSection": "shoulders",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 239049,
+      "name": "Spaulders of Prime Emperor",
+      "level": 59,
+      "requiredLevel": 50,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 3,
+        "name": "Mail"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Shoulder"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 4,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 4,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 7,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 4,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 5,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/239049?namespace=static-12.1.5_70077-us"
+        },
+        "id": 239049
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2172,
+          "encounter": "Dazar, The First King"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2172,
+          "encounter": "Dazar, The First King"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2172,
+          "encounter": "Dazar, The First King",
+          "catalogSection": "shoulders",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2172,
+          "encounter": "Dazar, The First King",
+          "catalogSection": "shoulders",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 239051,
+      "name": "Pauldrons of the Great Unifier",
+      "level": 59,
+      "requiredLevel": 50,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 4,
+        "name": "Plate"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Shoulder"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 4,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "strength"
+          },
+          "value": 4,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 7,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "versatility"
+          },
+          "value": 5,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 4,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/239051?namespace=static-12.1.5_70077-us"
+        },
+        "id": 239051
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2172,
+          "encounter": "Dazar, The First King"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2172,
+          "encounter": "Dazar, The First King"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2172,
+          "encounter": "Dazar, The First King",
+          "catalogSection": "shoulders",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2172,
+          "encounter": "Dazar, The First King",
+          "catalogSection": "shoulders",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 239683,
+      "name": "Thalassian Competitor's Cloth Shoulderpads",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Shoulder"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 32,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 407,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 28,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 28,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/239683?namespace=static-12.1.5_70077-us"
+        },
+        "id": 239683
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search",
+          "catalogSection": "shoulders",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 244556,
+      "name": "Thalassian Competitor's Leather Shoulderpads",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 2,
+        "name": "Leather"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Shoulder"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 32,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 32,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 407,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "versatility"
+          },
+          "value": 28,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 28,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244556?namespace=static-12.1.5_70077-us"
+        },
+        "id": 244556
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search",
+          "catalogSection": "shoulders",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 244564,
+      "name": "Thalassian Competitor's Chain Epaulets",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 3,
+        "name": "Mail"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Shoulder"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 32,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 32,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 407,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 28,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 28,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/244564?namespace=static-12.1.5_70077-us"
+        },
+        "id": 244564
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search",
+          "catalogSection": "shoulders",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 251131,
+      "name": "Jangling Felpaulets",
+      "level": 108,
+      "requiredLevel": 78,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 3,
+        "name": "Mail"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Shoulder"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 5,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 5,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 8,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 4,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "versatility"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/251131?namespace=static-12.1.5_70077-us"
+        },
+        "id": 251131
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Murder Row",
+          "instanceId": 1304,
+          "encounterId": 2680,
+          "encounter": "Zaen Bladesorrow"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Murder Row",
+          "instanceId": 1304,
+          "encounterId": 2680,
+          "encounter": "Zaen Bladesorrow",
+          "catalogSection": "shoulders",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 251138,
+      "name": "Cinderfury Shoulderguards",
+      "level": 108,
+      "requiredLevel": 78,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 4,
+        "name": "Plate"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Shoulder"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 5,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "strength"
+          },
+          "value": 5,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 8,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 7,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 4,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/251138?namespace=static-12.1.5_70077-us"
+        },
+        "id": 251138
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Murder Row",
+          "instanceId": 1304,
+          "encounterId": 2682,
+          "encounter": "Lithiel Cinderfury"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Murder Row",
+          "instanceId": 1304,
+          "encounterId": 2682,
+          "encounter": "Lithiel Cinderfury",
+          "catalogSection": "shoulders",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 251146,
+      "name": "Scavenger's Spaulders",
+      "level": 108,
+      "requiredLevel": 78,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 2,
+        "name": "Leather"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Shoulder"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 5,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 5,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 8,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 4,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "versatility"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/251146?namespace=static-12.1.5_70077-us"
+        },
+        "id": 251146
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Den of Nalorakk",
+          "instanceId": 1311,
+          "encounterId": 2776,
+          "encounter": "The Hoardmonger"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Den of Nalorakk",
+          "instanceId": 1311,
+          "encounterId": 2776,
+          "encounter": "The Hoardmonger",
+          "catalogSection": "shoulders",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 251184,
+      "name": "Ironroot Collar",
+      "level": 108,
+      "requiredLevel": 78,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 3,
+        "name": "Mail"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Shoulder"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 5,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 5,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 8,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 7,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "versatility"
+          },
+          "value": 4,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/251184?namespace=static-12.1.5_70077-us"
+        },
+        "id": 251184
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Blinding Vale",
+          "instanceId": 1309,
+          "encounterId": 2769,
+          "encounter": "Lightblossom Trinity"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Blinding Vale",
+          "instanceId": 1309,
+          "encounterId": 2769,
+          "encounter": "Lightblossom Trinity",
+          "catalogSection": "shoulders",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 251223,
+      "name": "Somber Spaulders",
+      "level": 108,
+      "requiredLevel": 78,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 2,
+        "name": "Leather"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Shoulder"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 5,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 5,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 8,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 7,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 4,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/251223?namespace=static-12.1.5_70077-us"
+        },
+        "id": 251223
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Voidscar Arena",
+          "instanceId": 1313,
+          "encounterId": 2791,
+          "encounter": "Taz'Rah"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Voidscar Arena",
+          "instanceId": 1313,
+          "encounterId": 2791,
+          "encounter": "Taz'Rah",
+          "catalogSection": "shoulders",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 251227,
+      "name": "Poisoner's Pauldrons",
+      "level": 108,
+      "requiredLevel": 78,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Shoulder"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 5,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 8,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "versatility"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 4,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/251227?namespace=static-12.1.5_70077-us"
+        },
+        "id": 251227
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Voidscar Arena",
+          "instanceId": 1313,
+          "encounterId": 2792,
+          "encounter": "Atroxus"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Voidscar Arena",
+          "instanceId": 1313,
+          "encounterId": 2792,
+          "encounter": "Atroxus",
+          "catalogSection": "shoulders",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 268226,
+      "name": "Swelling Sea Spaulders",
+      "level": 219,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 4,
+        "name": "Plate"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Shoulder"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 48,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "strength"
+          },
+          "value": 48,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 754,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 57,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 24,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/268226?namespace=static-12.1.5_70077-us"
+        },
+        "id": 268226
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Tidebound Grotto",
+          "instanceId": 1317,
+          "encounterId": 2849,
+          "encounter": "Nymrissa Wavecaller"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Tidebound Grotto",
+          "instanceId": 1317,
+          "encounterId": 2849,
+          "encounter": "Nymrissa Wavecaller",
+          "catalogSection": "shoulders",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 268231,
+      "name": "Soulslither Spaulders",
+      "level": 219,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 3,
+        "name": "Mail"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Shoulder"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 48,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 48,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 754,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 25,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 56,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/268231?namespace=static-12.1.5_70077-us"
+        },
+        "id": 268231
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Venomous Abyss",
+          "instanceId": 1320,
+          "encounterId": 2883,
+          "encounter": "The Coiled Altar"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Venomous Abyss",
+          "instanceId": 1320,
+          "encounterId": 2883,
+          "encounter": "The Coiled Altar",
+          "catalogSection": "shoulders",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 268241,
+      "name": "Ornaments of the Eternal Coil",
+      "level": 219,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Shoulder"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 48,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 754,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 57,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "versatility"
+          },
+          "value": 23,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/268241?namespace=static-12.1.5_70077-us"
+        },
+        "id": 268241
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Venomous Abyss",
+          "instanceId": 1320,
+          "encounterId": 2887,
+          "encounter": "The Twin Fangs"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Venomous Abyss",
+          "instanceId": 1320,
+          "encounterId": 2887,
+          "encounter": "The Twin Fangs",
+          "catalogSection": "shoulders",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 268246,
+      "name": "Frothing Venom Spaulders",
+      "level": 219,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 2,
+        "name": "Leather"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Shoulder"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 48,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 48,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 754,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 53,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 27,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/268246?namespace=static-12.1.5_70077-us"
+        },
+        "id": 268246
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Venomous Abyss",
+          "instanceId": 1320,
+          "encounterId": 2882,
+          "encounter": "Vashnik the Malignant"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Venomous Abyss",
+          "instanceId": 1320,
+          "encounterId": 2882,
+          "encounter": "Vashnik the Malignant",
+          "catalogSection": "shoulders",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 273774,
+      "name": "Snakeskin Spaulders",
+      "level": 219,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 2,
+        "name": "Leather"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Shoulder"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 7,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 7,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 11,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 9,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "versatility"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/273774?namespace=static-12.1.5_70077-us"
+        },
+        "id": 273774
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Altar of Fangs",
+          "instanceId": 1322,
+          "encounterId": 2879,
+          "encounter": "The Writhing Coil"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Altar of Fangs",
+          "instanceId": 1322,
+          "encounterId": 2879,
+          "encounter": "The Writhing Coil",
+          "catalogSection": "shoulders",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    }
+  ]
+}

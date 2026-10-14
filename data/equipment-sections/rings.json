@@ -1,0 +1,943 @@
+{
+  "schemaVersion": 1,
+  "section": "rings",
+  "source": "Blizzard Game Data API item search",
+  "complete": true,
+  "candidateCount": 12,
+  "items": [
+    {
+      "id": 158366,
+      "name": "Charged Sandstone Band",
+      "level": 59,
+      "requiredLevel": 0,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 0,
+        "name": "Miscellaneous"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Finger"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 5,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 9,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 7,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/158366?namespace=static-12.1.5_70077-us"
+        },
+        "id": 158366
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2144,
+          "encounter": "Galvazzt"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2144,
+          "encounter": "Galvazzt",
+          "catalogSection": "rings",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 159459,
+      "name": "Ritual Binder's Ring",
+      "level": 59,
+      "requiredLevel": 0,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 0,
+        "name": "Miscellaneous"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Finger"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 5,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 11,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "versatility"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/159459?namespace=static-12.1.5_70077-us"
+        },
+        "id": 159459
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2171,
+          "encounter": "Mchimba the Embalmer"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2171,
+          "encounter": "Mchimba the Embalmer",
+          "catalogSection": "rings",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 162544,
+      "name": "Jade Ophidian Band",
+      "level": 59,
+      "requiredLevel": 0,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 0,
+        "name": "Miscellaneous"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Finger"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 5,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "versatility"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 10,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/162544?namespace=static-12.1.5_70077-us"
+        },
+        "id": 162544
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2143,
+          "encounter": "Merektha"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Temple of Sethraliss",
+          "instanceId": 1030,
+          "encounterId": 2143,
+          "encounter": "Merektha",
+          "catalogSection": "rings",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 240951,
+      "name": "Thalassian Competitor's Signet",
+      "level": 197,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 0,
+        "name": "Miscellaneous"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Finger"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 305,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 75,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 75,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/240951?namespace=static-12.1.5_70077-us"
+        },
+        "id": 240951
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search",
+          "catalogSection": "rings",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 251136,
+      "name": "Signet of Snarling Servitude",
+      "level": 108,
+      "requiredLevel": 78,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 0,
+        "name": "Miscellaneous"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Finger"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 12,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 8,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/251136?namespace=static-12.1.5_70077-us"
+        },
+        "id": 251136
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Murder Row",
+          "instanceId": 1304,
+          "encounterId": 2681,
+          "encounter": "Xathuux the Annihilator"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Murder Row",
+          "instanceId": 1304,
+          "encounterId": 2681,
+          "encounter": "Xathuux the Annihilator",
+          "catalogSection": "rings",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 251148,
+      "name": "Pilfered Precious Band",
+      "level": 108,
+      "requiredLevel": 78,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 0,
+        "name": "Miscellaneous"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Finger"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 8,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "versatility"
+          },
+          "value": 12,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": "The Hoardmonger was strangely attached to this 'precious' ring.",
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/251148?namespace=static-12.1.5_70077-us"
+        },
+        "id": 251148
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Den of Nalorakk",
+          "instanceId": 1311,
+          "encounterId": 2776,
+          "encounter": "The Hoardmonger"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Den of Nalorakk",
+          "instanceId": 1311,
+          "encounterId": 2776,
+          "encounter": "The Hoardmonger",
+          "catalogSection": "rings",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 251194,
+      "name": "Lightwarden's Bind",
+      "level": 108,
+      "requiredLevel": 78,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 0,
+        "name": "Miscellaneous"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Finger"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "versatility"
+          },
+          "value": 7,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 13,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/251194?namespace=static-12.1.5_70077-us"
+        },
+        "id": 251194
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Blinding Vale",
+          "instanceId": 1309,
+          "encounterId": 2771,
+          "encounter": "Lightwarden Ruia"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Blinding Vale",
+          "instanceId": 1309,
+          "encounterId": 2771,
+          "encounter": "Lightwarden Ruia",
+          "catalogSection": "rings",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 252258,
+      "name": "Sickening Signet of Atroxus",
+      "level": 108,
+      "requiredLevel": 78,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 0,
+        "name": "Miscellaneous"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Finger"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 14,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/252258?namespace=static-12.1.5_70077-us"
+        },
+        "id": 252258
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Voidscar Arena",
+          "instanceId": 1313,
+          "encounterId": 2792,
+          "encounter": "Atroxus"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Voidscar Arena",
+          "instanceId": 1313,
+          "encounterId": 2792,
+          "encounter": "Atroxus",
+          "catalogSection": "rings",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 268249,
+      "name": "Vile Alchemist's Band",
+      "level": 219,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 0,
+        "name": "Miscellaneous"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Finger"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 565,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 28,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 130,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": "Ooh, a live subject!",
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/268249?namespace=static-12.1.5_70077-us"
+        },
+        "id": 268249
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Venomous Abyss",
+          "instanceId": 1320,
+          "encounterId": 2882,
+          "encounter": "Vashnik the Malignant"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Venomous Abyss",
+          "instanceId": 1320,
+          "encounterId": 2882,
+          "encounter": "Vashnik the Malignant",
+          "catalogSection": "rings",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 268252,
+      "name": "Apex Brute's Claw Ring",
+      "level": 219,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 0,
+        "name": "Miscellaneous"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Finger"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 565,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 132,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 26,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/268252?namespace=static-12.1.5_70077-us"
+        },
+        "id": 268252
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Venomous Abyss",
+          "instanceId": 1320,
+          "encounterId": 2871,
+          "encounter": "Sszorak"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Venomous Abyss",
+          "instanceId": 1320,
+          "encounterId": 2871,
+          "encounter": "Sszorak",
+          "catalogSection": "rings",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 268266,
+      "name": "Alluring Bubbleband",
+      "level": 219,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 0,
+        "name": "Miscellaneous"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Finger"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 565,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 123,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "versatility"
+          },
+          "value": 35,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/268266?namespace=static-12.1.5_70077-us"
+        },
+        "id": 268266
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Tidebound Grotto",
+          "instanceId": 1317,
+          "encounterId": 2849,
+          "encounter": "Nymrissa Wavecaller"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Tidebound Grotto",
+          "instanceId": 1317,
+          "encounterId": 2849,
+          "encounter": "Nymrissa Wavecaller",
+          "catalogSection": "rings",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 273792,
+      "name": "Band of the Amani Warlord",
+      "level": 219,
+      "requiredLevel": 80,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 0,
+        "name": "Miscellaneous"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Finger"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 8,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 10,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 17,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": "A simple but durable ring, once worn by the Warlord Zul'jin himself.",
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/273792?namespace=static-12.1.5_70077-us"
+        },
+        "id": 273792
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Altar of Fangs",
+          "instanceId": 1322,
+          "encounterId": 2880,
+          "encounter": "Zul'jan"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Altar of Fangs",
+          "instanceId": 1322,
+          "encounterId": 2880,
+          "encounter": "Zul'jan",
+          "catalogSection": "rings",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    }
+  ]
+}

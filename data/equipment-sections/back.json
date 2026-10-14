@@ -1,0 +1,700 @@
+{
+  "schemaVersion": 1,
+  "section": "back",
+  "source": "Blizzard Game Data API item search",
+  "complete": true,
+  "candidateCount": 7,
+  "items": [
+    {
+      "id": 159288,
+      "name": "Cloak of the Restless Tribes",
+      "level": 59,
+      "requiredLevel": 0,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Back"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 3,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 3,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "strength"
+          },
+          "value": 3,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 5,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "versatility"
+          },
+          "value": 4,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 3,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/159288?namespace=static-12.1.5_70077-us"
+        },
+        "id": 159288
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2170,
+          "encounter": "The Council of Tribes"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Kings' Rest",
+          "instanceId": 1041,
+          "encounterId": 2170,
+          "encounter": "The Council of Tribes",
+          "catalogSection": "back",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 193763,
+      "name": "Fireproof Drape",
+      "level": 250,
+      "requiredLevel": 58,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Back"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "strength"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 9,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 4,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 8,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/193763?namespace=static-12.1.5_70077-us"
+        },
+        "id": 193763
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Ruby Life Pools",
+          "instanceId": 1202,
+          "encounterId": 2485,
+          "encounter": "Kokia Blazehoof"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Ruby Life Pools",
+          "instanceId": 1202,
+          "encounterId": 2485,
+          "encounter": "Kokia Blazehoof",
+          "catalogSection": "back",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 239678,
+      "name": "Thalassian Competitor's Cloth Cloak",
+      "level": 197,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Uncommon"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Back"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 24,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 24,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "strength"
+          },
+          "value": 24,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 305,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 21,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 21,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/239678?namespace=static-12.1.5_70077-us"
+        },
+        "id": 239678
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvP",
+          "pvpSeasonId": 42,
+          "pvpSeason": "Midnight Season 2",
+          "sourceType": "current-season PvP gear family search",
+          "catalogSection": "back",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 251132,
+      "name": "Speakeasy Shroud",
+      "level": 108,
+      "requiredLevel": 78,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Back"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 4,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 4,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "strength"
+          },
+          "value": 4,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 5,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 3,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/251132?namespace=static-12.1.5_70077-us"
+        },
+        "id": 251132
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Murder Row",
+          "instanceId": 1304,
+          "encounterId": 2680,
+          "encounter": "Zaen Bladesorrow"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Murder Row",
+          "instanceId": 1304,
+          "encounterId": 2680,
+          "encounter": "Zaen Bladesorrow",
+          "catalogSection": "back",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 251190,
+      "name": "Bloodthorn Burnous",
+      "level": 108,
+      "requiredLevel": 78,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Back"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 4,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 4,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "strength"
+          },
+          "value": 4,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 6,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 5,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 3,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/251190?namespace=static-12.1.5_70077-us"
+        },
+        "id": 251190
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Blinding Vale",
+          "instanceId": 1309,
+          "encounterId": 2770,
+          "encounter": "Ikuzz the Light Hunter"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Blinding Vale",
+          "instanceId": 1309,
+          "encounterId": 2770,
+          "encounter": "Ikuzz the Light Hunter",
+          "catalogSection": "back",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 268248,
+      "name": "Amani Summoning Shawl",
+      "level": 219,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Back"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 36,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 36,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "strength"
+          },
+          "value": 36,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 565,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 42,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "versatility"
+          },
+          "value": 18,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": "Kale, Ula'tek! Ula'tek ban kale!",
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/268248?namespace=static-12.1.5_70077-us"
+        },
+        "id": 268248
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Venomous Abyss",
+          "instanceId": 1320,
+          "encounterId": 2888,
+          "encounter": "Nek'zali the Soulcoiler"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Venomous Abyss",
+          "instanceId": 1320,
+          "encounterId": 2888,
+          "encounter": "Nek'zali the Soulcoiler",
+          "catalogSection": "back",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 268253,
+      "name": "Silken Voodoo Drape",
+      "level": 219,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 1,
+        "name": "Cloth"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Back"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 36,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 36,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "strength"
+          },
+          "value": 36,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "stamina"
+          },
+          "value": 565,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 18,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "mastery"
+          },
+          "value": 42,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/268253?namespace=static-12.1.5_70077-us"
+        },
+        "id": 268253
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Venomous Abyss",
+          "instanceId": 1320,
+          "encounterId": 2883,
+          "encounter": "The Coiled Altar"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "The Venomous Abyss",
+          "instanceId": 1320,
+          "encounterId": 2883,
+          "encounter": "The Coiled Altar",
+          "catalogSection": "back",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    }
+  ]
+}
