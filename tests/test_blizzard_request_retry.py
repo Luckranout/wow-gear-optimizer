@@ -13,7 +13,7 @@ class BlizzardRequestRetryTests(unittest.TestCase):
     def test_retry_logs_endpoint_without_query_string_and_uses_backoff(self):
         response = MagicMock()
         response.__enter__.return_value.read.return_value = b'{"ok": true}'
-        with patch.object(importer.urllib.request, "urlopen", side_effect=[
+        with patch.object(importer, "throttled_urlopen", side_effect=[
             urllib.error.URLError("ssl handshake timeout"),
             urllib.error.URLError("temporary network failure"),
             response,
@@ -59,7 +59,7 @@ class BlizzardRequestRetryTests(unittest.TestCase):
         )
         response = MagicMock()
         response.__enter__.return_value.read.return_value = b'{"id": 123}'
-        with patch.object(importer.urllib.request, "urlopen", side_effect=[rate_limited, response]) as urlopen, patch.object(
+        with patch.object(importer, "throttled_urlopen", side_effect=[rate_limited, response]) as urlopen, patch.object(
             importer.time, "sleep"
         ) as sleep, patch("builtins.print"):
             payload = importer.request_json(
