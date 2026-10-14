@@ -9,6 +9,7 @@ name: Test WoW Optimizer
 # Step 27 verification trigger
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -88,6 +89,7 @@ jobs:
           BLIZZARD_CLIENT_SECRET: ${{ secrets.BLIZZARD_CLIENT_SECRET }}
         run: python scripts/audit_live_tier_set_coverage.py
       - name: Run full catalog assembly against temporary output
+        if: github.event_name == 'workflow_dispatch'
         timeout-minutes: 15
         env:
           BLIZZARD_CLIENT_ID: ${{ secrets.BLIZZARD_CLIENT_ID }}
