@@ -121,7 +121,11 @@ const liveGuardedShoulder = optimizer.findBestItemForSlot(
   [liveNormalizedShoulder], "Shoulders", "general", null, "Shaman", equippedShoulders
 );
 assert.equal(liveGuardedShoulder.item.id, equippedShoulders.id);
-assert.equal(liveGuardedShoulder.retainedEquipped, true);
+assert.equal(
+  liveGuardedShoulder.item.itemLevel ?? liveGuardedShoulder.item.level,
+  equippedShoulders.itemLevel,
+  "matching item ID must resolve to the equipped higher-level variant"
+);
 
 console.log("Slot candidate diagnostics tests passed.");
 
