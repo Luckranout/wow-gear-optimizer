@@ -548,14 +548,19 @@ def collect_season_tier_set_item_ids(token):
     return item_sources, sorted(matched_sets), missing_sets
 
 
-def validate_season_tier_set_coverage(matched_sets, missing_sets):
-    """Fail closed rather than publishing a catalog with missing current-season tier sets."""
+def validate_season_tier_set_coverage(matched_sets, missing_sets, item_sources=None):
+    """Fail closed rather than publishing missing or empty current-season tier-set coverage."""
     if missing_sets:
         missing = ", ".join(missing_sets)
         raise RuntimeError(
             "Refusing to publish an incomplete Season 2 tier-set catalog. "
             f"Matched {len(matched_sets)}/{len(SEASON_TIER_SET_NAMES)} expected sets; "
             f"missing: {missing}. Check Blizzard Item Set API coverage and set-name mapping."
+        )
+    if item_sources is not None and not item_sources:
+        raise RuntimeError(
+            "Refusing to publish a Season 2 catalog with zero tier-set item IDs. "
+            "Blizzard returned matching set names but no extractable item references."
         )
     return True
 
@@ -1826,7 +1831,7 @@ def main():
 
     pve_sources, matched_instances, missing_sources = collect_season_content_item_ids(token)
     tier_set_sources, matched_tier_sets, missing_tier_sets = collect_season_tier_set_item_ids(token)
-    validate_season_tier_set_coverage(matched_tier_sets, missing_tier_sets)
+    validate_season_tier_set_coverage(matched_tier_sets, missing_tier_sets, tier_set_sources)
     pvp_sources, pvp_metadata = collect_pvp_season_item_ids(
         token, current_pvp_season_id, current_pvp_season_name
     )
