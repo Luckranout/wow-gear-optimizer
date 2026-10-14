@@ -2,7 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "git": {
     "deploymentEnabled": {
-      "diagnostics/slot-candidate-audit": false
+      "diagnostics/slot-candidate-audit": true
     }
   }
 }
