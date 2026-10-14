@@ -82,20 +82,20 @@ jobs:
         run: python -m unittest tests/test_verified_item_effect_observations.py
       - name: Run fail-closed item stat verifier tests
         run: python -m unittest tests/test_verify_item_stat_coverage.py
-
+      - name: Run read-only live tier-set catalog audit
+        if: ${{ env.BLIZZARD_CLIENT_ID != '' && env.BLIZZARD_CLIENT_SECRET != '' }}
+        env:
+          BLIZZARD_CLIENT_ID: ${{ secrets.BLIZZARD_CLIENT_ID }}
+          BLIZZARD_CLIENT_SECRET: ${{ secrets.BLIZZARD_CLIENT_SECRET }}
+        run: python scripts/audit_live_tier_set_coverage.py
       - name: Run simulation import tests
         run: node tests/simulation-import.test.js
-
-
       - name: Run simulation export tests
         run: node tests/simulation-export.test.js
-
       - name: Run SimulationCraft optimizer mapping tests
         run: node tests/simulation-optimizer.test.js
-
       - name: Run equipped gear comparison tests
         run: node tests/equipped-gear-comparison.test.js
-
       - name: Run slot candidate diagnostics tests
         run: node tests/slot-candidate-diagnostics.test.js
       - name: Run complete loadout UI tests
@@ -116,42 +116,34 @@ jobs:
         run: node tests/character-talents.test.js
       - name: Run talent-aware UI tests
         run: node tests/talent-aware-ui.test.js
-
       - name: Run content-aware coach tests
         run: node tests/content-aware-coach.test.js
       - name: Run content-aware UI tests
         run: node tests/content-aware-ui.test.js
-
       - name: Run combat preparation coach tests
         run: node tests/combat-preparation-coach.test.js
       - name: Run combat preparation UI tests
         run: node tests/combat-preparation-ui.test.js
-
       - name: Run situational gameplay coach tests
         run: node tests/situational-gameplay-coach.test.js
       - name: Run situational gameplay UI tests
         run: node tests/situational-gameplay-ui.test.js
-
       - name: Run encounter-aware coach tests
         run: node tests/encounter-aware-coach.test.js
       - name: Run encounter-aware UI tests
         run: node tests/encounter-aware-ui.test.js
-
       - name: Run build synthesis tests
         run: node tests/build-synthesis.test.js
       - name: Run build synthesis UI tests
         run: node tests/build-synthesis-ui.test.js
-
       - name: Run set guidance tests
         run: node tests/set-guidance.test.js
       - name: Run set guidance UI tests
         run: node tests/set-guidance-ui.test.js
-
       - name: Run special item guidance tests
         run: node tests/special-item-guidance.test.js
       - name: Run special item UI tests
         run: node tests/special-item-ui.test.js
-
       - name: Run upgrade spending tests
         run: node tests/upgrade-spending.test.js
       - name: Run upgrade spending UI tests
