@@ -89,7 +89,7 @@ def fetch_inventory_type_ids(token, inventory_type, get_api_json, sleep=time.sle
 
 
 def collect_equipment_section_ids(token, get_api_json, allowed_item_ids, sleep=time.sleep):
-    """Find slot matches, but publish only IDs proven by verified Season 2+ loot sources."""
+    """Find slot matches intersecting the importer's independently verified Season 2+ candidate sources."""
     allowed_item_ids = set(allowed_item_ids)
     if not allowed_item_ids:
         raise RuntimeError("No verified Season 2+ item IDs were supplied; refusing to publish a catalog.")
@@ -100,7 +100,8 @@ def collect_equipment_section_ids(token, get_api_json, allowed_item_ids, sleep=t
         for inventory_type in inventory_types:
             ids.update(fetch_inventory_type_ids(token, inventory_type, get_api_json, sleep))
         # Blizzard item search is a slot lookup, not a season filter. Intersect it
-        # with IDs independently proven by the configured Season 2 PvE/PvP sources.
+        # with IDs independently verified by the importer (PvE/PvP loot or
+        # eligible Midnight profession recipe outputs).
         ids.intersection_update(allowed_item_ids)
         if not ids:
             print(f"Equipment section {section}: no verified Season 2+ source items; section omitted.")
@@ -111,7 +112,7 @@ def collect_equipment_section_ids(token, get_api_json, allowed_item_ids, sleep=t
                 "category": "Verified Season 2+ Equipment Catalog",
                 "catalogSection": section,
                 "seasonScope": "Midnight Season 2+",
-                "eligibilitySource": "Blizzard Season 2 PvE/PvP loot source intersection",
+                "eligibilitySource": "Verified Midnight Season 2+ loot or profession recipe source intersection",
             })
         print(f"Equipment section {section}: {len(ids)} unique item IDs.")
     return section_ids, source_map
