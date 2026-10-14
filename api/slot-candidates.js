@@ -47,7 +47,7 @@ function allowedForClass(item, className, slot) {
   const subclass = String(item.itemSubclass?.name || item.itemSubclass || "").toLowerCase();
   return (itemClass.includes("armor") || itemClass.includes("armour")) && subclass === expected;
 }
-module.exports = async function handler(req, res) {
+async function handler(req, res) {
   setCorsHeaders(req, res);
   if (req.method !== "GET") {
     res.setHeader("Allow", "GET");
@@ -79,3 +79,6 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ error: "Unable to load the verified equipment section." });
   }
 };
+
+handler._test = { SLOT_SECTION, slotMatches, allowedForClass, normalizeClass };
+module.exports = handler;
