@@ -83,7 +83,6 @@ jobs:
       - name: Run fail-closed item stat verifier tests
         run: python -m unittest tests/test_verify_item_stat_coverage.py
       - name: Run read-only live tier-set catalog audit
-        if: ${{ env.BLIZZARD_CLIENT_ID != '' && env.BLIZZARD_CLIENT_SECRET != '' }}
         env:
           BLIZZARD_CLIENT_ID: ${{ secrets.BLIZZARD_CLIENT_ID }}
           BLIZZARD_CLIENT_SECRET: ${{ secrets.BLIZZARD_CLIENT_SECRET }}
