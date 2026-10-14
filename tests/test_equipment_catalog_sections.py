@@ -52,6 +52,10 @@ class EquipmentSectionPaginationTests(unittest.TestCase):
             "main-hand", "off-hand",
         }
         self.assertEqual(set(SECTION_SEARCHES), expected)
+        self.assertIn("WEAPONMAINHAND", SECTION_SEARCHES["main-hand"])
+        self.assertIn("TWOHWEAPON", SECTION_SEARCHES["main-hand"])
+        self.assertIn("WEAPONOFFHAND", SECTION_SEARCHES["off-hand"])
+        self.assertIn("WEAPON", SECTION_SEARCHES["off-hand"])
 
     def test_collect_fails_closed_if_a_section_is_empty(self):
         def empty_search(_path, _token, _params):
