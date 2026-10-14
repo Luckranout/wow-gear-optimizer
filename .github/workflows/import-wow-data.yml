@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - main
-      - feature/sectioned-equipment-catalog
     paths:
       - "scripts/import_blizzard_data.py"
       - ".github/workflows/import-wow-data.yml"
