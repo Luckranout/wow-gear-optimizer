@@ -117,7 +117,7 @@ def collect_equipment_section_ids(token, get_api_json, allowed_item_ids, sleep=t
     return section_ids, source_map
 
 
-def write_section_catalogs(section_ids, enriched_items, output_dir=SECTION_DIR):
+def write_section_catalogs(section_ids, enriched_items, output_dir=SECTION_DIR, remove_stale=True):
     """Atomically publish each complete section; preserve old files on validation failure."""
     item_by_id = {
         item.get("id"): item
@@ -182,7 +182,7 @@ def write_section_catalogs(section_ids, enriched_items, output_dir=SECTION_DIR):
     # After all non-empty sections have validated and been written, remove old
     # section files that no longer contain any verified Season 2+ candidates.
     for section in SECTION_SEARCHES:
-        if section not in section_ids:
+        if remove_stale and section not in section_ids:
             stale_path = output_dir / f"{section}.json"
             if stale_path.exists():
                 stale_path.unlink()
