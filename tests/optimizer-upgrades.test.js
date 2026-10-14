@@ -1049,7 +1049,7 @@ const hasteBalanceCharacter = {
   specialization: "Enhancement",
   equipment: {
     ...o.createCharacterProfile().equipment,
-    Head: { id: 992001, slot: "Head", itemLevel: 300, stats: { Haste: 8000 } },
+    Head: { id: 992001, slot: "Head", itemClass: "Armor", itemSubclass: "Mail", itemLevel: 300, stats: { Haste: 8000 } },
     Neck: { id: 992002, name: "Haste-heavy Necklace", slot: "Neck", itemLevel: 300, stats: { Haste: 1000 } }
   }
 };
