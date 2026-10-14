@@ -80,9 +80,9 @@ class EquipmentSectionPaginationTests(unittest.TestCase):
 
     def test_catalog_classifies_only_verified_source_ids_by_item_detail(self):
         details = {
-            10: {"id": 10, "name": "Old Ring", "is_equippable": True, "inventory_type": {"type": "FINGER", "name": "Finger"}},
-            11: {"id": 11, "name": "Season Ring", "is_equippable": True, "inventory_type": {"type": "FINGER", "name": "Finger"}},
-            12: {"id": 12, "name": "Season Head", "is_equippable": True, "inventory_type": {"type": "HEAD", "name": "Head"}},
+            10: {"id": 10, "name": "Old Ring", "level": 59, "is_equippable": True, "inventory_type": {"type": "FINGER", "name": "Finger"}},
+            11: {"id": 11, "name": "Season Ring", "level": 292, "is_equippable": True, "inventory_type": {"type": "FINGER", "name": "Finger"}},
+            12: {"id": 12, "name": "Season Head", "level": 292, "is_equippable": True, "inventory_type": {"type": "HEAD", "name": "Head"}},
         }
         calls = []
 
@@ -93,8 +93,9 @@ class EquipmentSectionPaginationTests(unittest.TestCase):
 
         with patch("builtins.print") as printer:
             sections, sources = collect_equipment_section_ids(
-                "token", get_detail, {11, 12}, sleep=lambda _s: None,
+                "token", get_detail, {10, 11, 12}, sleep=lambda _s: None,
                 source_evidence={
+                    10: [{"category": "PvE", "seasonScope": "Midnight Season 2+", "encounter": "Legacy loot table"}],
                     11: [{"category": "PvE", "seasonScope": "Midnight Season 2+", "encounter": "Test encounter"}],
                     12: [{"category": "Crafted Gear", "seasonScope": "Midnight Season 2+", "professionRecipeSource": "Test recipe"}],
                 },
@@ -108,6 +109,23 @@ class EquipmentSectionPaginationTests(unittest.TestCase):
         self.assertEqual(sources[11][0]["encounter"], "Test encounter")
         self.assertEqual(sources[12][0]["professionRecipeSource"], "Test recipe")
         self.assertTrue(all(source["slotConfirmedBy"] == "Blizzard item detail inventory_type.type" for values in sources.values() for source in values))
+
+    def test_low_level_pvp_item_is_preserved_by_independent_source_evidence(self):
+        details = {
+            21: {"id": 21, "name": "Season PvP Ring", "level": 197, "is_equippable": True, "inventory_type": {"type": "FINGER", "name": "Finger"}},
+        }
+
+        def get_detail(path, _token, _params):
+            return details[int(path.rsplit("/", 1)[-1])]
+
+        sections, sources = collect_equipment_section_ids(
+            "token", get_detail, {21}, sleep=lambda _s: None,
+            source_evidence={
+                21: [{"category": "PvP", "seasonScope": "Midnight Season 2+", "pvpSeasonId": 42}],
+            },
+        )
+        self.assertEqual(sections, {"rings": {21}})
+        self.assertEqual(sources[21][0]["category"], "PvP")
 
     def test_item_without_source_evidence_is_rejected(self):
         details = {
