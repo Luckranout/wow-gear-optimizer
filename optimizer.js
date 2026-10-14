@@ -682,6 +682,48 @@ function resolveCatalogItemAgainstEquippedVariant(candidate, equippedItem) {
   return candidate;
 }
 
+function diagnoseSlotCandidates(items, slot, className = "") {
+  const catalog = Array.isArray(items) ? items : [];
+  const slotMatches = catalog.filter(item => itemMatchesSlot(item, slot));
+  const classEligible = slotMatches.filter(item => itemAllowedForClass(item, className));
+  const optimizerEligible = classEligible.filter(item => item.optimizerEligible !== false);
+  const usableStats = optimizerEligible.filter(item => hasUsableItemStats(item));
+  const summarize = item => ({
+    id: item.id ?? null,
+    name: item.name ?? null,
+    slot: item.slot ?? null,
+    inventoryType: item.inventoryType?.name || item.inventoryType || null,
+    itemLevel: Number(item.itemLevel ?? item.level) || null,
+    rawItemLevel: item.itemLevel ?? null,
+    rawLevel: item.level ?? null,
+    itemLevelSource: item.itemLevel != null ? "itemLevel" : item.level != null ? "level" : "missing",
+    upgradeTrack: item.upgradeTrack?.name || item.upgradeTrack || item.upgrade?.track || null,
+    itemClass: item.itemClass?.name || item.itemClass || null,
+    itemSubclass: item.itemSubclass?.name || item.itemSubclass || null,
+    source: item.source || item.dataSource || null,
+    statsPresent: Boolean(item.stats),
+    statNames: Array.isArray(item.stats)
+      ? item.stats.map(stat => stat.stat?.name || stat.type?.name || stat.name || stat.stat || stat.type || null).filter(Boolean)
+      : item.stats && typeof item.stats === "object" ? Object.keys(item.stats) : [],
+    usableStats: hasUsableItemStats(item),
+    optimizerEligible: item.optimizerEligible !== false
+  });
+  return {
+    requestedSlot: slot,
+    className: className || null,
+    catalogCount: catalog.length,
+    slotMatchCount: slotMatches.length,
+    classEligibleCount: classEligible.length,
+    optimizerEligibleCount: optimizerEligible.length,
+    usableStatsCount: usableStats.length,
+    excludedBySlot: catalog.filter(item => !itemMatchesSlot(item, slot)).slice(0, 10).map(summarize),
+    excludedByClass: slotMatches.filter(item => !itemAllowedForClass(item, className)).slice(0, 10).map(summarize),
+    excludedByEligibility: classEligible.filter(item => item.optimizerEligible === false).slice(0, 10).map(summarize),
+    excludedByStats: optimizerEligible.filter(item => !hasUsableItemStats(item)).slice(0, 10).map(summarize),
+    candidates: usableStats.slice(0, 20).map(summarize)
+  };
+}
+
 function findBestItemForSlot(items, slot, goal, statWeights = null, className = "", equippedItem = null, specialization = "") {
   const weights = statWeights || getGoalWeights(goal);
   const bestByIdentity = new Map();
@@ -690,6 +732,7 @@ function findBestItemForSlot(items, slot, goal, statWeights = null, className = 
         !itemAllowedForClass(candidate, className) ||
         !itemAllowedForClassWeapon(candidate, slot, className) ||
         !itemAllowedForSpecialization(candidate, slot, className, specialization) ||
+        candidate.optimizerEligible === false ||
         !hasUsableItemStats(candidate)) continue;
 
     // A seasonal catalogue can contain multiple difficulty/upgrade variants
@@ -702,7 +745,21 @@ function findBestItemForSlot(items, slot, goal, statWeights = null, className = 
     const previous = bestByIdentity.get(key);
     if (!previous || score > previous.score) bestByIdentity.set(key, { item, score });
   }
-  return [...bestByIdentity.values()].sort((a, b) => b.score - a.score)[0] || null;
+  const best = [...bestByIdentity.values()].sort((a, b) => b.score - a.score)[0] || null;
+  if (!best) return null;
+
+  // Never replace verified equipped gear with a lower-level fallback from a sparse catalog.
+  const equippedLevel = Number(equippedItem?.itemLevel ?? equippedItem?.level) || 0;
+  const candidateLevel = Number(best.item?.itemLevel ?? best.item?.level) || 0;
+  if (equippedItem && equippedLevel > 0 && candidateLevel > 0 && candidateLevel < equippedLevel) {
+    return {
+      item: equippedItem,
+      score: scoreItem(equippedItem, weights),
+      retainedEquipped: true,
+      reason: "No verified higher-item-level candidate was available; retained currently equipped gear."
+    };
+  }
+  return best;
 }
 
 function optimizeEquipment({
@@ -1217,7 +1274,7 @@ window.WoWOptimizer = {
   applySecondaryRatingDiminishingReturns, getSecondaryRatingDiminishingReturns, SECONDARY_RATING_DR_TABLE, SECONDARY_RATING_DR_SOFT_TARGETS, getSecondaryRatingTotals, getSecondaryRatingHardCapViolations, getSecondaryRatingSoftTargetPenalty,
   createCharacterProfile, normalizeCharacterStatistics, scoreCharacterStatistics, getCharacterStatSummary, resolveStatWeights, normalizeSimulationScaleFactors, getSimulationWeightContext, findBlizzardSpecialization, getSpecProfileContext,
   normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, hasUsableItemStats, scoreItem, scoreEquipment, getGoalWeights,
-  findBestItemForSlot, itemMatchesSlot, itemAllowedForClassWeapon, itemAllowedForSpecialization, getWeaponMetadata, normalizeWeaponType, optimizeEquipment, findUpgradeOpportunities, rankItems,
+  findBestItemForSlot, diagnoseSlotCandidates, itemMatchesSlot, itemAllowedForClassWeapon, itemAllowedForSpecialization, getWeaponMetadata, normalizeWeaponType, optimizeEquipment, findUpgradeOpportunities, rankItems,
   getItemSetId, getSetBonusStatus, scoreSetBonuses, scoreEquipmentWithRatingDiminishingReturns, scoreLoadout,
   getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,
   calculateCrestRequirements, isAscendantVenomstoneEligible, recommendUpgradePlan,
