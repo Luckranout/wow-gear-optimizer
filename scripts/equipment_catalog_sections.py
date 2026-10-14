@@ -103,16 +103,34 @@ def collect_equipment_section_ids(token, get_api_json, allowed_item_ids, sleep=t
     allowed_item_ids = set(allowed_item_ids)
     if not allowed_item_ids:
         raise RuntimeError("No verified Season 2+ item IDs were supplied; refusing to publish a catalog.")
+    print(
+        "Equipment catalog source diagnostics: "
+        f"verified_source_ids={len(allowed_item_ids)}; "
+        f"sample_ids={sorted(allowed_item_ids)[:12]}"
+    )
     section_ids = {}
     source_map = {}
     for section, inventory_types in SECTION_SEARCHES.items():
         ids = set()
+        raw_counts = {}
         for inventory_type in inventory_types:
-            ids.update(fetch_inventory_type_ids(token, inventory_type, get_api_json, sleep))
+            type_ids = fetch_inventory_type_ids(token, inventory_type, get_api_json, sleep)
+            raw_counts[inventory_type] = len(type_ids)
+            ids.update(type_ids)
+        raw_count = len(ids)
+        overlap_ids = ids.intersection(allowed_item_ids)
         # Blizzard item search is a slot lookup, not a season filter. Intersect it
         # with IDs independently verified by the importer (PvE/PvP loot or
-        # eligible Midnight profession recipe outputs).
-        ids.intersection_update(allowed_item_ids)
+        # eligible Midnight profession recipe outputs). Keep raw and overlap
+        # counts visible so a source-scope mismatch cannot masquerade as an
+        # empty API response or a throttling/authentication failure.
+        print(
+            f"Equipment section diagnostics {section}: "
+            f"inventory_types={raw_counts}; raw_unique_ids={raw_count}; "
+            f"verified_overlap={len(overlap_ids)}; "
+            f"overlap_sample={sorted(overlap_ids)[:8]}"
+        )
+        ids = overlap_ids
         if not ids:
             print(f"Equipment section {section}: no verified Season 2+ source items; section omitted.")
             continue
