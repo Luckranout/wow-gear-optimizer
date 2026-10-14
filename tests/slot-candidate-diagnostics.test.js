@@ -78,6 +78,8 @@ const equippedShoulders = {
   id: 271481,
   name: "Hissing Mantle of the Ophidian Oracle",
   slot: "Shoulders",
+  itemClass: { name: "Armor" },
+  itemSubclass: { name: "Mail" },
   itemLevel: 308,
   stats: [
     { type: { name: "agility" }, value: 111 },
@@ -91,6 +93,8 @@ const lowLevelFallback = {
   id: 6,
   name: "Soulslither Spaulders",
   slot: "Shoulders",
+  itemClass: { name: "Armor" },
+  itemSubclass: { name: "Mail" },
   itemLevel: 219,
   stats: [
     { type: { name: "intellect" }, value: 48 },
