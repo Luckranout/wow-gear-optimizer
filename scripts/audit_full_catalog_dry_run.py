@@ -98,7 +98,7 @@ def main():
         print("DRY-RUN stage: importer.main() returned.", flush=True)
 
         if not output_path.exists():
-            raise RuntimeError("Importer did not write the isolated output catalog.", flush=True)
+            raise RuntimeError("Importer did not write the isolated output catalog.")
 
         with output_path.open("r", encoding="utf-8") as handle:
             dataset = json.load(handle)
