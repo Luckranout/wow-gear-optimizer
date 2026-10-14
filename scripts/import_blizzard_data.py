@@ -1746,7 +1746,12 @@ def main():
     pvp_sources, pvp_metadata = collect_pvp_season_item_ids(
         token, current_pvp_season_id, current_pvp_season_name
     )
-    section_ids, section_item_sources = collect_equipment_section_ids(token, get_api_json)
+    # Slot searches are NOT season-aware. Only IDs independently identified in
+    # the verified Season 2 PvE and PvP source scans may enter the equipment catalog.
+    verified_season_item_ids = set(pve_sources) | set(pvp_sources)
+    section_ids, section_item_sources = collect_equipment_section_ids(
+        token, get_api_json, verified_season_item_ids
+    )
     print(
         "Sectioned equipment catalog discovered: "
         + ", ".join(f"{section}={len(ids)}" for section, ids in section_ids.items())
