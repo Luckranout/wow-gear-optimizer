@@ -78,21 +78,41 @@ class EquipmentSectionPaginationTests(unittest.TestCase):
         self.assertEqual(sections, {})
         self.assertEqual(sources, {})
 
-    def test_catalog_only_includes_ids_verified_by_season_sources(self):
-        def search(_path, _token, params):
-            return {"maxPage": 1, "results": [{"id": 10}, {"id": 11}, {"id": 12}]}
+    def test_catalog_classifies_only_verified_source_ids_by_item_detail(self):
+        details = {
+            10: {"id": 10, "name": "Old Ring", "is_equippable": True, "inventory_type": {"type": "FINGER", "name": "Finger"}},
+            11: {"id": 11, "name": "Season Ring", "is_equippable": True, "inventory_type": {"type": "FINGER", "name": "Finger"}},
+            12: {"id": 12, "name": "Season Head", "is_equippable": True, "inventory_type": {"type": "HEAD", "name": "Head"}},
+        }
+        calls = []
+
+        def get_detail(path, _token, _params):
+            calls.append(path)
+            item_id = int(path.rsplit("/", 1)[-1])
+            return details[item_id]
 
         with patch("builtins.print") as printer:
             sections, sources = collect_equipment_section_ids(
-                "token", search, {11}, sleep=lambda _s: None
+                "token", get_detail, {11, 12}, sleep=lambda _s: None
             )
-        self.assertTrue(all(set(ids) <= {11} for ids in sections.values()))
-        diagnostics = "\n".join(str(call.args[0]) for call in printer.call_args_list)
-        self.assertIn("verified_source_ids=1", diagnostics)
-        self.assertIn("raw_unique_ids=3", diagnostics)
-        self.assertIn("verified_overlap=1", diagnostics)
+        self.assertEqual(sections, {"rings": {11}, "head": {12}})
+        self.assertEqual(set(sources), {11, 12})
+        self.assertEqual(len(calls), 2)
+        diagnostics = "\\n".join(str(call.args[0]) for call in printer.call_args_list)
+        self.assertIn("verified_source_ids=2", diagnostics)
+        self.assertIn("section_counts=", diagnostics)
         self.assertTrue(all("eligibilitySource" in source for values in sources.values() for source in values))
-        self.assertTrue(all("profession recipe" in source["eligibilitySource"] for values in sources.values() for source in values))
+        self.assertTrue(all("slot confirmed by item detail" in source["eligibilitySource"] for values in sources.values() for source in values))
+
+    def test_detail_lookup_failure_does_not_create_unverified_slot_candidates(self):
+        def failed_detail(_path, _token, _params):
+            raise RuntimeError("temporary API failure")
+
+        sections, sources = collect_equipment_section_ids(
+            "token", failed_detail, {11}, sleep=lambda _s: None
+        )
+        self.assertEqual(sections, {})
+        self.assertEqual(sources, {})
 
     def test_incomplete_section_does_not_replace_previous_file(self):
         with tempfile.TemporaryDirectory() as temporary:
