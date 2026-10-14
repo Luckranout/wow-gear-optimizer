@@ -12,6 +12,10 @@ from pathlib import Path
 
 PAGE_SIZE = 1000
 REQUEST_DELAY_SECONDS = 0.15
+
+# Season 2 dungeon gear starts at item level 259 (Normal difficulty).
+# Legacy Journal loot can appear beside current-season loot in the same encounters.
+MIN_CURRENT_SEASON_PVE_ITEM_LEVEL = 259
 SECTION_SEARCHES = {
     "rings": ("FINGER",),
     "necklaces": ("NECK",),
@@ -158,6 +162,18 @@ def collect_equipment_section_ids(token, get_api_json, allowed_item_ids, sleep=t
         if not evidence:
             print(f"Equipment source rejected without provenance: id={item_id}; no source evidence.")
             continue
+
+        # Do not treat low-level legacy loot as current-season gear solely because
+        # its dungeon is in the Season 2 rotation. Keep independent PvP/crafted
+        # provenance even when those items are below the PvE level floor.
+        pve_evidence = [source for source in evidence if isinstance(source, dict) and source.get("category") == "PvE"]
+        independent_evidence = [source for source in evidence if not (isinstance(source, dict) and source.get("category") == "PvE")]
+        item_level = detail.get("level")
+        if pve_evidence and (not isinstance(item_level, (int, float)) or item_level < MIN_CURRENT_SEASON_PVE_ITEM_LEVEL):
+            print(f"Equipment source rejected as legacy PvE loot: id={item_id}; item_level={item_level!r}; minimum={MIN_CURRENT_SEASON_PVE_ITEM_LEVEL}.")
+            evidence = independent_evidence
+            if not evidence:
+                continue
         for section in matched_sections:
             section_ids.setdefault(section, set()).add(item_id)
             for source in evidence:
