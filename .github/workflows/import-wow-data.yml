@@ -33,6 +33,14 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Restore persistent Blizzard item cache
+        uses: actions/cache/restore@v4
+        with:
+          path: data/blizzard-item-cache.sqlite3
+          key: blizzard-item-cache-${{ runner.os }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            blizzard-item-cache-${{ runner.os }}-
+
       - name: Import current Retail data
         id: import
         env:
@@ -74,6 +82,13 @@ jobs:
                 body
               });
             }
+
+      - name: Persist updated Blizzard item cache
+        if: always() && hashFiles('data/blizzard-item-cache.sqlite3') != ''
+        uses: actions/cache/save@v4
+        with:
+          path: data/blizzard-item-cache.sqlite3
+          key: blizzard-item-cache-${{ runner.os }}-${{ github.run_id }}-${{ github.run_attempt }}
 
       - name: Verify imported item-stat coverage
         run: python scripts/verify_item_stat_coverage.py
