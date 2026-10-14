@@ -36,4 +36,12 @@ assert.match(html, /id="optimizeBtn"/);
 assert.match(app, /no direct gear candidates ranked from the currently available dataset/);
 assert.match(app, /This does not prove that no upgrades exist in game/);
 
+// Crafted gear outputs must be discovered before section IDs are collected,
+// then explicitly included alongside independently verified PvE/PvP sources.
+const importer = fs.readFileSync("scripts/import_blizzard_data.py", "utf8");
+assert.ok(importer.indexOf("profession_recipes, profession_output_ids = collect_profession_supporting_data(token)") < importer.indexOf("section_ids, section_item_sources = collect_equipment_section_ids("));
+assert.match(importer, /crafted_gear_ids\s*=\s*\{/);
+assert.match(importer, /set\(pve_sources\)\s*\|\s*set\(pvp_sources\)\s*\|\s*crafted_gear_ids/);
+assert.match(importer, /"category": "Crafted Gear"/);
+
 console.log("Optimize-to-candidate API integration contract passed; this is a source-level test, not live Blizzard/browser verification.");
