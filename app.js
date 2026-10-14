@@ -385,6 +385,11 @@ function getLoadoutItemStats(item) {
       crit: "criticalstrike",
       critical: "criticalstrike",
       criticalstrike: "criticalstrike",
+      critrating: "criticalstrike",
+      hasterating: "haste",
+      masteryrating: "mastery",
+      versatilityrating: "versatility",
+      bonusarmor: "bonusarmor",
       haste: "haste",
       mastery: "mastery",
       versatility: "versatility",
@@ -450,6 +455,12 @@ function getLoadoutUpgradeReason(target, current, sameItem = false) {
   const commonStats = Object.keys(targetStats).filter(key => Object.hasOwn(currentStats, key));
   const gains = commonStats.map(key => ({ key, delta: targetStats[key] - currentStats[key] })).filter(entry => entry.delta > 0).sort((a,b) => b.delta-a.delta);
   const losses = commonStats.map(key => ({ key, delta: targetStats[key] - currentStats[key] })).filter(entry => entry.delta < 0).sort((a,b) => a.delta-b.delta);
+  const comparisonIncomplete = !Object.keys(targetStats).length || !Object.keys(currentStats).length ||
+    Object.keys(targetStats).some(key => !Object.hasOwn(currentStats, key)) ||
+    Object.keys(currentStats).some(key => !Object.hasOwn(targetStats, key));
+  if (levelKnown && levelDelta < 0 && comparisonIncomplete) {
+    return "Not a verified upgrade: this candidate has a lower displayed item level (" + levelDelta + ") and the stat comparison is incomplete. Keep your currently equipped item until a complete, trustworthy comparison is available.";
+  }
   const parts = [];
   if (levelKnown && levelDelta > 0) parts.push("higher item level (+" + levelDelta + ")");
   else if (levelKnown && levelDelta < 0) parts.push("lower item level (" + levelDelta + ")");
@@ -707,9 +718,15 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
     ? `${character.characterName} • ${character.className} • ${character.specialization}`
     : `${character.className} • ${character.specialization}`;
 
-  resultMessage.textContent = report.topUpgrades.length
-    ? `${label} • ${character.goal} — ${report.topUpgrades.length} gear candidates ranked. This is a ranking aid, not a verified best-in-slot result or numeric projected-stat calculation.`
-    : `${label} • ${character.goal} — no direct gear candidates ranked from the currently available dataset. This does not prove that no upgrades exist in game.`;
+  if (report.topUpgrades.length) {
+    resultMessage.textContent = `${label} • ${character.goal} — ${report.topUpgrades.length} gear candidates ranked. This is a ranking aid, not a verified best-in-slot result or numeric projected-stat calculation.`;
+  } else {
+    const diagnostics = WoWOptimizer.slots.map(slot => {
+      const audit = WoWOptimizer.diagnoseSlotCandidates(retailDataset.items || [], slot, character.className);
+      return `${slot}: ${audit.usableStatsCount} usable / ${audit.slotMatchCount} slot matches (class eligible ${audit.classEligibleCount}; disabled ${audit.excludedByEligibility.length}; missing stats ${audit.excludedByStats.length})`;
+    });
+    resultMessage.textContent = `${label} • ${character.goal} — no direct gear candidates ranked. Catalog diagnostics by slot: ${diagnostics.join(" | ")}. This distinguishes missing or filtered catalog data from a verified absence of upgrades.`;
+  }
 });
 
 document.querySelector("#clearBtn").addEventListener("click", () => {
