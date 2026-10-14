@@ -88,24 +88,30 @@ def fetch_inventory_type_ids(token, inventory_type, get_api_json, sleep=time.sle
     return ids
 
 
-def collect_equipment_section_ids(token, get_api_json, sleep=time.sleep):
-    """Fetch every supported equipment section and return section IDs plus source map."""
+def collect_equipment_section_ids(token, get_api_json, allowed_item_ids, sleep=time.sleep):
+    """Find slot matches, but publish only IDs proven by verified Season 2+ loot sources."""
+    allowed_item_ids = set(allowed_item_ids)
+    if not allowed_item_ids:
+        raise RuntimeError("No verified Season 2+ item IDs were supplied; refusing to publish a catalog.")
     section_ids = {}
     source_map = {}
     for section, inventory_types in SECTION_SEARCHES.items():
         ids = set()
         for inventory_type in inventory_types:
             ids.update(fetch_inventory_type_ids(token, inventory_type, get_api_json, sleep))
+        # Blizzard item search is a slot lookup, not a season filter. Intersect it
+        # with IDs independently proven by the configured Season 2 PvE/PvP sources.
+        ids.intersection_update(allowed_item_ids)
         if not ids:
-            raise RuntimeError(
-                f"Equipment section '{section}' returned no items; refusing to publish an empty section."
-            )
+            print(f"Equipment section {section}: no verified Season 2+ source items; section omitted.")
+            continue
         section_ids[section] = ids
         for item_id in ids:
             source_map.setdefault(item_id, []).append({
-                "category": "Equipment Catalog",
+                "category": "Verified Season 2+ Equipment Catalog",
                 "catalogSection": section,
-                "inventoryTypeSearch": True,
+                "seasonScope": "Midnight Season 2+",
+                "eligibilitySource": "Blizzard Season 2 PvE/PvP loot source intersection",
             })
         print(f"Equipment section {section}: {len(ids)} unique item IDs.")
     return section_ids, source_map
@@ -172,4 +178,13 @@ def write_section_catalogs(section_ids, enriched_items, output_dir=SECTION_DIR):
                 os.unlink(temporary_name)
         summary[section] = len(records)
         print(f"Stored complete equipment section {section}: {len(records)} items.")
+
+    # After all non-empty sections have validated and been written, remove old
+    # section files that no longer contain any verified Season 2+ candidates.
+    for section in SECTION_SEARCHES:
+        if section not in section_ids:
+            stale_path = output_dir / f"{section}.json"
+            if stale_path.exists():
+                stale_path.unlink()
+                print(f"Removed stale unverified equipment section: {section}.")
     return summary
