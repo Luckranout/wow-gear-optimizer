@@ -100,23 +100,46 @@ def request_json(url, headers=None, data=None):
         data=data,
         method="POST" if data is not None else "GET",
     )
+    # Log only the host and path: query strings can contain credentials or tokens.
+    parsed_url = urllib.parse.urlsplit(url)
+    endpoint = f"{parsed_url.netloc}{parsed_url.path}"
     for attempt in range(MAX_RETRIES):
+        started = time.monotonic()
         try:
             with urllib.request.urlopen(request, timeout=20) as response:
                 return json.load(response)
         except urllib.error.HTTPError as error:
-            if error.code >= 500 and attempt < MAX_RETRIES - 1:
+            elapsed = time.monotonic() - started
+            retryable = error.code == 429 or error.code >= 500
+            if retryable and attempt < MAX_RETRIES - 1:
                 wait = 2 ** attempt
-                print(f"Blizzard API returned HTTP {error.code}; retrying in {wait}s...")
+                print(
+                    f"Blizzard request {endpoint} returned HTTP {error.code} "
+                    f"on attempt {attempt + 1}/{MAX_RETRIES} after {elapsed:.1f}s; "
+                    f"retrying in {wait}s..."
+                )
                 time.sleep(wait)
                 continue
+            print(
+                f"Blizzard request {endpoint} stopped after HTTP {error.code} "
+                f"on attempt {attempt + 1}/{MAX_RETRIES} ({elapsed:.1f}s)."
+            )
             raise
         except (urllib.error.URLError, TimeoutError) as error:
+            elapsed = time.monotonic() - started
             if attempt < MAX_RETRIES - 1:
                 wait = 2 ** attempt
-                print(f"Blizzard API request failed ({error}); retrying in {wait}s...")
+                print(
+                    f"Blizzard request {endpoint} failed on attempt "
+                    f"{attempt + 1}/{MAX_RETRIES} after {elapsed:.1f}s "
+                    f"({error}); retrying in {wait}s..."
+                )
                 time.sleep(wait)
                 continue
+            print(
+                f"Blizzard request {endpoint} failed after {MAX_RETRIES} attempts "
+                f"({elapsed:.1f}s on final attempt): {error}"
+            )
             raise
 
 
