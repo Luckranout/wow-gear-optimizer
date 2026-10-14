@@ -664,6 +664,7 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
   if (prioritySelect?.value) character.preferredSecondaryStat = prioritySelect.value;
   let availableItems = Array.isArray(retailDataset.items) ? [...retailDataset.items] : [];
   let liveSlotCandidateStatus = "";
+  let liveSlotCandidateDiagnostics = null;
   if (importedCharacter) {
     try {
       const response = await fetch(`${API_BASE_URL}/api/slot-candidates?slots=Neck,Shoulders`);
@@ -680,6 +681,7 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
         }
       }
       availableItems = [...byId.values()];
+      liveSlotCandidateDiagnostics = data.counts && typeof data.counts === "object" ? data.counts : null;
       liveSlotCandidateStatus = ` • Live Blizzard Neck/Shoulder search: ${data.items?.length || 0} candidates, ${added} added to this run${data.cached ? " (cached)" : ""}`;
     } catch (error) {
       liveSlotCandidateStatus = ` • Live Neck/Shoulder lookup unavailable; using existing catalog only (${error.message})`;
@@ -742,8 +744,17 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
     ? `${character.characterName} • ${character.className} • ${character.specialization}`
     : `${character.className} • ${character.specialization}`;
 
+  const liveSlotDiagnosticText = ["Neck", "Shoulders"].map(slot => {
+    const audit = WoWOptimizer.diagnoseSlotCandidates(availableItems, slot, character.className);
+    const live = liveSlotCandidateDiagnostics?.[slot];
+    const liveText = live
+      ? `Blizzard scanned ${live.scanned}, returned ${live.returned}, usable stats ${live.usableStats}, marked equippable ${live.equippable}`
+      : "Blizzard search counts unavailable";
+    return `${slot} diagnostics: ${liveText}; catalog slot matches ${audit.slotMatchCount}, class eligible ${audit.classEligibleCount}, optimizer eligible ${audit.optimizerEligibleCount}, usable stats ${audit.usableStatsCount}, excluded for class ${audit.excludedByClass.length}, missing stats ${audit.excludedByStats.length}, disabled ${audit.excludedByEligibility.length}`;
+  }).join(". ");
+
   if (report.topUpgrades.length) {
-    resultMessage.textContent = `${label} • ${character.goal} — ${report.topUpgrades.length} gear candidates ranked.${liveSlotCandidateStatus} This is a ranking aid, not a verified best-in-slot result or numeric projected-stat calculation.`;
+    resultMessage.textContent = `${label} • ${character.goal} — ${report.topUpgrades.length} gear candidates ranked.${liveSlotCandidateStatus} ${liveSlotDiagnosticText}. This is a ranking aid, not a verified best-in-slot result or numeric projected-stat calculation.`;
   } else {
     const diagnostics = WoWOptimizer.slots.map(slot => {
       const audit = WoWOptimizer.diagnoseSlotCandidates(availableItems, slot, character.className);
