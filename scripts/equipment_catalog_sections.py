@@ -130,7 +130,6 @@ def collect_equipment_section_ids(token, get_api_json, allowed_item_ids, sleep=t
 
 def write_section_catalogs(section_ids, enriched_items, output_dir=SECTION_DIR, remove_stale=True):
     """Atomically publish each complete section; preserve old files on validation failure."""
-    validate_required_sections(section_ids)
     item_by_id = {
         item.get("id"): item
         for item in enriched_items
