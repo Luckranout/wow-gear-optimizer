@@ -83,11 +83,12 @@ function itemAllowedForClass(item, className) {
 
   const itemClass = String(item.itemClass?.name || item.itemClass || "").trim().toLowerCase();
   const subclass = String(item.itemSubclass?.name || item.itemSubclass || "").trim().toLowerCase();
-  // Only filter when the catalog explicitly identifies an armor subclass.
-  // Missing or unknown metadata must not silently remove otherwise valid gear.
-  if (itemClass && !itemClass.includes("armor") && !itemClass.includes("armour")) return true;
-  if (["cloth", "leather", "mail", "plate"].includes(subclass)) return subclass === expectedArmor;
-  return true;
+  // Armor slots are a hard class restriction: unknown/missing armor metadata
+  // must fail closed rather than allowing cloth/leather/mail/plate to mix.
+  // Non-armor items (e.g. neck, rings) are not restricted by armor proficiency.
+  if (!ARMOR_SLOTS.has(slot)) return true;
+  if (!itemClass.includes("armor") && !itemClass.includes("armour")) return false;
+  return subclass === expectedArmor;
 }
 
 function getWeaponMetadata(item) {
