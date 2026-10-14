@@ -9,6 +9,11 @@ import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
 
+from equipment_catalog_sections import (
+    collect_equipment_section_ids,
+    write_section_catalogs,
+)
+
 API_BASE = "https://us.api.blizzard.com"
 TOKEN_URL = "https://oauth.battle.net/token"
 OUTPUT = "data/current-retail.json"
@@ -1734,7 +1739,12 @@ def main():
     pvp_sources, pvp_metadata = collect_pvp_season_item_ids(
         token, current_pvp_season_id, current_pvp_season_name
     )
-    item_sources = merge_item_sources(pve_sources, pvp_sources)
+    section_ids, section_item_sources = collect_equipment_section_ids(token, get_api_json)
+    print(
+        "Sectioned equipment catalog discovered: "
+        + ", ".join(f"{section}={len(ids)}" for section, ids in section_ids.items())
+    )
+    item_sources = merge_item_sources(pve_sources, pvp_sources, section_item_sources)
 
     talent_data = collect_talent_data(token)
     upgrade_data = collect_upgrade_and_crest_data()
@@ -1747,6 +1757,14 @@ def main():
     )
 
     items = fetch_item_details(token, item_sources.keys(), item_sources)
+
+    # Persist every equipment section independently. A section is replaced only
+    # after its complete search result set has been enriched and validated.
+    section_summary = write_section_catalogs(section_ids, items)
+    print(
+        "Persisted equipment sections: "
+        + ", ".join(f"{section}={count}" for section, count in section_summary.items())
+    )
 
     items.sort(
         key=lambda item: (item.get("level") or 0, item.get("id") or 0),
@@ -1833,14 +1851,16 @@ def main():
         "crestTypeCount": len(upgrade_data["crests"]),
         "crestExchangeRuleCount": len(upgrade_data["exchangeRules"]),
         "ascendantVenomstoneStatus": upgrade_data["ascendantVenomstone"]["status"],
-        "importPhase": "season-2-plus-pve-pvp-talents-professions-upgrades",
+        "importPhase": "sectioned-equipment-catalog-plus-season-pve-pvp-talents-professions-upgrades",
+        "equipmentSectionCounts": section_summary,
         "seasonPolicy": SEASON_SCOPE,
     }
 
     dataset["notes"] = [
         "Generated from the secure Blizzard Game Data API importer.",
         "Blizzard API credentials are never placed in browser JavaScript.",
-        "The importer does not scan the historical weapon/armor catalog.",
+        "Equipment catalog items are fetched from Blizzard item search in independently paginated slot sections and stored under data/equipment-sections/.",
+        "Each equipment section is atomically replaced only after every discovered item has an enriched, equippable record; incomplete sections preserve the prior section file and fail the import.",
         "Season membership is source-based, not guessed from item level.",
         "Item stat coverage is a source-record presence metric, not proof of complete item stat/effect coverage; missing stats are reported and never inferred from item level.",
         "Season 2 PvE candidates come from matched Adventure Journal sources.",
