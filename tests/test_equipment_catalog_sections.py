@@ -62,7 +62,17 @@ class EquipmentSectionPaginationTests(unittest.TestCase):
             return {"maxPage": 1, "results": []}
 
         with self.assertRaisesRegex(RuntimeError, "returned no items"):
-            collect_equipment_section_ids("token", empty_search, sleep=lambda _s: None)
+            collect_equipment_section_ids("token", empty_search, {1, 2}, sleep=lambda _s: None)
+
+    def test_catalog_only_includes_ids_verified_by_season_sources(self):
+        def search(_path, _token, params):
+            return {"maxPage": 1, "results": [{"id": 10}, {"id": 11}, {"id": 12}]}
+
+        sections, sources = collect_equipment_section_ids(
+            "token", search, {11}, sleep=lambda _s: None
+        )
+        self.assertTrue(all(set(ids) <= {11} for ids in sections.values()))
+        self.assertTrue(all("eligibilitySource" in source for values in sources.values() for source in values))
 
     def test_incomplete_section_does_not_replace_previous_file(self):
         with tempfile.TemporaryDirectory() as temporary:
