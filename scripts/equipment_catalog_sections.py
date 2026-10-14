@@ -103,11 +103,42 @@ def collect_equipment_section_ids(token, get_api_json, allowed_item_ids, sleep=t
     allowed_item_ids = set(allowed_item_ids)
     if not allowed_item_ids:
         raise RuntimeError("No verified Season 2+ item IDs were supplied; refusing to publish a catalog.")
+    sample_source_ids = sorted(allowed_item_ids)[:12]
     print(
         "Equipment catalog source diagnostics: "
         f"verified_source_ids={len(allowed_item_ids)}; "
-        f"sample_ids={sorted(allowed_item_ids)[:12]}"
+        f"sample_ids={sample_source_ids}"
     )
+    # Inspect actual Blizzard item-detail properties for representative IDs from
+    # the PvE/PvP/crafted source union before slot filtering. This distinguishes
+    # bad source IDs or missing inventory_type metadata from a search/overlap bug.
+    for source_id in sample_source_ids:
+        try:
+            detail = get_api_json(
+                f"/data/wow/item/{source_id}",
+                token,
+                {"namespace": "static-us", "locale": "en_US"},
+            )
+            inventory = detail.get("inventory_type") or {}
+            item_class = detail.get("item_class") or {}
+            item_subclass = detail.get("item_subclass") or {}
+            print(
+                "Source item raw properties: "
+                f"id={source_id}; name={detail.get('name')!r}; "
+                f"is_equippable={detail.get('is_equippable')!r}; "
+                f"level={detail.get('level')!r}; "
+                f"inventory_type_id={inventory.get('id') if isinstance(inventory, dict) else None!r}; "
+                f"inventory_type_name={inventory.get('name') if isinstance(inventory, dict) else None!r}; "
+                f"item_class_id={item_class.get('id') if isinstance(item_class, dict) else None!r}; "
+                f"item_class_name={item_class.get('name') if isinstance(item_class, dict) else None!r}; "
+                f"item_subclass_id={item_subclass.get('id') if isinstance(item_subclass, dict) else None!r}; "
+                f"item_subclass_name={item_subclass.get('name') if isinstance(item_subclass, dict) else None!r}"
+            )
+        except Exception as error:
+            print(
+                f"Source item raw properties unavailable: id={source_id}; "
+                f"error_type={type(error).__name__}"
+            )
     section_ids = {}
     source_map = {}
     for section, inventory_types in SECTION_SEARCHES.items():
