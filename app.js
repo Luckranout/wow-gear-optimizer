@@ -622,7 +622,7 @@ goalSelect.addEventListener("change", () => {
   }
 });
 
-document.querySelector("#optimizeBtn").addEventListener("click", () => {
+document.querySelector("#optimizeBtn").addEventListener("click", async () => {
   if (!retailDataset) {
     resultMessage.textContent = "Current Retail data is still loading. Try again in a moment.";
     return;
@@ -651,9 +651,43 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
 
   const prioritySelect = secondaryRatingNotice?.querySelector("#secondaryRatingPriority");
   if (prioritySelect?.value) character.preferredSecondaryStat = prioritySelect.value;
+
+  // Fetch only slots that have no usable local candidates. The server returns
+  // only validated Season 2+ section records and enforces class armor rules.
+  const availableItems = [...(retailDataset.items || [])];
+  const missingSlots = WoWOptimizer.slots.filter(slot =>
+    !availableItems.some(item =>
+      WoWOptimizer.itemMatchesSlot(item, slot) &&
+      WoWOptimizer.hasUsableItemStats(item)
+    )
+  );
+  if (missingSlots.length) {
+    resultMessage.textContent = "Fetching verified Season 2+ candidates for missing equipment slots...";
+    const requests = await Promise.all(missingSlots.map(async slot => {
+      try {
+        const url = `${API_BASE_URL}/api/slot-candidates?slot=${encodeURIComponent(slot)}&class=${encodeURIComponent(character.className)}`;
+        const response = await fetch(url);
+        const payload = await response.json();
+        if (!response.ok) {
+          console.warn(`No on-demand candidates for ${slot}:`, payload.error || response.status);
+          return [];
+        }
+        return Array.isArray(payload.items) ? payload.items : [];
+      } catch (error) {
+        console.warn(`Candidate request failed for ${slot}:`, error);
+        return [];
+      }
+    }));
+    const byId = new Map();
+    for (const item of availableItems.concat(...requests)) {
+      const key = item?.id != null ? String(item.id) : item?.name;
+      if (key != null && !byId.has(key)) byId.set(key, item);
+    }
+    availableItems.splice(0, availableItems.length, ...byId.values());
+  }
   const report = WoWOptimizer.createOptimizationReport({
     character,
-    availableItems: retailDataset.items || [],
+    availableItems,
     dataset: retailDataset
   });
 
