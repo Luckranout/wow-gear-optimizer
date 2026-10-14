@@ -52,8 +52,8 @@ const contextualGear = {
   Chest: { id: 989001, name: "Equipped Haste Chest", slot: "Chest", itemLevel: 100, stats: { Haste: 1320 } }
 };
 const contextualCandidates = [
-  { id: 989002, name: "Haste Helm", slot: "Head", itemLevel: 100, stats: { Haste: 264 } },
-  { id: 989003, name: "Mastery Helm", slot: "Head", itemLevel: 100, stats: { Mastery: 264 } }
+  { id: 989002, name: "Haste Helm", slot: "Head", itemClass: "Armor", itemSubclass: "Mail", itemLevel: 100, stats: { Haste: 264 } },
+  { id: 989003, name: "Mastery Helm", slot: "Head", itemClass: "Armor", itemSubclass: "Mail", itemLevel: 100, stats: { Mastery: 264 } }
 ];
 const contextualUpgrades = o.findUpgradeOpportunities({
   currentEquipment: contextualGear,
