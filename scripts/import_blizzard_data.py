@@ -509,7 +509,35 @@ def normalize_item(data, source=None):
 
 
 def get_mythic_keystone_season(token, season_id=SUPPORTED_SEASON_ID):
-    """Fetch authoritative Mythic+ season metadata from Blizzard's dynamic namespace."""
+    """Resolve and fetch a Mythic+ season through Blizzard's dynamic API."""
+    season_index = get_api_json(
+        "/data/wow/mythic-keystone/season/index",
+        token,
+        {"namespace": PVP_NAMESPACE, "locale": LOCALE},
+    )
+    season_refs = season_index.get("seasons") or season_index.get("mythic_keystone_seasons") or []
+    if not isinstance(season_refs, list) or not season_refs:
+        raise RuntimeError(
+            "Blizzard Mythic+ season index returned no usable seasons; "
+            "refusing to treat the season source as verified."
+        )
+
+    season_ref = next(
+        (entry for entry in season_refs if extract_id(entry) == season_id),
+        None,
+    )
+    if not season_ref:
+        available_ids = sorted(
+            season_id_value for season_id_value in
+            (extract_id(entry) for entry in season_refs)
+            if season_id_value is not None
+        )
+        raise RuntimeError(
+            f"Configured Mythic+ season id {season_id} is not present in Blizzard's "
+            f"season index (available ids: {available_ids}). Confirm the supported "
+            "season id before importing; no catalog will be published."
+        )
+
     response = get_api_json(
         f"/data/wow/mythic-keystone/season/{season_id}",
         token,
@@ -529,7 +557,8 @@ def get_mythic_keystone_season(token, season_id=SUPPORTED_SEASON_ID):
         )
     print(
         f"Blizzard Mythic+ season verified: id={returned_id}, "
-        f"name={season_name or 'unknown'}, periods={len(response['periods'])}."
+        f"name={season_name or localized_name(season_ref.get('name')) or 'unknown'}, "
+        f"periods={len(response['periods'])}."
     )
     return response
 
