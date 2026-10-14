@@ -28,7 +28,7 @@ function slotMatches(item, slot) {
   if (slot === "Trinket 1" || slot === "Trinket 2") return /trinket/.test(inv);
   if (slot === "Main Hand") return /main.?hand|two.?hand|weapon|staff|sword|axe|mace|dagger|polearm|fist|bow|gun|crossbow/.test(inv);
   if (slot === "Off Hand") return /off.?hand|shield|holdable|offhand/.test(inv) ||
-    (item.equipSlots && Array.isArray(item.equipSlots) && item.equipSlots.includes("Off Hand"));
+    Boolean(item.equipSlots && Array.isArray(item.equipSlots) && item.equipSlots.includes("Off Hand"));
   if (item.slot === slot) return true;
   const aliases = {
     Head: /head/, Neck: /neck/, Shoulders: /shoulder/, Back: /cloak|back/,
