@@ -746,7 +746,7 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
     resultMessage.textContent = `${label} • ${character.goal} — ${report.topUpgrades.length} gear candidates ranked.${liveSlotCandidateStatus} This is a ranking aid, not a verified best-in-slot result or numeric projected-stat calculation.`;
   } else {
     const diagnostics = WoWOptimizer.slots.map(slot => {
-      const audit = WoWOptimizer.diagnoseSlotCandidates(retailDataset.items || [], slot, character.className);
+      const audit = WoWOptimizer.diagnoseSlotCandidates(availableItems, slot, character.className);
       return `${slot}: ${audit.usableStatsCount} usable / ${audit.slotMatchCount} slot matches (class eligible ${audit.classEligibleCount}; disabled ${audit.excludedByEligibility.length}; missing stats ${audit.excludedByStats.length})`;
     });
     resultMessage.textContent = `${label} • ${character.goal} — no direct gear candidates ranked.${liveSlotCandidateStatus} Catalog diagnostics by slot: ${diagnostics.join(" | ")}. This distinguishes missing or filtered catalog data from a verified absence of upgrades.`;
