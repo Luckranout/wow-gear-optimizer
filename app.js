@@ -760,7 +760,7 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
       const audit = WoWOptimizer.diagnoseSlotCandidates(availableItems, slot, character.className);
       return `${slot}: ${audit.usableStatsCount} usable / ${audit.slotMatchCount} slot matches (class eligible ${audit.classEligibleCount}; disabled ${audit.excludedByEligibility.length}; missing stats ${audit.excludedByStats.length})`;
     });
-    resultMessage.textContent = `${label} • ${character.goal} — no direct gear candidates ranked.${liveSlotCandidateStatus} Catalog diagnostics by slot: ${diagnostics.join(" | ")}. This distinguishes missing or filtered catalog data from a verified absence of upgrades.`;
+    resultMessage.textContent = `${label} • ${character.goal} — no direct gear candidates ranked.${liveSlotCandidateStatus} ${liveSlotDiagnosticText}. Catalog diagnostics by slot: ${diagnostics.join(" | ")}. This distinguishes missing or filtered catalog data from a verified absence of upgrades.`;
   }
 });
 
