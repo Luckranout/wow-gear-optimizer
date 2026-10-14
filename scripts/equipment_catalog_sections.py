@@ -31,6 +31,16 @@ SECTION_SEARCHES = {
 SECTION_DIR = Path("data/equipment-sections")
 
 
+def validate_required_sections(section_ids):
+    """Fail before writing any files if a required equipment section has no verified candidates."""
+    missing = [section for section in SECTION_SEARCHES if not section_ids.get(section)]
+    if missing:
+        raise RuntimeError(
+            "Equipment catalog validation failed; no verified Season 2+ candidates for required "
+            f"section(s): {', '.join(missing)}. No section files should be published."
+        )
+
+
 def _item_id(result):
     if not isinstance(result, dict):
         return None
@@ -120,6 +130,7 @@ def collect_equipment_section_ids(token, get_api_json, allowed_item_ids, sleep=t
 
 def write_section_catalogs(section_ids, enriched_items, output_dir=SECTION_DIR, remove_stale=True):
     """Atomically publish each complete section; preserve old files on validation failure."""
+    validate_required_sections(section_ids)
     item_by_id = {
         item.get("id"): item
         for item in enriched_items
