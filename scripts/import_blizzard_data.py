@@ -1913,6 +1913,14 @@ def main():
         for item_id in crafted_gear_ids
     }
     verified_season_item_ids = set(pve_sources) | set(pvp_sources) | crafted_gear_ids
+    print(
+        "Verified equipment source counts: "
+        f"pve_ids={len(pve_sources)}; "
+        f"pvp_ids={len(pvp_sources)}; "
+        f"crafted_gear_ids={len(crafted_gear_ids)}; "
+        f"union_ids={len(verified_season_item_ids)}; "
+        f"sample_union_ids={sorted(verified_season_item_ids)[:12]}"
+    )
     section_ids, section_item_sources = collect_equipment_section_ids(
         token, get_api_json, verified_season_item_ids
     )
