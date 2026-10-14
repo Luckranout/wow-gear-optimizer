@@ -658,6 +658,9 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
   const missingSlots = WoWOptimizer.slots.filter(slot =>
     !availableItems.some(item =>
       WoWOptimizer.itemMatchesSlot(item, slot) &&
+      WoWOptimizer.itemAllowedForClass(item, character.className) &&
+      WoWOptimizer.itemAllowedForClassWeapon(item, slot, character.className) &&
+      WoWOptimizer.itemAllowedForSpecialization(item, slot, character.className, character.specialization) &&
       WoWOptimizer.hasUsableItemStats(item)
     )
   );
