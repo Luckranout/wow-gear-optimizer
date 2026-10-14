@@ -8,6 +8,7 @@ from scripts.equipment_catalog_sections import (
     SECTION_SEARCHES,
     collect_equipment_section_ids,
     fetch_inventory_type_ids,
+    validate_required_sections,
     write_section_catalogs,
 )
 
@@ -56,6 +57,13 @@ class EquipmentSectionPaginationTests(unittest.TestCase):
         self.assertIn("TWOHWEAPON", SECTION_SEARCHES["main-hand"])
         self.assertIn("WEAPONOFFHAND", SECTION_SEARCHES["off-hand"])
         self.assertIn("WEAPON", SECTION_SEARCHES["off-hand"])
+
+    def test_missing_neck_or_shoulders_fails_before_catalog_publication(self):
+        with self.assertRaisesRegex(RuntimeError, "necklaces, shoulders"):
+            validate_required_sections({"rings": {100}, "head": {200}})
+
+    def test_all_required_sections_pass_validation(self):
+        validate_required_sections({section: {index + 1} for index, section in enumerate(SECTION_SEARCHES)})
 
     def test_unverified_or_empty_sections_are_omitted(self):
         def empty_search(_path, _token, _params):
