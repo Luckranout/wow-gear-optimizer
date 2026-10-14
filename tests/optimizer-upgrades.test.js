@@ -925,7 +925,7 @@ const shortlistSlots = [
   ["Waist", 1012], ["Legs", 1011], ["Neck", 1013], ["Back", 1014],
   ["Ring 1", 1005], ["Ring 2", 1006],
   ["Trinket 1", 1007], ["Trinket 2", 1008],
-  ["Main Hand", 1009], ["Off Hand", 1010], ["Legs", 1011]
+  ["Main Hand", 1009], ["Off Hand", 1010]
 ];
 const shortlistItems = shortlistSlots.map(([slot, id], index) => ({
   id,
