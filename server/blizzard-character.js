@@ -319,7 +319,21 @@ async function fetchSlotCandidates({ slots = ["Neck", "Shoulders"], clientId, cl
       scanned += results.length;
       page += 1;
     }
-    counts[slot] = { scanned, returned: [...itemsById.values()].filter(item => item.slot === slot).length };
+    const slotItems = [...itemsById.values()].filter(item => item.slot === slot);
+    const hasUsableSearchStats = item => Array.isArray(item.stats) && item.stats.some(stat => {
+      if (!stat) return false;
+      const statName = stat.stat?.name || stat.type?.name || stat.name || stat.stat || stat.type;
+      const rawValue = stat.value?.value ?? stat.value?.amount ?? stat.amount ?? stat.value;
+      return Boolean(statName) && Number.isFinite(Number(rawValue)) && Number(rawValue) !== 0;
+    });
+    counts[slot] = {
+      scanned,
+      returned: slotItems.length,
+      usableStats: slotItems.filter(hasUsableSearchStats).length,
+      equippable: slotItems.filter(item => item.isEquippable === true).length,
+      missingUsableStats: slotItems.filter(item => !hasUsableSearchStats(item)).length,
+      notMarkedEquippable: slotItems.filter(item => item.isEquippable !== true).length
+    };
   }
 
   const value = {
