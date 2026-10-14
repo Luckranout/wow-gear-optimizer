@@ -25,8 +25,8 @@ SECTION_SEARCHES = {
     "waist": ("WAIST",),
     "legs": ("LEGS",),
     "feet": ("FEET",),
-    "main-hand": ("MAIN_HAND", "TWO_HAND", "RANGED", "RANGEDRIGHT", "THROWN"),
-    "off-hand": ("OFF_HAND", "HOLDABLE", "SHIELD"),
+    "main-hand": ("WEAPON", "WEAPONMAINHAND", "TWOHWEAPON", "RANGED", "RANGEDRIGHT", "THROWN"),
+    "off-hand": ("WEAPON", "WEAPONOFFHAND", "HOLDABLE", "SHIELD"),
 }
 SECTION_DIR = Path("data/equipment-sections")
 
