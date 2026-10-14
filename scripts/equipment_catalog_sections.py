@@ -98,7 +98,7 @@ def fetch_inventory_type_ids(token, inventory_type, get_api_json, sleep=time.sle
     return ids
 
 
-def collect_equipment_section_ids(token, get_api_json, allowed_item_ids, sleep=time.sleep):
+def collect_equipment_section_ids(token, get_api_json, allowed_item_ids, sleep=time.sleep, source_evidence=None):
     """Classify verified Season 2+ source items by their item-detail inventory type.
 
     Blizzard's item search can cap a slot query at its first 1,000 ID-ordered
@@ -106,6 +106,7 @@ def collect_equipment_section_ids(token, get_api_json, allowed_item_ids, sleep=t
     independently verified source list, so use each item's authoritative detail
     endpoint to assign its slot instead of intersecting against that capped search.
     """
+    source_evidence = source_evidence or {}
     allowed_item_ids = set(allowed_item_ids)
     if not allowed_item_ids:
         raise RuntimeError("No verified Season 2+ item IDs were supplied; refusing to publish a catalog.")
@@ -151,14 +152,22 @@ def collect_equipment_section_ids(token, get_api_json, allowed_item_ids, sleep=t
             f"name={detail.get('name')!r}; inventory_type={inventory_type!r}; "
             f"sections={sorted(matched_sections)}"
         )
+        evidence = source_evidence.get(item_id, [])
+        if isinstance(evidence, dict):
+            evidence = [evidence]
+        if not evidence:
+            print(f"Equipment source rejected without provenance: id={item_id}; no source evidence.")
+            continue
         for section in matched_sections:
             section_ids.setdefault(section, set()).add(item_id)
-            source_map.setdefault(item_id, []).append({
-                "category": "Verified Season 2+ Equipment Catalog",
-                "catalogSection": section,
-                "seasonScope": "Midnight Season 2+",
-                "eligibilitySource": "Verified Midnight Season 2+ loot or profession recipe source; slot confirmed by item detail",
-            })
+            for source in evidence:
+                if not isinstance(source, dict):
+                    continue
+                source_map.setdefault(item_id, []).append({
+                    **source,
+                    "catalogSection": section,
+                    "slotConfirmedBy": "Blizzard item detail inventory_type.type",
+                })
         if index % 50 == 0:
             print(
                 f"Equipment source classification progress: {index}/{len(allowed_item_ids)} "
