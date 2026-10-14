@@ -1,6 +1,7 @@
 import unittest
 import tempfile
 import os
+import datetime as real_datetime
 import urllib.error
 from email.message import Message
 from unittest.mock import MagicMock, patch
@@ -76,7 +77,8 @@ class BlizzardRequestRetryTests(unittest.TestCase):
         headers = Message()
         headers["Retry-After"] = "Wed, 21 Oct 2015 07:28:00 GMT"
         error = urllib.error.HTTPError("https://example.test", 429, "limited", headers, None)
-        with patch.object(importer.datetime, "now", return_value=importer.datetime(2015, 10, 21, 7, 27, 50, tzinfo=importer.timezone.utc)):
+        with patch.object(importer, "datetime") as mocked_datetime:
+            mocked_datetime.now.return_value = real_datetime.datetime(2015, 10, 21, 7, 27, 50, tzinfo=real_datetime.timezone.utc)
             self.assertEqual(importer._retry_after_seconds(error), 10.0)
 
     def test_final_failure_names_endpoint_and_stops_after_bounded_retries(self):
