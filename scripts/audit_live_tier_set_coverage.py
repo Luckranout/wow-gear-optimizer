@@ -55,7 +55,7 @@ def main():
     if (
         not raw_item.get("is_equippable")
         or normalized.get("id") != TARGET_ITEM_ID
-        or not inventory_type.get("id")
+        or not inventory_type.get("name")
     ):
         print("Target item failed the live item-detail/slot-metadata gate.", file=sys.stderr)
         return 1
