@@ -93,7 +93,11 @@ class EquipmentSectionPaginationTests(unittest.TestCase):
 
         with patch("builtins.print") as printer:
             sections, sources = collect_equipment_section_ids(
-                "token", get_detail, {11, 12}, sleep=lambda _s: None
+                "token", get_detail, {11, 12}, sleep=lambda _s: None,
+                source_evidence={
+                    11: [{"category": "PvE", "seasonScope": "Midnight Season 2+", "encounter": "Test encounter"}],
+                    12: [{"category": "Crafted Gear", "seasonScope": "Midnight Season 2+", "professionRecipeSource": "Test recipe"}],
+                },
             )
         self.assertEqual(sections, {"rings": {11}, "head": {12}})
         self.assertEqual(set(sources), {11, 12})
@@ -101,8 +105,21 @@ class EquipmentSectionPaginationTests(unittest.TestCase):
         diagnostics = "\\n".join(str(call.args[0]) for call in printer.call_args_list)
         self.assertIn("verified_source_ids=2", diagnostics)
         self.assertIn("section_counts=", diagnostics)
-        self.assertTrue(all("eligibilitySource" in source for values in sources.values() for source in values))
-        self.assertTrue(all("slot confirmed by item detail" in source["eligibilitySource"] for values in sources.values() for source in values))
+        self.assertEqual(sources[11][0]["encounter"], "Test encounter")
+        self.assertEqual(sources[12][0]["professionRecipeSource"], "Test recipe")
+        self.assertTrue(all(source["slotConfirmedBy"] == "Blizzard item detail inventory_type.type" for values in sources.values() for source in values))
+
+    def test_item_without_source_evidence_is_rejected(self):
+        details = {
+            11: {"id": 11, "name": "Unproven Ring", "is_equippable": True, "inventory_type": {"type": "FINGER", "name": "Finger"}},
+        }
+        def get_detail(path, _token, _params):
+            return details[int(path.rsplit("/", 1)[-1])]
+        sections, sources = collect_equipment_section_ids(
+            "token", get_detail, {11}, sleep=lambda _s: None, source_evidence={}
+        )
+        self.assertEqual(sections, {})
+        self.assertEqual(sources, {})
 
     def test_detail_lookup_failure_does_not_create_unverified_slot_candidates(self):
         def failed_detail(_path, _token, _params):
