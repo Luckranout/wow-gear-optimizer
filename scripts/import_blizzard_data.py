@@ -14,7 +14,8 @@ try:
         collect_equipment_section_ids,
         write_section_catalogs,
     )
-except ImportError:  # Support direct execution as a GitHub Actions script.
+except ImportError:  # Support direct execution and importlib-based tests.
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     from equipment_catalog_sections import (
         collect_equipment_section_ids,
         write_section_catalogs,
