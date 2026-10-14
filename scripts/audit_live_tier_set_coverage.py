@@ -44,16 +44,27 @@ def main():
         raw_item,
         source="Blizzard Game Data API — Season 2+ content source",
     )
+    inventory_type = normalized.get("inventoryType") or {}
+    verified_stats = item_has_verified_stats(normalized)
     print(f"Target item detail name: {normalized.get('name')}.")
     print(f"Target item detail level: {normalized.get('level')}.")
-    print(f"Target item slot: {normalized.get('slot')}.")
+    print(f"Target item inventory type: {inventory_type.get('name')} (id {inventory_type.get('id')}).")
     print(f"Target item is equippable: {bool(raw_item.get('is_equippable'))}.")
-    print(f"Target item has verified numeric stats: {item_has_verified_stats(normalized)}.")
+    print(f"Target item has verified numeric stats: {verified_stats}.")
 
-    if not raw_item.get("is_equippable") or normalized.get("id") != TARGET_ITEM_ID:
-        print("Target item failed the importer detail/normalization gate.", file=sys.stderr)
+    if (
+        not raw_item.get("is_equippable")
+        or normalized.get("id") != TARGET_ITEM_ID
+        or not inventory_type.get("id")
+    ):
+        print("Target item failed the live item-detail/slot-metadata gate.", file=sys.stderr)
         return 1
-    print("Target item passed live source and item-detail normalization checks.")
+    if not verified_stats:
+        print(
+            "Target item has no verified numeric stats in Blizzard detail; "
+            "the catalog must preserve it as incomplete rather than silently claiming a complete comparison."
+        )
+    print("Target item passed live source, equippability, ID, and inventory-slot metadata checks.")
     return 0
 
 
