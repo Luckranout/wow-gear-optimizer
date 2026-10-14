@@ -1038,3 +1038,37 @@ if (partialCapReport.ratingConstraintStatus?.balanced !== true ||
   throw new Error("A single over-cap stat should be rebalanced when a compliant candidate exists");
 }
 console.log("Hard-cap alert, priority-choice, and automatic rebalance regressions passed.");
+
+// Whole-loadout balancing regression: a lower-Haste necklace must be selected
+// when it brings the full level-90 loadout under the Haste hard cap, even if
+// the current necklace carries more raw Haste.
+const hasteBalanceCharacter = {
+  ...o.createCharacterProfile(),
+  level: 90,
+  className: "Shaman",
+  specialization: "Enhancement",
+  equipment: {
+    ...o.createCharacterProfile().equipment,
+    Head: { id: 992001, slot: "Head", itemLevel: 300, stats: { Haste: 8000 } },
+    Neck: { id: 992002, name: "Haste-heavy Necklace", slot: "Neck", itemLevel: 300, stats: { Haste: 1000 } }
+  }
+};
+const balancedNecklace = {
+  id: 992003,
+  name: "Balanced Necklace",
+  slot: "Neck",
+  itemLevel: 300,
+  stats: { Haste: 100, Mastery: 200 }
+};
+const wholeLoadoutBalance = o.optimizeEquipment({
+  items: [balancedNecklace],
+  character: hasteBalanceCharacter,
+  statWeights: { Haste: 1, Mastery: 1 }
+});
+if (wholeLoadoutBalance.equipment.Neck?.id !== balancedNecklace.id ||
+    wholeLoadoutBalance.ratingConstraintStatus?.balanced !== true ||
+    wholeLoadoutBalance.ratingConstraintStatus?.remainingViolations?.length !== 0) {
+  throw new Error("Whole-loadout optimizer must choose a cap-safe necklace and report balanced secondary ratings");
+}
+console.log("Whole-loadout necklace stat-balancing regression passed.");
+
