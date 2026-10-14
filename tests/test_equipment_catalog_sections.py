@@ -2,6 +2,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from scripts.equipment_catalog_sections import (
     PAGE_SIZE,
@@ -81,10 +82,15 @@ class EquipmentSectionPaginationTests(unittest.TestCase):
         def search(_path, _token, params):
             return {"maxPage": 1, "results": [{"id": 10}, {"id": 11}, {"id": 12}]}
 
-        sections, sources = collect_equipment_section_ids(
-            "token", search, {11}, sleep=lambda _s: None
-        )
+        with patch("builtins.print") as printer:
+            sections, sources = collect_equipment_section_ids(
+                "token", search, {11}, sleep=lambda _s: None
+            )
         self.assertTrue(all(set(ids) <= {11} for ids in sections.values()))
+        diagnostics = "\n".join(str(call.args[0]) for call in printer.call_args_list)
+        self.assertIn("verified_source_ids=1", diagnostics)
+        self.assertIn("raw_unique_ids=3", diagnostics)
+        self.assertIn("verified_overlap=1", diagnostics)
         self.assertTrue(all("eligibilitySource" in source for values in sources.values() for source in values))
         self.assertTrue(all("profession recipe" in source["eligibilitySource"] for values in sources.values() for source in values))
 
