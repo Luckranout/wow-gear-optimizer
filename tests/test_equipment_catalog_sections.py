@@ -76,6 +76,7 @@ class EquipmentSectionPaginationTests(unittest.TestCase):
         )
         self.assertTrue(all(set(ids) <= {11} for ids in sections.values()))
         self.assertTrue(all("eligibilitySource" in source for values in sources.values() for source in values))
+        self.assertTrue(all("profession recipe" in source["eligibilitySource"] for values in sources.values() for source in values))
 
     def test_incomplete_section_does_not_replace_previous_file(self):
         with tempfile.TemporaryDirectory() as temporary:
