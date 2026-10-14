@@ -20,7 +20,7 @@ const CLASS_ARMOR = {
 const ARMOR_SLOTS = new Set(["Head", "Shoulders", "Chest", "Wrists", "Hands", "Waist", "Legs", "Feet"]);
 
 function normalizeClass(value) {
-  return String(value || "").toLowerCase().replace(/[\\s'_-]/g, "");
+  return String(value || "").toLowerCase().replace(/[\s'_-]/g, "");
 }
 function slotMatches(item, slot) {
   const inv = String(item.inventoryType?.name || item.inventoryType || "").toLowerCase();
