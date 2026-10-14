@@ -134,6 +134,14 @@ def collect_equipment_section_ids(token, get_api_json, allowed_item_ids, sleep=t
                 f"item_subclass_id={item_subclass.get('id') if isinstance(item_subclass, dict) else None!r}; "
                 f"item_subclass_name={item_subclass.get('name') if isinstance(item_subclass, dict) else None!r}"
             )
+            # Compare the raw detail with the slot mapping used by the search loop.
+            # The item-detail API uses inventory_type, while search results are
+            # queried through inventory_type.type; log both representations.
+            print(
+                f"DEBUG: Processing Item ID {source_id}; "
+                f"raw_inventory_type={inventory!r}; "
+                f"expected_slot_mappings={dict(SECTION_SEARCHES)!r}"
+            )
         except Exception as error:
             print(
                 f"Source item raw properties unavailable: id={source_id}; "
