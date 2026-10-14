@@ -633,7 +633,7 @@ goalSelect.addEventListener("change", () => {
   }
 });
 
-document.querySelector("#optimizeBtn").addEventListener("click", () => {
+document.querySelector("#optimizeBtn").addEventListener("click", async () => {
   if (!retailDataset) {
     resultMessage.textContent = "Current Retail data is still loading. Try again in a moment.";
     return;
@@ -662,9 +662,33 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
 
   const prioritySelect = secondaryRatingNotice?.querySelector("#secondaryRatingPriority");
   if (prioritySelect?.value) character.preferredSecondaryStat = prioritySelect.value;
+  let availableItems = Array.isArray(retailDataset.items) ? [...retailDataset.items] : [];
+  let liveSlotCandidateStatus = "";
+  if (importedCharacter) {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/slot-candidates?slots=Neck,Shoulders`);
+      const data = await response.json();
+      if (!response.ok) throw new Error(data?.error || `Blizzard slot lookup failed (HTTP ${response.status}).`);
+      const byId = new Map(availableItems.map(item => [String(item.id ?? item.itemId), item]));
+      let added = 0;
+      for (const item of Array.isArray(data.items) ? data.items : []) {
+        if (!item || !item.id || !["Neck", "Shoulders"].includes(item.slot)) continue;
+        const key = String(item.id);
+        if (!byId.has(key)) {
+          byId.set(key, item);
+          added += 1;
+        }
+      }
+      availableItems = [...byId.values()];
+      liveSlotCandidateStatus = ` • Live Blizzard Neck/Shoulder search: ${data.items?.length || 0} candidates, ${added} added to this run${data.cached ? " (cached)" : ""}`;
+    } catch (error) {
+      liveSlotCandidateStatus = ` • Live Neck/Shoulder lookup unavailable; using existing catalog only (${error.message})`;
+    }
+  }
+
   const report = WoWOptimizer.createOptimizationReport({
     character,
-    availableItems: retailDataset.items || [],
+    availableItems,
     dataset: retailDataset
   });
 
@@ -719,13 +743,13 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
     : `${character.className} • ${character.specialization}`;
 
   if (report.topUpgrades.length) {
-    resultMessage.textContent = `${label} • ${character.goal} — ${report.topUpgrades.length} gear candidates ranked. This is a ranking aid, not a verified best-in-slot result or numeric projected-stat calculation.`;
+    resultMessage.textContent = `${label} • ${character.goal} — ${report.topUpgrades.length} gear candidates ranked.${liveSlotCandidateStatus} This is a ranking aid, not a verified best-in-slot result or numeric projected-stat calculation.`;
   } else {
     const diagnostics = WoWOptimizer.slots.map(slot => {
       const audit = WoWOptimizer.diagnoseSlotCandidates(retailDataset.items || [], slot, character.className);
       return `${slot}: ${audit.usableStatsCount} usable / ${audit.slotMatchCount} slot matches (class eligible ${audit.classEligibleCount}; disabled ${audit.excludedByEligibility.length}; missing stats ${audit.excludedByStats.length})`;
     });
-    resultMessage.textContent = `${label} • ${character.goal} — no direct gear candidates ranked. Catalog diagnostics by slot: ${diagnostics.join(" | ")}. This distinguishes missing or filtered catalog data from a verified absence of upgrades.`;
+    resultMessage.textContent = `${label} • ${character.goal} — no direct gear candidates ranked.${liveSlotCandidateStatus} Catalog diagnostics by slot: ${diagnostics.join(" | ")}. This distinguishes missing or filtered catalog data from a verified absence of upgrades.`;
   }
 });
 
