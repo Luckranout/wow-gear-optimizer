@@ -7,6 +7,7 @@ from import_blizzard_data import (
     NAMESPACE,
     collect_season_tier_set_item_ids,
     get_access_token,
+    fetch_item_details,
     get_api_json,
     item_has_verified_stats,
     normalize_item,
@@ -64,7 +65,45 @@ def main():
             "Target item has no verified numeric stats in Blizzard detail; "
             "the catalog must preserve it as incomplete rather than silently claiming a complete comparison."
         )
-    print("Target item passed live source, equippability, ID, and inventory-slot metadata checks.")
+
+    # Exercise the same item-enrichment stage the catalog importer uses, but only
+    # for this one target record. No catalog file is read or written.
+    imported_items = fetch_item_details(token, [TARGET_ITEM_ID], item_sources)
+    imported = next(
+        (item for item in imported_items if item.get("id") == TARGET_ITEM_ID),
+        None,
+    )
+    if not imported:
+        print(
+            "Target item was dropped by fetch_item_details before catalog assembly.",
+            file=sys.stderr,
+        )
+        return 1
+
+    imported_inventory = imported.get("inventoryType") or {}
+    imported_stats = item_has_verified_stats(imported)
+    source_locations = imported.get("sourceLocations") or []
+    print(f"Isolated importer output item count: {len(imported_items)}.")
+    print(f"Isolated importer output slot: {imported_inventory.get('name')}.")
+    print(f"Isolated importer output has verified stats: {imported_stats}.")
+    print(f"Isolated importer output source locations: {len(source_locations)}.")
+    if (
+        imported_inventory.get("name") != "Shoulder"
+        or not imported.get("isEquippable")
+        or not imported_stats
+        or not source_locations
+    ):
+        print(
+            "Target item failed the isolated importer output validation.",
+            file=sys.stderr,
+        )
+        return 1
+
+    print(
+        "Target item passed live source, item detail, normalization, "
+        "catalog item enrichment, equippability, stats, and slot checks."
+    )
+    print("No production catalog was read or written.")
     return 0
 
 
