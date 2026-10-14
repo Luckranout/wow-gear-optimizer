@@ -931,6 +931,8 @@ const shortlistItems = shortlistSlots.map(([slot, id], index) => ({
   name: "Shortlist " + slot,
   slot,
   itemLevel: 300 + index,
+  itemClass: ["Head", "Shoulders", "Chest", "Hands", "Legs"].includes(slot) ? "Armor" : undefined,
+  itemSubclass: ["Head", "Shoulders", "Chest", "Hands", "Legs"].includes(slot) ? "Plate" : undefined,
   inventoryType: slot === "Main Hand" || slot === "Off Hand" ? "One-Hand" : undefined,
   itemSubclass: slot === "Main Hand" || slot === "Off Hand" ? "Axe" : undefined,
   stats: { Strength: 100 + index, Haste: 20 + index }
