@@ -206,10 +206,10 @@ if __name__ == "__main__":
 
 class BlizzardMythicSeasonVerificationTests(unittest.TestCase):
     def test_resolves_supported_season_from_index_then_fetches_details(self):
-        index = {"seasons": [{"id": 41, "name": "Season 1"}, {"id": 42, "name": "Midnight Season 2"}]}
+        index = {"seasons": [{"id": 17, "name": "Mythic+ Season 1"}, {"id": 18, "name": "Midnight Mythic+ Season 2"}]}
         detail = {
-            "id": 42,
-            "season_name": "Midnight Season 2",
+            "id": 18,
+            "season_name": "Midnight Mythic+ Season 2",
             "periods": [{"id": 101}, {"id": 102}],
         }
         with patch.object(
@@ -226,7 +226,7 @@ class BlizzardMythicSeasonVerificationTests(unittest.TestCase):
             {"namespace": "dynamic-us", "locale": "en_US"},
         ))
         self.assertEqual(request.call_args_list[1].args, (
-            "/data/wow/mythic-keystone/season/42",
+            "/data/wow/mythic-keystone/season/18",
             "token",
             {"namespace": "dynamic-us", "locale": "en_US"},
         ))
@@ -237,12 +237,12 @@ class BlizzardMythicSeasonVerificationTests(unittest.TestCase):
             "get_api_json",
             return_value={"seasons": [{"id": 41, "name": "Season 1"}]},
         ):
-            with self.assertRaisesRegex(RuntimeError, "id 42 is not present"):
-                import_blizzard_data.get_mythic_keystone_season("token")
+            with self.assertRaisesRegex(RuntimeError, "Could not resolve a Mythic"):
+                import_blizzard_data.get_mythic_keystone_season("token", season_id=42)
 
     def test_rejects_season_response_without_periods(self):
-        index = {"seasons": [{"id": 42, "name": "Midnight Season 2"}]}
-        detail = {"id": 42, "season_name": "Midnight Season 2", "periods": []}
+        index = {"seasons": [{"id": 18, "name": "Midnight Mythic+ Season 2"}]}
+        detail = {"id": 18, "season_name": "Midnight Mythic+ Season 2", "periods": []}
         with patch.object(import_blizzard_data, "get_api_json", side_effect=[index, detail]):
             with self.assertRaisesRegex(RuntimeError, "returned no periods"):
                 import_blizzard_data.get_mythic_keystone_season("token")
