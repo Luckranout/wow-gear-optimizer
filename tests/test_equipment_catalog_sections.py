@@ -59,8 +59,10 @@ class EquipmentSectionPaginationTests(unittest.TestCase):
         self.assertIn("WEAPON", SECTION_SEARCHES["off-hand"])
 
     def test_missing_neck_or_shoulders_fails_before_catalog_publication(self):
-        with self.assertRaisesRegex(RuntimeError, "necklaces, shoulders"):
+        with self.assertRaises(RuntimeError) as raised:
             validate_required_sections({"rings": {100}, "head": {200}})
+        self.assertIn("necklaces", str(raised.exception))
+        self.assertIn("shoulders", str(raised.exception))
 
     def test_all_required_sections_pass_validation(self):
         validate_required_sections({section: {index + 1} for index, section in enumerate(SECTION_SEARCHES)})
