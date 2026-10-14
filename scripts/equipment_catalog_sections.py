@@ -99,89 +99,78 @@ def fetch_inventory_type_ids(token, inventory_type, get_api_json, sleep=time.sle
 
 
 def collect_equipment_section_ids(token, get_api_json, allowed_item_ids, sleep=time.sleep):
-    """Find slot matches intersecting the importer's independently verified Season 2+ candidate sources."""
+    """Classify verified Season 2+ source items by their item-detail inventory type.
+
+    Blizzard's item search can cap a slot query at its first 1,000 ID-ordered
+    results, which can omit newer IDs entirely. The importer already has an
+    independently verified source list, so use each item's authoritative detail
+    endpoint to assign its slot instead of intersecting against that capped search.
+    """
     allowed_item_ids = set(allowed_item_ids)
     if not allowed_item_ids:
         raise RuntimeError("No verified Season 2+ item IDs were supplied; refusing to publish a catalog.")
-    sample_source_ids = sorted(allowed_item_ids)[:12]
+
     print(
         "Equipment catalog source diagnostics: "
         f"verified_source_ids={len(allowed_item_ids)}; "
-        f"sample_ids={sample_source_ids}"
+        f"sample_ids={sorted(allowed_item_ids)[:12]}"
     )
-    # Inspect actual Blizzard item-detail properties for representative IDs from
-    # the PvE/PvP/crafted source union before slot filtering. This distinguishes
-    # bad source IDs or missing inventory_type metadata from a search/overlap bug.
-    for source_id in sample_source_ids:
+    section_ids = {}
+    source_map = {}
+    type_to_sections = {}
+    for section, inventory_types in SECTION_SEARCHES.items():
+        for inventory_type in inventory_types:
+            type_to_sections.setdefault(inventory_type, set()).add(section)
+
+    detail_errors = 0
+    for index, item_id in enumerate(sorted(allowed_item_ids), start=1):
         try:
             detail = get_api_json(
-                f"/data/wow/item/{source_id}",
+                f"/data/wow/item/{item_id}",
                 token,
                 {"namespace": "static-us", "locale": "en_US"},
             )
-            inventory = detail.get("inventory_type") or {}
-            item_class = detail.get("item_class") or {}
-            item_subclass = detail.get("item_subclass") or {}
-            print(
-                "Source item raw properties: "
-                f"id={source_id}; name={detail.get('name')!r}; "
-                f"is_equippable={detail.get('is_equippable')!r}; "
-                f"level={detail.get('level')!r}; "
-                f"inventory_type_id={inventory.get('id') if isinstance(inventory, dict) else None!r}; "
-                f"inventory_type_name={inventory.get('name') if isinstance(inventory, dict) else None!r}; "
-                f"item_class_id={item_class.get('id') if isinstance(item_class, dict) else None!r}; "
-                f"item_class_name={item_class.get('name') if isinstance(item_class, dict) else None!r}; "
-                f"item_subclass_id={item_subclass.get('id') if isinstance(item_subclass, dict) else None!r}; "
-                f"item_subclass_name={item_subclass.get('name') if isinstance(item_subclass, dict) else None!r}"
-            )
-            # Compare the raw detail with the slot mapping used by the search loop.
-            # The item-detail API uses inventory_type, while search results are
-            # queried through inventory_type.type; log both representations.
-            print(
-                f"DEBUG: Processing Item ID {source_id}; "
-                f"raw_inventory_type={inventory!r}; "
-                f"expected_slot_mappings={dict(SECTION_SEARCHES)!r}"
-            )
         except Exception as error:
+            detail_errors += 1
             print(
-                f"Source item raw properties unavailable: id={source_id}; "
+                f"Equipment detail lookup failed: id={item_id}; "
                 f"error_type={type(error).__name__}"
             )
-    section_ids = {}
-    source_map = {}
-    for section, inventory_types in SECTION_SEARCHES.items():
-        ids = set()
-        raw_counts = {}
-        for inventory_type in inventory_types:
-            type_ids = fetch_inventory_type_ids(token, inventory_type, get_api_json, sleep)
-            raw_counts[inventory_type] = len(type_ids)
-            ids.update(type_ids)
-        raw_count = len(ids)
-        overlap_ids = ids.intersection(allowed_item_ids)
-        # Blizzard item search is a slot lookup, not a season filter. Intersect it
-        # with IDs independently verified by the importer (PvE/PvP loot or
-        # eligible Midnight profession recipe outputs). Keep raw and overlap
-        # counts visible so a source-scope mismatch cannot masquerade as an
-        # empty API response or a throttling/authentication failure.
-        print(
-            f"Equipment section diagnostics {section}: "
-            f"inventory_types={raw_counts}; raw_unique_ids={raw_count}; "
-            f"verified_overlap={len(overlap_ids)}; "
-            f"overlap_sample={sorted(overlap_ids)[:8]}"
-        )
-        ids = overlap_ids
-        if not ids:
-            print(f"Equipment section {section}: no verified Season 2+ source items; section omitted.")
             continue
-        section_ids[section] = ids
-        for item_id in ids:
+
+        if not isinstance(detail, dict) or not detail.get("is_equippable"):
+            continue
+        inventory = detail.get("inventory_type") or {}
+        inventory_type = inventory.get("type") if isinstance(inventory, dict) else None
+        matched_sections = type_to_sections.get(inventory_type, set())
+        if not matched_sections:
+            continue
+
+        print(
+            f"Equipment source classification: id={item_id}; "
+            f"name={detail.get('name')!r}; inventory_type={inventory_type!r}; "
+            f"sections={sorted(matched_sections)}"
+        )
+        for section in matched_sections:
+            section_ids.setdefault(section, set()).add(item_id)
             source_map.setdefault(item_id, []).append({
                 "category": "Verified Season 2+ Equipment Catalog",
                 "catalogSection": section,
                 "seasonScope": "Midnight Season 2+",
-                "eligibilitySource": "Verified Midnight Season 2+ loot or profession recipe source intersection",
+                "eligibilitySource": "Verified Midnight Season 2+ loot or profession recipe source; slot confirmed by item detail",
             })
-        print(f"Equipment section {section}: {len(ids)} unique item IDs.")
+        if index % 50 == 0:
+            print(
+                f"Equipment source classification progress: {index}/{len(allowed_item_ids)} "
+                f"items checked; detail_errors={detail_errors}; "
+                f"sections={{{', '.join(f'{key}: {len(value)}' for key, value in sorted(section_ids.items()))}}}"
+            )
+
+    print(
+        "Equipment source classification summary: "
+        f"verified_source_ids={len(allowed_item_ids)}; detail_errors={detail_errors}; "
+        f"section_counts={{{', '.join(f'{key}: {len(value)}' for key, value in sorted(section_ids.items()))}}}"
+    )
     return section_ids, source_map
 
 
