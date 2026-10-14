@@ -9,7 +9,8 @@ const html = fs.readFileSync("index.html", "utf8");
 // candidates for those slots, merge them without duplicate item IDs, and then
 // pass the combined pool to the real optimizer report.
 assert.match(app, /const missingSlots = WoWOptimizer\.slots\.filter/);
-assert.match(app, /fetch\(\x60\$\{API_BASE_URL\}\/api\/slot-candidates\?slot=/);
+assert.match(app, /const url = `\$\{API_BASE_URL\}\/api\/slot-candidates\?slot=/);
+assert.match(app, /fetch\(url\)/);
 assert.match(app, /class=\$\{encodeURIComponent\(character\.className\)\}/);
 assert.match(app, /Promise\.all\(missingSlots\.map/);
 assert.match(app, /availableItems\.concat\(\.\.\.requests\)/);
