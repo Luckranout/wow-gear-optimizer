@@ -205,36 +205,44 @@ if __name__ == "__main__":
 
 
 class BlizzardMythicSeasonVerificationTests(unittest.TestCase):
-    def test_fetches_supported_season_from_dynamic_namespace(self):
-        response = {
+    def test_resolves_supported_season_from_index_then_fetches_details(self):
+        index = {"seasons": [{"id": 41, "name": "Season 1"}, {"id": 42, "name": "Midnight Season 2"}]}
+        detail = {
             "id": 42,
             "season_name": "Midnight Season 2",
             "periods": [{"id": 101}, {"id": 102}],
         }
-        with patch.object(import_blizzard_data, "get_api_json", return_value=response) as request:
+        with patch.object(
+            import_blizzard_data,
+            "get_api_json",
+            side_effect=[index, detail],
+        ) as request:
             result = import_blizzard_data.get_mythic_keystone_season("token")
 
-        self.assertEqual(result, response)
-        request.assert_called_once_with(
+        self.assertEqual(result, detail)
+        self.assertEqual(request.call_args_list[0].args, (
+            "/data/wow/mythic-keystone/season/index",
+            "token",
+            {"namespace": "dynamic-us", "locale": "en_US"},
+        ))
+        self.assertEqual(request.call_args_list[1].args, (
             "/data/wow/mythic-keystone/season/42",
             "token",
             {"namespace": "dynamic-us", "locale": "en_US"},
-        )
+        ))
 
-    def test_rejects_unexpected_season_id(self):
+    def test_rejects_configured_season_missing_from_index(self):
         with patch.object(
             import_blizzard_data,
             "get_api_json",
-            return_value={"id": 41, "periods": [{"id": 1}]},
+            return_value={"seasons": [{"id": 41, "name": "Season 1"}]},
         ):
-            with self.assertRaisesRegex(RuntimeError, "expected supported season id 42"):
+            with self.assertRaisesRegex(RuntimeError, "id 42 is not present"):
                 import_blizzard_data.get_mythic_keystone_season("token")
 
     def test_rejects_season_response_without_periods(self):
-        with patch.object(
-            import_blizzard_data,
-            "get_api_json",
-            return_value={"id": 42, "season_name": "Midnight Season 2", "periods": []},
-        ):
+        index = {"seasons": [{"id": 42, "name": "Midnight Season 2"}]}
+        detail = {"id": 42, "season_name": "Midnight Season 2", "periods": []}
+        with patch.object(import_blizzard_data, "get_api_json", side_effect=[index, detail]):
             with self.assertRaisesRegex(RuntimeError, "returned no periods"):
                 import_blizzard_data.get_mythic_keystone_season("token")
