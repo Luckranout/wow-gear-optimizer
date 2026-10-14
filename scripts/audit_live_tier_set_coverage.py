@@ -2,7 +2,7 @@
 import os
 import sys
 
-from scripts.import_blizzard_data import (
+from import_blizzard_data import (
     collect_season_tier_set_item_ids,
     get_access_token,
 )
