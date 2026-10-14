@@ -508,8 +508,8 @@ def normalize_item(data, source=None):
     }
 
 
-def get_mythic_keystone_season(token, season_id=SUPPORTED_SEASON_ID):
-    """Resolve and fetch a Mythic+ season through Blizzard's dynamic API."""
+def get_mythic_keystone_season(token, season_id=None):
+    """Resolve the current Mythic+ season independently of the PvP season ID."""
     season_index = get_api_json(
         "/data/wow/mythic-keystone/season/index",
         token,
@@ -522,20 +522,25 @@ def get_mythic_keystone_season(token, season_id=SUPPORTED_SEASON_ID):
             "refusing to treat the season source as verified."
         )
 
-    season_ref = next(
-        (entry for entry in season_refs if extract_id(entry) == season_id),
-        None,
-    )
-    if not season_ref:
-        available_ids = sorted(
-            season_id_value for season_id_value in
-            (extract_id(entry) for entry in season_refs)
-            if season_id_value is not None
+    available_refs = [
+        entry for entry in season_refs
+        if isinstance(entry, dict) and extract_id(entry) is not None
+    ]
+    available_ids = sorted(extract_id(entry) for entry in available_refs)
+    if season_id is None:
+        # Blizzard maintains separate ID sequences for PvP and Mythic+ seasons.
+        # Never reuse the PvP season ID (42) for Mythic+ season lookup.
+        season_ref = max(available_refs, key=lambda entry: extract_id(entry), default=None)
+        season_id = extract_id(season_ref) if season_ref else None
+    else:
+        season_ref = next(
+            (entry for entry in available_refs if extract_id(entry) == season_id),
+            None,
         )
+    if not season_ref or season_id is None:
         raise RuntimeError(
-            f"Configured Mythic+ season id {season_id} is not present in Blizzard's "
-            f"season index (available ids: {available_ids}). Confirm the supported "
-            "season id before importing; no catalog will be published."
+            f"Could not resolve a Mythic+ season from Blizzard's season index "
+            f"(available ids: {available_ids}); no catalog will be published."
         )
 
     response = get_api_json(
@@ -576,7 +581,7 @@ def collect_season_content_item_ids(token):
     # Verify the requested season against Blizzard's official season endpoint.
     # The season response contains season metadata/periods, not a complete loot
     # catalog; Journal encounters remain the source of item-level loot evidence.
-    mythic_season = get_mythic_keystone_season(token, SUPPORTED_SEASON_ID)
+    mythic_season = get_mythic_keystone_season(token)
     item_sources = {}
     matched_instances = []
     missing_sources = []
