@@ -6,6 +6,86 @@
   "sourcePolicy": "Item IDs are base item IDs verified against Wowhead item pages; difficulty/upgrade variants share the base item ID. No numeric DPS/healing score is inferred from set-bonus text.",
   "sets": [
     {
+      "className": "Death Knight",
+      "setId": "2055",
+      "setName": "Baleful Grave-Knight's Crucible",
+      "sourceUrl": "https://www.wowhead.com/item-set=2055/baleful-grave-knights-crucible",
+      "pieces": [],
+      "mappingStatus": "set-verified-pieces-pending"
+    },
+    {
+      "className": "Demon Hunter",
+      "setId": "2056",
+      "setName": "Abyssal Doomhound's Pursuit",
+      "sourceUrl": "https://www.wowhead.com/item-set=2056/abyssal-doomhounds-pursuit",
+      "pieces": [],
+      "mappingStatus": "set-verified-pieces-pending"
+    },
+    {
+      "className": "Druid",
+      "setId": "2057",
+      "setName": "Bark of the Enigmatic Dreamwatcher",
+      "sourceUrl": "https://www.wowhead.com/item-set=2057/bark-of-the-enigmatic-dreamwatcher",
+      "pieces": [],
+      "mappingStatus": "set-verified-pieces-pending"
+    },
+    {
+      "className": "Evoker",
+      "setId": "2058",
+      "setName": "Echo of Calamity",
+      "sourceUrl": "https://www.wowhead.com/item-set=2058/echo-of-calamity",
+      "pieces": [],
+      "mappingStatus": "set-verified-pieces-pending"
+    },
+    {
+      "className": "Hunter",
+      "setId": "2059",
+      "setName": "Skulking Viper's Ambush",
+      "sourceUrl": "https://www.wowhead.com/item-set=2059/skulking-vipers-ambush",
+      "pieces": [],
+      "mappingStatus": "set-verified-pieces-pending"
+    },
+    {
+      "className": "Mage",
+      "setId": "2060",
+      "setName": "Primal Leywarden's Attire",
+      "sourceUrl": "https://www.wowhead.com/item-set=2060/primal-leywardens-attire",
+      "pieces": [],
+      "mappingStatus": "set-verified-pieces-pending"
+    },
+    {
+      "className": "Monk",
+      "setId": "2061",
+      "setName": "Guile of the Monkey King",
+      "sourceUrl": "https://www.wowhead.com/item-set=2061/guile-of-the-monkey-king",
+      "pieces": [],
+      "mappingStatus": "set-verified-pieces-pending"
+    },
+    {
+      "className": "Paladin",
+      "setId": "2062",
+      "setName": "Radiance of the Consecrated Flame",
+      "sourceUrl": "https://www.wowhead.com/item-set=2062/radiance-of-the-consecrated-flame",
+      "pieces": [],
+      "mappingStatus": "set-verified-pieces-pending"
+    },
+    {
+      "className": "Priest",
+      "setId": "2063",
+      "setName": "Cosmic Penitent's Raiment",
+      "sourceUrl": "https://www.wowhead.com/item-set=2063/cosmic-penitents-raiment",
+      "pieces": [],
+      "mappingStatus": "set-verified-pieces-pending"
+    },
+    {
+      "className": "Rogue",
+      "setId": "2064",
+      "setName": "Chosen Bloodslayer's Hexweave",
+      "sourceUrl": "https://www.wowhead.com/item-set=2064/chosen-bloodslayers-hexweave",
+      "pieces": [],
+      "mappingStatus": "set-verified-pieces-pending"
+    },
+    {
       "className": "Shaman",
       "setId": "2065",
       "setName": "Ophidian Oracle's Prophecy",
@@ -53,7 +133,24 @@
           "specializationSpecific": true,
           "scoring": "unmodeled"
         }
-      ]
+      ],
+      "mappingStatus": "verified"
+    },
+    {
+      "className": "Warlock",
+      "setId": "2066",
+      "setName": "Damned Necrolyte's Shattered Restraints",
+      "sourceUrl": "https://www.wowhead.com/item-set=2066/damned-necrolytes-shattered-restraints",
+      "pieces": [],
+      "mappingStatus": "set-verified-pieces-pending"
+    },
+    {
+      "className": "Warrior",
+      "setId": "2067",
+      "setName": "Jade Warlord's Dominion",
+      "sourceUrl": "https://www.wowhead.com/item-set=2067/jade-warlords-dominion",
+      "pieces": [],
+      "mappingStatus": "set-verified-pieces-pending"
     }
   ],
   "completeness": {
