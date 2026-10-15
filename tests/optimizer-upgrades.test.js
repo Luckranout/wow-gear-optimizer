@@ -1168,3 +1168,57 @@ if (unverifiedTierCoverage.itemMappingVerified !== false ||
   throw new Error("Tier-set report must disclose unverified class mappings while retaining known bonus descriptions");
 }
 console.log("Tier-set coverage transparency regression passed.");
+
+const mappingOnlyManifest = {
+  expansion: "Midnight",
+  season: 2,
+  sets: [{
+    className: "Death Knight",
+    setName: "Baleful Grave-Knight's Crucible",
+    mappingStatus: "verified",
+    pieces: [271477, 271475, 271474, 271473, 271472].map((itemId, i) => ({
+      itemId, slot: ["Chest", "Hands", "Head", "Legs", "Shoulders"][i],
+      sourceUrl: `https://example.invalid/item=${itemId}`
+    }))
+  }]
+};
+const mappingOnlyCoverage = o.getTierSetCoverageStatus(mappingOnlyManifest, "Death Knight", "Frost");
+if (mappingOnlyCoverage.catalogueStatus !== "mapping-only" ||
+    mappingOnlyCoverage.itemMappingVerified !== true ||
+    mappingOnlyCoverage.verifiedPieceCount !== 5 ||
+    mappingOnlyCoverage.numericScoringAvailable !== false ||
+    mappingOnlyCoverage.bonusDescriptionsAvailable !== false ||
+    !mappingOnlyCoverage.limitations.some(message => message.includes("numeric scoring are unmodeled"))) {
+  throw new Error("Mapping-only tier manifests must report verified piece IDs without implying bonus scoring");
+}
+console.log("Mapping-only tier-set manifest regression passed.");
+
+const verifiedMappingOnlySet = {
+  setId: "2055",
+  name: "Baleful Grave-Knight's Crucible",
+  class: "Death Knight",
+  source: "Verified Midnight Season 2 tier-piece ID manifest",
+  pieces: [
+    { itemId: 271477, name: "Breastplate", slot: "Chest" },
+    { itemId: 271475, name: "Deathgrips", slot: "Hands" },
+    { itemId: 271474, name: "Casque", slot: "Head" },
+    { itemId: 271473, name: "Greaves", slot: "Legs" },
+    { itemId: 271472, name: "Gibbets", slot: "Shoulders" }
+  ],
+  thresholds: [
+    { pieces: 2, scoreValue: null, source: "Verified piece membership only" },
+    { pieces: 4, scoreValue: null, source: "Verified piece membership only" }
+  ]
+};
+if (o.getItemSetId({ id: 271474, name: "Casque" }, [verifiedMappingOnlySet]) !== "2055") {
+  throw new Error("Verified tier-piece manifest IDs must identify set membership when item records omit set metadata");
+}
+const mappingOnlySetScore = o.scoreSetBonuses({
+  Head: { id: 271474, name: "Casque" },
+  Chest: { id: 271477, name: "Breastplate" }
+}, [verifiedMappingOnlySet], "Frost");
+if (mappingOnlySetScore.score !== 0 ||
+    !mappingOnlySetScore.bonuses.some(bonus => bonus.active && bonus.scoreValue === null)) {
+  throw new Error("Verified piece mapping must detect thresholds without inventing numeric tier-bonus scores");
+}
+console.log("Manifest-backed tier-set detection regression passed.");

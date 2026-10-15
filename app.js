@@ -711,7 +711,7 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
     resultMessage.textContent = "Fetching verified Season 2+ candidates for missing equipment slots...";
     const requests = await Promise.all(missingSlots.map(async slot => {
       try {
-        const url = `${API_BASE_URL}/api/slot-candidates?slot=${encodeURIComponent(slot)}&class=${encodeURIComponent(character.className)}`;
+        const url = `${API_BASE_URL}/api/slot-candidates?slot=${encodeURIComponent(slot)}&class=${encodeURIComponent(character.className)}&specialization=${encodeURIComponent(character.specialization || "")}`;
         const response = await fetch(url);
         const payload = await response.json();
         if (!response.ok) {

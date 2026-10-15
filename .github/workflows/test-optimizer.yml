@@ -13,10 +13,12 @@ on:
     branches:
       - main
       - step-4-upgrade-optimizer
+      - recovery/tier-set-pve-integration
     paths:
       - "stacking-effects.js"
       - "optimizer.js"
       - "wow-data.js"
+      - "data/tier-set-item-ids.json"
       - "scripts/**"
       - "tests/**"
       - "simulation-import.js"

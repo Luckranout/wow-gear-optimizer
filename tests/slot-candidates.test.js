@@ -3,7 +3,7 @@ const fs = require("node:fs");
 const os = require("node:os");
 const path = require("node:path");
 const handler = require("../api/slot-candidates");
-const { SLOT_SECTION, slotMatches, allowedForClass, normalizeClass, hasUsableStats, createResponse, setSectionDir } = handler._test;
+const { SLOT_SECTION, slotMatches, allowedForClass, allowedForClassWeapon, allowedForSpecialization, normalizeClass, hasUsableStats, createResponse, setSectionDir } = handler._test;
 
 assert.equal(SLOT_SECTION.Neck, "necklaces");
 assert.equal(SLOT_SECTION.Shoulders, "shoulders");
@@ -39,6 +39,20 @@ async function call(method, query) {
 function writeSection(dir, name, payload) {
   fs.writeFileSync(path.join(dir, name + ".json"), JSON.stringify(payload));
 }
+
+
+assert.equal(allowedForClassWeapon({
+  itemSubclass: { name: "Staff" }, inventoryType: { name: "Two-Hand" }
+}, "Shaman", "Main Hand"), true, "shamans can use staves generally");
+assert.equal(allowedForSpecialization({
+  name: "Example Staff", itemSubclass: { name: "Staff" }, inventoryType: { name: "Staff" }
+}, "Shaman", "Enhancement", "Main Hand"), false, "Enhancement Shaman must never receive a staff recommendation");
+assert.equal(allowedForSpecialization({
+  name: "Example Sword", itemSubclass: { name: "Sword" }, inventoryType: { name: "One-Hand" }
+}, "Shaman", "Enhancement", "Main Hand"), true, "Enhancement Shaman can use a compatible one-handed weapon");
+assert.equal(allowedForSpecialization({
+  name: "Example Staff", itemSubclass: { name: "Staff" }, inventoryType: { name: "Staff" }
+}, "Shaman", "Restoration", "Main Hand"), true, "specialization-specific staff restriction does not affect other specs");
 
 (async () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "slot-candidates-"));
