@@ -53,7 +53,7 @@ class WavecallerVariantRegressionTests(unittest.TestCase):
 
     def test_checked_in_catalog_matches_wowhead_334_variant(self):
         catalog = json.loads((ROOT / "data" / "equipment-sections" / "trinkets.json").read_text())
-        item = next(entry for entry in catalog if entry.get("id") == ITEM_ID)
+        item = next(entry for entry in catalog["items"] if entry.get("id") == ITEM_ID)
         variant = next(entry for entry in item["variants"] if entry.get("variantKey", "").endswith("ilvl334"))
         self.assertEqual(variant["itemLevel"], 334)
         self.assertEqual(variant["level"], 334)
