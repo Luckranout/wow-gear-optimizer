@@ -1245,7 +1245,7 @@ function createOptimizationReport({character = createCharacterProfile(), availab
     }) : null)
     .filter(Boolean);
   return {
-    character, goal, optimizedEquipment: optimized.equipment, totalScore: optimized.score,
+    character, goal, statWeights, optimizedEquipment: optimized.equipment, totalScore: optimized.score,
     setBonusStatus: optimized.setBonusStatus,
     ratingConstraintStatus: optimized.ratingConstraintStatus || {
       requiresUserChoice: false, balanced: true, remainingViolations: []
