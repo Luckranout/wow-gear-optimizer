@@ -37,62 +37,91 @@ assert.equal(report.tierSetAware, true, "report should expose tier-set mode stat
 assert.equal(report.tierSet.scoringDataAvailable, false, "missing verified bonus scores must be disclosed");
 assert.ok(report.tierSet.note.includes("no verified numeric set-bonus scoring values"), "missing metadata warning should be explicit");
 
-// Real Midnight Season 2 / Tier 36 Shaman item IDs are verified against the item
-// pages referenced in data/tier-set-item-ids.json. Numeric bonus scores below are
-// test fixtures only; real specialization-specific set effects have no invented weights.
+// Real Midnight Season 2 / Tier 36 item IDs are sourced from the Wowhead
+// 12.1 PTR item-set pages and each linked item page. Bonus scores below are
+// TEST FIXTURES only; the manifest intentionally contains no invented live scores.
 const tierItemManifest = JSON.parse(fs.readFileSync("data/tier-set-item-ids.json", "utf8"));
-const shamanSet = tierItemManifest.sets.find(set => set.className === "Shaman");
-assert.ok(shamanSet, "verified Shaman Tier 36 mapping should exist");
-assert.equal(shamanSet.setId, "2065", "Shaman set ID should match Wowhead's item-set record");
-assert.equal(shamanSet.pieces.length, 5, "Shaman mapping should include the five tier slots");
-assert.equal(new Set(shamanSet.pieces.map(piece => piece.itemId)).size, 5, "tier piece item IDs must be unique");
-assert.deepEqual(
-  shamanSet.pieces.map(piece => piece.itemId).sort((a, b) => a - b),
-  [271481, 271482, 271483, 271484, 271486],
-  "Shaman piece IDs should match the verified Tier 36 item pages"
-);
-assert.deepEqual(tierItemManifest.completeness.pendingClasses.length, 12,
-  "manifest must disclose that 12 other class sets remain unmapped");
-
-// Set identities are recorded for every class, but only classes with verified
-// piece IDs may count as mapped. Empty pending records must not masquerade as
-// complete tier-piece coverage.
-const expectedSetIdentities = [
-  ["Death Knight", "2055", "Baleful Grave-Knight's Crucible"],
-  ["Demon Hunter", "2056", "Abyssal Doomhound's Pursuit"],
-  ["Druid", "2057", "Bark of the Enigmatic Dreamwatcher"],
-  ["Evoker", "2058", "Echo of Calamity"],
-  ["Hunter", "2059", "Skulking Viper's Ambush"],
-  ["Mage", "2060", "Primal Leywarden's Attire"],
-  ["Monk", "2061", "Guile of the Monkey King"],
-  ["Paladin", "2062", "Radiance of the Consecrated Flame"],
-  ["Priest", "2063", "Cosmic Penitent's Raiment"],
-  ["Rogue", "2064", "Chosen Bloodslayer's Hexweave"],
-  ["Shaman", "2065", "Ophidian Oracle's Prophecy"],
-  ["Warlock", "2066", "Damned Necrolyte's Shattered Restraints"],
-  ["Warrior", "2067", "Jade Warlord's Dominion"]
+const expectedClasses = [
+  "Death Knight", "Demon Hunter", "Druid", "Evoker", "Hunter", "Mage", "Monk",
+  "Paladin", "Priest", "Rogue", "Shaman", "Warlock", "Warrior"
 ];
-assert.equal(tierItemManifest.sets.length, 13, "manifest should identify all 13 Midnight Season 2 class sets");
+const expectedSlots = ["Chest", "Hands", "Head", "Legs", "Shoulders"];
+assert.equal(tierItemManifest.sets.length, 13, "manifest should include all 13 class tier sets");
+assert.deepEqual(tierItemManifest.completeness.mappedClasses, expectedClasses,
+  "all class sets with five verified pieces should be marked mapped");
+assert.deepEqual(tierItemManifest.completeness.pendingClasses, [],
+  "no class should remain pending after complete verified mapping");
 assert.equal(new Set(tierItemManifest.sets.map(set => set.className)).size, 13,
   "each class must have one distinct tier-set record");
 assert.equal(new Set(tierItemManifest.sets.map(set => set.setId)).size, 13,
   "class tier-set IDs must be unique");
-for (const [className, setId, setName] of expectedSetIdentities) {
+const allPieceIds = [];
+for (const className of expectedClasses) {
   const set = tierItemManifest.sets.find(candidate => candidate.className === className);
-  assert.ok(set, `missing tier-set identity for ${className}`);
-  assert.equal(set.setId, setId, `${className} set ID should match the Wowhead item-set record`);
-  assert.equal(set.setName, setName, `${className} set name should match the Wowhead item-set record`);
-  if (className !== "Shaman") {
-    assert.equal(set.pieces.length, 0, `${className} must remain unmapped until item IDs are verified`);
-    assert.equal(set.mappingStatus, "set-verified-pieces-pending",
-      `${className} must explicitly disclose pending piece mapping`);
+  assert.ok(set, `missing tier-set mapping for ${className}`);
+  assert.equal(set.pieces.length, 5, `${className} must have all five tier slots mapped`);
+  assert.deepEqual(set.pieces.map(piece => piece.slot).sort(),
+    expectedSlots.slice().sort(), `${className} must map chest, hands, head, legs, and shoulders`);
+  assert.equal(new Set(set.pieces.map(piece => piece.itemId)).size, 5,
+    `${className} item IDs must be unique`);
+  assert.equal(set.mappingStatus, "verified", `${className} mapping must be explicitly verified`);
+  for (const piece of set.pieces) {
+    assert.ok(Number.isSafeInteger(piece.itemId) && piece.itemId > 0,
+      `${className} ${piece.name} must have a valid base item ID`);
+    assert.ok(piece.name && piece.slot && piece.sourceUrl,
+      `${className} piece metadata must include name, slot, and source URL`);
+    allPieceIds.push(piece.itemId);
   }
 }
-assert.deepEqual(
-  tierItemManifest.completeness.mappedClasses,
-  ["Shaman"],
-  "only classes with verified item IDs may be marked as mapped"
-);
+assert.equal(new Set(allPieceIds).size, 65, "all 65 tier-piece item IDs must be globally unique");
+
+const dataContext = { window: {} };
+vm.runInNewContext(fs.readFileSync("wow-data.js", "utf8"), dataContext);
+const wowData = dataContext.window.WoWData;
+const normalizedDataset = wowData.normalizeRetailDataset({
+  expansion: "Midnight",
+  season: 2,
+  items: tierItemManifest.sets.flatMap(set => set.pieces.map(piece => ({
+    id: piece.itemId, name: piece.name, slot: piece.slot, itemLevel: 321,
+    stats: { Intellect: 100 }
+  })))
+}, tierItemManifest);
+assert.equal(normalizedDataset.items.length, 65,
+  "all 65 verified tier items should survive dataset normalization");
+for (const set of tierItemManifest.sets) {
+  const setItems = normalizedDataset.items.filter(item => item.setId === set.setId);
+  assert.equal(setItems.length, 5, `${set.className} items should normalize to the correct set ID`);
+  assert.ok(setItems.every(item => item.isSetPiece === true && item.tierSetClassName === set.className),
+    `${set.className} pieces should acquire class-scoped tier membership`);
+  const testBonuses = [
+    { setId: set.setId, name: set.setName, className: set.className, specialization: "Test", pieces: 2, bonusScore: 10 },
+    { setId: set.setId, name: set.setName, className: set.className, specialization: "Test", pieces: 4, bonusScore: 20 }
+  ];
+  function loadoutAt(pieceCount) {
+    return Object.fromEntries(setItems.slice(0, pieceCount).map(item => [item.slot, item]));
+  }
+  for (const [pieceCount, expectedScore, expectedThresholds] of [
+    [1, 0, []], [2, 10, [2]], [3, 10, [2]], [4, 30, [2, 4]], [5, 30, [2, 4]]
+  ]) {
+    const contextAtBreakpoint = optimizer.getSetBonusContext({
+      equipment: loadoutAt(pieceCount), setBonuses: testBonuses,
+      className: set.className, specialization: "Test"
+    });
+    assert.equal(contextAtBreakpoint.bonusScore, expectedScore,
+      `${set.className} ${pieceCount}-piece loadout should activate only fixture thresholds`);
+    assert.deepEqual(
+      Array.from(contextAtBreakpoint.activeBonuses, bonus => bonus.pieces).sort((a,b)=>a-b),
+      expectedThresholds,
+      `${set.className} ${pieceCount}-piece loadout should activate correct 2pc/4pc thresholds`
+    );
+  }
+  const wrongSpec = optimizer.getSetBonusContext({
+    equipment: loadoutAt(4), setBonuses: testBonuses,
+    className: set.className, specialization: "Other"
+  });
+  assert.equal(wrongSpec.bonusScore, 0,
+    `${set.className} bonus fixtures must remain specialization-scoped`);
+}
 
 const dataContext = { window: {} };
 vm.runInNewContext(fs.readFileSync("wow-data.js", "utf8"), dataContext);
