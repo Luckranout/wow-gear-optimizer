@@ -1,7 +1,15 @@
 const fs = require("fs");
 const vm = require("vm");
 
-const context = { window: {}, fetch: async url => ({ ok: true, json: async () => JSON.parse(fs.readFileSync(String(url).includes("tier-sets-midnight-season-2.json") ? "data/tier-sets-midnight-season-2.json" : "data/current-retail.json", "utf8")) }) };
+const context = { window: {}, fetch: async url => {
+  const requested = String(url);
+  const path = requested.includes("tier-sets-midnight-season-2.json")
+    ? "data/tier-sets-midnight-season-2.json"
+    : requested.includes("data/equipment-sections/")
+      ? requested
+      : "data/current-retail.json";
+  return { ok: true, json: async () => JSON.parse(fs.readFileSync(path, "utf8")) };
+} };
 vm.createContext(context);
 vm.runInContext(fs.readFileSync("wow-data.js", "utf8"), context);
 const dataLayer = context.window.WoWData;
@@ -54,6 +62,17 @@ if (validation.length) throw new Error("Normalized test dataset failed validatio
 (async () => {
   const real = await dataLayer.loadRetailDataset();
   if (!real.items.length) throw new Error("Real retail dataset produced no equipment candidates");
+  if (real.catalogSections?.status !== "complete" ||
+      real.catalogSections.loadedSections.length !== dataLayer.equipmentSectionFiles.length) {
+    throw new Error("The live dataset loader must load all complete sectioned equipment files");
+  }
+  if (!real.items.some(item => Number(item.id) === 193751 && item.catalogSection === "head")) {
+    throw new Error("Sectioned head items must be included in the optimizer candidate pool");
+  }
+  const rawRetailItemCount = JSON.parse(fs.readFileSync("data/current-retail.json", "utf8")).items.length;
+  if (real.items.length <= rawRetailItemCount + 20) {
+    throw new Error("Sectioned catalog items must be merged alongside the small fallback dataset and verified tier candidates");
+  }
   const shamanTierCandidates = real.items.filter(item => [271483,271481,271486,271484,271482].includes(Number(item.id)) && item.seasonScope === "Midnight Season 2");
   if (shamanTierCandidates.length !== 20) throw new Error("Expected 20 verified Shaman tier candidates (four PvE variants for each of five slots), got " + shamanTierCandidates.length);
   for (const slot of ["Head","Shoulders","Chest","Hands","Legs"]) {
@@ -80,7 +99,10 @@ if (validation.length) throw new Error("Normalized test dataset failed validatio
       if (String(url).includes("tier-sets-midnight-season-2.json")) {
         return { ok: false, status: 404, json: async () => ({}) };
       }
-      return { ok: true, json: async () => JSON.parse(fs.readFileSync("data/current-retail.json", "utf8")) };
+      const path = String(url).includes("data/equipment-sections/")
+        ? String(url)
+        : "data/current-retail.json";
+      return { ok: true, json: async () => JSON.parse(fs.readFileSync(path, "utf8")) };
     }
   };
   vm.createContext(fallbackContext);
@@ -88,5 +110,9 @@ if (validation.length) throw new Error("Normalized test dataset failed validatio
   const fallbackData = await fallbackContext.window.WoWData.loadRetailDataset();
   if (!fallbackData.items.length) throw new Error("Missing tier catalogue incorrectly blocked core equipment candidates");
   if (fallbackData.tierSetCatalogue !== null) throw new Error("Unavailable tier catalogue should be reported as null");
+  if (fallbackData.catalogSections?.status !== "complete" ||
+      !fallbackData.items.some(item => Number(item.id) === 193751)) {
+    throw new Error("Missing tier data must not block loading the independent sectioned gear catalog");
+  }
   console.log("Retail equipment slot normalization and optional tier-catalogue fallback passed (" + real.items.length + " optimizer candidates).");
 })().catch(error => { console.error(error); process.exitCode = 1; });
