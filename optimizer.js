@@ -1090,8 +1090,8 @@ function createOptimizationReport({character = createCharacterProfile(), availab
       characterId: simulationContext.characterId,
       generatedAt: simulationContext.generatedAt
     } : {
-      source: profileRules.source || "Static goal heuristic (not spec-specific simulation)",
-      method: profileContext.optimizationProfile ? "specialization-profile" : "static-weights-heuristic",
+      source: profileRules.verified ? profileRules.source : "Static goal heuristic (not spec-specific simulation)",
+      method: profileRules.verified ? "specialization-profile" : "static-weights-heuristic",
       patch: null,
       specialization: character.specialization || null,
       characterId: character.characterId ?? null,
@@ -1099,7 +1099,7 @@ function createOptimizationReport({character = createCharacterProfile(), availab
     },
     recommendationStatus: simulationContext
       ? "simulation-weighted-ranking-not-full-stat-projection"
-      : profileContext.optimizationProfile
+      : profileRules.verified
         ? "profile-weighted-ranking-not-full-stat-projection"
         : "heuristic-ranking-not-simulation-validated",
     numericProjectionAvailable: false,
