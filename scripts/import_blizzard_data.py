@@ -1707,7 +1707,7 @@ def classify_consumables(recipes, output_items):
         if profession == "cooking":
             bucket = "food"
         elif profession == "alchemy":
-            if any(term in label for term in (" flask", " phial", "cauldron of")):
+            if any(term in label.split() for term in ("flask", "phial")) or "cauldron of" in label:
                 bucket = "flaskOrPhial"
             elif "potion" in label or "draught" in label:
                 bucket = "potions"
