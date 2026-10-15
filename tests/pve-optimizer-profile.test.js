@@ -34,7 +34,10 @@ assert.equal(optimizer.scoreStatRating("Haste", 70, 1, optimizer.getOptimization
   "verified hard cap in DR rules should discard rating beyond the cap");
 assert.equal(optimizer.scoreStatRating("Intellect", 150, 1, optimizer.getOptimizationProfileRules(profile)), 100,
   "hard caps should exclude rating beyond the profile cap");
-assert.equal(optimizer.scoreStatRating("Haste", 150, 1, optimizer.getOptimizationProfileRules(profile)), 100,
+const softTargetOnly = optimizer.getOptimizationProfileRules({
+  softTargets: { Haste: 100 }, softTargetMultipliers: { Haste: 0 }
+});
+assert.equal(optimizer.scoreStatRating("Haste", 150, 1, softTargetOnly), 100,
   "soft target multiplier should suppress rating value beyond the target");
 
 const character = {
