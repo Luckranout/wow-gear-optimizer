@@ -57,14 +57,24 @@ assert.deepEqual(
 assert.deepEqual(tierItemManifest.completeness.pendingClasses.length, 12,
   "manifest must disclose that 12 other class sets remain unmapped");
 
-const realShamanItems = shamanSet.pieces.map(piece => ({
-  id: piece.itemId,
-  name: piece.name,
-  slot: piece.slot,
-  setId: shamanSet.setId,
-  itemLevel: 321,
-  stats: { Intellect: 100 }
-}));
+const dataContext = { window: {} };
+vm.runInNewContext(fs.readFileSync("wow-data.js", "utf8"), dataContext);
+const wowData = dataContext.window.WoWData;
+const normalizedShamanDataset = wowData.normalizeRetailDataset({
+  expansion: "Midnight",
+  season: 2,
+  items: shamanSet.pieces.map(piece => ({
+    id: piece.itemId,
+    name: piece.name,
+    slot: piece.slot,
+    itemLevel: 321,
+    stats: { Intellect: 100 }
+  }))
+}, tierItemManifest);
+const realShamanItems = normalizedShamanDataset.items;
+assert.equal(realShamanItems.length, 5, "all five real Shaman items should survive dataset normalization");
+assert.ok(realShamanItems.every(item => item.setId === shamanSet.setId && item.isSetPiece === true),
+  "verified item IDs should acquire tier-set membership during dataset normalization");
 const actualShamanBonuses = [
   { setId: shamanSet.setId, name: shamanSet.setName, className: "Shaman", specialization: "Elemental", pieces: 2, bonusScore: 10 },
   { setId: shamanSet.setId, name: shamanSet.setName, className: "Shaman", specialization: "Elemental", pieces: 4, bonusScore: 20 }
