@@ -121,6 +121,20 @@
         <p id="simulationImportStatus" class="import-status" aria-live="polite">No simulation weights applied.</p>
       </details>
 
+      <section class="tier-set-preview" aria-labelledby="tierSetPreviewTitle">
+        <div class="tier-set-preview-heading">
+          <span class="tier-set-preview-kicker">EXPERIMENTAL</span>
+          <h3 id="tierSetPreviewTitle">Tier-set-aware optimization</h3>
+        </div>
+        <p>Preview of the upcoming tier-set controls. The existing optimizer remains active while set-piece mapping and bonus scoring are integrated and verified.</p>
+        <label class="tier-set-preview-toggle">
+          <input id="tierSetAwareToggle" type="checkbox" disabled aria-describedby="tierSetPreviewStatus">
+          <span>Prefer verified tier-set bonuses</span>
+          <span class="tier-set-preview-badge">Not connected yet</span>
+        </label>
+        <p id="tierSetPreviewStatus" class="tier-set-preview-status" aria-live="polite">Tier-set bonuses are not currently included in gear scores.</p>
+      </section>
+
       <div class="actions">
         <button class="primary" id="optimizeBtn">Optimize Character</button>
         <button class="secondary" id="clearBtn">Clear</button>
