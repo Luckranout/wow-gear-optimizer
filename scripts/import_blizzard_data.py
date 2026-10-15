@@ -36,7 +36,10 @@ PVP_NAMESPACE = "dynamic-us"
 LOCALE = "en_US"
 REQUEST_TIMEOUT_SECONDS = 20
 MAX_RETRIES = 3
-REQUESTS_PER_SECOND = 40
+# Blizzard confirmed a hard 36,000-request/hour quota for each API key.
+# 8 requests/second caps this importer at 28,800/hour, leaving 20% headroom
+# for bursts/retries and keeping all Blizzard/Wowhead calls under one limiter.
+REQUESTS_PER_SECOND = 8
 REQUEST_INTERVAL_SECONDS = 1.0 / REQUESTS_PER_SECOND
 ITEM_CACHE_PATH = os.environ.get("BLIZZARD_ITEM_CACHE_PATH", "data/blizzard-item-cache.sqlite3")
 ITEM_CACHE_TTL_SECONDS = 7 * 24 * 60 * 60
