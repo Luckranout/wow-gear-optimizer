@@ -114,5 +114,30 @@ if (validation.length) throw new Error("Normalized test dataset failed validatio
       !fallbackData.items.some(item => Number(item.id) === 193751)) {
     throw new Error("Missing tier data must not block loading the independent sectioned gear catalog");
   }
-  console.log("Retail equipment slot normalization and optional tier-catalogue fallback passed (" + real.items.length + " optimizer candidates).");
+
+  // A single missing section should reduce catalog coverage, not disable the other slots.
+  const partialContext = {
+    window: {},
+    fetch: async url => {
+      const requested = String(url);
+      if (requested.includes("tier-sets-midnight-season-2.json") ||
+          requested.endsWith("/rings.json")) {
+        return { ok: false, status: 404, json: async () => ({}) };
+      }
+      const path = requested.includes("data/equipment-sections/")
+        ? requested
+        : "data/current-retail.json";
+      return { ok: true, json: async () => JSON.parse(fs.readFileSync(path, "utf8")) };
+    }
+  };
+  vm.createContext(partialContext);
+  vm.runInContext(fs.readFileSync("wow-data.js", "utf8"), partialContext);
+  const partialData = await partialContext.window.WoWData.loadRetailDataset();
+  if (partialData.catalogSections?.status !== "partial" ||
+      !partialData.catalogSections.loadedSections.includes("head") ||
+      !partialData.catalogSections.unavailableSections.some(entry => entry.section === "rings") ||
+      !partialData.items.some(item => Number(item.id) === 193751)) {
+    throw new Error("One unavailable equipment section must not block candidates from the remaining sections");
+  }
+  console.log("Retail equipment catalog loading, partial-section fallback, and optional tier-catalogue fallback passed (" + real.items.length + " optimizer candidates).");
 })().catch(error => { console.error(error); process.exitCode = 1; });
