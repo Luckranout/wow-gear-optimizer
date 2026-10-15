@@ -765,6 +765,16 @@ function findBestItemForSlot(items, slot, goal, statWeights = null, className = 
         !itemAllowedForSpecialization(candidate, slot, className, specialization) ||
         !hasUsableItemStats(candidate)) continue;
 
+    // Do not replace an equipped higher-item-level piece with a lower-level
+    // base record just because its visible secondary stats happen to score well.
+    // The catalogue currently stores base item records for some Mythic drops;
+    // those are not equivalent to their fully upgraded variants. A lower-level
+    // recommendation requires verified variant data, not an implicit downgrade.
+    const candidateLevel = Number(candidate.itemLevel ?? candidate.level);
+    const equippedLevel = Number(equippedItem?.itemLevel ?? equippedItem?.level);
+    if (Number.isFinite(candidateLevel) && Number.isFinite(equippedLevel) &&
+        candidateLevel < equippedLevel) continue;
+
     // A seasonal catalogue can contain multiple difficulty/upgrade variants
     // sharing the same base item ID. Resolve an equipped upgraded copy first,
     // then retain the highest-scoring variant for each identity instead of
