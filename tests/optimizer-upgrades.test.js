@@ -29,9 +29,10 @@ console.log("Level-90 progressive secondary-rating DR regression passed.");
 // a hard limit for level-90 loadout candidates.
 const belowSoftTarget = { Head: { itemLevel: 100, stats: { Haste: 1320 } } };
 const aboveSoftTarget = { Head: { itemLevel: 100, stats: { Haste: 1500 } } };
-if (o.getSecondaryRatingSoftTargetPenalty(belowSoftTarget, 90) !== 0 ||
-    !(o.getSecondaryRatingSoftTargetPenalty(aboveSoftTarget, 90) > 0)) {
-  throw new Error("First-band soft target should add no penalty below threshold and a small penalty above it");
+if (!(o.getSecondaryRatingSoftTargetPenalty(belowSoftTarget, 90) > 0) ||
+    !(o.getSecondaryRatingSoftTargetPenalty(aboveSoftTarget, 90) > 0) ||
+    o.getSecondaryRatingSoftTargetPenalty({ Head: { itemLevel: 100, stats: { Haste: 1320 } } }, 90) !== 0) {
+  throw new Error("Soft-target scoring should penalize shortfalls and over-investment, with zero penalty at the target");
 }
 const atHardCap = { Head: { itemLevel: 100, stats: { Haste: 8800 } } };
 const aboveHardCap = { Head: { itemLevel: 100, stats: { Haste: 8801 } } };
