@@ -37,6 +37,17 @@ const STAT_WEIGHTS = {
   CriticalStrike: 0.8, Haste: 0.8, Mastery: 0.8, Versatility: 0.8
 };
 
+const WOW_SECONDARY_STAT_DR_THRESHOLDS = [
+  { upToPercent: 30, multiplier: 1 },
+  { upToPercent: 39, multiplier: 0.9 },
+  { upToPercent: 47, multiplier: 0.8 },
+  { upToPercent: 54, multiplier: 0.7 },
+  { upToPercent: 66, multiplier: 0.6 },
+  { upToPercent: 126, multiplier: 0.5 }
+];
+const WOW_SECONDARY_STAT_DR_SOURCE =
+  "Wowhead 12.1.0 Secondary Stat Diminishing Returns guide (updated 2026-03-04)";
+
 function normalizeCharacterStatistics(statistics = {}) {
   const aliases = {
     strength: "Strength", agility: "Agility", intellect: "Intellect", stamina: "Stamina",
@@ -295,18 +306,20 @@ function getOptimizationProfileRules(profile = {}) {
   for (const [rawStat, rawRule] of Object.entries(candidate.diminishingReturns || {})) {
     const rule = rawRule && typeof rawRule === "object" ? rawRule : {};
     const ratingPerPercent = Number(rule.ratingPerPercent);
-    const thresholds = Array.isArray(rule.thresholds) ? rule.thresholds.map(entry => ({
+    const suppliedThresholds = Array.isArray(rule.thresholds) ? rule.thresholds.map(entry => ({
       upToPercent: Number(entry?.upToPercent),
       multiplier: Number(entry?.multiplier)
     })).filter(entry => Number.isFinite(entry.upToPercent) && entry.upToPercent > 0 &&
       Number.isFinite(entry.multiplier) && entry.multiplier >= 0 && entry.multiplier <= 1)
       .sort((a, b) => a.upToPercent - b.upToPercent) : [];
+    const thresholds = suppliedThresholds.length ? suppliedThresholds : WOW_SECONDARY_STAT_DR_THRESHOLDS;
     if (rule.verified === true && typeof rule.source === "string" && rule.source.trim() &&
-        Number.isFinite(ratingPerPercent) && ratingPerPercent > 0 && thresholds.length) {
+        Number.isFinite(ratingPerPercent) && ratingPerPercent > 0) {
       diminishingReturns[normalizeItemStatName(rawStat)] = {
         ratingPerPercent, thresholds, source: rule.source,
         hardCapPercent: Number.isFinite(Number(rule.hardCapPercent)) && Number(rule.hardCapPercent) > 0
-          ? Number(rule.hardCapPercent) : null
+          ? Number(rule.hardCapPercent) : 126,
+        thresholdSource: suppliedThresholds.length ? rule.source : WOW_SECONDARY_STAT_DR_SOURCE
       };
     }
   }
@@ -1104,6 +1117,8 @@ window.WoWOptimizer = {
   findBestItemForSlot, optimizeEquipment, findUpgradeOpportunities, rankItems,
   normalizeSetId, getSetBonusContext, scoreTierSetAwareLoadout,
   getOptimizationProfileRules, scoreStatRating, scoreEquipmentWithProfile, scoreItemWithProfile,
+  secondaryStatDiminishingReturns: WOW_SECONDARY_STAT_DR_THRESHOLDS,
+  secondaryStatDiminishingReturnsSource: WOW_SECONDARY_STAT_DR_SOURCE,
   optimizeLoadoutWithProfile, evaluateCombatEnhancementOptions, simulationMatchesSpecialization,
   getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,
   calculateCrestRequirements, isAscendantVenomstoneEligible, recommendUpgradePlan,
