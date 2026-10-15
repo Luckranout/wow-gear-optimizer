@@ -827,10 +827,20 @@ function optimizeEquipment({
   // distinct pair when the catalog has alternatives; keep the best single item
   // only when no second distinct item exists.
   for (const [firstSlot, secondSlot] of [["Ring 1", "Ring 2"], ["Trinket 1", "Trinket 2"], ["Main Hand", "Off Hand"]]) {
-    const first = candidateItems.filter(item => itemMatchesSlot(item, firstSlot) && itemAllowedForClass(item, character.className) && itemAllowedForClassWeapon(item, firstSlot, character.className) && itemAllowedForSpecialization(item, firstSlot, character.className, character.specialization) && hasUsableItemStats(item))
+    // Pair selection runs after findBestItemForSlot and must apply the same
+    // anti-downgrade guard. Otherwise a low-level catalog record can overwrite
+    // the safe result when choosing distinct trinkets/rings/weapons.
+    const meetsEquippedLevel = (item, slot) => {
+      const current = character.equipment?.[slot];
+      const candidateLevel = Number(item.itemLevel ?? item.level);
+      const currentLevel = Number(current?.itemLevel ?? current?.level);
+      return !(Number.isFinite(candidateLevel) && Number.isFinite(currentLevel) &&
+        candidateLevel < currentLevel);
+    };
+    const first = candidateItems.filter(item => itemMatchesSlot(item, firstSlot) && itemAllowedForClass(item, character.className) && itemAllowedForClassWeapon(item, firstSlot, character.className) && itemAllowedForSpecialization(item, firstSlot, character.className, character.specialization) && hasUsableItemStats(item) && meetsEquippedLevel(item, firstSlot))
       .map(item => ({ item, score: scoreItem(item, weights) }))
       .sort((a, b) => b.score - a.score);
-    const second = candidateItems.filter(item => itemMatchesSlot(item, secondSlot) && itemAllowedForClass(item, character.className) && itemAllowedForClassWeapon(item, secondSlot, character.className) && itemAllowedForSpecialization(item, secondSlot, character.className, character.specialization) && hasUsableItemStats(item))
+    const second = candidateItems.filter(item => itemMatchesSlot(item, secondSlot) && itemAllowedForClass(item, character.className) && itemAllowedForClassWeapon(item, secondSlot, character.className) && itemAllowedForSpecialization(item, secondSlot, character.className, character.specialization) && hasUsableItemStats(item) && meetsEquippedLevel(item, secondSlot))
       .map(item => ({ item, score: scoreItem(item, weights) }))
       .sort((a, b) => b.score - a.score);
     let bestPair = null;
