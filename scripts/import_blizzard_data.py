@@ -972,6 +972,23 @@ def talent_tree_reference_id(value):
     return None
 
 
+def extract_talent_nodes(value):
+    """Read node arrays from Blizzard's documented talent-tree response shapes."""
+    if isinstance(value, dict):
+        # The Talent Tree Nodes endpoint returns "talent_nodes", not "nodes".
+        # Keep "nodes" for alternate/wrapped response shapes used by fixtures.
+        for key in ("talent_nodes", "nodes"):
+            direct = value.get(key)
+            if isinstance(direct, list):
+                return direct
+        for key in ("spec_talent_tree", "class_talent_tree", "hero_talent_tree", "talent_tree", "data"):
+            nested = value.get(key)
+            found = extract_talent_nodes(nested)
+            if found:
+                return found
+    return []
+
+
 def collect_talent_data(token):
     """Collect current Retail specialization, Hero Talent, and Apex talent data."""
     spec_index = get_api_json(
@@ -1130,26 +1147,11 @@ def collect_talent_data(token):
             if linked_spec_id in spec_ids:
                 add_tree(tree_id, "specialization", linked_spec_id)
 
-    def extract_nodes(value):
-        """Read node arrays from Blizzard's documented talent-tree response shapes."""
-        if isinstance(value, dict):
-            # The Talent Tree Nodes endpoint returns "talent_nodes", not "nodes".
-            # Keep "nodes" for alternate/wrapped response shapes used by fixtures.
-            for key in ("talent_nodes", "nodes"):
-                direct = value.get(key)
-                if isinstance(direct, list):
-                    return direct
-            for key in ("spec_talent_tree", "class_talent_tree", "hero_talent_tree", "talent_tree", "data"):
-                nested = value.get(key)
-                found = extract_nodes(nested)
-                if found:
-                    return found
-        return []
 
     node_count = 0
     apex_count = 0
     for tree in tree_records:
-        nodes = extract_nodes(tree.get("data") or {})
+        nodes = extract_talent_nodes(tree.get("data") or {})
         tree["nodeCount"] = len(nodes)
         node_count += len(nodes)
         for node in nodes:
