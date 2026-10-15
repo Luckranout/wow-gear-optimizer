@@ -125,6 +125,7 @@ const normalizedDataset = wowData.normalizeRetailDataset({
   season: 2,
   items: tierItemManifest.sets.flatMap(set => set.pieces.map(piece => ({
     id: piece.itemId, name: piece.name, slot: piece.slot, itemLevel: 321,
+    set: { id: Number(set.setId), name: "Raw Blizzard set metadata" },
     stats: { Intellect: 100 }
   })))
 }, tierItemManifest);
