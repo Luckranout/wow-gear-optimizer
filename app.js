@@ -77,17 +77,8 @@ async function loadRealmOptions() {
 async function loadCurrentRetailData() {
   try {
     retailDataset = await WoWData.loadRetailDataset();
-    // Load source-backed tier-set coverage separately; never infer missing piece IDs.
-    try {
-      const tierResponse = await fetch("data/tier-sets-midnight-season-2.json");
-      if (!tierResponse.ok) throw new Error(`Tier-set catalogue request failed (${tierResponse.status}).`);
-      const tierSetCatalogue = await tierResponse.json();
-      if (!Array.isArray(tierSetCatalogue?.sets)) throw new Error("Tier-set catalogue has no sets array.");
-      retailDataset.tierSetCatalogue = tierSetCatalogue;
-    } catch (tierError) {
-      console.warn("Tier-set coverage catalogue unavailable:", tierError);
-      retailDataset.tierSetCatalogue = null;
-    }
+    // WoWData loads the optional tier catalogue. Core gear loading remains
+    // usable even when that enhancement is unavailable; the report shows coverage.
     if (encounterSelect) {
       const encounters = Array.isArray(retailDataset.encounters) ? retailDataset.encounters : [];
       encounterSelect.innerHTML = '<option value="">No encounter selected</option>' +
