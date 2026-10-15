@@ -325,7 +325,7 @@ function getOptimizationProfileRules(profile = {}) {
 
 function scoreStatRating(stat, rating, weight, rules = getOptimizationProfileRules()) {
   const total = Math.max(0, Number(rating) || 0);
-  const statWeight = Math.max(0, Number(weight) || 0);
+  const statWeight = Number(weight) || 0;
   if (!total || !statWeight) return 0;
   const cap = rules.hardCaps[stat];
   let usableRating = cap === undefined ? total : Math.min(total, cap);
@@ -616,6 +616,14 @@ function getSimulationWeightContext(simulation = null) {
   };
 }
 
+function simulationMatchesSpecialization(simulationContext, specialization = "") {
+  if (!simulationContext) return false;
+  const simulationSpec = String(simulationContext.specialization || "").trim().toLowerCase();
+  const targetSpec = String(specialization || "").trim().toLowerCase();
+  return !simulationSpec || !targetSpec || simulationSpec === targetSpec ||
+    simulationSpec.endsWith(" " + targetSpec) || targetSpec.endsWith(" " + simulationSpec);
+}
+
 function resolveStatWeights({
   goal = WOW_GOALS.general,
   className = "",
@@ -625,12 +633,9 @@ function resolveStatWeights({
 } = {}) {
   const goalWeights = getGoalWeights(goal);
   const simulationContext = getSimulationWeightContext(simulation);
-  const simulationSpec = String(simulationContext?.specialization || "").trim().toLowerCase();
-  const targetSpec = String(specialization || "").trim().toLowerCase();
-  const simulationMatchesSpec = simulationContext &&
-    (!simulationSpec || !targetSpec || simulationSpec === targetSpec ||
-      simulationSpec.endsWith(" " + targetSpec) || targetSpec.endsWith(" " + simulationSpec));
-  if (simulationMatchesSpec) return { ...goalWeights, ...simulationContext.scaleFactors };
+  if (simulationMatchesSpecialization(simulationContext, specialization)) {
+    return { ...goalWeights, ...simulationContext.scaleFactors };
+  }
 
   const classProfiles = findCaseInsensitiveRecord(statProfiles, className);
   const profile = findCaseInsensitiveRecord(classProfiles, specialization);
@@ -727,7 +732,7 @@ function optimizeEquipment({
   );
   const optimizedEquipment = {};
   for (const slot of WOW_EQUIPMENT_SLOTS) {
-    const best = (items || []).filter(item => itemMatchesSlot(item, slot) && itemAllowedForClass(item, character.className) && hasUsableItemStats(item))
+    const best = (items || []).filter(item => itemMatchesSlot(item, slot) && item.optimizerEligible !== false && itemAllowedForClass(item, character.className) && hasUsableItemStats(item))
       .map(item => ({ item, score: candidateScore(item, slot) }))
       .sort((a, b) => b.score - a.score)[0] || null;
     optimizedEquipment[slot] = best ? best.item : null;
@@ -737,10 +742,10 @@ function optimizeEquipment({
   // distinct pair when the catalog has alternatives; keep the best single item
   // only when no second distinct item exists.
   for (const [firstSlot, secondSlot] of [["Ring 1", "Ring 2"], ["Trinket 1", "Trinket 2"], ["Main Hand", "Off Hand"]]) {
-    const first = (items || []).filter(item => item.slot === firstSlot && itemAllowedForClass(item, character.className) && hasUsableItemStats(item))
+    const first = (items || []).filter(item => item.slot === firstSlot && item.optimizerEligible !== false && itemAllowedForClass(item, character.className) && hasUsableItemStats(item))
       .map(item => ({ item, score: candidateScore(item, firstSlot) }))
       .sort((a, b) => b.score - a.score);
-    const second = (items || []).filter(item => item.slot === secondSlot && itemAllowedForClass(item, character.className) && hasUsableItemStats(item))
+    const second = (items || []).filter(item => item.slot === secondSlot && item.optimizerEligible !== false && itemAllowedForClass(item, character.className) && hasUsableItemStats(item))
       .map(item => ({ item, score: candidateScore(item, secondSlot) }))
       .sort((a, b) => b.score - a.score);
     let bestPair = null;
@@ -980,7 +985,9 @@ function recommendUpgradePlan({ currentItem, upgradeSystem, availableCrests = {}
 function createOptimizationReport({character = createCharacterProfile(), availableItems = [], dataset = null, upgradeSystem = null, tierSetAware = false} = {}) {
   const goal = character.goal || WOW_GOALS.general;
   const simulation = character.simulation || dataset?.simulation || null;
-  const simulationContext = getSimulationWeightContext(simulation);
+  const rawSimulationContext = getSimulationWeightContext(simulation);
+  const simulationContext = simulationMatchesSpecialization(rawSimulationContext, character.specialization)
+    ? rawSimulationContext : null;
   const profileContext = getSpecProfileContext({
     dataset, className: character.className, specialization: character.specialization,
     specializationId: character.specializationId
@@ -1089,7 +1096,7 @@ window.WoWOptimizer = {
   findBestItemForSlot, optimizeEquipment, findUpgradeOpportunities, rankItems,
   normalizeSetId, getSetBonusContext, scoreTierSetAwareLoadout,
   getOptimizationProfileRules, scoreStatRating, scoreEquipmentWithProfile, scoreItemWithProfile,
-  optimizeLoadoutWithProfile, evaluateCombatEnhancementOptions,
+  optimizeLoadoutWithProfile, evaluateCombatEnhancementOptions, simulationMatchesSpecialization,
   getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,
   calculateCrestRequirements, isAscendantVenomstoneEligible, recommendUpgradePlan,
   createOptimizationReport, testData: WOW_OPTIMIZER_TEST_DATA
