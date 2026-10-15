@@ -41,6 +41,9 @@ const DEFAULT_CHARACTER_NAME = "Failing";
 const DEFAULT_REALM_NAME = "Burning Legion";
 let retailDataset = null;
 let importedCharacter = null;
+let importedSimulation = null;
+const simulationJsonInput = document.querySelector("#simulationJsonInput");
+const simulationImportStatus = document.querySelector("#simulationImportStatus");
 
 async function loadRealmOptions() {
   if (!realmInput || realmInput.tagName !== "SELECT") return false;
@@ -74,6 +77,8 @@ async function loadRealmOptions() {
 async function loadCurrentRetailData() {
   try {
     retailDataset = await WoWData.loadRetailDataset();
+    // WoWData loads the optional tier catalogue. Core gear loading remains
+    // usable even when that enhancement is unavailable; the report shows coverage.
     if (encounterSelect) {
       const encounters = Array.isArray(retailDataset.encounters) ? retailDataset.encounters : [];
       encounterSelect.innerHTML = '<option value="">No encounter selected</option>' +
@@ -610,6 +615,43 @@ classSelect.addEventListener("change", () => {
     specs[selected].map(spec => `<option>${spec}</option>`).join("");
 });
 
+document.querySelector("#applySimulationBtn")?.addEventListener("click", () => {
+  if (!simulationJsonInput || !window.WoWSimulationImport) {
+    if (simulationImportStatus) simulationImportStatus.textContent = "Simulation import is unavailable in this page build.";
+    return;
+  }
+  try {
+    const parsed = window.WoWSimulationImport.parseSimulationResultJson(simulationJsonInput.value);
+    const selectedSpec = importedCharacter?.activeSpec?.name || specSelect.value || "";
+    if (parsed.specialization && selectedSpec &&
+        String(parsed.specialization).trim().toLowerCase() !== String(selectedSpec).trim().toLowerCase()) {
+      throw new Error("The simulation specialization (" + parsed.specialization + ") does not match the selected character specialization (" + selectedSpec + ").");
+    }
+    importedSimulation = parsed;
+    if (simulationImportStatus) {
+      simulationImportStatus.classList.remove("error");
+      simulationImportStatus.textContent = "Applied " + parsed.source + " scale factors" +
+        (parsed.specialization ? " for " + parsed.specialization : "") +
+        " (" + Object.keys(parsed.scaleFactors).length + " stats).";
+    }
+  } catch (error) {
+    importedSimulation = null;
+    if (simulationImportStatus) {
+      simulationImportStatus.classList.add("error");
+      simulationImportStatus.textContent = "Simulation weights not applied: " + error.message;
+    }
+  }
+});
+
+document.querySelector("#clearSimulationBtn")?.addEventListener("click", () => {
+  importedSimulation = null;
+  if (simulationJsonInput) simulationJsonInput.value = "";
+  if (simulationImportStatus) {
+    simulationImportStatus.classList.remove("error");
+    simulationImportStatus.textContent = "No simulation weights applied.";
+  }
+});
+
 encounterSelect?.addEventListener("change", () => {
   if (importedCharacter) document.querySelector("#optimizeBtn").click();
 });
@@ -622,7 +664,7 @@ goalSelect.addEventListener("change", () => {
   }
 });
 
-document.querySelector("#optimizeBtn").addEventListener("click", () => {
+document.querySelector("#optimizeBtn").addEventListener("click", async () => {
   if (!retailDataset) {
     resultMessage.textContent = "Current Retail data is still loading. Try again in a moment.";
     return;
@@ -634,6 +676,7 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
       importedCharacter,
       goal: goalSelect.value
     });
+    character.simulation = importedSimulation;
   } else {
     const cls = classSelect.value;
     const spec = specSelect.value;
@@ -651,9 +694,46 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
 
   const prioritySelect = secondaryRatingNotice?.querySelector("#secondaryRatingPriority");
   if (prioritySelect?.value) character.preferredSecondaryStat = prioritySelect.value;
+
+  // Fetch only slots that have no usable local candidates. The server returns
+  // only validated Season 2+ section records and enforces class armor rules.
+  const availableItems = [...(retailDataset.items || [])];
+  const missingSlots = WoWOptimizer.slots.filter(slot =>
+    !availableItems.some(item =>
+      WoWOptimizer.itemMatchesSlot(item, slot) &&
+      WoWOptimizer.itemAllowedForClass(item, character.className) &&
+      WoWOptimizer.itemAllowedForClassWeapon(item, slot, character.className) &&
+      WoWOptimizer.itemAllowedForSpecialization(item, slot, character.className, character.specialization) &&
+      WoWOptimizer.hasUsableItemStats(item)
+    )
+  );
+  if (missingSlots.length) {
+    resultMessage.textContent = "Fetching verified Season 2+ candidates for missing equipment slots...";
+    const requests = await Promise.all(missingSlots.map(async slot => {
+      try {
+        const url = `${API_BASE_URL}/api/slot-candidates?slot=${encodeURIComponent(slot)}&class=${encodeURIComponent(character.className)}`;
+        const response = await fetch(url);
+        const payload = await response.json();
+        if (!response.ok) {
+          console.warn(`No on-demand candidates for ${slot}:`, payload.error || response.status);
+          return [];
+        }
+        return Array.isArray(payload.items) ? payload.items : [];
+      } catch (error) {
+        console.warn(`Candidate request failed for ${slot}:`, error);
+        return [];
+      }
+    }));
+    const byId = new Map();
+    for (const item of availableItems.concat(...requests)) {
+      const key = item?.id != null ? String(item.id) : item?.name;
+      if (key != null && !byId.has(key)) byId.set(key, item);
+    }
+    availableItems.splice(0, availableItems.length, ...byId.values());
+  }
   const report = WoWOptimizer.createOptimizationReport({
     character,
-    availableItems: retailDataset.items || [],
+    availableItems,
     dataset: retailDataset
   });
 
@@ -707,14 +787,25 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
     ? `${character.characterName} • ${character.className} • ${character.specialization}`
     : `${character.className} • ${character.specialization}`;
 
+  const tierCoverage = report.tierSetCoverage;
+  const tierCoverageNote = !tierCoverage || tierCoverage.catalogueStatus === "unavailable"
+    ? " Tier-set coverage unavailable; set bonuses are not verified."
+    : tierCoverage.itemMappingVerified
+      ? ` Tier set: ${tierCoverage.setName} piece mapping verified (${tierCoverage.verifiedPieceCount}/${tierCoverage.expectedPieceCount}); numeric bonus scoring remains disabled.`
+      : ` Tier-set warning: ${tierCoverage.className || character.className} piece mapping is unverified; do not treat set counts or bonus optimization as complete. ${tierCoverage.verifiedClassCount}/${tierCoverage.totalClassCount} classes have verified mappings.`;
   resultMessage.textContent = report.topUpgrades.length
-    ? `${label} • ${character.goal} — ${report.topUpgrades.length} gear candidates ranked. This is a ranking aid, not a verified best-in-slot result or numeric projected-stat calculation.`
-    : `${label} • ${character.goal} — no direct gear candidates ranked from the currently available dataset. This does not prove that no upgrades exist in game.`;
+    ? `${label} • ${character.goal} — ${report.topUpgrades.length} gear candidates ranked. This is a ranking aid, not a verified best-in-slot result or numeric projected-stat calculation.${tierCoverageNote}`
+    : `${label} • ${character.goal} — no direct gear candidates ranked from the currently available dataset. This does not prove that no upgrades exist in game.${tierCoverageNote}`;
 });
 
 document.querySelector("#clearBtn").addEventListener("click", () => {
   importedCharacter = null;
   importedSimulation = null;
+  if (simulationJsonInput) simulationJsonInput.value = "";
+  if (simulationImportStatus) {
+    simulationImportStatus.classList.remove("error");
+    simulationImportStatus.textContent = "No simulation weights applied.";
+  }
   characterNameInput.value = "";
   realmInput.value = "";
   importStatus.classList.remove("error");

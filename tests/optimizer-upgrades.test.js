@@ -29,9 +29,10 @@ console.log("Level-90 progressive secondary-rating DR regression passed.");
 // a hard limit for level-90 loadout candidates.
 const belowSoftTarget = { Head: { itemLevel: 100, stats: { Haste: 1320 } } };
 const aboveSoftTarget = { Head: { itemLevel: 100, stats: { Haste: 1500 } } };
-if (o.getSecondaryRatingSoftTargetPenalty(belowSoftTarget, 90) !== 0 ||
-    !(o.getSecondaryRatingSoftTargetPenalty(aboveSoftTarget, 90) > 0)) {
-  throw new Error("First-band soft target should add no penalty below threshold and a small penalty above it");
+if (!(o.getSecondaryRatingSoftTargetPenalty(belowSoftTarget, 90) > 0) ||
+    !(o.getSecondaryRatingSoftTargetPenalty(aboveSoftTarget, 90) > 0) ||
+    o.getSecondaryRatingSoftTargetPenalty({ Head: { itemLevel: 100, stats: { Haste: 1320, CriticalStrike: 1380, Mastery: 1380, Versatility: 1620 } } }, 90) !== 0) {
+  throw new Error("Soft-target scoring should penalize shortfalls and over-investment, with zero penalty at the target");
 }
 const atHardCap = { Head: { itemLevel: 100, stats: { Haste: 8800 } } };
 const aboveHardCap = { Head: { itemLevel: 100, stats: { Haste: 8801 } } };
@@ -43,6 +44,54 @@ if (o.getSecondaryRatingHardCapViolations(aboveHardCap, 80).length !== 0) {
   throw new Error("Hard cap must not apply the level-90 table to unsupported levels");
 }
 console.log("Soft first-band target and hard final-cap regression passed.");
+
+ // Above all soft targets, prefer the stat least covered relative to its own
+ // threshold rather than comparing raw ratings across stats.
+const balancedAboveSoft = {
+  Head: { itemLevel: 100, stats: { Haste: 1760, CriticalStrike: 1840, Mastery: 1840, Versatility: 2160 } }
+};
+const addRating = (equipment, stat, amount) => ({
+  ...equipment,
+  Chest: { itemLevel: 100, stats: { [stat]: amount } }
+});
+const baseBalancePenalty = o.getSecondaryRatingSoftTargetPenalty(balancedAboveSoft, 90);
+const leastCoveredPenalty = o.getSecondaryRatingSoftTargetPenalty(addRating(balancedAboveSoft, "Versatility", 100), 90) - baseBalancePenalty;
+const mostCoveredPenalty = o.getSecondaryRatingSoftTargetPenalty(addRating(balancedAboveSoft, "Haste", 100), 90) - baseBalancePenalty;
+if (!(leastCoveredPenalty < mostCoveredPenalty)) {
+  throw new Error("Above soft targets, the same rating gain must favor the least-covered stat relative to its threshold");
+}
+const belowOneSoft = {
+  Head: { itemLevel: 100, stats: { Haste: 1320, CriticalStrike: 1380, Mastery: 1380, Versatility: 1400 } }
+};
+const belowVersPenalty = o.getSecondaryRatingSoftTargetPenalty(belowOneSoft, 90);
+const atVersSoft = addRating(belowOneSoft, "Versatility", 220);
+const atVersPenalty = o.getSecondaryRatingSoftTargetPenalty(atVersSoft, 90);
+if (!(atVersPenalty < belowVersPenalty)) {
+  throw new Error("Raising a below-target secondary stat toward its soft target must improve the soft-target penalty");
+}
+console.log("Least-covered-secondary-stat soft-target regression passed.");
+
+const softTargetFixture = {
+  Head: { itemLevel: 100, stats: { Haste: 1320, CriticalStrike: 1380, Mastery: 1380, Versatility: 1620 } },
+  Chest: { itemLevel: 100, stats: { Haste: 440 } }
+};
+const loadoutScoreWithPenalty = o.scoreLoadout(softTargetFixture, {}, [], "", 90);
+const expectedSoftPenalty = o.getSecondaryRatingSoftTargetPenalty(softTargetFixture, 90);
+const drOnlyScore = o.scoreEquipmentWithRatingDiminishingReturns(softTargetFixture, {}, 90);
+if (Math.abs(loadoutScoreWithPenalty.rawScore - drOnlyScore) > 1e-9) {
+  throw new Error("The lower-level DR score must not apply the soft-target penalty a second time");
+}
+if (loadoutScoreWithPenalty.softTargetPenalty !== expectedSoftPenalty ||
+    Math.abs(loadoutScoreWithPenalty.score - (loadoutScoreWithPenalty.rawScore - expectedSoftPenalty)) > 1e-9) {
+  throw new Error("Complete loadout scoring must subtract the DR soft-target balancing penalty");
+}
+const unsupportedLevelScore = o.scoreLoadout(softTargetFixture, {}, [], "", 80);
+if (unsupportedLevelScore.softTargetPenalty !== 0) {
+  throw new Error("Level-specific soft-target penalty must not apply when level-90 DR rules are unsupported");
+}
+console.log("DR soft-target penalty is integrated into complete loadout scoring.");
+
+
 
 
 // Upgrade shortlist must score a candidate against the full equipped rating totals.
@@ -93,8 +142,8 @@ const drGear = { Head: { itemLevel: 100, stats: { Haste: 1760 } } };
 const rawGearScore = o.scoreEquipmentWithRatingDiminishingReturns(drGear, { Haste: 1 }, null);
 const level90GearScore = o.scoreEquipmentWithRatingDiminishingReturns(drGear, { Haste: 1 }, 90);
 if (!(level90GearScore < rawGearScore)) throw new Error("Level-90 loadout scoring must apply aggregate rating DR");
-const unsupportedLevelScore = o.scoreEquipmentWithRatingDiminishingReturns(drGear, { Haste: 1 }, 80);
-if (unsupportedLevelScore !== rawGearScore) throw new Error("Unsupported levels must retain the unadjusted score");
+const unsupportedLevelEquipmentScore = o.scoreEquipmentWithRatingDiminishingReturns(drGear, { Haste: 1 }, 80);
+if (unsupportedLevelEquipmentScore !== rawGearScore) throw new Error("Unsupported levels must retain the unadjusted score");
 
 const fsData = JSON.parse(fs.readFileSync("data/tier-sets-midnight-season-2.json", "utf8"));
 const shamanTier = fsData.sets.find(set => set.class === "Shaman");
@@ -1033,3 +1082,89 @@ if (partialCapReport.ratingConstraintStatus?.balanced !== true ||
   throw new Error("A single over-cap stat should be rebalanced when a compliant candidate exists");
 }
 console.log("Hard-cap alert, priority-choice, and automatic rebalance regressions passed.");
+
+
+// Regression: upgrade suggestions must obey the same secondary-rating hard cap
+// as complete-loadout optimization. A higher-scoring Haste item that pushes the
+// full loadout over 8,800 rating must lose to a legal alternative.
+const capAwareCurrent = {
+  Chest: { id: 991001, name: "Haste Chest", slot: "Chest", itemLevel: 300, stats: { Haste: 8700 } }
+};
+const capAwareCandidates = [
+  { id: 991002, name: "Over-cap Haste Helm", slot: "Head", itemLevel: 350, stats: { Haste: 200 } },
+  { id: 991003, name: "Legal Mastery Helm", slot: "Head", itemLevel: 340, stats: { Mastery: 100 } }
+];
+const capAwareUpgrades = o.findUpgradeOpportunities({
+  currentEquipment: capAwareCurrent,
+  availableItems: capAwareCandidates,
+  statWeights: { Haste: 1, Mastery: 1 },
+  className: "Warrior",
+  specialization: "Arms",
+  characterLevel: 90,
+  limit: 6
+});
+const capAwareHead = capAwareUpgrades.find(upgrade => upgrade.slot === "Head");
+if (capAwareHead?.recommendedItem?.id !== 991003) {
+  throw new Error("Upgrade suggestions must reject a candidate that pushes total Haste beyond the hard cap");
+}
+console.log("Hard-cap-aware upgrade recommendation regression passed.");
+
+
+// Tertiary rating DR: progressive bands apply only to rating in each band,
+// and the same aggregate loadout math is used when scoring level-90 gear.
+const tertiaryCases = [
+  [370, "Avoidance", 370],
+  [555, "Avoidance", 518],
+  [740, "Avoidance", 629],
+  [1813, "Avoidance", 1058.2],
+  [2000, "Avoidance", 1058.2],
+  [1035, "Leech", 966],
+  [180, "Speed", 168],
+  [588, "Speed", 343.2]
+];
+for (const [rating, stat, expected] of tertiaryCases) {
+  const actual = o.applyTertiaryRatingDiminishingReturns(rating, stat, 90);
+  if (actual === null || Math.abs(actual - expected) > 1e-9) {
+    throw new Error(`Tertiary DR mismatch for ${stat} at ${rating}: expected ${expected}, got ${actual}`);
+  }
+}
+if (o.applyTertiaryRatingDiminishingReturns(1000, "Speed", 80) !== null ||
+    o.applyTertiaryRatingDiminishingReturns(1000, "Haste", 90) !== null) {
+  throw new Error("Tertiary DR must refuse unsupported levels and non-tertiary stats");
+}
+const tertiaryLoadout = { Head: { itemLevel: 100, stats: { Avoidance: 555 } } };
+const tertiaryRawScore = o.scoreEquipment(tertiaryLoadout, { Avoidance: 1 });
+const tertiaryAdjustedScore = o.scoreEquipmentWithRatingDiminishingReturns(tertiaryLoadout, { Avoidance: 1 }, 90);
+if (!(tertiaryAdjustedScore < tertiaryRawScore)) {
+  throw new Error("Level-90 loadout score must apply aggregate tertiary rating DR");
+}
+if (o.scoreEquipmentWithRatingDiminishingReturns(tertiaryLoadout, { Avoidance: 1 }, 80) !== tertiaryRawScore) {
+  throw new Error("Tertiary DR must not be applied at unsupported levels");
+}
+console.log("Level-90 progressive tertiary-rating DR regression passed.");
+
+// Tier-set coverage reporting: descriptions alone must not be presented as
+// verified piece matching or numeric bonus scoring.
+const tierCoverageCatalogue = {
+  itemMatching: { status: "partial" },
+  sets: [
+    { class: "Shaman", setName: "Verified Shaman Set", itemIdsVerified: true,
+      pieces: [1, 2, 3, 4, 5].map((itemId, i) => ({ itemId, slot: ["Head", "Shoulders", "Chest", "Hands", "Legs"][i] })),
+      specs: [["Enhancement", "2pc effect", "4pc effect"]] },
+    { class: "Warrior", setName: "Unverified Warrior Set", itemIdsVerified: false,
+      pieces: [], specs: [["Arms", "2pc effect", "4pc effect"]] }
+  ]
+};
+const verifiedTierCoverage = o.getTierSetCoverageStatus(tierCoverageCatalogue, "Shaman", "Enhancement");
+if (verifiedTierCoverage.itemMappingVerified !== true ||
+    verifiedTierCoverage.verifiedPieceCount !== 5 ||
+    verifiedTierCoverage.numericScoringAvailable !== false) {
+  throw new Error("Tier-set coverage must distinguish verified piece matching from numeric bonus scoring");
+}
+const unverifiedTierCoverage = o.getTierSetCoverageStatus(tierCoverageCatalogue, "Warrior", "Arms");
+if (unverifiedTierCoverage.itemMappingVerified !== false ||
+    !unverifiedTierCoverage.limitations.some(message => message.includes("mapping is not verified")) ||
+    unverifiedTierCoverage.bonusDescriptionsAvailable !== true) {
+  throw new Error("Tier-set report must disclose unverified class mappings while retaining known bonus descriptions");
+}
+console.log("Tier-set coverage transparency regression passed.");

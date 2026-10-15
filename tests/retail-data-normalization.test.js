@@ -62,5 +62,22 @@ if (validation.length) throw new Error("Normalized test dataset failed validatio
     }
   }
   if (dataLayer.validateRetailDataset(real).length) throw new Error("Real retail dataset failed validation");
-  console.log("Retail equipment slot normalization passed (" + real.items.length + " optimizer candidates).");
+
+  // Tier-set coverage is an optional enhancement: a missing/broken tier file
+  // must not disable otherwise-valid PvE equipment optimization.
+  const fallbackContext = {
+    window: {},
+    fetch: async url => {
+      if (String(url).includes("tier-sets-midnight-season-2.json")) {
+        return { ok: false, status: 404, json: async () => ({}) };
+      }
+      return { ok: true, json: async () => JSON.parse(fs.readFileSync("data/current-retail.json", "utf8")) };
+    }
+  };
+  vm.createContext(fallbackContext);
+  vm.runInContext(fs.readFileSync("wow-data.js", "utf8"), fallbackContext);
+  const fallbackData = await fallbackContext.window.WoWData.loadRetailDataset();
+  if (!fallbackData.items.length) throw new Error("Missing tier catalogue incorrectly blocked core equipment candidates");
+  if (fallbackData.tierSetCatalogue !== null) throw new Error("Unavailable tier catalogue should be reported as null");
+  console.log("Retail equipment slot normalization and optional tier-catalogue fallback passed (" + real.items.length + " optimizer candidates).");
 })().catch(error => { console.error(error); process.exitCode = 1; });

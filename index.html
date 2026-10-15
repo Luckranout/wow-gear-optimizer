@@ -112,6 +112,15 @@
         </label>
       </div>
 
+      <details class="import-box" id="simulationImportBox">
+        <summary><strong>Import simulation stat weights (optional)</strong></summary>
+        <p>Paste JSON exported by SimulationCraft or another simulator that includes stat scale factors. These weights refine gear ranking; they do not turn this tool into a full combat simulator.</p>
+        <label for="simulationJsonInput">Simulation result JSON</label>
+        <textarea id="simulationJsonInput" rows="5" placeholder='{"scaleFactors":{"Strength":1,"Haste":0.8,"CriticalStrike":0.7,"Mastery":0.6,"Versatility":0.5}}'></textarea>
+        <div class="actions"><button class="secondary" type="button" id="applySimulationBtn">Apply simulation weights</button><button class="secondary" type="button" id="clearSimulationBtn">Clear simulation</button></div>
+        <p id="simulationImportStatus" class="import-status" aria-live="polite">No simulation weights applied.</p>
+      </details>
+
       <div class="actions">
         <button class="primary" id="optimizeBtn">Optimize Character</button>
         <button class="secondary" id="clearBtn">Clear</button>
@@ -236,6 +245,7 @@
   <script>window.WOW_API_BASE_URL = window.location.hostname === "luckranout.github.io" ? "https://wow-gear-optimizer-nwj9.vercel.app" : "";</script>
   <script src="wow-data.js"></script>
   <script src="optimizer.js?v=7941f4fd"></script>
+  <script src="simulation-import.js"></script>
   <script src="character-import.js"></script>
   <script src="equipment-sockets.js"></script>
   <script src="coach.js"></script>

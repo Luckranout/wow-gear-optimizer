@@ -1,0 +1,215 @@
+{
+  "schemaVersion": 1,
+  "section": "trinkets",
+  "source": "Blizzard Game Data API item search",
+  "complete": true,
+  "candidateCount": 3,
+  "items": [
+    {
+      "id": 193748,
+      "name": "Kyrakka's Searing Embers",
+      "level": 250,
+      "requiredLevel": 58,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 0,
+        "name": "Miscellaneous"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Trinket"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "criticalStrike"
+          },
+          "value": 15,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/193748?namespace=static-12.1.5_70077-us"
+        },
+        "id": 193748
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Ruby Life Pools",
+          "instanceId": 1202,
+          "encounterId": 2503,
+          "encounter": "Kyrakka and Erkhart Stormvein"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Ruby Life Pools",
+          "instanceId": 1202,
+          "encounterId": 2503,
+          "encounter": "Kyrakka and Erkhart Stormvein",
+          "catalogSection": "trinkets",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 193757,
+      "name": "Ruby Whelp Shell",
+      "level": 250,
+      "requiredLevel": 58,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 0,
+        "name": "Miscellaneous"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Trinket"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "intellect"
+          },
+          "value": 10,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "agility"
+          },
+          "value": 10,
+          "source": "Blizzard preview_item.stats"
+        },
+        {
+          "type": {
+            "name": "strength"
+          },
+          "value": 10,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/193757?namespace=static-12.1.5_70077-us"
+        },
+        "id": 193757
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Ruby Life Pools",
+          "instanceId": 1202,
+          "encounterId": 2488,
+          "encounter": "Melidrussa Chillworn"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Ruby Life Pools",
+          "instanceId": 1202,
+          "encounterId": 2488,
+          "encounter": "Melidrussa Chillworn",
+          "catalogSection": "trinkets",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 193762,
+      "name": "Blazebinder's Hoof",
+      "level": 250,
+      "requiredLevel": 58,
+      "quality": {
+        "id": null,
+        "name": "Rare"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": 0,
+        "name": "Miscellaneous"
+      },
+      "inventoryType": {
+        "id": null,
+        "name": "Trinket"
+      },
+      "isEquippable": true,
+      "stats": [
+        {
+          "type": {
+            "name": "haste"
+          },
+          "value": 15,
+          "source": "Blizzard preview_item.stats"
+        }
+      ],
+      "spells": [],
+      "set": null,
+      "description": null,
+      "media": {
+        "key": {
+          "href": "https://us.api.blizzard.com/data/wow/media/item/193762?namespace=static-12.1.5_70077-us"
+        },
+        "id": 193762
+      },
+      "source": "Blizzard Game Data API — Season 2+ content source",
+      "seasonScope": "Midnight Season 2+",
+      "sourceLocations": [
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Ruby Life Pools",
+          "instanceId": 1202,
+          "encounterId": 2485,
+          "encounter": "Kokia Blazehoof"
+        },
+        {
+          "seasonScope": "Midnight Season 2+",
+          "category": "PvE",
+          "instance": "Ruby Life Pools",
+          "instanceId": 1202,
+          "encounterId": 2485,
+          "encounter": "Kokia Blazehoof",
+          "catalogSection": "trinkets",
+          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "statsSource": "Blizzard Game Data API"
+    }
+  ]
+}

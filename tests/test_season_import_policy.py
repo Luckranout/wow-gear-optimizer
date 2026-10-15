@@ -32,6 +32,25 @@ class SeasonImportPolicyTests(unittest.TestCase):
         finally:
             MODULE.get_api_json = original
 
+    def test_mythic_season_uses_its_own_index_not_the_pvp_season_id(self):
+        original = MODULE.get_api_json
+        calls = []
+        def fake_get(path, *args, **kwargs):
+            calls.append(path)
+            if path.endswith("/mythic-keystone/season/index"):
+                return {"seasons": [{"id": 17}, {"id": 18}]}
+            if path.endswith("/mythic-keystone/season/18"):
+                return {"id": 18, "season_name": {"en_US": "Current Mythic Season"}, "periods": [{"id": 1}]}
+            raise AssertionError(f"Unexpected endpoint: {path}")
+        try:
+            MODULE.get_api_json = fake_get
+            result = MODULE.get_mythic_keystone_season("token")
+            self.assertEqual(result["id"], 18)
+            self.assertIn("/data/wow/mythic-keystone/season/18", calls)
+            self.assertNotIn("/data/wow/mythic-keystone/season/42", calls)
+        finally:
+            MODULE.get_api_json = original
+
     def test_unsupported_season_is_rejected_before_publish(self):
         with self.assertRaises(RuntimeError):
             MODULE.enforce_supported_season(43, "Midnight Season 3")

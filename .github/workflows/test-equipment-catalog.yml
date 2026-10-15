@@ -1,0 +1,37 @@
+name: Sectioned equipment catalog tests
+
+on:
+  pull_request:
+    paths:
+      - "scripts/equipment_catalog_sections.py"
+      - "scripts/import_blizzard_data.py"
+      - "tests/test_equipment_catalog_sections.py"
+      - "tests/test_blizzard_request_retry.py"
+      - "tests/test_consumable_classification.py"
+      - "tests/test_supporting_catalog_validation.py"
+      - ".github/workflows/test-equipment-catalog.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  section-catalog-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Test section pagination and persistence
+        run: python -m unittest discover -s tests -p "test_equipment_catalog_sections.py" -v
+      - name: Test Blizzard request retry diagnostics
+        run: python -m unittest discover -s tests -p "test_blizzard_request_retry.py" -v
+      - name: Test consumable recipe classification
+        run: python -m unittest discover -s tests -p "test_consumable_classification.py" -v
+      - name: Test supporting catalog validation
+        run: python -m unittest discover -s tests -p "test_supporting_catalog_validation.py" -v
+      - name: Compile importer and section module
+        run: python -m py_compile scripts/import_blizzard_data.py scripts/equipment_catalog_sections.py

@@ -2,12 +2,31 @@ import html
 import json
 import re
 import os
+import random
 import sys
 import time
 import urllib.error
 import urllib.parse
 import urllib.request
-from datetime import datetime, timezone
+import sqlite3
+import tempfile
+import threading
+from datetime import datetime, timezone, timedelta
+from email.utils import parsedate_to_datetime
+
+try:
+    from .equipment_catalog_sections import (
+        collect_equipment_section_ids,
+        validate_required_sections,
+        write_section_catalogs,
+    )
+except ImportError:  # Support direct execution and importlib-based tests.
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from equipment_catalog_sections import (
+        collect_equipment_section_ids,
+        validate_required_sections,
+        write_section_catalogs,
+    )
 
 API_BASE = "https://us.api.blizzard.com"
 TOKEN_URL = "https://oauth.battle.net/token"
@@ -15,8 +34,107 @@ OUTPUT = "data/current-retail.json"
 NAMESPACE = "static-us"
 PVP_NAMESPACE = "dynamic-us"
 LOCALE = "en_US"
-REQUEST_DELAY_SECONDS = 0.15
+REQUEST_TIMEOUT_SECONDS = 20
 MAX_RETRIES = 3
+# Blizzard confirmed a hard 36,000-request/hour quota for each API key.
+# 8 requests/second caps this importer at 28,800/hour, leaving 20% headroom
+# for bursts/retries and keeping all Blizzard/Wowhead calls under one limiter.
+REQUESTS_PER_SECOND = 8
+REQUEST_INTERVAL_SECONDS = 1.0 / REQUESTS_PER_SECOND
+ITEM_CACHE_PATH = os.environ.get("BLIZZARD_ITEM_CACHE_PATH", "data/blizzard-item-cache.sqlite3")
+ITEM_CACHE_TTL_SECONDS = 7 * 24 * 60 * 60
+# Short-lived in-memory HTTP cache for Blizzard GET responses that explicitly
+# advertise Cache-Control: max-age. This honors Blizzard's freshness window
+# (e.g. Mythic Keystone Index max-age=1800) without extending it to our
+# separate seven-day item-detail cache.
+_http_response_cache = {}
+_http_response_cache_lock = threading.Lock()
+_request_lock = threading.Lock()
+_last_request_started = 0.0
+
+def throttled_urlopen(request, timeout):
+    """Apply one process-wide start-time limit to every outbound HTTP request."""
+    global _last_request_started
+    with _request_lock:
+        now = time.monotonic()
+        wait = REQUEST_INTERVAL_SECONDS - (now - _last_request_started)
+        if wait > 0:
+            time.sleep(wait)
+        _last_request_started = time.monotonic()
+    return urllib.request.urlopen(request, timeout=timeout)
+
+def _item_cache_connection():
+    os.makedirs(os.path.dirname(ITEM_CACHE_PATH) or ".", exist_ok=True)
+    connection = sqlite3.connect(ITEM_CACHE_PATH, timeout=30)
+    connection.execute(
+        "CREATE TABLE IF NOT EXISTS item_response_cache ("
+        "cache_key TEXT PRIMARY KEY, payload TEXT NOT NULL, cached_at REAL NOT NULL)"
+    )
+    connection.commit()
+    return connection
+
+def _cacheable_item_url(url, method):
+    if method != "GET":
+        return False
+    parsed = urllib.parse.urlsplit(url)
+    if parsed.netloc != "us.api.blizzard.com":
+        return False
+    # Recipe-output fallback searches can repeat for many recipes and are
+    # expensive when Blizzard is slow. Cache each exact, parameterized search
+    # URL alongside item/recipe details; the existing seven-day TTL applies.
+    return bool(
+        re.fullmatch(r"/data/wow/(?:item|recipe)/\d+", parsed.path)
+        or parsed.path == "/data/wow/search/item"
+    )
+
+def _read_cached_item(url):
+    if not _cacheable_item_url(url, "GET"):
+        return None
+    try:
+        with _item_cache_connection() as connection:
+            row = connection.execute(
+                "SELECT payload, cached_at FROM item_response_cache WHERE cache_key = ?",
+                (url,),
+            ).fetchone()
+        if not row:
+            return None
+        payload, cached_at = row
+        if time.time() - cached_at > ITEM_CACHE_TTL_SECONDS:
+            return None
+        print(f"Blizzard response cache hit: {urllib.parse.urlsplit(url).path}")
+        return json.loads(payload)
+    except (sqlite3.Error, json.JSONDecodeError) as error:
+        print(f"Item cache read skipped ({type(error).__name__}); fetching from source.")
+        return None
+
+def _write_cached_item(url, payload):
+    if not _cacheable_item_url(url, "GET"):
+        return
+    try:
+        serialized = json.dumps(payload, separators=(",", ":"), ensure_ascii=False)
+        with _item_cache_connection() as connection:
+            connection.execute(
+                "INSERT INTO item_response_cache(cache_key, payload, cached_at) VALUES (?, ?, ?) "
+                "ON CONFLICT(cache_key) DO UPDATE SET payload=excluded.payload, cached_at=excluded.cached_at",
+                (url, serialized, time.time()),
+            )
+    except (sqlite3.Error, TypeError, ValueError) as error:
+        print(f"Item cache write skipped ({type(error).__name__}); continuing with live data.")
+
+def _retry_after_seconds(error):
+    value = error.headers.get("Retry-After") if error.headers else None
+    if not value:
+        return None
+    try:
+        return max(0.0, float(value))
+    except (TypeError, ValueError):
+        try:
+            retry_at = parsedate_to_datetime(value)
+            if retry_at.tzinfo is None:
+                retry_at = retry_at.replace(tzinfo=timezone.utc)
+            return max(0.0, (retry_at - datetime.now(timezone.utc)).total_seconds())
+        except (TypeError, ValueError, OverflowError):
+            return None
 
 MINIMUM_SEASON = 2
 SEASON_SCOPE = "Midnight Season 2+"
@@ -81,29 +199,81 @@ SEASON_CONTENT_NAMES = {
 
 
 def request_json(url, headers=None, data=None):
-    request = urllib.request.Request(
-        url,
-        headers=headers or {},
-        data=data,
-        method="POST" if data is not None else "GET",
-    )
+    method = "POST" if data is not None else "GET"
+    request = urllib.request.Request(url, headers=headers or {}, data=data, method=method)
+    # Log only the host and path: query strings can contain credentials or tokens.
+    parsed_url = urllib.parse.urlsplit(url)
+    endpoint = f"{parsed_url.netloc}{parsed_url.path}"
+    cached = _read_cached_item(url) if _cacheable_item_url(url, method) else None
+    if cached is not None:
+        return cached
+    if method == "GET" and parsed_url.netloc == "us.api.blizzard.com":
+        now = time.monotonic()
+        with _http_response_cache_lock:
+            entry = _http_response_cache.get(url)
+            if entry and entry["expires_at"] > now:
+                print(f"Blizzard HTTP cache hit: {endpoint}")
+                return entry["payload"]
+            if entry:
+                _http_response_cache.pop(url, None)
+
     for attempt in range(MAX_RETRIES):
+        started = time.monotonic()
         try:
-            with urllib.request.urlopen(request, timeout=20) as response:
-                return json.load(response)
+            with throttled_urlopen(request, timeout=REQUEST_TIMEOUT_SECONDS) as response:
+                payload = json.load(response)
+                response_headers = getattr(response, "headers", None)
+                cache_control = response_headers.get("Cache-Control", "") if response_headers else ""
+                if not isinstance(cache_control, str):
+                    cache_control = ""
+            if method == "GET" and parsed_url.netloc == "us.api.blizzard.com":
+                match = re.search(r"(?:^|,)\s*max-age\s*=\s*(\d+)", cache_control, re.IGNORECASE)
+                if match:
+                    max_age = int(match.group(1))
+                    if max_age > 0:
+                        with _http_response_cache_lock:
+                            _http_response_cache[url] = {
+                                "payload": payload,
+                                "expires_at": time.monotonic() + max_age,
+                            }
+            _write_cached_item(url, payload)
+            return payload
         except urllib.error.HTTPError as error:
-            if error.code >= 500 and attempt < MAX_RETRIES - 1:
-                wait = 2 ** attempt
-                print(f"Blizzard API returned HTTP {error.code}; retrying in {wait}s...")
+            elapsed = time.monotonic() - started
+            retryable = error.code == 429 or error.code >= 500
+            if retryable and attempt < MAX_RETRIES - 1:
+                exponential_wait = min(2 ** attempt, 30)
+                retry_after = _retry_after_seconds(error) if error.code == 429 else None
+                wait = retry_after if retry_after is not None else exponential_wait
+                print(
+                    f"Blizzard request {endpoint} returned HTTP {error.code} "
+                    f"on attempt {attempt + 1}/{MAX_RETRIES} after {elapsed:.1f}s; "
+                    f"retrying in {wait:.1f}s"
+                    + (" (Retry-After)" if retry_after is not None else " (exponential backoff)")
+                    + "..."
+                )
                 time.sleep(wait)
                 continue
+            print(
+                f"Blizzard request {endpoint} stopped after HTTP {error.code} "
+                f"on attempt {attempt + 1}/{MAX_RETRIES} ({elapsed:.1f}s)."
+            )
             raise
-        except (urllib.error.URLError, TimeoutError) as error:
+        except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as error:
+            elapsed = time.monotonic() - started
             if attempt < MAX_RETRIES - 1:
-                wait = 2 ** attempt
-                print(f"Blizzard API request failed ({error}); retrying in {wait}s...")
+                wait = min(2 ** attempt + random.uniform(0.0, 0.5), 30)
+                print(
+                    f"Blizzard request {endpoint} failed on attempt "
+                    f"{attempt + 1}/{MAX_RETRIES} after {elapsed:.1f}s "
+                    f"({type(error).__name__}); retrying in {wait}s..."
+                )
                 time.sleep(wait)
                 continue
+            print(
+                f"Blizzard request {endpoint} failed after {MAX_RETRIES} attempts "
+                f"({elapsed:.1f}s on final attempt): {type(error).__name__}"
+            )
             raise
 
 
@@ -256,7 +426,7 @@ def fetch_wowhead_tooltip_stats(item_id, diagnostics=None):
     last_error = None
     for attempt in range(4):
         try:
-            with urllib.request.urlopen(request, timeout=30) as response:
+            with throttled_urlopen(request, timeout=30) as response:
                 payload = json.load(response)
             break
         except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as error:
@@ -379,6 +549,74 @@ def normalize_item(data, source=None):
     }
 
 
+def get_mythic_keystone_season(token, season_id=None):
+    """Resolve the current Mythic+ season independently of the PvP season ID."""
+    season_index = get_api_json(
+        "/data/wow/mythic-keystone/season/index",
+        token,
+        {"namespace": PVP_NAMESPACE, "locale": LOCALE},
+    )
+    season_refs = season_index.get("seasons") or season_index.get("mythic_keystone_seasons") or []
+    if not isinstance(season_refs, list) or not season_refs:
+        raise RuntimeError(
+            "Blizzard Mythic+ season index returned no usable seasons; "
+            "refusing to treat the season source as verified."
+        )
+
+    available_refs = [
+        entry for entry in season_refs
+        if isinstance(entry, dict) and extract_id(entry) is not None
+    ]
+    available_ids = sorted(extract_id(entry) for entry in available_refs)
+    if season_id is None:
+        # Prefer Blizzard's explicit current_season pointer over assuming the
+        # highest numeric ID is current. Fall back to the highest listed ID
+        # only for older/alternate response shapes that omit current_season.
+        current_ref = season_index.get("current_season")
+        current_id = extract_id(current_ref) if isinstance(current_ref, dict) else None
+        season_ref = next(
+            (entry for entry in available_refs if extract_id(entry) == current_id),
+            None,
+        )
+        if season_ref is None:
+            season_ref = max(available_refs, key=lambda entry: extract_id(entry), default=None)
+        season_id = extract_id(season_ref) if season_ref else None
+    else:
+        season_ref = next(
+            (entry for entry in available_refs if extract_id(entry) == season_id),
+            None,
+        )
+    if not season_ref or season_id is None:
+        raise RuntimeError(
+            f"Could not resolve a Mythic+ season from Blizzard's season index "
+            f"(available ids: {available_ids}); no catalog will be published."
+        )
+
+    response = get_api_json(
+        f"/data/wow/mythic-keystone/season/{season_id}",
+        token,
+        {"namespace": PVP_NAMESPACE, "locale": LOCALE},
+    )
+    returned_id = extract_id(response)
+    season_name = localized_name(response.get("season_name") or response.get("name"))
+    if returned_id != season_id:
+        raise RuntimeError(
+            f"Blizzard Mythic+ season lookup returned id {returned_id!r}; "
+            f"expected supported season id {season_id}."
+        )
+    if not isinstance(response.get("periods"), list) or not response.get("periods"):
+        raise RuntimeError(
+            f"Blizzard Mythic+ season {season_id} returned no periods; "
+            "refusing to treat the season source as verified."
+        )
+    print(
+        f"Blizzard Mythic+ season verified: id={returned_id}, "
+        f"name={season_name or localized_name(season_ref.get('name')) or 'unknown'}, "
+        f"periods={len(response['periods'])}."
+    )
+    return response
+
+
 def get_season_instances(token):
     response = get_api_json(
         "/data/wow/journal-instance/index",
@@ -389,6 +627,10 @@ def get_season_instances(token):
 
 
 def collect_season_content_item_ids(token):
+    # Verify the requested season against Blizzard's official season endpoint.
+    # The season response contains season metadata/periods, not a complete loot
+    # catalog; Journal encounters remain the source of item-level loot evidence.
+    mythic_season = get_mythic_keystone_season(token)
     item_sources = {}
     matched_instances = []
     missing_sources = []
@@ -399,6 +641,57 @@ def collect_season_content_item_ids(token):
 
     print(f"Blizzard Journal instance index returned {len(instances)} instances.")
 
+    # Blizzard's Mythic+ season response exposes period references, not map
+    # membership. Use the Mythic Keystone dungeon index/details instead; its
+    # tracked flag and map.id identify the currently tracked dungeon pool.
+    dungeon_index = get_api_json(
+        "/data/wow/mythic-keystone/dungeon/index",
+        token,
+        {"namespace": PVP_NAMESPACE, "locale": LOCALE},
+    )
+    dungeon_refs = dungeon_index.get("dungeons", []) or []
+    if not dungeon_refs:
+        raise RuntimeError(
+            "Blizzard Mythic+ dungeon index returned no dungeons; "
+            "refusing to treat name-matched Journal instances as verified sources."
+        )
+
+    season_map_ids = set()
+    valid_dungeon_refs = [
+        (index, dungeon_ref, extract_id(dungeon_ref))
+        for index, dungeon_ref in enumerate(dungeon_refs, start=1)
+        if extract_id(dungeon_ref)
+    ]
+    total_dungeons = len(valid_dungeon_refs)
+    print(
+        f"Checking tracked status for {total_dungeons} Mythic+ dungeon entries.",
+        flush=True,
+    )
+    for position, (index, dungeon_ref, dungeon_id) in enumerate(valid_dungeon_refs, start=1):
+        # Emit progress while making per-dungeon detail requests. Without this,
+        # a slow API response/retry leaves Actions logs appearing frozen for
+        # several minutes even though the importer is still working.
+        if position == 1 or position % 5 == 0 or position == total_dungeons:
+            print(
+                f"Mythic+ dungeon detail progress: {position}/{total_dungeons} "
+                f"(current dungeon id={dungeon_id}).",
+                flush=True,
+            )
+        dungeon = get_api_json(
+            f"/data/wow/mythic-keystone/dungeon/{dungeon_id}",
+            token,
+            {"namespace": PVP_NAMESPACE, "locale": LOCALE},
+        )
+        map_id = extract_id(dungeon.get("map"))
+        if dungeon.get("is_tracked") is True and map_id:
+            season_map_ids.add(map_id)
+    if not season_map_ids:
+        raise RuntimeError(
+            "Blizzard Mythic+ dungeon details exposed no tracked map IDs; "
+            "refusing to treat name-matched Journal instances as verified sources."
+        )
+    print(f"Verified tracked Mythic+ dungeon map IDs: {sorted(season_map_ids)}")
+
     for instance_ref in instances:
         instance_id = extract_id(instance_ref)
         instance_name = localized_name(instance_ref.get("name")) if isinstance(instance_ref, dict) else None
@@ -407,13 +700,28 @@ def collect_season_content_item_ids(token):
         if canonical not in wanted or not instance_id:
             continue
 
-        matched_instances.append(instance_name)
-
         instance = get_api_json(
             f"/data/wow/journal-instance/{instance_id}",
             token,
             {"namespace": NAMESPACE, "locale": LOCALE},
         )
+
+        # Require a stable map ID match, not just a reused dungeon name.
+        map_ref = instance.get("map") or instance.get("map_id") or {}
+        map_id = extract_id(map_ref)
+        if season_map_ids and map_id not in season_map_ids:
+            print(
+                f"Skipping Journal instance outside verified Mythic+ Season 2 maps: "
+                f"name={instance_name!r}; instance_id={instance_id}; map_id={map_id}."
+            )
+            continue
+        if not season_map_ids:
+            raise RuntimeError(
+                "Blizzard Mythic+ Season 2 response exposed no map IDs; "
+                "refusing to treat name-matched Journal instances as verified current-season sources."
+            )
+
+        matched_instances.append(instance_name)
 
         for encounter_ref in instance.get("journal_encounters", []) or instance.get("encounters", []):
             encounter_id = extract_id(encounter_ref)
@@ -446,9 +754,7 @@ def collect_season_content_item_ids(token):
                     "encounter": localized_name(encounter.get("name")),
                 })
 
-            time.sleep(REQUEST_DELAY_SECONDS)
 
-        time.sleep(REQUEST_DELAY_SECONDS)
 
     matched_normalized = {normalize_name(name) for name in matched_instances}
     for canonical, display_name in wanted.items():
@@ -682,6 +988,52 @@ def talent_tree_reference_id(value):
     return None
 
 
+def talent_tree_hero_reference_ids(value):
+    """Return (tree_id, hero_talent_id) from a Hero Talent tree reference."""
+    if not isinstance(value, dict):
+        return talent_tree_reference_id(value), None
+    for candidate in (value.get("href"), (value.get("key") or {}).get("href")):
+        if not candidate:
+            continue
+        parts = urllib.parse.urlparse(str(candidate)).path.rstrip("/").split("/")
+        if "talent-tree" not in parts:
+            continue
+        tree_index = parts.index("talent-tree") + 1
+        tree_id = None
+        hero_id = None
+        if tree_index < len(parts):
+            try:
+                tree_id = int(parts[tree_index])
+            except ValueError:
+                pass
+        if "hero-talent" in parts:
+            hero_index = parts.index("hero-talent") + 1
+            if hero_index < len(parts):
+                try:
+                    hero_id = int(parts[hero_index])
+                except ValueError:
+                    pass
+        return tree_id, hero_id
+    return talent_tree_reference_id(value), None
+
+
+def extract_talent_nodes(value):
+    """Read node arrays from Blizzard's documented talent-tree response shapes."""
+    if isinstance(value, dict):
+        # The Talent Tree Nodes endpoint returns "talent_nodes", not "nodes".
+        # Keep "nodes" for alternate/wrapped response shapes used by fixtures.
+        for key in ("talent_nodes", "nodes"):
+            direct = value.get(key)
+            if isinstance(direct, list):
+                return direct
+        for key in ("spec_talent_tree", "class_talent_tree", "hero_talent_tree", "talent_tree", "data"):
+            nested = value.get(key)
+            found = extract_talent_nodes(nested)
+            if found:
+                return found
+    return []
+
+
 def collect_talent_data(token):
     """Collect current Retail specialization, Hero Talent, and Apex talent data."""
     spec_index = get_api_json(
@@ -722,10 +1074,11 @@ def collect_talent_data(token):
 
         hero_records = []
         for hero_ref in hero_refs:
-            hero_id = talent_tree_reference_id(hero_ref)
-            if hero_id:
+            hero_tree_id, hero_talent_id = talent_tree_hero_reference_ids(hero_ref)
+            if hero_tree_id:
                 hero_records.append({
-                    "id": hero_id,
+                    "id": hero_tree_id,
+                    "heroTalentId": hero_talent_id,
                     "name": localized_name(hero_ref.get("name")) if isinstance(hero_ref, dict) else None,
                 })
 
@@ -742,21 +1095,34 @@ def collect_talent_data(token):
             "seasonScope": SEASON_SCOPE,
         })
         spec_ids.add(spec_id)
-        time.sleep(REQUEST_DELAY_SECONDS)
 
     tree_index = get_api_json(
         "/data/wow/talent-tree/index",
         token,
         {"namespace": NAMESPACE, "locale": LOCALE},
     )
-    tree_refs = (
-        tree_index.get("spec_talent_trees")
-        or tree_index.get("hero_talent_trees")
-        or tree_index.get("class_talent_trees")
-        or tree_index.get("talent_trees")
-        or tree_index.get("trees")
-        or []
-    )
+    # Collect all exposed tree collections. An "or" chain silently drops
+    # spec/hero collections whenever class_talent_trees is present.
+    tree_refs = []
+    seen_index_refs = set()
+    for collection_key in (
+        "class_talent_trees",
+        "spec_talent_trees",
+        "hero_talent_trees",
+        "talent_trees",
+        "trees",
+    ):
+        collection = tree_index.get(collection_key) or []
+        if isinstance(collection, dict):
+            collection = [collection]
+        if not isinstance(collection, list):
+            continue
+        for ref in collection:
+            tree_id = talent_tree_reference_id(ref)
+            ref_key = (collection_key, tree_id)
+            if tree_id and ref_key not in seen_index_refs:
+                seen_index_refs.add(ref_key)
+                tree_refs.append({**ref, "_indexCollection": collection_key} if isinstance(ref, dict) else ref)
 
     print(
         "Talent-tree index diagnostics: "
@@ -770,32 +1136,34 @@ def collect_talent_data(token):
     tree_records = []
     seen_tree_keys = set()
 
-    def add_tree(tree_id, tree_type, spec_id=None):
+    def add_tree(tree_id, tree_type, spec_id=None, hero_talent_id=None):
         if not tree_id:
             return
-        key = (tree_type, tree_id, spec_id)
+        if tree_type == "hero" and not hero_talent_id:
+            print(f"Skipping Hero Talent tree {tree_id}: missing hero-talent ID in Blizzard reference.")
+            return
+        key = (tree_type, tree_id, spec_id, hero_talent_id)
         if key in seen_tree_keys:
             return
         seen_tree_keys.add(key)
 
         try:
             if tree_type == "specialization" and spec_id:
-                tree = get_api_json(
-                    f"/data/wow/talent-tree/{tree_id}/playable-specialization/{spec_id}",
-                    token,
-                    {"namespace": NAMESPACE, "locale": LOCALE},
-                )
+                endpoint = f"/data/wow/talent-tree/{tree_id}/playable-specialization/{spec_id}"
+            elif tree_type == "hero" and hero_talent_id:
+                endpoint = f"/data/wow/talent-tree/{tree_id}/hero-talent/{hero_talent_id}"
             else:
-                tree = get_api_json(
-                    f"/data/wow/talent-tree/{tree_id}",
-                    token,
-                    {"namespace": NAMESPACE, "locale": LOCALE},
-                )
+                endpoint = f"/data/wow/talent-tree/{tree_id}"
+            tree = get_api_json(
+                endpoint,
+                token,
+                {"namespace": NAMESPACE, "locale": LOCALE},
+            )
         except urllib.error.HTTPError as error:
             print(
                 f"Talent tree request failed: endpoint="
-                f"{'/data/wow/talent-tree/' + str(tree_id) + ('/playable-specialization/' + str(spec_id) if tree_type == 'specialization' and spec_id else '')}; "
-                f"type={tree_type}, tree_id={tree_id}, spec_id={spec_id}, "
+                f"{endpoint}; "
+                f"type={tree_type}, tree_id={tree_id}, spec_id={spec_id}, hero_talent_id={hero_talent_id}, "
                 f"HTTP={error.code}; skipping."
             )
             return
@@ -804,15 +1172,15 @@ def collect_talent_data(token):
             "id": tree_id,
             "type": tree_type,
             "specId": spec_id,
+            "heroTalentId": hero_talent_id,
             "data": tree,
             "seasonScope": SEASON_SCOPE,
         })
-        time.sleep(REQUEST_DELAY_SECONDS)
 
     for record in talent_records:
         add_tree(record["specTalentTreeId"], "specialization", record["id"])
         for hero in record["heroTalentTrees"]:
-            add_tree(hero["id"], "hero")
+            add_tree(hero["id"], "hero", hero_talent_id=hero.get("heroTalentId"))
 
     for tree_ref in tree_refs:
         tree_id = talent_tree_reference_id(tree_ref)
@@ -828,11 +1196,12 @@ def collect_talent_data(token):
             if linked_spec_id in spec_ids:
                 add_tree(tree_id, "specialization", linked_spec_id)
 
+
     node_count = 0
     apex_count = 0
     for tree in tree_records:
-        data = tree.get("data") or {}
-        nodes = data.get("nodes") or []
+        nodes = extract_talent_nodes(tree.get("data") or {})
+        tree["nodeCount"] = len(nodes)
         node_count += len(nodes)
         for node in nodes:
             if "apex" in json.dumps(node, ensure_ascii=False).lower():
@@ -999,7 +1368,6 @@ def fetch_modified_crafting_slot_metadata(token, slots, cache):
                 )
                 cache[cache_key] = {}
 
-            time.sleep(REQUEST_DELAY_SECONDS)
 
         resolved = cache[cache_key]
         categories = []
@@ -1024,7 +1392,6 @@ def fetch_modified_crafting_slot_metadata(token, slots, cache):
                     )
                     cache[category_key] = {}
 
-                time.sleep(REQUEST_DELAY_SECONDS)
 
             category_data = cache[category_key]
             categories.append({
@@ -1078,12 +1445,14 @@ def collect_profession_supporting_data(token):
     fallback_output_count = 0
     modified_crafting_cache = {}
 
-    for profession_ref in profession_refs:
+    print(f"Profession scan: {len(profession_refs)} professions exposed by Blizzard.", flush=True)
+    for profession_index, profession_ref in enumerate(profession_refs, start=1):
         profession_id = extract_id(profession_ref)
         profession_name = localized_name(profession_ref.get("name")) if isinstance(profession_ref, dict) else None
         if not profession_id or profession_name not in profession_names:
             continue
 
+        print(f"Profession scan [{profession_index}/{len(profession_refs)}]: loading {profession_name} (id {profession_id}).", flush=True)
         profession = get_api_json(
             f"/data/wow/profession/{profession_id}",
             token,
@@ -1101,16 +1470,24 @@ def collect_profession_supporting_data(token):
             print(f"Profession {profession_name}: no Midnight skill tier exposed.")
             continue
 
-        for tier_id, tier_name in current_tiers:
+        for tier_index, (tier_id, tier_name) in enumerate(current_tiers, start=1):
+            print(f"Profession {profession_name}: loading Midnight tier {tier_name} ({tier_index}/{len(current_tiers)}).", flush=True)
             skill_tier = get_api_json(
                 f"/data/wow/profession/{profession_id}/skill-tier/{tier_id}",
                 token,
                 {"namespace": NAMESPACE, "locale": LOCALE},
             )
 
-            for category in skill_tier.get("categories", []) or []:
+            categories = skill_tier.get("categories", []) or []
+            tier_recipe_count = sum(len(category.get("recipes", []) or []) for category in categories)
+            print(f"Profession {profession_name}/{tier_name}: {len(categories)} categories, {tier_recipe_count} recipe references.", flush=True)
+            processed_recipe_count = 0
+            for category in categories:
                 category_name = localized_name(category.get("name")) or ""
                 for recipe_ref in category.get("recipes", []) or []:
+                    processed_recipe_count += 1
+                    if processed_recipe_count == 1 or processed_recipe_count % 25 == 0 or processed_recipe_count == tier_recipe_count:
+                        print(f"Profession {profession_name}/{tier_name}: processing recipe {processed_recipe_count}/{tier_recipe_count}.", flush=True)
                     recipe_id = extract_id(recipe_ref)
                     if not recipe_id:
                         continue
@@ -1121,12 +1498,13 @@ def collect_profession_supporting_data(token):
                         {"namespace": NAMESPACE, "locale": LOCALE},
                     )
 
-                    crafted_item = recipe.get("crafted_item") or {}
+                    crafted_item = (
+                        recipe.get("crafted_item")
+                        or recipe.get("alliance_crafted_item")
+                        or recipe.get("horde_crafted_item")
+                        or {}
+                    )
                     crafted_item_id = extract_id(crafted_item)
-                    if recipe_id == 52572:
-                        print("QUICK PERIDOT RECIPE DEBUG:")
-                        print(json.dumps(recipe, indent=2))
-
                     if not crafted_item_id and profession_name != "Enchanting":
                         crafted_item_id = find_recipe_output_item_id(
                             token,
@@ -1199,7 +1577,6 @@ def collect_profession_supporting_data(token):
                         "seasonScope": SEASON_SCOPE,
                         "source": "Blizzard Game Data API — current Midnight profession recipe",
                     })
-                    time.sleep(REQUEST_DELAY_SECONDS)
 
         profession_counts[profession_name] = len(
             [r for r in recipes if r["profession"] == profession_name]
@@ -1250,7 +1627,6 @@ def fetch_supporting_item_details(token, item_ids):
         if index % 100 == 0:
             print(f"Enriched {index}/{len(item_ids)} supporting recipe outputs.")
 
-        time.sleep(REQUEST_DELAY_SECONDS)
 
     return records
 
@@ -1303,6 +1679,129 @@ def classify_profession_outputs(recipes, output_items):
     )
 
     return gems, enchants, crafted_gear, other_crafted_items
+
+
+def validate_supporting_catalogs(gems, enchants, consumables):
+    """Fail closed on malformed enhancement/consumable records before publishing data.
+
+    This validates catalog structure and source attribution, not whether an item's
+    effect is fully modeled by the optimizer. Effect completeness is tracked
+    separately and must not be inferred from a recipe name or description.
+    """
+    catalogs = {
+        "gems": gems,
+        "enchants": enchants,
+        **{
+            f"consumables.{bucket}": records
+            for bucket, records in (consumables or {}).items()
+        },
+    }
+    errors = []
+    for catalog_name, records in catalogs.items():
+        if not isinstance(records, list):
+            errors.append(f"{catalog_name} must be a list")
+            continue
+        seen = set()
+        for index, record in enumerate(records):
+            label = f"{catalog_name}[{index}]"
+            if not isinstance(record, dict):
+                errors.append(f"{label} must be an object")
+                continue
+            recipe_id = record.get("id")
+            recipe_name = record.get("name")
+            if not isinstance(recipe_id, int) or isinstance(recipe_id, bool) or recipe_id <= 0:
+                errors.append(f"{label} is missing a valid recipe ID")
+            if not isinstance(recipe_name, str) or not recipe_name.strip():
+                errors.append(f"{label} is missing a recipe name")
+            if record.get("seasonScope") != SEASON_SCOPE:
+                errors.append(f"{label} is missing the expected season scope")
+            if not isinstance(record.get("source"), str) or not record["source"].strip():
+                errors.append(f"{label} is missing source attribution")
+            key = (recipe_id, record.get("craftedItemId"))
+            if key in seen:
+                errors.append(f"{label} duplicates recipe/output pair {key!r}")
+            seen.add(key)
+            item = record.get("item")
+            if item is not None and (
+                not isinstance(item, dict)
+                or not isinstance(item.get("id"), int)
+                or not isinstance(item.get("name"), str)
+                or not item["name"].strip()
+            ):
+                errors.append(f"{label} has malformed linked item metadata")
+    if errors:
+        raise RuntimeError(
+            "Supporting catalog validation failed: " + "; ".join(errors[:20])
+        )
+    return {
+        catalog_name: len(records)
+        for catalog_name, records in catalogs.items()
+        if isinstance(records, list)
+    }
+
+
+def classify_consumables(recipes, output_items):
+    """Build explicit consumable buckets from current-profession recipe outputs.
+
+    Recipe profession is the primary source for food; Blizzard item/recipe names
+    are used only to distinguish alchemy consumable families. This is catalog
+    classification, not a claim that every item is optimal for every spec.
+    """
+    item_by_id = {
+        item.get("id"): item for item in output_items
+        if isinstance(item, dict) and item.get("id")
+    }
+    buckets = {"food": [], "flaskOrPhial": [], "potions": [], "other": []}
+
+    for recipe in recipes:
+        if not isinstance(recipe, dict):
+            continue
+        item = item_by_id.get(recipe.get("craftedItemId"))
+        profession = str(recipe.get("profession") or "").strip().lower()
+        item_name = str((item or {}).get("name") or "")
+        recipe_name = str(recipe.get("name") or "")
+        label = normalize_name(f"{item_name} {recipe_name}")
+        item_subclass = str(
+            ((item or {}).get("itemSubclass") or {}).get("name")
+            or (item or {}).get("itemSubclass")
+            or ""
+        ).strip().lower()
+
+        bucket = None
+        if profession == "cooking":
+            bucket = "food"
+        elif profession == "alchemy":
+            if any(term in label.split() for term in ("flask", "phial")) or "cauldron of" in label:
+                bucket = "flaskOrPhial"
+            elif "potion" in label or "draught" in label or item_subclass in {"potion", "potions"}:
+                bucket = "potions"
+            elif any(term in label for term in ("oil", "augment rune", "weapon stone")):
+                bucket = "other"
+        elif profession == "inscription" and "augment rune" in label:
+            bucket = "other"
+
+        if bucket:
+            record = {**recipe, "consumableType": bucket}
+            if item:
+                record["item"] = item
+            record["classificationSource"] = (
+                "Blizzard profession recipe output; bucketed by profession and localized item/recipe name"
+            )
+            buckets[bucket].append(record)
+
+    for name, records in buckets.items():
+        # A recipe can only appear once in the output model.
+        unique = {}
+        for record in records:
+            key = (record.get("id"), record.get("craftedItemId"), record.get("name"))
+            unique[key] = record
+        buckets[name] = list(unique.values())
+
+    print(
+        "Consumable recipe buckets: "
+        + ", ".join(f"{name}={len(records)}" for name, records in buckets.items())
+    )
+    return buckets
 
 def merge_item_sources(*source_maps):
     merged = {}
@@ -1386,7 +1885,6 @@ def fetch_item_details(token, item_ids, item_sources):
         if index % 50 == 0:
             print(f"Enriched {index}/{len(item_ids)} candidate items.")
 
-        time.sleep(REQUEST_DELAY_SECONDS)
 
     print(
         "Wowhead stat fallback diagnostics: "
@@ -1672,12 +2170,17 @@ def _has_explicit_effect_metadata(record):
     return has_stats or has_spells or has_explicit_effect
 
 
-def build_enhancement_effect_coverage(gems, enchants, crafted_gear, other_outputs):
+def build_enhancement_effect_coverage(gems, enchants, crafted_gear, other_outputs, consumables=None):
     """Measure structured effect-metadata presence, not effect completeness."""
+    consumables = consumables if isinstance(consumables, dict) else {}
     categories = {
         "gems": gems or [],
         "enchants": enchants or [],
         "craftedGear": crafted_gear or [],
+        "consumables.food": consumables.get("food", []),
+        "consumables.flaskOrPhial": consumables.get("flaskOrPhial", []),
+        "consumables.potions": consumables.get("potions", []),
+        "consumables.other": consumables.get("other", []),
         "otherCraftedOutputs": other_outputs or [],
     }
     result = {}
@@ -1730,23 +2233,103 @@ def main():
     print(f"Blizzard current PvP season: {current_pvp_season_name} (id {current_pvp_season_id})")
     enforce_supported_season(current_pvp_season_id, current_pvp_season_name)
 
-    pve_sources, matched_instances, missing_sources = collect_season_content_item_ids(token)
-    pvp_sources, pvp_metadata = collect_pvp_season_item_ids(
-        token, current_pvp_season_id, current_pvp_season_name
-    )
-    item_sources = merge_item_sources(pve_sources, pvp_sources)
-
-    talent_data = collect_talent_data(token)
-    upgrade_data = collect_upgrade_and_crest_data()
-
+    print("Import phase 1/7: collecting Midnight profession recipes.", flush=True)
     profession_recipes, profession_output_ids = collect_profession_supporting_data(token)
+    print(f"Import phase 2/7: enriching {len(profession_output_ids)} profession output items.", flush=True)
     supporting_items = fetch_supporting_item_details(token, profession_output_ids)
     gems, enchants, crafted_gear, other_crafted_items = classify_profession_outputs(
         profession_recipes,
         supporting_items,
     )
+    consumables = classify_consumables(profession_recipes, supporting_items)
+    supporting_catalog_counts = validate_supporting_catalogs(gems, enchants, consumables)
+    print("Supporting catalog structural validation passed: " + ", ".join(f"{name}={count}" for name, count in supporting_catalog_counts.items()))
 
-    items = fetch_item_details(token, item_sources.keys(), item_sources)
+    print("Import phase 3/7: scanning Season 2 PvE Journal sources.", flush=True)
+    pve_sources, matched_instances, missing_sources = collect_season_content_item_ids(token)
+    print("Import phase 4/7: collecting Season 2 PvP rewards and gear.", flush=True)
+    pvp_sources, pvp_metadata = collect_pvp_season_item_ids(
+        token, current_pvp_season_id, current_pvp_season_name
+    )
+    # Slot searches are NOT season-aware. Only IDs independently verified from
+    # current-season PvE/PvP sources or Midnight profession recipes may enter.
+    crafted_gear_ids = {
+        recipe.get("item", {}).get("id")
+        for recipe in crafted_gear
+        if isinstance(recipe.get("item"), dict)
+        and isinstance(recipe.get("item", {}).get("id"), int)
+    }
+    crafted_source_map = {
+        item_id: [{
+            "seasonScope": SEASON_SCOPE,
+            "category": "Crafted Gear",
+            "professionRecipeSource": "Midnight profession skill-tier recipe output",
+        }]
+        for item_id in crafted_gear_ids
+    }
+    verified_season_item_ids = set(pve_sources) | set(pvp_sources) | crafted_gear_ids
+    print(
+        "Verified equipment source counts: "
+        f"pve_ids={len(pve_sources)}; "
+        f"pvp_ids={len(pvp_sources)}; "
+        f"crafted_gear_ids={len(crafted_gear_ids)}; "
+        f"union_ids={len(verified_season_item_ids)}; "
+        f"sample_union_ids={sorted(verified_season_item_ids)[:12]}"
+    )
+    verified_source_evidence = merge_item_sources(
+        pve_sources, pvp_sources, crafted_source_map
+    )
+    print("Import phase 5/7: discovering eligible equipment sections.", flush=True)
+    section_ids, section_item_sources = collect_equipment_section_ids(
+        token, get_api_json, verified_season_item_ids,
+        source_evidence=verified_source_evidence,
+    )
+    # Validate the entire expected slot set before writing any section files.
+    # A missing Neck/Shoulders result must stop the import rather than leave a
+    # stale catalog in place or publish a partially refreshed set of sections.
+    validate_required_sections(section_ids)
+    print(
+        "Sectioned equipment catalog discovered: "
+        + ", ".join(f"{section}={len(ids)}" for section, ids in section_ids.items())
+    )
+    item_sources = merge_item_sources(pve_sources, pvp_sources, crafted_source_map, section_item_sources)
+
+    # Process one slot section at a time: enrich only that section's verified
+    # candidates, validate it, and atomically persist it before starting the next.
+    # A failure stops the import without marking later sections as complete.
+    section_summary = {}
+    items_by_id = {}
+    for section, ids in section_ids.items():
+        section_ids_with_sources = {
+            item_id: item_sources.get(item_id, [])
+            for item_id in ids
+        }
+        print(f"Starting section {section}: {len(ids)} verified candidates.")
+        section_items = fetch_item_details(
+            token, ids, section_ids_with_sources
+        )
+        section_result = write_section_catalogs(
+            {section: ids}, section_items, remove_stale=False
+        )
+        section_summary.update(section_result)
+        items_by_id.update({item.get("id"): item for item in section_items if item.get("id")})
+        print(f"Completed section {section}: {section_result.get(section, 0)} items saved.")
+
+    # Keep the unified dataset limited to the same verified slot-section IDs.
+    items = list(items_by_id.values())
+
+    print("Import phase 6/7: collecting talent data.", flush=True)
+    talent_data = collect_talent_data(token)
+    # Talent data is a required part of the optimizer input. Never publish a
+    # successful-looking dataset if the Blizzard payload shape/namespace has
+    # yielded no usable nodes; preserve the last known-good file instead.
+    if not talent_data.get("specializationCount") or not talent_data.get("treeCount") or not talent_data.get("nodeCount"):
+        raise RuntimeError(
+            "Talent import validation failed: expected nonzero specialization, "
+            "tree, and node counts; refusing to publish an incomplete dataset."
+        )
+    print("Import phase 7/7: assembling and validating the dataset.", flush=True)
+    upgrade_data = collect_upgrade_and_crest_data()
 
     items.sort(
         key=lambda item: (item.get("level") or 0, item.get("id") or 0),
@@ -1755,7 +2338,7 @@ def main():
 
     stat_coverage = build_item_stat_coverage(items)
     enhancement_effect_coverage = build_enhancement_effect_coverage(
-        gems, enchants, crafted_gear, other_crafted_items
+        gems, enchants, crafted_gear, other_crafted_items, consumables
     )
     print(
         "Enhancement effect metadata presence: "
@@ -1781,6 +2364,7 @@ def main():
     dataset["season"] = MINIMUM_SEASON
     dataset["gems"] = gems
     dataset["enchants"] = enchants
+    dataset["consumables"] = consumables
     dataset["crafting"] = {
         "recipes": profession_recipes,
         "craftedGear": crafted_gear,
@@ -1824,6 +2408,10 @@ def main():
         "craftedOutputItemCount": len(profession_output_ids),
         "gemRecipeCount": len(gems),
         "enchantRecipeCount": len(enchants),
+        "foodRecipeCount": len(consumables["food"]),
+        "flaskOrPhialRecipeCount": len(consumables["flaskOrPhial"]),
+        "potionRecipeCount": len(consumables["potions"]),
+        "otherConsumableRecipeCount": len(consumables["other"]),
         "craftedGearRecipeCount": len(crafted_gear),
         "recraftRecipeCount": sum(1 for r in profession_recipes if r.get("isRecraft")),
         "embellishmentRecipeCount": sum(1 for r in profession_recipes if r.get("isEmbellishment")),
@@ -1833,14 +2421,16 @@ def main():
         "crestTypeCount": len(upgrade_data["crests"]),
         "crestExchangeRuleCount": len(upgrade_data["exchangeRules"]),
         "ascendantVenomstoneStatus": upgrade_data["ascendantVenomstone"]["status"],
-        "importPhase": "season-2-plus-pve-pvp-talents-professions-upgrades",
+        "importPhase": "sectioned-equipment-catalog-plus-season-pve-pvp-talents-professions-upgrades",
+        "equipmentSectionCounts": section_summary,
         "seasonPolicy": SEASON_SCOPE,
     }
 
     dataset["notes"] = [
         "Generated from the secure Blizzard Game Data API importer.",
         "Blizzard API credentials are never placed in browser JavaScript.",
-        "The importer does not scan the historical weapon/armor catalog.",
+        "Equipment catalog items are fetched from Blizzard item search in independently paginated slot sections and stored under data/equipment-sections/.",
+        "Each equipment section is atomically replaced only after every discovered item has an enriched, equippable record; incomplete sections preserve the prior section file and fail the import.",
         "Season membership is source-based, not guessed from item level.",
         "Item stat coverage is a source-record presence metric, not proof of complete item stat/effect coverage; missing stats are reported and never inferred from item level.",
         "Season 2 PvE candidates come from matched Adventure Journal sources.",
@@ -1852,9 +2442,27 @@ def main():
         "Crafted, vendor, outdoor, Delves, Prey, and other non-Journal sources require their own source-specific importers; they are not silently approximated as Season 2 gear.",
     ]
 
-    with open(OUTPUT, "w", encoding="utf-8") as handle:
-        json.dump(dataset, handle, indent=2)
-        handle.write("\n")
+    # Replace the unified dataset only after the full import has been assembled.
+    # A write/serialization failure must leave the last completed file intact.
+    output_dir = os.path.dirname(OUTPUT) or "."
+    fd, temporary_name = tempfile.mkstemp(
+        prefix=".current-retail.", suffix=".tmp", dir=output_dir
+    )
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as handle:
+            json.dump(dataset, handle, indent=2)
+            handle.write("\n")
+            handle.flush()
+            os.fsync(handle.fileno())
+        # Validate the staged JSON before making it the current dataset.
+        with open(temporary_name, "r", encoding="utf-8") as handle:
+            staged_dataset = json.load(handle)
+        if not isinstance(staged_dataset, dict) or not isinstance(staged_dataset.get("items"), list):
+            raise RuntimeError("Staged current Retail dataset failed structural validation.")
+        os.replace(temporary_name, OUTPUT)
+    finally:
+        if os.path.exists(temporary_name):
+            os.unlink(temporary_name)
 
     print(
         f"Season 2+ Retail gear import completed: {len(items)} enriched items "

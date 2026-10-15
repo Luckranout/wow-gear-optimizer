@@ -195,9 +195,55 @@ const SECONDARY_RATING_DR_TABLE = {
 };
 const SECONDARY_RATING_DR_MULTIPLIERS = [1, 0.9, 0.8, 0.7, 0.6, 0.5, 0];
 const SECONDARY_RATING_DR_CAP_PERCENT = 126;
+
+// Level-90 tertiary rating DR from the supplied Midnight 12.0.1 reference.
+// Bands are progressive; rating above the final threshold contributes no
+// effective rating. These are rating values, not direct percentage stats.
+const TERTIARY_RATING_DR_TABLE = Object.freeze({
+  Avoidance: [370, 555, 740, 1813],
+  Leech: [690, 1035, 1380, 3381],
+  Speed: [120, 180, 240, 588]
+});
+const TERTIARY_RATING_DR_MULTIPLIERS = [1, 0.8, 0.6, 0.4, 0];
+function applyTertiaryRatingDiminishingReturns(rawRating, stat, characterLevel = SECONDARY_RATING_DR_LEVEL) {
+  const rating = Number(rawRating);
+  if (!Number.isFinite(rating) || rating <= 0) return 0;
+  if (Number(characterLevel) !== SECONDARY_RATING_DR_LEVEL) return null;
+  const key = normalizeItemStatName(stat);
+  const thresholds = TERTIARY_RATING_DR_TABLE[key];
+  if (!thresholds) return null;
+  let previous = 0;
+  let effective = 0;
+  for (let band = 0; band < thresholds.length; band++) {
+    const limit = thresholds[band];
+    const amount = Math.max(0, Math.min(rating, limit) - previous);
+    effective += amount * TERTIARY_RATING_DR_MULTIPLIERS[band];
+    previous = limit;
+    if (rating <= limit) return effective;
+  }
+  return effective;
+}
+function getTertiaryRatingTotals(equipment = {}) {
+  const totals = {};
+  for (const item of Object.values(equipment || {})) {
+    if (!item || !item.stats) continue;
+    const entries = Array.isArray(item.stats)
+      ? item.stats.map(s => [
+          normalizeItemStatName(s.stat?.name || s.type?.name || s.name || s.stat),
+          Number(s.value?.value ?? s.value?.amount ?? s.amount ?? s.value) || 0
+        ])
+      : Object.entries(item.stats).map(([stat, value]) => [
+          normalizeItemStatName(stat), Number(value?.value ?? value?.amount ?? value) || 0
+        ]);
+    for (const [stat, value] of entries) {
+      if (Object.hasOwn(TERTIARY_RATING_DR_TABLE, stat)) totals[stat] = (totals[stat] || 0) + value;
+    }
+  }
+  return totals;
+}
 // Soft targets are the first supplied thresholds; the last threshold is a hard
-// cap for eligible level-90 loadouts. The soft target influences scoring only
-// when candidates are otherwise competitive; it is not a stat-equality target.
+// cap for eligible level-90 loadouts. Above soft targets, prefer the secondary
+// stat furthest behind relative to its own target (not lowest raw rating).
 const SECONDARY_RATING_DR_SOFT_TARGETS = Object.freeze({
   Haste: 1320,
   CriticalStrike: 1380,
@@ -235,11 +281,23 @@ function getSecondaryRatingHardCapViolations(equipment = {}, characterLevel = nu
 function getSecondaryRatingSoftTargetPenalty(equipment = {}, characterLevel = null) {
   if (Number(characterLevel) !== SECONDARY_RATING_DR_LEVEL) return 0;
   const totals = getSecondaryRatingTotals(equipment);
-  // Small regularizer, deliberately subordinate to actual effective stat score.
-  // It nudges the optimizer away from the first penalty band without imposing
-  // an artificial equality between secondary stats.
-  return Object.entries(SECONDARY_RATING_DR_SOFT_TARGETS).reduce((penalty, [stat, target]) =>
-    penalty + Math.max(0, (totals[stat] || 0) - target) * 0.01, 0);
+  const stats = Object.entries(SECONDARY_RATING_DR_SOFT_TARGETS).map(([stat, target]) => ({
+    stat,
+    target,
+    rating: totals[stat] || 0,
+    normalized: (totals[stat] || 0) / target
+  }));
+  // First, penalize any shortfall so reaching all soft targets is valuable.
+  const shortfallPenalty = stats.reduce((penalty, entry) =>
+    penalty + Math.max(0, entry.target - entry.rating) * 2, 0);
+  // Once at/above target, penalize over-investment quadratically relative to
+  // each stat's own threshold. This makes the least-covered stat the preferred
+  // destination for additional rating while preserving stat-weight scoring.
+  const overTargetPenalty = stats.reduce((penalty, entry) => {
+    const normalizedExcess = Math.max(0, entry.normalized - 1);
+    return penalty + normalizedExcess * normalizedExcess * entry.target * 4;
+  }, 0);
+  return shortfallPenalty + overTargetPenalty;
 }
 function applySecondaryRatingDiminishingReturns(rawRating, stat, characterLevel = SECONDARY_RATING_DR_LEVEL) {
   const rating = Number(rawRating);
@@ -510,7 +568,9 @@ function scoreEquipmentWithRatingDiminishingReturns(equipment = {}, statWeights 
   // Otherwise preserve the existing rating score rather than applying wrong-level data.
   if (Number(characterLevel) !== SECONDARY_RATING_DR_LEVEL) return scoreEquipment(equipment, statWeights);
   const secondaryStats = new Set(Object.keys(SECONDARY_RATING_DR_TABLE));
+  const tertiaryStats = new Set(Object.keys(TERTIARY_RATING_DR_TABLE));
   const totals = {};
+  const tertiaryTotals = {};
   let score = 0;
   for (const item of Object.values(equipment || {})) {
     if (!item || !hasUsableItemStats(item)) continue;
@@ -523,6 +583,7 @@ function scoreEquipmentWithRatingDiminishingReturns(equipment = {}, statWeights 
       : Object.entries(item.stats || {}).map(([stat, value]) => [normalizeItemStatName(stat), Number(value?.value ?? value?.amount ?? value) || 0]);
     for (const [stat, value] of entries) {
       if (secondaryStats.has(stat)) totals[stat] = (totals[stat] || 0) + value;
+      else if (tertiaryStats.has(stat)) tertiaryTotals[stat] = (tertiaryTotals[stat] || 0) + value;
       else score += value * (statWeights[stat] ?? 0);
     }
   }
@@ -532,14 +593,26 @@ function scoreEquipmentWithRatingDiminishingReturns(equipment = {}, statWeights 
       score += effective * (statWeights[stat] ?? 0);
     }
   }
-  score -= getSecondaryRatingSoftTargetPenalty(equipment, characterLevel);
+  for (const stat of tertiaryStats) {
+    if (tertiaryTotals[stat] !== undefined) {
+      const effective = applyTertiaryRatingDiminishingReturns(tertiaryTotals[stat], stat, characterLevel);
+      score += effective * (statWeights[stat] ?? 0);
+    }
+  }
   return score;
 }
 
 function scoreLoadout(equipment = {}, statWeights = STAT_WEIGHTS, setBonuses = [], specialization = "", characterLevel = null) {
   const setScore = scoreSetBonuses(equipment, setBonuses, specialization);
+  const rawScore = scoreEquipmentWithRatingDiminishingReturns(equipment, statWeights, characterLevel) + setScore.score;
+  // Make the DR soft-target policy part of the same aggregate score used for
+  // whole-loadout search. Previously the helper existed but wasn't connected
+  // to loadout scoring, so it could not reliably influence selected gear.
+  const softTargetPenalty = getSecondaryRatingSoftTargetPenalty(equipment, characterLevel);
   return {
-    score: scoreEquipmentWithRatingDiminishingReturns(equipment, statWeights, characterLevel) + setScore.score,
+    score: rawScore - softTargetPenalty,
+    rawScore,
+    softTargetPenalty,
     setBonuses: setScore
   };
 }
@@ -943,12 +1016,18 @@ function findUpgradeOpportunities({
     )
       .map(item => {
         const trialEquipment = { ...currentEquipment, [slot]: item };
+        // Never present a single-slot upgrade that pushes a supported level-90
+        // loadout beyond a secondary-rating hard cap as a valid recommendation.
+        const capViolations = getSecondaryRatingHardCapViolations(trialEquipment, characterLevel);
+        if (capViolations.length) {
+          return { item, score: -Infinity, itemScore: scoreItem(item, weights), capViolations };
+        }
         const trialScore = scoreLoadout(
           trialEquipment, weights, setBonuses, specialization, characterLevel
         ).score;
-        return { item, score: trialScore, itemScore: scoreItem(item, weights) };
+        return { item, score: trialScore, itemScore: scoreItem(item, weights), capViolations: [] };
       })
-      .filter(candidate => candidate.score > baselineLoadoutScore)
+      .filter(candidate => candidate.capViolations.length === 0 && candidate.score > baselineLoadoutScore)
       .sort((a, b) => b.score - a.score);
 
     if (candidates.length) {
@@ -1139,6 +1218,36 @@ function recommendUpgradePlan({ currentItem, upgradeSystem, availableCrests = {}
   };
 }
 
+function getTierSetCoverageStatus(tierSetCatalogue = null, className = "", specialization = "") {
+  const sets = Array.isArray(tierSetCatalogue?.sets) ? tierSetCatalogue.sets : [];
+  const normalizedClass = String(className || "").trim().toLowerCase();
+  const classSet = sets.find(set => String(set.class || "").trim().toLowerCase() === normalizedClass) || null;
+  const verifiedClasses = sets.filter(set => set.itemIdsVerified === true);
+  const unverifiedClasses = sets.filter(set => set.itemIdsVerified !== true);
+  const uniqueVerifiedPieceIds = classSet && classSet.itemIdsVerified === true
+    ? new Set((classSet.pieces || []).map(piece => Number(piece.itemId)).filter(Number.isFinite)).size
+    : 0;
+  return {
+    catalogueStatus: tierSetCatalogue?.itemMatching?.status || "unavailable",
+    className: classSet?.class || className || null,
+    specialization: specialization || null,
+    setName: classSet?.setName || null,
+    itemMappingVerified: classSet?.itemIdsVerified === true,
+    verifiedPieceCount: uniqueVerifiedPieceIds,
+    expectedPieceCount: 5,
+    bonusDescriptionsAvailable: Array.isArray(classSet?.specs) &&
+      classSet.specs.some(spec => String(spec[0]).toLowerCase() === String(specialization || "").toLowerCase()),
+    numericScoringAvailable: false,
+    verifiedClassCount: verifiedClasses.length,
+    totalClassCount: sets.length,
+    unverifiedClasses: unverifiedClasses.map(set => set.class),
+    limitations: [
+      "Tier bonus descriptions do not provide a numeric gear score without simulation-derived or otherwise verified values.",
+      ...(classSet?.itemIdsVerified === true ? [] : ["This class's tier-piece item mapping is not verified, so equipped-piece counts may be incomplete."])
+    ]
+  };
+}
+
 function createOptimizationReport({character = createCharacterProfile(), availableItems = [], dataset = null, upgradeSystem = null} = {}) {
   const goal = character.goal || WOW_GOALS.general;
   const simulation = character.simulation || dataset?.simulation || null;
@@ -1172,8 +1281,9 @@ function createOptimizationReport({character = createCharacterProfile(), availab
     }) : null)
     .filter(Boolean);
   return {
-    character, goal, optimizedEquipment: optimized.equipment, totalScore: optimized.score,
+    character, goal, statWeights, optimizedEquipment: optimized.equipment, totalScore: optimized.score,
     setBonusStatus: optimized.setBonusStatus,
+    tierSetCoverage: getTierSetCoverageStatus(dataset?.tierSetCatalogue, character.className, character.specialization),
     ratingConstraintStatus: optimized.ratingConstraintStatus || {
       requiresUserChoice: false, balanced: true, remainingViolations: []
     },
@@ -1215,10 +1325,11 @@ const WOW_OPTIMIZER_TEST_DATA = [
 window.WoWOptimizer = {
   slots: WOW_EQUIPMENT_SLOTS, goals: WOW_GOALS,
   applySecondaryRatingDiminishingReturns, getSecondaryRatingDiminishingReturns, SECONDARY_RATING_DR_TABLE, SECONDARY_RATING_DR_SOFT_TARGETS, getSecondaryRatingTotals, getSecondaryRatingHardCapViolations, getSecondaryRatingSoftTargetPenalty,
+  applyTertiaryRatingDiminishingReturns, TERTIARY_RATING_DR_TABLE, getTertiaryRatingTotals,
   createCharacterProfile, normalizeCharacterStatistics, scoreCharacterStatistics, getCharacterStatSummary, resolveStatWeights, normalizeSimulationScaleFactors, getSimulationWeightContext, findBlizzardSpecialization, getSpecProfileContext,
-  normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, hasUsableItemStats, scoreItem, scoreEquipment, getGoalWeights,
+  normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, hasUsableItemStats, itemAllowedForClass, scoreItem, scoreEquipment, getGoalWeights,
   findBestItemForSlot, itemMatchesSlot, itemAllowedForClassWeapon, itemAllowedForSpecialization, getWeaponMetadata, normalizeWeaponType, optimizeEquipment, findUpgradeOpportunities, rankItems,
-  getItemSetId, getSetBonusStatus, scoreSetBonuses, scoreEquipmentWithRatingDiminishingReturns, scoreLoadout,
+  getItemSetId, getSetBonusStatus, getTierSetCoverageStatus, scoreSetBonuses, scoreEquipmentWithRatingDiminishingReturns, scoreLoadout,
   getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,
   calculateCrestRequirements, isAscendantVenomstoneEligible, recommendUpgradePlan,
   createOptimizationReport, testData: WOW_OPTIMIZER_TEST_DATA
