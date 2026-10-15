@@ -77,6 +77,10 @@ const softTargetFixture = {
 };
 const loadoutScoreWithPenalty = o.scoreLoadout(softTargetFixture, {}, [], "", 90);
 const expectedSoftPenalty = o.getSecondaryRatingSoftTargetPenalty(softTargetFixture, 90);
+const drOnlyScore = o.scoreEquipmentWithRatingDiminishingReturns(softTargetFixture, {}, 90);
+if (Math.abs(loadoutScoreWithPenalty.rawScore - drOnlyScore) > 1e-9) {
+  throw new Error("The lower-level DR score must not apply the soft-target penalty a second time");
+}
 if (loadoutScoreWithPenalty.softTargetPenalty !== expectedSoftPenalty ||
     Math.abs(loadoutScoreWithPenalty.score - (loadoutScoreWithPenalty.rawScore - expectedSoftPenalty)) > 1e-9) {
   throw new Error("Complete loadout scoring must subtract the DR soft-target balancing penalty");
