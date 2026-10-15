@@ -604,17 +604,40 @@ def collect_season_content_item_ids(token):
 
     print(f"Blizzard Journal instance index returned {len(instances)} instances.")
 
-    # The Journal index includes legacy dungeons with names that collide with
-    # current-season sources. Resolve the season's actual dungeon map from the
-    # official Mythic+ season response and accept Journal entries only when
-    # their instance IDs are explicitly linked to a season map.
+    # Blizzard's Mythic+ season response exposes period references, not map
+    # membership. Use the Mythic Keystone dungeon index/details instead; its
+    # tracked flag and map.id identify the currently tracked dungeon pool.
+    dungeon_index = get_api_json(
+        "/data/wow/mythic-keystone/dungeon/index",
+        token,
+        {"namespace": PVP_NAMESPACE, "locale": LOCALE},
+    )
+    dungeon_refs = dungeon_index.get("dungeons", []) or []
+    if not dungeon_refs:
+        raise RuntimeError(
+            "Blizzard Mythic+ dungeon index returned no dungeons; "
+            "refusing to treat name-matched Journal instances as verified sources."
+        )
+
     season_map_ids = set()
-    for period in mythic_season.get("periods", []) or []:
-        for map_ref in period.get("maps", []) or []:
-            map_id = extract_id(map_ref)
-            if map_id:
-                season_map_ids.add(map_id)
-    print(f"Verified Mythic+ Season 2 map IDs from season periods: {sorted(season_map_ids)}")
+    for dungeon_ref in dungeon_refs:
+        dungeon_id = extract_id(dungeon_ref)
+        if not dungeon_id:
+            continue
+        dungeon = get_api_json(
+            f"/data/wow/mythic-keystone/dungeon/{dungeon_id}",
+            token,
+            {"namespace": PVP_NAMESPACE, "locale": LOCALE},
+        )
+        map_id = extract_id(dungeon.get("map"))
+        if dungeon.get("is_tracked") is True and map_id:
+            season_map_ids.add(map_id)
+    if not season_map_ids:
+        raise RuntimeError(
+            "Blizzard Mythic+ dungeon details exposed no tracked map IDs; "
+            "refusing to treat name-matched Journal instances as verified sources."
+        )
+    print(f"Verified tracked Mythic+ dungeon map IDs: {sorted(season_map_ids)}")
 
     for instance_ref in instances:
         instance_id = extract_id(instance_ref)
