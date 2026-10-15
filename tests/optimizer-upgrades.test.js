@@ -1225,8 +1225,8 @@ console.log("Manifest-backed tier-set detection regression passed.");
 
 
 // Regression: the Best Available Gear Upgrades panel must not recommend a
-// level-219 base trinket over a level-305 equipped trinket. An explicitly
-// catalogued higher-level variant remains eligible after variant expansion.
+// level-219 base trinket over a level-305 equipped trinket. A separately
+// catalogued higher-level copy must remain eligible.
 const equipped305Trinket = {
   id: 990305, name: "Equipped Test Trinket", slot: "Trinket 1", itemLevel: 305,
   stats: { Speed: 127 }
@@ -1246,17 +1246,18 @@ if (downgradeGuard.some(upgrade => upgrade.slot === "Trinket 1" &&
   throw new Error("Upgrade comparison must not recommend a level-219 base trinket over equipped level 305 gear");
 }
 const verifiedUpgradeVariant = {
-  ...base219Trinket,
-  variants: [{ itemLevel: 319, variantKey: "verified-319", stats: { Haste: 10000, CriticalStrike: 9000 } }]
+  id: 990319, name: "Wavecaller's Seastone (Verified Upgrade)", slot: "Trinket 1",
+  itemLevel: 319, inventoryType: "Trinket",
+  stats: { Haste: 10000, CriticalStrike: 9000 }
 };
 const verifiedVariantUpgrade = o.findUpgradeOpportunities({
   currentEquipment: { "Trinket 1": equipped305Trinket },
-  availableItems: [verifiedUpgradeVariant],
+  availableItems: [base219Trinket, verifiedUpgradeVariant],
   className: "Shaman",
   specialization: "Enhancement"
 });
 if (!verifiedVariantUpgrade.some(upgrade => upgrade.slot === "Trinket 1" &&
     Number(upgrade.recommendedItem?.itemLevel) === 319)) {
-  throw new Error("Upgrade comparison must retain explicitly catalogued higher-level variants");
+  throw new Error("Upgrade comparison must retain separately catalogued higher-level items");
 }
 console.log("Upgrade-panel anti-downgrade and verified-variant regression passed.");
