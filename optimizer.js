@@ -803,8 +803,28 @@ function optimizeEquipment({
   const equippedItems = Object.entries(character.equipment || {})
     .filter(([, item]) => item && typeof item === "object")
     .map(([slot, item]) => ({ ...item, slot: item.slot || slot }));
-  const candidateItemsByIdentity = new Map();
+  // Expand explicitly verified difficulty/upgrade variants before anti-downgrade
+  // filtering so each candidate is scored using its own item level and stats.
+  const expandedItems = [];
   for (const rawItem of [...(items || []), ...equippedItems]) {
+    if (!rawItem || typeof rawItem !== "object") continue;
+    expandedItems.push(rawItem);
+    if (Array.isArray(rawItem.variants)) {
+      for (const variant of rawItem.variants) {
+        if (!variant || typeof variant !== "object") continue;
+        expandedItems.push({
+          ...rawItem,
+          ...variant,
+          id: rawItem.id,
+          slot: variant.slot || rawItem.slot,
+          variantKey: variant.variantKey || String(rawItem.id) + ":variant:" + String(variant.itemLevel ?? variant.level ?? "unknown"),
+          baseItemId: rawItem.id,
+        });
+      }
+    }
+  }
+  const candidateItemsByIdentity = new Map();
+  for (const rawItem of expandedItems) {
     if (!rawItem || typeof rawItem !== "object") continue;
     const slot = rawItem.slot;
     const equippedItem = character.equipment?.[slot];
