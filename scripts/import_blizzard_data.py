@@ -9,6 +9,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 import sqlite3
+import tempfile
 import threading
 from datetime import datetime, timezone, timedelta
 from email.utils import parsedate_to_datetime
@@ -2145,9 +2146,27 @@ def main():
         "Crafted, vendor, outdoor, Delves, Prey, and other non-Journal sources require their own source-specific importers; they are not silently approximated as Season 2 gear.",
     ]
 
-    with open(OUTPUT, "w", encoding="utf-8") as handle:
-        json.dump(dataset, handle, indent=2)
-        handle.write("\n")
+    # Replace the unified dataset only after the full import has been assembled.
+    # A write/serialization failure must leave the last completed file intact.
+    output_dir = os.path.dirname(OUTPUT) or "."
+    fd, temporary_name = tempfile.mkstemp(
+        prefix=".current-retail.", suffix=".tmp", dir=output_dir
+    )
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as handle:
+            json.dump(dataset, handle, indent=2)
+            handle.write("\n")
+            handle.flush()
+            os.fsync(handle.fileno())
+        # Validate the staged JSON before making it the current dataset.
+        with open(temporary_name, "r", encoding="utf-8") as handle:
+            staged_dataset = json.load(handle)
+        if not isinstance(staged_dataset, dict) or not isinstance(staged_dataset.get("items"), list):
+            raise RuntimeError("Staged current Retail dataset failed structural validation.")
+        os.replace(temporary_name, OUTPUT)
+    finally:
+        if os.path.exists(temporary_name):
+            os.unlink(temporary_name)
 
     print(
         f"Season 2+ Retail gear import completed: {len(items)} enriched items "
