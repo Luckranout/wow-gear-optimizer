@@ -728,7 +728,10 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
       : ""
   ].filter(Boolean).join("");
   const byId = new Map();
-  for (const item of availableItems.concat(...requests.map(request => request.items))) {
+  // Prefer the verified slot-section record over the broad retail dataset when
+  // both contain the same item ID. Slot records carry the validated current-season
+  // stats and item metadata; first-wins deduplication silently discarded them.
+  for (const item of requests.map(request => request.items).flat().concat(availableItems)) {
     const key = item?.id != null ? String(item.id) : item?.name;
     if (key != null && !byId.has(key)) byId.set(key, item);
   }
