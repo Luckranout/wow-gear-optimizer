@@ -251,57 +251,47 @@ class BlizzardMythicSeasonVerificationTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, "returned no periods"):
                 import_blizzard_data.get_mythic_keystone_season("token")
 
-    def test_current_season_journal_sources_require_tracked_dungeon_map_ids(self):
-        season = {
-            "id": 18,
-            "season_name": "Mythic+ Dungeons (Midnight Season 2)",
-            "periods": [{"id": 101}],
-        }
+    def test_non_mythic_plus_season_sources_do_not_require_tracked_dungeon_map_ids(self):
+        season = {"id": 18, "season_name": "Mythic+ Dungeons (Midnight Season 2)", "periods": [{"id": 101}]}
         journal_index = [
             {"id": 1, "name": {"en_US": "Kings' Rest"}},
             {"id": 2, "name": {"en_US": "The Tidebound Grotto"}},
+            {"id": 3, "name": {"en_US": "The Venomous Abyss"}},
         ]
-        legacy_instance = {
-            "id": 1,
-            "name": {"en_US": "Kings' Rest"},
-            "map": {"id": 7001},
-            "journal_encounters": [{"id": 11}],
+        legacy_instance = {"id": 1, "name": {"en_US": "Kings' Rest"}, "map": {"id": 7001}, "journal_encounters": [{"id": 11}]}
+        tidebound_instance = {"id": 2, "name": {"en_US": "The Tidebound Grotto"}, "map": {"id": 9002}, "journal_encounters": [{"id": 22}]}
+        raid_instance = {"id": 3, "name": {"en_US": "The Venomous Abyss"}, "map": {"id": 9003}, "journal_encounters": [{"id": 33}]}
+        tidebound_encounter = {
+            "id": 22, "name": {"en_US": "Tidebound Boss"},
+            "instance": {"name": {"en_US": "The Tidebound Grotto"}}, "items": [{"item": {"id": 222}}],
         }
-        current_instance = {
-            "id": 2,
-            "name": {"en_US": "The Tidebound Grotto"},
-            "map": {"id": 9001},
-            "journal_encounters": [{"id": 22}],
+        raid_encounter = {
+            "id": 33, "name": {"en_US": "Abyss Boss"},
+            "instance": {"name": {"en_US": "The Venomous Abyss"}}, "items": [{"item": {"id": 333}}],
         }
-        current_encounter = {
-            "id": 22, "name": {"en_US": "Current Boss"},
-            "instance": {"name": {"en_US": "The Tidebound Grotto"}},
-            "items": [{"item": {"id": 222}}],
-        }
+
         def api(path, _token, _params):
             responses = {
-                "/data/wow/mythic-keystone/dungeon/index": {
-                    "dungeons": [{"id": 301}, {"id": 302}]
-                },
-                "/data/wow/mythic-keystone/dungeon/301": {
-                    "id": 301, "is_tracked": False, "map": {"id": 7001}
-                },
-                "/data/wow/mythic-keystone/dungeon/302": {
-                    "id": 302, "is_tracked": True, "map": {"id": 9001}
-                },
+                "/data/wow/mythic-keystone/dungeon/index": {"dungeons": [{"id": 301}, {"id": 302}]},
+                "/data/wow/mythic-keystone/dungeon/301": {"id": 301, "is_tracked": False, "map": {"id": 7001}},
+                "/data/wow/mythic-keystone/dungeon/302": {"id": 302, "is_tracked": True, "map": {"id": 9001}},
                 "/data/wow/journal-instance/1": legacy_instance,
-                "/data/wow/journal-instance/2": current_instance,
-                "/data/wow/journal-encounter/22": current_encounter,
+                "/data/wow/journal-instance/2": tidebound_instance,
+                "/data/wow/journal-instance/3": raid_instance,
+                "/data/wow/journal-encounter/22": tidebound_encounter,
+                "/data/wow/journal-encounter/33": raid_encounter,
             }
             if path in responses:
                 return responses[path]
             raise AssertionError(f"Unexpected API request: {path}")
+
         with (
             patch.object(import_blizzard_data, "get_mythic_keystone_season", return_value=season),
             patch.object(import_blizzard_data, "get_season_instances", return_value=journal_index),
             patch.object(import_blizzard_data, "get_api_json", side_effect=api),
         ):
             ids, matched, missing = import_blizzard_data.collect_season_content_item_ids("token")
-        self.assertEqual(set(ids), {222})
-        self.assertEqual(matched, ["The Tidebound Grotto"])
+
+        self.assertEqual(set(ids), {222, 333})
+        self.assertEqual(matched, ["The Tidebound Grotto", "The Venomous Abyss"])
         self.assertIn("Kings' Rest", missing)

@@ -197,6 +197,14 @@ SEASON_CONTENT_NAMES = {
     "The Tidebound Grotto",
 }
 
+# These current-season PvE Journal sources are not Mythic+ dungeons.
+# Do not gate their loot tables against the Mythic+ dungeon map pool.
+SEASON_NON_MYTHIC_PLUS_CONTENT_NAMES = {
+    "the venomous abyss",
+    "venomous abyss",
+    "the tidebound grotto",
+}
+
 
 def request_json(url, headers=None, data=None):
     method = "POST" if data is not None else "GET"
@@ -706,10 +714,13 @@ def collect_season_content_item_ids(token):
             {"namespace": NAMESPACE, "locale": LOCALE},
         )
 
-        # Require a stable map ID match, not just a reused dungeon name.
+        # Mythic+ dungeons require a stable map ID match. The raid and lair
+        # are separately named current-season PvE sources, not members of the
+        # Mythic+ rotation, so don't compare their Journal maps to that pool.
         map_ref = instance.get("map") or instance.get("map_id") or {}
         map_id = extract_id(map_ref)
-        if season_map_ids and map_id not in season_map_ids:
+        is_non_mythic_plus_source = canonical in SEASON_NON_MYTHIC_PLUS_CONTENT_NAMES
+        if not is_non_mythic_plus_source and season_map_ids and map_id not in season_map_ids:
             print(
                 f"Skipping Journal instance outside verified Mythic+ Season 2 maps: "
                 f"name={instance_name!r}; instance_id={instance_id}; map_id={map_id}."
@@ -718,7 +729,7 @@ def collect_season_content_item_ids(token):
         if not season_map_ids:
             raise RuntimeError(
                 "Blizzard Mythic+ Season 2 response exposed no map IDs; "
-                "refusing to treat name-matched Journal instances as verified current-season sources."
+                "refusing to treat name-matched current-season sources as verified."
             )
 
         matched_instances.append(instance_name)
