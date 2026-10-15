@@ -37,12 +37,9 @@ assert.equal(report.tierSetAware, true, "report should expose tier-set mode stat
 assert.equal(report.tierSet.scoringDataAvailable, false, "missing verified bonus scores must be disclosed");
 assert.ok(report.tierSet.note.includes("no verified numeric set-bonus scoring values"), "missing metadata warning should be explicit");
 
-
-
-// Real Midnight Season 2 / Tier 36 item IDs, verified against the item pages in
-// data/tier-set-item-ids.json. The numeric scores below are TEST FIXTURES only;
-// Actual set bonuses are specialization-specific effects and are not assigned
-// invented optimizer weights by this manifest.
+// Real Midnight Season 2 / Tier 36 Shaman item IDs are verified against the item
+// pages referenced in data/tier-set-item-ids.json. Numeric bonus scores below are
+// test fixtures only; real specialization-specific set effects have no invented weights.
 const tierItemManifest = JSON.parse(fs.readFileSync("data/tier-set-item-ids.json", "utf8"));
 const shamanSet = tierItemManifest.sets.find(set => set.className === "Shaman");
 assert.ok(shamanSet, "verified Shaman Tier 36 mapping should exist");
@@ -56,6 +53,46 @@ assert.deepEqual(
 );
 assert.deepEqual(tierItemManifest.completeness.pendingClasses.length, 12,
   "manifest must disclose that 12 other class sets remain unmapped");
+
+// Set identities are recorded for every class, but only classes with verified
+// piece IDs may count as mapped. Empty pending records must not masquerade as
+// complete tier-piece coverage.
+const expectedSetIdentities = [
+  ["Death Knight", "2055", "Baleful Grave-Knight's Crucible"],
+  ["Demon Hunter", "2056", "Abyssal Doomhound's Pursuit"],
+  ["Druid", "2057", "Bark of the Enigmatic Dreamwatcher"],
+  ["Evoker", "2058", "Echo of Calamity"],
+  ["Hunter", "2059", "Skulking Viper's Ambush"],
+  ["Mage", "2060", "Primal Leywarden's Attire"],
+  ["Monk", "2061", "Guile of the Monkey King"],
+  ["Paladin", "2062", "Radiance of the Consecrated Flame"],
+  ["Priest", "2063", "Cosmic Penitent's Raiment"],
+  ["Rogue", "2064", "Chosen Bloodslayer's Hexweave"],
+  ["Shaman", "2065", "Ophidian Oracle's Prophecy"],
+  ["Warlock", "2066", "Damned Necrolyte's Shattered Restraints"],
+  ["Warrior", "2067", "Jade Warlord's Dominion"]
+];
+assert.equal(tierItemManifest.sets.length, 13, "manifest should identify all 13 Midnight Season 2 class sets");
+assert.equal(new Set(tierItemManifest.sets.map(set => set.className)).size, 13,
+  "each class must have one distinct tier-set record");
+assert.equal(new Set(tierItemManifest.sets.map(set => set.setId)).size, 13,
+  "class tier-set IDs must be unique");
+for (const [className, setId, setName] of expectedSetIdentities) {
+  const set = tierItemManifest.sets.find(candidate => candidate.className === className);
+  assert.ok(set, `missing tier-set identity for ${className}`);
+  assert.equal(set.setId, setId, `${className} set ID should match the Wowhead item-set record`);
+  assert.equal(set.setName, setName, `${className} set name should match the Wowhead item-set record`);
+  if (className !== "Shaman") {
+    assert.equal(set.pieces.length, 0, `${className} must remain unmapped until item IDs are verified`);
+    assert.equal(set.mappingStatus, "set-verified-pieces-pending",
+      `${className} must explicitly disclose pending piece mapping`);
+  }
+}
+assert.deepEqual(
+  tierItemManifest.completeness.mappedClasses,
+  ["Shaman"],
+  "only classes with verified item IDs may be marked as mapped"
+);
 
 const dataContext = { window: {} };
 vm.runInNewContext(fs.readFileSync("wow-data.js", "utf8"), dataContext);
@@ -96,11 +133,11 @@ for (const [pieceCount, expectedScore, expectedThresholds] of [
     specialization: "Elemental"
   });
   assert.equal(contextAtBreakpoint.bonusScore, expectedScore,
-    `${pieceCount} real Shaman tier items should score only the active test-fixture thresholds`);
+    `${pieceCount} Shaman tier items should score only the active test-fixture thresholds`);
   assert.deepEqual(
     Array.from(contextAtBreakpoint.activeBonuses, bonus => bonus.pieces).sort((a, b) => a - b),
     expectedThresholds,
-    `${pieceCount} real Shaman tier items should activate the correct 2-piece/4-piece breakpoints`
+    `${pieceCount} Shaman tier items should activate the correct 2-piece/4-piece breakpoints`
   );
 }
 
