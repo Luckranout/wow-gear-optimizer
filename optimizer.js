@@ -796,15 +796,17 @@ function findUpgradeOpportunities({
   availableItems = [],
   goal = WOW_GOALS.general,
   statWeights = null,
+  optimizationProfile = {},
   limit = 5
 } = {}) {
   const weights = statWeights || getGoalWeights(goal);
   const upgrades = [];
   for (const slot of WOW_EQUIPMENT_SLOTS) {
     const currentItem = currentEquipment[slot];
-    const currentScore = scoreItem(currentItem, weights);
-    const candidates = availableItems.filter(item => itemMatchesSlot(item, slot) && hasUsableItemStats(item))
-      .map(item => ({ item, score: scoreItem(item, weights) }))
+    const baselineStats = getEquipmentStatTotals(currentEquipment, slot);
+    const currentScore = scoreItemWithProfile(currentItem, weights, optimizationProfile, baselineStats);
+    const candidates = availableItems.filter(item => itemMatchesSlot(item, slot) && hasUsableItemStats(item) && item.optimizerEligible !== false)
+      .map(item => ({ item, score: scoreItemWithProfile(item, weights, optimizationProfile, baselineStats) }))
       .filter(candidate => candidate.score > currentScore)
       .sort((a, b) => b.score - a.score);
     if (candidates.length) {
@@ -979,6 +981,11 @@ function createOptimizationReport({character = createCharacterProfile(), availab
   const goal = character.goal || WOW_GOALS.general;
   const simulation = character.simulation || dataset?.simulation || null;
   const simulationContext = getSimulationWeightContext(simulation);
+  const profileContext = getSpecProfileContext({
+    dataset, className: character.className, specialization: character.specialization,
+    specializationId: character.specializationId
+  });
+  const optimizationProfile = profileContext.optimizationProfile || {};
   const statWeights = resolveStatWeights({
     goal,
     className: character.className,
@@ -986,15 +993,22 @@ function createOptimizationReport({character = createCharacterProfile(), availab
     statProfiles: dataset?.optimizationProfiles,
     simulation
   });
+  const profileRules = getOptimizationProfileRules(optimizationProfile);
   const statSummary = getCharacterStatSummary(character.statistics, statWeights);
   const setBonuses = Array.isArray(dataset?.setBonuses) ? dataset.setBonuses : [];
-  const optimized = optimizeEquipment({ items: availableItems, character, goal, statWeights, tierSetAware, setBonuses });
+  const optimized = optimizeEquipment({
+    items: availableItems, character, goal, statWeights, tierSetAware, setBonuses, optimizationProfile
+  });
   const upgrades = findUpgradeOpportunities({
     currentEquipment: character.equipment,
     availableItems,
     goal,
     statWeights,
+    optimizationProfile,
     limit: 5
+  });
+  const combatEnhancements = evaluateCombatEnhancementOptions({
+    dataset, character, statWeights, optimizationProfile
   });
   const system = upgradeSystem || getUpgradeSystem(dataset);
   const upgradePlans = WOW_EQUIPMENT_SLOTS
@@ -1017,6 +1031,20 @@ function createOptimizationReport({character = createCharacterProfile(), availab
         : null
     },
     topUpgrades: upgrades, upgradePlans, currentStats: statSummary,
+    statOptimization: {
+      profileAvailable: Boolean(profileContext.optimizationProfile),
+      profileSource: profileRules.source || profileContext.optimizationProfile?.source || null,
+      profileVerified: profileRules.verified,
+      softTargets: profileRules.softTargets,
+      hardCaps: profileRules.hardCaps,
+      diminishingReturnsStats: Object.keys(profileRules.diminishingReturns),
+      specializationMasteryWeight: profileRules.specializationMasteryWeight,
+      applied: profileRules.hasRules,
+      note: profileRules.hasRules
+        ? "Profile-supplied caps, soft targets, and verified diminishing-return conversions are applied to complete-loadout scoring."
+        : "No validated caps, soft targets, or stat-rating conversion profile was available. The optimizer does not invent specialization-specific values."
+    },
+    combatEnhancements,
     optimizationContext: simulationContext ? {
       source: simulationContext.source,
       method: simulationContext.method,
@@ -1025,8 +1053,8 @@ function createOptimizationReport({character = createCharacterProfile(), availab
       characterId: simulationContext.characterId,
       generatedAt: simulationContext.generatedAt
     } : {
-      source: "Static goal heuristic (not spec-specific simulation)",
-      method: "static-weights-heuristic",
+      source: profileRules.source || "Static goal heuristic (not spec-specific simulation)",
+      method: profileContext.optimizationProfile ? "specialization-profile" : "static-weights-heuristic",
       patch: null,
       specialization: character.specialization || null,
       characterId: character.characterId ?? null,
@@ -1034,12 +1062,15 @@ function createOptimizationReport({character = createCharacterProfile(), availab
     },
     recommendationStatus: simulationContext
       ? "simulation-weighted-ranking-not-full-stat-projection"
-      : "heuristic-ranking-not-simulation-validated",
+      : profileContext.optimizationProfile
+        ? "profile-weighted-ranking-not-full-stat-projection"
+        : "heuristic-ranking-not-simulation-validated",
     numericProjectionAvailable: false,
     recommendationLimitations: [
       "Gear ranking is not a full combat simulation.",
-      "Static fallback weights are not specialization-specific.",
+      "Specialization weights, soft targets, hard caps, and diminishing-return conversions are applied only when explicitly supplied by a matching profile or simulation.",
       "Imported item stat presence does not prove complete item or enhancement effects.",
+      "Buff and consumable estimates are separate from gear score and require verified numeric effect records.",
       "Numeric projected character stats are not calculated by this report."
     ],
     equipmentSlots: WOW_EQUIPMENT_SLOTS.length, generatedAt: new Date().toISOString()
@@ -1057,6 +1088,8 @@ window.WoWOptimizer = {
   normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, hasUsableItemStats, scoreItem, scoreEquipment, getGoalWeights,
   findBestItemForSlot, optimizeEquipment, findUpgradeOpportunities, rankItems,
   normalizeSetId, getSetBonusContext, scoreTierSetAwareLoadout,
+  getOptimizationProfileRules, scoreStatRating, scoreEquipmentWithProfile, scoreItemWithProfile,
+  optimizeLoadoutWithProfile, evaluateCombatEnhancementOptions,
   getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,
   calculateCrestRequirements, isAscendantVenomstoneEligible, recommendUpgradePlan,
   createOptimizationReport, testData: WOW_OPTIMIZER_TEST_DATA
