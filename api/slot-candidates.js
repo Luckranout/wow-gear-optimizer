@@ -26,7 +26,11 @@ function slotMatches(item, slot) {
   const inv = String(item.inventoryType?.name || item.inventoryType || "").toLowerCase();
   if (slot === "Ring 1" || slot === "Ring 2") return /finger|ring/.test(inv);
   if (slot === "Trinket 1" || slot === "Trinket 2") return /trinket/.test(inv);
-  if (slot === "Main Hand") return /main.?hand|two.?hand|weapon|staff|sword|axe|mace|dagger|polearm|fist|bow|gun|crossbow/.test(inv);
+  if (slot === "Main Hand") {
+    const itemClass = String(item.itemClass?.name || item.itemClass || "").toLowerCase();
+    return /main.?hand|two.?hand|weapon|staff|sword|axe|mace|dagger|polearm|fist|bow|gun|crossbow/.test(inv) ||
+      (/(one.?hand|main.?hand)/.test(inv) && /weapon/.test(itemClass));
+  }
   if (slot === "Off Hand") return /off.?hand|shield|holdable|offhand/.test(inv) ||
     Boolean(item.equipSlots && Array.isArray(item.equipSlots) && item.equipSlots.includes("Off Hand"));
   if (item.slot === slot) return true;
