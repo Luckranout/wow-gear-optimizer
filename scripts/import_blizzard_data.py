@@ -657,10 +657,26 @@ def collect_season_content_item_ids(token):
         )
 
     season_map_ids = set()
-    for dungeon_ref in dungeon_refs:
-        dungeon_id = extract_id(dungeon_ref)
-        if not dungeon_id:
-            continue
+    valid_dungeon_refs = [
+        (index, dungeon_ref, extract_id(dungeon_ref))
+        for index, dungeon_ref in enumerate(dungeon_refs, start=1)
+        if extract_id(dungeon_ref)
+    ]
+    total_dungeons = len(valid_dungeon_refs)
+    print(
+        f"Checking tracked status for {total_dungeons} Mythic+ dungeon entries.",
+        flush=True,
+    )
+    for position, (index, dungeon_ref, dungeon_id) in enumerate(valid_dungeon_refs, start=1):
+        # Emit progress while making per-dungeon detail requests. Without this,
+        # a slow API response/retry leaves Actions logs appearing frozen for
+        # several minutes even though the importer is still working.
+        if position == 1 or position % 5 == 0 or position == total_dungeons:
+            print(
+                f"Mythic+ dungeon detail progress: {position}/{total_dungeons} "
+                f"(current dungeon id={dungeon_id}).",
+                flush=True,
+            )
         dungeon = get_api_json(
             f"/data/wow/mythic-keystone/dungeon/{dungeon_id}",
             token,
