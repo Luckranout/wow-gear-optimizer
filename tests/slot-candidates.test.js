@@ -81,6 +81,21 @@ assert.equal(allowedForSpecialization({
     assert.equal(res.body.count, 1);
     assert.match(res.headers["cache-control"], /s-maxage=900/);
 
+    const oneHandDagger = {
+      id: 401, name: "Season One-Hand Dagger", inventoryType: { name: "One-Hand" },
+      isEquippable: true, seasonScope: "Midnight Season 2+", itemClass: { name: "Weapon" },
+      itemSubclass: { name: "Dagger" }, stats: [{ name: "agility", value: 18 }]
+    };
+    const oneHandArmor = {
+      ...oneHandDagger, id: 402, name: "Invalid One-Hand Armor", itemClass: { name: "Armor" },
+      itemSubclass: { name: "Leather" }
+    };
+    writeSection(dir, "main-hand", { complete: true, items: [oneHandDagger, oneHandArmor] });
+    res = await call("GET", { slot: "Main Hand", class: "Rogue" });
+    assert.equal(res.statusCode, 200, "main-hand section returns 200");
+    assert.deepEqual(res.body.items.map(item => item.id), [401], "API returns compatible one-hand weapons and excludes one-hand armor");
+    assert.equal(res.body.count, 1, "main-hand candidate count reflects compatible one-hand weapons");
+
     res = await call("GET", { slot: "Neck", class: "Mage" });
     assert.equal(res.statusCode, 503, "missing section fails closed");
 
