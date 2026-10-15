@@ -1,6 +1,11 @@
 import unittest
 
-from scripts.import_blizzard_data import extract_talent_nodes, reference_id, talent_tree_reference_id
+from scripts.import_blizzard_data import (
+    extract_talent_nodes,
+    reference_id,
+    talent_tree_hero_reference_ids,
+    talent_tree_reference_id,
+)
 
 
 class TalentReferenceIdTests(unittest.TestCase):
@@ -23,6 +28,16 @@ class TalentReferenceIdTests(unittest.TestCase):
     def test_integer_tree_reference_is_supported(self):
         self.assertEqual(talent_tree_reference_id(42), 42)
 
+    def test_extracts_hero_tree_and_hero_talent_ids(self):
+        ref = {
+            "key": {
+                "href": "https://us.api.blizzard.com/data/wow/talent-tree/1034/hero-talent/777?namespace=static-us"
+            }
+        }
+        self.assertEqual(talent_tree_hero_reference_ids(ref), (1034, 777))
+
+    def test_hero_tree_reference_without_hero_path_has_no_hero_id(self):
+        self.assertEqual(talent_tree_hero_reference_ids({"id": 1034}), (1034, None))
 
     def test_extracts_blizzard_talent_nodes_field(self):
         nodes = [
