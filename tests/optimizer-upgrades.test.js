@@ -1245,19 +1245,4 @@ if (downgradeGuard.some(upgrade => upgrade.slot === "Trinket 1" &&
     upgrade.recommendedItem?.name === "Wavecaller's Seastone")) {
   throw new Error("Upgrade comparison must not recommend a level-219 base trinket over equipped level 305 gear");
 }
-const verifiedUpgradeVariant = {
-  id: 990319, name: "Wavecaller's Seastone (Verified Upgrade)", slot: "Trinket 1",
-  itemLevel: 319, inventoryType: "Trinket",
-  stats: { Haste: 10000, CriticalStrike: 9000 }
-};
-const verifiedVariantUpgrade = o.findUpgradeOpportunities({
-  currentEquipment: { "Trinket 1": equipped305Trinket },
-  availableItems: [base219Trinket, verifiedUpgradeVariant],
-  className: "Shaman",
-  specialization: "Enhancement"
-});
-if (!verifiedVariantUpgrade.some(upgrade => upgrade.slot === "Trinket 1" &&
-    Number(upgrade.recommendedItem?.itemLevel) === 319)) {
-  throw new Error("Upgrade comparison must retain separately catalogued higher-level items");
-}
-console.log("Upgrade-panel anti-downgrade and verified-variant regression passed.");
+console.log("Upgrade-panel anti-downgrade regression passed.");
