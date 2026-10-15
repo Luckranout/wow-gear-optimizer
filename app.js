@@ -77,6 +77,17 @@ async function loadRealmOptions() {
 async function loadCurrentRetailData() {
   try {
     retailDataset = await WoWData.loadRetailDataset();
+    // Load source-backed tier-set coverage separately; never infer missing piece IDs.
+    try {
+      const tierResponse = await fetch("data/tier-sets-midnight-season-2.json");
+      if (!tierResponse.ok) throw new Error(`Tier-set catalogue request failed (${tierResponse.status}).`);
+      const tierSetCatalogue = await tierResponse.json();
+      if (!Array.isArray(tierSetCatalogue?.sets)) throw new Error("Tier-set catalogue has no sets array.");
+      retailDataset.tierSetCatalogue = tierSetCatalogue;
+    } catch (tierError) {
+      console.warn("Tier-set coverage catalogue unavailable:", tierError);
+      retailDataset.tierSetCatalogue = null;
+    }
     if (encounterSelect) {
       const encounters = Array.isArray(retailDataset.encounters) ? retailDataset.encounters : [];
       encounterSelect.innerHTML = '<option value="">No encounter selected</option>' +
@@ -785,9 +796,15 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
     ? `${character.characterName} • ${character.className} • ${character.specialization}`
     : `${character.className} • ${character.specialization}`;
 
+  const tierCoverage = report.tierSetCoverage;
+  const tierCoverageNote = !tierCoverage || tierCoverage.catalogueStatus === "unavailable"
+    ? " Tier-set coverage unavailable; set bonuses are not verified."
+    : tierCoverage.itemMappingVerified
+      ? ` Tier set: ${tierCoverage.setName} piece mapping verified (${tierCoverage.verifiedPieceCount}/${tierCoverage.expectedPieceCount}); numeric bonus scoring remains disabled.`
+      : ` Tier-set warning: ${tierCoverage.className || character.className} piece mapping is unverified; do not treat set counts or bonus optimization as complete. ${tierCoverage.verifiedClassCount}/${tierCoverage.totalClassCount} classes have verified mappings.`;
   resultMessage.textContent = report.topUpgrades.length
-    ? `${label} • ${character.goal} — ${report.topUpgrades.length} gear candidates ranked. This is a ranking aid, not a verified best-in-slot result or numeric projected-stat calculation.`
-    : `${label} • ${character.goal} — no direct gear candidates ranked from the currently available dataset. This does not prove that no upgrades exist in game.`;
+    ? `${label} • ${character.goal} — ${report.topUpgrades.length} gear candidates ranked. This is a ranking aid, not a verified best-in-slot result or numeric projected-stat calculation.${tierCoverageNote}`
+    : `${label} • ${character.goal} — no direct gear candidates ranked from the currently available dataset. This does not prove that no upgrades exist in game.${tierCoverageNote}`;
 });
 
 document.querySelector("#clearBtn").addEventListener("click", () => {
