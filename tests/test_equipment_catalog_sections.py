@@ -162,15 +162,14 @@ class EquipmentSectionPaginationTests(unittest.TestCase):
         self.assertEqual(sections, {})
         self.assertEqual(sources, {})
 
-    def test_detail_lookup_failure_does_not_create_unverified_slot_candidates(self):
+    def test_detail_lookup_failure_aborts_incomplete_source_scan(self):
         def failed_detail(_path, _token, _params):
             raise RuntimeError("temporary API failure")
 
-        sections, sources = collect_equipment_section_ids(
-            "token", failed_detail, {11}, sleep=lambda _s: None
-        )
-        self.assertEqual(sections, {})
-        self.assertEqual(sources, {})
+        with self.assertRaisesRegex(RuntimeError, "classification was incomplete"):
+            collect_equipment_section_ids(
+                "token", failed_detail, {11}, sleep=lambda _s: None
+            )
 
     def test_incomplete_section_does_not_replace_previous_file(self):
         with tempfile.TemporaryDirectory() as temporary:
