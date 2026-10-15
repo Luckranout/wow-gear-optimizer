@@ -82,6 +82,8 @@ jobs:
         run: python -m unittest tests/test_talent_reference_ids.py
       - name: Run item stat coverage tests
         run: python -m unittest tests/test_item_stat_coverage.py
+      - name: Run supporting catalog validation tests
+        run: python -m unittest discover -s tests -p "test_supporting_catalog_validation.py" -v
       - name: Run verified item effect observation tests
         run: python -m unittest tests/test_verified_item_effect_observations.py
       - name: Run fail-closed item stat verifier tests
