@@ -249,7 +249,12 @@ function renderPveOptimizationDetails(report = {}) {
     const caps = Object.entries(model.hardCaps || {});
     if (targets.length) lines.push(`Soft targets (profile rating units): ${targets.map(([stat, value]) => `${stat} ${value}`).join(", ")}`);
     if (caps.length) lines.push(`Hard caps (profile rating units): ${caps.map(([stat, value]) => `${stat} ${value}`).join(", ")}`);
-    if (model.diminishingReturnsStats?.length) lines.push(`Verified rating-to-percent diminishing-return rules: ${model.diminishingReturnsStats.join(", ")}`);
+    if (model.diminishingReturnsStats?.length) {
+      lines.push(`Verified rating-to-percent diminishing-return rules: ${model.diminishingReturnsStats.join(", ")}`);
+      for (const [stat, rule] of Object.entries(model.diminishingReturnsSources || {})) {
+        lines.push(`${stat} DR conversion: ${rule.ratingPerPercent} rating per 1%; cap ${rule.hardCapPercent}%; conversion source: ${rule.ratingConversionSource}; threshold curve: ${rule.thresholdCurveSource}`);
+      }
+    }
     if (!lines.length) lines.push(model.note || "No verified stat caps, soft targets, or rating conversion data is available for this specialization.");
     rulesList.innerHTML = lines.map(line => `<li>${escapeSlotText(line)}</li>`).join("");
   }
