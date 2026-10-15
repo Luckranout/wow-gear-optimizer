@@ -708,16 +708,27 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
       const payload = await response.json();
       if (!response.ok) {
         console.warn(`No on-demand candidates for ${slot}:`, payload.error || response.status);
-        return [];
+        return { slot, items: [], failed: true, reason: payload.error || `HTTP ${response.status}` };
       }
-      return Array.isArray(payload.items) ? payload.items : [];
+      const items = Array.isArray(payload.items) ? payload.items : [];
+      return { slot, items, failed: false, empty: items.length === 0 };
     } catch (error) {
       console.warn(`Candidate request failed for ${slot}:`, error);
-      return [];
+      return { slot, items: [], failed: true, reason: error?.message || "Network or response error" };
     }
   }));
+  const failedCandidateSlots = requests.filter(request => request.failed).map(request => request.slot);
+  const emptyCandidateSlots = requests.filter(request => !request.failed && request.empty).map(request => request.slot);
+  const candidateCoverageNote = [
+    failedCandidateSlots.length
+      ? ` Candidate coverage warning: could not load verified candidates for ${failedCandidateSlots.length} slot(s): ${failedCandidateSlots.join(", ")}. Results may be incomplete; “no upgrade” is not confirmed for those slots.`
+      : "",
+    emptyCandidateSlots.length
+      ? ` No validated compatible catalog candidates were returned for: ${emptyCandidateSlots.join(", ")}. This does not prove that no upgrade exists in game.`
+      : ""
+  ].filter(Boolean).join("");
   const byId = new Map();
-  for (const item of availableItems.concat(...requests)) {
+  for (const item of availableItems.concat(...requests.map(request => request.items))) {
     const key = item?.id != null ? String(item.id) : item?.name;
     if (key != null && !byId.has(key)) byId.set(key, item);
   }
@@ -784,9 +795,10 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
     : tierCoverage.itemMappingVerified
       ? ` Tier set: ${tierCoverage.setName} piece mapping verified (${tierCoverage.verifiedPieceCount}/${tierCoverage.expectedPieceCount}); numeric bonus scoring remains disabled.`
       : ` Tier-set warning: ${tierCoverage.className || character.className} piece mapping is unverified; do not treat set counts or bonus optimization as complete. ${tierCoverage.verifiedClassCount}/${tierCoverage.totalClassCount} classes have verified mappings.`;
+  const coverageNote = candidateCoverageNote + tierCoverageNote;
   resultMessage.textContent = report.topUpgrades.length
-    ? `${label} • ${character.goal} — ${report.topUpgrades.length} gear candidates ranked. This is a ranking aid, not a verified best-in-slot result or numeric projected-stat calculation.${tierCoverageNote}`
-    : `${label} • ${character.goal} — no direct gear candidates ranked from the currently available dataset. This does not prove that no upgrades exist in game.${tierCoverageNote}`;
+    ? `${label} • ${character.goal} — ${report.topUpgrades.length} gear candidates ranked. This is a ranking aid, not a verified best-in-slot result or numeric projected-stat calculation.${coverageNote}`
+    : `${label} • ${character.goal} — no direct gear candidates ranked from the currently available dataset. This does not prove that no upgrades exist in game.${coverageNote}`;
 });
 
 document.querySelector("#clearBtn").addEventListener("click", () => {
