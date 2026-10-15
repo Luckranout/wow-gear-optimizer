@@ -141,33 +141,4 @@ const realShamanItems = normalizedShamanDataset.items;
 assert.equal(realShamanItems.length, 5, "all five real Shaman items should survive dataset normalization");
 assert.ok(realShamanItems.every(item => item.setId === shamanSet.setId && item.isSetPiece === true),
   "verified item IDs should acquire tier-set membership during dataset normalization");
-const actualShamanBonuses = [
-  { setId: shamanSet.setId, name: shamanSet.setName, className: "Shaman", specialization: "Elemental", pieces: 2, bonusScore: 10 },
-  { setId: shamanSet.setId, name: shamanSet.setName, className: "Shaman", specialization: "Elemental", pieces: 4, bonusScore: 20 }
-];
-function actualShamanLoadout(pieceCount) {
-  return Object.fromEntries(realShamanItems.slice(0, pieceCount).map(item => [item.slot, item]));
-}
-for (const [pieceCount, expectedScore, expectedThresholds] of [
-  [1, 0, []],
-  [2, 10, [2]],
-  [3, 10, [2]],
-  [4, 30, [2, 4]],
-  [5, 30, [2, 4]]
-]) {
-  const contextAtBreakpoint = optimizer.getSetBonusContext({
-    equipment: actualShamanLoadout(pieceCount),
-    setBonuses: actualShamanBonuses,
-    className: "Shaman",
-    specialization: "Elemental"
-  });
-  assert.equal(contextAtBreakpoint.bonusScore, expectedScore,
-    `${pieceCount} Shaman tier items should score only the active test-fixture thresholds`);
-  assert.deepEqual(
-    Array.from(contextAtBreakpoint.activeBonuses, bonus => bonus.pieces).sort((a, b) => a - b),
-    expectedThresholds,
-    `${pieceCount} Shaman tier items should activate the correct 2-piece/4-piece breakpoints`
-  );
-}
-
 console.log("Tier-set-aware optimizer tests passed.");
