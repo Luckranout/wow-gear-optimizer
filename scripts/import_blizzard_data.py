@@ -1879,6 +1879,30 @@ def fetch_item_details(token, item_ids, item_sources):
         )
         item["seasonScope"] = SEASON_SCOPE
         item["sourceLocations"] = item_sources.get(item_id, [])
+
+        # Wowhead uses one base item ID for difficulty and upgrade variants.
+        # This curated variant uses the observed Mythic bonus list (6652:13335:12854)
+        # and fetches displayed 340 stats instead of scaling the base record in code.
+        if item_id == 270167:
+            try:
+                variant_stats = fetch_wowhead_tooltip_stats(
+                    item_id, wowhead_diagnostics,
+                    bonus_ids=[6652, 13335, 12854], item_level=340,
+                )
+                if variant_stats:
+                    item["variants"] = [{
+                        "variantKey": "wowhead:6652:13335:12854:ilvl340",
+                        "name": item.get("name"),
+                        "level": 340,
+                        "itemLevel": 340,
+                        "stats": variant_stats,
+                        "statsSource": "Wowhead tooltip (explicit 340 item-level variant; bonus IDs 6652:13335:12854)",
+                        "variantSource": "Wowhead Mythic variant bonus IDs 6652:13335:12854 with explicit item-level override 340",
+                        "bonusIds": [6652, 13335, 12854],
+                    }]
+            except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, ValueError, json.JSONDecodeError) as error:
+                print(f"Item {item_id}: upgraded Wowhead variant unavailable ({type(error).__name__}).")
+
         if not item_has_verified_stats(item):
             try:
                 fallback_stats = fetch_wowhead_tooltip_stats(item_id, wowhead_diagnostics)
