@@ -45,6 +45,67 @@ function allowedForClass(item, className, slot) {
   const subclass = String(item.itemSubclass?.name || item.itemSubclass || "").toLowerCase();
   return (itemClass.includes("armor") || itemClass.includes("armour")) && subclass === expected;
 }
+const CLASS_WEAPONS = {
+  warrior: ["axe", "dagger", "fist weapon", "gun", "mace", "polearm", "staff", "sword", "bow", "crossbow"],
+  paladin: ["axe", "mace", "polearm", "sword"],
+  hunter: ["axe", "dagger", "fist weapon", "gun", "polearm", "staff", "sword", "bow", "crossbow"],
+  rogue: ["axe", "dagger", "fist weapon", "gun", "mace", "sword", "bow", "crossbow"],
+  priest: ["dagger", "mace", "staff", "wand"],
+  shaman: ["axe", "dagger", "fist weapon", "mace", "staff"],
+  mage: ["dagger", "sword", "staff", "wand"],
+  warlock: ["dagger", "sword", "staff", "wand"],
+  monk: ["axe", "fist weapon", "polearm", "staff", "sword"],
+  druid: ["dagger", "fist weapon", "mace", "polearm", "staff"],
+  demonhunter: ["fist weapon", "one-hand sword", "one-hand axe", "one-hand mace"],
+  deathknight: ["axe", "mace", "polearm", "sword"],
+  evoker: ["axe", "dagger", "mace", "sword", "staff"]
+};
+function normalizeWeaponType(value) {
+  const raw = String(value?.name || value || "").trim().toLowerCase();
+  if (!raw) return "";
+  if (raw.includes("staff")) return "staff";
+  if (raw.includes("fist")) return "fist weapon";
+  if (raw.includes("polearm")) return "polearm";
+  if (raw.includes("crossbow")) return "crossbow";
+  if (raw.includes("bow")) return "bow";
+  if (raw.includes("gun")) return "gun";
+  if (raw.includes("dagger")) return "dagger";
+  if (raw.includes("wand")) return "wand";
+  if (raw.includes("sword")) return raw.includes("one-hand") ? "one-hand sword" : "sword";
+  if (raw.includes("axe")) return raw.includes("one-hand") ? "one-hand axe" : "axe";
+  if (raw.includes("mace")) return raw.includes("one-hand") ? "one-hand mace" : "mace";
+  if (raw.includes("shield") || raw.includes("held in off-hand") || raw.includes("off-hand")) return "off-hand";
+  if (raw.includes("two-hand")) return "two-hand";
+  if (raw.includes("one-hand")) return "one-hand";
+  return "";
+}
+function allowedForClassWeapon(item, className, slot) {
+  if (slot !== "Main Hand" && slot !== "Off Hand") return true;
+  const allowed = CLASS_WEAPONS[normalizeClass(className)];
+  if (!allowed) return false;
+  const type = normalizeWeaponType(item.itemSubclass || item.weaponType || item.inventoryType);
+  // A weapon with no recognizable subclass is not safe to recommend.
+  if (!type) return false;
+  if (type === "off-hand") return slot === "Off Hand";
+  if (slot === "Off Hand" && (type === "staff" || type === "two-hand")) return false;
+  return allowed.includes(type) || (type === "one-hand" && allowed.some(value =>
+    ["axe", "dagger", "fist weapon", "mace", "sword"].includes(value)
+  ));
+}
+function allowedForSpecialization(item, className, specialization, slot) {
+  if (normalizeClass(className) !== "shaman" ||
+      String(specialization || "").trim().toLowerCase() !== "enhancement" ||
+      (slot !== "Main Hand" && slot !== "Off Hand")) return true;
+  const type = normalizeWeaponType(item.itemSubclass || item.weaponType || item.inventoryType);
+  const inventory = String(item.inventoryType?.name || item.inventoryType || "").toLowerCase();
+  const name = String(item.name || "").toLowerCase();
+  if (type === "staff" || inventory.includes("staff") || name.includes("staff")) return false;
+  if (slot === "Off Hand" && (type === "two-hand" || /two.?hand/.test(inventory))) return false;
+  if (slot === "Main Hand" && (type === "two-hand" || /two.?hand/.test(inventory)) &&
+      !(type === "mace" || name.includes("mace"))) return false;
+  return true;
+}
+
 function hasUsableStats(item) {
   const values = item.stats ?? item.statValues ?? item.stat_values ?? item.attributes;
   if (Array.isArray(values)) return values.some(stat => Number(stat?.value ?? stat?.amount ?? stat) > 0);
@@ -68,6 +129,7 @@ async function handler(req, res) {
   const slot = String(req.query?.slot || "");
   const section = SLOT_SECTION[slot];
   const className = String(req.query?.class || "");
+  const specialization = String(req.query?.specialization || "");
   if (!section) return res.status(400).json({ error: "Unsupported equipment slot." });
   if (!className) return res.status(400).json({ error: "Class is required to enforce armor restrictions." });
   const file = path.join(sectionDir, section + ".json");
@@ -81,10 +143,12 @@ async function handler(req, res) {
       item.seasonScope === "Midnight Season 2+" &&
       hasUsableStats(item) &&
       slotMatches(item, slot) &&
-      allowedForClass(item, className, slot)
+      allowedForClass(item, className, slot) &&
+      allowedForClassWeapon(item, className, slot) &&
+      allowedForSpecialization(item, className, specialization, slot)
     );
     res.setHeader("Cache-Control", "public, s-maxage=900, stale-while-revalidate=1800");
-    return res.status(200).json({ slot, section, count: items.length, items, source: "verified-season-section-cache" });
+    return res.status(200).json({ slot, section, count: items.length, items, coverage: items.length ? "candidates-available" : "no-validated-compatible-candidates", source: "verified-season-section-cache" });
   } catch (error) {
     if (error.code === "ENOENT" || error instanceof SyntaxError) {
       return res.status(503).json({ error: "Verified equipment section is not available yet; no fallback catalog was used." });
@@ -93,7 +157,7 @@ async function handler(req, res) {
   }
 }
 handler._test = {
-  SLOT_SECTION, slotMatches, allowedForClass, normalizeClass, hasUsableStats,
+  SLOT_SECTION, slotMatches, allowedForClass, allowedForClassWeapon, allowedForSpecialization, normalizeWeaponType, normalizeClass, hasUsableStats,
   createResponse,
   setSectionDir(dir) { sectionDir = dir; }
 };
