@@ -206,7 +206,7 @@ async function loadRetailDataset(url = "data/current-retail.json") {
 
   data.tierSetCatalogue = tierCatalogue;
   const sourceBackedBonuses = (tierCatalogue?.sets || []).map(set => ({
-    setId: set.id || String(set.setName || "").trim().toLowerCase(),
+    setId: set.id || set.pieces?.find(piece => piece?.setId)?.setId || String(set.setName || "").trim().toLowerCase(),
     name: set.setName,
     class: set.class,
     source: tierCatalogue.source?.url || null,
