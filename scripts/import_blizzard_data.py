@@ -540,9 +540,17 @@ def get_mythic_keystone_season(token, season_id=None):
     ]
     available_ids = sorted(extract_id(entry) for entry in available_refs)
     if season_id is None:
-        # Blizzard maintains separate ID sequences for PvP and Mythic+ seasons.
-        # Never reuse the PvP season ID (42) for Mythic+ season lookup.
-        season_ref = max(available_refs, key=lambda entry: extract_id(entry), default=None)
+        # Prefer Blizzard's explicit current_season pointer over assuming the
+        # highest numeric ID is current. Fall back to the highest listed ID
+        # only for older/alternate response shapes that omit current_season.
+        current_ref = season_index.get("current_season")
+        current_id = extract_id(current_ref) if isinstance(current_ref, dict) else None
+        season_ref = next(
+            (entry for entry in available_refs if extract_id(entry) == current_id),
+            None,
+        )
+        if season_ref is None:
+            season_ref = max(available_refs, key=lambda entry: extract_id(entry), default=None)
         season_id = extract_id(season_ref) if season_ref else None
     else:
         season_ref = next(
