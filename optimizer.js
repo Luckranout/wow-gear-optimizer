@@ -438,8 +438,12 @@ function optimizeLoadoutWithProfile({ items = [], equipment = {}, character = {}
     candidatesBySlot[slot] = (items || []).filter(item =>
       itemMatchesSlot(item, slot) && itemAllowedForClass(item, character.className) &&
       hasUsableItemStats(item) && item.optimizerEligible !== false
-    ).map(item => ({ item, rawScore: scoreItem(item, statWeights) }))
-      .sort((a, b) => b.rawScore - a.rawScore).slice(0, 24).map(entry => entry.item);
+    ).map(item => ({
+      item,
+      rawScore: scoreItemWithProfile(
+        item, statWeights, optimizationProfile, getEquipmentStatTotals(working, slot)
+      )
+    })).sort((a, b) => b.rawScore - a.rawScore).slice(0, 50).map(entry => entry.item);
   }
   let score = scoreEquipmentWithProfile(working, statWeights, optimizationProfile);
   for (let pass = 0; pass < 3; pass += 1) {
@@ -650,7 +654,7 @@ function resolveStatWeights({
     if (["source", "verified", "softTargets", "hardCaps", "diminishingReturns",
       "softTargetMultipliers", "specializationMasteryWeight", "notes"].includes(stat)) continue;
     const numericValue = Number(value);
-    if (Number.isFinite(numericValue) && numericValue >= 0) merged[normalizeItemStatName(stat)] = numericValue;
+    if (Number.isFinite(numericValue)) merged[normalizeItemStatName(stat)] = numericValue;
   }
   const rules = getOptimizationProfileRules(profile);
   if (rules.specializationMasteryWeight !== null) merged.Mastery = rules.specializationMasteryWeight;
