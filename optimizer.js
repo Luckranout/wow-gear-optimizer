@@ -262,6 +262,7 @@ function getSetBonusContext({ equipment = {}, setBonuses = [], className = "", s
     const threshold = Number(bonus?.pieces ?? bonus?.threshold ?? bonus?.requiredPieces);
     const value = Number(bonus?.bonusScore ?? bonus?.scoreValue);
     if (setId == null || !Number.isFinite(threshold) || threshold < 2 || !Number.isFinite(value) || value <= 0) return false;
+    if (bonus.verified !== true || typeof bonus.source !== "string" || !bonus.source.trim()) return false;
     if (bonus.className && normalizeClassName(bonus.className) !== normalizedClass) return false;
     if (bonus.specialization && String(bonus.specialization).trim().toLowerCase() !== normalizedSpec) return false;
     return (counts[String(setId).trim().toLowerCase()] || 0) >= threshold;
@@ -278,7 +279,8 @@ function getSetBonusContext({ equipment = {}, setBonuses = [], className = "", s
     bonusScore: activeBonuses.reduce((sum, bonus) => sum + bonus.bonusScore, 0),
     hasVerifiedScoringData: (setBonuses || []).some(bonus => {
       const value = Number(bonus?.bonusScore ?? bonus?.scoreValue);
-      if (!Number.isFinite(value) || value <= 0) return false;
+      if (!Number.isFinite(value) || value <= 0 || bonus.verified !== true ||
+          typeof bonus.source !== "string" || !bonus.source.trim()) return false;
       if (bonus.className && normalizeClassName(bonus.className) !== normalizedClass) return false;
       if (bonus.specialization && String(bonus.specialization).trim().toLowerCase() !== normalizedSpec) return false;
       return true;
@@ -709,7 +711,8 @@ function optimizeTierSetThresholds({ items = [], equipment = {}, statWeights = S
     const threshold = Number(bonus?.pieces ?? bonus?.threshold ?? bonus?.requiredPieces);
     const bonusScore = Number(bonus?.bonusScore ?? bonus?.scoreValue);
     if (rawSetId == null || !Number.isInteger(threshold) || threshold < 2 || threshold > 5 ||
-        !Number.isFinite(bonusScore) || bonusScore <= 0) continue;
+        !Number.isFinite(bonusScore) || bonusScore <= 0 || bonus.verified !== true ||
+        typeof bonus.source !== "string" || !bonus.source.trim()) continue;
     if (bonus.className && normalizeClassName(bonus.className) !== classKey) continue;
     if (bonus.specialization && String(bonus.specialization).trim().toLowerCase() !== specKey) continue;
 
