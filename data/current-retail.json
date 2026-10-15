@@ -6,7 +6,7 @@
   "season": 2,
   "patch": "12.1.0",
   "status": "season-2-plus-source-imported",
-  "updatedAt": "2026-10-15T00:23:47.323037+00:00",
+  "updatedAt": "2026-10-15T02:14:44.196175+00:00",
   "source": "Blizzard Game Data API",
   "items": [
     {
@@ -88,7 +88,7 @@
           "instanceId": 1202,
           "encounterId": 2485,
           "encounter": "Kokia Blazehoof",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -98,7 +98,7 @@
           "instanceId": 1202,
           "encounterId": 2485,
           "encounter": "Kokia Blazehoof",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -962,7 +962,7 @@
           "instanceId": 1202,
           "encounterId": 2503,
           "encounter": "Kyrakka and Erkhart Stormvein",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -972,7 +972,7 @@
           "instanceId": 1202,
           "encounterId": 2503,
           "encounter": "Kyrakka and Erkhart Stormvein",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -25340,7 +25340,7 @@
     "itemClassCount": 19,
     "namespace": "static-us",
     "gearItemCount": 20,
-    "candidateItemCount": 468,
+    "candidateItemCount": 337,
     "itemStatCoverage": {
       "candidateItemCount": 20,
       "itemsWithVerifiedStats": 20,
@@ -25386,7 +25386,7 @@
       "metricType": "structured-effect-metadata-presence-not-completeness",
       "policy": "Presence of source stats, spell records, or explicit structured effect fields only. This does not prove the effect is complete, correctly quantified, active in the current patch, or supported by the projection engine. Descriptions and recipe reagents alone do not qualify."
     },
-    "pveCandidateItemCount": 378,
+    "pveCandidateItemCount": 247,
     "pvpCandidateItemCount": 63,
     "matchedPvEInstances": [
       "Altar of Fangs",
@@ -25396,11 +25396,11 @@
       "Ruby Life Pools",
       "Temple of Sethraliss",
       "The Blinding Vale",
-      "The Tidebound Grotto",
-      "The Venomous Abyss",
       "Voidscar Arena"
     ],
     "missingPvESources": [
+      "The Tidebound Grotto",
+      "The Venomous Abyss",
       "Venomous Abyss"
     ],
     "pvpSeason": {
