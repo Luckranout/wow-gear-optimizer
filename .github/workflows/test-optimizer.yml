@@ -70,6 +70,10 @@ jobs:
         run: node tests/pve-optimizer-profile.test.js
       - name: Run PvE optimizer UI tests
         run: node tests/pve-optimizer-ui.test.js
+      - name: Run on-demand slot candidate API tests
+        run: node tests/slot-candidates.test.js
+      - name: Run Optimize candidate integration contract tests
+        run: node tests/optimize-candidate-integration.test.js
       - name: Run retail dataset normalization tests
         run: node tests/retail-data-normalization.test.js
       - name: Run upgrade optimizer tests
