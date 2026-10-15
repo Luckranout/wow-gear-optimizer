@@ -1059,3 +1059,37 @@ if (capAwareHead?.recommendedItem?.id !== 991003) {
   throw new Error("Upgrade suggestions must reject a candidate that pushes total Haste beyond the hard cap");
 }
 console.log("Hard-cap-aware upgrade recommendation regression passed.");
+
+
+// Tertiary rating DR: progressive bands apply only to rating in each band,
+// and the same aggregate loadout math is used when scoring level-90 gear.
+const tertiaryCases = [
+  [370, "Avoidance", 370],
+  [555, "Avoidance", 518],
+  [740, "Avoidance", 629],
+  [1813, "Avoidance", 1058.2],
+  [2000, "Avoidance", 1058.2],
+  [1035, "Leech", 966],
+  [180, "Speed", 168],
+  [588, "Speed", 343.2]
+];
+for (const [rating, stat, expected] of tertiaryCases) {
+  const actual = o.applyTertiaryRatingDiminishingReturns(rating, stat, 90);
+  if (actual === null || Math.abs(actual - expected) > 1e-9) {
+    throw new Error(`Tertiary DR mismatch for ${stat} at ${rating}: expected ${expected}, got ${actual}`);
+  }
+}
+if (o.applyTertiaryRatingDiminishingReturns(1000, "Speed", 80) !== null ||
+    o.applyTertiaryRatingDiminishingReturns(1000, "Haste", 90) !== null) {
+  throw new Error("Tertiary DR must refuse unsupported levels and non-tertiary stats");
+}
+const tertiaryLoadout = { Head: { itemLevel: 100, stats: { Avoidance: 555 } } };
+const tertiaryRawScore = o.scoreEquipment(tertiaryLoadout, { Avoidance: 1 });
+const tertiaryAdjustedScore = o.scoreEquipmentWithRatingDiminishingReturns(tertiaryLoadout, { Avoidance: 1 }, 90);
+if (!(tertiaryAdjustedScore < tertiaryRawScore)) {
+  throw new Error("Level-90 loadout score must apply aggregate tertiary rating DR");
+}
+if (o.scoreEquipmentWithRatingDiminishingReturns(tertiaryLoadout, { Avoidance: 1 }, 80) !== tertiaryRawScore) {
+  throw new Error("Tertiary DR must not be applied at unsupported levels");
+}
+console.log("Level-90 progressive tertiary-rating DR regression passed.");
