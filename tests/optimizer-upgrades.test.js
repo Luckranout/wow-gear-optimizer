@@ -1142,3 +1142,29 @@ if (o.scoreEquipmentWithRatingDiminishingReturns(tertiaryLoadout, { Avoidance: 1
   throw new Error("Tertiary DR must not be applied at unsupported levels");
 }
 console.log("Level-90 progressive tertiary-rating DR regression passed.");
+
+// Tier-set coverage reporting: descriptions alone must not be presented as
+// verified piece matching or numeric bonus scoring.
+const tierCoverageCatalogue = {
+  itemMatching: { status: "partial" },
+  sets: [
+    { class: "Shaman", setName: "Verified Shaman Set", itemIdsVerified: true,
+      pieces: [1, 2, 3, 4, 5].map((itemId, i) => ({ itemId, slot: ["Head", "Shoulders", "Chest", "Hands", "Legs"][i] })),
+      specs: [["Enhancement", "2pc effect", "4pc effect"]] },
+    { class: "Warrior", setName: "Unverified Warrior Set", itemIdsVerified: false,
+      pieces: [], specs: [["Arms", "2pc effect", "4pc effect"]] }
+  ]
+};
+const verifiedTierCoverage = o.getTierSetCoverageStatus(tierCoverageCatalogue, "Shaman", "Enhancement");
+if (verifiedTierCoverage.itemMappingVerified !== true ||
+    verifiedTierCoverage.verifiedPieceCount !== 5 ||
+    verifiedTierCoverage.numericScoringAvailable !== false) {
+  throw new Error("Tier-set coverage must distinguish verified piece matching from numeric bonus scoring");
+}
+const unverifiedTierCoverage = o.getTierSetCoverageStatus(tierCoverageCatalogue, "Warrior", "Arms");
+if (unverifiedTierCoverage.itemMappingVerified !== false ||
+    !unverifiedTierCoverage.limitations.some(message => message.includes("mapping is not verified")) ||
+    unverifiedTierCoverage.bonusDescriptionsAvailable !== true) {
+  throw new Error("Tier-set report must disclose unverified class mappings while retaining known bonus descriptions");
+}
+console.log("Tier-set coverage transparency regression passed.");
