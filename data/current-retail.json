@@ -6,7 +6,7 @@
   "season": 2,
   "patch": "12.1.0",
   "status": "season-2-plus-source-imported",
-  "updatedAt": "2026-10-15T03:23:41.746822+00:00",
+  "updatedAt": "2026-10-15T03:58:41.996299+00:00",
   "source": "Blizzard Game Data API",
   "items": [
     {
@@ -88,7 +88,7 @@
           "instanceId": 1202,
           "encounterId": 2485,
           "encounter": "Kokia Blazehoof",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -98,7 +98,7 @@
           "instanceId": 1202,
           "encounterId": 2485,
           "encounter": "Kokia Blazehoof",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -962,7 +962,7 @@
           "instanceId": 1202,
           "encounterId": 2503,
           "encounter": "Kyrakka and Erkhart Stormvein",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -972,7 +972,7 @@
           "instanceId": 1202,
           "encounterId": 2503,
           "encounter": "Kyrakka and Erkhart Stormvein",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
