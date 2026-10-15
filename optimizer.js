@@ -1037,7 +1037,7 @@ function createOptimizationReport({character = createCharacterProfile(), availab
         ? "Tier-set mode is on, but this dataset has no verified numeric set-bonus scoring values. Recommendations remain ordinary stat/level rankings until verified bonus values are imported."
         : null
     },
-    topUpgrades: upgrades, upgradePlans, currentStats: statSummary,
+    topUpgrades: upgrades, upgradePlans, currentStats: statSummary, statWeights,
     statOptimization: {
       profileAvailable: Boolean(profileContext.optimizationProfile),
       profileSource: profileRules.source || profileContext.optimizationProfile?.source || null,
