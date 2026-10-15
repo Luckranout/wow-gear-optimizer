@@ -1131,11 +1131,14 @@ def collect_talent_data(token):
                 add_tree(tree_id, "specialization", linked_spec_id)
 
     def extract_nodes(value):
-        """Read nodes from direct or wrapped Blizzard talent-tree payloads."""
+        """Read node arrays from Blizzard's documented talent-tree response shapes."""
         if isinstance(value, dict):
-            direct = value.get("nodes")
-            if isinstance(direct, list):
-                return direct
+            # The Talent Tree Nodes endpoint returns "talent_nodes", not "nodes".
+            # Keep "nodes" for alternate/wrapped response shapes used by fixtures.
+            for key in ("talent_nodes", "nodes"):
+                direct = value.get(key)
+                if isinstance(direct, list):
+                    return direct
             for key in ("spec_talent_tree", "class_talent_tree", "hero_talent_tree", "talent_tree", "data"):
                 nested = value.get(key)
                 found = extract_nodes(nested)
