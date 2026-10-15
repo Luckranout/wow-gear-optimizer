@@ -41,7 +41,7 @@ assert.ok(report.tierSet.note.includes("no verified numeric set-bonus scoring va
 
 // Real Midnight Season 2 / Tier 36 item IDs, verified against the item pages in
 // data/tier-set-item-ids.json. The numeric scores below are TEST FIXTURES only;
- // actual set bonuses are specialization-specific effects and are not assigned
+// Actual set bonuses are specialization-specific effects and are not assigned
 // invented optimizer weights by this manifest.
 const tierItemManifest = JSON.parse(fs.readFileSync("data/tier-set-item-ids.json", "utf8"));
 const shamanSet = tierItemManifest.sets.find(set => set.className === "Shaman");
