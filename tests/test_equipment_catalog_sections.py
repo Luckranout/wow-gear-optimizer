@@ -60,15 +60,17 @@ class EquipmentSectionPaginationTests(unittest.TestCase):
         self.assertIn("WEAPONOFFHAND", SECTION_SEARCHES["off-hand"])
         self.assertIn("WEAPON", SECTION_SEARCHES["off-hand"])
 
-    def test_missing_neck_or_shoulders_warns_but_allows_exploratory_import(self):
+    def test_missing_sections_abort_before_partial_catalog_can_be_published(self):
         with patch("builtins.print") as printer:
-            missing = validate_required_sections({"rings": {100}, "head": {200}})
-        self.assertIn("necklaces", missing)
-        self.assertIn("shoulders", missing)
-        self.assertTrue(any("WARNING" in str(call.args[0]) for call in printer.call_args_list))
+            with self.assertRaisesRegex(RuntimeError, "Refusing to publish a partial catalog"):
+                validate_required_sections({"rings": {100}, "head": {200}})
+        message = "\\n".join(str(call.args[0]) for call in printer.call_args_list)
+        self.assertIn("necklaces", message)
+        self.assertIn("shoulders", message)
 
     def test_all_required_sections_pass_validation(self):
-        validate_required_sections({section: {index + 1} for index, section in enumerate(SECTION_SEARCHES)})
+        result = validate_required_sections({section: {index + 1} for index, section in enumerate(SECTION_SEARCHES)})
+        self.assertEqual(result, [])
 
     def test_unverified_or_empty_sections_are_omitted(self):
         def empty_search(_path, _token, _params):
