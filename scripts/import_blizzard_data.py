@@ -191,9 +191,6 @@ SEASON_CONTENT_NAMES = {
     "Den of Nalorakk",
     "The Blinding Vale",
     "Voidscar Arena",
-    "Kings' Rest",
-    "Temple of Sethraliss",
-    "Ruby Life Pools",
     "The Tidebound Grotto",
 }
 

@@ -58,6 +58,13 @@ class SeasonImportPolicyTests(unittest.TestCase):
     def test_supported_season_is_allowed(self):
         MODULE.enforce_supported_season(42, "Midnight Season 2")
 
+    def test_legacy_dungeon_names_are_not_current_season_sources(self):
+        current_sources = {name.casefold() for name in MODULE.SEASON_CONTENT_NAMES}
+        self.assertNotIn("kings' rest", current_sources)
+        self.assertNotIn("temple of sethraliss", current_sources)
+        self.assertNotIn("ruby life pools", current_sources)
+        self.assertIn("den of nalorakk", current_sources)
+
     def test_crest_cap_is_active_before_blizzard_lift_date(self):
         before = MODULE.CREST_CAP_LIFT_DATE.replace(day=19)
         rules = MODULE.collect_upgrade_and_crest_data(before)
