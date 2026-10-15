@@ -1033,3 +1033,29 @@ if (partialCapReport.ratingConstraintStatus?.balanced !== true ||
   throw new Error("A single over-cap stat should be rebalanced when a compliant candidate exists");
 }
 console.log("Hard-cap alert, priority-choice, and automatic rebalance regressions passed.");
+
+
+// Regression: upgrade suggestions must obey the same secondary-rating hard cap
+// as complete-loadout optimization. A higher-scoring Haste item that pushes the
+// full loadout over 8,800 rating must lose to a legal alternative.
+const capAwareCurrent = {
+  Chest: { id: 991001, name: "Haste Chest", slot: "Chest", itemLevel: 300, stats: { Haste: 8700 } }
+};
+const capAwareCandidates = [
+  { id: 991002, name: "Over-cap Haste Helm", slot: "Head", itemLevel: 350, stats: { Haste: 200 } },
+  { id: 991003, name: "Legal Mastery Helm", slot: "Head", itemLevel: 340, stats: { Mastery: 100 } }
+];
+const capAwareUpgrades = o.findUpgradeOpportunities({
+  currentEquipment: capAwareCurrent,
+  availableItems: capAwareCandidates,
+  statWeights: { Haste: 1, Mastery: 1 },
+  className: "Warrior",
+  specialization: "Arms",
+  characterLevel: 90,
+  limit: 6
+});
+const capAwareHead = capAwareUpgrades.find(upgrade => upgrade.slot === "Head");
+if (capAwareHead?.recommendedItem?.id !== 991003) {
+  throw new Error("Upgrade suggestions must reject a candidate that pushes total Haste beyond the hard cap");
+}
+console.log("Hard-cap-aware upgrade recommendation regression passed.");
