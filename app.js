@@ -41,6 +41,9 @@ const DEFAULT_CHARACTER_NAME = "Failing";
 const DEFAULT_REALM_NAME = "Burning Legion";
 let retailDataset = null;
 let importedCharacter = null;
+let importedSimulation = null;
+const simulationJsonInput = document.querySelector("#simulationJsonInput");
+const simulationImportStatus = document.querySelector("#simulationImportStatus");
 
 async function loadRealmOptions() {
   if (!realmInput || realmInput.tagName !== "SELECT") return false;
@@ -610,6 +613,43 @@ classSelect.addEventListener("change", () => {
     specs[selected].map(spec => `<option>${spec}</option>`).join("");
 });
 
+document.querySelector("#applySimulationBtn")?.addEventListener("click", () => {
+  if (!simulationJsonInput || !window.WoWSimulationImport) {
+    if (simulationImportStatus) simulationImportStatus.textContent = "Simulation import is unavailable in this page build.";
+    return;
+  }
+  try {
+    const parsed = window.WoWSimulationImport.parseSimulationResultJson(simulationJsonInput.value);
+    const selectedSpec = importedCharacter?.activeSpec?.name || specSelect.value || "";
+    if (parsed.specialization && selectedSpec &&
+        String(parsed.specialization).trim().toLowerCase() !== String(selectedSpec).trim().toLowerCase()) {
+      throw new Error("The simulation specialization (" + parsed.specialization + ") does not match the selected character specialization (" + selectedSpec + ").");
+    }
+    importedSimulation = parsed;
+    if (simulationImportStatus) {
+      simulationImportStatus.classList.remove("error");
+      simulationImportStatus.textContent = "Applied " + parsed.source + " scale factors" +
+        (parsed.specialization ? " for " + parsed.specialization : "") +
+        " (" + Object.keys(parsed.scaleFactors).length + " stats).";
+    }
+  } catch (error) {
+    importedSimulation = null;
+    if (simulationImportStatus) {
+      simulationImportStatus.classList.add("error");
+      simulationImportStatus.textContent = "Simulation weights not applied: " + error.message;
+    }
+  }
+});
+
+document.querySelector("#clearSimulationBtn")?.addEventListener("click", () => {
+  importedSimulation = null;
+  if (simulationJsonInput) simulationJsonInput.value = "";
+  if (simulationImportStatus) {
+    simulationImportStatus.classList.remove("error");
+    simulationImportStatus.textContent = "No simulation weights applied.";
+  }
+});
+
 encounterSelect?.addEventListener("change", () => {
   if (importedCharacter) document.querySelector("#optimizeBtn").click();
 });
@@ -634,6 +674,7 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
       importedCharacter,
       goal: goalSelect.value
     });
+    character.simulation = importedSimulation;
   } else {
     const cls = classSelect.value;
     const spec = specSelect.value;
@@ -752,6 +793,11 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
 document.querySelector("#clearBtn").addEventListener("click", () => {
   importedCharacter = null;
   importedSimulation = null;
+  if (simulationJsonInput) simulationJsonInput.value = "";
+  if (simulationImportStatus) {
+    simulationImportStatus.classList.remove("error");
+    simulationImportStatus.textContent = "No simulation weights applied.";
+  }
   characterNameInput.value = "";
   realmInput.value = "";
   importStatus.classList.remove("error");
