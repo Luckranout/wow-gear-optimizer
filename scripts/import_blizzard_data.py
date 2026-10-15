@@ -1680,6 +1680,65 @@ def classify_profession_outputs(recipes, output_items):
 
     return gems, enchants, crafted_gear, other_crafted_items
 
+
+def classify_consumables(recipes, output_items):
+    """Build explicit consumable buckets from current-profession recipe outputs.
+
+    Recipe profession is the primary source for food; Blizzard item/recipe names
+    are used only to distinguish alchemy consumable families. This is catalog
+    classification, not a claim that every item is optimal for every spec.
+    """
+    item_by_id = {
+        item.get("id"): item for item in output_items
+        if isinstance(item, dict) and item.get("id")
+    }
+    buckets = {"food": [], "flaskOrPhial": [], "potions": [], "other": []}
+
+    for recipe in recipes:
+        if not isinstance(recipe, dict):
+            continue
+        item = item_by_id.get(recipe.get("craftedItemId"))
+        profession = str(recipe.get("profession") or "").strip().lower()
+        item_name = str((item or {}).get("name") or "")
+        recipe_name = str(recipe.get("name") or "")
+        label = normalize_name(f"{item_name} {recipe_name}")
+
+        bucket = None
+        if profession == "cooking":
+            bucket = "food"
+        elif profession == "alchemy":
+            if any(term in label for term in (" flask", " phial", "cauldron of")):
+                bucket = "flaskOrPhial"
+            elif "potion" in label or "draught" in label:
+                bucket = "potions"
+            elif any(term in label for term in ("oil", "augment rune", "weapon stone")):
+                bucket = "other"
+        elif profession == "inscription" and "augment rune" in label:
+            bucket = "other"
+
+        if bucket:
+            record = {**recipe, "consumableType": bucket}
+            if item:
+                record["item"] = item
+            record["classificationSource"] = (
+                "Blizzard profession recipe output; bucketed by profession and localized item/recipe name"
+            )
+            buckets[bucket].append(record)
+
+    for name, records in buckets.items():
+        # A recipe can only appear once in the output model.
+        unique = {}
+        for record in records:
+            key = (record.get("id"), record.get("craftedItemId"), record.get("name"))
+            unique[key] = record
+        buckets[name] = list(unique.values())
+
+    print(
+        "Consumable recipe buckets: "
+        + ", ".join(f"{name}={len(records)}" for name, records in buckets.items())
+    )
+    return buckets
+
 def merge_item_sources(*source_maps):
     merged = {}
 
