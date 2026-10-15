@@ -1284,6 +1284,21 @@ function createOptimizationReport({character = createCharacterProfile(), availab
     character, goal, statWeights, optimizedEquipment: optimized.equipment, totalScore: optimized.score,
     setBonusStatus: optimized.setBonusStatus,
     tierSetCoverage: getTierSetCoverageStatus(dataset?.tierSetCatalogue, character.className, character.specialization),
+    catalogCoverage: dataset?.catalogSections ? {
+      status: dataset.catalogSections.status || "unavailable",
+      expectedSectionCount: Number(dataset.catalogSections.expectedSectionCount) || 0,
+      loadedSectionCount: Array.isArray(dataset.catalogSections.loadedSections) ? dataset.catalogSections.loadedSections.length : 0,
+      itemCount: Number(dataset.catalogSections.itemCount) || 0,
+      unavailableSections: Array.isArray(dataset.catalogSections.unavailableSections)
+        ? dataset.catalogSections.unavailableSections.map(entry => entry.section).filter(Boolean)
+        : []
+    } : {
+      status: "unavailable",
+      expectedSectionCount: 0,
+      loadedSectionCount: 0,
+      itemCount: 0,
+      unavailableSections: []
+    },
     ratingConstraintStatus: optimized.ratingConstraintStatus || {
       requiresUserChoice: false, balanced: true, remainingViolations: []
     },
