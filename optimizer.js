@@ -1044,27 +1044,7 @@ function findUpgradeOpportunities({
     currentEquipment, weights, setBonuses, specialization, characterLevel
   ).score;
 
-  // Expand only explicit catalog variants before comparing against equipped gear.
-  // This keeps verified upgraded copies eligible while preventing a low-level base
-  // record from being presented as an upgrade over a higher-level equipped item.
-  const upgradeCandidates = [];
-  for (const rawItem of availableItems || []) {
-    if (!rawItem || typeof rawItem !== "object") continue;
-    upgradeCandidates.push(rawItem);
-    if (Array.isArray(rawItem.variants)) {
-      for (const variant of rawItem.variants) {
-        if (!variant || typeof variant !== "object") continue;
-        upgradeCandidates.push({
-          ...rawItem,
-          ...variant,
-          id: rawItem.id,
-          slot: variant.slot || rawItem.slot,
-          variantKey: variant.variantKey || String(rawItem.id) + ":variant:" + String(variant.itemLevel ?? variant.level ?? "unknown"),
-          baseItemId: rawItem.id,
-        });
-      }
-    }
-  }
+  const upgradeCandidates = availableItems || [];
 
   for (const slot of WOW_EQUIPMENT_SLOTS) {
     const currentItem = currentEquipment[slot];
