@@ -41,6 +41,26 @@ class WowheadVariantTooltipTests(unittest.TestCase):
             import_blizzard_data.fetch_wowhead_tooltip_stats(270167, bonus_ids=[6652, "unknown"])
 
 
+class TalentNodeShapeTests(unittest.TestCase):
+    def test_extracts_class_specialization_and_hero_node_arrays(self):
+        cases = (
+            ("class_talent_nodes", [{"id": 1}]),
+            ("spec_talent_nodes", [{"id": 2}]),
+            ("hero_talent_nodes", [{"id": 3}]),
+            ("talent_nodes", [{"id": 4}]),
+        )
+        for key, expected in cases:
+            with self.subTest(key=key):
+                self.assertEqual(import_blizzard_data.extract_talent_nodes({key: expected}), expected)
+
+    def test_extracts_nodes_from_nested_response_shapes(self):
+        expected = [{"id": 42}]
+        self.assertEqual(
+            import_blizzard_data.extract_talent_nodes({"spec_talent_tree": {"spec_talent_nodes": expected}}),
+            expected,
+        )
+
+
 class EquipmentSectionPaginationTests(unittest.TestCase):
     def test_paginates_until_advertised_last_page_and_deduplicates(self):
         calls = []
