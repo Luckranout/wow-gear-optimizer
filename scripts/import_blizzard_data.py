@@ -225,7 +225,7 @@ def request_json(url, headers=None, data=None):
                 response_headers = getattr(response, "headers", None)
                 cache_control = response_headers.get("Cache-Control", "") if response_headers else ""
             if method == "GET" and parsed_url.netloc == "us.api.blizzard.com":
-                match = re.search(r"(?:^|,)\\s*max-age\\s*=\\s*(\\d+)", cache_control, re.IGNORECASE)
+                match = re.search(r"(?:^|,)\s*max-age\s*=\s*(\d+)", cache_control, re.IGNORECASE)
                 if match:
                     max_age = int(match.group(1))
                     if max_age > 0:
