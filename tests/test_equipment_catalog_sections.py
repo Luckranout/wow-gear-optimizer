@@ -15,6 +15,30 @@ from scripts.equipment_catalog_sections import (
 from scripts import import_blizzard_data
 
 
+class WowheadVariantTooltipTests(unittest.TestCase):
+    def test_variant_request_parses_explicit_variant_stats(self):
+        with (
+            patch.object(
+                import_blizzard_data,
+                "throttled_urlopen",
+                return_value=__import__("io").BytesIO(b'{"tooltip":"<span>+147 Haste</span>"}'),
+            ),
+        ):
+            stats = import_blizzard_data.fetch_wowhead_tooltip_stats(
+                270167, bonus_ids=[6652, 13335, 12854], item_level=340
+            )
+        self.assertEqual(stats[0]["type"]["name"], "haste")
+        self.assertEqual(stats[0]["value"], 147)
+
+    def test_item_level_override_without_verified_bonuses_fails_closed(self):
+        with self.assertRaisesRegex(ValueError, "requires verified bonus_ids"):
+            import_blizzard_data.fetch_wowhead_tooltip_stats(270167, item_level=340)
+
+    def test_invalid_bonus_ids_fail_closed(self):
+        with self.assertRaisesRegex(ValueError, "positive integer"):
+            import_blizzard_data.fetch_wowhead_tooltip_stats(270167, bonus_ids=[6652, "unknown"])
+
+
 class EquipmentSectionPaginationTests(unittest.TestCase):
     def test_paginates_until_advertised_last_page_and_deduplicates(self):
         calls = []
