@@ -71,6 +71,23 @@ if (!(atVersPenalty < belowVersPenalty)) {
 }
 console.log("Least-covered-secondary-stat soft-target regression passed.");
 
+const softTargetFixture = {
+  Head: { itemLevel: 100, stats: { Haste: 1320, CriticalStrike: 1380, Mastery: 1380, Versatility: 1620 } },
+  Chest: { itemLevel: 100, stats: { Haste: 440 } }
+};
+const loadoutScoreWithPenalty = o.scoreLoadout(softTargetFixture, {}, [], "", 90);
+const expectedSoftPenalty = o.getSecondaryRatingSoftTargetPenalty(softTargetFixture, 90);
+if (loadoutScoreWithPenalty.softTargetPenalty !== expectedSoftPenalty ||
+    Math.abs(loadoutScoreWithPenalty.score - (loadoutScoreWithPenalty.rawScore - expectedSoftPenalty)) > 1e-9) {
+  throw new Error("Complete loadout scoring must subtract the DR soft-target balancing penalty");
+}
+const unsupportedLevelScore = o.scoreLoadout(softTargetFixture, {}, [], "", 80);
+if (unsupportedLevelScore.softTargetPenalty !== 0) {
+  throw new Error("Level-specific soft-target penalty must not apply when level-90 DR rules are unsupported");
+}
+console.log("DR soft-target penalty is integrated into complete loadout scoring.");
+
+
 
 
 // Upgrade shortlist must score a candidate against the full equipped rating totals.
