@@ -66,6 +66,8 @@ jobs:
         run: node tests/catalog-inventory-slot-mapping.test.js
       - name: Run tier-set-aware optimizer tests
         run: node tests/tier-set-optimizer.test.js
+      - name: Run PvE optimizer profile tests
+        run: node tests/pve-optimizer-profile.test.js
       - name: Run retail dataset normalization tests
         run: node tests/retail-data-normalization.test.js
       - name: Run upgrade optimizer tests
