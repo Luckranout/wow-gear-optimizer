@@ -195,6 +195,52 @@ const SECONDARY_RATING_DR_TABLE = {
 };
 const SECONDARY_RATING_DR_MULTIPLIERS = [1, 0.9, 0.8, 0.7, 0.6, 0.5, 0];
 const SECONDARY_RATING_DR_CAP_PERCENT = 126;
+
+// Level-90 tertiary rating DR from the supplied Midnight 12.0.1 reference.
+// Bands are progressive; rating above the final threshold contributes no
+// effective rating. These are rating values, not direct percentage stats.
+const TERTIARY_RATING_DR_TABLE = Object.freeze({
+  Avoidance: [370, 555, 740, 1813],
+  Leech: [690, 1035, 1380, 3381],
+  Speed: [120, 180, 240, 588]
+});
+const TERTIARY_RATING_DR_MULTIPLIERS = [1, 0.8, 0.6, 0.4, 0];
+function applyTertiaryRatingDiminishingReturns(rawRating, stat, characterLevel = SECONDARY_RATING_DR_LEVEL) {
+  const rating = Number(rawRating);
+  if (!Number.isFinite(rating) || rating <= 0) return 0;
+  if (Number(characterLevel) !== SECONDARY_RATING_DR_LEVEL) return null;
+  const key = normalizeItemStatName(stat);
+  const thresholds = TERTIARY_RATING_DR_TABLE[key];
+  if (!thresholds) return null;
+  let previous = 0;
+  let effective = 0;
+  for (let band = 0; band < thresholds.length; band++) {
+    const limit = thresholds[band];
+    const amount = Math.max(0, Math.min(rating, limit) - previous);
+    effective += amount * TERTIARY_RATING_DR_MULTIPLIERS[band];
+    previous = limit;
+    if (rating <= limit) return effective;
+  }
+  return effective;
+}
+function getTertiaryRatingTotals(equipment = {}) {
+  const totals = {};
+  for (const item of Object.values(equipment || {})) {
+    if (!item || !item.stats) continue;
+    const entries = Array.isArray(item.stats)
+      ? item.stats.map(s => [
+          normalizeItemStatName(s.stat?.name || s.type?.name || s.name || s.stat),
+          Number(s.value?.value ?? s.value?.amount ?? s.amount ?? s.value) || 0
+        ])
+      : Object.entries(item.stats).map(([stat, value]) => [
+          normalizeItemStatName(stat), Number(value?.value ?? value?.amount ?? value) || 0
+        ]);
+    for (const [stat, value] of entries) {
+      if (Object.hasOwn(TERTIARY_RATING_DR_TABLE, stat)) totals[stat] = (totals[stat] || 0) + value;
+    }
+  }
+  return totals;
+}
 // Soft targets are the first supplied thresholds; the last threshold is a hard
 // cap for eligible level-90 loadouts. The soft target influences scoring only
 // when candidates are otherwise competitive; it is not a stat-equality target.
@@ -510,7 +556,9 @@ function scoreEquipmentWithRatingDiminishingReturns(equipment = {}, statWeights 
   // Otherwise preserve the existing rating score rather than applying wrong-level data.
   if (Number(characterLevel) !== SECONDARY_RATING_DR_LEVEL) return scoreEquipment(equipment, statWeights);
   const secondaryStats = new Set(Object.keys(SECONDARY_RATING_DR_TABLE));
+  const tertiaryStats = new Set(Object.keys(TERTIARY_RATING_DR_TABLE));
   const totals = {};
+  const tertiaryTotals = {};
   let score = 0;
   for (const item of Object.values(equipment || {})) {
     if (!item || !hasUsableItemStats(item)) continue;
@@ -523,12 +571,19 @@ function scoreEquipmentWithRatingDiminishingReturns(equipment = {}, statWeights 
       : Object.entries(item.stats || {}).map(([stat, value]) => [normalizeItemStatName(stat), Number(value?.value ?? value?.amount ?? value) || 0]);
     for (const [stat, value] of entries) {
       if (secondaryStats.has(stat)) totals[stat] = (totals[stat] || 0) + value;
+      else if (tertiaryStats.has(stat)) tertiaryTotals[stat] = (tertiaryTotals[stat] || 0) + value;
       else score += value * (statWeights[stat] ?? 0);
     }
   }
   for (const stat of secondaryStats) {
     if (totals[stat] !== undefined) {
       const effective = applySecondaryRatingDiminishingReturns(totals[stat], stat, characterLevel);
+      score += effective * (statWeights[stat] ?? 0);
+    }
+  }
+  for (const stat of tertiaryStats) {
+    if (tertiaryTotals[stat] !== undefined) {
+      const effective = applyTertiaryRatingDiminishingReturns(tertiaryTotals[stat], stat, characterLevel);
       score += effective * (statWeights[stat] ?? 0);
     }
   }
@@ -1221,6 +1276,7 @@ const WOW_OPTIMIZER_TEST_DATA = [
 window.WoWOptimizer = {
   slots: WOW_EQUIPMENT_SLOTS, goals: WOW_GOALS,
   applySecondaryRatingDiminishingReturns, getSecondaryRatingDiminishingReturns, SECONDARY_RATING_DR_TABLE, SECONDARY_RATING_DR_SOFT_TARGETS, getSecondaryRatingTotals, getSecondaryRatingHardCapViolations, getSecondaryRatingSoftTargetPenalty,
+  applyTertiaryRatingDiminishingReturns, TERTIARY_RATING_DR_TABLE, getTertiaryRatingTotals,
   createCharacterProfile, normalizeCharacterStatistics, scoreCharacterStatistics, getCharacterStatSummary, resolveStatWeights, normalizeSimulationScaleFactors, getSimulationWeightContext, findBlizzardSpecialization, getSpecProfileContext,
   normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, hasUsableItemStats, itemAllowedForClass, scoreItem, scoreEquipment, getGoalWeights,
   findBestItemForSlot, itemMatchesSlot, itemAllowedForClassWeapon, itemAllowedForSpecialization, getWeaponMetadata, normalizeWeaponType, optimizeEquipment, findUpgradeOpportunities, rankItems,
