@@ -278,15 +278,17 @@ function getSetBonusContext({ equipment = {}, setBonuses = [], className = "", s
 function getOptimizationProfileRules(profile = {}) {
   const candidate = profile && typeof profile === "object" ? profile : {};
   const statWeights = candidate.statWeights || candidate.weights || {};
+  const profileVerified = candidate.verified === true &&
+    typeof candidate.source === "string" && candidate.source.trim().length > 0;
   const validWeights = Object.fromEntries(Object.entries(statWeights).filter(([, value]) =>
-    Number.isFinite(Number(value)) && Number(value) >= 0
+    Number.isFinite(Number(value))
   ).map(([key, value]) => [normalizeItemStatName(key), Number(value)]));
   const numericMap = source => Object.fromEntries(Object.entries(source || {}).filter(([, value]) =>
     Number.isFinite(Number(value)) && Number(value) >= 0
   ).map(([key, value]) => [normalizeItemStatName(key), Number(value)]));
-  const softTargets = numericMap(candidate.softTargets);
-  const hardCaps = numericMap(candidate.hardCaps);
-  const softTargetMultipliers = Object.fromEntries(Object.entries(candidate.softTargetMultipliers || {}).filter(([, value]) =>
+  const softTargets = profileVerified ? numericMap(candidate.softTargets) : {};
+  const hardCaps = profileVerified ? numericMap(candidate.hardCaps) : {};
+  const softTargetMultipliers = Object.fromEntries(Object.entries(profileVerified ? (candidate.softTargetMultipliers || {}) : {}).filter(([, value]) =>
     Number.isFinite(Number(value)) && Number(value) >= 0 && Number(value) <= 1
   ).map(([key, value]) => [normalizeItemStatName(key), Number(value)]));
   const diminishingReturns = {};
@@ -315,8 +317,8 @@ function getOptimizationProfileRules(profile = {}) {
     softTargetMultipliers,
     diminishingReturns,
     source: candidate.source || null,
-    verified: candidate.verified === true,
-    specializationMasteryWeight: Number.isFinite(Number(candidate.specializationMasteryWeight)) &&
+    verified: profileVerified,
+    specializationMasteryWeight: profileVerified && Number.isFinite(Number(candidate.specializationMasteryWeight)) &&
       Number(candidate.specializationMasteryWeight) >= 0 ? Number(candidate.specializationMasteryWeight) : null,
     hasRules: Object.keys(softTargets).length > 0 || Object.keys(hardCaps).length > 0 ||
       Object.keys(diminishingReturns).length > 0
@@ -640,6 +642,8 @@ function resolveStatWeights({
   const classProfiles = findCaseInsensitiveRecord(statProfiles, className);
   const profile = findCaseInsensitiveRecord(classProfiles, specialization);
   if (!profile || typeof profile !== "object") return goalWeights;
+  const verifiedProfile = getOptimizationProfileRules(profile);
+  if (!verifiedProfile.verified) return goalWeights;
   const profileWeights = profile.statWeights || profile.weights || profile;
   const merged = { ...goalWeights };
   for (const [stat, value] of Object.entries(profileWeights)) {
