@@ -205,6 +205,28 @@ async function loadRetailDataset(url = "data/current-retail.json") {
   }
 
   data.tierSetCatalogue = tierCatalogue;
+
+  // Mapping-only manifest is kept separate from bonus definitions: verified piece
+  // IDs support coverage reporting, but do not imply numeric set-bonus scoring.
+  let tierSetItemIdManifest = null;
+  try {
+    const manifestResponse = await fetch("data/tier-set-item-ids.json", { cache: "no-store" });
+    if (!manifestResponse.ok) throw new Error(`HTTP ${manifestResponse.status}`);
+    const candidateManifest = await manifestResponse.json();
+    const validSets = Array.isArray(candidateManifest?.sets) &&
+      candidateManifest.sets.length === 13 &&
+      candidateManifest.sets.every(set => set?.className && set?.setName &&
+        set.mappingStatus === "verified" && Array.isArray(set.pieces) &&
+        set.pieces.length === 5 && set.pieces.every(piece =>
+          Number.isInteger(Number(piece.itemId)) && piece.slot && piece.sourceUrl));
+    if (candidateManifest?.expansion !== "Midnight" || Number(candidateManifest?.season) !== 2 || !validSets) {
+      throw new Error("Manifest must contain verified five-piece mappings for all 13 Midnight Season 2 class sets.");
+    }
+    tierSetItemIdManifest = candidateManifest;
+  } catch (error) {
+    console.warn("Tier-set item ID manifest unavailable; continuing without mapping-only coverage:", error);
+  }
+  data.tierSetItemIdManifest = tierSetItemIdManifest;
   const sourceBackedBonuses = (tierCatalogue?.sets || []).map(set => ({
     setId: set.id || String(set.setName || "").trim().toLowerCase(),
     name: set.setName,
