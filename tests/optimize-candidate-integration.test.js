@@ -19,6 +19,10 @@ assert.match(app, /const byId = new Map\(\)/);
 assert.match(app, /availableItems\.splice\(0, availableItems\.length, \.\.\.byId\.values\(\)\)/);
 assert.match(app, /createOptimizationReport\(\{\s*character,\s*availableItems,/);
 
+// Base-level catalog records must not displace a higher-item-level equipped variant.
+const optimizer = fs.readFileSync("optimizer.js", "utf8");
+assert.match(optimizer, /candidateLevel < equippedLevel\) continue/);
+
 // The endpoint must not fabricate results when the catalog file is absent or
 // invalid, and must filter by explicit season verification, equippability,
 // usable stats, requested slot, and class armor restrictions.
