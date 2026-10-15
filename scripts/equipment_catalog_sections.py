@@ -36,14 +36,17 @@ SECTION_DIR = Path("data/equipment-sections")
 
 
 def validate_required_sections(section_ids):
-    """Report empty equipment sections without blocking an exploratory partial import."""
+    """Reject a partial equipment catalog before any section files are replaced."""
     missing = [section for section in SECTION_SEARCHES if not section_ids.get(section)]
     if missing:
-        print(
-            "WARNING: Equipment catalog has no verified Season 2+ candidates for "
-            f"section(s): {', '.join(missing)}. Continuing with available sections only."
+        message = (
+            "Incomplete Season 2+ equipment catalog: no verified candidates for "
+            f"section(s): {', '.join(missing)}. Refusing to publish a partial catalog."
         )
-    return missing
+        print(f"ERROR: {message}")
+        raise RuntimeError(message)
+    print(f"All {len(SECTION_SEARCHES)} required equipment sections have verified candidates.")
+    return []
 
 
 def _item_id(result):
