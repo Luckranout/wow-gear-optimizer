@@ -1218,6 +1218,36 @@ function recommendUpgradePlan({ currentItem, upgradeSystem, availableCrests = {}
   };
 }
 
+function getTierSetCoverageStatus(tierSetCatalogue = null, className = "", specialization = "") {
+  const sets = Array.isArray(tierSetCatalogue?.sets) ? tierSetCatalogue.sets : [];
+  const normalizedClass = String(className || "").trim().toLowerCase();
+  const classSet = sets.find(set => String(set.class || "").trim().toLowerCase() === normalizedClass) || null;
+  const verifiedClasses = sets.filter(set => set.itemIdsVerified === true);
+  const unverifiedClasses = sets.filter(set => set.itemIdsVerified !== true);
+  const uniqueVerifiedPieceIds = classSet && classSet.itemIdsVerified === true
+    ? new Set((classSet.pieces || []).map(piece => Number(piece.itemId)).filter(Number.isFinite)).size
+    : 0;
+  return {
+    catalogueStatus: tierSetCatalogue?.itemMatching?.status || "unavailable",
+    className: classSet?.class || className || null,
+    specialization: specialization || null,
+    setName: classSet?.setName || null,
+    itemMappingVerified: classSet?.itemIdsVerified === true,
+    verifiedPieceCount: uniqueVerifiedPieceIds,
+    expectedPieceCount: 5,
+    bonusDescriptionsAvailable: Array.isArray(classSet?.specs) &&
+      classSet.specs.some(spec => String(spec[0]).toLowerCase() === String(specialization || "").toLowerCase()),
+    numericScoringAvailable: false,
+    verifiedClassCount: verifiedClasses.length,
+    totalClassCount: sets.length,
+    unverifiedClasses: unverifiedClasses.map(set => set.class),
+    limitations: [
+      "Tier bonus descriptions do not provide a numeric gear score without simulation-derived or otherwise verified values.",
+      ...(classSet?.itemIdsVerified === true ? [] : ["This class's tier-piece item mapping is not verified, so equipped-piece counts may be incomplete."])
+    ]
+  };
+}
+
 function createOptimizationReport({character = createCharacterProfile(), availableItems = [], dataset = null, upgradeSystem = null} = {}) {
   const goal = character.goal || WOW_GOALS.general;
   const simulation = character.simulation || dataset?.simulation || null;
@@ -1253,6 +1283,7 @@ function createOptimizationReport({character = createCharacterProfile(), availab
   return {
     character, goal, statWeights, optimizedEquipment: optimized.equipment, totalScore: optimized.score,
     setBonusStatus: optimized.setBonusStatus,
+    tierSetCoverage: getTierSetCoverageStatus(dataset?.tierSetCatalogue, character.className, character.specialization),
     ratingConstraintStatus: optimized.ratingConstraintStatus || {
       requiresUserChoice: false, balanced: true, remainingViolations: []
     },
@@ -1298,7 +1329,7 @@ window.WoWOptimizer = {
   createCharacterProfile, normalizeCharacterStatistics, scoreCharacterStatistics, getCharacterStatSummary, resolveStatWeights, normalizeSimulationScaleFactors, getSimulationWeightContext, findBlizzardSpecialization, getSpecProfileContext,
   normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, hasUsableItemStats, itemAllowedForClass, scoreItem, scoreEquipment, getGoalWeights,
   findBestItemForSlot, itemMatchesSlot, itemAllowedForClassWeapon, itemAllowedForSpecialization, getWeaponMetadata, normalizeWeaponType, optimizeEquipment, findUpgradeOpportunities, rankItems,
-  getItemSetId, getSetBonusStatus, scoreSetBonuses, scoreEquipmentWithRatingDiminishingReturns, scoreLoadout,
+  getItemSetId, getSetBonusStatus, getTierSetCoverageStatus, scoreSetBonuses, scoreEquipmentWithRatingDiminishingReturns, scoreLoadout,
   getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,
   calculateCrestRequirements, isAscendantVenomstoneEligible, recommendUpgradePlan,
   createOptimizationReport, testData: WOW_OPTIMIZER_TEST_DATA
