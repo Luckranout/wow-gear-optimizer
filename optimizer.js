@@ -1044,17 +1044,49 @@ function findUpgradeOpportunities({
     currentEquipment, weights, setBonuses, specialization, characterLevel
   ).score;
 
+  // Expand only explicit catalog variants before comparing against equipped gear.
+  // This keeps verified upgraded copies eligible while preventing a low-level base
+  // record from being presented as an upgrade over a higher-level equipped item.
+  const upgradeCandidates = [];
+  for (const rawItem of availableItems || []) {
+    if (!rawItem || typeof rawItem !== "object") continue;
+    upgradeCandidates.push(rawItem);
+    if (Array.isArray(rawItem.variants)) {
+      for (const variant of rawItem.variants) {
+        if (!variant || typeof variant !== "object") continue;
+        upgradeCandidates.push({
+          ...rawItem,
+          ...variant,
+          id: rawItem.id,
+          slot: variant.slot || rawItem.slot,
+          variantKey: variant.variantKey || String(rawItem.id) + ":variant:" + String(variant.itemLevel ?? variant.level ?? "unknown"),
+          baseItemId: rawItem.id,
+        });
+      }
+    }
+  }
+
   for (const slot of WOW_EQUIPMENT_SLOTS) {
     const currentItem = currentEquipment[slot];
     const currentScore = scoreItem(currentItem, weights);
-    const candidates = availableItems.filter(item =>
-      itemMatchesSlot(item, slot) &&
-      itemAllowedForClass(item, className) &&
-      itemAllowedForClassWeapon(item, slot, className) &&
-      itemAllowedForSpecialization(item, slot, className, specialization) &&
-      hasUsableItemStats(item)
+    const candidates = upgradeCandidates.filter(rawItem =>
+      itemMatchesSlot(rawItem, slot) &&
+      itemAllowedForClass(rawItem, className) &&
+      itemAllowedForClassWeapon(rawItem, slot, className) &&
+      itemAllowedForSpecialization(rawItem, slot, className, specialization) &&
+      hasUsableItemStats(rawItem)
     )
-      .map(item => {
+      .map(rawItem => {
+        const item = resolveCatalogItemAgainstEquippedVariant(rawItem, currentItem);
+        const candidateLevel = Number(item.itemLevel ?? item.level);
+        const currentLevel = Number(currentItem?.itemLevel ?? currentItem?.level);
+        // No recommendation may lower item level unless it is the same verified
+        // equipped variant resolved above. Missing levels remain eligible because
+        // the catalog cannot support a safe numeric comparison for those records.
+        if (Number.isFinite(candidateLevel) && Number.isFinite(currentLevel) &&
+            candidateLevel < currentLevel) {
+          return { item, score: -Infinity, itemScore: scoreItem(item, weights), capViolations: [], lowerLevelRejected: true };
+        }
         const trialEquipment = { ...currentEquipment, [slot]: item };
         // Never present a single-slot upgrade that pushes a supported level-90
         // loadout beyond a secondary-rating hard cap as a valid recommendation.
@@ -1067,7 +1099,7 @@ function findUpgradeOpportunities({
         ).score;
         return { item, score: trialScore, itemScore: scoreItem(item, weights), capViolations: [] };
       })
-      .filter(candidate => candidate.capViolations.length === 0 && candidate.score > baselineLoadoutScore)
+      .filter(candidate => !candidate.lowerLevelRejected && candidate.capViolations.length === 0 && candidate.score > baselineLoadoutScore)
       .sort((a, b) => b.score - a.score);
 
     if (candidates.length) {
