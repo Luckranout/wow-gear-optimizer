@@ -53,7 +53,8 @@ assert.equal(allowedForSpecialization({
 assert.equal(allowedForSpecialization({
   name: "Example Staff", itemSubclass: { name: "Staff" }, inventoryType: { name: "Staff" }
 }, "Shaman", "Restoration", "Main Hand"), true, "specialization-specific staff restriction does not affect other specs");
-\n(async () => {
+
+(async () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "slot-candidates-"));
   setSectionDir(dir);
   try {
