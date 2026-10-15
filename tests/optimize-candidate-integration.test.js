@@ -5,14 +5,15 @@ const app = fs.readFileSync("app.js", "utf8");
 const api = fs.readFileSync("api/slot-candidates.js", "utf8");
 const html = fs.readFileSync("index.html", "utf8");
 
-// Integration contract: Optimize must identify empty/incompatible slots, request
-// candidates for those slots, merge them without duplicate item IDs, and then
-// pass the combined pool to the real optimizer report.
-assert.match(app, /const missingSlots = WoWOptimizer\.slots\.filter/);
+// Integration contract: Optimize requests verified candidates for every slot.
+// A local item does not prove the section catalog is complete; sparse local data
+// must not hide valid upgrades from the on-demand candidate API.
+assert.match(app, /const candidateSlots = WoWOptimizer\.slots/);
+assert.doesNotMatch(app, /const missingSlots = WoWOptimizer\.slots\.filter/);
 assert.match(app, /const url = `\$\{API_BASE_URL\}\/api\/slot-candidates\?slot=/);
 assert.match(app, /fetch\(url\)/);
 assert.match(app, /class=\$\{encodeURIComponent\(character\.className\)\}/);
-assert.match(app, /Promise\.all\(missingSlots\.map/);
+assert.match(app, /Promise\.all\(candidateSlots\.map/);
 assert.match(app, /availableItems\.concat\(\.\.\.requests\)/);
 assert.match(app, /const byId = new Map\(\)/);
 assert.match(app, /availableItems\.splice\(0, availableItems\.length, \.\.\.byId\.values\(\)\)/);
