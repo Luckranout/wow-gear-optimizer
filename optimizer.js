@@ -275,6 +275,248 @@ function getSetBonusContext({ equipment = {}, setBonuses = [], className = "", s
   };
 }
 
+function getOptimizationProfileRules(profile = {}) {
+  const candidate = profile && typeof profile === "object" ? profile : {};
+  const statWeights = candidate.statWeights || candidate.weights || {};
+  const validWeights = Object.fromEntries(Object.entries(statWeights).filter(([, value]) =>
+    Number.isFinite(Number(value)) && Number(value) >= 0
+  ).map(([key, value]) => [normalizeItemStatName(key), Number(value)]));
+  const numericMap = source => Object.fromEntries(Object.entries(source || {}).filter(([, value]) =>
+    Number.isFinite(Number(value)) && Number(value) >= 0
+  ).map(([key, value]) => [normalizeItemStatName(key), Number(value)]));
+  const softTargets = numericMap(candidate.softTargets);
+  const hardCaps = numericMap(candidate.hardCaps);
+  const softTargetMultipliers = Object.fromEntries(Object.entries(candidate.softTargetMultipliers || {}).filter(([, value]) =>
+    Number.isFinite(Number(value)) && Number(value) >= 0 && Number(value) <= 1
+  ).map(([key, value]) => [normalizeItemStatName(key), Number(value)]));
+  const diminishingReturns = {};
+  for (const [rawStat, rawRule] of Object.entries(candidate.diminishingReturns || {})) {
+    const rule = rawRule && typeof rawRule === "object" ? rawRule : {};
+    const ratingPerPercent = Number(rule.ratingPerPercent);
+    const thresholds = Array.isArray(rule.thresholds) ? rule.thresholds.map(entry => ({
+      upToPercent: Number(entry?.upToPercent),
+      multiplier: Number(entry?.multiplier)
+    })).filter(entry => Number.isFinite(entry.upToPercent) && entry.upToPercent > 0 &&
+      Number.isFinite(entry.multiplier) && entry.multiplier >= 0 && entry.multiplier <= 1)
+      .sort((a, b) => a.upToPercent - b.upToPercent) : [];
+    if (rule.verified === true && typeof rule.source === "string" && rule.source.trim() &&
+        Number.isFinite(ratingPerPercent) && ratingPerPercent > 0 && thresholds.length) {
+      diminishingReturns[normalizeItemStatName(rawStat)] = {
+        ratingPerPercent, thresholds, source: rule.source,
+        hardCapPercent: Number.isFinite(Number(rule.hardCapPercent)) && Number(rule.hardCapPercent) > 0
+          ? Number(rule.hardCapPercent) : null
+      };
+    }
+  }
+  return {
+    statWeights: validWeights,
+    softTargets,
+    hardCaps,
+    softTargetMultipliers,
+    diminishingReturns,
+    source: candidate.source || null,
+    verified: candidate.verified === true,
+    specializationMasteryWeight: Number.isFinite(Number(candidate.specializationMasteryWeight)) &&
+      Number(candidate.specializationMasteryWeight) >= 0 ? Number(candidate.specializationMasteryWeight) : null,
+    hasRules: Object.keys(softTargets).length > 0 || Object.keys(hardCaps).length > 0 ||
+      Object.keys(diminishingReturns).length > 0
+  };
+}
+
+function scoreStatRating(stat, rating, weight, rules = getOptimizationProfileRules()) {
+  const total = Math.max(0, Number(rating) || 0);
+  const statWeight = Math.max(0, Number(weight) || 0);
+  if (!total || !statWeight) return 0;
+  const cap = rules.hardCaps[stat];
+  let usableRating = cap === undefined ? total : Math.min(total, cap);
+  const dr = rules.diminishingReturns[stat];
+  if (dr?.hardCapPercent) usableRating = Math.min(usableRating, dr.hardCapPercent * dr.ratingPerPercent);
+  if (!usableRating) return 0;
+
+  const target = rules.softTargets[stat];
+  const aboveTargetMultiplier = rules.softTargetMultipliers[stat] ?? 0.5;
+  const boundaries = new Set([0, usableRating]);
+  if (target !== undefined && target > 0 && target < usableRating) boundaries.add(target);
+  if (dr) {
+    for (const threshold of dr.thresholds) {
+      const ratingBoundary = threshold.upToPercent * dr.ratingPerPercent;
+      if (ratingBoundary > 0 && ratingBoundary < usableRating) boundaries.add(ratingBoundary);
+    }
+  }
+  const ordered = [...boundaries].sort((a, b) => a - b);
+  let score = 0;
+  for (let index = 0; index < ordered.length - 1; index += 1) {
+    const from = ordered[index];
+    const to = ordered[index + 1];
+    const midpoint = (from + to) / 2;
+    const drMultiplier = dr
+      ? (dr.thresholds.find(threshold => midpoint <= threshold.upToPercent * dr.ratingPerPercent)?.multiplier ??
+        dr.thresholds[dr.thresholds.length - 1].multiplier)
+      : 1;
+    const softMultiplier = target !== undefined && midpoint > target ? aboveTargetMultiplier : 1;
+    score += (to - from) * statWeight * drMultiplier * softMultiplier;
+  }
+  return score;
+}
+
+function scoreEquipmentWithProfile(equipment = {}, statWeights = STAT_WEIGHTS, optimizationProfile = {}) {
+  const rules = getOptimizationProfileRules(optimizationProfile);
+  let score = 0;
+  const totals = {};
+  for (const item of Object.values(equipment || {})) {
+    if (!item) continue;
+    score += (Number(item.itemLevel ?? item.level) || 0) * 2;
+    score += Number(item.effectValue) || 0;
+    if (item.isUniqueEffect) score += 5;
+    const entries = Array.isArray(item.stats)
+      ? item.stats.map(entry => [entry.stat?.name || entry.type?.name || entry.name || entry.stat, entry.value])
+      : Object.entries(item.stats || {});
+    for (const [rawStat, rawValue] of entries) {
+      const stat = normalizeItemStatName(rawStat);
+      const value = Number(rawValue);
+      if (!stat || !Number.isFinite(value) || value <= 0) continue;
+      totals[stat] = (totals[stat] || 0) + value;
+    }
+  }
+  for (const [stat, total] of Object.entries(totals)) {
+    score += scoreStatRating(stat, total, statWeights[stat] ?? 0, rules);
+  }
+  return score;
+}
+
+function scoreItemWithProfile(item, statWeights = STAT_WEIGHTS, optimizationProfile = {}, baselineStats = {}) {
+  if (!item || !hasUsableItemStats(item)) return 0;
+  const rules = getOptimizationProfileRules(optimizationProfile);
+  const itemLevel = Number(item.itemLevel ?? item.level) || 0;
+  let score = itemLevel * 2 + (Number(item.effectValue) || 0) + (item.isUniqueEffect ? 5 : 0);
+  const entries = Array.isArray(item.stats)
+    ? item.stats.map(entry => [entry.stat?.name || entry.type?.name || entry.name || entry.stat, entry.value])
+    : Object.entries(item.stats || {});
+  for (const [rawStat, rawValue] of entries) {
+    const stat = normalizeItemStatName(rawStat);
+    const value = Number(rawValue);
+    if (!stat || !Number.isFinite(value) || value <= 0) continue;
+    const before = Number(baselineStats[stat]) || 0;
+    score += scoreStatRating(stat, before + value, statWeights[stat] ?? 0, rules) -
+      scoreStatRating(stat, before, statWeights[stat] ?? 0, rules);
+  }
+  return score;
+}
+
+function getEquipmentStatTotals(equipment = {}, omitSlot = null) {
+  const totals = {};
+  for (const [slot, item] of Object.entries(equipment || {})) {
+    if (!item || slot === omitSlot) continue;
+    const entries = Array.isArray(item.stats)
+      ? item.stats.map(entry => [entry.stat?.name || entry.type?.name || entry.name || entry.stat, entry.value])
+      : Object.entries(item.stats || {});
+    for (const [rawStat, rawValue] of entries) {
+      const stat = normalizeItemStatName(rawStat);
+      const value = Number(rawValue);
+      if (!stat || !Number.isFinite(value) || value <= 0) continue;
+      totals[stat] = (totals[stat] || 0) + value;
+    }
+  }
+  return totals;
+}
+
+function hasUniqueItemConflict(candidate, equipment, targetSlot) {
+  if (!candidate || candidate.id == null) return false;
+  return Object.entries(equipment || {}).some(([slot, item]) =>
+    slot !== targetSlot && item && item.id != null && String(item.id) === String(candidate.id)
+  );
+}
+
+function optimizeLoadoutWithProfile({ items = [], equipment = {}, character = {}, statWeights = STAT_WEIGHTS, optimizationProfile = {} } = {}) {
+  const rules = getOptimizationProfileRules(optimizationProfile);
+  if (!rules.hasRules) return { equipment, score: scoreEquipment(equipment, statWeights), applied: false };
+  const working = { ...equipment };
+  const candidatesBySlot = {};
+  for (const slot of WOW_EQUIPMENT_SLOTS) {
+    candidatesBySlot[slot] = (items || []).filter(item =>
+      itemMatchesSlot(item, slot) && itemAllowedForClass(item, character.className) &&
+      hasUsableItemStats(item) && item.optimizerEligible !== false
+    ).map(item => ({ item, rawScore: scoreItem(item, statWeights) }))
+      .sort((a, b) => b.rawScore - a.rawScore).slice(0, 24).map(entry => entry.item);
+  }
+  let score = scoreEquipmentWithProfile(working, statWeights, optimizationProfile);
+  for (let pass = 0; pass < 3; pass += 1) {
+    let changed = false;
+    for (const slot of WOW_EQUIPMENT_SLOTS) {
+      let bestItem = working[slot] || null;
+      let bestScore = score;
+      for (const candidate of candidatesBySlot[slot]) {
+        if (hasUniqueItemConflict(candidate, working, slot)) continue;
+        const trial = { ...working, [slot]: candidate };
+        const trialScore = scoreEquipmentWithProfile(trial, statWeights, optimizationProfile);
+        if (trialScore > bestScore) {
+          bestScore = trialScore;
+          bestItem = candidate;
+        }
+      }
+      if (bestItem !== working[slot]) {
+        working[slot] = bestItem;
+        score = bestScore;
+        changed = true;
+      }
+    }
+    if (!changed) break;
+  }
+  return { equipment: working, score, applied: true };
+}
+
+function evaluateCombatEnhancementOptions({ dataset = null, character = {}, statWeights = STAT_WEIGHTS, optimizationProfile = {} } = {}) {
+  const rules = getOptimizationProfileRules(optimizationProfile);
+  const groups = [];
+  const consumables = dataset?.consumables || {};
+  for (const category of ["food", "flaskOrPhial", "potions", "other"]) {
+    const records = Array.isArray(consumables[category]) ? consumables[category] : [];
+    const current = character.consumables?.[category] ?? null;
+    const currentNames = new Set((Array.isArray(current) ? current : current ? [current] : [])
+      .map(value => String(value?.id ?? value?.name ?? value).toLowerCase()));
+    const candidates = records.map(record => {
+      const source = record?.source || record?.statsSource || record?.effectSource || "";
+      const verified = record?.effectVerified === true || record?.mechanicsVerified === true;
+      const stats = record?.stats && typeof record.stats === "object" && !Array.isArray(record.stats) ? record.stats : null;
+      if (!record?.name || !verified || !source || !stats || !Object.keys(stats).length) return null;
+      const score = Object.entries(stats).reduce((sum, [rawStat, rawValue]) => {
+        const stat = normalizeItemStatName(rawStat);
+        const value = Number(rawValue);
+        if (!stat || !Number.isFinite(value) || value <= 0) return sum;
+        return sum + scoreStatRating(stat, value, statWeights[stat] ?? 0, rules);
+      }, 0);
+      return { id: record.id ?? null, name: record.name, score, source, stats, alreadyActive: currentNames.has(String(record.id ?? record.name).toLowerCase()) };
+    }).filter(Boolean).sort((a, b) => b.score - a.score);
+    groups.push({
+      category,
+      current: currentNames.size ? [...currentNames] : [],
+      recommendation: candidates.find(candidate => !candidate.alreadyActive) || null,
+      activeOption: candidates.find(candidate => candidate.alreadyActive) || null,
+      verifiedOptions: candidates.length,
+      status: candidates.length ? "verified-options-available" : "no-verified-effect-data"
+    });
+  }
+  const buffs = Array.isArray(dataset?.buffs) ? dataset.buffs : [];
+  const activeBuffs = new Set((character.buffs || []).map(value => String(value?.id ?? value?.name ?? value).toLowerCase()));
+  const verifiedBuffs = buffs.filter(buff => buff?.name && buff?.effectVerified === true && buff?.source &&
+    buff?.stats && typeof buff.stats === "object" && !Array.isArray(buff.stats)).map(buff => ({
+      id: buff.id ?? null, name: buff.name, source: buff.source,
+      alreadyActive: activeBuffs.has(String(buff.id ?? buff.name).toLowerCase()),
+      score: Object.entries(buff.stats).reduce((sum, [rawStat, rawValue]) => {
+        const stat = normalizeItemStatName(rawStat);
+        const value = Number(rawValue);
+        return sum + (stat && Number.isFinite(value) && value > 0
+          ? scoreStatRating(stat, value, statWeights[stat] ?? 0, rules) : 0);
+      }, 0)
+    })).sort((a, b) => b.score - a.score);
+  return {
+    categories: groups,
+    buffs: verifiedBuffs,
+    scoreAddedToGear: false,
+    note: "Buff and consumable estimates are reported separately from gear score. Only records with explicit numeric stats, a verification flag, and a source are eligible; active options are not recommended again."
+  };
+}
+
 function scoreEquipment(equipment, statWeights = STAT_WEIGHTS) {
   return WOW_EQUIPMENT_SLOTS.reduce((total, slot) =>
     total + scoreItem(equipment?.[slot], statWeights), 0);
