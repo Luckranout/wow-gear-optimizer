@@ -6,7 +6,7 @@
   "season": 2,
   "patch": "12.1.0",
   "status": "season-2-plus-source-imported",
-  "updatedAt": "2026-10-15T03:03:31.319519+00:00",
+  "updatedAt": "2026-10-15T03:23:41.746822+00:00",
   "source": "Blizzard Game Data API",
   "items": [
     {
@@ -25412,8 +25412,8 @@
     },
     "talentSpecializationCount": 40,
     "talentTreeCount": 53,
-    "talentNodeCount": 0,
-    "apexReferenceCount": 0,
+    "talentNodeCount": 2896,
+    "apexReferenceCount": 1,
     "professionRecipeCount": 732,
     "craftedOutputItemCount": 136,
     "gemRecipeCount": 40,
@@ -222197,7 +222197,7 @@
           ]
         },
         "seasonScope": "Midnight Season 2+",
-        "nodeCount": 0
+        "nodeCount": 214
       },
       {
         "id": 1000,
@@ -241577,7 +241577,7 @@
           ]
         },
         "seasonScope": "Midnight Season 2+",
-        "nodeCount": 0
+        "nodeCount": 253
       },
       {
         "id": 790,
@@ -259821,7 +259821,7 @@
           ]
         },
         "seasonScope": "Midnight Season 2+",
-        "nodeCount": 0
+        "nodeCount": 233
       },
       {
         "id": 774,
@@ -276237,7 +276237,7 @@
           ]
         },
         "seasonScope": "Midnight Season 2+",
-        "nodeCount": 0
+        "nodeCount": 210
       },
       {
         "id": 795,
@@ -293587,7 +293587,7 @@
           ]
         },
         "seasonScope": "Midnight Season 2+",
-        "nodeCount": 0
+        "nodeCount": 227
       },
       {
         "id": 1000,
@@ -318068,7 +318068,7 @@
           ]
         },
         "seasonScope": "Midnight Season 2+",
-        "nodeCount": 0
+        "nodeCount": 209
       },
       {
         "id": 750,
@@ -333702,7 +333702,7 @@
           ]
         },
         "seasonScope": "Midnight Season 2+",
-        "nodeCount": 0
+        "nodeCount": 206
       },
       {
         "id": 852,
@@ -350001,7 +350001,7 @@
           ]
         },
         "seasonScope": "Midnight Season 2+",
-        "nodeCount": 0
+        "nodeCount": 206
       },
       {
         "id": 786,
@@ -374063,7 +374063,7 @@
           ]
         },
         "seasonScope": "Midnight Season 2+",
-        "nodeCount": 0
+        "nodeCount": 208
       },
       {
         "id": 658,
@@ -463645,7 +463645,7 @@
           ]
         },
         "seasonScope": "Midnight Season 2+",
-        "nodeCount": 0
+        "nodeCount": 282
       },
       {
         "id": 793,
@@ -497370,7 +497370,7 @@
           ]
         },
         "seasonScope": "Midnight Season 2+",
-        "nodeCount": 0
+        "nodeCount": 202
       },
       {
         "id": 795,
@@ -593052,7 +593052,7 @@
           ]
         },
         "seasonScope": "Midnight Season 2+",
-        "nodeCount": 0
+        "nodeCount": 227
       },
       {
         "id": 854,
@@ -617661,7 +617661,7 @@
           ]
         },
         "seasonScope": "Midnight Season 2+",
-        "nodeCount": 0
+        "nodeCount": 219
       },
       {
         "id": 872,
@@ -640464,8 +640464,8 @@
     "source": "Blizzard Game Data API",
     "specializationCount": 40,
     "treeCount": 53,
-    "nodeCount": 0,
-    "apexReferenceCount": 0
+    "nodeCount": 2896,
+    "apexReferenceCount": 1
   },
   "upgradeSystem": {
     "tracks": [
