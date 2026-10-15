@@ -3,1529 +3,8 @@
   "section": "main-hand",
   "source": "Blizzard Game Data API item search",
   "complete": true,
-  "candidateCount": 90,
+  "candidateCount": 73,
   "items": [
-    {
-      "id": 158369,
-      "name": "Galvanized Stormcrusher",
-      "level": 59,
-      "requiredLevel": 0,
-      "quality": {
-        "id": null,
-        "name": "Rare"
-      },
-      "itemClass": {
-        "id": 2,
-        "name": "Weapon"
-      },
-      "itemSubclass": {
-        "id": 4,
-        "name": "Mace"
-      },
-      "inventoryType": {
-        "id": null,
-        "name": "One-Hand"
-      },
-      "isEquippable": true,
-      "stats": [
-        {
-          "type": {
-            "name": "intellect"
-          },
-          "value": 17,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "stamina"
-          },
-          "value": 4,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "haste"
-          },
-          "value": 3,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "versatility"
-          },
-          "value": 2,
-          "source": "Blizzard preview_item.stats"
-        }
-      ],
-      "spells": [],
-      "set": null,
-      "description": null,
-      "media": {
-        "key": {
-          "href": "https://us.api.blizzard.com/data/wow/media/item/158369?namespace=static-12.1.5_70077-us"
-        },
-        "id": 158369
-      },
-      "source": "Blizzard Game Data API — Season 2+ content source",
-      "seasonScope": "Midnight Season 2+",
-      "sourceLocations": [
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Temple of Sethraliss",
-          "instanceId": 1030,
-          "encounterId": 2144,
-          "encounter": "Galvazzt"
-        },
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Temple of Sethraliss",
-          "instanceId": 1030,
-          "encounterId": 2144,
-          "encounter": "Galvazzt",
-          "catalogSection": "off-hand",
-          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
-        },
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Temple of Sethraliss",
-          "instanceId": 1030,
-          "encounterId": 2144,
-          "encounter": "Galvazzt",
-          "catalogSection": "main-hand",
-          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
-        }
-      ],
-      "statsSource": "Blizzard Game Data API"
-    },
-    {
-      "id": 158370,
-      "name": "Twin-Strike Polearm",
-      "level": 59,
-      "requiredLevel": 0,
-      "quality": {
-        "id": null,
-        "name": "Rare"
-      },
-      "itemClass": {
-        "id": 2,
-        "name": "Weapon"
-      },
-      "itemSubclass": {
-        "id": 6,
-        "name": "Polearm"
-      },
-      "inventoryType": {
-        "id": null,
-        "name": "Two-Hand"
-      },
-      "isEquippable": true,
-      "stats": [
-        {
-          "type": {
-            "name": "agility"
-          },
-          "value": 6,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "stamina"
-          },
-          "value": 9,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "criticalStrike"
-          },
-          "value": 5,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "haste"
-          },
-          "value": 7,
-          "source": "Blizzard preview_item.stats"
-        }
-      ],
-      "spells": [],
-      "set": null,
-      "description": null,
-      "media": {
-        "key": {
-          "href": "https://us.api.blizzard.com/data/wow/media/item/158370?namespace=static-12.1.5_70077-us"
-        },
-        "id": 158370
-      },
-      "source": "Blizzard Game Data API — Season 2+ content source",
-      "seasonScope": "Midnight Season 2+",
-      "sourceLocations": [
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Temple of Sethraliss",
-          "instanceId": 1030,
-          "encounterId": 2142,
-          "encounter": "Adderis and Aspix"
-        },
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Temple of Sethraliss",
-          "instanceId": 1030,
-          "encounterId": 2142,
-          "encounter": "Adderis and Aspix",
-          "catalogSection": "main-hand",
-          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
-        }
-      ],
-      "statsSource": "Blizzard Game Data API"
-    },
-    {
-      "id": 158373,
-      "name": "Resonating Crystal Scimitar",
-      "level": 59,
-      "requiredLevel": 0,
-      "quality": {
-        "id": null,
-        "name": "Rare"
-      },
-      "itemClass": {
-        "id": 2,
-        "name": "Weapon"
-      },
-      "itemSubclass": {
-        "id": 7,
-        "name": "Sword"
-      },
-      "inventoryType": {
-        "id": null,
-        "name": "One-Hand"
-      },
-      "isEquippable": true,
-      "stats": [
-        {
-          "type": {
-            "name": "strength"
-          },
-          "value": 3,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "stamina"
-          },
-          "value": 4,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "criticalStrike"
-          },
-          "value": 3,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "haste"
-          },
-          "value": 3,
-          "source": "Blizzard preview_item.stats"
-        }
-      ],
-      "spells": [],
-      "set": null,
-      "description": null,
-      "media": {
-        "key": {
-          "href": "https://us.api.blizzard.com/data/wow/media/item/158373?namespace=static-12.1.5_70077-us"
-        },
-        "id": 158373
-      },
-      "source": "Blizzard Game Data API — Season 2+ content source",
-      "seasonScope": "Midnight Season 2+",
-      "sourceLocations": [
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Temple of Sethraliss",
-          "instanceId": 1030,
-          "encounterId": 2145,
-          "encounter": "Avatar of Sethraliss"
-        },
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Temple of Sethraliss",
-          "instanceId": 1030,
-          "encounterId": 2145,
-          "encounter": "Avatar of Sethraliss",
-          "catalogSection": "off-hand",
-          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
-        },
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Temple of Sethraliss",
-          "instanceId": 1030,
-          "encounterId": 2145,
-          "encounter": "Avatar of Sethraliss",
-          "catalogSection": "main-hand",
-          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
-        }
-      ],
-      "statsSource": "Blizzard Game Data API"
-    },
-    {
-      "id": 158714,
-      "name": "Swarm's Edge",
-      "level": 59,
-      "requiredLevel": 0,
-      "quality": {
-        "id": null,
-        "name": "Rare"
-      },
-      "itemClass": {
-        "id": 2,
-        "name": "Weapon"
-      },
-      "itemSubclass": {
-        "id": 7,
-        "name": "Sword"
-      },
-      "inventoryType": {
-        "id": null,
-        "name": "One-Hand"
-      },
-      "isEquippable": true,
-      "stats": [
-        {
-          "type": {
-            "name": "agility"
-          },
-          "value": 3,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "stamina"
-          },
-          "value": 4,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "versatility"
-          },
-          "value": 3,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "mastery"
-          },
-          "value": 2,
-          "source": "Blizzard preview_item.stats"
-        }
-      ],
-      "spells": [],
-      "set": null,
-      "description": null,
-      "media": {
-        "key": {
-          "href": "https://us.api.blizzard.com/data/wow/media/item/158714?namespace=static-12.1.5_70077-us"
-        },
-        "id": 158714
-      },
-      "source": "Blizzard Game Data API — Season 2+ content source",
-      "seasonScope": "Midnight Season 2+",
-      "sourceLocations": [
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Temple of Sethraliss",
-          "instanceId": 1030,
-          "encounterId": 2143,
-          "encounter": "Merektha"
-        },
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Temple of Sethraliss",
-          "instanceId": 1030,
-          "encounterId": 2143,
-          "encounter": "Merektha",
-          "catalogSection": "off-hand",
-          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
-        },
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Temple of Sethraliss",
-          "instanceId": 1030,
-          "encounterId": 2143,
-          "encounter": "Merektha",
-          "catalogSection": "main-hand",
-          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
-        }
-      ],
-      "statsSource": "Blizzard Game Data API"
-    },
-    {
-      "id": 159136,
-      "name": "Jeweled Dagger of Subjugation",
-      "level": 59,
-      "requiredLevel": 0,
-      "quality": {
-        "id": null,
-        "name": "Rare"
-      },
-      "itemClass": {
-        "id": 2,
-        "name": "Weapon"
-      },
-      "itemSubclass": {
-        "id": 15,
-        "name": "Dagger"
-      },
-      "inventoryType": {
-        "id": null,
-        "name": "One-Hand"
-      },
-      "isEquippable": true,
-      "stats": [
-        {
-          "type": {
-            "name": "agility"
-          },
-          "value": 3,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "stamina"
-          },
-          "value": 4,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "haste"
-          },
-          "value": 3,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "mastery"
-          },
-          "value": 3,
-          "source": "Blizzard preview_item.stats"
-        }
-      ],
-      "spells": [],
-      "set": null,
-      "description": null,
-      "media": {
-        "key": {
-          "href": "https://us.api.blizzard.com/data/wow/media/item/159136?namespace=static-12.1.5_70077-us"
-        },
-        "id": 159136
-      },
-      "source": "Blizzard Game Data API — Season 2+ content source",
-      "seasonScope": "Midnight Season 2+",
-      "sourceLocations": [
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Kings' Rest",
-          "instanceId": 1041,
-          "encounterId": 2170,
-          "encounter": "The Council of Tribes"
-        },
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Kings' Rest",
-          "instanceId": 1041,
-          "encounterId": 2170,
-          "encounter": "The Council of Tribes",
-          "catalogSection": "off-hand",
-          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
-        },
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Kings' Rest",
-          "instanceId": 1041,
-          "encounterId": 2170,
-          "encounter": "The Council of Tribes",
-          "catalogSection": "main-hand",
-          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
-        }
-      ],
-      "statsSource": "Blizzard Game Data API"
-    },
-    {
-      "id": 159137,
-      "name": "Gilded Serpent's Tooth",
-      "level": 59,
-      "requiredLevel": 0,
-      "quality": {
-        "id": null,
-        "name": "Rare"
-      },
-      "itemClass": {
-        "id": 2,
-        "name": "Weapon"
-      },
-      "itemSubclass": {
-        "id": 15,
-        "name": "Dagger"
-      },
-      "inventoryType": {
-        "id": null,
-        "name": "One-Hand"
-      },
-      "isEquippable": true,
-      "stats": [
-        {
-          "type": {
-            "name": "intellect"
-          },
-          "value": 17,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "stamina"
-          },
-          "value": 4,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "haste"
-          },
-          "value": 3,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "versatility"
-          },
-          "value": 3,
-          "source": "Blizzard preview_item.stats"
-        }
-      ],
-      "spells": [],
-      "set": null,
-      "description": null,
-      "media": {
-        "key": {
-          "href": "https://us.api.blizzard.com/data/wow/media/item/159137?namespace=static-12.1.5_70077-us"
-        },
-        "id": 159137
-      },
-      "source": "Blizzard Game Data API — Season 2+ content source",
-      "seasonScope": "Midnight Season 2+",
-      "sourceLocations": [
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Kings' Rest",
-          "instanceId": 1041,
-          "encounterId": 2165,
-          "encounter": "The Golden Serpent"
-        },
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Kings' Rest",
-          "instanceId": 1041,
-          "encounterId": 2165,
-          "encounter": "The Golden Serpent",
-          "catalogSection": "off-hand",
-          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
-        },
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Kings' Rest",
-          "instanceId": 1041,
-          "encounterId": 2165,
-          "encounter": "The Golden Serpent",
-          "catalogSection": "main-hand",
-          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
-        }
-      ],
-      "statsSource": "Blizzard Game Data API"
-    },
-    {
-      "id": 159636,
-      "name": "Staff of the Lightning Serpent",
-      "level": 59,
-      "requiredLevel": 0,
-      "quality": {
-        "id": null,
-        "name": "Rare"
-      },
-      "itemClass": {
-        "id": 2,
-        "name": "Weapon"
-      },
-      "itemSubclass": {
-        "id": 10,
-        "name": "Staff"
-      },
-      "inventoryType": {
-        "id": null,
-        "name": "Two-Hand"
-      },
-      "isEquippable": true,
-      "stats": [
-        {
-          "type": {
-            "name": "intellect"
-          },
-          "value": 26,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "stamina"
-          },
-          "value": 9,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "haste"
-          },
-          "value": 7,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "mastery"
-          },
-          "value": 5,
-          "source": "Blizzard preview_item.stats"
-        }
-      ],
-      "spells": [],
-      "set": null,
-      "description": null,
-      "media": {
-        "key": {
-          "href": "https://us.api.blizzard.com/data/wow/media/item/159636?namespace=static-12.1.5_70077-us"
-        },
-        "id": 159636
-      },
-      "source": "Blizzard Game Data API — Season 2+ content source",
-      "seasonScope": "Midnight Season 2+",
-      "sourceLocations": [
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Temple of Sethraliss",
-          "instanceId": 1030,
-          "encounterId": 2142,
-          "encounter": "Adderis and Aspix"
-        },
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Temple of Sethraliss",
-          "instanceId": 1030,
-          "encounterId": 2142,
-          "encounter": "Adderis and Aspix",
-          "catalogSection": "main-hand",
-          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
-        }
-      ],
-      "statsSource": "Blizzard Game Data API"
-    },
-    {
-      "id": 159637,
-      "name": "Snakebite Recurve",
-      "level": 59,
-      "requiredLevel": 0,
-      "quality": {
-        "id": null,
-        "name": "Rare"
-      },
-      "itemClass": {
-        "id": 2,
-        "name": "Weapon"
-      },
-      "itemSubclass": {
-        "id": 2,
-        "name": "Bow"
-      },
-      "inventoryType": {
-        "id": null,
-        "name": "Ranged"
-      },
-      "isEquippable": true,
-      "stats": [
-        {
-          "type": {
-            "name": "agility"
-          },
-          "value": 6,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "stamina"
-          },
-          "value": 9,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "criticalStrike"
-          },
-          "value": 7,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "haste"
-          },
-          "value": 5,
-          "source": "Blizzard preview_item.stats"
-        }
-      ],
-      "spells": [],
-      "set": null,
-      "description": null,
-      "media": {
-        "key": {
-          "href": "https://us.api.blizzard.com/data/wow/media/item/159637?namespace=static-12.1.5_70077-us"
-        },
-        "id": 159637
-      },
-      "source": "Blizzard Game Data API — Season 2+ content source",
-      "seasonScope": "Midnight Season 2+",
-      "sourceLocations": [
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Temple of Sethraliss",
-          "instanceId": 1030,
-          "encounterId": 2143,
-          "encounter": "Merektha"
-        },
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Temple of Sethraliss",
-          "instanceId": 1030,
-          "encounterId": 2143,
-          "encounter": "Merektha",
-          "catalogSection": "main-hand",
-          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
-        }
-      ],
-      "statsSource": "Blizzard Game Data API"
-    },
-    {
-      "id": 159642,
-      "name": "Royal Purifier's Spade",
-      "level": 59,
-      "requiredLevel": 0,
-      "quality": {
-        "id": null,
-        "name": "Rare"
-      },
-      "itemClass": {
-        "id": 2,
-        "name": "Weapon"
-      },
-      "itemSubclass": {
-        "id": 6,
-        "name": "Polearm"
-      },
-      "inventoryType": {
-        "id": null,
-        "name": "Two-Hand"
-      },
-      "isEquippable": true,
-      "stats": [
-        {
-          "type": {
-            "name": "agility"
-          },
-          "value": 6,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "stamina"
-          },
-          "value": 9,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "criticalStrike"
-          },
-          "value": 7,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "mastery"
-          },
-          "value": 5,
-          "source": "Blizzard preview_item.stats"
-        }
-      ],
-      "spells": [],
-      "set": null,
-      "description": null,
-      "media": {
-        "key": {
-          "href": "https://us.api.blizzard.com/data/wow/media/item/159642?namespace=static-12.1.5_70077-us"
-        },
-        "id": 159642
-      },
-      "source": "Blizzard Game Data API — Season 2+ content source",
-      "seasonScope": "Midnight Season 2+",
-      "sourceLocations": [
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Kings' Rest",
-          "instanceId": 1041,
-          "encounterId": 2171,
-          "encounter": "Mchimba the Embalmer"
-        },
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Kings' Rest",
-          "instanceId": 1041,
-          "encounterId": 2171,
-          "encounter": "Mchimba the Embalmer",
-          "catalogSection": "main-hand",
-          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
-        }
-      ],
-      "statsSource": "Blizzard Game Data API"
-    },
-    {
-      "id": 159643,
-      "name": "Crossbow of Forgotten Majesty",
-      "level": 59,
-      "requiredLevel": 0,
-      "quality": {
-        "id": null,
-        "name": "Rare"
-      },
-      "itemClass": {
-        "id": 2,
-        "name": "Weapon"
-      },
-      "itemSubclass": {
-        "id": 18,
-        "name": "Crossbow"
-      },
-      "inventoryType": {
-        "id": null,
-        "name": "Ranged"
-      },
-      "isEquippable": true,
-      "stats": [
-        {
-          "type": {
-            "name": "agility"
-          },
-          "value": 6,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "stamina"
-          },
-          "value": 9,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "haste"
-          },
-          "value": 7,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "mastery"
-          },
-          "value": 5,
-          "source": "Blizzard preview_item.stats"
-        }
-      ],
-      "spells": [],
-      "set": null,
-      "description": null,
-      "media": {
-        "key": {
-          "href": "https://us.api.blizzard.com/data/wow/media/item/159643?namespace=static-12.1.5_70077-us"
-        },
-        "id": 159643
-      },
-      "source": "Blizzard Game Data API — Season 2+ content source",
-      "seasonScope": "Midnight Season 2+",
-      "sourceLocations": [
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Kings' Rest",
-          "instanceId": 1041,
-          "encounterId": 2170,
-          "encounter": "The Council of Tribes"
-        },
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Kings' Rest",
-          "instanceId": 1041,
-          "encounterId": 2170,
-          "encounter": "The Council of Tribes",
-          "catalogSection": "main-hand",
-          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
-        }
-      ],
-      "statsSource": "Blizzard Game Data API"
-    },
-    {
-      "id": 159644,
-      "name": "Geti'ikku, Cut of Death",
-      "level": 59,
-      "requiredLevel": 0,
-      "quality": {
-        "id": null,
-        "name": "Rare"
-      },
-      "itemClass": {
-        "id": 2,
-        "name": "Weapon"
-      },
-      "itemSubclass": {
-        "id": 8,
-        "name": "Sword"
-      },
-      "inventoryType": {
-        "id": null,
-        "name": "Two-Hand"
-      },
-      "isEquippable": true,
-      "stats": [
-        {
-          "type": {
-            "name": "strength"
-          },
-          "value": 6,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "stamina"
-          },
-          "value": 9,
-          "source": "Blizzard preview_item.stats"
-        }
-      ],
-      "spells": [],
-      "set": null,
-      "description": null,
-      "media": {
-        "key": {
-          "href": "https://us.api.blizzard.com/data/wow/media/item/159644?namespace=static-12.1.5_70077-us"
-        },
-        "id": 159644
-      },
-      "source": "Blizzard Game Data API — Season 2+ content source",
-      "seasonScope": "Midnight Season 2+",
-      "sourceLocations": [
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Kings' Rest",
-          "instanceId": 1041,
-          "encounterId": 2172,
-          "encounter": "Dazar, The First King"
-        },
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Kings' Rest",
-          "instanceId": 1041,
-          "encounterId": 2172,
-          "encounter": "Dazar, The First King",
-          "catalogSection": "main-hand",
-          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
-        }
-      ],
-      "statsSource": "Blizzard Game Data API"
-    },
-    {
-      "id": 159645,
-      "name": "Headcracker of Supplication",
-      "level": 59,
-      "requiredLevel": 0,
-      "quality": {
-        "id": null,
-        "name": "Rare"
-      },
-      "itemClass": {
-        "id": 2,
-        "name": "Weapon"
-      },
-      "itemSubclass": {
-        "id": 4,
-        "name": "Mace"
-      },
-      "inventoryType": {
-        "id": null,
-        "name": "One-Hand"
-      },
-      "isEquippable": true,
-      "stats": [
-        {
-          "type": {
-            "name": "agility"
-          },
-          "value": 3,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "stamina"
-          },
-          "value": 4,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "criticalStrike"
-          },
-          "value": 2,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "mastery"
-          },
-          "value": 3,
-          "source": "Blizzard preview_item.stats"
-        }
-      ],
-      "spells": [],
-      "set": null,
-      "description": null,
-      "media": {
-        "key": {
-          "href": "https://us.api.blizzard.com/data/wow/media/item/159645?namespace=static-12.1.5_70077-us"
-        },
-        "id": 159645
-      },
-      "source": "Blizzard Game Data API — Season 2+ content source",
-      "seasonScope": "Midnight Season 2+",
-      "sourceLocations": [
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Kings' Rest",
-          "instanceId": 1041,
-          "encounterId": 2172,
-          "encounter": "Dazar, The First King"
-        },
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Kings' Rest",
-          "instanceId": 1041,
-          "encounterId": 2172,
-          "encounter": "Dazar, The First King",
-          "catalogSection": "off-hand",
-          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
-        },
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Kings' Rest",
-          "instanceId": 1041,
-          "encounterId": 2172,
-          "encounter": "Dazar, The First King",
-          "catalogSection": "main-hand",
-          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
-        }
-      ],
-      "statsSource": "Blizzard Game Data API"
-    },
-    {
-      "id": 160216,
-      "name": "Crackling Jade Kilij",
-      "level": 59,
-      "requiredLevel": 0,
-      "quality": {
-        "id": null,
-        "name": "Rare"
-      },
-      "itemClass": {
-        "id": 2,
-        "name": "Weapon"
-      },
-      "itemSubclass": {
-        "id": 7,
-        "name": "Sword"
-      },
-      "inventoryType": {
-        "id": null,
-        "name": "One-Hand"
-      },
-      "isEquippable": true,
-      "stats": [
-        {
-          "type": {
-            "name": "intellect"
-          },
-          "value": 17,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "stamina"
-          },
-          "value": 4,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "criticalStrike"
-          },
-          "value": 3,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "mastery"
-          },
-          "value": 2,
-          "source": "Blizzard preview_item.stats"
-        }
-      ],
-      "spells": [],
-      "set": null,
-      "description": null,
-      "media": {
-        "key": {
-          "href": "https://us.api.blizzard.com/data/wow/media/item/160216?namespace=static-12.1.5_70077-us"
-        },
-        "id": 160216
-      },
-      "source": "Blizzard Game Data API — Season 2+ content source",
-      "seasonScope": "Midnight Season 2+",
-      "sourceLocations": [
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Kings' Rest",
-          "instanceId": 1041,
-          "encounterId": 2170,
-          "encounter": "The Council of Tribes"
-        },
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Kings' Rest",
-          "instanceId": 1041,
-          "encounterId": 2170,
-          "encounter": "The Council of Tribes",
-          "catalogSection": "off-hand",
-          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
-        },
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Kings' Rest",
-          "instanceId": 1041,
-          "encounterId": 2170,
-          "encounter": "The Council of Tribes",
-          "catalogSection": "main-hand",
-          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
-        }
-      ],
-      "statsSource": "Blizzard Game Data API"
-    },
-    {
-      "id": 193755,
-      "name": "Backdraft Cleaver",
-      "level": 250,
-      "requiredLevel": 58,
-      "quality": {
-        "id": null,
-        "name": "Rare"
-      },
-      "itemClass": {
-        "id": 2,
-        "name": "Weapon"
-      },
-      "itemSubclass": {
-        "id": 1,
-        "name": "Axe"
-      },
-      "inventoryType": {
-        "id": null,
-        "name": "Two-Hand"
-      },
-      "isEquippable": true,
-      "stats": [
-        {
-          "type": {
-            "name": "strength"
-          },
-          "value": 11,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "stamina"
-          },
-          "value": 16,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "criticalStrike"
-          },
-          "value": 8,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "haste"
-          },
-          "value": 14,
-          "source": "Blizzard preview_item.stats"
-        }
-      ],
-      "spells": [],
-      "set": null,
-      "description": null,
-      "media": {
-        "key": {
-          "href": "https://us.api.blizzard.com/data/wow/media/item/193755?namespace=static-12.1.5_70077-us"
-        },
-        "id": 193755
-      },
-      "source": "Blizzard Game Data API — Season 2+ content source",
-      "seasonScope": "Midnight Season 2+",
-      "sourceLocations": [
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Ruby Life Pools",
-          "instanceId": 1202,
-          "encounterId": 2503,
-          "encounter": "Kyrakka and Erkhart Stormvein"
-        },
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Ruby Life Pools",
-          "instanceId": 1202,
-          "encounterId": 2503,
-          "encounter": "Kyrakka and Erkhart Stormvein",
-          "catalogSection": "main-hand",
-          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
-        }
-      ],
-      "statsSource": "Blizzard Game Data API"
-    },
-    {
-      "id": 193756,
-      "name": "Skyferno Rondel",
-      "level": 250,
-      "requiredLevel": 58,
-      "quality": {
-        "id": null,
-        "name": "Rare"
-      },
-      "itemClass": {
-        "id": 2,
-        "name": "Weapon"
-      },
-      "itemSubclass": {
-        "id": 15,
-        "name": "Dagger"
-      },
-      "inventoryType": {
-        "id": null,
-        "name": "One-Hand"
-      },
-      "isEquippable": true,
-      "stats": [
-        {
-          "type": {
-            "name": "agility"
-          },
-          "value": 5,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "stamina"
-          },
-          "value": 8,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "haste"
-          },
-          "value": 4,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "versatility"
-          },
-          "value": 7,
-          "source": "Blizzard preview_item.stats"
-        }
-      ],
-      "spells": [],
-      "set": null,
-      "description": null,
-      "media": {
-        "key": {
-          "href": "https://us.api.blizzard.com/data/wow/media/item/193756?namespace=static-12.1.5_70077-us"
-        },
-        "id": 193756
-      },
-      "source": "Blizzard Game Data API — Season 2+ content source",
-      "seasonScope": "Midnight Season 2+",
-      "sourceLocations": [
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Ruby Life Pools",
-          "instanceId": 1202,
-          "encounterId": 2503,
-          "encounter": "Kyrakka and Erkhart Stormvein"
-        },
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Ruby Life Pools",
-          "instanceId": 1202,
-          "encounterId": 2503,
-          "encounter": "Kyrakka and Erkhart Stormvein",
-          "catalogSection": "off-hand",
-          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
-        },
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Ruby Life Pools",
-          "instanceId": 1202,
-          "encounterId": 2503,
-          "encounter": "Kyrakka and Erkhart Stormvein",
-          "catalogSection": "main-hand",
-          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
-        }
-      ],
-      "statsSource": "Blizzard Game Data API"
-    },
-    {
-      "id": 193761,
-      "name": "Chillworn's Infusion Staff",
-      "level": 250,
-      "requiredLevel": 58,
-      "quality": {
-        "id": null,
-        "name": "Rare"
-      },
-      "itemClass": {
-        "id": 2,
-        "name": "Weapon"
-      },
-      "itemSubclass": {
-        "id": 10,
-        "name": "Staff"
-      },
-      "inventoryType": {
-        "id": null,
-        "name": "Two-Hand"
-      },
-      "isEquippable": true,
-      "stats": [
-        {
-          "type": {
-            "name": "intellect"
-          },
-          "value": 48,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "stamina"
-          },
-          "value": 16,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "criticalStrike"
-          },
-          "value": 13,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "mastery"
-          },
-          "value": 8,
-          "source": "Blizzard preview_item.stats"
-        }
-      ],
-      "spells": [],
-      "set": null,
-      "description": null,
-      "media": {
-        "key": {
-          "href": "https://us.api.blizzard.com/data/wow/media/item/193761?namespace=static-12.1.5_70077-us"
-        },
-        "id": 193761
-      },
-      "source": "Blizzard Game Data API — Season 2+ content source",
-      "seasonScope": "Midnight Season 2+",
-      "sourceLocations": [
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Ruby Life Pools",
-          "instanceId": 1202,
-          "encounterId": 2488,
-          "encounter": "Melidrussa Chillworn"
-        },
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Ruby Life Pools",
-          "instanceId": 1202,
-          "encounterId": 2488,
-          "encounter": "Melidrussa Chillworn",
-          "catalogSection": "main-hand",
-          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
-        }
-      ],
-      "statsSource": "Blizzard Game Data API"
-    },
-    {
-      "id": 193767,
-      "name": "Havoc Crusher",
-      "level": 250,
-      "requiredLevel": 58,
-      "quality": {
-        "id": null,
-        "name": "Rare"
-      },
-      "itemClass": {
-        "id": 2,
-        "name": "Weapon"
-      },
-      "itemSubclass": {
-        "id": 4,
-        "name": "Mace"
-      },
-      "inventoryType": {
-        "id": null,
-        "name": "One-Hand"
-      },
-      "isEquippable": true,
-      "stats": [
-        {
-          "type": {
-            "name": "agility"
-          },
-          "value": 5,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "stamina"
-          },
-          "value": 8,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "criticalStrike"
-          },
-          "value": 7,
-          "source": "Blizzard preview_item.stats"
-        },
-        {
-          "type": {
-            "name": "haste"
-          },
-          "value": 4,
-          "source": "Blizzard preview_item.stats"
-        }
-      ],
-      "spells": [],
-      "set": null,
-      "description": null,
-      "media": {
-        "key": {
-          "href": "https://us.api.blizzard.com/data/wow/media/item/193767?namespace=static-12.1.5_70077-us"
-        },
-        "id": 193767
-      },
-      "source": "Blizzard Game Data API — Season 2+ content source",
-      "seasonScope": "Midnight Season 2+",
-      "sourceLocations": [
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Ruby Life Pools",
-          "instanceId": 1202,
-          "encounterId": 2485,
-          "encounter": "Kokia Blazehoof"
-        },
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Ruby Life Pools",
-          "instanceId": 1202,
-          "encounterId": 2485,
-          "encounter": "Kokia Blazehoof",
-          "catalogSection": "off-hand",
-          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
-        },
-        {
-          "seasonScope": "Midnight Season 2+",
-          "category": "PvE",
-          "instance": "Ruby Life Pools",
-          "instanceId": 1202,
-          "encounterId": 2485,
-          "encounter": "Kokia Blazehoof",
-          "catalogSection": "main-hand",
-          "slotConfirmedBy": "Blizzard item detail inventory_type.type"
-        }
-      ],
-      "statsSource": "Blizzard Game Data API"
-    },
     {
       "id": 237837,
       "name": "Farstrider's Mercy",
@@ -1599,14 +78,14 @@
           "seasonScope": "Midnight Season 2+",
           "category": "Crafted Gear",
           "professionRecipeSource": "Midnight profession skill-tier recipe output",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
           "seasonScope": "Midnight Season 2+",
           "category": "Crafted Gear",
           "professionRecipeSource": "Midnight profession skill-tier recipe output",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -1692,14 +171,14 @@
           "seasonScope": "Midnight Season 2+",
           "category": "Crafted Gear",
           "professionRecipeSource": "Midnight profession skill-tier recipe output",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
           "seasonScope": "Midnight Season 2+",
           "category": "Crafted Gear",
           "professionRecipeSource": "Midnight profession skill-tier recipe output",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -1950,14 +429,14 @@
           "seasonScope": "Midnight Season 2+",
           "category": "Crafted Gear",
           "professionRecipeSource": "Midnight profession skill-tier recipe output",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
           "seasonScope": "Midnight Season 2+",
           "category": "Crafted Gear",
           "professionRecipeSource": "Midnight profession skill-tier recipe output",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -2040,7 +519,7 @@
           "pvpSeasonId": 42,
           "pvpSeason": "Midnight Season 2",
           "sourceType": "current-season PvP gear family search",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -2049,7 +528,7 @@
           "pvpSeasonId": 42,
           "pvpSeason": "Midnight Season 2",
           "sourceType": "current-season PvP gear family search",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -2132,7 +611,7 @@
           "pvpSeasonId": 42,
           "pvpSeason": "Midnight Season 2",
           "sourceType": "current-season PvP gear family search",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -2141,7 +620,7 @@
           "pvpSeasonId": 42,
           "pvpSeason": "Midnight Season 2",
           "sourceType": "current-season PvP gear family search",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -2224,7 +703,7 @@
           "pvpSeasonId": 42,
           "pvpSeason": "Midnight Season 2",
           "sourceType": "current-season PvP gear family search",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -2233,7 +712,7 @@
           "pvpSeasonId": 42,
           "pvpSeason": "Midnight Season 2",
           "sourceType": "current-season PvP gear family search",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -2316,7 +795,7 @@
           "pvpSeasonId": 42,
           "pvpSeason": "Midnight Season 2",
           "sourceType": "current-season PvP gear family search",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -2325,7 +804,7 @@
           "pvpSeasonId": 42,
           "pvpSeason": "Midnight Season 2",
           "sourceType": "current-season PvP gear family search",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -2408,7 +887,7 @@
           "pvpSeasonId": 42,
           "pvpSeason": "Midnight Season 2",
           "sourceType": "current-season PvP gear family search",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -2417,7 +896,7 @@
           "pvpSeasonId": 42,
           "pvpSeason": "Midnight Season 2",
           "sourceType": "current-season PvP gear family search",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -2583,7 +1062,7 @@
           "pvpSeasonId": 42,
           "pvpSeason": "Midnight Season 2",
           "sourceType": "current-season PvP gear family search",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -2592,7 +1071,7 @@
           "pvpSeasonId": 42,
           "pvpSeason": "Midnight Season 2",
           "sourceType": "current-season PvP gear family search",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -2678,14 +1157,14 @@
           "seasonScope": "Midnight Season 2+",
           "category": "Crafted Gear",
           "professionRecipeSource": "Midnight profession skill-tier recipe output",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
           "seasonScope": "Midnight Season 2+",
           "category": "Crafted Gear",
           "professionRecipeSource": "Midnight profession skill-tier recipe output",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -2771,14 +1250,14 @@
           "seasonScope": "Midnight Season 2+",
           "category": "Crafted Gear",
           "professionRecipeSource": "Midnight profession skill-tier recipe output",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
           "seasonScope": "Midnight Season 2+",
           "category": "Crafted Gear",
           "professionRecipeSource": "Midnight profession skill-tier recipe output",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -2857,14 +1336,14 @@
           "seasonScope": "Midnight Season 2+",
           "category": "Crafted Gear",
           "professionRecipeSource": "Midnight profession skill-tier recipe output",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
           "seasonScope": "Midnight Season 2+",
           "category": "Crafted Gear",
           "professionRecipeSource": "Midnight profession skill-tier recipe output",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -3516,7 +1995,7 @@
           "instanceId": 1304,
           "encounterId": 2680,
           "encounter": "Zaen Bladesorrow",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -3526,7 +2005,7 @@
           "instanceId": 1304,
           "encounterId": 2680,
           "encounter": "Zaen Bladesorrow",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -3696,7 +2175,7 @@
           "instanceId": 1311,
           "encounterId": 2776,
           "encounter": "The Hoardmonger",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -3706,7 +2185,7 @@
           "instanceId": 1311,
           "encounterId": 2776,
           "encounter": "The Hoardmonger",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -3961,7 +2440,7 @@
           "instanceId": 1309,
           "encounterId": 2769,
           "encounter": "Lightblossom Trinity",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -3971,7 +2450,7 @@
           "instanceId": 1309,
           "encounterId": 2769,
           "encounter": "Lightblossom Trinity",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -4141,7 +2620,7 @@
           "instanceId": 1309,
           "encounterId": 2770,
           "encounter": "Ikuzz the Light Hunter",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -4151,7 +2630,7 @@
           "instanceId": 1309,
           "encounterId": 2770,
           "encounter": "Ikuzz the Light Hunter",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -4491,7 +2970,7 @@
           "instanceId": 1309,
           "encounterId": 2772,
           "encounter": "Ziekket",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -4501,7 +2980,7 @@
           "instanceId": 1309,
           "encounterId": 2772,
           "encounter": "Ziekket",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -4586,7 +3065,7 @@
           "instanceId": 1313,
           "encounterId": 2791,
           "encounter": "Taz'Rah",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -4596,7 +3075,7 @@
           "instanceId": 1313,
           "encounterId": 2791,
           "encounter": "Taz'Rah",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -4681,7 +3160,7 @@
           "instanceId": 1313,
           "encounterId": 2792,
           "encounter": "Atroxus",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -4691,7 +3170,7 @@
           "instanceId": 1313,
           "encounterId": 2792,
           "encounter": "Atroxus",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -4776,7 +3255,7 @@
           "instanceId": 1313,
           "encounterId": 2792,
           "encounter": "Atroxus",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -4786,7 +3265,7 @@
           "instanceId": 1313,
           "encounterId": 2792,
           "encounter": "Atroxus",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -4963,7 +3442,7 @@
           "instanceId": 1313,
           "encounterId": 2793,
           "encounter": "Charonus",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -4973,7 +3452,7 @@
           "instanceId": 1313,
           "encounterId": 2793,
           "encounter": "Charonus",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -5029,7 +3508,7 @@
           "instanceId": 1304,
           "encounterId": 2682,
           "encounter": "Lithiel Cinderfury",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -5039,7 +3518,7 @@
           "instanceId": 1304,
           "encounterId": 2682,
           "encounter": "Lithiel Cinderfury",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -5545,7 +4024,7 @@
           "instanceId": 1320,
           "encounterId": 2871,
           "encounter": "Sszorak",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -5555,7 +4034,7 @@
           "instanceId": 1320,
           "encounterId": 2871,
           "encounter": "Sszorak",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -5633,7 +4112,7 @@
           "instanceId": 1320,
           "encounterId": 2895,
           "encounter": "Ula'tek",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -5643,7 +4122,7 @@
           "instanceId": 1320,
           "encounterId": 2895,
           "encounter": "Ula'tek",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -5728,7 +4207,7 @@
           "instanceId": 1320,
           "encounterId": 2888,
           "encounter": "Nek'zali the Soulcoiler",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -5738,7 +4217,7 @@
           "instanceId": 1320,
           "encounterId": 2888,
           "encounter": "Nek'zali the Soulcoiler",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -5823,7 +4302,7 @@
           "instanceId": 1320,
           "encounterId": 2874,
           "encounter": "Entombed Sentinels",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -5833,7 +4312,7 @@
           "instanceId": 1320,
           "encounterId": 2874,
           "encounter": "Entombed Sentinels",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -6003,7 +4482,7 @@
           "instanceId": 1320,
           "encounterId": 2871,
           "encounter": "Sszorak",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -6013,7 +4492,7 @@
           "instanceId": 1320,
           "encounterId": 2871,
           "encounter": "Sszorak",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -6176,7 +4655,7 @@
           "instanceId": 1320,
           "encounterId": 2888,
           "encounter": "Nek'zali the Soulcoiler",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -6186,7 +4665,7 @@
           "instanceId": 1320,
           "encounterId": 2888,
           "encounter": "Nek'zali the Soulcoiler",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -6363,7 +4842,7 @@
           "instanceId": 1320,
           "encounterId": 2894,
           "encounter": "The Lost Explorers",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -6373,7 +4852,7 @@
           "instanceId": 1320,
           "encounterId": 2894,
           "encounter": "The Lost Explorers",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -6458,7 +4937,7 @@
           "instanceId": 1320,
           "encounterId": 2883,
           "encounter": "The Coiled Altar",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -6468,7 +4947,7 @@
           "instanceId": 1320,
           "encounterId": 2883,
           "encounter": "The Coiled Altar",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -6808,7 +5287,7 @@
           "instanceId": 1320,
           "encounterId": 2887,
           "encounter": "The Twin Fangs",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -6818,7 +5297,7 @@
           "instanceId": 1320,
           "encounterId": 2887,
           "encounter": "The Twin Fangs",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -7069,7 +5548,7 @@
           "instanceId": 1320,
           "encounterId": 2888,
           "encounter": "Nek'zali the Soulcoiler",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -7079,7 +5558,7 @@
           "instanceId": 1320,
           "encounterId": 2888,
           "encounter": "Nek'zali the Soulcoiler",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -7157,7 +5636,7 @@
           "instanceId": 1320,
           "encounterId": 2895,
           "encounter": "Ula'tek",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -7167,7 +5646,7 @@
           "instanceId": 1320,
           "encounterId": 2895,
           "encounter": "Ula'tek",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -7245,7 +5724,7 @@
           "instanceId": 1320,
           "encounterId": 2895,
           "encounter": "Ula'tek",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -7255,7 +5734,7 @@
           "instanceId": 1320,
           "encounterId": 2895,
           "encounter": "Ula'tek",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -7425,7 +5904,7 @@
           "instanceId": 1322,
           "encounterId": 2880,
           "encounter": "Zul'jan",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -7435,7 +5914,7 @@
           "instanceId": 1322,
           "encounterId": 2880,
           "encounter": "Zul'jan",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -7520,7 +5999,7 @@
           "instanceId": 1322,
           "encounterId": 2878,
           "encounter": "Rav'i",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -7530,7 +6009,7 @@
           "instanceId": 1322,
           "encounterId": 2878,
           "encounter": "Rav'i",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -7877,7 +6356,7 @@
           "instanceId": 1322,
           "encounterId": 2878,
           "encounter": "Rav'i",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -7887,7 +6366,7 @@
           "instanceId": 1322,
           "encounterId": 2878,
           "encounter": "Rav'i",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -7972,7 +6451,7 @@
           "instanceId": 1322,
           "encounterId": 2880,
           "encounter": "Zul'jan",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -7982,7 +6461,7 @@
           "instanceId": 1322,
           "encounterId": 2880,
           "encounter": "Zul'jan",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
