@@ -96,3 +96,40 @@ if (upgradeResults.length !== 1 ||
 }
 
 console.log("Step 19 SimulationCraft weighted gear ranking passed.");
+
+const importedProfile = optimizer.createCharacterProfileFromImport({
+  importedCharacter: {
+    id: 42,
+    name: "SimulationIntegration",
+    level: 90,
+    class: { name: "Warrior" },
+    activeSpec: { id: 73, name: "Protection" },
+    equipment: [],
+    talents: [{ id: 12345, name: "Test talent" }]
+  },
+  goal: "Mythic+"
+});
+importedProfile.simulation = contextResult;
+const report = optimizer.createOptimizationReport({
+  character: importedProfile,
+  availableItems: gearCandidates,
+  dataset: { optimizationProfiles: {} }
+});
+if (report.optimizationContext?.source !== "SimulationCraft" ||
+    report.statWeights?.Strength !== 0.5 ||
+    report.statWeights?.CriticalStrike !== 0.1) {
+  throw new Error("Imported character optimization report did not retain and use its attached simulation weights");
+}
+if (report.character.talents?.[0]?.id !== 12345) {
+  throw new Error("Imported character optimization profile did not preserve its selected talent metadata");
+}
+
+const appSource = fs.readFileSync("app.js", "utf8");
+const htmlSource = fs.readFileSync("index.html", "utf8");
+if (!appSource.includes("character.simulation = importedSimulation;") ||
+    !appSource.includes("parseSimulationResultJson") ||
+    !htmlSource.includes('id="simulationJsonInput"') ||
+    !htmlSource.includes('src="simulation-import.js"')) {
+  throw new Error("UI simulation import must parse user weights and attach them for imported-character optimization");
+}
+
