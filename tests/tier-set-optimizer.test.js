@@ -7,8 +7,8 @@ vm.runInNewContext(fs.readFileSync("optimizer.js", "utf8"), context);
 const optimizer = context.window.WoWOptimizer;
 
 const bonuses = [
-  { setId: "midnight-tier", name: "Test Tier", className: "Mage", specialization: "Fire", pieces: 2, bonusScore: 300 },
-  { setId: "midnight-tier", name: "Test Tier", className: "Mage", specialization: "Fire", pieces: 4, bonusScore: 500 }
+  { setId: "midnight-tier", name: "Test Tier", className: "Mage", specialization: "Fire", pieces: 2, bonusScore: 300, verified: true, source: "verified test fixture" },
+  { setId: "midnight-tier", name: "Test Tier", className: "Mage", specialization: "Fire", pieces: 4, bonusScore: 500, verified: true, source: "verified test fixture" }
 ];
 const items = [
   { id: 1, name: "Set Helm", slot: "Head", setId: "midnight-tier", itemLevel: 450, stats: { Intellect: 100 } },
@@ -40,8 +40,8 @@ const fourPieceItems = [
   { id: 18, name: "High Legs", slot: "Legs", itemLevel: 500, stats: { Intellect: 100 } }
 ];
 const fourPieceBonuses = [
-  { setId: "four-piece-tier", name: "Four Piece Tier", className: "Mage", specialization: "Fire", pieces: 2, bonusScore: 300 },
-  { setId: "four-piece-tier", name: "Four Piece Tier", className: "Mage", specialization: "Fire", pieces: 4, bonusScore: 500 }
+  { setId: "four-piece-tier", name: "Four Piece Tier", className: "Mage", specialization: "Fire", pieces: 2, bonusScore: 300, verified: true, source: "verified test fixture" },
+  { setId: "four-piece-tier", name: "Four Piece Tier", className: "Mage", specialization: "Fire", pieces: 4, bonusScore: 500, verified: true, source: "verified test fixture" }
 ];
 const fourPiece = optimizer.optimizeEquipment({
   items: fourPieceItems, character, goal: "Raid", tierSetAware: true, setBonuses: fourPieceBonuses
@@ -63,6 +63,13 @@ assert.equal(fourPiece.score, fourPiece.baseScore + 800,
 const wrongSpec = optimizer.getSetBonusContext({ equipment: tier.equipment, setBonuses: bonuses, className: "Mage", specialization: "Frost" });
 assert.equal(wrongSpec.bonusScore, 0, "specialization-specific bonus must not apply to another spec");
 assert.equal(wrongSpec.hasVerifiedScoringData, false, "another spec's score data must not be reported as available");
+const unverifiedBonuses = optimizer.getSetBonusContext({
+  equipment: tier.equipment,
+  setBonuses: [{ setId: "midnight-tier", pieces: 2, bonusScore: 999999, className: "Mage", specialization: "Fire" }],
+  className: "Mage", specialization: "Fire"
+});
+assert.equal(unverifiedBonuses.bonusScore, 0, "unverified numeric tier scores must never influence optimization");
+assert.equal(unverifiedBonuses.hasVerifiedScoringData, false, "unverified numeric tier scores must not be advertised as verified");
 
 const report = optimizer.createOptimizationReport({
   character, availableItems: items, dataset: { setBonuses: [] }, tierSetAware: true
@@ -129,8 +136,8 @@ for (const set of tierItemManifest.sets) {
   assert.ok(setItems.every(item => item.isSetPiece === true && item.tierSetClassName === set.className),
     `${set.className} pieces should acquire class-scoped tier membership`);
   const testBonuses = [
-    { setId: set.setId, name: set.setName, className: set.className, specialization: "Test", pieces: 2, bonusScore: 10 },
-    { setId: set.setId, name: set.setName, className: set.className, specialization: "Test", pieces: 4, bonusScore: 20 }
+    { setId: set.setId, name: set.setName, className: set.className, specialization: "Test", pieces: 2, bonusScore: 10, verified: true, source: "verified test fixture" },
+    { setId: set.setId, name: set.setName, className: set.className, specialization: "Test", pieces: 4, bonusScore: 20, verified: true, source: "verified test fixture" }
   ];
   function loadoutAt(pieceCount) {
     return Object.fromEntries(setItems.slice(0, pieceCount).map(item => [item.slot, item]));
