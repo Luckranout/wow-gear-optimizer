@@ -63,6 +63,15 @@ if (validation.length) throw new Error("Normalized test dataset failed validatio
   }
   if (dataLayer.validateRetailDataset(real).length) throw new Error("Real retail dataset failed validation");
 
+  const verifiedShamanPiece = real.items.find(item => item.seasonScope === "Midnight Season 2" && Number(item.id) === 271483);
+  const shamanSetDefinition = real.setBonuses.find(set => set.class === "Shaman");
+  if (!verifiedShamanPiece || !shamanSetDefinition ||
+      verifiedShamanPiece.setId !== shamanSetDefinition.setId ||
+      !shamanSetDefinition.thresholds.some(threshold => threshold.pieces === 2) ||
+      !shamanSetDefinition.thresholds.some(threshold => threshold.pieces === 4)) {
+    throw new Error("Verified Shaman tier pieces must use the same canonical set ID as the 2pc/4pc definitions");
+  }
+
   // Tier-set coverage is an optional enhancement: a missing/broken tier file
   // must not disable otherwise-valid PvE equipment optimization.
   const fallbackContext = {
