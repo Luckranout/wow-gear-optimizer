@@ -2140,6 +2140,14 @@ def main():
 
     print("Import phase 6/7: collecting talent data.", flush=True)
     talent_data = collect_talent_data(token)
+    # Talent data is a required part of the optimizer input. Never publish a
+    # successful-looking dataset if the Blizzard payload shape/namespace has
+    # yielded no usable nodes; preserve the last known-good file instead.
+    if not talent_data.get("specializationCount") or not talent_data.get("treeCount") or not talent_data.get("nodeCount"):
+        raise RuntimeError(
+            "Talent import validation failed: expected nonzero specialization, "
+            "tree, and node counts; refusing to publish an incomplete dataset."
+        )
     print("Import phase 7/7: assembling and validating the dataset.", flush=True)
     upgrade_data = collect_upgrade_and_crest_data()
 
