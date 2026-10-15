@@ -34,6 +34,14 @@ assert.equal(optimizer.scoreStatRating("Haste", 70, 1, optimizer.getOptimization
   "verified hard cap in DR rules should discard rating beyond the cap");
 assert.equal(optimizer.scoreStatRating("Intellect", 150, 1, optimizer.getOptimizationProfileRules(profile)), 100,
   "hard caps should exclude rating beyond the profile cap");
+const defaultCurve = optimizer.getOptimizationProfileRules({
+  source: "verified test profile", verified: true,
+  diminishingReturns: {
+    Haste: { verified: true, source: "verified rating conversion fixture", ratingPerPercent: 10 }
+  }
+});
+assert.equal(optimizer.scoreStatRating("Haste", 50, 1, defaultCurve), 47,
+  "verified rating conversions should use the versioned 12.1 secondary-stat DR curve when no custom thresholds are supplied");
 const softTargetOnly = optimizer.getOptimizationProfileRules({
   source: "verified test fixture", verified: true,
   softTargets: { Haste: 100 }, softTargetMultipliers: { Haste: 0 }
