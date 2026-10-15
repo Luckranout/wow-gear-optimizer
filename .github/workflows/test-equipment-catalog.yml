@@ -8,6 +8,7 @@ on:
       - "tests/test_equipment_catalog_sections.py"
       - "tests/test_blizzard_request_retry.py"
       - "tests/test_consumable_classification.py"
+      - "tests/test_supporting_catalog_validation.py"
       - ".github/workflows/test-equipment-catalog.yml"
   workflow_dispatch:
 
@@ -30,5 +31,7 @@ jobs:
         run: python -m unittest discover -s tests -p "test_blizzard_request_retry.py" -v
       - name: Test consumable recipe classification
         run: python -m unittest discover -s tests -p "test_consumable_classification.py" -v
+      - name: Test supporting catalog validation
+        run: python -m unittest discover -s tests -p "test_supporting_catalog_validation.py" -v
       - name: Compile importer and section module
         run: python -m py_compile scripts/import_blizzard_data.py scripts/equipment_catalog_sections.py
