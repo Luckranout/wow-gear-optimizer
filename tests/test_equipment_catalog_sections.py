@@ -248,3 +248,48 @@ class BlizzardMythicSeasonVerificationTests(unittest.TestCase):
         with patch.object(import_blizzard_data, "get_api_json", side_effect=[index, detail]):
             with self.assertRaisesRegex(RuntimeError, "returned no periods"):
                 import_blizzard_data.get_mythic_keystone_season("token")
+
+    def test_current_season_journal_sources_require_season_map_ids(self):
+        season = {
+            "id": 18,
+            "season_name": "Mythic+ Dungeons (Midnight Season 2)",
+            "periods": [{"id": 101, "maps": [{"id": 9001}]}],
+        }
+        index = [
+            {"id": 1, "name": {"en_US": "Kings' Rest"}},
+            {"id": 2, "name": {"en_US": "The Tidebound Grotto"}},
+        ]
+        legacy_instance = {
+            "id": 1,
+            "name": {"en_US": "Kings' Rest"},
+            "map": {"id": 7001},
+            "journal_encounters": [{"id": 11}],
+        }
+        current_instance = {
+            "id": 2,
+            "name": {"en_US": "The Tidebound Grotto"},
+            "map": {"id": 9001},
+            "journal_encounters": [{"id": 22}],
+        }
+        legacy_encounter = {
+            "id": 11, "name": {"en_US": "Legacy Boss"},
+            "instance": {"name": {"en_US": "Kings' Rest"}},
+            "items": [{"item": {"id": 111}}],
+        }
+        current_encounter = {
+            "id": 22, "name": {"en_US": "Current Boss"},
+            "instance": {"name": {"en_US": "The Tidebound Grotto"}},
+            "items": [{"item": {"id": 222}}],
+        }
+        def api(path, _token, _params):
+            if path == "/data/wow/journal-instance/1": return legacy_instance
+            if path == "/data/wow/journal-instance/2": return current_instance
+            if path == "/data/wow/journal-encounter/22": return current_encounter
+            raise AssertionError(f"Unexpected API request: {path}")
+        with patch.object(import_blizzard_data, "get_mythic_keystone_season", return_value=season), \\
+             patch.object(import_blizzard_data, "get_season_instances", return_value=index), \\
+             patch.object(import_blizzard_data, "get_api_json", side_effect=api):
+            ids, matched, missing = import_blizzard_data.collect_season_content_item_ids("token")
+        self.assertEqual(set(ids), {222})
+        self.assertEqual(matched, ["The Tidebound Grotto"])
+        self.assertIn("Kings' Rest", missing)
