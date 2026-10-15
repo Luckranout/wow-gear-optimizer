@@ -63,7 +63,7 @@ Example schema (illustrative test values only; **not a live game profile**):
 }
 ```
 
-All numeric values above are examples for schema/tests, not verified Season 2 stat weights, caps, or rating conversions. Replace them only with patch- and specialization-appropriate evidence. Diminishing returns use gear rating and a supplied rating-to-percent conversion; the engine will not guess that conversion, including for Mastery.
+All numeric values above are examples for schema/tests, not verified Season 2 stat weights, caps, or rating conversions. Replace them only with patch- and specialization-appropriate evidence. The engine includes the 12.1 secondary-stat diminishing-return bands (0–30% at full value, then 0.9/0.8/0.7/0.6/0.5 multipliers through 126%); it still requires a sourced, verified `ratingPerPercent` conversion before applying those bands to item rating. This avoids guessing rating conversion, including for specialization-dependent Mastery.
 
 SimulationCraft scale factors are accepted when their specialization matches the selected character. A scale-factor import for another specialization is ignored in favor of a matching verified profile or the disclosed fallback weights.
 
