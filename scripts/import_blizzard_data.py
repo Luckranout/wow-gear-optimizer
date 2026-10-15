@@ -420,9 +420,32 @@ def tooltip_explicitly_labels_cosmetic(tooltip):
     return bool(re.search(r"\bCosmetic\b", plain_text, re.IGNORECASE))
 
 
-def fetch_wowhead_tooltip_stats(item_id, diagnostics=None):
-    """Fetch explicit displayed stats from Wowhead, with bounded retries and shape diagnostics."""
-    url = "https://nether.wowhead.com/tooltip/item/{}?dataEnv=1&locale=0".format(int(item_id))
+def fetch_wowhead_tooltip_stats(item_id, diagnostics=None, bonus_ids=None, item_level=None):
+    """Fetch explicit displayed stats for a base item or an explicitly identified Wowhead variant.
+
+    An item-level override is only safe alongside a verified variant bonus list.
+    This helper never guesses upgrade bonuses or treats level alone as verification.
+    """
+    item_id = int(item_id)
+    params = {"dataEnv": 1, "locale": 0}
+    if bonus_ids is not None:
+        if not isinstance(bonus_ids, (list, tuple)) or not bonus_ids:
+            raise ValueError("bonus_ids must be a non-empty sequence of verified bonus IDs")
+        normalized_bonus_ids = []
+        for bonus_id in bonus_ids:
+            if isinstance(bonus_id, bool) or not str(bonus_id).isdigit() or int(bonus_id) <= 0:
+                raise ValueError("bonus_ids must contain positive integer IDs")
+            normalized_bonus_ids.append(str(int(bonus_id)))
+        params["bonus"] = ":".join(normalized_bonus_ids)
+    if item_level is not None:
+        if isinstance(item_level, bool) or not str(item_level).isdigit() or int(item_level) <= 0:
+            raise ValueError("item_level must be a positive integer")
+        if bonus_ids is None:
+            raise ValueError("item_level override requires verified bonus_ids; level alone is not variant verification")
+        params["ilvl"] = int(item_level)
+    url = "https://nether.wowhead.com/tooltip/item/{}?{}".format(
+        item_id, urllib.parse.urlencode(params)
+    )
     request = urllib.request.Request(url, headers={
         "Accept": "application/json",
         "User-Agent": "WoW-Gear-Optimizer/1.0",
