@@ -229,7 +229,6 @@ function scoreItem(item, statWeights = STAT_WEIGHTS) {
   if (!item || !hasUsableItemStats(item)) return 0;
   const itemLevel = Number(item.itemLevel ?? item.level) || 0;
   let effectScore = Number(item.effectValue) || 0;
-  if (item.isSetPiece) effectScore += 10;
   if (item.isUniqueEffect) effectScore += 5;
   return itemLevel * 2 + scoreItemStats(item, statWeights) + effectScore;
 }
@@ -266,10 +265,13 @@ function getSetBonusContext({ equipment = {}, setBonuses = [], className = "", s
     counts,
     activeBonuses,
     bonusScore: activeBonuses.reduce((sum, bonus) => sum + bonus.bonusScore, 0),
-    hasVerifiedScoringData: (setBonuses || []).some(bonus =>
-      Number.isFinite(Number(bonus?.bonusScore ?? bonus?.scoreValue)) &&
-      Number(bonus?.bonusScore ?? bonus?.scoreValue) > 0
-    )
+    hasVerifiedScoringData: (setBonuses || []).some(bonus => {
+      const value = Number(bonus?.bonusScore ?? bonus?.scoreValue);
+      if (!Number.isFinite(value) || value <= 0) return false;
+      if (bonus.className && normalizeClassName(bonus.className) !== normalizedClass) return false;
+      if (bonus.specialization && String(bonus.specialization).trim().toLowerCase() !== normalizedSpec) return false;
+      return true;
+    })
   };
 }
 
@@ -422,6 +424,63 @@ function findBestItemForSlot(items, slot, goal, statWeights = null) {
     .sort((a, b) => b.score - a.score)[0] || null;
 }
 
+function forEachCombination(values, size, visit) {
+  const chosen = [];
+  function walk(start) {
+    if (chosen.length === size) {
+      visit(chosen.slice());
+      return;
+    }
+    const remaining = size - chosen.length;
+    for (let i = start; i <= values.length - remaining; i += 1) {
+      chosen.push(values[i]);
+      walk(i + 1);
+      chosen.pop();
+    }
+  }
+  if (Number.isInteger(size) && size > 0 && values.length >= size) walk(0);
+}
+
+function optimizeTierSetThresholds({ items = [], equipment = {}, statWeights = STAT_WEIGHTS, setBonuses = [], character = {} } = {}) {
+  let bestEquipment = { ...equipment };
+  let bestResult = scoreTierSetAwareLoadout(bestEquipment, statWeights, setBonuses, character);
+  const classKey = normalizeClassName(character.className);
+  const specKey = String(character.specialization || "").trim().toLowerCase();
+
+  for (const bonus of setBonuses || []) {
+    const rawSetId = bonus?.setId ?? bonus?.set?.id ?? bonus?.setName ?? bonus?.set?.name;
+    const threshold = Number(bonus?.pieces ?? bonus?.threshold ?? bonus?.requiredPieces);
+    const bonusScore = Number(bonus?.bonusScore ?? bonus?.scoreValue);
+    if (rawSetId == null || !Number.isInteger(threshold) || threshold < 2 || threshold > 5 ||
+        !Number.isFinite(bonusScore) || bonusScore <= 0) continue;
+    if (bonus.className && normalizeClassName(bonus.className) !== classKey) continue;
+    if (bonus.specialization && String(bonus.specialization).trim().toLowerCase() !== specKey) continue;
+
+    const setId = String(rawSetId).trim().toLowerCase();
+    const candidates = (items || []).filter(item =>
+      normalizeSetId(item) === setId &&
+      item?.slot && ARMOR_SLOTS.has(item.slot) &&
+      itemAllowedForClass(item, character.className) &&
+      hasUsableItemStats(item)
+    );
+    forEachCombination(candidates, threshold, pieces => {
+      const slots = pieces.map(piece => piece.slot);
+      if (new Set(slots).size !== threshold) return;
+      const ids = pieces.filter(piece => piece.id != null).map(piece => String(piece.id));
+      if (new Set(ids).size !== ids.length) return;
+
+      const candidateEquipment = { ...equipment };
+      for (const piece of pieces) candidateEquipment[piece.slot] = piece;
+      const result = scoreTierSetAwareLoadout(candidateEquipment, statWeights, setBonuses, character);
+      if (result.score > bestResult.score) {
+        bestEquipment = candidateEquipment;
+        bestResult = result;
+      }
+    });
+  }
+  return { equipment: bestEquipment, ...bestResult };
+}
+
 function optimizeEquipment({
   items = [],
   character = createCharacterProfile(),
@@ -431,9 +490,10 @@ function optimizeEquipment({
   setBonuses = []
 } = {}) {
   const weights = statWeights || getGoalWeights(goal);
-  const candidateScore = item => tierSetAware
-    ? scoreItemWithSetPotential(item, weights, setBonuses, character)
-    : scoreItem(item, weights);
+  // Rank ordinary candidates on their base value. Tier thresholds are evaluated
+  // on complete candidate loadouts below; spreading each bonus across each item
+  // double-counts 2pc bonuses once a 4pc bonus is also configured.
+  const candidateScore = item => scoreItem(item, weights);
   const optimizedEquipment = {};
   for (const slot of WOW_EQUIPMENT_SLOTS) {
     const best = (items || []).filter(item => itemMatchesSlot(item, slot) && itemAllowedForClass(item, character.className) && hasUsableItemStats(item))
@@ -475,6 +535,12 @@ function optimizeEquipment({
       optimizedEquipment[firstSlot] = first[0].item;
       optimizedEquipment[secondSlot] = null;
     }
+  }
+  if (tierSetAware) {
+    const tierOptimized = optimizeTierSetThresholds({
+      items, equipment: optimizedEquipment, statWeights: weights, setBonuses, character
+    });
+    Object.assign(optimizedEquipment, tierOptimized.equipment);
   }
   const tierSetScore = tierSetAware
     ? scoreTierSetAwareLoadout(optimizedEquipment, weights, setBonuses, character)
