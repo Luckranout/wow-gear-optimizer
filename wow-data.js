@@ -189,19 +189,23 @@ async function loadRetailDataset(url = "data/current-retail.json") {
   const raw = await response.json();
   const data = normalizeRetailDataset(raw);
 
-  // Tier bonus descriptions are versioned separately from the large generated
-  // item dataset. Failure is surfaced rather than silently claiming complete
-  // tier-set coverage.
-  const tierResponse = await fetch("data/tier-sets-midnight-season-2.json", { cache: "no-store" });
-  if (!tierResponse.ok) {
-    throw new Error(`Tier-set catalogue request failed: HTTP ${tierResponse.status}`);
+  // Tier-set data is an optional optimization enhancement, not a dependency
+  // for loading ordinary gear. Missing/invalid tier data must never block PvE
+  // item scoring; report its absence explicitly so set advice stays conservative.
+  let tierCatalogue = null;
+  try {
+    const tierResponse = await fetch("data/tier-sets-midnight-season-2.json", { cache: "no-store" });
+    if (!tierResponse.ok) throw new Error(`HTTP ${tierResponse.status}`);
+    const candidateCatalogue = await tierResponse.json();
+    const catalogErrors = validateTierSetCatalogue(candidateCatalogue);
+    if (catalogErrors.length) throw new Error(catalogErrors.join(" "));
+    tierCatalogue = candidateCatalogue;
+  } catch (error) {
+    console.warn("Tier-set catalogue unavailable; continuing with regular gear optimization:", error);
   }
-  const tierCatalogue = await tierResponse.json();
-  const catalogErrors = validateTierSetCatalogue(tierCatalogue);
-  if (catalogErrors.length) throw new Error(catalogErrors.join(" "));
 
   data.tierSetCatalogue = tierCatalogue;
-  const sourceBackedBonuses = (tierCatalogue.sets || []).map(set => ({
+  const sourceBackedBonuses = (tierCatalogue?.sets || []).map(set => ({
     setId: set.id || String(set.setName || "").trim().toLowerCase(),
     name: set.setName,
     class: set.class,
@@ -216,7 +220,7 @@ async function loadRetailDataset(url = "data/current-retail.json") {
   // Add source-backed Shaman tier candidates for four PvE difficulty variants.
   // PvP variants are mapped for set detection but remain excluded from candidates
   // until their stat and item-level records are verified.
-  const verifiedTierCandidates = (tierCatalogue.sets || []).flatMap(set =>
+  const verifiedTierCandidates = (tierCatalogue?.sets || []).flatMap(set =>
     (set.pieces || []).filter(piece => piece.candidate === true && Number.isFinite(Number(piece.itemLevel)) &&
       Array.isArray(piece.stats) && piece.stats.length > 0).map(piece => ({
         id: piece.itemId,
