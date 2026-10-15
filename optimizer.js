@@ -599,7 +599,6 @@ function scoreEquipmentWithRatingDiminishingReturns(equipment = {}, statWeights 
       score += effective * (statWeights[stat] ?? 0);
     }
   }
-  score -= getSecondaryRatingSoftTargetPenalty(equipment, characterLevel);
   return score;
 }
 
