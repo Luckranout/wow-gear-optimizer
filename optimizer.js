@@ -517,13 +517,15 @@ function evaluateCombatEnhancementOptions({ dataset = null, character = {}, stat
   };
 }
 
-function scoreEquipment(equipment, statWeights = STAT_WEIGHTS) {
+function scoreEquipment(equipment, statWeights = STAT_WEIGHTS, optimizationProfile = {}) {
+  const rules = getOptimizationProfileRules(optimizationProfile);
+  if (rules.hasRules) return scoreEquipmentWithProfile(equipment, statWeights, optimizationProfile);
   return WOW_EQUIPMENT_SLOTS.reduce((total, slot) =>
     total + scoreItem(equipment?.[slot], statWeights), 0);
 }
 
-function scoreTierSetAwareLoadout(equipment, statWeights = STAT_WEIGHTS, setBonuses = [], character = {}) {
-  const baseScore = scoreEquipment(equipment, statWeights);
+function scoreTierSetAwareLoadout(equipment, statWeights = STAT_WEIGHTS, setBonuses = [], character = {}, optimizationProfile = {}) {
+  const baseScore = scoreEquipment(equipment, statWeights, optimizationProfile);
   const setContext = getSetBonusContext({
     equipment, setBonuses, className: character.className,
     specialization: character.specialization
@@ -558,19 +560,19 @@ function findBlizzardSpecialization(dataset, specializationId = null, specializa
   return records.find(record => String(record.name || "").trim().toLowerCase() === target) || null;
 }
 
-function getSpecProfileContext({ dataset = null, className = "", specialization = "", specializationId = null } = {}) {
-  const specializationRecord = findBlizzardSpecialization(
-    dataset,
-    specializationId,
-    specialization
-  );
-  const optimizationProfile =
-    dataset?.optimizationProfiles?.[className]?.[specialization] || null;
+function findCaseInsensitiveRecord(records, name) {
+  if (!records || typeof records !== "object" || Array.isArray(records)) return null;
+  const target = String(name || "").trim().toLowerCase();
+  if (!target) return null;
+  const key = Object.keys(records).find(candidate => candidate.trim().toLowerCase() === target);
+  return key ? records[key] : null;
+}
 
-  return {
-    specialization: specializationRecord,
-    optimizationProfile
-  };
+function getSpecProfileContext({ dataset = null, className = "", specialization = "", specializationId = null } = {}) {
+  const specializationRecord = findBlizzardSpecialization(dataset, specializationId, specialization);
+  const classProfiles = findCaseInsensitiveRecord(dataset?.optimizationProfiles, className);
+  const optimizationProfile = findCaseInsensitiveRecord(classProfiles, specialization);
+  return { specialization: specializationRecord, optimizationProfile };
 }
 
 function normalizeSimulationScaleFactors(scaleFactors = {}) {
@@ -623,20 +625,26 @@ function resolveStatWeights({
 } = {}) {
   const goalWeights = getGoalWeights(goal);
   const simulationContext = getSimulationWeightContext(simulation);
-  if (simulationContext) return { ...goalWeights, ...simulationContext.scaleFactors };
-  if (!statProfiles || typeof statProfiles !== "object") return goalWeights;
+  const simulationSpec = String(simulationContext?.specialization || "").trim().toLowerCase();
+  const targetSpec = String(specialization || "").trim().toLowerCase();
+  const simulationMatchesSpec = simulationContext &&
+    (!simulationSpec || !targetSpec || simulationSpec === targetSpec ||
+      simulationSpec.endsWith(" " + targetSpec) || targetSpec.endsWith(" " + simulationSpec));
+  if (simulationMatchesSpec) return { ...goalWeights, ...simulationContext.scaleFactors };
 
-  const classProfiles = statProfiles[className];
-  const profile = classProfiles?.[specialization];
+  const classProfiles = findCaseInsensitiveRecord(statProfiles, className);
+  const profile = findCaseInsensitiveRecord(classProfiles, specialization);
   if (!profile || typeof profile !== "object") return goalWeights;
-
+  const profileWeights = profile.statWeights || profile.weights || profile;
   const merged = { ...goalWeights };
-  for (const [stat, value] of Object.entries(profile)) {
+  for (const [stat, value] of Object.entries(profileWeights)) {
+    if (["source", "verified", "softTargets", "hardCaps", "diminishingReturns",
+      "softTargetMultipliers", "specializationMasteryWeight", "notes"].includes(stat)) continue;
     const numericValue = Number(value);
-    if (Number.isFinite(numericValue) && numericValue >= 0) {
-      merged[stat] = numericValue;
-    }
+    if (Number.isFinite(numericValue) && numericValue >= 0) merged[normalizeItemStatName(stat)] = numericValue;
   }
+  const rules = getOptimizationProfileRules(profile);
+  if (rules.specializationMasteryWeight !== null) merged.Mastery = rules.specializationMasteryWeight;
   return merged;
 }
 
@@ -664,9 +672,9 @@ function forEachCombination(values, size, visit) {
   if (Number.isInteger(size) && size > 0 && values.length >= size) walk(0);
 }
 
-function optimizeTierSetThresholds({ items = [], equipment = {}, statWeights = STAT_WEIGHTS, setBonuses = [], character = {} } = {}) {
+function optimizeTierSetThresholds({ items = [], equipment = {}, statWeights = STAT_WEIGHTS, setBonuses = [], character = {}, optimizationProfile = {} } = {}) {
   let bestEquipment = { ...equipment };
-  let bestResult = scoreTierSetAwareLoadout(bestEquipment, statWeights, setBonuses, character);
+  let bestResult = scoreTierSetAwareLoadout(bestEquipment, statWeights, setBonuses, character, optimizationProfile);
   const classKey = normalizeClassName(character.className);
   const specKey = String(character.specialization || "").trim().toLowerCase();
 
@@ -694,7 +702,7 @@ function optimizeTierSetThresholds({ items = [], equipment = {}, statWeights = S
 
       const candidateEquipment = { ...equipment };
       for (const piece of pieces) candidateEquipment[piece.slot] = piece;
-      const result = scoreTierSetAwareLoadout(candidateEquipment, statWeights, setBonuses, character);
+      const result = scoreTierSetAwareLoadout(candidateEquipment, statWeights, setBonuses, character, optimizationProfile);
       if (result.score > bestResult.score) {
         bestEquipment = candidateEquipment;
         bestResult = result;
@@ -710,17 +718,17 @@ function optimizeEquipment({
   goal = character.goal || WOW_GOALS.general,
   statWeights = null,
   tierSetAware = false,
-  setBonuses = []
+  setBonuses = [],
+  optimizationProfile = {}
 } = {}) {
   const weights = statWeights || getGoalWeights(goal);
-  // Rank ordinary candidates on their base value. Tier thresholds are evaluated
-  // on complete candidate loadouts below; spreading each bonus across each item
-  // double-counts 2pc bonuses once a 4pc bonus is also configured.
-  const candidateScore = item => scoreItem(item, weights);
+  const candidateScore = (item, slot) => scoreItemWithProfile(
+    item, weights, optimizationProfile, getEquipmentStatTotals(character.equipment || {}, slot)
+  );
   const optimizedEquipment = {};
   for (const slot of WOW_EQUIPMENT_SLOTS) {
     const best = (items || []).filter(item => itemMatchesSlot(item, slot) && itemAllowedForClass(item, character.className) && hasUsableItemStats(item))
-      .map(item => ({ item, score: candidateScore(item) }))
+      .map(item => ({ item, score: candidateScore(item, slot) }))
       .sort((a, b) => b.score - a.score)[0] || null;
     optimizedEquipment[slot] = best ? best.item : null;
   }
@@ -730,10 +738,10 @@ function optimizeEquipment({
   // only when no second distinct item exists.
   for (const [firstSlot, secondSlot] of [["Ring 1", "Ring 2"], ["Trinket 1", "Trinket 2"], ["Main Hand", "Off Hand"]]) {
     const first = (items || []).filter(item => item.slot === firstSlot && itemAllowedForClass(item, character.className) && hasUsableItemStats(item))
-      .map(item => ({ item, score: candidateScore(item) }))
+      .map(item => ({ item, score: candidateScore(item, firstSlot) }))
       .sort((a, b) => b.score - a.score);
     const second = (items || []).filter(item => item.slot === secondSlot && itemAllowedForClass(item, character.className) && hasUsableItemStats(item))
-      .map(item => ({ item, score: candidateScore(item) }))
+      .map(item => ({ item, score: candidateScore(item, secondSlot) }))
       .sort((a, b) => b.score - a.score);
     let bestPair = null;
     for (const a of first) {
@@ -759,15 +767,19 @@ function optimizeEquipment({
       optimizedEquipment[secondSlot] = null;
     }
   }
+  const profileOptimized = optimizeLoadoutWithProfile({
+    items, equipment: optimizedEquipment, character, statWeights: weights, optimizationProfile
+  });
+  Object.assign(optimizedEquipment, profileOptimized.equipment);
   if (tierSetAware) {
     const tierOptimized = optimizeTierSetThresholds({
-      items, equipment: optimizedEquipment, statWeights: weights, setBonuses, character
+      items, equipment: optimizedEquipment, statWeights: weights, setBonuses, character, optimizationProfile
     });
     Object.assign(optimizedEquipment, tierOptimized.equipment);
   }
   const tierSetScore = tierSetAware
-    ? scoreTierSetAwareLoadout(optimizedEquipment, weights, setBonuses, character)
-    : { score: scoreEquipment(optimizedEquipment, weights), baseScore: scoreEquipment(optimizedEquipment, weights), setBonusScore: 0, setContext: getSetBonusContext({ equipment: optimizedEquipment, setBonuses, className: character.className, specialization: character.specialization }) };
+    ? scoreTierSetAwareLoadout(optimizedEquipment, weights, setBonuses, character, optimizationProfile)
+    : { score: scoreEquipment(optimizedEquipment, weights, optimizationProfile), baseScore: scoreEquipment(optimizedEquipment, weights, optimizationProfile), setBonusScore: 0, setContext: getSetBonusContext({ equipment: optimizedEquipment, setBonuses, className: character.className, specialization: character.specialization }) };
   return {
     character: { ...character, goal },
     equipment: optimizedEquipment,
