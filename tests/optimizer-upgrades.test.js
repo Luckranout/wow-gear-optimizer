@@ -1247,7 +1247,7 @@ if (downgradeGuard.some(upgrade => upgrade.slot === "Trinket 1" &&
 }
 const verifiedUpgradeVariant = {
   ...base219Trinket,
-  variants: [{ itemLevel: 319, variantKey: "verified-319", stats: { Haste: 180, CriticalStrike: 90 } }]
+  variants: [{ itemLevel: 319, variantKey: "verified-319", stats: { Haste: 10000, CriticalStrike: 9000 } }]
 };
 const verifiedVariantUpgrade = o.findUpgradeOpportunities({
   currentEquipment: { "Trinket 1": equipped305Trinket },
