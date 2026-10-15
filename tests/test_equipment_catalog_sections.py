@@ -60,13 +60,14 @@ class EquipmentSectionPaginationTests(unittest.TestCase):
         self.assertIn("WEAPONOFFHAND", SECTION_SEARCHES["off-hand"])
         self.assertIn("WEAPON", SECTION_SEARCHES["off-hand"])
 
-    def test_missing_sections_abort_before_partial_catalog_can_be_published(self):
+    def test_missing_sections_warn_but_do_not_stop_import(self):
         with patch("builtins.print") as printer:
-            with self.assertRaisesRegex(RuntimeError, "Refusing to publish a partial catalog"):
-                validate_required_sections({"rings": {100}, "head": {200}})
+            missing = validate_required_sections({"rings": {100}, "head": {200}})
+        self.assertIn("necklaces", missing)
+        self.assertIn("shoulders", missing)
+        self.assertIn("wrists", missing)
         message = "\\n".join(str(call.args[0]) for call in printer.call_args_list)
-        self.assertIn("necklaces", message)
-        self.assertIn("shoulders", message)
+        self.assertIn("Continuing the remaining import steps", message)
 
     def test_all_required_sections_pass_validation(self):
         result = validate_required_sections({section: {index + 1} for index, section in enumerate(SECTION_SEARCHES)})
