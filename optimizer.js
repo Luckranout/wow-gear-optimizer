@@ -289,25 +289,6 @@ function scoreTierSetAwareLoadout(equipment, statWeights = STAT_WEIGHTS, setBonu
   return { score: baseScore + setContext.bonusScore, baseScore, setBonusScore: setContext.bonusScore, setContext };
 }
 
-function scoreItemWithSetPotential(item, statWeights, setBonuses, character) {
-  const baseScore = scoreItem(item, statWeights);
-  const setId = normalizeSetId(item);
-  if (!setId) return baseScore;
-  const className = normalizeClassName(character?.className);
-  const specialization = String(character?.specialization || "").trim().toLowerCase();
-  const potential = (setBonuses || []).reduce((sum, bonus) => {
-    const bonusSetId = bonus?.setId ?? bonus?.set?.id ?? bonus?.setName ?? bonus?.set?.name;
-    const pieces = Number(bonus?.pieces ?? bonus?.threshold ?? bonus?.requiredPieces);
-    const score = Number(bonus?.bonusScore ?? bonus?.scoreValue);
-    if (bonusSetId == null || String(bonusSetId).trim().toLowerCase() !== setId ||
-        !Number.isFinite(pieces) || pieces < 2 || !Number.isFinite(score) || score <= 0) return sum;
-    if (bonus.className && normalizeClassName(bonus.className) !== className) return sum;
-    if (bonus.specialization && String(bonus.specialization).trim().toLowerCase() !== specialization) return sum;
-    return sum + score / pieces;
-  }, 0);
-  return baseScore + potential;
-}
-
 function getGoalWeights(goal) {
   const weights = { ...STAT_WEIGHTS };
   switch (goal) {
