@@ -1880,24 +1880,24 @@ def fetch_item_details(token, item_ids, item_sources):
         item["seasonScope"] = SEASON_SCOPE
         item["sourceLocations"] = item_sources.get(item_id, [])
 
-        # Wowhead uses one base item ID for difficulty and upgrade variants.
-        # This curated variant uses the observed Mythic bonus list (6652:13335:12854)
-        # and fetches displayed 340 stats instead of scaling the base record in code.
+        # Wowhead's current Myth 6/6 variant for this item is item level 334.
+        # Use the observed bonus list and exact tooltip level; do not override the
+        # tooltip to 340, which produces a plausible-looking but unverified result.
         if item_id == 270167:
             try:
                 variant_stats = fetch_wowhead_tooltip_stats(
                     item_id, wowhead_diagnostics,
-                    bonus_ids=[6652, 13335, 12854], item_level=340,
+                    bonus_ids=[6652, 13335, 12854], item_level=334,
                 )
                 if variant_stats:
                     item["variants"] = [{
-                        "variantKey": "wowhead:6652:13335:12854:ilvl340",
+                        "variantKey": "wowhead:6652:13335:12854:ilvl334",
                         "name": item.get("name"),
-                        "level": 340,
-                        "itemLevel": 340,
+                        "level": 334,
+                        "itemLevel": 334,
                         "stats": variant_stats,
-                        "statsSource": "Wowhead tooltip (explicit 340 item-level variant; bonus IDs 6652:13335:12854)",
-                        "variantSource": "Wowhead Mythic variant bonus IDs 6652:13335:12854 with explicit item-level override 340",
+                        "statsSource": "Wowhead tooltip (explicit 334 item-level variant; bonus IDs 6652:13335:12854)",
+                        "variantSource": "Wowhead Myth 6/6 variant, item level 334; bonus IDs 6652:13335:12854",
                         "bonusIds": [6652, 13335, 12854],
                     }]
             except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, ValueError, json.JSONDecodeError) as error:
