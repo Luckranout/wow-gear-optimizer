@@ -1693,10 +1693,10 @@
       ],
       "variants": [
         {
-          "variantKey": "wowhead:6652:13335:12854:ilvl340",
+          "variantKey": "wowhead:6652:13335:12854:ilvl334",
           "name": "Wavecaller's Seastone",
-          "level": 340,
-          "itemLevel": 340,
+          "level": 334,
+          "itemLevel": 334,
           "stats": [
             {
               "type": {
@@ -1706,8 +1706,8 @@
               "source": "Wowhead tooltip"
             }
           ],
-          "statsSource": "Wowhead tooltip (explicit 340 item-level variant; bonus IDs 6652:13335:12854)",
-          "variantSource": "Wowhead Mythic variant bonus IDs 6652:13335:12854 with explicit item-level override 340",
+          "statsSource": "Wowhead tooltip (explicit 334 item-level variant; bonus IDs 6652:13335:12854)",
+          "variantSource": "Wowhead Myth 6/6 variant, item level 334; bonus IDs 6652:13335:12854",
           "bonusIds": [
             6652,
             13335,
