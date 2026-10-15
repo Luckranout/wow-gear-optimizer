@@ -1078,7 +1078,7 @@ function createOptimizationReport({character = createCharacterProfile(), availab
       specializationMasteryWeight: profileRules.specializationMasteryWeight,
       applied: profileRules.hasRules,
       note: profileRules.hasRules
-        ? "Profile-supplied caps, soft targets, and verified diminishing-return conversions are applied to complete-loadout scoring."
+        ? "Only supplied, validated profile rules are applied to complete-loadout scoring: soft targets, hard caps, and/or verified diminishing-return conversions."
         : "No validated caps, soft targets, or stat-rating conversion profile was available. The optimizer does not invent specialization-specific values."
     },
     combatEnhancements,
