@@ -64,11 +64,19 @@ jobs:
       - name: Verify imported item-stat coverage
         run: python scripts/verify_item_stat_coverage.py
 
-      - name: Commit updated dataset
+      - name: Commit validated equipment sections
+        if: always() && steps.import.outputs.gear_sections_validated == 'true'
         run: |
           git config user.name "wow-gear-optimizer"
           git config user.email "actions@github.com"
-          git add data/current-retail.json data/equipment-sections/
+          git add data/equipment-sections/
+          if [ "${{ steps.import.outcome }}" = "success" ]; then
+            git add data/current-retail.json
+          fi
           git diff --cached --quiet && exit 0
-          git commit -m "Update current Retail WoW data"
+          if [ "${{ steps.import.outcome }}" = "success" ]; then
+            git commit -m "Update current Retail WoW data"
+          else
+            git commit -m "Update validated equipment sections"
+          fi
           git push

@@ -2326,6 +2326,14 @@ def main():
         items_by_id.update({item.get("id"): item for item in section_items if item.get("id")})
         print(f"Completed section {section}: {section_result.get(section, 0)} items saved.")
 
+    # Signal that every section completed enrichment, validation, and atomic write.
+    # GitHub Actions can safely publish these independently even if a later phase
+    # (such as talent ingestion) fails; the unified dataset remains fail-closed.
+    github_output = os.environ.get("GITHUB_OUTPUT")
+    if github_output:
+        with open(github_output, "a", encoding="utf-8") as handle:
+            handle.write("gear_sections_validated=true\n")
+
     # Keep the unified dataset limited to the same verified slot-section IDs.
     items = list(items_by_id.values())
 
