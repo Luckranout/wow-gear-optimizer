@@ -35,6 +35,7 @@ assert.equal(optimizer.scoreStatRating("Haste", 70, 1, optimizer.getOptimization
 assert.equal(optimizer.scoreStatRating("Intellect", 150, 1, optimizer.getOptimizationProfileRules(profile)), 100,
   "hard caps should exclude rating beyond the profile cap");
 const softTargetOnly = optimizer.getOptimizationProfileRules({
+  source: "verified test fixture", verified: true,
   softTargets: { Haste: 100 }, softTargetMultipliers: { Haste: 0 }
 });
 assert.equal(optimizer.scoreStatRating("Haste", 150, 1, softTargetOnly), 100,
