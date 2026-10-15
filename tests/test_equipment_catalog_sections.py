@@ -286,9 +286,11 @@ class BlizzardMythicSeasonVerificationTests(unittest.TestCase):
             if path == "/data/wow/journal-instance/2": return current_instance
             if path == "/data/wow/journal-encounter/22": return current_encounter
             raise AssertionError(f"Unexpected API request: {path}")
-        with patch.object(import_blizzard_data, "get_mythic_keystone_season", return_value=season), \\
-             patch.object(import_blizzard_data, "get_season_instances", return_value=index), \\
-             patch.object(import_blizzard_data, "get_api_json", side_effect=api):
+        with (
+            patch.object(import_blizzard_data, "get_mythic_keystone_season", return_value=season),
+            patch.object(import_blizzard_data, "get_season_instances", return_value=index),
+            patch.object(import_blizzard_data, "get_api_json", side_effect=api),
+        ):
             ids, matched, missing = import_blizzard_data.collect_season_content_item_ids("token")
         self.assertEqual(set(ids), {222})
         self.assertEqual(matched, ["The Tidebound Grotto"])
