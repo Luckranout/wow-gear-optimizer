@@ -34,6 +34,7 @@ function createEmptyRetailDataset() {
       exchangeRules: [],
       ascendantVenomstone: null
     },
+    buffs: [],
     consumables: {
       food: [],
       flaskOrPhial: [],
@@ -162,6 +163,7 @@ function normalizeRetailDataset(input, tierSetManifest = null) {
     dungeons: Array.isArray(data.dungeons) ? data.dungeons : [],
     pvp: Array.isArray(data.pvp) ? data.pvp : [],
     notes: Array.isArray(data.notes) ? data.notes : [],
+    buffs: Array.isArray(data.buffs) ? data.buffs : [],
     consumables: {
       ...base.consumables,
       ...(data.consumables || {}),
