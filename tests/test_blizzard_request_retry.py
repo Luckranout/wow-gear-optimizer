@@ -121,6 +121,23 @@ class BlizzardRequestRetryTests(unittest.TestCase):
             self.assertEqual(second, first)
             urlopen.assert_called_once()
 
+    def test_blizzard_cache_control_max_age_is_honored(self):
+        url = "https://us.api.blizzard.com/data/wow/mythic-keystone/index?namespace=dynamic-us&locale=en_US"
+        response = MagicMock()
+        response.__enter__.return_value.read.return_value = b'{"seasons": {"href": "/seasons"}}'
+        response.__enter__.return_value.headers = {"Cache-Control": "public, max-age=1800"}
+        with patch.object(importer, "_http_response_cache", {}), patch.object(
+            importer, "throttled_urlopen", return_value=response
+        ) as urlopen, patch.object(importer, "REQUEST_INTERVAL_SECONDS", 0), patch(
+            "builtins.print"
+        ):
+            first = importer.request_json(url)
+            second = importer.request_json(url)
+
+        self.assertEqual(first, {"seasons": {"href": "/seasons"}})
+        self.assertEqual(second, first)
+        urlopen.assert_called_once()
+
     def test_retry_after_http_date_is_parsed(self):
         headers = Message()
         headers["Retry-After"] = "Wed, 21 Oct 2015 07:28:00 GMT"
