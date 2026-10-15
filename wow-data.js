@@ -94,7 +94,7 @@ function normalizeEquipmentItems(items, tierSetManifest = null) {
     const normalizedItem = {
       ...item,
       slot,
-      ...(membership && !item.setId && !item.set?.id && !item.itemSet?.id ? {
+      ...(membership ? {
         setId: membership.setId,
         setName: membership.setName,
         isSetPiece: true,
