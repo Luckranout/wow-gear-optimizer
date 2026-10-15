@@ -1051,9 +1051,16 @@ def talent_tree_hero_reference_ids(value):
 def extract_talent_nodes(value):
     """Read node arrays from Blizzard's documented talent-tree response shapes."""
     if isinstance(value, dict):
-        # The Talent Tree Nodes endpoint returns "talent_nodes", not "nodes".
-        # Keep "nodes" for alternate/wrapped response shapes used by fixtures.
-        for key in ("talent_nodes", "nodes"):
+        # Blizzard's Talent Tree API uses a shared "talent_nodes" field for
+        # class trees, but specialization and Hero Talent endpoints can expose
+        # tree-specific arrays. Accept all documented tree-family variants.
+        for key in (
+            "talent_nodes",
+            "class_talent_nodes",
+            "spec_talent_nodes",
+            "hero_talent_nodes",
+            "nodes",
+        ):
             direct = value.get(key)
             if isinstance(direct, list):
                 return direct
