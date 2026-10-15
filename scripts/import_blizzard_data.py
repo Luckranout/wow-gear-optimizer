@@ -1702,6 +1702,11 @@ def classify_consumables(recipes, output_items):
         item_name = str((item or {}).get("name") or "")
         recipe_name = str(recipe.get("name") or "")
         label = normalize_name(f"{item_name} {recipe_name}")
+        item_subclass = str(
+            ((item or {}).get("itemSubclass") or {}).get("name")
+            or (item or {}).get("itemSubclass")
+            or ""
+        ).strip().lower()
 
         bucket = None
         if profession == "cooking":
@@ -1709,7 +1714,7 @@ def classify_consumables(recipes, output_items):
         elif profession == "alchemy":
             if any(term in label.split() for term in ("flask", "phial")) or "cauldron of" in label:
                 bucket = "flaskOrPhial"
-            elif "potion" in label or "draught" in label:
+            elif "potion" in label or "draught" in label or item_subclass in {"potion", "potions"}:
                 bucket = "potions"
             elif any(term in label for term in ("oil", "augment rune", "weapon stone")):
                 bucket = "other"
