@@ -71,7 +71,15 @@ def _cacheable_item_url(url, method):
     if method != "GET":
         return False
     parsed = urllib.parse.urlsplit(url)
-    return bool(re.fullmatch(r"/data/wow/(?:item|recipe)/\d+", parsed.path)) and parsed.netloc == "us.api.blizzard.com"
+    if parsed.netloc != "us.api.blizzard.com":
+        return False
+    # Recipe-output fallback searches can repeat for many recipes and are
+    # expensive when Blizzard is slow. Cache each exact, parameterized search
+    # URL alongside item/recipe details; the existing seven-day TTL applies.
+    return bool(
+        re.fullmatch(r"/data/wow/(?:item|recipe)/\d+", parsed.path)
+        or parsed.path == "/data/wow/search/item"
+    )
 
 def _read_cached_item(url):
     if not _cacheable_item_url(url, "GET"):
