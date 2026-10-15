@@ -158,7 +158,4 @@ for (const set of tierItemManifest.sets) {
     `${set.className} bonus fixtures must remain specialization-scoped`);
 }
 
-const dataContext = { window: {} };
-vm.runInNewContext(fs.readFileSync("wow-data.js", "utf8"), dataContext);
-const wowData = dataContext.window.WoWData;
 console.log("Tier-set-aware optimizer tests passed.");
