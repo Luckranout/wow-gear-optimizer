@@ -40,7 +40,7 @@ const defaultCurve = optimizer.getOptimizationProfileRules({
     Haste: { verified: true, source: "verified rating conversion fixture", ratingPerPercent: 10 }
   }
 });
-assert.equal(optimizer.scoreStatRating("Haste", 50, 1, defaultCurve), 46.6,
+assert.equal(optimizer.scoreStatRating("Haste", 500, 1, defaultCurve), 466,
   "verified rating conversions should use the versioned 12.1 secondary-stat DR curve when no custom thresholds are supplied");
 const softTargetOnly = optimizer.getOptimizationProfileRules({
   source: "verified test fixture", verified: true,
