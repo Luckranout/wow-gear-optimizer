@@ -596,6 +596,18 @@ def collect_season_content_item_ids(token):
 
     print(f"Blizzard Journal instance index returned {len(instances)} instances.")
 
+    # The Journal index includes legacy dungeons with names that collide with
+    # current-season sources. Resolve the season's actual dungeon map from the
+    # official Mythic+ season response and accept Journal entries only when
+    # their instance IDs are explicitly linked to a season map.
+    season_map_ids = set()
+    for period in mythic_season.get("periods", []) or []:
+        for map_ref in period.get("maps", []) or []:
+            map_id = extract_id(map_ref)
+            if map_id:
+                season_map_ids.add(map_id)
+    print(f"Verified Mythic+ Season 2 map IDs from season periods: {sorted(season_map_ids)}")
+
     for instance_ref in instances:
         instance_id = extract_id(instance_ref)
         instance_name = localized_name(instance_ref.get("name")) if isinstance(instance_ref, dict) else None
@@ -604,13 +616,28 @@ def collect_season_content_item_ids(token):
         if canonical not in wanted or not instance_id:
             continue
 
-        matched_instances.append(instance_name)
-
         instance = get_api_json(
             f"/data/wow/journal-instance/{instance_id}",
             token,
             {"namespace": NAMESPACE, "locale": LOCALE},
         )
+
+        # Require a stable map ID match, not just a reused dungeon name.
+        map_ref = instance.get("map") or instance.get("map_id") or {}
+        map_id = extract_id(map_ref)
+        if season_map_ids and map_id not in season_map_ids:
+            print(
+                f"Skipping Journal instance outside verified Mythic+ Season 2 maps: "
+                f"name={instance_name!r}; instance_id={instance_id}; map_id={map_id}."
+            )
+            continue
+        if not season_map_ids:
+            raise RuntimeError(
+                "Blizzard Mythic+ Season 2 response exposed no map IDs; "
+                "refusing to treat name-matched Journal instances as verified current-season sources."
+            )
+
+        matched_instances.append(instance_name)
 
         for encounter_ref in instance.get("journal_encounters", []) or instance.get("encounters", []):
             encounter_id = extract_id(encounter_ref)
