@@ -605,8 +605,15 @@ function scoreEquipmentWithRatingDiminishingReturns(equipment = {}, statWeights 
 
 function scoreLoadout(equipment = {}, statWeights = STAT_WEIGHTS, setBonuses = [], specialization = "", characterLevel = null) {
   const setScore = scoreSetBonuses(equipment, setBonuses, specialization);
+  const rawScore = scoreEquipmentWithRatingDiminishingReturns(equipment, statWeights, characterLevel) + setScore.score;
+  // Make the DR soft-target policy part of the same aggregate score used for
+  // whole-loadout search. Previously the helper existed but wasn't connected
+  // to loadout scoring, so it could not reliably influence selected gear.
+  const softTargetPenalty = getSecondaryRatingSoftTargetPenalty(equipment, characterLevel);
   return {
-    score: scoreEquipmentWithRatingDiminishingReturns(equipment, statWeights, characterLevel) + setScore.score,
+    score: rawScore - softTargetPenalty,
+    rawScore,
+    softTargetPenalty,
     setBonuses: setScore
   };
 }
