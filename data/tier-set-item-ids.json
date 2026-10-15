@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "expansion": "Midnight",
+  "season": 2,
+  "tier": 36,
+  "sourcePolicy": "Item IDs are base item IDs verified against Wowhead item pages; difficulty/upgrade variants share the base item ID. No numeric DPS/healing score is inferred from set-bonus text.",
+  "sets": [
+    {
+      "className": "Shaman",
+      "setId": "2065",
+      "setName": "Ophidian Oracle's Prophecy",
+      "sourceUrl": "https://www.wowhead.com/ptr/item-set=2065/ophidian-oracles-prophecy",
+      "pieces": [
+        {
+          "itemId": 271481,
+          "name": "Hissing Mantle of the Ophidian Oracle",
+          "slot": "Shoulders",
+          "sourceUrl": "https://www.wowhead.com/item=271481/hissing-mantle-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271482,
+          "name": "Leggings of the Ophidian Oracle",
+          "slot": "Legs",
+          "sourceUrl": "https://www.wowhead.com/item=271482/leggings-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271483,
+          "name": "Serpent Crown of the Ophidian Oracle",
+          "slot": "Head",
+          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271484,
+          "name": "Hexing Grips of the Ophidian Oracle",
+          "slot": "Hands",
+          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle"
+        },
+        {
+          "itemId": 271486,
+          "name": "Fanged Raiment of the Ophidian Oracle",
+          "slot": "Chest",
+          "sourceUrl": "https://www.wowhead.com/item=271486/fanged-raiment-of-the-ophidian-oracle"
+        }
+      ],
+      "bonuses": [
+        {
+          "pieces": 2,
+          "specializationSpecific": true,
+          "scoring": "unmodeled"
+        },
+        {
+          "pieces": 4,
+          "specializationSpecific": true,
+          "scoring": "unmodeled"
+        }
+      ]
+    }
+  ],
+  "completeness": {
+    "mappedClasses": [
+      "Shaman"
+    ],
+    "pendingClasses": [
+      "Death Knight",
+      "Demon Hunter",
+      "Druid",
+      "Evoker",
+      "Hunter",
+      "Mage",
+      "Monk",
+      "Paladin",
+      "Priest",
+      "Rogue",
+      "Warlock",
+      "Warrior"
+    ]
+  }
+}
