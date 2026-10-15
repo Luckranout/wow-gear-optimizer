@@ -249,13 +249,13 @@ class BlizzardMythicSeasonVerificationTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, "returned no periods"):
                 import_blizzard_data.get_mythic_keystone_season("token")
 
-    def test_current_season_journal_sources_require_season_map_ids(self):
+    def test_current_season_journal_sources_require_tracked_dungeon_map_ids(self):
         season = {
             "id": 18,
             "season_name": "Mythic+ Dungeons (Midnight Season 2)",
-            "periods": [{"id": 101, "maps": [{"id": 9001}]}],
+            "periods": [{"id": 101}],
         }
-        index = [
+        journal_index = [
             {"id": 1, "name": {"en_US": "Kings' Rest"}},
             {"id": 2, "name": {"en_US": "The Tidebound Grotto"}},
         ]
@@ -271,24 +271,32 @@ class BlizzardMythicSeasonVerificationTests(unittest.TestCase):
             "map": {"id": 9001},
             "journal_encounters": [{"id": 22}],
         }
-        legacy_encounter = {
-            "id": 11, "name": {"en_US": "Legacy Boss"},
-            "instance": {"name": {"en_US": "Kings' Rest"}},
-            "items": [{"item": {"id": 111}}],
-        }
         current_encounter = {
             "id": 22, "name": {"en_US": "Current Boss"},
             "instance": {"name": {"en_US": "The Tidebound Grotto"}},
             "items": [{"item": {"id": 222}}],
         }
         def api(path, _token, _params):
-            if path == "/data/wow/journal-instance/1": return legacy_instance
-            if path == "/data/wow/journal-instance/2": return current_instance
-            if path == "/data/wow/journal-encounter/22": return current_encounter
+            responses = {
+                "/data/wow/mythic-keystone/dungeon/index": {
+                    "dungeons": [{"id": 301}, {"id": 302}]
+                },
+                "/data/wow/mythic-keystone/dungeon/301": {
+                    "id": 301, "is_tracked": False, "map": {"id": 7001}
+                },
+                "/data/wow/mythic-keystone/dungeon/302": {
+                    "id": 302, "is_tracked": True, "map": {"id": 9001}
+                },
+                "/data/wow/journal-instance/1": legacy_instance,
+                "/data/wow/journal-instance/2": current_instance,
+                "/data/wow/journal-encounter/22": current_encounter,
+            }
+            if path in responses:
+                return responses[path]
             raise AssertionError(f"Unexpected API request: {path}")
         with (
             patch.object(import_blizzard_data, "get_mythic_keystone_season", return_value=season),
-            patch.object(import_blizzard_data, "get_season_instances", return_value=index),
+            patch.object(import_blizzard_data, "get_season_instances", return_value=journal_index),
             patch.object(import_blizzard_data, "get_api_json", side_effect=api),
         ):
             ids, matched, missing = import_blizzard_data.collect_season_content_item_ids("token")
