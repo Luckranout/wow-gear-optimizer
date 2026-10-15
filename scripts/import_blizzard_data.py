@@ -988,6 +988,35 @@ def talent_tree_reference_id(value):
     return None
 
 
+def talent_tree_hero_reference_ids(value):
+    """Return (tree_id, hero_talent_id) from a Hero Talent tree reference."""
+    if not isinstance(value, dict):
+        return talent_tree_reference_id(value), None
+    for candidate in (value.get("href"), (value.get("key") or {}).get("href")):
+        if not candidate:
+            continue
+        parts = urllib.parse.urlparse(str(candidate)).path.rstrip("/").split("/")
+        if "talent-tree" not in parts:
+            continue
+        tree_index = parts.index("talent-tree") + 1
+        tree_id = None
+        hero_id = None
+        if tree_index < len(parts):
+            try:
+                tree_id = int(parts[tree_index])
+            except ValueError:
+                pass
+        if "hero-talent" in parts:
+            hero_index = parts.index("hero-talent") + 1
+            if hero_index < len(parts):
+                try:
+                    hero_id = int(parts[hero_index])
+                except ValueError:
+                    pass
+        return tree_id, hero_id
+    return talent_tree_reference_id(value), None
+
+
 def extract_talent_nodes(value):
     """Read node arrays from Blizzard's documented talent-tree response shapes."""
     if isinstance(value, dict):
@@ -1045,10 +1074,11 @@ def collect_talent_data(token):
 
         hero_records = []
         for hero_ref in hero_refs:
-            hero_id = talent_tree_reference_id(hero_ref)
-            if hero_id:
+            hero_tree_id, hero_talent_id = talent_tree_hero_reference_ids(hero_ref)
+            if hero_tree_id:
                 hero_records.append({
-                    "id": hero_id,
+                    "id": hero_tree_id,
+                    "heroTalentId": hero_talent_id,
                     "name": localized_name(hero_ref.get("name")) if isinstance(hero_ref, dict) else None,
                 })
 
@@ -1106,32 +1136,34 @@ def collect_talent_data(token):
     tree_records = []
     seen_tree_keys = set()
 
-    def add_tree(tree_id, tree_type, spec_id=None):
+    def add_tree(tree_id, tree_type, spec_id=None, hero_talent_id=None):
         if not tree_id:
             return
-        key = (tree_type, tree_id, spec_id)
+        if tree_type == "hero" and not hero_talent_id:
+            print(f"Skipping Hero Talent tree {tree_id}: missing hero-talent ID in Blizzard reference.")
+            return
+        key = (tree_type, tree_id, spec_id, hero_talent_id)
         if key in seen_tree_keys:
             return
         seen_tree_keys.add(key)
 
         try:
             if tree_type == "specialization" and spec_id:
-                tree = get_api_json(
-                    f"/data/wow/talent-tree/{tree_id}/playable-specialization/{spec_id}",
-                    token,
-                    {"namespace": NAMESPACE, "locale": LOCALE},
-                )
+                endpoint = f"/data/wow/talent-tree/{tree_id}/playable-specialization/{spec_id}"
+            elif tree_type == "hero" and hero_talent_id:
+                endpoint = f"/data/wow/talent-tree/{tree_id}/hero-talent/{hero_talent_id}"
             else:
-                tree = get_api_json(
-                    f"/data/wow/talent-tree/{tree_id}",
-                    token,
-                    {"namespace": NAMESPACE, "locale": LOCALE},
-                )
+                endpoint = f"/data/wow/talent-tree/{tree_id}"
+            tree = get_api_json(
+                endpoint,
+                token,
+                {"namespace": NAMESPACE, "locale": LOCALE},
+            )
         except urllib.error.HTTPError as error:
             print(
                 f"Talent tree request failed: endpoint="
-                f"{'/data/wow/talent-tree/' + str(tree_id) + ('/playable-specialization/' + str(spec_id) if tree_type == 'specialization' and spec_id else '')}; "
-                f"type={tree_type}, tree_id={tree_id}, spec_id={spec_id}, "
+                f"{endpoint}; "
+                f"type={tree_type}, tree_id={tree_id}, spec_id={spec_id}, hero_talent_id={hero_talent_id}, "
                 f"HTTP={error.code}; skipping."
             )
             return
@@ -1140,6 +1172,7 @@ def collect_talent_data(token):
             "id": tree_id,
             "type": tree_type,
             "specId": spec_id,
+            "heroTalentId": hero_talent_id,
             "data": tree,
             "seasonScope": SEASON_SCOPE,
         })
@@ -1147,7 +1180,7 @@ def collect_talent_data(token):
     for record in talent_records:
         add_tree(record["specTalentTreeId"], "specialization", record["id"])
         for hero in record["heroTalentTrees"]:
-            add_tree(hero["id"], "hero")
+            add_tree(hero["id"], "hero", hero_talent_id=hero.get("heroTalentId"))
 
     for tree_ref in tree_refs:
         tree_id = talent_tree_reference_id(tree_ref)
