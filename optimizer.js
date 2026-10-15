@@ -242,8 +242,8 @@ function getTertiaryRatingTotals(equipment = {}) {
   return totals;
 }
 // Soft targets are the first supplied thresholds; the last threshold is a hard
-// cap for eligible level-90 loadouts. The soft target influences scoring only
-// when candidates are otherwise competitive; it is not a stat-equality target.
+// cap for eligible level-90 loadouts. Above soft targets, prefer the secondary
+// stat furthest behind relative to its own target (not lowest raw rating).
 const SECONDARY_RATING_DR_SOFT_TARGETS = Object.freeze({
   Haste: 1320,
   CriticalStrike: 1380,
@@ -281,11 +281,23 @@ function getSecondaryRatingHardCapViolations(equipment = {}, characterLevel = nu
 function getSecondaryRatingSoftTargetPenalty(equipment = {}, characterLevel = null) {
   if (Number(characterLevel) !== SECONDARY_RATING_DR_LEVEL) return 0;
   const totals = getSecondaryRatingTotals(equipment);
-  // Small regularizer, deliberately subordinate to actual effective stat score.
-  // It nudges the optimizer away from the first penalty band without imposing
-  // an artificial equality between secondary stats.
-  return Object.entries(SECONDARY_RATING_DR_SOFT_TARGETS).reduce((penalty, [stat, target]) =>
-    penalty + Math.max(0, (totals[stat] || 0) - target) * 0.01, 0);
+  const stats = Object.entries(SECONDARY_RATING_DR_SOFT_TARGETS).map(([stat, target]) => ({
+    stat,
+    target,
+    rating: totals[stat] || 0,
+    normalized: (totals[stat] || 0) / target
+  }));
+  // First, penalize any shortfall so reaching all soft targets is valuable.
+  const shortfallPenalty = stats.reduce((penalty, entry) =>
+    penalty + Math.max(0, entry.target - entry.rating) * 2, 0);
+  // Once at/above target, penalize over-investment quadratically relative to
+  // each stat's own threshold. This makes the least-covered stat the preferred
+  // destination for additional rating while preserving stat-weight scoring.
+  const overTargetPenalty = stats.reduce((penalty, entry) => {
+    const normalizedExcess = Math.max(0, entry.normalized - 1);
+    return penalty + normalizedExcess * normalizedExcess * entry.target * 4;
+  }, 0);
+  return shortfallPenalty + overTargetPenalty;
 }
 function applySecondaryRatingDiminishingReturns(rawRating, stat, characterLevel = SECONDARY_RATING_DR_LEVEL) {
   const rating = Number(rawRating);
