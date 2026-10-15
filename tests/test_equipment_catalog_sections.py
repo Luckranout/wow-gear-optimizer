@@ -98,7 +98,9 @@ class EquipmentSectionPaginationTests(unittest.TestCase):
 
         with patch("builtins.print") as printer:
             sections, sources = collect_equipment_section_ids(
-                "token", get_detail, {10, 11, 12, 13, 14}, sleep=lambda _s: None,
+                # The caller's allow-list is already source-verified for this season.
+                # Legacy IDs 10 and 14 are intentionally excluded before classification.
+                "token", get_detail, {11, 12, 13}, sleep=lambda _s: None,
                 source_evidence={
                     10: [{"category": "PvE", "seasonScope": "Midnight Season 2+", "encounter": "Legacy loot table"}],
                     11: [{"category": "PvE", "seasonScope": "Midnight Season 2+", "encounter": "Test encounter"}],
@@ -109,17 +111,19 @@ class EquipmentSectionPaginationTests(unittest.TestCase):
             )
         self.assertEqual(sections, {"rings": {11, 13}, "head": {12}})
         self.assertEqual(set(sources), {11, 12, 13})
-        self.assertEqual(len(calls), 5)
+        self.assertEqual(len(calls), 3)
         diagnostics = "\\n".join(str(call.args[0]) for call in printer.call_args_list)
-        self.assertIn("verified_source_ids=5", diagnostics)
+        self.assertIn("verified_source_ids=3", diagnostics)
         self.assertIn("section_counts=", diagnostics)
         self.assertEqual(sources[11][0]["encounter"], "Test encounter")
         self.assertEqual(sources[12][0]["professionRecipeSource"], "Test recipe")
         self.assertTrue(all(source["slotConfirmedBy"] == "Blizzard item detail inventory_type.type" for values in sources.values() for source in values))
 
-    def test_below_boundary_pvp_item_is_rejected_even_with_current_season_evidence(self):
+    def test_source_verified_season_item_is_not_rejected_by_base_item_level(self):
+        # Blizzard's item-detail level can be a base/template value. Season scope
+        # comes from the upstream verified season loot/recipe collector, not this field.
         details = {
-            21: {"id": 21, "name": "Below-boundary PvP Ring", "level": 197, "is_equippable": True, "inventory_type": {"type": "FINGER", "name": "Finger"}},
+            21: {"id": 21, "name": "Season PvP Ring", "level": 197, "is_equippable": True, "inventory_type": {"type": "FINGER", "name": "Finger"}},
         }
 
         def get_detail(path, _token, _params):
@@ -131,8 +135,8 @@ class EquipmentSectionPaginationTests(unittest.TestCase):
                 21: [{"category": "PvP", "seasonScope": "Midnight Season 2+", "pvpSeasonId": 42}],
             },
         )
-        self.assertEqual(sections, {})
-        self.assertEqual(sources, {})
+        self.assertEqual(sections, {"rings": {21}})
+        self.assertEqual(sources[21][0]["pvpSeasonId"], 42)
 
     def test_pvp_item_at_boundary_is_preserved(self):
         details = {
