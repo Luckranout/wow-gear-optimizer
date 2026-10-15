@@ -209,7 +209,10 @@ if __name__ == "__main__":
 
 class BlizzardMythicSeasonVerificationTests(unittest.TestCase):
     def test_resolves_supported_season_from_index_then_fetches_details(self):
-        index = {"seasons": [{"id": 17, "name": "Mythic+ Season 1"}, {"id": 18, "name": "Midnight Mythic+ Season 2"}]}
+        index = {
+            "seasons": [{"id": 17, "name": "Mythic+ Season 1"}, {"id": 18, "name": "Midnight Mythic+ Season 2"}],
+            "current_season": {"key": {"href": "https://us.api.blizzard.com/data/wow/mythic-keystone/season/18?namespace=dynamic-us"}, "id": 18},
+        }
         detail = {
             "id": 18,
             "season_name": "Midnight Mythic+ Season 2",
