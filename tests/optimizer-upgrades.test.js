@@ -44,6 +44,33 @@ if (o.getSecondaryRatingHardCapViolations(aboveHardCap, 80).length !== 0) {
 }
 console.log("Soft first-band target and hard final-cap regression passed.");
 
+ // Above all soft targets, prefer the stat least covered relative to its own
+ // threshold rather than comparing raw ratings across stats.
+const balancedAboveSoft = {
+  Head: { itemLevel: 100, stats: { Haste: 1760, CriticalStrike: 1840, Mastery: 1840, Versatility: 2160 } }
+};
+const addRating = (equipment, stat, amount) => ({
+  ...equipment,
+  Chest: { itemLevel: 100, stats: { [stat]: amount } }
+});
+const baseBalancePenalty = o.getSecondaryRatingSoftTargetPenalty(balancedAboveSoft, 90);
+const leastCoveredPenalty = o.getSecondaryRatingSoftTargetPenalty(addRating(balancedAboveSoft, "Versatility", 100), 90) - baseBalancePenalty;
+const mostCoveredPenalty = o.getSecondaryRatingSoftTargetPenalty(addRating(balancedAboveSoft, "Haste", 100), 90) - baseBalancePenalty;
+if (!(leastCoveredPenalty < mostCoveredPenalty)) {
+  throw new Error("Above soft targets, the same rating gain must favor the least-covered stat relative to its threshold");
+}
+const belowOneSoft = {
+  Head: { itemLevel: 100, stats: { Haste: 1320, CriticalStrike: 1380, Mastery: 1380, Versatility: 1400 } }
+};
+const belowVersPenalty = o.getSecondaryRatingSoftTargetPenalty(belowOneSoft, 90);
+const atVersSoft = addRating(belowOneSoft, "Versatility", 220);
+const atVersPenalty = o.getSecondaryRatingSoftTargetPenalty(atVersSoft, 90);
+if (!(atVersPenalty < belowVersPenalty)) {
+  throw new Error("Raising a below-target secondary stat toward its soft target must improve the soft-target penalty");
+}
+console.log("Least-covered-secondary-stat soft-target regression passed.");
+
+
 
 // Upgrade shortlist must score a candidate against the full equipped rating totals.
 // With 1,320 Haste already equipped, +264 Haste yields only 237.6 effective rating;
