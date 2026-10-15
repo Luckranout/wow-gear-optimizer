@@ -200,6 +200,12 @@ def collect_equipment_section_ids(token, get_api_json, allowed_item_ids, sleep=t
         f"verified_source_ids={len(allowed_item_ids)}; detail_errors={detail_errors}; "
         f"section_counts={{{', '.join(f'{key}: {len(value)}' for key, value in sorted(section_ids.items()))}}}"
     )
+    if detail_errors:
+        raise RuntimeError(
+            f"Blizzard item-detail classification was incomplete: {detail_errors} of "
+            f"{len(allowed_item_ids)} source item lookups failed. Refusing to publish "
+            "a catalog from a partial source scan; rerun after Blizzard/API access recovers."
+        )
     return section_ids, source_map
 
 
