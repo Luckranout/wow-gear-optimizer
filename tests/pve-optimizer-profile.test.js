@@ -119,5 +119,17 @@ const noProfile = optimizer.createOptimizationReport({
 });
 assert.equal(noProfile.statOptimization.applied, false, "no profile should not fabricate caps or DR conversions");
 assert.ok(noProfile.statOptimization.note.includes("does not invent"), "missing profile rules should fail closed");
+const unverifiedProfileReport = optimizer.createOptimizationReport({
+  character,
+  availableItems: items,
+  dataset: {
+    optimizationProfiles: { Mage: { Fire: { source: "unreviewed draft", statWeights: { Haste: 100 } } } },
+    items, setBonuses: []
+  }
+});
+assert.notEqual(unverifiedProfileReport.statWeights.Haste, 100,
+  "unverified profile weights must not override fallback weights");
+assert.equal(unverifiedProfileReport.optimizationContext.method, "static-weights-heuristic",
+  "unverified profiles must be reported as fallback scoring, not active specialization profiles");
 
 console.log("PvE optimizer profile tests passed.");
