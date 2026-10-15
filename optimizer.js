@@ -46,7 +46,7 @@ const WOW_SECONDARY_STAT_DR_THRESHOLDS = [
   { upToPercent: 126, multiplier: 0.5 }
 ];
 const WOW_SECONDARY_STAT_DR_SOURCE =
-  "Wowhead 12.1.0 Secondary Stat Diminishing Returns guide (updated 2026-03-04)";
+  "Wowhead 12.1.0 Secondary Stat Diminishing Returns guide (updated 2026-03-04): https://www.wowhead.com/guide/diminishing-returns-on-secondary-stats-in-world-of-warcraft-11052";
 
 function normalizeCharacterStatistics(statistics = {}) {
   const aliases = {
@@ -1069,6 +1069,12 @@ function createOptimizationReport({character = createCharacterProfile(), availab
       softTargets: profileRules.softTargets,
       hardCaps: profileRules.hardCaps,
       diminishingReturnsStats: Object.keys(profileRules.diminishingReturns),
+      diminishingReturnsSources: Object.fromEntries(Object.entries(profileRules.diminishingReturns).map(([stat, rule]) => [stat, {
+        ratingPerPercent: rule.ratingPerPercent,
+        hardCapPercent: rule.hardCapPercent,
+        ratingConversionSource: rule.source,
+        thresholdCurveSource: rule.thresholdSource
+      }])),
       specializationMasteryWeight: profileRules.specializationMasteryWeight,
       applied: profileRules.hasRules,
       note: profileRules.hasRules
