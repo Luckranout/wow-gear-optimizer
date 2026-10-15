@@ -24,6 +24,8 @@ const optimizer = fs.readFileSync("optimizer.js", "utf8");
 assert.match(optimizer, /candidateLevel < equippedLevel\) continue/);
 assert.match(optimizer, /meetsEquippedLevel\(item, firstSlot\)/);
 assert.match(optimizer, /meetsEquippedLevel\(item, secondSlot\)/);
+assert.match(optimizer, /Array\.isArray\(rawItem\.variants\)/);
+assert.match(optimizer, /for \(const rawItem of expandedItems\)/);
 
 // The endpoint must not fabricate results when the catalog file is absent or
 // invalid, and must filter by explicit season verification, equippability,
