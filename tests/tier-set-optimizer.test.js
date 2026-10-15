@@ -27,6 +27,39 @@ assert.equal(tier.equipment.Chest.id, 2, "tier-aware mode should choose set ches
 assert.equal(tier.setBonusScore, 300, "two pieces should activate the configured 2-piece score only");
 assert.equal(tier.score, tier.baseScore + 300, "reported total should include active set-bonus score");
 
+// A four-piece loadout must be evaluated against the combined 2pc + 4pc
+// thresholds exactly once, rather than spreading both bonuses across each item.
+const fourPieceItems = [
+  { id: 11, name: "Tier Helm", slot: "Head", setId: "four-piece-tier", itemLevel: 450, stats: { Intellect: 100 } },
+  { id: 12, name: "Tier Chest", slot: "Chest", setId: "four-piece-tier", itemLevel: 450, stats: { Intellect: 100 } },
+  { id: 13, name: "Tier Hands", slot: "Hands", setId: "four-piece-tier", itemLevel: 450, stats: { Intellect: 100 } },
+  { id: 14, name: "Tier Legs", slot: "Legs", setId: "four-piece-tier", itemLevel: 450, stats: { Intellect: 100 } },
+  { id: 15, name: "High Helm", slot: "Head", itemLevel: 500, stats: { Intellect: 100 } },
+  { id: 16, name: "High Chest", slot: "Chest", itemLevel: 500, stats: { Intellect: 100 } },
+  { id: 17, name: "High Hands", slot: "Hands", itemLevel: 500, stats: { Intellect: 100 } },
+  { id: 18, name: "High Legs", slot: "Legs", itemLevel: 500, stats: { Intellect: 100 } }
+];
+const fourPieceBonuses = [
+  { setId: "four-piece-tier", name: "Four Piece Tier", className: "Mage", specialization: "Fire", pieces: 2, bonusScore: 300 },
+  { setId: "four-piece-tier", name: "Four Piece Tier", className: "Mage", specialization: "Fire", pieces: 4, bonusScore: 500 }
+];
+const fourPiece = optimizer.optimizeEquipment({
+  items: fourPieceItems, character, goal: "Raid", tierSetAware: true, setBonuses: fourPieceBonuses
+});
+assert.deepEqual(
+  ["Head", "Chest", "Hands", "Legs"].map(slot => fourPiece.equipment[slot].id),
+  [11, 12, 13, 14],
+  "optimizer should choose the four tier items when combined verified threshold value offsets the base-score loss"
+);
+assert.equal(fourPiece.setBonusScore, 800, "2pc and 4pc bonuses should each count exactly once");
+assert.deepEqual(
+  Array.from(fourPiece.setContext.activeBonuses, bonus => bonus.pieces).sort((a, b) => a - b),
+  [2, 4],
+  "four-piece loadout should activate both thresholds"
+);
+assert.equal(fourPiece.score, fourPiece.baseScore + 800,
+  "total score should include the 2pc and 4pc values exactly once");
+
 const wrongSpec = optimizer.getSetBonusContext({ equipment: tier.equipment, setBonuses: bonuses, className: "Mage", specialization: "Frost" });
 assert.equal(wrongSpec.bonusScore, 0, "specialization-specific bonus must not apply to another spec");
 
