@@ -227,6 +227,62 @@ function formatGearScore(value) {
   return Number(value || 0).toLocaleString(undefined, { maximumFractionDigits: 2 });
 }
 
+function renderPveOptimizationDetails(report = {}) {
+  const model = report.statOptimization || {};
+  const summary = document.querySelector("#statOptimizationSummary");
+  const rulesList = document.querySelector("#statOptimizationRules");
+  const enhancementSummary = document.querySelector("#combatEnhancementSummary");
+  const enhancementResults = document.querySelector("#combatEnhancementResults");
+
+  if (summary) {
+    const source = model.profileSource ? ` Profile source: ${model.profileSource}.` : "";
+    summary.textContent = model.applied
+      ? `Profile-driven PvE scoring is active. ${model.profileVerified ? "Profile marked verified." : "Profile is not marked verified; treat its scoring rules as experimental."}${source}`
+      : `No validated profile-driven caps, soft targets, or stat-rating conversions were applied. The optimizer uses available stat weights without inventing missing specialization values.${source}`;
+  }
+  if (rulesList) {
+    const lines = [];
+    if (model.specializationMasteryWeight !== null && model.specializationMasteryWeight !== undefined) {
+      lines.push(`Specialization Mastery weight: ${model.specializationMasteryWeight}`);
+    }
+    const targets = Object.entries(model.softTargets || {});
+    const caps = Object.entries(model.hardCaps || {});
+    if (targets.length) lines.push(`Soft targets (profile rating units): ${targets.map(([stat, value]) => `${stat} ${value}`).join(", ")}`);
+    if (caps.length) lines.push(`Hard caps (profile rating units): ${caps.map(([stat, value]) => `${stat} ${value}`).join(", ")}`);
+    if (model.diminishingReturnsStats?.length) lines.push(`Verified rating-to-percent diminishing-return rules: ${model.diminishingReturnsStats.join(", ")}`);
+    if (!lines.length) lines.push(model.note || "No verified stat caps, soft targets, or rating conversion data is available for this specialization.");
+    rulesList.innerHTML = lines.map(line => `<li>${escapeSlotText(line)}</li>`).join("");
+  }
+
+  const enhancements = report.combatEnhancements || {};
+  if (enhancementSummary) {
+    enhancementSummary.textContent = enhancements.note ||
+      "Enhancement estimates are separate from gear score and require explicit, verified numeric effect metadata.";
+  }
+  if (enhancementResults) {
+    const categoryLabels = {
+      food: "Food", flaskOrPhial: "Flask / Phial", potions: "Potions", other: "Other consumables"
+    };
+    const categoryRows = (enhancements.categories || []).map(group => {
+      const recommendation = group.recommendation;
+      const active = group.activeOption;
+      const detail = recommendation
+        ? `Suggested: ${recommendation.name} (weighted effect score ${formatGearScore(recommendation.score)}; source: ${recommendation.source})`
+        : active
+          ? `Verified option already active: ${active.name}`
+          : "No verified numeric effect records are available.";
+      return `<li><strong>${categoryLabels[group.category] || escapeSlotText(group.category)}:</strong> ${escapeSlotText(detail)}</li>`;
+    });
+    const buffRows = (enhancements.buffs || []).map(buff =>
+      `<li><strong>Buff — ${escapeSlotText(buff.name)}:</strong> ${escapeSlotText(buff.alreadyActive ? "Already active; not recommended again." : "Verified effect available; score reported for comparison only.")} <small>${escapeSlotText(buff.source)}</small></li>`
+    );
+    const rows = categoryRows.concat(buffRows);
+    enhancementResults.innerHTML = rows.length
+      ? `<ul>${rows.join("")}</ul>`
+      : '<p class="result-empty">No verified buff or consumable effect records are available in the current dataset. No effects were guessed.</p>';
+  }
+}
+
 function renderUpgradeResults(upgrades = []) {
   if (!upgrades.length) {
     upgradeResults.innerHTML = '<div class="result-empty">No direct gear upgrades are available in the current dataset for the imported character.</div>';
@@ -501,6 +557,7 @@ document.querySelector("#optimizeBtn").addEventListener("click", () => {
 
   renderUpgradeResults(report.topUpgrades);
   renderOptimizedLoadout(report.optimizedEquipment, report.totalScore, WoWOptimizer.normalizeImportedEquipment(importedCharacter?.equipment || []));
+  renderPveOptimizationDetails(report);
   renderCharacterCoach(report, character);
   const resultPlaceholder = document.querySelector("#resultPlaceholder");
   if (resultPlaceholder) resultPlaceholder.style.display = "none";
