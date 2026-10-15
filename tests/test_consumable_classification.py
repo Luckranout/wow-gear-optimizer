@@ -8,7 +8,7 @@ class ConsumableClassificationTests(unittest.TestCase):
         self.items = [
             {"id": 1, "name": "Silvermoon Parade", "itemClass": {"id": 0}},
             {"id": 2, "name": "Flask of the Blood Knights", "itemClass": {"id": 0}},
-            {"id": 3, "name": "Light's Potential", "itemClass": {"id": 0}},
+            {"id": 3, "name": "Light's Potential", "itemClass": {"id": 0}, "itemSubclass": {"name": "Potion"}},
             {"id": 4, "name": "Thalassian Phoenix Oil", "itemClass": {"id": 0}},
             {"id": 5, "name": "Unrelated crafting material", "itemClass": {"id": 0}},
         ]
