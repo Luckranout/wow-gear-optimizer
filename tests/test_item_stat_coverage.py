@@ -168,6 +168,27 @@ class ItemStatCoverageTests(unittest.TestCase):
         )
         self.assertIn("does not prove the effect is complete", report["policy"])
 
+    def test_enhancement_coverage_breaks_out_each_consumable_type(self):
+        report = MODULE.build_enhancement_effect_coverage(
+            gems=[],
+            enchants=[],
+            crafted_gear=[],
+            other_outputs=[],
+            consumables={
+                "food": [{"item": {"spells": [{"spell": {"id": 1}}]}}],
+                "flaskOrPhial": [{"item": {"stats": [{"value": 10}]}}],
+                "potions": [{"item": {"stats": []}}],
+                "other": [{"description": "Text only"}],
+            },
+        )
+        self.assertEqual(report["consumables.food"]["candidateCount"], 1)
+        self.assertEqual(report["consumables.food"]["recordsWithStructuredEffectMetadata"], 1)
+        self.assertEqual(report["consumables.flaskOrPhial"]["recordsWithStructuredEffectMetadata"], 1)
+        self.assertEqual(report["consumables.potions"]["recordsMissingStructuredEffectMetadata"], 1)
+        self.assertEqual(report["consumables.other"]["recordsMissingStructuredEffectMetadata"], 1)
+        self.assertEqual(report["total"]["candidateCount"], 4)
+        self.assertEqual(report["total"]["recordsWithStructuredEffectMetadata"], 2)
+
     def test_empty_enhancement_catalog_reports_zero_coverage(self):
         report = MODULE.build_enhancement_effect_coverage([], [], [], [])
         self.assertEqual(report["total"]["candidateCount"], 0)
