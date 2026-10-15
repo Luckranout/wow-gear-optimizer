@@ -943,12 +943,18 @@ function findUpgradeOpportunities({
     )
       .map(item => {
         const trialEquipment = { ...currentEquipment, [slot]: item };
+        // Never present a single-slot upgrade that pushes a supported level-90
+        // loadout beyond a secondary-rating hard cap as a valid recommendation.
+        const capViolations = getSecondaryRatingHardCapViolations(trialEquipment, characterLevel);
+        if (capViolations.length) {
+          return { item, score: -Infinity, itemScore: scoreItem(item, weights), capViolations };
+        }
         const trialScore = scoreLoadout(
           trialEquipment, weights, setBonuses, specialization, characterLevel
         ).score;
-        return { item, score: trialScore, itemScore: scoreItem(item, weights) };
+        return { item, score: trialScore, itemScore: scoreItem(item, weights), capViolations: [] };
       })
-      .filter(candidate => candidate.score > baselineLoadoutScore)
+      .filter(candidate => candidate.capViolations.length === 0 && candidate.score > baselineLoadoutScore)
       .sort((a, b) => b.score - a.score);
 
     if (candidates.length) {
