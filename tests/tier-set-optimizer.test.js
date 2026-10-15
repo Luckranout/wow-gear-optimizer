@@ -62,6 +62,7 @@ assert.equal(fourPiece.score, fourPiece.baseScore + 800,
 
 const wrongSpec = optimizer.getSetBonusContext({ equipment: tier.equipment, setBonuses: bonuses, className: "Mage", specialization: "Frost" });
 assert.equal(wrongSpec.bonusScore, 0, "specialization-specific bonus must not apply to another spec");
+assert.equal(wrongSpec.hasVerifiedScoringData, false, "another spec's score data must not be reported as available");
 
 const report = optimizer.createOptimizationReport({
   character, availableItems: items, dataset: { setBonuses: [] }, tierSetAware: true
