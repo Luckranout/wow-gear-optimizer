@@ -14,7 +14,7 @@ assert.match(app, /const url = `\$\{API_BASE_URL\}\/api\/slot-candidates\?slot=/
 assert.match(app, /fetch\(url\)/);
 assert.match(app, /class=\$\{encodeURIComponent\(character\.className\)\}/);
 assert.match(app, /Promise\.all\(candidateSlots\.map/);
-assert.match(app, /availableItems\.concat\(\.\.\.requests\)/);
+assert.match(app, /requests\.map\(request => request\.items\)\.flat\(\)\.concat\(availableItems\)/);
 assert.match(app, /const byId = new Map\(\)/);
 assert.match(app, /availableItems\.splice\(0, availableItems\.length, \.\.\.byId\.values\(\)\)/);
 assert.match(app, /createOptimizationReport\(\{\s*character,\s*availableItems,/);
