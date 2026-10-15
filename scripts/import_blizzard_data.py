@@ -224,6 +224,8 @@ def request_json(url, headers=None, data=None):
                 payload = json.load(response)
                 response_headers = getattr(response, "headers", None)
                 cache_control = response_headers.get("Cache-Control", "") if response_headers else ""
+                if not isinstance(cache_control, str):
+                    cache_control = ""
             if method == "GET" and parsed_url.netloc == "us.api.blizzard.com":
                 match = re.search(r"(?:^|,)\s*max-age\s*=\s*(\d+)", cache_control, re.IGNORECASE)
                 if match:
