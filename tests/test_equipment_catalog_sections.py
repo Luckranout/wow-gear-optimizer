@@ -81,6 +81,27 @@ class EquipmentSectionPaginationTests(unittest.TestCase):
         self.assertEqual(sections, {})
         self.assertEqual(sources, {})
 
+    def test_current_season_source_is_not_rejected_by_base_item_level(self):
+        # Blizzard's static item-detail level may be a preview/base level rather
+        # than the season's difficulty-specific drop level.
+        details = {
+            99: {"id": 99, "name": "Current Season Ring", "level": 219,
+                 "is_equippable": True, "inventory_type": {"type": "FINGER", "name": "Finger"}},
+        }
+
+        def get_detail(path, _token, _params):
+            return details[int(path.rsplit("/", 1)[-1])]
+
+        sections, sources = collect_equipment_section_ids(
+            "token", get_detail, {99}, sleep=lambda _s: None,
+            source_evidence={
+                99: [{"category": "PvE", "seasonScope": "Midnight Season 2+",
+                      "instance": "Altar of Fangs", "encounter": "Zul'jan"}],
+            },
+        )
+        self.assertEqual(sections, {"rings": {99}})
+        self.assertEqual(sources[99][0]["encounter"], "Zul'jan")
+
     def test_catalog_classifies_only_verified_source_ids_by_item_detail(self):
         details = {
             10: {"id": 10, "name": "Old Ring", "level": 59, "is_equippable": True, "inventory_type": {"type": "FINGER", "name": "Finger"}},

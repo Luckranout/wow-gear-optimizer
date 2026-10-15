@@ -13,9 +13,6 @@ from pathlib import Path
 PAGE_SIZE = 1000
 REQUEST_DELAY_SECONDS = 0.15
 
-# Broad lower bound for the supplied Midnight catch-up/outdoor gear range.
-# Item level is only a legacy-loot sanity check; source provenance remains required.
-MIN_CURRENT_SEASON_PVE_ITEM_LEVEL = 250
 SECTION_SEARCHES = {
     "rings": ("FINGER",),
     "necklaces": ("NECK",),
@@ -170,20 +167,11 @@ def collect_equipment_section_ids(token, get_api_json, allowed_item_ids, sleep=t
             print(f"Equipment source rejected without provenance: id={item_id}; no source evidence.")
             continue
 
-        # Season 2 catalog boundary: ilvl 249 and below is old content.
-        # Apply this boundary consistently to PvE, PvP, and crafted gear; provenance
-        # is still required for items at or above the boundary.
-        item_level = detail.get("level")
-        if (
-            not isinstance(item_level, (int, float))
-            or isinstance(item_level, bool)
-            or item_level < MIN_CURRENT_SEASON_PVE_ITEM_LEVEL
-        ):
-            print(
-                f"Equipment source rejected below Season 2 item-level boundary: "
-                f"id={item_id}; item_level={item_level!r}; minimum={MIN_CURRENT_SEASON_PVE_ITEM_LEVEL}."
-            )
-            continue
+        # Do not use item-detail "level" as a season eligibility gate. Blizzard's
+        # static item record can expose the item's base/preview level (for example,
+        # 219) even when its current-season difficulty drop is 292+ or scales by
+        # difficulty. Current-season eligibility is established by source_evidence;
+        # slot and equippability are established by this item-detail response.
         for section in matched_sections:
             section_ids.setdefault(section, set()).add(item_id)
             for source in evidence:
