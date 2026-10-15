@@ -2172,6 +2172,7 @@ def main():
         profession_recipes,
         supporting_items,
     )
+    consumables = classify_consumables(profession_recipes, supporting_items)
 
     print("Import phase 3/7: scanning Season 2 PvE Journal sources.", flush=True)
     pve_sources, matched_instances, missing_sources = collect_season_content_item_ids(token)
@@ -2292,6 +2293,7 @@ def main():
     dataset["season"] = MINIMUM_SEASON
     dataset["gems"] = gems
     dataset["enchants"] = enchants
+    dataset["consumables"] = consumables
     dataset["crafting"] = {
         "recipes": profession_recipes,
         "craftedGear": crafted_gear,
@@ -2335,6 +2337,10 @@ def main():
         "craftedOutputItemCount": len(profession_output_ids),
         "gemRecipeCount": len(gems),
         "enchantRecipeCount": len(enchants),
+        "foodRecipeCount": len(consumables["food"]),
+        "flaskOrPhialRecipeCount": len(consumables["flaskOrPhial"]),
+        "potionRecipeCount": len(consumables["potions"]),
+        "otherConsumableRecipeCount": len(consumables["other"]),
         "craftedGearRecipeCount": len(crafted_gear),
         "recraftRecipeCount": sum(1 for r in profession_recipes if r.get("isRecraft")),
         "embellishmentRecipeCount": sum(1 for r in profession_recipes if r.get("isEmbellishment")),
