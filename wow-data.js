@@ -263,7 +263,29 @@ async function loadRetailDataset(url = "data/current-retail.json") {
   );
   data.items.push(...verifiedTierCandidates);
 
-  data.setBonuses = [...(data.setBonuses || []), ...sourceBackedBonuses];
+  // Use the independently verified item-ID manifest for set membership when
+  // the richer tier catalogue is absent. Its 2pc/4pc thresholds intentionally
+  // carry no score: piece mapping is not evidence of a numeric combat effect.
+  const catalogueSetIds = new Set(sourceBackedBonuses.map(set =>
+    String(set.setId ?? set.id ?? set.name ?? "").trim().toLowerCase()
+  ));
+  const manifestOnlyBonuses = (data.tierSetItemIdManifest?.sets || [])
+    .filter(set => !catalogueSetIds.has(String(set.setId ?? set.className ?? set.setName ?? "").trim().toLowerCase()) &&
+      !catalogueSetIds.has(String(set.setName || "").trim().toLowerCase()))
+    .map(set => ({
+      setId: set.setId || set.setName,
+      name: set.setName,
+      class: set.className,
+      source: set.sourceUrl || "Verified Midnight Season 2 tier-piece ID manifest",
+      pieces: set.pieces || [],
+      thresholds: [2, 4].map(pieces => ({
+        pieces,
+        effects: null,
+        scoreValue: null,
+        source: set.sourceUrl || "Verified piece membership only; numeric bonus scoring unavailable"
+      }))
+    }));
+  data.setBonuses = [...(data.setBonuses || []), ...sourceBackedBonuses, ...manifestOnlyBonuses];
 
   const errors = validateRetailDataset(data);
 
