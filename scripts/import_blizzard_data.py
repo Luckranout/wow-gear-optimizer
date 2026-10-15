@@ -1681,6 +1681,65 @@ def classify_profession_outputs(recipes, output_items):
     return gems, enchants, crafted_gear, other_crafted_items
 
 
+def validate_supporting_catalogs(gems, enchants, consumables):
+    """Fail closed on malformed enhancement/consumable records before publishing data.
+
+    This validates catalog structure and source attribution, not whether an item's
+    effect is fully modeled by the optimizer. Effect completeness is tracked
+    separately and must not be inferred from a recipe name or description.
+    """
+    catalogs = {
+        "gems": gems,
+        "enchants": enchants,
+        **{
+            f"consumables.{bucket}": records
+            for bucket, records in (consumables or {}).items()
+        },
+    }
+    errors = []
+    for catalog_name, records in catalogs.items():
+        if not isinstance(records, list):
+            errors.append(f"{catalog_name} must be a list")
+            continue
+        seen = set()
+        for index, record in enumerate(records):
+            label = f"{catalog_name}[{index}]"
+            if not isinstance(record, dict):
+                errors.append(f"{label} must be an object")
+                continue
+            recipe_id = record.get("id")
+            recipe_name = record.get("name")
+            if not isinstance(recipe_id, int) or isinstance(recipe_id, bool) or recipe_id <= 0:
+                errors.append(f"{label} is missing a valid recipe ID")
+            if not isinstance(recipe_name, str) or not recipe_name.strip():
+                errors.append(f"{label} is missing a recipe name")
+            if record.get("seasonScope") != SEASON_SCOPE:
+                errors.append(f"{label} is missing the expected season scope")
+            if not isinstance(record.get("source"), str) or not record["source"].strip():
+                errors.append(f"{label} is missing source attribution")
+            key = (recipe_id, record.get("craftedItemId"))
+            if key in seen:
+                errors.append(f"{label} duplicates recipe/output pair {key!r}")
+            seen.add(key)
+            item = record.get("item")
+            if item is not None and (
+                not isinstance(item, dict)
+                or not isinstance(item.get("id"), int)
+                or not isinstance(item.get("name"), str)
+                or not item["name"].strip()
+            ):
+                errors.append(f"{label} has malformed linked item metadata")
+    if errors:
+        raise RuntimeError(
+            "Supporting catalog validation failed: " + "; ".join(errors[:20])
+        )
+    return {
+        catalog_name: len(records)
+        for catalog_name, records in catalogs.items()
+        if isinstance(records, list)
+    }
+
+
 def classify_consumables(recipes, output_items):
     """Build explicit consumable buckets from current-profession recipe outputs.
 
@@ -2178,6 +2237,8 @@ def main():
         supporting_items,
     )
     consumables = classify_consumables(profession_recipes, supporting_items)
+    supporting_catalog_counts = validate_supporting_catalogs(gems, enchants, consumables)
+    print("Supporting catalog structural validation passed: " + ", ".join(f"{name}={count}" for name, count in supporting_catalog_counts.items()))
 
     print("Import phase 3/7: scanning Season 2 PvE Journal sources.", flush=True)
     pve_sources, matched_instances, missing_sources = collect_season_content_item_ids(token)
