@@ -787,6 +787,12 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
     ? `${character.characterName} • ${character.className} • ${character.specialization}`
     : `${character.className} • ${character.specialization}`;
 
+  const catalogCoverage = report.catalogCoverage;
+  const catalogCoverageNote = !catalogCoverage || catalogCoverage.status === "unavailable"
+    ? " Equipment catalog sections unavailable; rankings use only the remaining fallback candidates."
+    : catalogCoverage.status === "partial"
+      ? ` Equipment catalog partial: ${catalogCoverage.loadedSectionCount}/${catalogCoverage.expectedSectionCount} sections loaded; missing ${catalogCoverage.unavailableSections.join(", ") || "unknown sections"}.`
+      : ` Equipment catalog: ${catalogCoverage.loadedSectionCount}/${catalogCoverage.expectedSectionCount} sections loaded (${catalogCoverage.itemCount} sectioned candidates).`;
   const tierCoverage = report.tierSetCoverage;
   const tierCoverageNote = !tierCoverage || tierCoverage.catalogueStatus === "unavailable"
     ? " Tier-set coverage unavailable; set bonuses are not verified."
@@ -794,8 +800,8 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
       ? ` Tier set: ${tierCoverage.setName} piece mapping verified (${tierCoverage.verifiedPieceCount}/${tierCoverage.expectedPieceCount}); numeric bonus scoring remains disabled.`
       : ` Tier-set warning: ${tierCoverage.className || character.className} piece mapping is unverified; do not treat set counts or bonus optimization as complete. ${tierCoverage.verifiedClassCount}/${tierCoverage.totalClassCount} classes have verified mappings.`;
   resultMessage.textContent = report.topUpgrades.length
-    ? `${label} • ${character.goal} — ${report.topUpgrades.length} gear candidates ranked. This is a ranking aid, not a verified best-in-slot result or numeric projected-stat calculation.${tierCoverageNote}`
-    : `${label} • ${character.goal} — no direct gear candidates ranked from the currently available dataset. This does not prove that no upgrades exist in game.${tierCoverageNote}`;
+    ? `${label} • ${character.goal} — ${report.topUpgrades.length} gear candidates ranked. This is a ranking aid, not a verified best-in-slot result or numeric projected-stat calculation.${catalogCoverageNote}${tierCoverageNote}`
+    : `${label} • ${character.goal} — no direct gear candidates ranked from the currently available dataset. This does not prove that no upgrades exist in game.${catalogCoverageNote}${tierCoverageNote}`;
 });
 
 document.querySelector("#clearBtn").addEventListener("click", () => {
