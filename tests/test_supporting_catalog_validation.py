@@ -14,7 +14,7 @@ def recipe(recipe_id=1, name="Test recipe", crafted_item_id=10):
         "craftedItemId": crafted_item_id,
         "seasonScope": SEASON_SCOPE,
         "source": "Blizzard Game Data API — current Midnight profession recipe",
-        "item": {"id": crafted_item_id, "name": "Test item"},
+        **({"item": {"id": crafted_item_id, "name": "Test item"}} if crafted_item_id is not None else {}),
     }
 
 
