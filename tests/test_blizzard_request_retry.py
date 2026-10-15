@@ -102,6 +102,25 @@ class BlizzardRequestRetryTests(unittest.TestCase):
             self.assertEqual(second, first)
             urlopen.assert_called_once()
 
+    def test_item_search_response_cache_reuses_exact_search_url(self):
+        with tempfile.TemporaryDirectory() as directory:
+            cache_path = os.path.join(directory, "cache.sqlite3")
+            response = MagicMock()
+            response.__enter__.return_value.read.return_value = b'{"pageCount": 1, "results": []}'
+            url = (
+                "https://us.api.blizzard.com/data/wow/search/item"
+                "?namespace=static-us&locale=en_US&name.en_US=Test+Gem&_pageSize=100&orderby=id"
+            )
+            with patch.object(importer, "ITEM_CACHE_PATH", cache_path), patch.object(
+                importer.urllib.request, "urlopen", return_value=response
+            ) as urlopen, patch.object(importer, "REQUEST_INTERVAL_SECONDS", 0):
+                first = importer.request_json(url)
+                second = importer.request_json(url)
+
+            self.assertEqual(first, {"pageCount": 1, "results": []})
+            self.assertEqual(second, first)
+            urlopen.assert_called_once()
+
     def test_retry_after_http_date_is_parsed(self):
         headers = Message()
         headers["Retry-After"] = "Wed, 21 Oct 2015 07:28:00 GMT"
