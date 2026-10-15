@@ -2170,12 +2170,17 @@ def _has_explicit_effect_metadata(record):
     return has_stats or has_spells or has_explicit_effect
 
 
-def build_enhancement_effect_coverage(gems, enchants, crafted_gear, other_outputs):
+def build_enhancement_effect_coverage(gems, enchants, crafted_gear, other_outputs, consumables=None):
     """Measure structured effect-metadata presence, not effect completeness."""
+    consumables = consumables if isinstance(consumables, dict) else {}
     categories = {
         "gems": gems or [],
         "enchants": enchants or [],
         "craftedGear": crafted_gear or [],
+        "consumables.food": consumables.get("food", []),
+        "consumables.flaskOrPhial": consumables.get("flaskOrPhial", []),
+        "consumables.potions": consumables.get("potions", []),
+        "consumables.other": consumables.get("other", []),
         "otherCraftedOutputs": other_outputs or [],
     }
     result = {}
@@ -2333,7 +2338,7 @@ def main():
 
     stat_coverage = build_item_stat_coverage(items)
     enhancement_effect_coverage = build_enhancement_effect_coverage(
-        gems, enchants, crafted_gear, other_crafted_items
+        gems, enchants, crafted_gear, other_crafted_items, consumables
     )
     print(
         "Enhancement effect metadata presence: "
