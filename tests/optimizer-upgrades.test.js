@@ -443,7 +443,26 @@ if (statsReport.currentStats.trackedStats.Haste !== 25.5 ||
     statsReport.currentStats.weightedScore <= 0) {
   throw new Error("Optimization report character statistics baseline failed");
 }
-console.log("Step 8 character statistics baseline passed.");
+const partialCatalogReport = o.createOptimizationReport({
+  character: statsProfile,
+  availableItems: [],
+  dataset: {
+    catalogSections: {
+      status: "partial",
+      expectedSectionCount: 14,
+      loadedSections: ["head", "chest"],
+      itemCount: 4,
+      unavailableSections: [{ section: "rings" }]
+    }
+  }
+});
+if (partialCatalogReport.catalogCoverage?.status !== "partial" ||
+    partialCatalogReport.catalogCoverage.loadedSectionCount !== 2 ||
+    partialCatalogReport.catalogCoverage.itemCount !== 4 ||
+    partialCatalogReport.catalogCoverage.unavailableSections[0] !== "rings") {
+  throw new Error("Optimization report must expose partial catalog coverage without blocking the report");
+}
+console.log("Step 8 character statistics and catalog coverage baselines passed.");
  
 // Step 10: spec-aware stat weight resolution.
 // Profiles are supplied as data; the optimizer must never invent a profile when one is absent.
