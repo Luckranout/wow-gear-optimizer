@@ -31,7 +31,7 @@ const belowSoftTarget = { Head: { itemLevel: 100, stats: { Haste: 1320 } } };
 const aboveSoftTarget = { Head: { itemLevel: 100, stats: { Haste: 1500 } } };
 if (!(o.getSecondaryRatingSoftTargetPenalty(belowSoftTarget, 90) > 0) ||
     !(o.getSecondaryRatingSoftTargetPenalty(aboveSoftTarget, 90) > 0) ||
-    o.getSecondaryRatingSoftTargetPenalty({ Head: { itemLevel: 100, stats: { Haste: 1320 } } }, 90) !== 0) {
+    o.getSecondaryRatingSoftTargetPenalty({ Head: { itemLevel: 100, stats: { Haste: 1320, CriticalStrike: 1380, Mastery: 1380, Versatility: 1620 } } }, 90) !== 0) {
   throw new Error("Soft-target scoring should penalize shortfalls and over-investment, with zero penalty at the target");
 }
 const atHardCap = { Head: { itemLevel: 100, stats: { Haste: 8800 } } };
