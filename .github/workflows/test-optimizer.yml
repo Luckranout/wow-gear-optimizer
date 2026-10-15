@@ -17,6 +17,7 @@ on:
       - "stacking-effects.js"
       - "optimizer.js"
       - "wow-data.js"
+      - "data/tier-set-item-ids.json"
       - "scripts/**"
       - "tests/**"
       - "simulation-import.js"
@@ -62,6 +63,12 @@ jobs:
         run: node tests/stacking-effects.test.js
       - name: Run catalog inventory slot mapping tests
         run: node tests/catalog-inventory-slot-mapping.test.js
+      - name: Run tier-set-aware optimizer tests
+        run: node tests/tier-set-optimizer.test.js
+      - name: Run PvE optimizer profile tests
+        run: node tests/pve-optimizer-profile.test.js
+      - name: Run PvE optimizer UI tests
+        run: node tests/pve-optimizer-ui.test.js
       - name: Run on-demand slot candidate API tests
         run: node tests/slot-candidates.test.js
       - name: Run Optimize candidate integration contract tests
