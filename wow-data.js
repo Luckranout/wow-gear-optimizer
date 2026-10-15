@@ -59,8 +59,29 @@ function createEmptyRetailDataset() {
   };
 }
 
-function normalizeEquipmentItems(items) {
+function createTierSetItemIndex(manifest) {
+  const index = new Map();
+  for (const set of manifest?.sets || []) {
+    for (const piece of set.pieces || []) {
+      const itemId = Number(piece.itemId);
+      if (!Number.isSafeInteger(itemId) || itemId <= 0 || !set.setId) continue;
+      // Keep the first mapping for duplicate IDs; validation/tests flag duplicates.
+      if (!index.has(String(itemId))) {
+        index.set(String(itemId), {
+          setId: String(set.setId),
+          setName: String(set.setName || ""),
+          setClassName: String(set.className || ""),
+          tierSetPiece: true
+        });
+      }
+    }
+  }
+  return index;
+}
+
+function normalizeEquipmentItems(items, tierSetManifest = null) {
   const normalized = [];
+  const tierSetIndex = createTierSetItemIndex(tierSetManifest);
   for (const item of items) {
     if (!item || typeof item !== "object") continue;
     const slot = inferEquipmentSlot(item);
@@ -68,7 +89,17 @@ function normalizeEquipmentItems(items) {
       // Supporting records (for example, crafting materials) are not optimizer gear.
       continue;
     }
-    const normalizedItem = { ...item, slot };
+    const membership = tierSetIndex.get(String(Number(item.id)));
+    const normalizedItem = {
+      ...item,
+      slot,
+      ...(membership && !item.setId && !item.set?.id && !item.itemSet?.id ? {
+        setId: membership.setId,
+        setName: membership.setName,
+        isSetPiece: true,
+        tierSetClassName: membership.setClassName
+      } : {})
+    };
     normalized.push(normalizedItem);
     // Rings and trinkets can occupy either copy of their equipment slot.
     if (slot === "Ring 1") normalized.push({ ...normalizedItem, slot: "Ring 2" });
@@ -94,16 +125,18 @@ function inferEquipmentSlot(item) {
   return slots[raw] || null;
 }
 
-function normalizeRetailDataset(input) {
+function normalizeRetailDataset(input, tierSetManifest = null) {
   const base = createEmptyRetailDataset();
   const data = input && typeof input === "object" ? input : {};
+  const manifest = tierSetManifest || data.tierSetItemIds || null;
 
   return {
     ...base,
     ...data,
     schemaVersion: data.schemaVersion || base.schemaVersion,
     mode: "Retail",
-    items: Array.isArray(data.items) ? normalizeEquipmentItems(data.items) : [],
+    items: Array.isArray(data.items) ? normalizeEquipmentItems(data.items, manifest) : [],
+    tierSetItemIds: manifest,
     gems: Array.isArray(data.gems) ? data.gems : [],
     enchants: Array.isArray(data.enchants) ? data.enchants : [],
     embellishments: Array.isArray(data.embellishments) ? data.embellishments : [],
@@ -187,7 +220,19 @@ async function loadRetailDataset(url = "data/current-retail.json") {
   }
 
   const raw = await response.json();
-  const data = normalizeRetailDataset(raw);
+  let tierSetManifest = raw?.tierSetItemIds || null;
+  if (!tierSetManifest) {
+    try {
+      const manifestResponse = await fetch("data/tier-set-item-ids.json", { cache: "no-store" });
+      if (manifestResponse.ok) {
+        const candidate = await manifestResponse.json();
+        if (candidate && Array.isArray(candidate.sets)) tierSetManifest = candidate;
+      }
+    } catch (_) {
+      // Keep the optimizer usable when the optional mapping file is unavailable.
+    }
+  }
+  const data = normalizeRetailDataset(raw, tierSetManifest);
   const errors = validateRetailDataset(data);
 
   if (errors.length) {
@@ -202,6 +247,8 @@ window.WoWData = {
   slots: WOW_DATA_REQUIRED_SLOTS,
   createEmptyRetailDataset,
   inferEquipmentSlot,
+  createTierSetItemIndex,
+  normalizeEquipmentItems,
   normalizeRetailDataset,
   validateRetailDataset,
   loadRetailDataset
