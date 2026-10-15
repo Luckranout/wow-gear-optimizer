@@ -1220,30 +1220,36 @@ function recommendUpgradePlan({ currentItem, upgradeSystem, availableCrests = {}
 
 function getTierSetCoverageStatus(tierSetCatalogue = null, className = "", specialization = "") {
   const sets = Array.isArray(tierSetCatalogue?.sets) ? tierSetCatalogue.sets : [];
+  const mappingOnly = sets.some(set => typeof set?.className === "string" && set?.mappingStatus === "verified");
   const normalizedClass = String(className || "").trim().toLowerCase();
-  const classSet = sets.find(set => String(set.class || "").trim().toLowerCase() === normalizedClass) || null;
-  const verifiedClasses = sets.filter(set => set.itemIdsVerified === true);
-  const unverifiedClasses = sets.filter(set => set.itemIdsVerified !== true);
-  const uniqueVerifiedPieceIds = classSet && classSet.itemIdsVerified === true
+  const classSet = sets.find(set =>
+    String(set.class || set.className || "").trim().toLowerCase() === normalizedClass
+  ) || null;
+  const isVerified = set => set?.itemIdsVerified === true || set?.mappingStatus === "verified";
+  const verifiedClasses = sets.filter(isVerified);
+  const unverifiedClasses = sets.filter(set => !isVerified(set));
+  const uniqueVerifiedPieceIds = classSet && isVerified(classSet)
     ? new Set((classSet.pieces || []).map(piece => Number(piece.itemId)).filter(Number.isFinite)).size
     : 0;
   return {
-    catalogueStatus: tierSetCatalogue?.itemMatching?.status || "unavailable",
-    className: classSet?.class || className || null,
+    catalogueStatus: tierSetCatalogue?.itemMatching?.status || (mappingOnly ? "mapping-only" : "unavailable"),
+    className: classSet?.class || classSet?.className || className || null,
     specialization: specialization || null,
     setName: classSet?.setName || null,
-    itemMappingVerified: classSet?.itemIdsVerified === true,
+    itemMappingVerified: isVerified(classSet),
     verifiedPieceCount: uniqueVerifiedPieceIds,
     expectedPieceCount: 5,
-    bonusDescriptionsAvailable: Array.isArray(classSet?.specs) &&
+    bonusDescriptionsAvailable: !mappingOnly && Array.isArray(classSet?.specs) &&
       classSet.specs.some(spec => String(spec[0]).toLowerCase() === String(specialization || "").toLowerCase()),
     numericScoringAvailable: false,
     verifiedClassCount: verifiedClasses.length,
     totalClassCount: sets.length,
-    unverifiedClasses: unverifiedClasses.map(set => set.class),
+    unverifiedClasses: unverifiedClasses.map(set => set.class || set.className),
     limitations: [
-      "Tier bonus descriptions do not provide a numeric gear score without simulation-derived or otherwise verified values.",
-      ...(classSet?.itemIdsVerified === true ? [] : ["This class's tier-piece item mapping is not verified, so equipped-piece counts may be incomplete."])
+      mappingOnly
+        ? "The item-ID manifest verifies piece membership only; tier bonus effects and numeric scoring are unmodeled."
+        : "Tier bonus descriptions do not provide a numeric gear score without simulation-derived or otherwise verified values.",
+      ...(isVerified(classSet) ? [] : ["This class's tier-piece item mapping is not verified, so equipped-piece counts may be incomplete."])
     ]
   };
 }
@@ -1283,7 +1289,7 @@ function createOptimizationReport({character = createCharacterProfile(), availab
   return {
     character, goal, statWeights, optimizedEquipment: optimized.equipment, totalScore: optimized.score,
     setBonusStatus: optimized.setBonusStatus,
-    tierSetCoverage: getTierSetCoverageStatus(dataset?.tierSetCatalogue, character.className, character.specialization),
+    tierSetCoverage: getTierSetCoverageStatus(dataset?.tierSetCatalogue || dataset?.tierSetItemIdManifest, character.className, character.specialization),
     ratingConstraintStatus: optimized.ratingConstraintStatus || {
       requiresUserChoice: false, balanced: true, remainingViolations: []
     },
