@@ -43,6 +43,12 @@ REQUESTS_PER_SECOND = 8
 REQUEST_INTERVAL_SECONDS = 1.0 / REQUESTS_PER_SECOND
 ITEM_CACHE_PATH = os.environ.get("BLIZZARD_ITEM_CACHE_PATH", "data/blizzard-item-cache.sqlite3")
 ITEM_CACHE_TTL_SECONDS = 7 * 24 * 60 * 60
+# Short-lived in-memory HTTP cache for Blizzard GET responses that explicitly
+# advertise Cache-Control: max-age. This honors Blizzard's freshness window
+# (e.g. Mythic Keystone Index max-age=1800) without extending it to our
+# separate seven-day item-detail cache.
+_http_response_cache = {}
+_http_response_cache_lock = threading.Lock()
 _request_lock = threading.Lock()
 _last_request_started = 0.0
 
@@ -201,12 +207,33 @@ def request_json(url, headers=None, data=None):
     cached = _read_cached_item(url) if _cacheable_item_url(url, method) else None
     if cached is not None:
         return cached
+    if method == "GET" and parsed_url.netloc == "us.api.blizzard.com":
+        now = time.monotonic()
+        with _http_response_cache_lock:
+            entry = _http_response_cache.get(url)
+            if entry and entry["expires_at"] > now:
+                print(f"Blizzard HTTP cache hit: {endpoint}")
+                return entry["payload"]
+            if entry:
+                _http_response_cache.pop(url, None)
 
     for attempt in range(MAX_RETRIES):
         started = time.monotonic()
         try:
             with throttled_urlopen(request, timeout=REQUEST_TIMEOUT_SECONDS) as response:
                 payload = json.load(response)
+                response_headers = getattr(response, "headers", None)
+                cache_control = response_headers.get("Cache-Control", "") if response_headers else ""
+            if method == "GET" and parsed_url.netloc == "us.api.blizzard.com":
+                match = re.search(r"(?:^|,)\\s*max-age\\s*=\\s*(\\d+)", cache_control, re.IGNORECASE)
+                if match:
+                    max_age = int(match.group(1))
+                    if max_age > 0:
+                        with _http_response_cache_lock:
+                            _http_response_cache[url] = {
+                                "payload": payload,
+                                "expires_at": time.monotonic() + max_age,
+                            }
             _write_cached_item(url, payload)
             return payload
         except urllib.error.HTTPError as error:
