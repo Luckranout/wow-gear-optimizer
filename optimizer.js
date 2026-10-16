@@ -814,7 +814,12 @@ function optimizeEquipment({
   statWeights = null,
   setBonuses = []
 } = {}) {
-  const weights = statWeights || getGoalWeights(goal);
+  const weights = statWeights || resolveStatWeights({
+    goal,
+    className: character.className,
+    specialization: character.specialization,
+    simulation: character.simulation
+  });
   // The live character's equipped variants are valid candidates too. The catalog
   // may contain only a low-level/base version of an item or omit that variant
   // entirely; excluding current gear can produce recommendations far below the
@@ -1057,7 +1062,11 @@ function findUpgradeOpportunities({
   setBonuses = [],
   limit = 6
 } = {}) {
-  const weights = statWeights || getGoalWeights(goal);
+  const weights = statWeights || resolveStatWeights({
+    goal,
+    className,
+    specialization
+  });
   const upgrades = [];
   const baselineLoadoutScore = scoreLoadout(
     currentEquipment, weights, setBonuses, specialization, characterLevel
