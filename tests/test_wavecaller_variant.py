@@ -42,6 +42,7 @@ class WavecallerVariantRegressionTests(unittest.TestCase):
         variant = items[0]["variants"][0]
         self.assertEqual(variant["itemLevel"], 334)
         self.assertEqual(variant["level"], 334)
+        self.assertEqual(variant["description"], "Equip: Your spells have a high chance to call to the sea, granting Tidal Insight to increase your Intellect by 65 up to 6 times. After reaching its peak, your spells instead diminish Tidal Insight before beginning the cycle anew.")
         self.assertEqual(variant["stats"], EXPECTED_STATS)
         self.assertEqual(variant["bonusIds"], BONUS_IDS)
         self.assertIn("334", variant["statsSource"])
@@ -57,6 +58,9 @@ class WavecallerVariantRegressionTests(unittest.TestCase):
         variant = next(entry for entry in item["variants"] if entry.get("variantKey", "").endswith("ilvl334"))
         self.assertEqual(variant["itemLevel"], 334)
         self.assertEqual(variant["level"], 334)
+        self.assertEqual(variant["description"], "Equip: Your spells have a high chance to call to the sea, granting Tidal Insight to increase your Intellect by 65 up to 6 times. After reaching its peak, your spells instead diminish Tidal Insight before beginning the cycle anew.")
+        self.assertIn("Tidal Insight", variant["description"])
+        self.assertIn("Intellect by 65", variant["description"])
         self.assertEqual(
             [(stat["type"]["name"], stat["value"]) for stat in variant["stats"]],
             [("haste", 143)],
