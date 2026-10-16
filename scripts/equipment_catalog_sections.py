@@ -226,6 +226,19 @@ def collect_equipment_section_ids(token, get_api_json, allowed_item_ids, sleep=t
             f"{len(allowed_item_ids)} source item lookups failed. Refusing to publish "
             "a catalog from a partial source scan; rerun after Blizzard/API access recovers."
         )
+    if rejection_counts["unsupported_inventory_type"]:
+        unsupported = ", ".join(
+            f"{inventory_type}={count}"
+            for inventory_type, count in sorted(
+                rejection_counts["unsupported_inventory_type"].items()
+            )
+        )
+        raise RuntimeError(
+            "Blizzard returned equippable, source-verified items whose inventory types "
+            "are not mapped to an equipment section. Refusing to publish a catalog that "
+            f"silently omits these records: {unsupported}. Add an explicit section mapping "
+            "or an explicit documented exclusion before rerunning."
+        )
     return section_ids, source_map
 
 
