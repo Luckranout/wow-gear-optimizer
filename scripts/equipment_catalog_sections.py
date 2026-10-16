@@ -369,3 +369,27 @@ def write_section_catalogs(section_ids, enriched_items, output_dir=SECTION_DIR, 
                 stale_path.unlink()
                 print(f"Removed stale unverified equipment section: {section}.")
     return summary
+
+
+def discover_equipment_inventory_ids(token, get_api_json, sleep=time.sleep):
+    """Discover the broad equipment ID universe by Blizzard inventory metadata.
+
+    This is discovery only: returned IDs carry no season/source verification and
+    must not be promoted directly into the recommendation catalog. The separate
+    index lets later detail hydration cover equipment beyond the current-season
+    loot allow-list without confusing discovery with eligibility.
+    """
+    discovered = {}
+    inventory_types = sorted({kind for kinds in SECTION_SEARCHES.values() for kind in kinds})
+    for inventory_type in inventory_types:
+        ids = fetch_inventory_type_ids(token, inventory_type, get_api_json, sleep=sleep)
+        for section in sections_for_inventory_type(inventory_type):
+            discovered.setdefault(section, set()).update(ids)
+    missing = [section for section in SECTION_SEARCHES if not discovered.get(section)]
+    if missing:
+        raise RuntimeError(
+            "Blizzard inventory discovery returned no IDs for equipment section(s): "
+            + ", ".join(missing)
+            + ". Refusing to replace the discovery index with incomplete results."
+        )
+    return {section: sorted(ids) for section, ids in discovered.items()}
