@@ -80,18 +80,15 @@ function expectedPrimaryStat(className, specialization) {
 }
 
 function itemPrimaryStats(item) {
-  const records = [item, ...(Array.isArray(item?.variants) ? item.variants : [])];
+  const stats = Array.isArray(item?.stats)
+    ? item.stats
+    : item?.stats && typeof item.stats === "object"
+      ? Object.entries(item.stats).map(([name, value]) => ({ name, value }))
+      : [];
   const found = new Set();
-  for (const record of records) {
-    const stats = Array.isArray(record?.stats)
-      ? record.stats
-      : record?.stats && typeof record.stats === "object"
-        ? Object.entries(record.stats).map(([name, value]) => ({ name, value }))
-        : [];
-    for (const stat of stats) {
-      const name = normalizeItemStatName(stat?.type?.name || stat?.name || stat?.stat?.name || stat?.stat || stat?.type);
-      if (["Strength", "Agility", "Intellect"].includes(name) && Number(stat?.value ?? stat?.amount) > 0) found.add(name);
-    }
+  for (const stat of stats) {
+    const name = normalizeItemStatName(stat?.type?.name || stat?.name || stat?.stat?.name || stat?.stat || stat?.type);
+    if (["Strength", "Agility", "Intellect"].includes(name) && Number(stat?.value ?? stat?.amount) > 0) found.add(name);
   }
   return found;
 }
