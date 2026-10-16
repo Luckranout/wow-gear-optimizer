@@ -40,7 +40,7 @@ test("slot candidates retain an eligible item when only a verified variant has u
   }
 });
 
-test("slot candidates still reject items with neither base nor variant stats", async () => {
+test("slot candidates preserve stat-incomplete source items for downstream Wowhead lookup", async () => {
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), "slot-candidates-"));
   fs.writeFileSync(path.join(directory, "trinkets.json"), JSON.stringify({
     complete: true,
@@ -60,7 +60,8 @@ test("slot candidates still reject items with neither base nor variant stats", a
   try {
     await slotCandidates({ method: "GET", query: { slot: "Trinket 1", class: "mage" } }, res);
     assert.equal(res.statusCode, 200);
-    assert.equal(res.body.count, 0);
+    assert.equal(res.body.count, 1, "missing stats must not prevent the optimizer from resolving this source-verified item through Wowhead");
+    assert.equal(res.body.missingStatsCount, 1);
   } finally {
     slotCandidates._test.setSectionDir(path.join(process.cwd(), "data", "equipment-sections"));
     fs.rmSync(directory, { recursive: true, force: true });
