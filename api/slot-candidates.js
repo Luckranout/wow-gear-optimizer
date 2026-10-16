@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const { setCorsHeaders } = require("./cors");
+const { searchItemIds, getItem } = require("../server/blizzard-item-catalog");
 
 let sectionDir = path.join(process.cwd(), "data", "equipment-sections");
 const SLOT_SECTION = {
@@ -146,6 +147,24 @@ function hasUsableStats(item) {
   };
   return hasStats(item) || (Array.isArray(item.variants) && item.variants.some(hasStats));
 }
+const SLOT_INVENTORY_SEARCHES = {
+  Head: ["HEAD"], Neck: ["NECK"], Shoulders: ["SHOULDER"], Back: ["CLOAK"],
+  Chest: ["CHEST", "ROBE"], Wrists: ["WRIST"], Hands: ["HAND"], Waist: ["WAIST"],
+  Legs: ["LEGS"], Feet: ["FEET"], "Ring 1": ["FINGER"], "Ring 2": ["FINGER"],
+  "Trinket 1": ["TRINKET"], "Trinket 2": ["TRINKET"],
+  "Main Hand": ["WEAPON", "WEAPONMAINHAND", "TWOHWEAPON"],
+  "Off Hand": ["WEAPON", "WEAPONOFFHAND", "HOLDABLE", "SHIELD"]
+};
+let discoveryEnabled = true;
+async function discoverSlotItems(slot) {
+  if (!discoveryEnabled) return [];
+  const ids = await searchItemIds(SLOT_INVENTORY_SEARCHES[slot] || [], { limit: 40 });
+  const results = await Promise.all(ids.map(async id => {
+    try { const result = await getItem(id); return result.item || null; }
+    catch (_) { return null; }
+  }));
+  return results.filter(Boolean).map(item => ({ ...item, discoveredOnDemand: true }));
+}
 function createResponse() {
   return {
     statusCode: 200, headers: {}, body: undefined,
@@ -167,15 +186,26 @@ async function handler(req, res) {
   if (!section) return res.status(400).json({ error: "Unsupported equipment slot." });
   if (!className) return res.status(400).json({ error: "Class is required to enforce armor restrictions." });
   const file = path.join(sectionDir, section + ".json");
+  let payload = { complete: true, items: [] };
+  let sectionCacheAvailable = false;
   try {
-    const payload = JSON.parse(fs.readFileSync(file, "utf8"));
-    if (payload.complete !== true || !Array.isArray(payload.items)) {
-      return res.status(503).json({ error: "This equipment section is not validated yet." });
+    const saved = JSON.parse(fs.readFileSync(file, "utf8"));
+    if (saved.complete === true && Array.isArray(saved.items)) { payload = saved; sectionCacheAvailable = true; }
+  } catch (error) {
+    if (error.code !== "ENOENT" && !(error instanceof SyntaxError)) throw error;
+  }
+  try {
+    let discovered = [];
+    let discoveryError = null;
+    try { discovered = await discoverSlotItems(slot); }
+    catch (error) { discoveryError = error.publicMessage || "Blizzard item discovery failed."; }
+    const knownIds = new Set(payload.items.map(item => Number(item.id)));
+    const newDiscovery = discovered.filter(item => !knownIds.has(Number(item.id)));
+    const allRecords = [...payload.items, ...newDiscovery];
+    if (!sectionCacheAvailable && !discovered.length) {
+      return res.status(503).json({ error: discoveryError || "Neither a validated section cache nor Blizzard discovery is available." });
     }
-    // Only records with combat-stat evidence (base stats or verified variants)
-    // enter scoring. Blizzard's is_equippable flag alone is insufficient because
-    // cosmetic/transmog items can be equippable without being combat gear.
-    const eligibleByMetadata = payload.items.filter(item =>
+    const eligibleByMetadata = allRecords.filter(item =>
       item.isEquippable === true &&
       item.seasonScope === "Midnight Season 2+" &&
       slotMatches(item, slot) &&
@@ -184,33 +214,33 @@ async function handler(req, res) {
       allowedForSpecialization(item, className, specialization, slot)
     );
     const items = eligibleByMetadata.filter(hasUsableStats);
-    // Missing stats are not optimizer candidates yet. Return a separate, bounded
-    // verification queue so the caller can ask Wowhead for real combat-stat
-    // variants before admitting any such record. This prevents cosmetics/transmog
-    // items from entering scoring merely because Blizzard marks them equippable.
-    const pendingStatVerification = eligibleByMetadata
-      .filter(item => !hasUsableStats(item))
-      .slice(0, 8)
-      .map(item => ({ ...item, requiresWowheadVerification: true }));
-    res.setHeader("Cache-Control", "public, s-maxage=900, stale-while-revalidate=1800");
+    const pendingStatVerification = allRecords
+      .filter(item => item.isEquippable === true && slotMatches(item, slot) &&
+        allowedForClass(item, className, slot) && allowedForClassWeapon(item, className, slot) &&
+        allowedForSpecialization(item, className, specialization, slot) && !hasUsableStats(item))
+      .slice(0, 8).map(item => ({ ...item, requiresWowheadVerification: true }));
+    const pendingSeasonVerification = newDiscovery.filter(item => item.seasonEligibility !== "verified");
+    res.setHeader("Cache-Control", "public, s-maxage=300, stale-while-revalidate=600");
     return res.status(200).json({
       slot, section, count: items.length, items, pendingStatVerification,
       pendingStatVerificationCount: pendingStatVerification.length,
-      coverage: items.length ? "candidates-available" : pendingStatVerification.length
-        ? "combat-stats-require-wowhead-verification"
-        : "no-validated-compatible-candidates",
-      source: "verified-season-section-cache"
+      discoveredCount: newDiscovery.length, discoveredItems: newDiscovery,
+      pendingSeasonVerificationCount: pendingSeasonVerification.length,
+      discoveryError,
+      coverage: items.length ? "candidates-available" : pendingSeasonVerification.length
+        ? "blizzard-items-discovered-season-verification-required"
+        : pendingStatVerification.length ? "combat-stats-require-wowhead-verification" : "no-validated-compatible-candidates",
+      source: sectionCacheAvailable ? "blizzard-on-demand-plus-section-cache" : "blizzard-on-demand"
     });
   } catch (error) {
-    if (error.code === "ENOENT" || error instanceof SyntaxError) {
-      return res.status(503).json({ error: "Verified equipment section is not available yet; no fallback catalog was used." });
-    }
-    return res.status(500).json({ error: "Unable to load the verified equipment section." });
+    return res.status(500).json({ error: "Unable to retrieve slot candidates." });
   }
 }
 handler._test = {
   SLOT_SECTION, slotMatches, allowedForClass, allowedForClassWeapon, allowedForSpecialization, normalizeWeaponType, normalizeClass, hasUsableStats,
   createResponse,
-  setSectionDir(dir) { sectionDir = dir; }
+  setSectionDir(dir) { sectionDir = dir; },
+  setDiscoveryEnabled(value) { discoveryEnabled = Boolean(value); },
+  discoverSlotItems
 };
 module.exports = handler;
