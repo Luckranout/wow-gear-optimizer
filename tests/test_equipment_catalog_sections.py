@@ -383,4 +383,6 @@ class BlizzardMythicSeasonVerificationTests(unittest.TestCase):
 
         self.assertEqual(set(ids), {222, 333})
         self.assertEqual(matched, ["The Tidebound Grotto", "The Venomous Abyss"])
-        self.assertIn("Kings' Rest", missing)
+        # Kings' Rest is a legacy dungeon and is no longer part of the configured Season 2 source set.
+        self.assertNotIn("Kings' Rest", matched)
+        self.assertIn("The Blinding Vale", missing)
