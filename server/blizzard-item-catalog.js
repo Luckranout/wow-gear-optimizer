@@ -143,7 +143,7 @@ async function getItem(id, options = {}) {
   const env = options.env || process.env;
   const useMemoryCache = options.memoryCache !== false;
   const now = Date.now();
-  if (useMemoryCache) {
+  if (useMemoryCache && !storageConfig(env)) {
     const cached = memoryItemCache.get(Number(id));
     if (cached && cached.expiresAt > now) {
       // Refresh insertion order so the bounded cache behaves like LRU.
