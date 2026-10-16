@@ -123,6 +123,23 @@ function itemAllowedForSpecialization(item, slot, className, specialization) {
   if (normalizeClassName(className) !== "shaman") return true;
   const spec = String(specialization || "").trim().toLowerCase();
   if (spec !== "enhancement") return true;
+
+  // Enhancement uses Agility, not Intellect. Exclude caster items with static
+  // Intellect from all slots, checking upgraded variants as well as base stats.
+  const hasIntellect = record => {
+    const entries = Array.isArray(record?.stats)
+      ? record.stats
+      : record?.stats && typeof record.stats === "object"
+        ? Object.entries(record.stats).map(([name, value]) => ({ name, value }))
+        : [];
+    return entries.some(stat => {
+      const rawName = stat?.type?.name || stat?.name || stat?.type || stat?.stat || "";
+      const name = String(rawName).replace(/[\s_-]/g, "").toLowerCase();
+      return (name === "intellect" || name === "int") && Number(stat?.value ?? stat?.amount) > 0;
+    });
+  };
+  if (hasIntellect(item) || (Array.isArray(item?.variants) && item.variants.some(hasIntellect))) return false;
+
   if (slot !== "Main Hand" && slot !== "Off Hand") return true;
   const weapon = getWeaponMetadata(item);
   // Enhancement defaults to dual wield. Do not recommend staffs or unknown
@@ -724,6 +741,8 @@ function resolveStatWeights({
   if (normalizeClassName(className) === "shaman" &&
       String(specialization || "").trim().toLowerCase() === "enhancement") {
     merged.Agility = 1.25;
+    merged.Intellect = 0;
+    merged.Strength = 0;
     merged.CriticalStrike = 0.9;
     merged.Mastery = 0.9;
     merged.Haste = 0.9;
