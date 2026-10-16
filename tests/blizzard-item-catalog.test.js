@@ -134,7 +134,7 @@ async function main() {
       throw new Error("Unexpected item-search request: " + url);
     };
     const discoveredIds = await catalog.searchItemIds(["HEAD"], { fetch: searchFetch, env: { BLIZZARD_CLIENT_ID: "id", BLIZZARD_CLIENT_SECRET: "secret" }, limit: 10 });
-    assert.deepEqual(discoveredIds, [111, 222], "Blizzard search IDs are deduplicated");
+    assert.deepEqual(discoveredIds, [222, 111], "Blizzard search IDs are deduplicated and returned newest-first");
     assert.ok(searchUrls.some(url => String(url).includes("inventory_type.type=HEAD")), "request includes the requested slot inventory type");
 
   } finally {
