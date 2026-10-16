@@ -10,7 +10,7 @@ const coach = createCharacterCoach({
 });
 if (coach.identity.name !== "Testchar") throw new Error("identity");
 if (coach.identity.role !== "Tank") throw new Error("role");
-if (coach.priorities[0].recommended !== "Better Chest") throw new Error("upgrade");
+if (coach.priorities[0].title !== "Better Chest") throw new Error("upgrade");
 if (!coach.gameplay.supported || !coach.gameplay.priorities.length) throw new Error("gameplay");
 if (!coach.assessment.loop || !coach.assessment.why) throw new Error("explanation");
 console.log("Character Coach tests passed.");
