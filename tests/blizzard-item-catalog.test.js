@@ -13,6 +13,7 @@ async function main() {
   process.env.BLIZZARD_CLIENT_ID = "test-client";
   process.env.BLIZZARD_CLIENT_SECRET = "test-secret";
   catalog._test.resetTokenCache();
+  catalog._test.resetItemCache();
 
   let persisted = null;
   let blizzardCalls = 0;
@@ -97,12 +98,38 @@ async function main() {
     process.env.SUPABASE_URL = "";
     const noStorage = await catalog.readStoredItem(9, fetchMock);
     assert.equal(noStorage.configured, false, "missing Supabase config is reported instead of pretending persistence worked");
+
+    // Before Supabase is configured, repeated optimizer requests should reuse
+    // fetched metadata within a warm serverless process rather than hammering Blizzard.
+    process.env.SUPABASE_SERVICE_ROLE_KEY = "";
+    catalog._test.resetItemCache();
+    let uncachedBlizzardCalls = 0;
+    const noStorageFetch = async (url) => {
+      if (url === "https://oauth.battle.net/token") {
+        return new Response(JSON.stringify({ access_token: "token", expires_in: 3600 }), {
+          status: 200, headers: { "Content-Type": "application/json" }
+        });
+      }
+      if (url.includes("/data/wow/item/")) {
+        uncachedBlizzardCalls++;
+        return new Response(JSON.stringify({
+          id: 777, name: { en_US: "Process Cached Item" }, is_equippable: true
+        }), { status: 200, headers: { "Content-Type": "application/json" } });
+      }
+      throw new Error("Unexpected no-storage request: " + url);
+    };
+    const firstLocal = await catalog.getItem(777, { fetch: noStorageFetch, env: process.env });
+    const secondLocal = await catalog.getItem(777, { fetch: noStorageFetch, env: process.env });
+    assert.equal(firstLocal.persistentStorage, false, "process memory is not reported as durable storage");
+    assert.equal(secondLocal.cache, "memory-hit", "second request reuses process cache");
+    assert.equal(uncachedBlizzardCalls, 1, "process cache avoids duplicate Blizzard item fetches");
   } finally {
     for (const [key, value] of Object.entries(original)) {
       if (value === undefined) delete process.env[key];
       else process.env[key] = value;
     }
     catalog._test.resetTokenCache();
+    catalog._test.resetItemCache();
   }
   console.log("On-demand Blizzard item persistence tests passed.");
 }
