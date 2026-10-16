@@ -23,6 +23,9 @@ assert.equal(allowedForClass({ itemClass: { name: "Armor" }, itemSubclass: { nam
 assert.equal(slotMatches({ inventoryType: { name: "One-Hand" }, itemClass: { name: "Weapon" } }, "Main Hand"), true, "one-hand weapons belong in Main Hand");
 assert.equal(slotMatches({ inventoryType: { name: "One-Hand" }, itemClass: { name: "Armor" } }, "Main Hand"), false, "one-hand armor must not be treated as a weapon");
 assert.equal(slotMatches({ inventoryType: { name: "Neck" } }, "Neck"), true);
+assert.equal(slotMatches({ inventoryType: { type: "NECK", name: "Neck" }, equipmentCategories: ["necklaces"] }, "Neck"), true, "canonical normalized category matches Neck");
+assert.equal(slotMatches({ inventoryType: { type: "NECK", name: "Neck" }, equipmentCategories: ["rings"] }, "Neck"), false, "explicit normalized category prevents contradictory fallback matches");
+assert.equal(slotMatches({ inventoryType: { type: "WEAPON", name: "Weapon" }, equipmentCategories: ["main-hand", "off-hand"] }, "Off Hand"), true, "generic Blizzard weapon inventory type can be classified for both hands before weapon eligibility filtering");
 assert.equal(slotMatches({ inventoryType: { name: "Finger" } }, "Ring 2"), true);
 assert.equal(slotMatches({ inventoryType: { name: "Trinket" } }, "Trinket 1"), true);
 assert.equal(slotMatches({ slot: "Shoulders" }, "Shoulders"), true);
