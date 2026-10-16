@@ -1697,6 +1697,7 @@
           "name": "Wavecaller's Seastone",
           "level": 334,
           "itemLevel": 334,
+          "description": "Equip: Your spells have a high chance to call to the sea, granting Tidal Insight to increase your Intellect by 65 up to 6 times. After reaching its peak, your spells instead diminish Tidal Insight before beginning the cycle anew.",
           "stats": [
             {
               "type": {
