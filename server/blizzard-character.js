@@ -271,4 +271,4 @@ async function fetchItemMedia({ itemId, clientId, clientSecret }) {
   return { itemId: id, icon };
 }
 
-module.exports = { slugify, normalizeEquippedItem, normalizeStatistics, normalizeCharacterTalents, normalizeCharacter, fetchCharacter, fetchRealms, fetchItemMedia };
+module.exports = { slugify, normalizeEquippedItem, normalizeStatistics, normalizeCharacterTalents, normalizeCharacterTalentBuild, normalizeCharacter, fetchCharacter, fetchRealms, fetchItemMedia };
