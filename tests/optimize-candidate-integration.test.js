@@ -19,6 +19,19 @@ assert.match(app, /const byId = new Map\(\)/);
 assert.match(app, /availableItems\.splice\(0, availableItems\.length, \.\.\.byId\.values\(\)\)/);
 assert.match(app, /createOptimizationReport\(\{\s*character,\s*availableItems,/);
 
+// Missing-stat seasonal records are held out of scoring until Wowhead confirms
+// positive passive combat stats and an explicit item level. The app performs this
+// bounded pre-score resolution and enriches an existing catalog duplicate by ID.
+assert.match(api, /pendingStatVerification/);
+assert.match(api, /\.filter\(item => !hasUsableStats\(item\)\)/);
+assert.match(api, /requiresWowheadVerification: true/);
+assert.match(app, /const pendingLookupIds = \[\.\.\.pendingById\.keys\(\)\]\.slice\(0, 24\)/);
+assert.match(app, /Number\(variant\?\.itemLevel\) > 0 && hasPositiveStats/);
+assert.match(app, /preScoreWowheadVerified\+\+/);
+assert.match(app, /const existing = byId\.get\(String\(id\)\)/);
+assert.match(app, /Resolve the items the optimizer is actually proposing against live Wowhead/);
+
+
 // Base-level catalog records must not displace a higher-item-level equipped variant.
 const optimizer = fs.readFileSync("optimizer.js", "utf8");
 assert.match(optimizer, /candidateLevel < equippedLevel\) continue/);
