@@ -139,11 +139,19 @@ async function fetchFromBlizzard(id, env = process.env, fetchImpl = globalThis.f
 async function getItem(id, options = {}) {
   const fetchImpl = options.fetch || globalThis.fetch;
   const env = options.env || process.env;
-  const stored = await readStoredItem(id, fetchImpl);
+  // Storage is an optimization, not a dependency for live item lookup. A
+  // temporary database outage must not prevent the optimizer from querying Blizzard.
+  let stored = { item: null, configured: Boolean(storageConfig(env)), storageError: false };
+  try {
+    stored = await readStoredItem(id, fetchImpl);
+  } catch (_) {
+    stored = { item: null, configured: Boolean(storageConfig(env)), storageError: true };
+  }
   if (stored.item) return { item: stored.item, cache: "hit", persistentStorage: true };
   const item = await fetchFromBlizzard(id, env, fetchImpl);
-  if (!item) return { item: null, cache: "miss", persistentStorage: stored.configured };
-  const persisted = await storeItem(item, fetchImpl);
+  if (!item) return { item: null, cache: "miss", persistentStorage: stored.configured && !stored.storageError };
+  let persisted = false;
+  try { persisted = await storeItem(item, fetchImpl); } catch (_) { persisted = false; }
   return { item, cache: "miss", persistentStorage: persisted };
 }
 
