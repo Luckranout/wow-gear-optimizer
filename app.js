@@ -884,7 +884,13 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
     ...Object.values(report.optimizedEquipment || {}),
     ...(report.topUpgrades || []).map(entry => entry.recommendedItem).filter(Boolean)
   ];
-  const lookupIds = [...new Set(proposed.map(item => Number(item?.id)).filter(id => Number.isSafeInteger(id) && id > 0))].slice(0, 24);
+  // Verify current equipped variants as well as proposed replacements. Without
+  // these lookups, the current side of the comparison can show only Blizzard's
+  // base record while the recommended side shows a Wowhead-upgraded variant.
+  const equippedForVerification = Object.values(character.equipment || {}).filter(item => item && typeof item === "object");
+  const lookupIds = [...new Set([...proposed, ...equippedForVerification]
+    .map(item => Number(item?.id))
+    .filter(id => Number.isSafeInteger(id) && id > 0))].slice(0, 24);
   let wowheadVerified = 0;
   let wowheadUnavailable = 0;
   const wowheadVariants = [];
@@ -908,14 +914,19 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
       byVariant.set(key, variant);
     }
     for (const variant of byVariant.values()) {
-      const base = availableItems.find(item => Number(item.id) === Number(variant.id));
-      if (!base) continue;
-      base.variants = [...(base.variants || []).filter(existing =>
-        String(existing.variantKey || "") !== String(variant.variantKey || "")
-      ), { ...variant, name: base.name, slot: base.slot, inventoryType: base.inventoryType,
-        itemClass: base.itemClass, itemSubclass: base.itemSubclass,
-        quality: base.quality, isEquippable: base.isEquippable }];
-      base.wowheadLookupStatus = "verified";
+      const id = Number(variant.id);
+      const bases = [
+        ...availableItems.filter(item => Number(item.id) === id),
+        ...equippedForVerification.filter(item => Number(item.id) === id)
+      ];
+      for (const base of new Set(bases)) {
+        base.variants = [...(base.variants || []).filter(existing =>
+          String(existing.variantKey || "") !== String(variant.variantKey || "")
+        ), { ...variant, name: base.name, slot: base.slot || variant.slot,
+          inventoryType: base.inventoryType, itemClass: base.itemClass, itemSubclass: base.itemSubclass,
+          quality: base.quality, isEquippable: base.isEquippable }];
+        base.wowheadLookupStatus = "verified";
+      }
     }
     report = WoWOptimizer.createOptimizationReport({ character, availableItems, dataset: retailDataset });
   }
