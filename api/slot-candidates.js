@@ -98,8 +98,25 @@ function allowedForClassWeapon(item, className, slot) {
 }
 function allowedForSpecialization(item, className, specialization, slot) {
   if (normalizeClass(className) !== "shaman" ||
-      String(specialization || "").trim().toLowerCase() !== "enhancement" ||
-      (slot !== "Main Hand" && slot !== "Off Hand")) return true;
+      String(specialization || "").trim().toLowerCase() !== "enhancement") return true;
+
+  // Enhancement is Agility-based; don't return static-Intellect caster items,
+  // including trinkets and records whose upgraded variant supplies the stats.
+  const hasIntellect = record => {
+    const entries = Array.isArray(record?.stats)
+      ? record.stats
+      : record?.stats && typeof record.stats === "object"
+        ? Object.entries(record.stats).map(([name, value]) => ({ name, value }))
+        : [];
+    return entries.some(stat => {
+      const rawName = stat?.type?.name || stat?.name || stat?.type || stat?.stat || "";
+      const name = String(rawName).replace(/[\s_-]/g, "").toLowerCase();
+      return (name === "intellect" || name === "int") && Number(stat?.value ?? stat?.amount) > 0;
+    });
+  };
+  if (hasIntellect(item) || (Array.isArray(item?.variants) && item.variants.some(hasIntellect))) return false;
+
+  if (slot !== "Main Hand" && slot !== "Off Hand") return true;
   const type = normalizeWeaponType(item.itemSubclass || item.weaponType || item.inventoryType);
   const inventory = String(item.inventoryType?.name || item.inventoryType || "").toLowerCase();
   const name = String(item.name || "").toLowerCase();
