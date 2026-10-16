@@ -14,14 +14,18 @@ function parseTooltip(payload, id, rank) {
   const html = typeof tooltip === "string" ? tooltip :
     tooltip && (tooltip.html || tooltip.content || tooltip.text);
   if (typeof html !== "string" || !html.trim()) return null;
-  const plain = html.replace(/<br\s*\/?\s*>/gi, " ")
-    .replace(/<\/(?:tr|td|div|p|li)>/gi, " ")
-    .replace(/<[^>]+>/g, " ").replace(/&nbsp;|&#160;/gi, " ")
-    .replace(/&amp;/g, "&").replace(/&plus;/g, "+")
-    .replace(/&#43;/g, "+").replace(/&minus;/g, "-")
+  const decodeEntities = value => value
+    .replace(/&nbsp;|&#160;/gi, " ").replace(/&amp;/g, "&")
+    .replace(/&plus;/g, "+").replace(/&#43;/g, "+").replace(/&minus;/g, "-")
     .replace(/&ndash;|&mdash;/g, "-").replace(/&lt;/g, "<")
     .replace(/&gt;/g, ">").replace(/&quot;/g, '"')
-    .replace(/&#39;|&apos;/g, "'").replace(/\s+/g, " ");
+    .replace(/&#39;|&apos;/g, "'");
+  const tooltipText = decodeEntities(html
+    .replace(/<br\s*\/?\s*>/gi, "\n")
+    .replace(/<\/(?:tr|td|div|p|li)>/gi, "\n")
+    .replace(/<[^>]+>/g, " "))
+    .split("\n").map(line => line.replace(/\s+/g, " ").trim()).filter(Boolean).join("\n");
+  const plain = tooltipText.replace(/\s+/g, " ").trim();
   const levelMatch = plain.match(/\bItem\s+Level\s+(\d+)\b/i);
   if (!levelMatch) return null;
   const effectMatch = plain.match(/(?:Use|Equip|Chance on hit):?\s*(.+?)(?=\s+(?:Requires Level|Classes:|Races:|Sell Price:|Dropped by:)|$)/i);
@@ -37,9 +41,33 @@ function parseTooltip(payload, id, rank) {
     if (key && Number.isFinite(value) && value !== 0) stats[key] = value;
   }
   if (!Object.keys(stats).length) return null;
+  const durationMatch = effectText.match(/(?:for|lasting)\s+(\d+)\s*(sec(?:ond)?s?|min(?:ute)?s?)/i);
+  const cooldownMatch = plain.match(/(?:(\d+)\s*min(?:ute)?s?\s*,?\s*)?(\d+)\s*sec(?:ond)?s?\s*cooldown/i) ||
+    plain.match(/cooldown\s*:?\s*(?:(\d+)\s*min(?:ute)?s?\s*,?\s*)?(\d+)\s*sec(?:ond)?s?/i);
+  const toSeconds = (amount, unit) => Number(amount) * (/^min/i.test(unit) ? 60 : 1);
+  const durationSeconds = durationMatch ? toSeconds(durationMatch[1], durationMatch[2]) : null;
+  const cooldownSeconds = cooldownMatch ? Number(cooldownMatch[1] || 0) * 60 + Number(cooldownMatch[2]) : null;
+  const temporaryStats = {};
+  if (effectText) {
+    const temporaryStatPattern = /(?:gain(?:ing)?|grants?|increases?\s+(?:your\s+)?)\s*(?:\+\s*)?(\d[\d,]*)\s+(Strength|Agility|Intellect|Stamina|Critical Strike|Crit|Haste|Mastery|Versatility)\b/gi;
+    let effectStat;
+    while ((effectStat = temporaryStatPattern.exec(effectText))) {
+      const statName = STAT_NAMES[effectStat[2].toLowerCase()];
+      if (statName) temporaryStats[statName] = Number(effectStat[1].replace(/,/g, ""));
+    }
+  }
+  const trinketEffect = effectText ? {
+    text: effectText, durationSeconds, cooldownSeconds, temporaryStats,
+    scoringMethod: Object.keys(temporaryStats).length && durationSeconds && cooldownSeconds
+      ? "weighted temporary stats multiplied by duration/cooldown uptime"
+      : "effect displayed; not numerically scored because reliable structured values are incomplete"
+  } : null;
   return {
     id: Number(id), itemLevel: Number(levelMatch[1]), level: Number(levelMatch[1]),
     upgradeRank: Number(rank), stats,
+    wowheadTooltipText: tooltipText,
+    wowheadEffectText: effectText || null,
+    trinketEffect,
     statsSource: "Wowhead live tooltip",
     variantSource: "Wowhead live tooltip explicitly resolved upgrade rank " + rank,
     sourceUrl: "https://www.wowhead.com/item=" + Number(id) + "&upgd=" + Number(rank),
