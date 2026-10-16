@@ -69,7 +69,10 @@ class MindpiercerImporterRegressionTests(unittest.TestCase):
 
         self.assertEqual(items[0]["stats"], permanent_stats)
         self.assertEqual(items[0]["statsSource"], "Blizzard Game Data API")
-        fetch_tooltip.assert_not_called()
+        # Generic max-upgrade discovery may inspect Wowhead, but must never
+        # replace Blizzard's verified base stats with tooltip-derived values.
+        fetch_tooltip.assert_called_once()
+        self.assertEqual(fetch_tooltip.call_args.kwargs.get("upgrade_rank"), 6)
 
 
 if __name__ == "__main__":
