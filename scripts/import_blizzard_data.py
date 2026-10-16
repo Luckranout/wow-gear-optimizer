@@ -17,7 +17,6 @@ from email.utils import parsedate_to_datetime
 try:
     from .equipment_catalog_sections import (
         collect_equipment_section_ids,
-        discover_equipment_inventory_ids,
         sections_for_inventory_type,
         validate_required_sections,
         write_section_catalogs,
@@ -26,7 +25,6 @@ except ImportError:  # Support direct execution and importlib-based tests.
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     from equipment_catalog_sections import (
         collect_equipment_section_ids,
-        discover_equipment_inventory_ids,
         sections_for_inventory_type,
         validate_required_sections,
         write_section_catalogs,
@@ -2345,45 +2343,9 @@ def main():
 
     token = get_access_token(client_id, client_secret)
 
-    # Discover the broad equipment universe independently of current-season
-    # reward sources. This index is discovery-only; it does not certify season
-    # eligibility and is never fed directly to the recommendation catalog.
-    print("Import phase 0/7: discovering equipment IDs by Blizzard inventory metadata.", flush=True)
-    discovered_equipment = discover_equipment_inventory_ids(token, get_api_json)
-    discovery_index = {
-        "schemaVersion": 1,
-        "generatedAt": datetime.now(timezone.utc).isoformat(),
-        "source": "Blizzard Game Data API item search by inventory_type.type",
-        "discoveryOnly": True,
-        "seasonVerified": False,
-        "sections": {
-            section: {
-                "itemIds": ids,
-                "discoveredCount": len(ids),
-                "sourceVerification": "not-verified-by-discovery",
-                "seasonScope": None,
-            }
-            for section, ids in sorted(discovered_equipment.items())
-        },
-    }
-    discovery_path = "data/equipment-discovery-index.json"
-    os.makedirs(os.path.dirname(discovery_path), exist_ok=True)
-    fd, discovery_temp = tempfile.mkstemp(prefix=".equipment-discovery.", suffix=".tmp", dir=os.path.dirname(discovery_path))
-    try:
-        with os.fdopen(fd, "w", encoding="utf-8") as handle:
-            json.dump(discovery_index, handle, indent=2)
-            handle.write("\\n")
-            handle.flush()
-            os.fsync(handle.fileno())
-        with open(discovery_temp, "r", encoding="utf-8") as handle:
-            staged_discovery = json.load(handle)
-        if staged_discovery.get("discoveryOnly") is not True or staged_discovery.get("seasonVerified") is not False:
-            raise RuntimeError("Equipment discovery index incorrectly claims season verification.")
-        os.replace(discovery_temp, discovery_path)
-    finally:
-        if os.path.exists(discovery_temp):
-            os.unlink(discovery_temp)
-    print("Broad equipment discovery counts: " + ", ".join(f"{section}={len(ids)}" for section, ids in sorted(discovered_equipment.items())), flush=True)
+    # Equipment IDs are discovered on demand by optimizer/API requests. The scheduled
+    # importer refreshes supporting data and independently verifies current-season
+    # source items; it must not scan the entire historical equipment universe.
 
     item_classes = get_api_json(
         "/data/wow/item-class/index",
