@@ -220,6 +220,26 @@ class EquipmentSectionPaginationTests(unittest.TestCase):
         self.assertEqual(sections, {"rings": {22}})
         self.assertEqual(sources[22][0]["category"], "PvP")
 
+    def test_unknown_inventory_type_fails_instead_of_silently_dropping_verified_item(self):
+        details = {
+            17: {
+                "id": 17, "name": "Verified but unmapped item",
+                "is_equippable": True,
+                "inventory_type": {"type": "NEW_BLIZZARD_TYPE", "name": "New inventory type"},
+            },
+        }
+
+        def get_detail(path, _token, _params):
+            return details[int(path.rsplit("/", 1)[-1])]
+
+        with self.assertRaisesRegex(RuntimeError, "not mapped to an equipment section"):
+            collect_equipment_section_ids(
+                "token", get_detail, {17}, sleep=lambda _s: None,
+                source_evidence={
+                    17: [{"category": "PvE", "seasonScope": "Midnight Season 2+"}],
+                },
+            )
+
     def test_item_without_source_evidence_is_rejected(self):
         details = {
             11: {"id": 11, "name": "Unproven Ring", "is_equippable": True, "inventory_type": {"type": "FINGER", "name": "Finger"}},
