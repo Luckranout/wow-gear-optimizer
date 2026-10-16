@@ -23,6 +23,12 @@ function normalizeClass(value) {
   return String(value || "").toLowerCase().replace(/[\s'_-]/g, "");
 }
 function slotMatches(item, slot) {
+  // Prefer the importer's canonical Blizzard metadata mapping when present.
+  // Older catalog records without this field continue through compatibility aliases.
+  const expectedSection = SLOT_SECTION[slot];
+  if (Array.isArray(item.equipmentCategories)) {
+    return Boolean(expectedSection && item.equipmentCategories.includes(expectedSection));
+  }
   const inv = String(item.inventoryType?.name || item.inventoryType || "").toLowerCase();
   if (slot === "Ring 1" || slot === "Ring 2") return /finger|ring/.test(inv);
   if (slot === "Trinket 1" || slot === "Trinket 2") return /trinket/.test(inv);
