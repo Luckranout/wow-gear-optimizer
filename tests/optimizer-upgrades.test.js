@@ -638,6 +638,39 @@ if (enhancementWithSimulation.Haste !== 1.7 || enhancementWithSimulation.Mastery
 }
 console.log("Enhancement Shaman stat-priority fallback regression passed.");
 
+// Direct optimizer entry points must use the same specialization-aware defaults
+// as createOptimizationReport when callers omit an explicit statWeights object.
+const defaultWeightCandidates = [
+  { id: 989101, name: "Agility Helm", slot: "Head", itemLevel: 300, stats: { Agility: 100 } },
+  { id: 989102, name: "Versatility Helm", slot: "Head", itemLevel: 300, stats: { Versatility: 100 } }
+];
+const defaultWeightUpgrade = o.findUpgradeOpportunities({
+  currentEquipment: {},
+  availableItems: defaultWeightCandidates,
+  className: "Shaman",
+  specialization: "Enhancement",
+  characterLevel: 90,
+  limit: 6
+}).find(upgrade => upgrade.slot === "Head");
+if (defaultWeightUpgrade?.recommendedItem?.id !== 989101) {
+  throw new Error("Upgrade recommendations without explicit weights must use Enhancement Shaman priorities");
+}
+const defaultWeightLoadout = o.optimizeEquipment({
+  items: defaultWeightCandidates,
+  character: {
+    ...o.createCharacterProfile(),
+    className: "Shaman",
+    specialization: "Enhancement",
+    level: 90,
+    equipment: {}
+  }
+});
+if (defaultWeightLoadout.equipment.Head?.id !== 989101) {
+  throw new Error("Full-loadout optimization without explicit weights must use Enhancement Shaman priorities");
+}
+console.log("Direct optimizer entry points use specialization-aware default weights.");
+
+
 console.log("Step 12 simulation scale-factor support passed.");
 
 
