@@ -123,6 +123,19 @@ async function main() {
     assert.equal(firstLocal.persistentStorage, false, "process memory is not reported as durable storage");
     assert.equal(secondLocal.cache, "memory-hit", "second request reuses process cache");
     assert.equal(uncachedBlizzardCalls, 1, "process cache avoids duplicate Blizzard item fetches");
+    // Slot requests use Blizzard search to discover IDs before hydrating details.
+    catalog._test.resetTokenCache();
+    const searchUrls = [];
+    const searchFetch = async (url) => {
+      searchUrls.push(String(url));
+      if (url === "https://oauth.battle.net/token") return new Response(JSON.stringify({ access_token: "search-token", expires_in: 3600 }), { status: 200, headers: { "Content-Type": "application/json" } });
+      if (String(url).includes("/data/wow/search/item?")) return new Response(JSON.stringify({ results: [{ data: { id: 111 } }, { data: { id: 222 } }, { data: { id: 111 } }] }), { status: 200, headers: { "Content-Type": "application/json" } });
+      throw new Error("Unexpected item-search request: " + url);
+    };
+    const discoveredIds = await catalog.searchItemIds(["HEAD"], { fetch: searchFetch, env: { BLIZZARD_CLIENT_ID: "id", BLIZZARD_CLIENT_SECRET: "secret" }, limit: 10 });
+    assert.deepEqual(discoveredIds, [111, 222], "Blizzard search IDs are deduplicated");
+    assert.ok(searchUrls.some(url => String(url).includes("inventory_type.type=HEAD")), "request includes the requested slot inventory type");
+
   } finally {
     for (const [key, value] of Object.entries(original)) {
       if (value === undefined) delete process.env[key];
