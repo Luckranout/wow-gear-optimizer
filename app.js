@@ -855,7 +855,11 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
   renderCharacterStats(report.currentStats.trackedStats);
   optimizationSource.textContent = report.recommendationStatus === "simulation-weighted-ranking-not-full-stat-projection"
     ? `Simulation-derived stat weights • ${character.goal} • not a full stat projection`
-    : `Static heuristic ranking • ${character.goal} • not spec-specific simulation`;
+    : report.optimizationProfileStatus === "specialization-profile"
+      ? `Specialization-profile heuristic weights • ${character.className} / ${character.specialization} • not simulation-validated`
+      : report.optimizationProfileStatus === "missing-specialization-profile"
+        ? `WARNING: no verified ${character.className} / ${character.specialization} profile • generic fallback weights used • ${character.goal}`
+        : `Static heuristic ranking • ${character.goal} • not spec-specific simulation`;
 
   renderUpgradeResults(report.topUpgrades);
   renderOptimizedLoadout(report.optimizedEquipment, report.totalScore, WoWOptimizer.normalizeImportedEquipment(importedCharacter?.equipment || []));
