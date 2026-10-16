@@ -64,33 +64,18 @@ jobs:
       - name: Verify imported item-stat coverage
         run: python scripts/verify_item_stat_coverage.py
 
-      - name: Commit discovered equipment index and validated catalog
-        if: always() && (hashFiles('data/equipment-discovery-index.json') != '' || steps.import.outputs.gear_sections_validated == 'true')
+      - name: Commit validated equipment sections
+        if: always() && steps.import.outputs.gear_sections_validated == 'true'
         run: |
           git config user.name "wow-gear-optimizer"
           git config user.email "actions@github.com"
-
-          # Broad Blizzard inventory discovery is useful even when a later source
-          # verification/enrichment step fails. Persist the index independently of
-          # recommendation eligibility so subsequent runs can resume from it.
-          if [ -f data/equipment-discovery-index.json ]; then
-            git add data/equipment-discovery-index.json
+          git add data/equipment-sections/
+          if [ "${{ steps.import.outcome }}" = "success" ]; then
+            git add data/current-retail.json
           fi
-
-          # Never publish partial section files: only stage them after the importer
-          # explicitly confirms that every required season-verified section passed.
-          if [ "${{ steps.import.outputs.gear_sections_validated }}" = "true" ]; then
-            git add data/equipment-sections/
-            if [ "${{ steps.import.outcome }}" = "success" ]; then
-              git add data/current-retail.json
-            fi
-          fi
-
           git diff --cached --quiet && exit 0
-          if [ "${{ steps.import.outcome }}" = "success" ] && [ "${{ steps.import.outputs.gear_sections_validated }}" = "true" ]; then
-            git commit -m "Update current Retail WoW data and discovery index"
-          elif [ -f data/equipment-discovery-index.json ]; then
-            git commit -m "Persist Blizzard equipment discovery index"
+          if [ "${{ steps.import.outcome }}" = "success" ]; then
+            git commit -m "Update current Retail WoW data"
           else
             git commit -m "Update validated equipment sections"
           fi
