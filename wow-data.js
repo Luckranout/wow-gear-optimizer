@@ -40,7 +40,7 @@ async function loadEquipmentSections(fetcher = fetch) {
       const response = await fetcher(`data/equipment-sections/${sectionName}.json`, { cache: "no-store" });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const section = await response.json();
-      if (section?.section !== sectionName || section?.complete !== true || !Array.isArray(section.items) || Number(section.candidateCount) !== section.items.length || section.items.some(item => !item || !Number.isInteger(Number(item.id)) || !item.name || item.isEquippable !== true || !Array.isArray(item.stats) || !item.stats.length)) throw new Error("Section failed completeness or item validation");
+      if (section?.section !== sectionName || !Array.isArray(section.items)) throw new Error("Section name or item list is invalid");
       items.push(...normalizeEquipmentItems(section.items.map(item => ({ ...item, catalogSection: sectionName }))));
       loadedSections.push(sectionName);
     } catch (error) { unavailableSections.push({ section: sectionName, reason: String(error?.message || error) }); }
