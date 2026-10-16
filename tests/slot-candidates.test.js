@@ -80,10 +80,8 @@ assert.equal(allowedForSpecialization({
     writeSection(dir, "shoulders", { complete: true, items: candidates });
     let res = await call("GET", { slot: "Shoulders", class: "Warrior" });
     assert.equal(res.statusCode, 200, "valid section returns 200");
-    assert.deepEqual(res.body.items.map(item => item.id), [101, 105], "filters legacy, wrong class, non-equippable, and wrong-slot items but preserves source-verified records for Wowhead stat recovery");
-    assert.equal(res.body.count, 2);
-    assert.equal(res.body.missingStatsCount, 1, "reports candidates whose base records need Wowhead stats");
-    assert.match(res.body.statsNote, /Wowhead variant resolution/);
+    assert.deepEqual(res.body.items.map(item => item.id), [101], "filters legacy, wrong class, non-equippable, missing-stat cosmetic/unknown items, and wrong-slot items");
+    assert.equal(res.body.count, 1);
     assert.match(res.headers["cache-control"], /s-maxage=900/);
 
     const oneHandDagger = {
