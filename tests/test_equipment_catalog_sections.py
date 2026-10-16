@@ -9,6 +9,7 @@ from scripts.equipment_catalog_sections import (
     SECTION_SEARCHES,
     collect_equipment_section_ids,
     fetch_inventory_type_ids,
+    sections_for_inventory_type,
     validate_required_sections,
     write_section_catalogs,
 )
@@ -93,6 +94,31 @@ class EquipmentSectionPaginationTests(unittest.TestCase):
         ids = fetch_inventory_type_ids("token", "NECK", search, sleep=lambda _s: None)
         self.assertEqual(ids, set(range(1, PAGE_SIZE + 1)))
         self.assertEqual(calls, [1, 2])
+
+    def test_blizzard_inventory_metadata_maps_to_normalized_equipment_categories(self):
+        cases = [
+            ({"type": "FINGER", "name": {"en_US": "Finger"}}, ("rings",)),
+            ({"type": "NECK", "name": {"en_US": "Neck"}}, ("necklaces",)),
+            ({"type": "TRINKET", "name": {"en_US": "Trinket"}}, ("trinkets",)),
+            ({"type": "SHIELD", "name": {"en_US": "Shield"}}, ("off-hand",)),
+            ({"type": "WEAPON", "name": {"en_US": "Weapon"}}, ("main-hand", "off-hand")),
+            ({"type": "ROBE", "name": {"en_US": "Robe"}}, ("chest",)),
+        ]
+        for metadata, expected in cases:
+            with self.subTest(metadata=metadata):
+                self.assertEqual(sections_for_inventory_type(metadata), expected)
+
+    def test_normalized_blizzard_item_preserves_canonical_inventory_type_and_categories(self):
+        item = import_blizzard_data.normalize_item({
+            "id": 123,
+            "name": {"en_US": "Test Ring"},
+            "inventory_type": {"id": 11, "type": "FINGER", "name": {"en_US": "Finger"}},
+            "item_class": {"id": 4, "name": {"en_US": "Armor"}},
+            "item_subclass": {"id": 0, "name": {"en_US": "Miscellaneous"}},
+            "is_equippable": True,
+        })
+        self.assertEqual(item["inventoryType"]["type"], "FINGER")
+        self.assertEqual(item["equipmentCategories"], ["rings"])
 
     def test_section_plan_covers_all_supported_slot_families(self):
         expected = {
