@@ -139,16 +139,37 @@ function renderItemHoverTooltip(item) {
   const level = displayItemLevel(item.itemLevel ?? item.level);
   const stats = typeof getLoadoutItemStats === "function" ? getLoadoutItemStats(item) : {};
   const statRows = Object.entries(stats).map(([name, value]) =>
-    '<div class="item-hover-stat"><span>' + escapeSlotText(name) + '</span><strong>' + escapeSlotText(value.toLocaleString()) + '</strong></div>'
+    '<div class="item-hover-stat"><span>' + escapeSlotText(name) + '</span><strong>+' + escapeSlotText(Number(value).toLocaleString()) + '</strong></div>'
   ).join("");
   const qualityClass = getItemQualityClass(item);
+  const variantSource = String(item.variantSource || item.statsSource || "");
+  const upgradeLabel = /myth/i.test(variantSource) ? "Mythic" : /hero/i.test(variantSource) ? "Hero" : /champ/i.test(variantSource) ? "Champion" : "";
+  const sourceLocations = Array.isArray(item.sourceLocations) ? item.sourceLocations : [];
+  const dropSource = sourceLocations.map(source => [source.encounter, source.instance].filter(Boolean).join(" — ")).find(Boolean);
+  const description = String(item.description || "").trim();
+  const requiredLevel = Number(item.requiredLevel);
+  const slotName = String(item.inventoryType?.name || item.slot || "");
+  const unique = item.uniqueEquipped || item.unique_equipped || "";
+  const metadataRows = [
+    upgradeLabel ? '<div class="item-hover-track">' + escapeSlotText(upgradeLabel) + '</div>' : "",
+    item.upgradeTrack ? '<div class="item-hover-track">' + escapeSlotText(item.upgradeTrack) + '</div>' : "",
+    item.bindType ? '<div class="item-hover-meta">' + escapeSlotText(item.bindType) + '</div>' : "",
+    unique ? '<div class="item-hover-meta">' + escapeSlotText(unique === true ? "Unique-Equipped" : unique) + '</div>' : "",
+    slotName ? '<div class="item-hover-meta">' + escapeSlotText(slotName) + '</div>' : ""
+  ].filter(Boolean).join("");
+  const effect = description ? '<div class="item-hover-effect">' + (/^(equip|use|chance on hit|requires)/i.test(description) ? "" : '<strong>Equip: </strong>') + escapeSlotText(description) + '</div>' : "";
+  const required = requiredLevel > 0 ? '<div class="item-hover-meta">Requires Level ' + escapeSlotText(requiredLevel) + '</div>' : "";
+  const source = dropSource ? '<div class="item-hover-meta item-hover-source">Dropped by: ' + escapeSlotText(dropSource) + '</div>' : "";
   return '<div class="item-hover-tooltip" role="tooltip">' +
     '<div class="item-hover-heading">' +
       '<img class="item-hover-image" data-item-tooltip-image-id="' + escapeSlotText(item.id || "") + '" alt="" />' +
       '<div><a class="item-hover-name ' + qualityClass + '" href="https://www.wowhead.com/item=' + encodeURIComponent(String(item.id || "")) + '" target="_blank" rel="noopener noreferrer">' + escapeSlotText(item.name || "Unknown item") + '</a>' +
-      '<span>' + (level ? 'Item level ' + escapeSlotText(level) : 'Item level unavailable') + '</span></div>' +
+      (upgradeLabel ? '<span class="item-hover-rarity">' + escapeSlotText(upgradeLabel) + '</span>' : '') +
+      '<span>' + (level ? 'Item Level ' + escapeSlotText(level) : 'Item level unavailable') + '</span></div>' +
     '</div>' +
+    metadataRows +
     '<div class="item-hover-stats">' + (statRows || '<span class="item-hover-no-stats">Verified stats unavailable</span>') + '</div>' +
+    effect + required + source +
   '</div>';
 }
 
