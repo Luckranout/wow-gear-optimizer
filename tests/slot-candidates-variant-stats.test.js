@@ -61,6 +61,8 @@ test("slot candidates reject items without combat-stat evidence to avoid transmo
     await slotCandidates({ method: "GET", query: { slot: "Trinket 1", class: "mage" } }, res);
     assert.equal(res.statusCode, 200);
     assert.equal(res.body.count, 0, "Blizzard equippable metadata and empty stats alone must not admit a cosmetic/transmog-only item");
+    assert.deepEqual(res.body.pendingStatVerification.map(candidate => candidate.id), [987655],
+      "statless record is only queued for external verification and is not a scoring candidate");
   } finally {
     slotCandidates._test.setSectionDir(path.join(process.cwd(), "data", "equipment-sections"));
     fs.rmSync(directory, { recursive: true, force: true });
