@@ -1082,10 +1082,6 @@ function optimizeEquipment({
         // A two-handed main-hand weapon occupies both weapon slots. Clear the
         // off hand in the same trial; never score an invalid 2H + off-hand loadout.
         if (slot === "Off Hand" && getWeaponMetadata(optimizedEquipment["Main Hand"]).twoHanded) continue;
-        if (slot === "Main Hand" && getWeaponMetadata(candidate).twoHanded &&
-            optimizedEquipment["Off Hand"]) {
-          // A two-handed replacement is valid only if its off-hand is removed
-          // in this same trial, as handled below.
         const trial = { ...optimizedEquipment, [slot]: candidate };
         if (slot === "Main Hand" && getWeaponMetadata(candidate).twoHanded) {
           trial["Off Hand"] = null;
