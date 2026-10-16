@@ -25,6 +25,12 @@ assert.equal(variant.trinketEffect.durationSeconds,10);
 assert.equal(variant.trinketEffect.cooldownSeconds,90);
 assert.equal(variant.trinketEffect.temporaryStats.Mastery,422);
 assert.equal(variant.stats.Mastery,undefined,"temporary on-use stats must not be counted as passive stats");
+assert.match(variant.wowheadTooltipText,/Item Level 334/);
+assert.match(variant.wowheadTooltipText,/Gain 422 Mastery/);
+assert.equal(variant.trinketEffect.durationSeconds,10);
+assert.equal(variant.trinketEffect.cooldownSeconds,90);
+assert.equal(variant.trinketEffect.temporaryStats.Mastery,422);
+assert.equal(variant.stats.Mastery,undefined,"temporary on-use stats must not be counted as passive stats");
 assert.equal(parseTooltip({tooltip:{html:"<td>+40 Haste</td>"}},268240,6),null,"must not infer item level");
 assert.equal(parseTooltip({tooltip:{html:"<td>Item Level 334</td>"}},268240,6),null,"must not accept missing stats");
 
