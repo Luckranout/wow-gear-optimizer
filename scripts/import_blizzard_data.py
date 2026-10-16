@@ -26,6 +26,7 @@ except ImportError:  # Support direct execution and importlib-based tests.
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     from equipment_catalog_sections import (
         collect_equipment_section_ids,
+        discover_equipment_inventory_ids,
         sections_for_inventory_type,
         validate_required_sections,
         write_section_catalogs,
