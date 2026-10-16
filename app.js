@@ -746,7 +746,9 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
         return { slot, items: [], failed: true, reason: payload.error || `HTTP ${response.status}` };
       }
       const items = Array.isArray(payload.items) ? payload.items : [];
-      return { slot, items, failed: false, empty: items.length === 0 };
+      const pendingStatVerification = Array.isArray(payload.pendingStatVerification)
+        ? payload.pendingStatVerification : [];
+      return { slot, items, pendingStatVerification, failed: false, empty: items.length === 0 && pendingStatVerification.length === 0 };
     } catch (error) {
       console.warn(`Candidate request failed for ${slot}:`, error);
       return { slot, items: [], failed: true, reason: error?.message || "Network or response error" };
@@ -764,13 +766,59 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
   ].filter(Boolean).join("");
   const byId = new Map();
   // Prefer the verified slot-section record over the broad retail dataset when
-  // both contain the same item ID. Slot records carry the validated current-season
-  // stats and item metadata; first-wins deduplication silently discarded them.
+  // both contain the same item ID. Slot records carry validated season evidence.
   for (const item of requests.map(request => request.items).flat().concat(availableItems)) {
     const key = item?.id != null ? String(item.id) : item?.name;
     if (key != null && !byId.has(key)) byId.set(key, item);
   }
   availableItems.splice(0, availableItems.length, ...byId.values());
+
+  // Resolve a small, bounded queue of season-verified but stat-incomplete records
+  // before scoring. They are never candidates until Wowhead supplies a positive
+  // item level and at least one positive combat stat, which keeps transmog-only
+  // records out of the optimizer while allowing valid upgraded gear to be found.
+  const pendingById = new Map();
+  for (const item of requests.flatMap(request => request.pendingStatVerification || [])) {
+    const id = Number(item?.id);
+    if (Number.isSafeInteger(id) && id > 0 && !byId.has(String(id)) && !pendingById.has(id)) pendingById.set(id, item);
+  }
+  const pendingLookupIds = [...pendingById.keys()].slice(0, 24);
+  let preScoreWowheadVerified = 0;
+  let preScoreWowheadUnavailable = 0;
+  await Promise.all(pendingLookupIds.map(async id => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/item-lookup?id=${encodeURIComponent(id)}`);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json();
+      const variants = Array.isArray(payload.variants) ? payload.variants.filter(variant => {
+        const stats = variant?.stats;
+        const hasPositiveStats = Array.isArray(stats)
+          ? stats.some(stat => Number(stat?.value ?? stat?.amount) > 0)
+          : stats && typeof stats === "object"
+            ? Object.values(stats).some(value => Number(value?.value ?? value?.amount ?? value) > 0)
+            : false;
+        return Number(variant?.itemLevel) > 0 && hasPositiveStats;
+      }) : [];
+      if (payload.status !== "verified" || !variants.length) {
+        preScoreWowheadUnavailable++;
+        return;
+      }
+      const base = pendingById.get(id);
+      base.variants = variants.map(variant => ({
+        ...variant, id, name: base.name, slot: base.slot, inventoryType: base.inventoryType,
+        itemClass: base.itemClass, itemSubclass: base.itemSubclass, quality: base.quality,
+        isEquippable: base.isEquippable
+      }));
+      base.wowheadLookupStatus = "verified";
+      base.combatStatsVerifiedBy = "wowhead";
+      base.requiresWowheadVerification = false;
+      availableItems.push(base);
+      preScoreWowheadVerified++;
+    } catch (_) {
+      preScoreWowheadUnavailable++;
+    }
+  }));
+
   let report = WoWOptimizer.createOptimizationReport({
     character,
     availableItems,
@@ -820,7 +868,14 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
     }
     report = WoWOptimizer.createOptimizationReport({ character, availableItems, dataset: retailDataset });
   }
-  window.__wowheadLookupSummary = { requested: lookupIds.length, verified: wowheadVerified, unavailable: wowheadUnavailable };
+  window.__wowheadLookupSummary = {
+    requested: lookupIds.length + pendingLookupIds.length,
+    verified: wowheadVerified + preScoreWowheadVerified,
+    unavailable: wowheadUnavailable + preScoreWowheadUnavailable,
+    preScoreRequested: pendingLookupIds.length,
+    preScoreVerified: preScoreWowheadVerified,
+    preScoreUnavailable: preScoreWowheadUnavailable
+  };
 
 
   const ratingStatus = report.ratingConstraintStatus;
