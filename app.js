@@ -305,22 +305,26 @@ function renderUpgradeResults(upgrades = []) {
     <article class="upgrade-card">
       <div class="upgrade-card-top">
         <div>
-          <div class="upgrade-slot">${upgrade.slot}</div>
-          <h3>${upgrade.recommendedItem?.name || "Recommended upgrade"}</h3>
+          <div class="upgrade-slot">${escapeSlotText(upgrade.slot)}</div>
+          <h3>${escapeSlotText(upgrade.recommendedItem?.name || "Recommended upgrade")}</h3>
         </div>
         <div class="upgrade-badge">${sourceLabel}</div>
       </div>
       <div class="upgrade-comparison">
-        <div>
+        <div class="upgrade-item-detail">
           <span>Current</span>
-          <strong>${upgrade.currentItem?.name || "Empty slot"}</strong>
+          <strong>${escapeSlotText(upgrade.currentItem?.name || "Empty slot")}</strong>
+          <small>Item level ${escapeSlotText(displayItemLevel(upgrade.currentItem?.itemLevel ?? upgrade.currentItem?.level) || "unavailable")}</small>
           <small>Score ${formatGearScore(upgrade.currentScore)}</small>
+          ${upgrade.currentItem ? renderItemHoverTooltip(upgrade.currentItem) : ""}
         </div>
         <div class="upgrade-arrow">→</div>
-        <div>
+        <div class="upgrade-item-detail">
           <span>Recommended</span>
-          <strong>${upgrade.recommendedItem?.name || "Unknown item"}</strong>
+          <strong>${escapeSlotText(upgrade.recommendedItem?.name || "Unknown item")}</strong>
+          <small>Item level ${escapeSlotText(displayItemLevel(upgrade.recommendedItem?.itemLevel ?? upgrade.recommendedItem?.level) || "unavailable")}</small>
           <small>Score ${formatGearScore(upgrade.recommendedScore)}</small>
+          ${upgrade.recommendedItem ? renderItemHoverTooltip(upgrade.recommendedItem) : ""}
         </div>
       </div>
       <div class="upgrade-improvement">+${formatGearScore(upgrade.improvement)} weighted score</div>
