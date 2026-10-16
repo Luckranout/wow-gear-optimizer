@@ -1066,17 +1066,26 @@ function optimizeEquipment({
       for (const candidate of candidates) {
         const pairedSlot = ({
           "Ring 1": "Ring 2", "Ring 2": "Ring 1",
-          "Trinket 1": "Trinket 2", "Trinket 2": "Trinket 1"
+          "Trinket 1": "Trinket 2", "Trinket 2": "Trinket 1",
+          "Main Hand": "Off Hand", "Off Hand": "Main Hand"
         })[slot];
         const pairedItem = pairedSlot ? optimizedEquipment[pairedSlot] : null;
+        // Enforce uniqueness for both weapon hands on every whole-loadout pass.
+        // Earlier selection checks are insufficient because this pass can replace
+        // a previously valid weapon and reintroduce the same item in both slots.
         if (pairedItem && candidate.id != null && pairedItem.id != null &&
             String(candidate.id) === String(pairedItem.id)) continue;
         if (pairedItem && candidate.id == null && pairedItem.id == null &&
-            candidate.name && pairedItem.name && candidate.name === pairedItem.name) continue;
+            candidate.name && pairedItem.name &&
+            candidate.name.trim().toLowerCase() === pairedItem.name.trim().toLowerCase()) continue;
 
         // A two-handed main-hand weapon occupies both weapon slots. Clear the
         // off hand in the same trial; never score an invalid 2H + off-hand loadout.
         if (slot === "Off Hand" && getWeaponMetadata(optimizedEquipment["Main Hand"]).twoHanded) continue;
+        if (slot === "Main Hand" && getWeaponMetadata(candidate).twoHanded &&
+            optimizedEquipment["Off Hand"]) {
+          // A two-handed replacement is valid only if its off-hand is removed
+          // in this same trial, as handled below.
         const trial = { ...optimizedEquipment, [slot]: candidate };
         if (slot === "Main Hand" && getWeaponMetadata(candidate).twoHanded) {
           trial["Off Hand"] = null;
