@@ -757,11 +757,57 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
     if (key != null && !byId.has(key)) byId.set(key, item);
   }
   availableItems.splice(0, availableItems.length, ...byId.values());
-  const report = WoWOptimizer.createOptimizationReport({
+  let report = WoWOptimizer.createOptimizationReport({
     character,
     availableItems,
     dataset: retailDataset
   });
+
+  // Resolve the items the optimizer is actually proposing against live Wowhead
+  // upgrade tooltips, then score again with only variants that include explicit
+  // item level and parsed stats. This avoids making a 219 base item look like the
+  // best trade when its verified upgraded form is available.
+  const proposed = [
+    ...Object.values(report.optimizedEquipment || {}),
+    ...(report.topUpgrades || []).map(entry => entry.recommendedItem).filter(Boolean)
+  ];
+  const lookupIds = [...new Set(proposed.map(item => Number(item?.id)).filter(id => Number.isSafeInteger(id) && id > 0))].slice(0, 24);
+  let wowheadVerified = 0;
+  let wowheadUnavailable = 0;
+  const wowheadVariants = [];
+  await Promise.all(lookupIds.map(async id => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/item-lookup?id=${encodeURIComponent(id)}`);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json();
+      if (payload.status === "verified" && Array.isArray(payload.variants)) {
+        wowheadVariants.push(...payload.variants);
+        wowheadVerified++;
+      } else {
+        wowheadUnavailable++;
+      }
+    } catch (_) { wowheadUnavailable++; }
+  }));
+  if (wowheadVariants.length) {
+    const byVariant = new Map();
+    for (const variant of wowheadVariants) {
+      const key = String(variant.id) + ":" + String(variant.variantKey);
+      byVariant.set(key, variant);
+    }
+    for (const variant of byVariant.values()) {
+      const base = availableItems.find(item => Number(item.id) === Number(variant.id));
+      if (!base) continue;
+      base.variants = [...(base.variants || []).filter(existing =>
+        String(existing.variantKey || "") !== String(variant.variantKey || "")
+      ), { ...variant, name: base.name, slot: base.slot, inventoryType: base.inventoryType,
+        itemClass: base.itemClass, itemSubclass: base.itemSubclass,
+        quality: base.quality, isEquippable: base.isEquippable }];
+      base.wowheadLookupStatus = "verified";
+    }
+    report = WoWOptimizer.createOptimizationReport({ character, availableItems, dataset: retailDataset });
+  }
+  window.__wowheadLookupSummary = { requested: lookupIds.length, verified: wowheadVerified, unavailable: wowheadUnavailable };
+
 
   const ratingStatus = report.ratingConstraintStatus;
   if (secondaryRatingNotice) {

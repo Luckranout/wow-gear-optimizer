@@ -66,6 +66,8 @@ jobs:
         run: node tests/catalog-inventory-slot-mapping.test.js
       - name: Run on-demand slot candidate API tests
         run: node tests/slot-candidates.test.js
+      - name: Run live Wowhead item lookup API tests
+        run: node tests/item-lookup.test.js
       - name: Run Enhancement Shaman primary-stat eligibility tests
         run: node tests/enhancement-shaman-primary-stat.test.js
       - name: Run variant-only slot candidate stats regression tests
