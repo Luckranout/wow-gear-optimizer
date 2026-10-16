@@ -93,6 +93,33 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl263",
+          "name": "Thalassian Competitor's Plate Pauldrons",
+          "level": 263,
+          "itemLevel": 263,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 193,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1271,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 263",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -174,6 +201,40 @@
           "sourceType": "current-season PvP gear family search",
           "catalogSection": "shoulders",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl263",
+          "name": "Thalassian Competitor's Cloth Shoulderpads",
+          "level": 263,
+          "itemLevel": 263,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 51,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 73,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1271,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 263",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -266,6 +327,33 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl263",
+          "name": "Thalassian Competitor's Leather Shoulderpads",
+          "level": 263,
+          "itemLevel": 263,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 87,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1271,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 263",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -354,6 +442,33 @@
           "sourceType": "current-season PvP gear family search",
           "catalogSection": "shoulders",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl263",
+          "name": "Thalassian Competitor's Chain Epaulets",
+          "level": 263,
+          "itemLevel": 263,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 128,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1271,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 263",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -448,6 +563,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Jangling Felpaulets",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 199,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 62,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 88,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -538,6 +694,47 @@
           "encounter": "Lithiel Cinderfury",
           "catalogSection": "shoulders",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Cinderfury Shoulderguards",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 299,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 95,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 56,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -632,6 +829,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Scavenger's Spaulders",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 135,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 62,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 88,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -722,6 +960,47 @@
           "encounter": "Lightblossom Trinity",
           "catalogSection": "shoulders",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Ironroot Collar",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 199,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 95,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 56,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -816,6 +1095,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Somber Spaulders",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 135,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 95,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 56,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -899,6 +1219,54 @@
           "encounter": "Atroxus",
           "catalogSection": "shoulders",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Poisoner's Pauldrons",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 78,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 88,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 62,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -993,6 +1361,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Swelling Sea Spaulders",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 299,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 107,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 44,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -1085,6 +1494,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl344",
+          "name": "Soulslither Spaulders",
+          "level": 344,
+          "itemLevel": 344,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 213,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3288,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 48,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 109,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 344",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -1168,6 +1618,54 @@
           "encounter": "The Twin Fangs",
           "catalogSection": "shoulders",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Ornaments of the Eternal Coil",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 78,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 107,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 44,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -1262,6 +1760,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Frothing Venom Spaulders",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 135,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 99,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 52,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -1352,6 +1891,47 @@
           "encounter": "The Writhing Coil",
           "catalogSection": "shoulders",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Snakeskin Spaulders",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 135,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 88,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 62,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"

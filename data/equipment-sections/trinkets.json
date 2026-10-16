@@ -141,6 +141,26 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl263",
+          "name": "Thalassian Competitor's Insignia of Alacrity",
+          "level": 263,
+          "itemLevel": 263,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 102,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 263",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -288,6 +308,26 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Lightspire Core",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 205,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -415,6 +455,26 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Mindpiercer's Sigil",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 593,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Wowhead tooltip (effect-only; excluded from permanent stats)",
       "catalogClassification": "effect-only-unmodeled",
       "classificationSource": "Mindpiercer's Sigil tooltip: temporary Intellect proc only; no permanent base stats",
@@ -480,6 +540,33 @@
           "encounter": "Taz'Rah",
           "catalogSection": "trinkets",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Void Execution Mandate",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 190,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 25,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -617,6 +704,33 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Idol of the War Loa",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 147,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 289,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -679,6 +793,33 @@
           "encounter": "Ikuzz the Light Hunter",
           "catalogSection": "trinkets",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Seed of the Devouring Wild",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 190,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 422,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -945,6 +1086,26 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Mycolic Medicine",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 190,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -1009,6 +1170,26 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Seed of Radiant Hope",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 190,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -1071,6 +1252,26 @@
           "encounter": "Lithiel Cinderfury",
           "catalogSection": "trinkets",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Unstable Felheart Crystal",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 190,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -1286,6 +1487,26 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Fang of Umbral Malignance",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 190,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -1350,6 +1571,26 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Soulcoiler Ritual Vessel",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 190,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -1412,6 +1653,26 @@
           "encounter": "Sszorak",
           "catalogSection": "trinkets",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Sszorak's Ferocity",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 190,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -1627,6 +1888,26 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Vashnik's Sanguine Rancor",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 190,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -1780,6 +2061,26 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl344",
+          "name": "Font of Venomous Rage",
+          "level": 344,
+          "itemLevel": 344,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 149,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 344",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -1842,6 +2143,26 @@
           "encounter": "The Coiled Altar",
           "catalogSection": "trinkets",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl344",
+          "name": "Hex Lord's Dooming Idol",
+          "level": 344,
+          "itemLevel": 344,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 149,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 344",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -1908,6 +2229,26 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Vexhul's Everflowing Gland",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 190,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -1970,6 +2311,26 @@
           "encounter": "The Twin Fangs",
           "catalogSection": "trinkets",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Preternatural Antivenom",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 147,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -2107,6 +2468,26 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Idol of the Howling Nexus",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 147,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -2169,6 +2550,33 @@
           "encounter": "Ula'tek",
           "catalogSection": "trinkets",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl344",
+          "name": "Voracious Heart of Ula'tek",
+          "level": 344,
+          "itemLevel": 344,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 149,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 480,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 344",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -2235,6 +2643,26 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Knot of Writhing Serpents",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 190,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -2297,6 +2725,26 @@
           "encounter": "Rav'i",
           "catalogSection": "trinkets",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Coiled Fangstone",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 190,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"

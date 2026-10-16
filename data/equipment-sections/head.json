@@ -93,6 +93,33 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl263",
+          "name": "Thalassian Competitor's Plate Helm",
+          "level": 263,
+          "itemLevel": 263,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 210,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1694,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 263",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -174,6 +201,40 @@
           "sourceType": "current-season PvP gear family search",
           "catalogSection": "head",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl263",
+          "name": "Thalassian Competitor's Cloth Hood",
+          "level": 263,
+          "itemLevel": 263,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 55,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 97,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1694,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 263",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -266,6 +327,33 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl263",
+          "name": "Thalassian Competitor's Leather Mask",
+          "level": 263,
+          "itemLevel": 263,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 95,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1694,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 263",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -356,6 +444,33 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl263",
+          "name": "Thalassian Competitor's Chain Cowl",
+          "level": 263,
+          "itemLevel": 263,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 140,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1694,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 263",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -430,6 +545,40 @@
           "sourceType": "current-season PvP gear family search",
           "catalogSection": "head",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl263",
+          "name": "Thalassian Competitor's Cloth Goggles",
+          "level": 263,
+          "itemLevel": 263,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 55,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 97,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1694,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 263",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -515,6 +664,33 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl263",
+          "name": "Thalassian Competitor's Leather Optics",
+          "level": 263,
+          "itemLevel": 263,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 95,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1694,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 263",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -598,6 +774,33 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl263",
+          "name": "Thalassian Competitor's Mail Visor",
+          "level": 263,
+          "itemLevel": 263,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 140,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1694,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 263",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -679,6 +882,33 @@
           "sourceType": "current-season PvP gear family search",
           "catalogSection": "head",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl263",
+          "name": "Thalassian Competitor's Plate Guard",
+          "level": 263,
+          "itemLevel": 263,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 210,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1694,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 263",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -773,6 +1003,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Greathelm of Temptation",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 326,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 75,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 126,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -863,6 +1134,47 @@
           "encounter": "Lithiel Cinderfury",
           "catalogSection": "head",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Vilefiend's Guise",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 147,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 118,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 83,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -957,6 +1269,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Nalorakk's Nightmare",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 217,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 83,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 118,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -1040,6 +1393,54 @@
           "encounter": "Ziekket",
           "catalogSection": "head",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Worldroot Canopy",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 86,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 75,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 126,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -1134,6 +1535,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Voidscarred Crown",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 217,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 126,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 75,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -1226,6 +1668,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Visor of the Predator",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 326,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 131,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 70,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -1309,6 +1792,54 @@
           "encounter": "Charonus",
           "catalogSection": "head",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Overseer's Diadem",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 86,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 122,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 79,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -1403,6 +1934,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Shadow Hunter's Warmask",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 147,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 68,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 133,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -1493,6 +2065,47 @@
           "encounter": "Nek'zali the Soulcoiler",
           "catalogSection": "head",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Skullguard of the Risen Sacrifice",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 326,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 61,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 140,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -1587,6 +2200,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Crown of the Eternal Fang",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 217,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 136,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 64,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -1672,6 +2326,54 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Errant Scrollsage's Hood",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 86,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 57,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 143,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -1748,6 +2450,47 @@
           "encounter": "Ula'tek",
           "catalogSection": "head",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl344",
+          "name": "Venomkeeper's Horrific Cowl",
+          "level": 344,
+          "itemLevel": 344,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 92,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 207,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 4385,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 209,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 344",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -1833,6 +2576,40 @@
           "encounter": "Ula'tek",
           "catalogSection": "head",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl344",
+          "name": "Gaze of the Coiled Watcher",
+          "level": 344,
+          "itemLevel": 344,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 158,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 4385,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 209,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 344",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -1925,6 +2702,47 @@
           "encounter": "Zul'jan",
           "catalogSection": "head",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Spare Speaker's Hood",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 147,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 86,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 115,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"

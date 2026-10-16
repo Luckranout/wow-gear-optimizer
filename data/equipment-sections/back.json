@@ -100,6 +100,33 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl263",
+          "name": "Thalassian Competitor's Cloth Cloak",
+          "level": 263,
+          "itemLevel": 263,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 51,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 953,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 263",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -197,6 +224,47 @@
           "encounter": "Zaen Bladesorrow",
           "catalogSection": "back",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Speakeasy Shroud",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 78,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2199,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 66,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 47,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -298,6 +366,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Bloodthorn Burnous",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 78,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2199,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 73,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 40,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -397,6 +506,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Amani Summoning Shawl",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 78,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2199,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 78,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 35,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -494,6 +644,47 @@
           "encounter": "The Coiled Altar",
           "catalogSection": "back",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl344",
+          "name": "Silken Voodoo Drape",
+          "level": 344,
+          "itemLevel": 344,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 84,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2466,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 35,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 83,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 344",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"

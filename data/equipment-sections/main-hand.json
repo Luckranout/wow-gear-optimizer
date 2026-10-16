@@ -89,6 +89,33 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl246",
+          "name": "Farstrider's Mercy",
+          "level": 246,
+          "itemLevel": 246,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 42,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 692,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 246",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -182,6 +209,26 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl246",
+          "name": "Spellbreaker's Ultimatum",
+          "level": 246,
+          "itemLevel": 246,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 692,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 246",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -268,6 +315,26 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl246",
+          "name": "Bloomforged Greataxe",
+          "level": 246,
+          "itemLevel": 246,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1385,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 246",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -345,6 +412,33 @@
           "professionRecipeSource": "Midnight profession skill-tier recipe output",
           "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl246",
+          "name": "Magister's Valediction",
+          "level": 246,
+          "itemLevel": 246,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 369,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1385,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 246",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -440,6 +534,26 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl246",
+          "name": "Farstrider's Chopper",
+          "level": 246,
+          "itemLevel": 246,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 692,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 246",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -530,6 +644,33 @@
           "sourceType": "current-season PvP gear family search",
           "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl263",
+          "name": "Thalassian Competitor's Pickaxe",
+          "level": 263,
+          "itemLevel": 263,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 49,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 847,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 263",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -624,6 +765,33 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl263",
+          "name": "Thalassian Competitor's Knife",
+          "level": 263,
+          "itemLevel": 263,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 49,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 847,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 263",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -714,6 +882,33 @@
           "sourceType": "current-season PvP gear family search",
           "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl263",
+          "name": "Thalassian Competitor's Maxim",
+          "level": 263,
+          "itemLevel": 263,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 283,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 847,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 263",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -808,6 +1003,33 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl263",
+          "name": "Thalassian Competitor's Splitter",
+          "level": 263,
+          "itemLevel": 263,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 49,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 847,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 263",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -900,6 +1122,33 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl263",
+          "name": "Thalassian Competitor's Skewer",
+          "level": 263,
+          "itemLevel": 263,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 283,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 847,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 263",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -981,6 +1230,33 @@
           "sourceType": "current-season PvP gear family search",
           "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl263",
+          "name": "Thalassian Competitor's Greatsword",
+          "level": 263,
+          "itemLevel": 263,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 97,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1694,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 263",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -1073,6 +1349,33 @@
           "sourceType": "current-season PvP gear family search",
           "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl263",
+          "name": "Thalassian Competitor's Sword",
+          "level": 263,
+          "itemLevel": 263,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 49,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 847,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 263",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -1168,6 +1471,26 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl201",
+          "name": "Primalforged Knuckles",
+          "level": 201,
+          "itemLevel": 201,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 390,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 201",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -1261,6 +1584,26 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl201",
+          "name": "Dawnforged Splitter",
+          "level": 201,
+          "itemLevel": 201,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 390,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 201",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -1347,6 +1690,33 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl246",
+          "name": "Murder Row Fishhook",
+          "level": 246,
+          "itemLevel": 246,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 42,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 692,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 246",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -1424,6 +1794,33 @@
           "professionRecipeSource": "Midnight profession skill-tier recipe output",
           "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl246",
+          "name": "Aln'hara Cane",
+          "level": 246,
+          "itemLevel": 246,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 369,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1385,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 246",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -1505,6 +1902,33 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl246",
+          "name": "Aln'hara Pikestaff",
+          "level": 246,
+          "itemLevel": 246,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 83,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1385,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 246",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -1584,6 +2008,33 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl201",
+          "name": "Floratender's Crutch",
+          "level": 201,
+          "itemLevel": 201,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 243,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 781,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 201",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -1661,6 +2112,33 @@
           "professionRecipeSource": "Midnight profession skill-tier recipe output",
           "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl201",
+          "name": "Faunatender's Baton",
+          "level": 201,
+          "itemLevel": 201,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 55,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 781,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 201",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -1746,6 +2224,33 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl263",
+          "name": "Thalassian Competitor's Pillar",
+          "level": 263,
+          "itemLevel": 263,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 97,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1694,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 263",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -1827,6 +2332,33 @@
           "sourceType": "current-season PvP gear family search",
           "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl263",
+          "name": "Thalassian Competitor's Bow",
+          "level": 263,
+          "itemLevel": 263,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 97,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1694,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 263",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -1912,6 +2444,47 @@
           "encounter": "Kystia Manaheart",
           "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Nibbles' Training Rod",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 887,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 4187,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 125,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 81,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -2009,6 +2582,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Bladesorrow",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 100,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2094,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 60,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 43,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -2092,6 +2706,47 @@
           "encounter": "Xathuux the Annihilator",
           "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Xathuux's Cleave",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 199,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 4187,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 121,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 85,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -2189,6 +2844,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Grim Harvest Gloves",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 100,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2094,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 60,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 43,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -2274,6 +2970,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Victor's Flashfrozen Blade",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 199,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 4187,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 85,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 121,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -2357,6 +3094,47 @@
           "encounter": "Nalorakk",
           "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Fallen Speaker's Staff",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 887,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 4187,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 129,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 76,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -2454,6 +3232,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Thornblade",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 100,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2094,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 40,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 62,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -2537,6 +3356,47 @@
           "encounter": "Lightblossom Trinity",
           "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Pruning Lance",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 199,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 4187,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 121,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 85,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -2634,6 +3494,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Thorntalon Edge",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 100,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2094,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 38,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 65,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -2717,6 +3618,47 @@
           "encounter": "Ikuzz the Light Hunter",
           "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Amirdrassil's Reach",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 199,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 4187,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 85,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 121,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -2804,6 +3746,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Doompetal",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 581,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2094,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 65,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 38,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -2887,6 +3870,47 @@
           "encounter": "Lightwarden Ruia",
           "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Branch of Pride",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 199,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 4187,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 134,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 72,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -2984,6 +4008,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Thorned Reply",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 100,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2094,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 43,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 60,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -3077,6 +4142,47 @@
           "encounter": "Taz'Rah",
           "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Taz'Rah's Cosmic Edge",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 100,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2094,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 60,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 43,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -3174,6 +4280,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Hulking Handaxe",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 100,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2094,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 36,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 67,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -3269,6 +4416,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Fang of Contagion",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 581,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2094,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 43,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 60,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -3352,6 +4540,47 @@
           "encounter": "Charonus",
           "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Charonic Crescent",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 199,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 4187,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 125,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 81,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -3454,6 +4683,47 @@
           "encounter": "Charonus",
           "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Singularity Slicer",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 481,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2094,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 60,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 43,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -3602,6 +4872,33 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl201",
+          "name": "Faunatender's Trust",
+          "level": 201,
+          "itemLevel": 201,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 55,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 781,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 201",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -3679,6 +4976,33 @@
           "professionRecipeSource": "Midnight profession skill-tier recipe output",
           "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl246",
+          "name": "Aln'hara Sprigshot",
+          "level": 246,
+          "itemLevel": 246,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 83,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1385,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 246",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -3766,6 +5090,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Caustic Keeper-Crusher",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 199,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 4187,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 65,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -3851,6 +5216,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Tidepiercer's Bubble Popper",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 199,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 4187,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 140,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 66,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -3934,6 +5340,47 @@
           "encounter": "The Lost Explorers",
           "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Gebbo's Backup Blaster",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 199,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 4187,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 143,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 63,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -4038,6 +5485,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Venomous Boneglaive",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 481,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2094,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 32,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 71,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -4124,6 +5612,40 @@
           "encounter": "Ula'tek",
           "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl344",
+          "name": "Jaw of the Shackled Goddess",
+          "level": 344,
+          "itemLevel": 344,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 103,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2192,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 104,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 344",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -4221,6 +5743,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Hexing Spiritrender",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 581,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2094,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 31,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 72,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -4316,6 +5879,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Ancient Construct's Venomshiv",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 100,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2094,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 72,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 31,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -4399,6 +6003,47 @@
           "encounter": "Vashnik the Malignant",
           "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Venomancer's Winged Channeler",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 887,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 4187,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 65,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -4496,6 +6141,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Slithering Savage's Gavel",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 100,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2094,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 71,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 32,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -4572,6 +6258,40 @@
           "encounter": "Ula'tek",
           "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl344",
+          "name": "Caustic Repose Greatbow",
+          "level": 344,
+          "itemLevel": 344,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 207,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 4385,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 209,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 344",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -4669,6 +6389,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Strongblood's Ceremonial Cleaver",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 100,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2094,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 35,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 67,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -4759,6 +6520,40 @@
           "encounter": "The Coiled Altar",
           "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl344",
+          "name": "Aman'muso, Warlord's Vengeance",
+          "level": 344,
+          "itemLevel": 344,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2192,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 31,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 73,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 344",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -4856,6 +6651,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Malevolent Spiritcudgel",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 581,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2094,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 31,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 72,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -4951,6 +6787,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl344",
+          "name": "Baleful Hexblade",
+          "level": 344,
+          "itemLevel": 344,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 603,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2192,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 71,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 33,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 344",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -5043,6 +6920,40 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl344",
+          "name": "Maze-roa, Warlord's Fury",
+          "level": 344,
+          "itemLevel": 344,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 4385,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 148,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 61,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 344",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -5128,6 +7039,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Malignant Toothed Edge",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 199,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 4187,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 137,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 69,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -5204,6 +7156,40 @@
           "encounter": "Ula'tek",
           "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl344",
+          "name": "Abyssal Broodfiend's Bardiche",
+          "level": 344,
+          "itemLevel": 344,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 207,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 4385,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 209,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 344",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -5301,6 +7287,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Ravenous Feaster's Fang",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 100,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2094,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 35,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 68,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -5384,6 +7411,33 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl263",
+          "name": "Thalassian Competitor's Staff",
+          "level": 263,
+          "itemLevel": 263,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 433,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1694,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 263",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -5465,6 +7519,33 @@
           "sourceType": "current-season PvP gear family search",
           "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl263",
+          "name": "Thalassian Competitor's Rifle",
+          "level": 263,
+          "itemLevel": 263,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 97,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1694,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 263",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -5562,6 +7643,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Tomb-Creeper's Claw",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 100,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2094,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 32,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 71,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -5648,6 +7770,40 @@
           "encounter": "Ula'tek",
           "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl344",
+          "name": "Jan'thrazet, the Soul Fang",
+          "level": 344,
+          "itemLevel": 344,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 603,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2192,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 104,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 344",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -5738,6 +7894,40 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl344",
+          "name": "Zatha'tek, Breath of Corruption",
+          "level": 344,
+          "itemLevel": 344,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 103,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2192,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 104,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 344",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -5821,6 +8011,47 @@
           "encounter": "Kystia Manaheart",
           "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Sinseared Repeater",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 199,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 4187,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 134,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 72,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -5918,6 +8149,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Polished Lightwood Channeler",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 581,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2094,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 57,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 46,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -6013,6 +8285,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Venom-Etched Crescent",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 581,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2094,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 48,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 54,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -6096,6 +8409,47 @@
           "encounter": "The Writhing Coil",
           "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Vile Writhefang Glaive",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 199,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 4187,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 113,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 93,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -6183,6 +8537,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Toxin-Coated Warstaff",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 199,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 4187,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 119,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 87,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -6266,6 +8661,47 @@
           "encounter": "Zul'jan",
           "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Ancestral Amani Recurve",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 199,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 4187,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 118,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 88,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -6370,6 +8806,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Hydraspine Twinblade",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 481,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2094,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 46,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 57,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -6463,6 +8940,47 @@
           "encounter": "Zul'jan",
           "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl340",
+          "name": "Sharpened Lightwood Slasher",
+          "level": 340,
+          "itemLevel": 340,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 100,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2094,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 60,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 43,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"

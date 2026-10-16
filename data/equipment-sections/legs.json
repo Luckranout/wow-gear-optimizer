@@ -93,6 +93,33 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl263",
+          "name": "Thalassian Competitor's Plate Greaves",
+          "level": 263,
+          "itemLevel": 263,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 245,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1694,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 263",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -174,6 +201,40 @@
           "sourceType": "current-season PvP gear family search",
           "catalogSection": "legs",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl263",
+          "name": "Thalassian Competitor's Cloth Leggings",
+          "level": 263,
+          "itemLevel": 263,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 64,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 97,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1694,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 263",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -266,6 +327,33 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl263",
+          "name": "Thalassian Competitor's Leather Trousers",
+          "level": 263,
+          "itemLevel": 263,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 111,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1694,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 263",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -354,6 +442,33 @@
           "sourceType": "current-season PvP gear family search",
           "catalogSection": "legs",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl263",
+          "name": "Thalassian Competitor's Chain Leggings",
+          "level": 263,
+          "itemLevel": 263,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 163,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1694,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 263",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -448,6 +563,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Breeches of Deft Deals",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 171,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 118,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 83,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -540,6 +696,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Lithiel's Linked Leggings",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 253,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 122,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 79,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -623,6 +820,54 @@
           "encounter": "Nalorakk",
           "catalogSection": "legs",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Forest Dream Leg-guards",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 100,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 75,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 126,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -717,6 +962,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Bedrock Breeches",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 380,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 122,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 79,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -807,6 +1093,47 @@
           "encounter": "Ziekket",
           "catalogSection": "legs",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Lightspore Leggings",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 171,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 126,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 75,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -901,6 +1228,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Venom Warden's Greaves",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 380,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 136,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 65,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -993,6 +1361,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl344",
+          "name": "Coiled Hex Legguards",
+          "level": 344,
+          "itemLevel": 344,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 184,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 4385,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 66,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 143,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 344",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -1076,6 +1485,54 @@
           "encounter": "Nek'zali the Soulcoiler",
           "catalogSection": "legs",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Initiate's Sacrificial Tights",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 100,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 64,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 136,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -1170,6 +1627,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl344",
+          "name": "Cuisses of the Uncoiled Union",
+          "level": 344,
+          "itemLevel": 344,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 271,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 4385,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 144,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 65,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 344",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -1253,6 +1751,40 @@
           "encounter": "Ula'tek",
           "catalogSection": "legs",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl344",
+          "name": "Chausses of Unbound Rancor",
+          "level": 344,
+          "itemLevel": 344,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 408,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 4385,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 209,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 344",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -1347,6 +1879,47 @@
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Ancient General's Obsidian Pillars",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 380,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 108,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 93,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+        }
+      ],
       "statsSource": "Blizzard Game Data API"
     },
     {
@@ -1430,6 +2003,54 @@
           "encounter": "The Writhing Coil",
           "catalogSection": "legs",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
+        }
+      ],
+      "variants": [
+        {
+          "variantKey": "wowhead:upgd6:ilvl334",
+          "name": "Leggings of Entwined Serpents",
+          "level": 334,
+          "itemLevel": 334,
+          "upgradeRank": 6,
+          "stats": [
+            {
+              "type": {
+                "name": "armor"
+              },
+              "value": 100,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 110,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 90,
+              "source": "Wowhead tooltip"
+            }
+          ],
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
