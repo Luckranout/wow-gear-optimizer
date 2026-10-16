@@ -1902,33 +1902,35 @@ def fetch_item_details(token, item_ids, item_sources):
         # Blizzard base-item-level gap without assuming that the base level is the
         # maximum or fabricating bonus IDs. Only attach a variant if Wowhead returns
         # explicit item-level text and usable stats above the base item level.
-        try:
-            upgrade_metadata = {}
-            upgraded_stats = fetch_wowhead_tooltip_stats(
-                item_id, wowhead_diagnostics, upgrade_rank=6,
-                variant_metadata=upgrade_metadata,
-            )
-            upgraded_level = upgrade_metadata.get("itemLevel")
-            base_level = item.get("itemLevel", item.get("level"))
-            if (
-                upgraded_stats
-                and isinstance(upgraded_level, int)
-                and isinstance(base_level, (int, float))
-                and upgraded_level > base_level
-                and item_id != 270167
-            ):
-                item.setdefault("variants", []).append({
-                    "variantKey": f"wowhead:upgd6:ilvl{upgraded_level}",
-                    "name": item.get("name"),
-                    "level": upgraded_level,
-                    "itemLevel": upgraded_level,
-                    "upgradeRank": 6,
-                    "stats": upgraded_stats,
-                    "statsSource": f"Wowhead tooltip explicitly resolved upgd=6 at item level {upgraded_level}",
-                    "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup",
-                })
-        except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, ValueError, json.JSONDecodeError) as error:
-            print(f"Item {item_id}: Wowhead 6/6 variant unavailable ({type(error).__name__}).")
+        # Wavecaller's Seastone has a specifically verified bonus-ID variant below;
+        # do not make an extra generic request that could obscure that evidence.
+        if item_id != 270167:
+            try:
+                upgrade_metadata = {}
+                upgraded_stats = fetch_wowhead_tooltip_stats(
+                    item_id, wowhead_diagnostics, upgrade_rank=6,
+                    variant_metadata=upgrade_metadata,
+                )
+                upgraded_level = upgrade_metadata.get("itemLevel")
+                base_level = item.get("itemLevel", item.get("level"))
+                if (
+                    upgraded_stats
+                    and isinstance(upgraded_level, int)
+                    and isinstance(base_level, (int, float))
+                    and upgraded_level > base_level
+                ):
+                    item.setdefault("variants", []).append({
+                        "variantKey": f"wowhead:upgd6:ilvl{upgraded_level}",
+                        "name": item.get("name"),
+                        "level": upgraded_level,
+                        "itemLevel": upgraded_level,
+                        "upgradeRank": 6,
+                        "stats": upgraded_stats,
+                        "statsSource": f"Wowhead tooltip explicitly resolved upgd=6 at item level {upgraded_level}",
+                        "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup",
+                    })
+            except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, ValueError, json.JSONDecodeError) as error:
+                print(f"Item {item_id}: Wowhead 6/6 variant unavailable ({type(error).__name__}).")
 
         # The in-game tooltip screenshot verifies the Ascendant Venomforged:
         # Myth variant at item level 340 with +147 Haste. Preserve that exact variant.
