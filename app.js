@@ -853,7 +853,10 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
       base.wowheadLookupStatus = "verified";
       base.combatStatsVerifiedBy = "wowhead";
       base.requiresWowheadVerification = false;
-      if (!byId.has(String(id))) {
+      // Wowhead stat verification alone does not establish current-season
+      // eligibility. Only add a newly discovered record to the scoring catalog
+      // when the endpoint already supplied explicit season verification.
+      if (!byId.has(String(id)) && base.seasonScope === "Midnight Season 2+") {
         byId.set(String(id), base);
         availableItems.push(base);
       }
