@@ -6,7 +6,7 @@
   "season": 2,
   "patch": "12.1.0",
   "status": "season-2-plus-source-imported",
-  "updatedAt": "2026-10-16T01:08:52.753804+00:00",
+  "updatedAt": "2026-10-16T09:06:09.865191+00:00",
   "source": "Blizzard Game Data API",
   "items": [
     {
@@ -88,7 +88,7 @@
           "instanceId": 1322,
           "encounterId": 2880,
           "encounter": "Zul'jan",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -98,7 +98,7 @@
           "instanceId": 1322,
           "encounterId": 2880,
           "encounter": "Zul'jan",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -548,7 +548,7 @@
           "instanceId": 1322,
           "encounterId": 2878,
           "encounter": "Rav'i",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -558,7 +558,7 @@
           "instanceId": 1322,
           "encounterId": 2878,
           "encounter": "Rav'i",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -1951,7 +1951,7 @@
           "instanceId": 1322,
           "encounterId": 2878,
           "encounter": "Rav'i",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -1961,7 +1961,7 @@
           "instanceId": 1322,
           "encounterId": 2878,
           "encounter": "Rav'i",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -2213,7 +2213,7 @@
           "instanceId": 1322,
           "encounterId": 2880,
           "encounter": "Zul'jan",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -2223,7 +2223,7 @@
           "instanceId": 1322,
           "encounterId": 2880,
           "encounter": "Zul'jan",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -3483,7 +3483,7 @@
           "instanceId": 1320,
           "encounterId": 2895,
           "encounter": "Ula'tek",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -3493,7 +3493,7 @@
           "instanceId": 1320,
           "encounterId": 2895,
           "encounter": "Ula'tek",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -3605,7 +3605,7 @@
           "instanceId": 1320,
           "encounterId": 2895,
           "encounter": "Ula'tek",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -3615,7 +3615,7 @@
           "instanceId": 1320,
           "encounterId": 2895,
           "encounter": "Ula'tek",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -3734,7 +3734,7 @@
           "instanceId": 1320,
           "encounterId": 2888,
           "encounter": "Nek'zali the Soulcoiler",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -3744,7 +3744,7 @@
           "instanceId": 1320,
           "encounterId": 2888,
           "encounter": "Nek'zali the Soulcoiler",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -5349,7 +5349,7 @@
           "instanceId": 1320,
           "encounterId": 2887,
           "encounter": "The Twin Fangs",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -5359,7 +5359,7 @@
           "instanceId": 1320,
           "encounterId": 2887,
           "encounter": "The Twin Fangs",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -12170,7 +12170,7 @@
           "instanceId": 1320,
           "encounterId": 2883,
           "encounter": "The Coiled Altar",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -12180,7 +12180,7 @@
           "instanceId": 1320,
           "encounterId": 2883,
           "encounter": "The Coiled Altar",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -12306,7 +12306,7 @@
           "instanceId": 1320,
           "encounterId": 2894,
           "encounter": "The Lost Explorers",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -12316,7 +12316,7 @@
           "instanceId": 1320,
           "encounterId": 2894,
           "encounter": "The Lost Explorers",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -12568,7 +12568,7 @@
           "instanceId": 1320,
           "encounterId": 2888,
           "encounter": "Nek'zali the Soulcoiler",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -12578,7 +12578,7 @@
           "instanceId": 1320,
           "encounterId": 2888,
           "encounter": "Nek'zali the Soulcoiler",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -12816,7 +12816,7 @@
           "instanceId": 1320,
           "encounterId": 2871,
           "encounter": "Sszorak",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -12826,7 +12826,7 @@
           "instanceId": 1320,
           "encounterId": 2871,
           "encounter": "Sszorak",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -13078,7 +13078,7 @@
           "instanceId": 1320,
           "encounterId": 2874,
           "encounter": "Entombed Sentinels",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -13088,7 +13088,7 @@
           "instanceId": 1320,
           "encounterId": 2874,
           "encounter": "Entombed Sentinels",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -13214,7 +13214,7 @@
           "instanceId": 1320,
           "encounterId": 2888,
           "encounter": "Nek'zali the Soulcoiler",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -13224,7 +13224,7 @@
           "instanceId": 1320,
           "encounterId": 2888,
           "encounter": "Nek'zali the Soulcoiler",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -13343,7 +13343,7 @@
           "instanceId": 1320,
           "encounterId": 2895,
           "encounter": "Ula'tek",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -13353,7 +13353,7 @@
           "instanceId": 1320,
           "encounterId": 2895,
           "encounter": "Ula'tek",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -13479,7 +13479,7 @@
           "instanceId": 1320,
           "encounterId": 2871,
           "encounter": "Sszorak",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -13489,7 +13489,7 @@
           "instanceId": 1320,
           "encounterId": 2871,
           "encounter": "Sszorak",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -17212,14 +17212,14 @@
           "seasonScope": "Midnight Season 2+",
           "category": "Crafted Gear",
           "professionRecipeSource": "Midnight profession skill-tier recipe output",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
           "seasonScope": "Midnight Season 2+",
           "category": "Crafted Gear",
           "professionRecipeSource": "Midnight profession skill-tier recipe output",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -21269,14 +21269,14 @@
           "seasonScope": "Midnight Season 2+",
           "category": "Crafted Gear",
           "professionRecipeSource": "Midnight profession skill-tier recipe output",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
           "seasonScope": "Midnight Season 2+",
           "category": "Crafted Gear",
           "professionRecipeSource": "Midnight profession skill-tier recipe output",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -21382,14 +21382,14 @@
           "seasonScope": "Midnight Season 2+",
           "category": "Crafted Gear",
           "professionRecipeSource": "Midnight profession skill-tier recipe output",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
           "seasonScope": "Midnight Season 2+",
           "category": "Crafted Gear",
           "professionRecipeSource": "Midnight profession skill-tier recipe output",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -21492,7 +21492,7 @@
           "pvpSeasonId": 42,
           "pvpSeason": "Midnight Season 2",
           "sourceType": "current-season PvP gear family search",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -21501,7 +21501,7 @@
           "pvpSeasonId": 42,
           "pvpSeason": "Midnight Season 2",
           "sourceType": "current-season PvP gear family search",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -21721,7 +21721,7 @@
           "pvpSeasonId": 42,
           "pvpSeason": "Midnight Season 2",
           "sourceType": "current-season PvP gear family search",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -21730,7 +21730,7 @@
           "pvpSeasonId": 42,
           "pvpSeason": "Midnight Season 2",
           "sourceType": "current-season PvP gear family search",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -21840,7 +21840,7 @@
           "pvpSeasonId": 42,
           "pvpSeason": "Midnight Season 2",
           "sourceType": "current-season PvP gear family search",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -21849,7 +21849,7 @@
           "pvpSeasonId": 42,
           "pvpSeason": "Midnight Season 2",
           "sourceType": "current-season PvP gear family search",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -22090,7 +22090,7 @@
           "pvpSeasonId": 42,
           "pvpSeason": "Midnight Season 2",
           "sourceType": "current-season PvP gear family search",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -22099,7 +22099,7 @@
           "pvpSeasonId": 42,
           "pvpSeason": "Midnight Season 2",
           "sourceType": "current-season PvP gear family search",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -22209,7 +22209,7 @@
           "pvpSeasonId": 42,
           "pvpSeason": "Midnight Season 2",
           "sourceType": "current-season PvP gear family search",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -22218,7 +22218,7 @@
           "pvpSeasonId": 42,
           "pvpSeason": "Midnight Season 2",
           "sourceType": "current-season PvP gear family search",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -22328,7 +22328,7 @@
           "pvpSeasonId": 42,
           "pvpSeason": "Midnight Season 2",
           "sourceType": "current-season PvP gear family search",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -22337,7 +22337,7 @@
           "pvpSeasonId": 42,
           "pvpSeason": "Midnight Season 2",
           "sourceType": "current-season PvP gear family search",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -23386,14 +23386,14 @@
           "seasonScope": "Midnight Season 2+",
           "category": "Crafted Gear",
           "professionRecipeSource": "Midnight profession skill-tier recipe output",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
           "seasonScope": "Midnight Season 2+",
           "category": "Crafted Gear",
           "professionRecipeSource": "Midnight profession skill-tier recipe output",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -23711,14 +23711,14 @@
           "seasonScope": "Midnight Season 2+",
           "category": "Crafted Gear",
           "professionRecipeSource": "Midnight profession skill-tier recipe output",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
           "seasonScope": "Midnight Season 2+",
           "category": "Crafted Gear",
           "professionRecipeSource": "Midnight profession skill-tier recipe output",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -23817,14 +23817,14 @@
           "seasonScope": "Midnight Season 2+",
           "category": "Crafted Gear",
           "professionRecipeSource": "Midnight profession skill-tier recipe output",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
           "seasonScope": "Midnight Season 2+",
           "category": "Crafted Gear",
           "professionRecipeSource": "Midnight profession skill-tier recipe output",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -25284,7 +25284,7 @@
           "instanceId": 1313,
           "encounterId": 2793,
           "encounter": "Charonus",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -25294,7 +25294,7 @@
           "instanceId": 1313,
           "encounterId": 2793,
           "encounter": "Charonus",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -26078,7 +26078,7 @@
           "instanceId": 1313,
           "encounterId": 2792,
           "encounter": "Atroxus",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -26088,7 +26088,7 @@
           "instanceId": 1313,
           "encounterId": 2792,
           "encounter": "Atroxus",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -26214,7 +26214,7 @@
           "instanceId": 1313,
           "encounterId": 2792,
           "encounter": "Atroxus",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -26224,7 +26224,7 @@
           "instanceId": 1313,
           "encounterId": 2792,
           "encounter": "Atroxus",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -27015,7 +27015,7 @@
           "instanceId": 1313,
           "encounterId": 2791,
           "encounter": "Taz'Rah",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -27025,7 +27025,7 @@
           "instanceId": 1313,
           "encounterId": 2791,
           "encounter": "Taz'Rah",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -27963,7 +27963,7 @@
           "instanceId": 1309,
           "encounterId": 2772,
           "encounter": "Ziekket",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -27973,7 +27973,7 @@
           "instanceId": 1309,
           "encounterId": 2772,
           "encounter": "Ziekket",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -29121,7 +29121,7 @@
           "instanceId": 1309,
           "encounterId": 2770,
           "encounter": "Ikuzz the Light Hunter",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -29131,7 +29131,7 @@
           "instanceId": 1309,
           "encounterId": 2770,
           "encounter": "Ikuzz the Light Hunter",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -29915,7 +29915,7 @@
           "instanceId": 1309,
           "encounterId": 2769,
           "encounter": "Lightblossom Trinity",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -29925,7 +29925,7 @@
           "instanceId": 1309,
           "encounterId": 2769,
           "encounter": "Lightblossom Trinity",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -32421,7 +32421,7 @@
           "instanceId": 1311,
           "encounterId": 2776,
           "encounter": "The Hoardmonger",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -32431,7 +32431,7 @@
           "instanceId": 1311,
           "encounterId": 2776,
           "encounter": "The Hoardmonger",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -34377,7 +34377,7 @@
           "instanceId": 1304,
           "encounterId": 2680,
           "encounter": "Zaen Bladesorrow",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -34387,7 +34387,7 @@
           "instanceId": 1304,
           "encounterId": 2680,
           "encounter": "Zaen Bladesorrow",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
@@ -36428,7 +36428,7 @@
           "instanceId": 1304,
           "encounterId": 2682,
           "encounter": "Lithiel Cinderfury",
-          "catalogSection": "main-hand",
+          "catalogSection": "off-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         },
         {
@@ -36438,7 +36438,7 @@
           "instanceId": 1304,
           "encounterId": 2682,
           "encounter": "Lithiel Cinderfury",
-          "catalogSection": "off-hand",
+          "catalogSection": "main-hand",
           "slotConfirmedBy": "Blizzard item detail inventory_type.type"
         }
       ],
