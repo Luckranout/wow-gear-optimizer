@@ -748,7 +748,15 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
       const items = Array.isArray(payload.items) ? payload.items : [];
       const pendingStatVerification = Array.isArray(payload.pendingStatVerification)
         ? payload.pendingStatVerification : [];
-      return { slot, items, pendingStatVerification, failed: false, empty: items.length === 0 && pendingStatVerification.length === 0 };
+      // Keep discovery separate from scoring eligibility. The endpoint can return
+      // records discovered from Blizzard that have not yet passed season/stat
+      // verification; carry them forward so the optimizer can resolve them rather
+      // than silently dropping the discovery result.
+      const discoveredItems = Array.isArray(payload.discoveredItems) ? payload.discoveredItems : [];
+      return {
+        slot, items, pendingStatVerification, discoveredItems, failed: false,
+        empty: items.length === 0 && pendingStatVerification.length === 0 && discoveredItems.length === 0
+      };
     } catch (error) {
       console.warn(`Candidate request failed for ${slot}:`, error);
       return { slot, items: [], failed: true, reason: error?.message || "Network or response error" };
@@ -789,7 +797,17 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
     ));
   };
   const pendingById = new Map();
-  for (const item of requests.flatMap(request => request.pendingStatVerification || [])) {
+  // Include on-demand discoveries in the bounded verification queue, but never
+  // promote them directly to scoring: season eligibility must be explicit.
+  const verificationCandidates = requests.flatMap(request => [
+    ...(request.pendingStatVerification || []),
+    ...(request.discoveredItems || []).filter(item =>
+      item?.requiresWowheadVerification === true ||
+      item?.seasonScope !== "Midnight Season 2+" ||
+      !hasVerifiedCombatStats(item)
+    )
+  ]);
+  for (const item of verificationCandidates) {
     const id = Number(item?.id);
     if (!Number.isSafeInteger(id) || id <= 0 || pendingById.has(id)) continue;
     const existing = byId.get(String(id));
