@@ -36,6 +36,9 @@ assert.match(app, /Number\(variant\?\.itemLevel\) > 0 && hasPositiveStats/);
 assert.match(app, /preScoreWowheadVerified\+\+/);
 assert.match(app, /const existing = byId\.get\(String\(id\)\)/);
 assert.match(app, /Resolve the items the optimizer is actually proposing against live Wowhead/);
+assert.match(app, /renderItemHoverTooltip\(upgrade\.currentItem\)/);
+assert.match(app, /renderItemHoverTooltip\(upgrade\.recommendedItem\)/);
+assert.match(app, /displayItemLevel\(upgrade\.recommendedItem\?\.itemLevel \?\? upgrade\.recommendedItem\?\.level\)/);
 
 
 // Base-level catalog records must not displace a higher-item-level equipped variant.
