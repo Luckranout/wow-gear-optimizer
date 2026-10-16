@@ -17,6 +17,7 @@ from email.utils import parsedate_to_datetime
 try:
     from .equipment_catalog_sections import (
         collect_equipment_section_ids,
+        sections_for_inventory_type,
         validate_required_sections,
         write_section_catalogs,
     )
@@ -583,8 +584,12 @@ def normalize_item(data, source=None):
         },
         "inventoryType": {
             "id": nested_id(inventory_type),
+            "type": inventory_type.get("type") if isinstance(inventory_type, dict) else None,
             "name": localized_name(inventory_type.get("name")) if isinstance(inventory_type, dict) else None,
         },
+        # Stable category labels are derived from Blizzard's canonical inventory
+        # type, not from class/spec guesses or localized names alone.
+        "equipmentCategories": list(sections_for_inventory_type(inventory_type)),
         "isEquippable": data.get("is_equippable"),
         "stats": data.get("stats") or normalize_preview_stats((data.get("preview_item") or {}).get("stats", [])),
         "spells": data.get("spells", []),
