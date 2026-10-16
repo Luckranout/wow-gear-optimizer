@@ -133,3 +133,36 @@ if (!appSource.includes("character.simulation = importedSimulation;") ||
   throw new Error("UI simulation import must parse user weights and attach them for imported-character optimization");
 }
 
+
+const noProfileCharacter = optimizer.createCharacterProfileFromImport({
+  importedCharacter: {
+    id: 43,
+    name: "NoProfile",
+    level: 90,
+    class: { name: "Warrior" },
+    activeSpec: { id: 73, name: "Protection" },
+    equipment: []
+  },
+  goal: "Mythic+"
+});
+const noProfileReport = optimizer.createOptimizationReport({
+  character: noProfileCharacter,
+  availableItems: gearCandidates,
+  dataset: { optimizationProfiles: {} }
+});
+if (noProfileReport.optimizationProfileStatus !== "missing-specialization-profile" ||
+    noProfileReport.recommendationStatus !== "generic-fallback-not-specialization-specific" ||
+    !noProfileReport.recommendationLimitations.some(note => note.includes("No verified specialization profile"))) {
+  throw new Error("Missing specialization profiles must be reported instead of presented as spec-specific scoring");
+}
+const caseInsensitiveContext = optimizer.getSpecProfileContext({
+  dataset: { optimizationProfiles: { warrior: { protection: { Strength: 1.7 } } } },
+  className: "Warrior",
+  specialization: "Protection"
+});
+if (caseInsensitiveContext.optimizationProfile?.Strength !== 1.7) {
+  throw new Error("Specialization profile lookup should be case-insensitive");
+}
+if (!appSource.includes("WARNING: no verified") || !appSource.includes("generic fallback weights used")) {
+  throw new Error("UI must clearly warn when generic fallback weights replace missing specialization profiles");
+}
