@@ -9,6 +9,7 @@ from scripts.equipment_catalog_sections import (
     SECTION_SEARCHES,
     collect_equipment_section_ids,
     fetch_inventory_type_ids,
+    discover_equipment_inventory_ids,
     sections_for_inventory_type,
     validate_required_sections,
     write_section_catalogs,
@@ -94,6 +95,25 @@ class EquipmentSectionPaginationTests(unittest.TestCase):
         ids = fetch_inventory_type_ids("token", "NECK", search, sleep=lambda _s: None)
         self.assertEqual(ids, set(range(1, PAGE_SIZE + 1)))
         self.assertEqual(calls, [1, 2])
+
+    def test_broad_inventory_discovery_covers_all_categories_without_claiming_verification(self):
+        calls = []
+
+        def search(_path, _token, params):
+            inventory_type = params["inventory_type.type"]
+            calls.append(inventory_type)
+            return {"results": [{"data": {"id": 1000 + len(calls)}}], "max_page": 1}
+
+        discovered = discover_equipment_inventory_ids("token", search, sleep=lambda _s: None)
+        self.assertEqual(set(discovered), set(SECTION_SEARCHES))
+        self.assertIn("rings", discovered)
+        self.assertIn("necklaces", discovered)
+        self.assertIn("trinkets", discovered)
+        self.assertIn("main-hand", discovered)
+        self.assertIn("off-hand", discovered)
+        self.assertGreaterEqual(len(calls), len(SECTION_SEARCHES))
+        # This helper returns IDs only. Season verification is intentionally not inferred.
+        self.assertTrue(all(isinstance(item_id, int) for ids in discovered.values() for item_id in ids))
 
     def test_blizzard_inventory_metadata_maps_to_normalized_equipment_categories(self):
         cases = [
