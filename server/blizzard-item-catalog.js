@@ -145,23 +145,37 @@ async function searchItemIds(inventoryTypes, options = {}) {
   const token = await getBlizzardToken(env, fetchImpl);
   const ids = new Set();
   for (const inventoryType of [...new Set((inventoryTypes || []).filter(Boolean))]) {
-    const params = new URLSearchParams({ namespace: "static-us", locale: LOCALE, "inventory_type.type": inventoryType, _page: "1", _pageSize: String(limit), orderby: "id" });
-    const response = await fetchImpl(API_BASE + "/data/wow/search/item?" + params.toString(), { headers: { Authorization: "Bearer " + token, Accept: "application/json" } });
-    if (!response.ok) {
-      const error = new Error("Blizzard item search returned HTTP " + response.status);
-      error.statusCode = 502;
-      error.publicMessage = "Blizzard item discovery is temporarily unavailable.";
-      throw error;
-    }
-    const payload = await response.json();
-    for (const result of Array.isArray(payload.results) ? payload.results : []) {
-      const id = Number(result && result.data ? result.data.id : result && result.id);
-      if (Number.isSafeInteger(id) && id > 0) ids.add(id);
+    const makeUrl = page => {
+      const params = new URLSearchParams({ namespace: "static-us", locale: LOCALE, "inventory_type.type": inventoryType, _page: String(page), _pageSize: String(limit), orderby: "id" });
+      return API_BASE + "/data/wow/search/item?" + params.toString();
+    };
+    const requestPage = async page => {
+      const response = await fetchImpl(makeUrl(page), { headers: { Authorization: "Bearer " + token, Accept: "application/json" } });
+      if (!response.ok) {
+        const error = new Error("Blizzard item search returned HTTP " + response.status);
+        error.statusCode = 502;
+        error.publicMessage = "Blizzard item discovery is temporarily unavailable.";
+        throw error;
+      }
+      return response.json();
+    };
+    const first = await requestPage(1);
+    const maxPage = Number(first.max_page ?? first.maxPage ?? 1);
+    // The default ID ordering starts with old records. Also inspect the last
+    // advertised page so newly added item IDs aren't systematically missed.
+    const pages = [first];
+    if (Number.isInteger(maxPage) && maxPage > 1) pages.push(await requestPage(maxPage));
+    for (const payload of pages) {
+      for (const result of Array.isArray(payload.results) ? payload.results : []) {
+        const id = Number(result && result.data ? result.data.id : result && result.id);
+        if (Number.isSafeInteger(id) && id > 0) ids.add(id);
+        if (ids.size >= limit) break;
+      }
       if (ids.size >= limit) break;
     }
     if (ids.size >= limit) break;
   }
-  return [...ids].slice(0, limit);
+  return [...ids].sort((a, b) => b - a).slice(0, limit);
 }
 async function getItem(id, options = {}) {
   const fetchImpl = options.fetch || globalThis.fetch;
