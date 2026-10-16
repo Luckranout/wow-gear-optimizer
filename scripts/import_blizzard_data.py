@@ -420,7 +420,7 @@ def tooltip_explicitly_labels_cosmetic(tooltip):
     return bool(re.search(r"\bCosmetic\b", plain_text, re.IGNORECASE))
 
 
-def fetch_wowhead_tooltip_stats(item_id, diagnostics=None, bonus_ids=None, item_level=None):
+def fetch_wowhead_tooltip_stats(item_id, diagnostics=None, bonus_ids=None, item_level=None, upgrade_rank=None, variant_metadata=None):
     """Fetch explicit displayed stats for a base item or an explicitly identified Wowhead variant.
 
     An item-level override is only safe alongside a verified variant bonus list.
@@ -443,6 +443,14 @@ def fetch_wowhead_tooltip_stats(item_id, diagnostics=None, bonus_ids=None, item_
         if bonus_ids is None:
             raise ValueError("item_level override requires verified bonus_ids; level alone is not variant verification")
         params["ilvl"] = int(item_level)
+    if upgrade_rank is not None:
+        if isinstance(upgrade_rank, bool) or not str(upgrade_rank).isdigit() or int(upgrade_rank) <= 0:
+            raise ValueError("upgrade_rank must be a positive integer")
+        if bonus_ids is not None or item_level is not None:
+            raise ValueError("upgrade_rank discovery cannot be combined with explicit bonus_ids or item_level")
+        # Wowhead resolves the item-specific upgrade path for this rank. Do not
+        # infer the resulting item level from Blizzard's base item record.
+        params["upgd"] = int(upgrade_rank)
     url = "https://nether.wowhead.com/tooltip/item/{}?{}".format(
         item_id, urllib.parse.urlencode(params)
     )
@@ -489,6 +497,16 @@ def fetch_wowhead_tooltip_stats(item_id, diagnostics=None, bonus_ids=None, item_
 
     stats = parse_wowhead_tooltip_stats(tooltip)
     plain_text = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", tooltip))).strip()
+    if variant_metadata is not None and upgrade_rank is not None:
+        # Only accept an upgraded variant when Wowhead explicitly displays its
+        # resulting item level. Missing metadata means unresolved, not guessed.
+        level_match = re.search(r"\bItem\s+Level\s+(\d+)\b", plain_text, re.IGNORECASE)
+        if level_match:
+            variant_metadata["itemLevel"] = int(level_match.group(1))
+            variant_metadata["upgradeRank"] = int(upgrade_rank)
+        else:
+            variant_metadata["itemLevel"] = None
+            variant_metadata["upgradeRank"] = int(upgrade_rank)
     # Classification is independent of stat parsing and is recorded whenever
     # the source tooltip explicitly labels the item Cosmetic.
     if tooltip_explicitly_labels_cosmetic(tooltip):
@@ -1879,6 +1897,38 @@ def fetch_item_details(token, item_ids, item_sources):
         )
         item["seasonScope"] = SEASON_SCOPE
         item["sourceLocations"] = item_sources.get(item_id, [])
+
+        # Ask Wowhead for the item-specific 6/6 upgrade variant. This closes the
+        # Blizzard base-item-level gap without assuming that the base level is the
+        # maximum or fabricating bonus IDs. Only attach a variant if Wowhead returns
+        # explicit item-level text and usable stats above the base item level.
+        try:
+            upgrade_metadata = {}
+            upgraded_stats = fetch_wowhead_tooltip_stats(
+                item_id, wowhead_diagnostics, upgrade_rank=6,
+                variant_metadata=upgrade_metadata,
+            )
+            upgraded_level = upgrade_metadata.get("itemLevel")
+            base_level = item.get("itemLevel", item.get("level"))
+            if (
+                upgraded_stats
+                and isinstance(upgraded_level, int)
+                and isinstance(base_level, (int, float))
+                and upgraded_level > base_level
+                and item_id != 270167
+            ):
+                item.setdefault("variants", []).append({
+                    "variantKey": f"wowhead:upgd6:ilvl{upgraded_level}",
+                    "name": item.get("name"),
+                    "level": upgraded_level,
+                    "itemLevel": upgraded_level,
+                    "upgradeRank": 6,
+                    "stats": upgraded_stats,
+                    "statsSource": f"Wowhead tooltip explicitly resolved upgd=6 at item level {upgraded_level}",
+                    "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup",
+                })
+        except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, ValueError, json.JSONDecodeError) as error:
+            print(f"Item {item_id}: Wowhead 6/6 variant unavailable ({type(error).__name__}).")
 
         # The in-game tooltip screenshot verifies the Ascendant Venomforged:
         # Myth variant at item level 340 with +147 Haste. Preserve that exact variant.
