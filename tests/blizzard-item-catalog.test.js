@@ -137,6 +137,28 @@ async function main() {
     assert.deepEqual(discoveredIds, [222, 111], "Blizzard search IDs are deduplicated and returned newest-first");
     assert.ok(searchUrls.some(url => String(url).includes("inventory_type.type=HEAD")), "request includes the requested slot inventory type");
 
+    // Multi-type slots must not let the first inventory query consume the
+    // entire result budget before shields/holdables (or other types) are searched.
+    const mixedSearchUrls = [];
+    const mixedSearchFetch = async (url) => {
+      const value = String(url);
+      mixedSearchUrls.push(value);
+      if (value === "https://oauth.battle.net/token") return new Response(JSON.stringify({ access_token: "mixed-search-token", expires_in: 3600 }), { status: 200, headers: { "Content-Type": "application/json" } });
+      if (value.includes("/data/wow/search/item?")) {
+        const id = value.includes("inventory_type.type=SHIELD") ? 999 : 111;
+        return new Response(JSON.stringify({ results: [{ data: { id } }] }), { status: 200, headers: { "Content-Type": "application/json" } });
+      }
+      throw new Error("Unexpected mixed item-search request: " + url);
+    };
+    catalog._test.resetTokenCache();
+    const mixedIds = await catalog.searchItemIds(["WEAPON", "SHIELD"], {
+      fetch: mixedSearchFetch,
+      env: { BLIZZARD_CLIENT_ID: "id", BLIZZARD_CLIENT_SECRET: "secret" },
+      limit: 2
+    });
+    assert.deepEqual(mixedIds, [999, 111], "each requested inventory type contributes IDs within the shared limit");
+    assert.ok(mixedSearchUrls.some(url => url.includes("inventory_type.type=SHIELD")), "shield search is not skipped when weapon results exist");
+
   } finally {
     for (const [key, value] of Object.entries(original)) {
       if (value === undefined) delete process.env[key];
