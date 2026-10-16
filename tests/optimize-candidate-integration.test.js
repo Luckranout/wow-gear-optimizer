@@ -25,6 +25,7 @@ assert.match(app, /createOptimizationReport\(\{\s*character,\s*availableItems,/)
 assert.match(api, /pendingStatVerification/);
 assert.match(api, /!hasUsableStats\(item\)/);
 assert.match(api, /requiresWowheadVerification: true/);
+const optimizer = fs.readFileSync("optimizer.js", "utf8");
 assert.match(app, /const pendingLookupIds = \[\.\.\.pendingById\.keys\(\)\]\.slice\(0, 24\)/);
 assert.match(app, /const discoveredItems = Array\.isArray\(payload\.discoveredItems\)/);
 assert.match(app, /const verificationCandidates = requests\.flatMap/);
@@ -38,7 +39,6 @@ assert.match(app, /Resolve the items the optimizer is actually proposing against
 
 
 // Base-level catalog records must not displace a higher-item-level equipped variant.
-const optimizer = fs.readFileSync("optimizer.js", "utf8");
 assert.match(optimizer, /candidateLevel < equippedLevel\) continue/);
 assert.match(optimizer, /meetsEquippedLevel\(item, firstSlot\)/);
 assert.match(optimizer, /meetsEquippedLevel\(item, secondSlot\)/);
