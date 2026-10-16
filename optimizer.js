@@ -681,8 +681,15 @@ function getSpecProfileContext({ dataset = null, className = "", specialization 
     specializationId,
     specialization
   );
-  const optimizationProfile =
-    dataset?.optimizationProfiles?.[className]?.[specialization] || null;
+  const profiles = dataset?.optimizationProfiles;
+  const classKey = Object.keys(profiles || {}).find(key =>
+    normalizeClassName(key) === normalizeClassName(className)
+  );
+  const classProfiles = classKey ? profiles[classKey] : null;
+  const specKey = Object.keys(classProfiles || {}).find(key =>
+    String(key || "").trim().toLowerCase() === String(specialization || "").trim().toLowerCase()
+  );
+  const optimizationProfile = specKey ? classProfiles[specKey] : null;
 
   return {
     specialization: specializationRecord,
@@ -1357,6 +1364,13 @@ function createOptimizationReport({character = createCharacterProfile(), availab
   const goal = character.goal || WOW_GOALS.general;
   const simulation = character.simulation || dataset?.simulation || null;
   const simulationContext = getSimulationWeightContext(simulation);
+  const profileContext = getSpecProfileContext({
+    dataset,
+    className: character.className,
+    specialization: character.specialization,
+    specializationId: character.specializationId
+  });
+  const hasSpecProfile = !!(profileContext.optimizationProfile && typeof profileContext.optimizationProfile === "object");
   const statWeights = resolveStatWeights({
     goal,
     className: character.className,
@@ -1410,11 +1424,20 @@ function createOptimizationReport({character = createCharacterProfile(), availab
     },
     recommendationStatus: simulationContext
       ? "simulation-weighted-ranking-not-full-stat-projection"
-      : "heuristic-ranking-not-simulation-validated",
+      : hasSpecProfile
+        ? "specialization-profile-heuristic-not-simulation-validated"
+        : "generic-fallback-not-specialization-specific",
+    optimizationProfileStatus: simulationContext
+      ? "simulation-weights"
+      : hasSpecProfile
+        ? "specialization-profile"
+        : "missing-specialization-profile",
     numericProjectionAvailable: false,
     recommendationLimitations: [
       "Gear ranking is not a full combat simulation.",
-      "Static fallback weights are not specialization-specific.",
+      ...(simulationContext ? [] : hasSpecProfile
+        ? ["Specialization profile weights are heuristics, not simulation-derived scale factors."]
+        : ["No verified specialization profile or simulation weights were available; generic goal weights were used, except for explicitly coded specialization fallbacks."]),
       "Imported item stat presence does not prove complete item or enhancement effects.",
       "Numeric projected character stats are not calculated by this report."
     ],
