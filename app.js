@@ -777,10 +777,27 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
   // before scoring. They are never candidates until Wowhead supplies a positive
   // item level and at least one positive combat stat, which keeps transmog-only
   // records out of the optimizer while allowing valid upgraded gear to be found.
+  const hasVerifiedCombatStats = item => {
+    const stats = item?.stats ?? item?.statValues ?? item?.stat_values ?? item?.attributes;
+    const positive = values => Array.isArray(values)
+      ? values.some(stat => Number(stat?.value ?? stat?.amount ?? stat) > 0)
+      : values && typeof values === "object"
+        ? Object.values(values).some(value => Number(value?.value ?? value?.amount ?? value) > 0)
+        : false;
+    return positive(stats) || (Array.isArray(item?.variants) && item.variants.some(variant =>
+      Number(variant?.itemLevel) > 0 && positive(variant?.stats)
+    ));
+  };
   const pendingById = new Map();
   for (const item of requests.flatMap(request => request.pendingStatVerification || [])) {
     const id = Number(item?.id);
-    if (Number.isSafeInteger(id) && id > 0 && !byId.has(String(id)) && !pendingById.has(id)) pendingById.set(id, item);
+    if (!Number.isSafeInteger(id) || id <= 0 || pendingById.has(id)) continue;
+    const existing = byId.get(String(id));
+    // The broad retail dataset may already contain the same item ID with no
+    // usable stats. Do not let that incomplete duplicate suppress the verified
+    // slot record's Wowhead lookup.
+    if (existing && hasVerifiedCombatStats(existing)) continue;
+    pendingById.set(id, item);
   }
   const pendingLookupIds = [...pendingById.keys()].slice(0, 24);
   let preScoreWowheadVerified = 0;
@@ -803,16 +820,25 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
         preScoreWowheadUnavailable++;
         return;
       }
-      const base = pendingById.get(id);
-      base.variants = variants.map(variant => ({
+      const pending = pendingById.get(id);
+      const base = byId.get(String(id)) || pending;
+      // Preserve the richest slot metadata while enriching an existing broad
+      // catalog record rather than creating a duplicate item ID.
+      for (const field of ["name", "slot", "inventoryType", "itemClass", "itemSubclass", "quality", "isEquippable", "seasonScope", "equipmentCategories"]) {
+        if ((base[field] == null || base[field] === "") && pending[field] != null) base[field] = pending[field];
+      }
+      base.variants = [...(Array.isArray(base.variants) ? base.variants : []), ...variants.map(variant => ({
         ...variant, id, name: base.name, slot: base.slot, inventoryType: base.inventoryType,
         itemClass: base.itemClass, itemSubclass: base.itemSubclass, quality: base.quality,
         isEquippable: base.isEquippable
-      }));
+      }))];
       base.wowheadLookupStatus = "verified";
       base.combatStatsVerifiedBy = "wowhead";
       base.requiresWowheadVerification = false;
-      availableItems.push(base);
+      if (!byId.has(String(id))) {
+        byId.set(String(id), base);
+        availableItems.push(base);
+      }
       preScoreWowheadVerified++;
     } catch (_) {
       preScoreWowheadUnavailable++;
