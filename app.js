@@ -588,8 +588,13 @@ function applyLiveCharacter(character) {
   specSelect.innerHTML = `<option value="${profile.specialization}">${profile.specialization}</option>`;
   specSelect.value = profile.specialization;
   importStatus.classList.remove("error");
+  const talentBuild = profile.talentBuild;
+  const talentStatus = talentBuild?.verified
+    ? ` • Active talent build detected: ${talentBuild.selectedNodeCount} talent entries${talentBuild.loadoutName ? ` • ${talentBuild.loadoutName}` : ""}`
+    : " • Blizzard did not provide verifiable active talent-node data; build-specific synergies will not be guessed";
   importStatus.textContent = WoWCharacterImport.formatImportedCharacterSummary(character) +
-    " • Live Blizzard data retrieved " + new Date(character.fetchedAt || Date.now()).toLocaleTimeString();
+    " • Live Blizzard data retrieved " + new Date(character.fetchedAt || Date.now()).toLocaleTimeString() +
+    talentStatus;
   renderCharacterStats(profile.statistics);
   renderSlots();
   resultMessage.textContent = "Live character data loaded. Run the optimizer to evaluate the current gear.";
