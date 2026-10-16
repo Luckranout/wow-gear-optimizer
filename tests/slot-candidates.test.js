@@ -82,6 +82,9 @@ assert.equal(allowedForSpecialization({
     assert.equal(res.statusCode, 200, "valid section returns 200");
     assert.deepEqual(res.body.items.map(item => item.id), [101], "filters legacy, wrong class, non-equippable, missing-stat cosmetic/unknown items, and wrong-slot items");
     assert.equal(res.body.count, 1);
+    assert.deepEqual(res.body.pendingStatVerification.map(item => item.id), [105],
+      "stat-incomplete but otherwise compatible seasonal records are queued for verification, never scored directly");
+    assert.equal(res.body.pendingStatVerification[0].requiresWowheadVerification, true);
     assert.match(res.headers["cache-control"], /s-maxage=900/);
 
     const oneHandDagger = {
