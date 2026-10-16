@@ -452,3 +452,14 @@ footer {
 .item-hover-name { display:block; font-size:13px; line-height:1.4; font-weight:700; overflow-wrap:anywhere; text-decoration:none; }
 .item-hover-name:hover,.item-hover-name:focus-visible { text-decoration:underline; }
 
+/* Expanded, data-grounded WoW-style tooltip details. */
+.item-hover-track { color:#1eff00; font-size:11px; line-height:1.35; margin-top:2px; }
+.item-hover-meta { color:#f0f2f5; font-size:11px; line-height:1.35; margin-top:3px; }
+.item-hover-rarity { color:#1eff00 !important; }
+.item-hover-effect { color:#1eff00; font-size:11px; line-height:1.4; margin-top:7px; overflow-wrap:anywhere; }
+.item-hover-effect strong { color:#1eff00; }
+.item-hover-source { color:#c6ced9; margin-top:7px; }
+.item-hover-tooltip { border-color:#8c8c8c; border-radius:3px; background:#050817; padding:9px; width:min(292px,calc(100vw - 32px)); }
+.item-hover-heading { border-bottom:0; padding-bottom:5px; }
+.item-hover-image { border-radius:2px; }
+.item-hover-stats { border-top:1px solid #242b3a; padding-top:5px; margin-top:5px; }
