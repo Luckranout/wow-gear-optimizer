@@ -144,9 +144,15 @@ async function searchItemIds(inventoryTypes, options = {}) {
   const limit = Math.max(1, Math.min(100, Number(options.limit) || 40));
   const token = await getBlizzardToken(env, fetchImpl);
   const ids = new Set();
-  for (const inventoryType of [...new Set((inventoryTypes || []).filter(Boolean))]) {
+  const types = [...new Set((inventoryTypes || []).filter(Boolean))];
+  if (!types.length) return [];
+  // Give every requested inventory type a discovery budget. Without this,
+  // a generic WEAPON search can fill the global limit and prevent SHIELD or
+  // HOLDABLE searches from ever running for off-hand requests.
+  const perTypeLimit = Math.max(1, Math.ceil(limit / types.length));
+  for (const inventoryType of types) {
     const makeUrl = page => {
-      const params = new URLSearchParams({ namespace: "static-us", locale: LOCALE, "inventory_type.type": inventoryType, _page: String(page), _pageSize: String(limit), orderby: "id" });
+      const params = new URLSearchParams({ namespace: "static-us", locale: LOCALE, "inventory_type.type": inventoryType, _page: String(page), _pageSize: String(perTypeLimit), orderby: "id" });
       return API_BASE + "/data/wow/search/item?" + params.toString();
     };
     const requestPage = async page => {
@@ -169,11 +175,8 @@ async function searchItemIds(inventoryTypes, options = {}) {
       for (const result of Array.isArray(payload.results) ? payload.results : []) {
         const id = Number(result && result.data ? result.data.id : result && result.id);
         if (Number.isSafeInteger(id) && id > 0) ids.add(id);
-        if (ids.size >= limit) break;
       }
-      if (ids.size >= limit) break;
     }
-    if (ids.size >= limit) break;
   }
   return [...ids].sort((a, b) => b - a).slice(0, limit);
 }
