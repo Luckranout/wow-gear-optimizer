@@ -3,6 +3,8 @@ const TOKEN_URL = "https://oauth.battle.net/token";
 const LOCALE = "en_US";
 const CACHE_TTL_SECONDS = 7 * 24 * 60 * 60;
 let tokenCache = null;
+const memoryItemCache = new Map();
+const MEMORY_CACHE_MAX_ITEMS = 500;
 
 function storageConfig(env = process.env) {
   const url = String(env.SUPABASE_URL || "").replace(/\/$/, "");
@@ -139,6 +141,18 @@ async function fetchFromBlizzard(id, env = process.env, fetchImpl = globalThis.f
 async function getItem(id, options = {}) {
   const fetchImpl = options.fetch || globalThis.fetch;
   const env = options.env || process.env;
+  const useMemoryCache = options.memoryCache !== false;
+  const now = Date.now();
+  if (useMemoryCache) {
+    const cached = memoryItemCache.get(Number(id));
+    if (cached && cached.expiresAt > now) {
+      // Refresh insertion order so the bounded cache behaves like LRU.
+      memoryItemCache.delete(Number(id));
+      memoryItemCache.set(Number(id), cached);
+      return { item: cached.item, cache: "memory-hit", persistentStorage: false };
+    }
+    if (cached) memoryItemCache.delete(Number(id));
+  }
   // Storage is an optimization, not a dependency for live item lookup. A
   // temporary database outage must not prevent the optimizer from querying Blizzard.
   let stored = { item: null, configured: Boolean(storageConfig(env)), storageError: false };
@@ -147,16 +161,30 @@ async function getItem(id, options = {}) {
   } catch (_) {
     stored = { item: null, configured: Boolean(storageConfig(env)), storageError: true };
   }
-  if (stored.item) return { item: stored.item, cache: "hit", persistentStorage: true };
+  if (stored.item) {
+    if (useMemoryCache) rememberItem(stored.item);
+    return { item: stored.item, cache: "hit", persistentStorage: true };
+  }
   const item = await fetchFromBlizzard(id, env, fetchImpl);
   if (!item) return { item: null, cache: "miss", persistentStorage: stored.configured && !stored.storageError };
   let persisted = false;
   try { persisted = await storeItem(item, fetchImpl); } catch (_) { persisted = false; }
+  if (useMemoryCache) rememberItem(item);
   return { item, cache: "miss", persistentStorage: persisted };
+}
+
+function rememberItem(item) {
+  const id = Number(item?.id);
+  if (!Number.isSafeInteger(id) || id <= 0) return;
+  memoryItemCache.delete(id);
+  memoryItemCache.set(id, { item, expiresAt: Date.now() + CACHE_TTL_SECONDS * 1000 });
+  while (memoryItemCache.size > MEMORY_CACHE_MAX_ITEMS) {
+    memoryItemCache.delete(memoryItemCache.keys().next().value);
+  }
 }
 
 module.exports = {
   storageConfig, supabaseRequest, readStoredItem, storeItem, getBlizzardToken,
   normalizeBlizzardItem, fetchFromBlizzard, getItem,
-  _test: { resetTokenCache() { tokenCache = null; }, CACHE_TTL_SECONDS }
+  _test: { resetTokenCache() { tokenCache = null; }, resetItemCache() { memoryItemCache.clear(); }, CACHE_TTL_SECONDS, MEMORY_CACHE_MAX_ITEMS }
 };
