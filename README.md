@@ -36,3 +36,16 @@ SimulationCraft is not required for character lookup or the normal optimization 
 Deploy the repository to a serverless Node-compatible host such as Vercel for the customer-facing deployment. The included `vercel.json` maps `api/character.js` to a serverless function. Configure `BLIZZARD_CLIENT_ID` and `BLIZZARD_CLIENT_SECRET` in the deployment environment. Do not put either credential in browser code or GitHub Pages.
 
 GitHub Pages can remain useful for static previews, but it is not the production host for live Blizzard character lookup.
+
+## On-demand Blizzard item catalog storage
+
+The server exposes `GET /api/blizzard-item?id=<itemId>` to fetch one item from Blizzard only when requested. Item records are saved in Supabase and reused until their seven-day cache expiry. Blizzard item metadata alone is **not** evidence that an item belongs to the current season; records from this endpoint are explicitly marked `seasonEligibility: "unverified"` and must not bypass the optimizer's verified-season eligibility checks.
+
+To configure persistent storage:
+
+1. Create a Supabase project on its free plan.
+2. Run `database/supabase-item-catalog.sql` in the Supabase SQL Editor.
+3. In the Vercel project's server-side Environment Variables, set `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`, along with the existing `BLIZZARD_CLIENT_ID` and `BLIZZARD_CLIENT_SECRET`.
+4. Redeploy a preview to test the API before production.
+
+Never expose `SUPABASE_SERVICE_ROLE_KEY` to browser code. If Supabase is not configured, item lookup can still contact Blizzard, but the response reports `persistentStorage: false`; it does not pretend that data was saved durably.
