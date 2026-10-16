@@ -86,7 +86,7 @@ assert.equal(allowedForSpecialization({
     assert.deepEqual(res.body.pendingStatVerification.map(item => item.id), [105],
       "stat-incomplete but otherwise compatible seasonal records are queued for verification, never scored directly");
     assert.equal(res.body.pendingStatVerification[0].requiresWowheadVerification, true);
-    assert.match(res.headers["cache-control"], /s-maxage=900/);
+    assert.match(res.headers["cache-control"], /s-maxage=300/);
     const discoveredShoulders = {
       id: 999, name: "New Blizzard-discovered Plate Shoulders", slot: "Shoulders",
       inventoryType: { type: "SHOULDER", name: "Shoulder" }, isEquippable: true,
