@@ -172,17 +172,27 @@ async function handler(req, res) {
     if (payload.complete !== true || !Array.isArray(payload.items)) {
       return res.status(503).json({ error: "This equipment section is not validated yet." });
     }
+    // Keep source-verified items even when their base catalog record has no stats.
+    // The optimizer resolves proposed IDs through Wowhead afterward; rejecting
+    // these records here prevents that recovery path from ever seeing their IDs.
     const items = payload.items.filter(item =>
       item.isEquippable === true &&
       item.seasonScope === "Midnight Season 2+" &&
-      hasUsableStats(item) &&
       slotMatches(item, slot) &&
       allowedForClass(item, className, slot) &&
       allowedForClassWeapon(item, className, slot) &&
       allowedForSpecialization(item, className, specialization, slot)
     );
+    const missingStatsCount = items.filter(item => !hasUsableStats(item)).length;
     res.setHeader("Cache-Control", "public, s-maxage=900, stale-while-revalidate=1800");
-    return res.status(200).json({ slot, section, count: items.length, items, coverage: items.length ? "candidates-available" : "no-validated-compatible-candidates", source: "verified-season-section-cache" });
+    return res.status(200).json({
+      slot, section, count: items.length, items, missingStatsCount,
+      coverage: items.length ? "candidates-available" : "no-validated-compatible-candidates",
+      source: "verified-season-section-cache",
+      statsNote: missingStatsCount
+        ? "Some source-verified candidates need Wowhead variant resolution before their upgrades can be confirmed."
+        : "All returned candidates have usable stats in the base record or attached variants."
+    });
   } catch (error) {
     if (error.code === "ENOENT" || error instanceof SyntaxError) {
       return res.status(503).json({ error: "Verified equipment section is not available yet; no fallback catalog was used." });
