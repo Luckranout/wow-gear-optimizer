@@ -157,7 +157,16 @@ function renderItemHoverTooltip(item) {
     unique ? '<div class="item-hover-meta">' + escapeSlotText(unique === true ? "Unique-Equipped" : unique) + '</div>' : "",
     slotName ? '<div class="item-hover-meta">' + escapeSlotText(slotName) + '</div>' : ""
   ].filter(Boolean).join("");
-  const effect = description ? '<div class="item-hover-effect">' + (/^(equip|use|chance on hit|requires)/i.test(description) ? "" : '<strong>Equip: </strong>') + escapeSlotText(description) + '</div>' : "";
+  const wowheadText = String(item.wowheadTooltipText || "").trim();
+  const effectText = String(item.wowheadEffectText || item.trinketEffect?.text || description).trim();
+  const effect = effectText ? '<div class="item-hover-effect">' + escapeSlotText(effectText) + '</div>' : "";
+  const effectTiming = item.trinketEffect ? [
+    Number.isFinite(Number(item.trinketEffect.durationSeconds)) ? 'Duration: ' + Number(item.trinketEffect.durationSeconds) + ' sec' : "",
+    Number.isFinite(Number(item.trinketEffect.cooldownSeconds)) ? 'Cooldown: ' + Number(item.trinketEffect.cooldownSeconds) + ' sec' : "",
+    item.trinketEffect.scoringMethod ? 'Effect scoring: ' + item.trinketEffect.scoringMethod : ""
+  ].filter(Boolean).join(" • ") : "";
+  const tooltipDetails = wowheadText ? '<details class="item-hover-full-tooltip"><summary>Full Wowhead tooltip</summary><pre>' + escapeSlotText(wowheadText) + '</pre></details>' : "";
+  const timing = effectTiming ? '<div class="item-hover-meta item-hover-timing">' + escapeSlotText(effectTiming) + '</div>' : "";
   const required = requiredLevel > 0 ? '<div class="item-hover-meta">Requires Level ' + escapeSlotText(requiredLevel) + '</div>' : "";
   const source = dropSource ? '<div class="item-hover-meta item-hover-source">Dropped by: ' + escapeSlotText(dropSource) + '</div>' : "";
   return '<div class="item-hover-tooltip" role="tooltip">' +
@@ -169,7 +178,7 @@ function renderItemHoverTooltip(item) {
     '</div>' +
     metadataRows +
     '<div class="item-hover-stats">' + (statRows || '<span class="item-hover-no-stats">Verified stats unavailable</span>') + '</div>' +
-    effect + required + source +
+    effect + timing + tooltipDetails + required + source +
   '</div>';
 }
 

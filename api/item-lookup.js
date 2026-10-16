@@ -24,10 +24,14 @@ function parseTooltip(payload, id, rank) {
     .replace(/&#39;|&apos;/g, "'").replace(/\s+/g, " ");
   const levelMatch = plain.match(/\bItem\s+Level\s+(\d+)\b/i);
   if (!levelMatch) return null;
+  const effectMatch = plain.match(/(?:Use|Equip|Chance on hit):?\s*(.+?)(?=\s+(?:Requires Level|Classes:|Races:|Sell Price:|Dropped by:)|$)/i);
+  const effectText = effectMatch ? effectMatch[0].trim() : "";
+  // Active effect stats are not passive item stats; keep them out of the gear-stat score.
+  const passivePlain = effectText ? plain.replace(effectText, " ") : plain;
   const stats = {};
   const statPattern = /([+\-−]?\s*\d[\d,]*)\s+(Strength|Agility|Intellect|Stamina|Critical Strike|Crit|Haste|Mastery|Versatility|Armor|Leech|Avoidance|Speed)\b/gi;
   let match;
-  while ((match = statPattern.exec(plain))) {
+  while ((match = statPattern.exec(passivePlain))) {
     const key = STAT_NAMES[match[2].toLowerCase()];
     const value = Number(match[1].replace(/[,+\s]/g, "").replace("−", "-"));
     if (key && Number.isFinite(value) && value !== 0) stats[key] = value;

@@ -485,12 +485,25 @@ function hasUsableItemStats(item) {
   );
 }
 
+function scoreTrinketUseEffect(item, statWeights = STAT_WEIGHTS) {
+  const effect = item?.trinketEffect;
+  if (!effect || !effect.temporaryStats || !Number.isFinite(Number(effect.durationSeconds)) ||
+      !Number.isFinite(Number(effect.cooldownSeconds)) || Number(effect.durationSeconds) <= 0 ||
+      Number(effect.cooldownSeconds) <= 0) return 0;
+  const slot = String(item.slot || item.inventoryType?.name || "").toLowerCase();
+  if (!slot.includes("trinket")) return 0;
+  const uptime = Math.min(1, Number(effect.durationSeconds) / Number(effect.cooldownSeconds));
+  return Object.entries(effect.temporaryStats).reduce((total, [stat, value]) =>
+    total + (Number(value) || 0) * (statWeights[normalizeItemStatName(stat)] ?? 0) * uptime, 0);
+}
+
 function scoreItem(item, statWeights = STAT_WEIGHTS) {
   if (!item || !hasUsableItemStats(item)) return 0;
   const itemLevel = Number(item.itemLevel ?? item.level) || 0;
   let effectScore = Number(item.effectValue) || 0;
   if (item.isSetPiece) effectScore += 10;
   if (item.isUniqueEffect) effectScore += 5;
+  effectScore += scoreTrinketUseEffect(item, statWeights);
   return itemLevel * 2 + scoreItemStats(item, statWeights) + effectScore;
 }
 
@@ -1418,7 +1431,7 @@ window.WoWOptimizer = {
   applySecondaryRatingDiminishingReturns, getSecondaryRatingDiminishingReturns, SECONDARY_RATING_DR_TABLE, SECONDARY_RATING_DR_SOFT_TARGETS, getSecondaryRatingTotals, getSecondaryRatingHardCapViolations, getSecondaryRatingSoftTargetPenalty,
   applyTertiaryRatingDiminishingReturns, TERTIARY_RATING_DR_TABLE, getTertiaryRatingTotals,
   createCharacterProfile, normalizeCharacterStatistics, scoreCharacterStatistics, getCharacterStatSummary, resolveStatWeights, normalizeSimulationScaleFactors, getSimulationWeightContext, findBlizzardSpecialization, getSpecProfileContext,
-  normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, hasUsableItemStats, itemAllowedForClass, scoreItem, scoreEquipment, getGoalWeights,
+  normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, hasUsableItemStats, itemAllowedForClass, scoreTrinketUseEffect, scoreItem, scoreEquipment, getGoalWeights,
   findBestItemForSlot, itemMatchesSlot, itemAllowedForClassWeapon, itemAllowedForSpecialization, getWeaponMetadata, normalizeWeaponType, optimizeEquipment, findUpgradeOpportunities, rankItems,
   getItemSetId, getSetBonusStatus, getTierSetCoverageStatus, scoreSetBonuses, scoreEquipmentWithRatingDiminishingReturns, scoreLoadout,
   getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,

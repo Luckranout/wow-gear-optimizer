@@ -10,7 +10,7 @@ const { parseTooltip, createResponse } = (() => ({
   })
 }))();
 
-const html = "<table><tr><td>Item Level 334</td></tr><tr><td>+36 Agility</td><td>+565 Stamina</td><td>+40 Critical Strike</td><td>+21 Haste</td></tr></table>";
+const html = "<table><tr><td>Item Level 334</td></tr><tr><td>+36 Agility</td><td>+565 Stamina</td><td>+40 Critical Strike</td><td>+21 Haste</td></tr><tr><td>Use: Gain 422 Mastery for 10 sec.</td><td>(1 Min, 30 Sec Cooldown)</td></tr></table>";
 const variant = parseTooltip({tooltip:{html}},268240,6);
 assert.equal(variant.itemLevel,334);
 assert.equal(variant.upgradeRank,6);
@@ -19,6 +19,12 @@ assert.equal(variant.stats.Stamina,565);
 assert.equal(variant.stats.CriticalStrike,40);
 assert.equal(variant.stats.Haste,21);
 assert.equal(variant.lookupStatus,"verified");
+assert.match(variant.wowheadTooltipText,/Item Level 334/);
+assert.match(variant.wowheadTooltipText,/Gain 422 Mastery/);
+assert.equal(variant.trinketEffect.durationSeconds,10);
+assert.equal(variant.trinketEffect.cooldownSeconds,90);
+assert.equal(variant.trinketEffect.temporaryStats.Mastery,422);
+assert.equal(variant.stats.Mastery,undefined,"temporary on-use stats must not be counted as passive stats");
 assert.equal(parseTooltip({tooltip:{html:"<td>+40 Haste</td>"}},268240,6),null,"must not infer item level");
 assert.equal(parseTooltip({tooltip:{html:"<td>Item Level 334</td>"}},268240,6),null,"must not accept missing stats");
 

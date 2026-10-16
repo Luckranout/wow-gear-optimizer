@@ -469,3 +469,9 @@ footer {
 .item-hover-heading { border-bottom:0; padding-bottom:5px; }
 .item-hover-image { border-radius:2px; }
 .item-hover-stats { border-top:1px solid #242b3a; padding-top:5px; margin-top:5px; }
+
+/* Full, escaped Wowhead tooltip text and cooldown metadata inside item hover cards. */
+.item-hover-full-tooltip { margin-top: 8px; border-top: 1px solid #242b3a; padding-top: 6px; }
+.item-hover-full-tooltip summary { cursor: pointer; color: #d8c17b; font-size: 11px; }
+.item-hover-full-tooltip pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 240px; overflow: auto; margin: 6px 0 0; color: #d7deea; font: inherit; font-size: 11px; line-height: 1.45; }
+.item-hover-timing { color: #d8c17b; }
