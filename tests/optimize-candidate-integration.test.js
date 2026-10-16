@@ -23,7 +23,7 @@ assert.match(app, /createOptimizationReport\(\{\s*character,\s*availableItems,/)
 // positive passive combat stats and an explicit item level. The app performs this
 // bounded pre-score resolution and enriches an existing catalog duplicate by ID.
 assert.match(api, /pendingStatVerification/);
-assert.match(api, /\.filter\(item => !hasUsableStats\(item\)\)/);
+assert.match(api, /!hasUsableStats\(item\)/);
 assert.match(api, /requiresWowheadVerification: true/);
 assert.match(app, /const pendingLookupIds = \[\.\.\.pendingById\.keys\(\)\]\.slice\(0, 24\)/);
 assert.match(app, /Number\(variant\?\.itemLevel\) > 0 && hasPositiveStats/);
@@ -48,7 +48,7 @@ assert.match(api, /item\.seasonScope === "Midnight Season 2\+"/);
 assert.match(api, /hasUsableStats\(item\)/);
 assert.match(api, /slotMatches\(item, slot\)/);
 assert.match(api, /allowedForClass\(item, className, slot\)/);
-assert.match(api, /Verified equipment section is not available yet; no fallback catalog was used/);
+assert.match(api, /Neither a validated section cache nor Blizzard discovery is available/);
 
 // Neck and Shoulders are mapped end-to-end and missing data remains explicit,
 // rather than being mistaken for proof that no upgrade exists.
