@@ -422,7 +422,13 @@ footer {
 .compare-icon-wrap:hover .item-hover-tooltip,
 .compare-icon-wrap:focus-within .item-hover-tooltip { display:block; }
 .slot-icon-wrap .item-hover-tooltip { top:-6px; }
-.compare-icon-wrap .item-hover-tooltip { top:-6px; }
+/* In recommendation cards, open the tooltip below the item card so it
+   doesn't cover the equipped item's own name and stat rows. */
+.compare-icon-wrap .item-hover-tooltip { top:calc(100% + 8px); left:0; }
+.loadout-compare-pair .compare-item:nth-child(2) .compare-icon-wrap .item-hover-tooltip {
+  left:auto;
+  right:0;
+}
 .item-hover-heading { display:flex; gap:10px; align-items:center; padding-bottom:9px; border-bottom:1px solid var(--border); }
 .item-hover-image { width:64px; height:64px; flex:0 0 64px; border:1px solid #8c6a32; border-radius:7px; background:#0b0f16; object-fit:cover; }
 .item-hover-heading strong { display:block; color:#f0c76a; font-size:13px; line-height:1.4; overflow-wrap:anywhere; }
