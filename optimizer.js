@@ -1072,7 +1072,12 @@ function findUpgradeOpportunities({
     currentEquipment, weights, setBonuses, specialization, characterLevel
   ).score;
 
-  const upgradeCandidates = availableItems || [];
+  // Expand verified imported variants before level comparisons and scoring. The base
+  // record can be a low-level drop while its verified variant is the usable upgrade.
+  const upgradeCandidates = (availableItems || []).flatMap(rawItem => {
+    if (!Array.isArray(rawItem?.variants) || !rawItem.variants.length) return [rawItem];
+    return rawItem.variants.map(variant => ({ ...rawItem, ...variant, id: rawItem.id ?? variant.id, baseItemId: rawItem.id ?? rawItem.itemId, variants: undefined }));
+  });
 
   for (const slot of WOW_EQUIPMENT_SLOTS) {
     const currentItem = currentEquipment[slot];

@@ -12,6 +12,42 @@ const WOW_DATA_REQUIRED_SLOTS = [
   "Trinket 1", "Trinket 2", "Main Hand", "Off Hand"
 ];
 
+// Independently imported equipment files contain the full candidate catalogue.
+const WOW_EQUIPMENT_SECTION_FILES = ["back", "chest", "feet", "hands", "head", "legs", "main-hand", "necklaces", "off-hand", "rings", "shoulders", "trinkets", "waist", "wrists"];
+
+function mergeEquipmentCatalogItems(items) {
+  const byIdentity = new Map();
+  for (const item of items || []) {
+    if (!item || typeof item !== "object") continue;
+    const id = item.id ?? item.itemId;
+    if (id === null || id === undefined || !item.slot) continue;
+    const key = String(id) + "|" + String(item.slot);
+    const previous = byIdentity.get(key);
+    if (!previous) { byIdentity.set(key, item); continue; }
+    const countStats = value => Array.isArray(value?.stats) ? value.stats.length : Object.keys(value?.stats || {}).length;
+    const preferred = countStats(item) > countStats(previous) ? item : previous;
+    const other = preferred === item ? previous : item;
+    const locations = [...(preferred.sourceLocations || []), ...(other.sourceLocations || [])];
+    byIdentity.set(key, { ...other, ...preferred, ...(locations.length ? { sourceLocations: [...new Map(locations.map(x => [JSON.stringify(x), x])).values()] } : {}) });
+  }
+  return [...byIdentity.values()];
+}
+
+async function loadEquipmentSections(fetcher = fetch) {
+  const items = [], loadedSections = [], unavailableSections = [];
+  for (const sectionName of WOW_EQUIPMENT_SECTION_FILES) {
+    try {
+      const response = await fetcher(`data/equipment-sections/${sectionName}.json`, { cache: "no-store" });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const section = await response.json();
+      if (section?.section !== sectionName || section?.complete !== true || !Array.isArray(section.items) || Number(section.candidateCount) !== section.items.length || section.items.some(item => !item || !Number.isInteger(Number(item.id)) || !item.name || item.isEquippable !== true || !Array.isArray(item.stats) || !item.stats.length)) throw new Error("Section failed completeness or item validation");
+      items.push(...normalizeEquipmentItems(section.items.map(item => ({ ...item, catalogSection: sectionName }))));
+      loadedSections.push(sectionName);
+    } catch (error) { unavailableSections.push({ section: sectionName, reason: String(error?.message || error) }); }
+  }
+  const merged = mergeEquipmentCatalogItems(items);
+  return { items: merged, status: loadedSections.length === WOW_EQUIPMENT_SECTION_FILES.length ? "complete" : loadedSections.length ? "partial" : "unavailable", expectedSectionCount: WOW_EQUIPMENT_SECTION_FILES.length, loadedSections, unavailableSections, itemCount: merged.length };
+}
 function createEmptyRetailDataset() {
   return {
     schemaVersion: WOW_DATA_SCHEMA_VERSION,
@@ -189,6 +225,10 @@ async function loadRetailDataset(url = "data/current-retail.json") {
   const raw = await response.json();
   const data = normalizeRetailDataset(raw);
 
+  const sectionCatalogue = await loadEquipmentSections();
+  data.items = mergeEquipmentCatalogItems([...data.items, ...sectionCatalogue.items]);
+  data.catalogSections = { ...sectionCatalogue, itemCount: sectionCatalogue.itemCount, fallbackItemCount: raw.items?.length || 0 };
+
   // Tier-set data is an optional optimization enhancement, not a dependency
   // for loading ordinary gear. Missing/invalid tier data must never block PvE
   // item scoring; report its absence explicitly so set advice stays conservative.
@@ -363,6 +403,9 @@ window.WoWData = {
   inferEquipmentSlot,
   normalizeRetailDataset,
   validateRetailDataset,
+  mergeEquipmentCatalogItems,
+  loadEquipmentSections,
+  equipmentSectionFiles: WOW_EQUIPMENT_SECTION_FILES,
   loadRetailDataset,
   validateTierSetCatalogue
 };
