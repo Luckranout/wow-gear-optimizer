@@ -608,6 +608,7 @@ function scoreEquipmentWithRatingDiminishingReturns(equipment = {}, statWeights 
     score += Number(item.effectValue) || 0;
     if (item.isSetPiece) score += 10;
     if (item.isUniqueEffect) score += 5;
+    score += scoreTrinketUseEffect(item, statWeights);
     const entries = Array.isArray(item.stats)
       ? item.stats.map(s => [normalizeItemStatName(s.stat?.name || s.type?.name || s.name || s.stat), Number(s.value ?? s.amount) || 0])
       : Object.entries(item.stats || {}).map(([stat, value]) => [normalizeItemStatName(stat), Number(value?.value ?? value?.amount ?? value) || 0]);

@@ -17,4 +17,7 @@ assert.ok(scoreWith > scoreWithout, "a modeled on-use temporary stat effect must
 assert.equal(optimizer.scoreTrinketUseEffect(withUse, statWeights), 422 * 0.5 * (10 / 90));
 assert.equal(optimizer.scoreTrinketUseEffect({ ...withUse, slot: "Neck" }, statWeights), 0, "only trinket slots receive the active trinket score");
 assert.equal(optimizer.scoreTrinketUseEffect({ ...withUse, trinketEffect: { durationSeconds: 10, cooldownSeconds: 90, temporaryStats: {} } }, statWeights), 0);
+const loadoutWithout = optimizer.scoreLoadout({ "Trinket 1": base }, statWeights, [], "", 90).score;
+const loadoutWith = optimizer.scoreLoadout({ "Trinket 1": withUse }, statWeights, [], "", 90).score;
+assert.ok(loadoutWith > loadoutWithout, "cooldown-aware effect must be included in full-loadout scoring even when DR scoring is active");
 console.log("Trinket on-use effect scoring tests passed.");
