@@ -1895,6 +1895,7 @@ def fetch_item_details(token, item_ids, item_sources):
                         "name": item.get("name"),
                         "level": 334,
                         "itemLevel": 334,
+                        "description": "Equip: Your spells have a high chance to call to the sea, granting Tidal Insight to increase your Intellect by 65 up to 6 times. After reaching its peak, your spells instead diminish Tidal Insight before beginning the cycle anew.",
                         "stats": variant_stats,
                         "statsSource": "Wowhead tooltip (explicit 334 item-level variant; bonus IDs 6652:13335:12854)",
                         "variantSource": "Wowhead Myth 6/6 variant, item level 334; bonus IDs 6652:13335:12854",
