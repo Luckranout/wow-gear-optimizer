@@ -63,6 +63,7 @@ async function main() {
     assert.ok(persisted && persisted.record.id === 12345, "item record is written to durable storage");
     assert.ok(Date.parse(persisted.expires_at) > Date.now(), "stored record has a future expiry");
 
+    catalog._test.resetItemCache(); // Force the next request through durable storage, not process memory.
     const second = await catalog.getItem(12345, { fetch: fetchMock, env: process.env });
     assert.equal(second.cache, "hit");
     assert.equal(second.item.name, "Test Sword");
