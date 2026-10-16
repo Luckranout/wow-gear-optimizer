@@ -68,6 +68,8 @@ jobs:
         run: node tests/slot-candidates.test.js
       - name: Run live Wowhead item lookup API tests
         run: node tests/item-lookup.test.js
+      - name: Run on-demand Blizzard item persistence tests
+        run: node tests/blizzard-item-catalog.test.js
       - name: Run cooldown-aware trinket effect scoring tests
         run: node tests/trinket-effect-scoring.test.js
       - name: Run Enhancement Shaman primary-stat eligibility tests
