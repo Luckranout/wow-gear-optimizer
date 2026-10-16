@@ -156,6 +156,7 @@ const SLOT_INVENTORY_SEARCHES = {
   "Off Hand": ["WEAPON", "WEAPONOFFHAND", "HOLDABLE", "SHIELD"]
 };
 let discoveryEnabled = true;
+let discoveryProvider = null;
 async function discoverSlotItems(slot) {
   if (!discoveryEnabled) return [];
   const ids = await searchItemIds(SLOT_INVENTORY_SEARCHES[slot] || [], { limit: 40 });
@@ -197,7 +198,7 @@ async function handler(req, res) {
   try {
     let discovered = [];
     let discoveryError = null;
-    try { discovered = await discoverSlotItems(slot); }
+    try { discovered = await (discoveryProvider ? discoveryProvider(slot) : discoverSlotItems(slot)); }
     catch (error) { discoveryError = error.publicMessage || "Blizzard item discovery failed."; }
     const knownIds = new Set(payload.items.map(item => Number(item.id)));
     const newDiscovery = discovered.filter(item => !knownIds.has(Number(item.id)));
@@ -241,6 +242,7 @@ handler._test = {
   createResponse,
   setSectionDir(dir) { sectionDir = dir; },
   setDiscoveryEnabled(value) { discoveryEnabled = Boolean(value); },
+  setDiscoveryProvider(fn) { discoveryProvider = typeof fn === "function" ? fn : null; },
   discoverSlotItems
 };
 module.exports = handler;
