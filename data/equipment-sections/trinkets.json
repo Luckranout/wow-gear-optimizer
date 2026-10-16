@@ -1693,22 +1693,22 @@
       ],
       "variants": [
         {
-          "variantKey": "wowhead:6652:13335:12854:ilvl334",
+          "variantKey": "wowhead:6652:13335:12854:ilvl340",
           "name": "Wavecaller's Seastone",
-          "level": 334,
-          "itemLevel": 334,
+          "level": 340,
+          "itemLevel": 340,
           "description": "Equip: Your spells have a high chance to call to the sea, granting Tidal Insight to increase your Intellect by 65 up to 6 times. After reaching its peak, your spells instead diminish Tidal Insight before beginning the cycle anew.",
           "stats": [
             {
               "type": {
                 "name": "haste"
               },
-              "value": 143,
+              "value": 147,
               "source": "Wowhead tooltip"
             }
           ],
-          "statsSource": "Wowhead tooltip (explicit 334 item-level variant; bonus IDs 6652:13335:12854)",
-          "variantSource": "Wowhead Myth 6/6 variant, item level 334; bonus IDs 6652:13335:12854",
+          "statsSource": "In-game tooltip verified item-level 340 variant; bonus IDs 6652:13335:12854",
+          "variantSource": "Ascendant Venomforged: Myth in-game tooltip, item level 340; bonus IDs 6652:13335:12854",
           "bonusIds": [
             6652,
             13335,
