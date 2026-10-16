@@ -111,10 +111,17 @@ function allowedForSpecialization(item, className, specialization, slot) {
 }
 
 function hasUsableStats(item) {
-  const values = item.stats ?? item.statValues ?? item.stat_values ?? item.attributes;
-  if (Array.isArray(values)) return values.some(stat => Number(stat?.value ?? stat?.amount ?? stat) > 0);
-  if (values && typeof values === "object") return Object.values(values).some(value => Number(value?.value ?? value?.amount ?? value) > 0);
-  return Number(item.intellect || item.strength || item.agility || item.stamina || 0) > 0;
+  // Blizzard's base item record can contain placeholder/low-level stats while
+  // a verified Wowhead variant carries the usable upgraded stats. Evaluate
+  // both the base record and attached variants so the API does not discard an
+  // item before optimizer.js can expand its variants.
+  const hasStats = candidate => {
+    const values = candidate?.stats ?? candidate?.statValues ?? candidate?.stat_values ?? candidate?.attributes;
+    if (Array.isArray(values)) return values.some(stat => Number(stat?.value ?? stat?.amount ?? stat) > 0);
+    if (values && typeof values === "object") return Object.values(values).some(value => Number(value?.value ?? value?.amount ?? value) > 0);
+    return Number(candidate?.intellect || candidate?.strength || candidate?.agility || candidate?.stamina || 0) > 0;
+  };
+  return hasStats(item) || (Array.isArray(item.variants) && item.variants.some(hasStats));
 }
 function createResponse() {
   return {
