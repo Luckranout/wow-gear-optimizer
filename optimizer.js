@@ -68,6 +68,44 @@ function normalizeClassName(className) {
   return String(className || "").toLowerCase().replace(/[\s'_-]/g, "");
 }
 
+function expectedPrimaryStat(className, specialization) {
+  const cls = normalizeClassName(className);
+  const spec = String(specialization || "").trim().toLowerCase();
+  if (["warrior", "paladin", "deathknight"].includes(cls)) return "Strength";
+  if (["hunter", "rogue", "demonhunter", "monk"].includes(cls)) return "Agility";
+  if (cls === "druid") return ["balance", "restoration"].includes(spec) ? "Intellect" : "Agility";
+  if (cls === "shaman") return spec === "enhancement" ? "Agility" : "Intellect";
+  if (["mage", "priest", "warlock", "evoker"].includes(cls)) return "Intellect";
+  return null;
+}
+
+function itemPrimaryStats(item) {
+  const records = [item, ...(Array.isArray(item?.variants) ? item.variants : [])];
+  const found = new Set();
+  for (const record of records) {
+    const stats = Array.isArray(record?.stats)
+      ? record.stats
+      : record?.stats && typeof record.stats === "object"
+        ? Object.entries(record.stats).map(([name, value]) => ({ name, value }))
+        : [];
+    for (const stat of stats) {
+      const name = normalizeItemStatName(stat?.type?.name || stat?.name || stat?.stat?.name || stat?.stat || stat?.type);
+      if (["Strength", "Agility", "Intellect"].includes(name) && Number(stat?.value ?? stat?.amount) > 0) found.add(name);
+    }
+  }
+  return found;
+}
+
+function itemAllowedForPrimaryStat(item, className, specialization) {
+  const expected = expectedPrimaryStat(className, specialization);
+  if (!expected) return true;
+  const primaryStats = itemPrimaryStats(item);
+  // Items without primary-stat metadata remain eligible; don't infer incompatibility
+  // from missing catalog data. If a primary stat is explicitly present, it must
+  // match the class/spec's primary stat.
+  return primaryStats.size === 0 || primaryStats.has(expected);
+}
+
 function itemAllowedForClass(item, className) {
   if (!item || !className) return true;
   const expectedArmor = CLASS_ARMOR_TYPE[normalizeClassName(className)];
@@ -120,6 +158,7 @@ function itemAllowedForClassWeapon(item, slot, className) {
 }
 
 function itemAllowedForSpecialization(item, slot, className, specialization) {
+  if (!itemAllowedForPrimaryStat(item, className, specialization)) return false;
   if (normalizeClassName(className) !== "shaman") return true;
   const spec = String(specialization || "").trim().toLowerCase();
   if (spec !== "enhancement") return true;
@@ -421,6 +460,14 @@ function createCharacterProfileFromImport({ importedCharacter, goal = WOW_GOALS.
   character.equipment = normalizeImportedEquipment(importedCharacter.equipment);
   character.statistics = normalizeCharacterStatistics(importedCharacter.statistics);
   character.talents = Array.isArray(importedCharacter.talents) ? importedCharacter.talents : [];
+  character.talentBuild = importedCharacter.talentBuild && typeof importedCharacter.talentBuild === "object"
+    ? importedCharacter.talentBuild
+    : {
+        source: importedCharacter.source || "Imported character",
+        verified: character.talents.length > 0,
+        selectedNodes: character.talents,
+        selectedNodeCount: character.talents.length
+      };
 
   return {
     ...character,
@@ -430,7 +477,8 @@ function createCharacterProfileFromImport({ importedCharacter, goal = WOW_GOALS.
     level: importedCharacter.level ?? null,
     classId: importedCharacter.class?.id ?? null,
     specializationId: importedCharacter.activeSpec?.id ?? null,
-    source: importedCharacter.source || "Imported character"
+    source: importedCharacter.source || "Imported character",
+    talentBuild: character.talentBuild
   };
 }
 
@@ -1439,6 +1487,7 @@ function createOptimizationReport({character = createCharacterProfile(), availab
         ? ["Specialization profile weights are heuristics, not simulation-derived scale factors."]
         : ["No verified specialization profile or simulation weights were available; generic goal weights were used, except for explicitly coded specialization fallbacks."]),
       "Imported item stat presence does not prove complete item or enhancement effects.",
+      ...(character.talentBuild?.verified ? [] : ["Active talent-node build data was not verified; build-specific talent synergies were not applied."]),
       "Numeric projected character stats are not calculated by this report."
     ],
     equipmentSlots: WOW_EQUIPMENT_SLOTS.length, generatedAt: new Date().toISOString()
@@ -1455,7 +1504,7 @@ window.WoWOptimizer = {
   applySecondaryRatingDiminishingReturns, getSecondaryRatingDiminishingReturns, SECONDARY_RATING_DR_TABLE, SECONDARY_RATING_DR_SOFT_TARGETS, getSecondaryRatingTotals, getSecondaryRatingHardCapViolations, getSecondaryRatingSoftTargetPenalty,
   applyTertiaryRatingDiminishingReturns, TERTIARY_RATING_DR_TABLE, getTertiaryRatingTotals,
   createCharacterProfile, normalizeCharacterStatistics, scoreCharacterStatistics, getCharacterStatSummary, resolveStatWeights, normalizeSimulationScaleFactors, getSimulationWeightContext, findBlizzardSpecialization, getSpecProfileContext,
-  normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, hasUsableItemStats, itemAllowedForClass, scoreTrinketUseEffect, scoreItem, scoreEquipment, getGoalWeights,
+  normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, hasUsableItemStats, itemAllowedForClass, expectedPrimaryStat, itemPrimaryStats, itemAllowedForPrimaryStat, scoreTrinketUseEffect, scoreItem, scoreEquipment, getGoalWeights,
   findBestItemForSlot, itemMatchesSlot, itemAllowedForClassWeapon, itemAllowedForSpecialization, getWeaponMetadata, normalizeWeaponType, optimizeEquipment, findUpgradeOpportunities, rankItems,
   getItemSetId, getSetBonusStatus, getTierSetCoverageStatus, scoreSetBonuses, scoreEquipmentWithRatingDiminishingReturns, scoreLoadout,
   getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,
