@@ -175,19 +175,30 @@ async function handler(req, res) {
     // Only records with combat-stat evidence (base stats or verified variants)
     // enter scoring. Blizzard's is_equippable flag alone is insufficient because
     // cosmetic/transmog items can be equippable without being combat gear.
-    const items = payload.items.filter(item =>
+    const eligibleByMetadata = payload.items.filter(item =>
       item.isEquippable === true &&
       item.seasonScope === "Midnight Season 2+" &&
-      hasUsableStats(item) &&
       slotMatches(item, slot) &&
       allowedForClass(item, className, slot) &&
       allowedForClassWeapon(item, className, slot) &&
       allowedForSpecialization(item, className, specialization, slot)
     );
+    const items = eligibleByMetadata.filter(hasUsableStats);
+    // Missing stats are not optimizer candidates yet. Return a separate, bounded
+    // verification queue so the caller can ask Wowhead for real combat-stat
+    // variants before admitting any such record. This prevents cosmetics/transmog
+    // items from entering scoring merely because Blizzard marks them equippable.
+    const pendingStatVerification = eligibleByMetadata
+      .filter(item => !hasUsableStats(item))
+      .slice(0, 8)
+      .map(item => ({ ...item, requiresWowheadVerification: true }));
     res.setHeader("Cache-Control", "public, s-maxage=900, stale-while-revalidate=1800");
     return res.status(200).json({
-      slot, section, count: items.length, items,
-      coverage: items.length ? "candidates-available" : "no-validated-compatible-candidates",
+      slot, section, count: items.length, items, pendingStatVerification,
+      pendingStatVerificationCount: pendingStatVerification.length,
+      coverage: items.length ? "candidates-available" : pendingStatVerification.length
+        ? "combat-stats-require-wowhead-verification"
+        : "no-validated-compatible-candidates",
       source: "verified-season-section-cache"
     });
   } catch (error) {
