@@ -138,12 +138,37 @@ async function fetchFromBlizzard(id, env = process.env, fetchImpl = globalThis.f
   return normalizeBlizzardItem(await response.json(), id);
 }
 
+async function searchItemIds(inventoryTypes, options = {}) {
+  const fetchImpl = options.fetch || globalThis.fetch;
+  const env = options.env || process.env;
+  const limit = Math.max(1, Math.min(100, Number(options.limit) || 40));
+  const token = await getBlizzardToken(env, fetchImpl);
+  const ids = new Set();
+  for (const inventoryType of [...new Set((inventoryTypes || []).filter(Boolean))]) {
+    const params = new URLSearchParams({ namespace: "static-us", locale: LOCALE, "inventory_type.type": inventoryType, _page: "1", _pageSize: String(limit), orderby: "id" });
+    const response = await fetchImpl(API_BASE + "/data/wow/search/item?" + params.toString(), { headers: { Authorization: "Bearer " + token, Accept: "application/json" } });
+    if (!response.ok) {
+      const error = new Error("Blizzard item search returned HTTP " + response.status);
+      error.statusCode = 502;
+      error.publicMessage = "Blizzard item discovery is temporarily unavailable.";
+      throw error;
+    }
+    const payload = await response.json();
+    for (const result of Array.isArray(payload.results) ? payload.results : []) {
+      const id = Number(result && result.data ? result.data.id : result && result.id);
+      if (Number.isSafeInteger(id) && id > 0) ids.add(id);
+      if (ids.size >= limit) break;
+    }
+    if (ids.size >= limit) break;
+  }
+  return [...ids].slice(0, limit);
+}
 async function getItem(id, options = {}) {
   const fetchImpl = options.fetch || globalThis.fetch;
   const env = options.env || process.env;
   const useMemoryCache = options.memoryCache !== false;
   const now = Date.now();
-  if (useMemoryCache && !storageConfig(env)) {
+  if (useMemoryCache) {
     const cached = memoryItemCache.get(Number(id));
     if (cached && cached.expiresAt > now) {
       // Refresh insertion order so the bounded cache behaves like LRU.
@@ -165,6 +190,12 @@ async function getItem(id, options = {}) {
     if (useMemoryCache) rememberItem(stored.item);
     return { item: stored.item, cache: "hit", persistentStorage: true };
   }
+  if (useMemoryCache) {
+    const cached = memoryItemCache.get(Number(id));
+    if (cached && cached.expiresAt > now) {
+      return { item: cached.item, cache: "memory-hit-after-storage-miss", persistentStorage: false };
+    }
+  }
   const item = await fetchFromBlizzard(id, env, fetchImpl);
   if (!item) return { item: null, cache: "miss", persistentStorage: stored.configured && !stored.storageError };
   let persisted = false;
@@ -185,6 +216,6 @@ function rememberItem(item) {
 
 module.exports = {
   storageConfig, supabaseRequest, readStoredItem, storeItem, getBlizzardToken,
-  normalizeBlizzardItem, fetchFromBlizzard, getItem,
+  normalizeBlizzardItem, fetchFromBlizzard, searchItemIds, getItem,
   _test: { resetTokenCache() { tokenCache = null; }, resetItemCache() { memoryItemCache.clear(); }, CACHE_TTL_SECONDS, MEMORY_CACHE_MAX_ITEMS }
 };
