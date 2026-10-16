@@ -74,6 +74,26 @@ async function main() {
     assert.equal(normalized.seasonEligibility, "unverified");
     assert.equal(normalized.seasonScope, "unknown");
 
+    const outageFetch = async (url, options = {}) => {
+      if (url.startsWith("https://db.example.test/rest/v1/wow_items?")) {
+        return new Response("database unavailable", { status: 503 });
+      }
+      if (url === "https://oauth.battle.net/token") {
+        return new Response(JSON.stringify({ access_token: "token", expires_in: 3600 }), {
+          status: 200, headers: { "Content-Type": "application/json" }
+        });
+      }
+      if (url.includes("/data/wow/item/")) {
+        return new Response(JSON.stringify({
+          id: 54321, name: { en_US: "Storage Outage Item" }, is_equippable: true
+        }), { status: 200, headers: { "Content-Type": "application/json" } });
+      }
+      throw new Error("Unexpected outage request: " + url);
+    };
+    const duringOutage = await catalog.getItem(54321, { fetch: outageFetch, env: process.env });
+    assert.equal(duringOutage.item.name, "Storage Outage Item", "database outage must not block live Blizzard lookup");
+    assert.equal(duringOutage.persistentStorage, false, "database outage must not be reported as durable persistence");
+
     process.env.SUPABASE_URL = "";
     const noStorage = await catalog.readStoredItem(9, fetchMock);
     assert.equal(noStorage.configured, false, "missing Supabase config is reported instead of pretending persistence worked");
