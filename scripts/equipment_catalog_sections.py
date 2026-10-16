@@ -132,6 +132,11 @@ def collect_equipment_section_ids(token, get_api_json, allowed_item_ids, sleep=t
             type_to_sections.setdefault(inventory_type, set()).add(section)
 
     detail_errors = 0
+    rejection_counts = {
+        "not_equippable": 0,
+        "unsupported_inventory_type": {},
+        "missing_source_evidence": 0,
+    }
     for index, item_id in enumerate(sorted(allowed_item_ids), start=1):
         try:
             detail = get_api_json(
@@ -148,11 +153,25 @@ def collect_equipment_section_ids(token, get_api_json, allowed_item_ids, sleep=t
             continue
 
         if not isinstance(detail, dict) or not detail.get("is_equippable"):
+            rejection_counts["not_equippable"] += 1
+            print(
+                f"Equipment source excluded: id={item_id}; "
+                "reason=Blizzard item detail does not confirm is_equippable."
+            )
             continue
         inventory = detail.get("inventory_type") or {}
         inventory_type = inventory.get("type") if isinstance(inventory, dict) else None
         matched_sections = type_to_sections.get(inventory_type, set())
         if not matched_sections:
+            key = str(inventory_type or "missing")
+            rejection_counts["unsupported_inventory_type"][key] = (
+                rejection_counts["unsupported_inventory_type"].get(key, 0) + 1
+            )
+            print(
+                f"Equipment source not classified: id={item_id}; "
+                f"name={detail.get('name')!r}; inventory_type={key!r}; "
+                "reason=no equipment section mapping."
+            )
             continue
 
         print(
@@ -164,7 +183,11 @@ def collect_equipment_section_ids(token, get_api_json, allowed_item_ids, sleep=t
         if isinstance(evidence, dict):
             evidence = [evidence]
         if not evidence:
-            print(f"Equipment source rejected without provenance: id={item_id}; no source evidence.")
+            rejection_counts["missing_source_evidence"] += 1
+            print(
+                f"Equipment source not classified: id={item_id}; "
+                "reason=no independent source evidence."
+            )
             continue
 
         # Do not use item-detail "level" as a season eligibility gate. Blizzard's
@@ -192,6 +215,9 @@ def collect_equipment_section_ids(token, get_api_json, allowed_item_ids, sleep=t
     print(
         "Equipment source classification summary: "
         f"verified_source_ids={len(allowed_item_ids)}; detail_errors={detail_errors}; "
+        f"not_equippable={rejection_counts['not_equippable']}; "
+        f"missing_source_evidence={rejection_counts['missing_source_evidence']}; "
+        f"unsupported_inventory_types={rejection_counts['unsupported_inventory_type']}; "
         f"section_counts={{{', '.join(f'{key}: {len(value)}' for key, value in sorted(section_ids.items()))}}}"
     )
     if detail_errors:
