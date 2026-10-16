@@ -638,6 +638,42 @@ if (enhancementWithSimulation.Haste !== 1.7 || enhancementWithSimulation.Mastery
 }
 console.log("Enhancement Shaman stat-priority fallback regression passed.");
 
+// Direct optimizer entry points must use the same specialization-aware defaults
+// as createOptimizationReport when callers omit an explicit statWeights object.
+const defaultWeightCandidates = [
+  { id: 989101, name: "Agility Helm", slot: "Head", itemLevel: 300, stats: { Agility: 100 } },
+  { id: 989102, name: "Versatility Helm", slot: "Head", itemLevel: 300, stats: { Versatility: 100 } }
+];
+const resolvedEnhancementWeights = o.resolveStatWeights({
+  className: "Shaman", specialization: "Enhancement"
+});
+const defaultWeightUpgrade = o.findUpgradeOpportunities({
+  currentEquipment: {}, availableItems: defaultWeightCandidates,
+  className: "Shaman", specialization: "Enhancement", characterLevel: 90, limit: 6
+}).find(upgrade => upgrade.slot === "Head");
+const explicitWeightUpgrade = o.findUpgradeOpportunities({
+  currentEquipment: {}, availableItems: defaultWeightCandidates,
+  statWeights: resolvedEnhancementWeights,
+  className: "Shaman", specialization: "Enhancement", characterLevel: 90, limit: 6
+}).find(upgrade => upgrade.slot === "Head");
+if (defaultWeightUpgrade?.recommendedItem?.id !== explicitWeightUpgrade?.recommendedItem?.id ||
+    Math.abs(defaultWeightUpgrade?.recommendedScore - explicitWeightUpgrade?.recommendedScore) > 1e-9) {
+  throw new Error("Upgrade recommendations without explicit weights must match resolved Enhancement Shaman weights");
+}
+const enhancementDefaultCharacter = {
+  ...o.createCharacterProfile(), className: "Shaman", specialization: "Enhancement", level: 90, equipment: {}
+};
+const defaultWeightLoadout = o.optimizeEquipment({items: defaultWeightCandidates, character: enhancementDefaultCharacter});
+const explicitWeightLoadout = o.optimizeEquipment({
+  items: defaultWeightCandidates, character: enhancementDefaultCharacter, statWeights: resolvedEnhancementWeights
+});
+if (defaultWeightLoadout.equipment.Head?.id !== explicitWeightLoadout.equipment.Head?.id ||
+    Math.abs(defaultWeightLoadout.score - explicitWeightLoadout.score) > 1e-9) {
+  throw new Error("Full-loadout optimization without explicit weights must match resolved Enhancement Shaman weights");
+}
+console.log("Direct optimizer entry points use specialization-aware default weights.");
+
+
 console.log("Step 12 simulation scale-factor support passed.");
 
 
