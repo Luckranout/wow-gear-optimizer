@@ -31,6 +31,62 @@ SECTION_SEARCHES = {
 }
 SECTION_DIR = Path("data/equipment-sections")
 
+# Canonical Blizzard inventory-type codes are the primary mapping key. Names are
+# fallback-only because localized display names can vary by locale/API shape.
+INVENTORY_TYPE_NAME_ALIASES = {
+    "FINGER": "rings", "RING": "rings", "NECK": "necklaces", "NECKLACE": "necklaces",
+    "TRINKET": "trinkets", "HEAD": "head", "SHOULDER": "shoulders",
+    "CLOAK": "back", "BACK": "back", "CHEST": "chest", "ROBE": "chest",
+    "WRIST": "wrists", "HAND": "hands", "WAIST": "waist",
+    "LEGS": "legs", "LEG": "legs", "FEET": "feet",
+}
+INVENTORY_TYPE_NAME_ALIASES.update({
+    "WEAPONMAINHAND": "main-hand", "TWOHWEAPON": "main-hand",
+    "RANGED": "main-hand", "RANGEDRIGHT": "main-hand", "THROWN": "main-hand",
+    "WEAPONOFFHAND": "off-hand", "HOLDABLE": "off-hand", "SHIELD": "off-hand",
+})
+
+
+def sections_for_inventory_type(inventory_type):
+    """Map Blizzard item-detail inventory metadata to one or more catalog categories.
+
+    Accepts the canonical inventory_type.type code or a Blizzard inventory_type
+    object. Generic WEAPON metadata is intentionally mapped to both hand sections;
+    class/spec/slot eligibility is the optimizer/API's responsibility.
+    """
+    if isinstance(inventory_type, dict):
+        code = inventory_type.get("type")
+        name = inventory_type.get("name")
+    else:
+        code = inventory_type
+        name = inventory_type
+    code = str(code or "").strip().upper().replace("-", "").replace("_", "")
+    name = str(name or "").strip().lower()
+    code_map = {
+        key.replace("-", "").replace("_", ""): value
+        for key, value in INVENTORY_TYPE_NAME_ALIASES.items()
+    }
+    if code in code_map:
+        return (code_map[code],)
+    if code == "WEAPON":
+        return ("main-hand", "off-hand")
+    name_aliases = {
+        "finger": "rings", "ring": "rings", "neck": "necklaces",
+        "necklace": "necklaces", "trinket": "trinkets", "head": "head",
+        "shoulder": "shoulders", "cloak": "back", "back": "back",
+        "chest": "chest", "robe": "chest", "wrist": "wrists",
+        "hand": "hands", "waist": "waist", "legs": "legs", "leg": "legs",
+        "feet": "feet", "weapon": "main-hand",
+        "weapon main hand": "main-hand", "two-hand": "main-hand",
+        "weapon off hand": "off-hand", "held in off-hand": "off-hand",
+        "shield": "off-hand",
+    }
+    if name in name_aliases:
+        return (name_aliases[name],)
+    return ()
+
+
+
 
 def validate_required_sections(section_ids):
     """Fail closed when any required equipment section has no verified candidates.
