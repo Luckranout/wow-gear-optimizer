@@ -865,6 +865,10 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
       : report.optimizationProfileStatus === "missing-specialization-profile"
         ? `WARNING: no verified ${character.className} / ${character.specialization} profile • generic fallback weights used • ${character.goal}`
         : `Static heuristic ranking • ${character.goal} • not spec-specific simulation`;
+  const talentBuild = character.talentBuild;
+  optimizationSource.textContent += talentBuild?.verified
+    ? ` • Talent build detected (${talentBuild.selectedNodeCount} entries); no verified talent-specific scoring profile is available`
+    : " • Talent build unverified; talent-specific scoring is disabled";
 
   renderUpgradeResults(report.topUpgrades);
   renderOptimizedLoadout(report.optimizedEquipment, report.totalScore, WoWOptimizer.normalizeImportedEquipment(importedCharacter?.equipment || []));
