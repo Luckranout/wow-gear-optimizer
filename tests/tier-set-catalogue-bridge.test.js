@@ -551,10 +551,10 @@ test("Priest source-backed tier item versions remain evidence-only and match Wow
 test("Warlock source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
   const warlock = catalogue.sets.find(set => set.class === "Warlock");
   const observations = warlock.verifiedVariantObservations || [];
-  assert.equal(observations.length, 5);
+  assert.equal(observations.length, 6);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(warlock.variantObservationsStatus, "partial");
-  assert.match(warlock.variantObservationsNote, /head is observed only at base item level 219/i);
+  assert.match(warlock.variantObservationsNote, /head is source-verified at base item level 219 and at Myth 1\/6 item level 318/i);
   const manifestSet = manifest.sets.find(set => set.className === "Warlock");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
   for (const piece of observations) {
@@ -570,17 +570,19 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
   const expected = {
     271549: { intellect: 189, stamina: 3910, haste: 141, mastery: 60 },
     271547: { intellect: 138, stamina: 2832, criticalStrike: 44, haste: 105 },
-    271546: { intellect: 65, stamina: 1005, versatility: 34, mastery: 73 },
+    "271546:219": { intellect: 65, stamina: 1005, versatility: 34, mastery: 73 },
+    "271546:318": { intellect: 162, stamina: 3254, versatility: 61, mastery: 127 },
     271545: { intellect: 189, stamina: 3910, haste: 141, mastery: 60 },
     271544: { intellect: 141, stamina: 2932, haste: 50, versatility: 101 }
   };
   for (const piece of observations) {
     assert.deepEqual(
       Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])),
-      expected[piece.itemId]
+      expected[piece.itemId === 271546 ? `271546:${piece.itemLevel}` : piece.itemId]
     );
   }
-  assert.equal(observations.find(piece => piece.itemId === 271546).itemLevel, 219);
+  assert.equal(observations.find(piece => piece.itemId === 271546 && piece.itemLevel === 219).itemLevel, 219);
+  assert.equal(observations.find(piece => piece.itemId === 271546 && piece.itemLevel === 318).variant, "Myth 1/6 observed");
   assert.equal(warlock.itemIdsVerified, false,
     "partial observed versions must not promote the complete class variant map");
 });
