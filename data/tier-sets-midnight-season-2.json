@@ -4469,7 +4469,216 @@
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
-      "baseItemIdsVerified": true
+      "baseItemIdsVerified": true,
+      "verifiedVariantObservations": [
+        {
+          "itemId": 271549,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Rattling Robes",
+          "slot": "Chest",
+          "variant": "Mythic 6/6 observed",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271549/damned-necrolytes-rattling-robes",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead Mythic 6/6 tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead Mythic 6/6 tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 141,
+              "source": "Wowhead Mythic 6/6 tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 60,
+              "source": "Wowhead Mythic 6/6 tooltip, item level 334"
+            }
+          ]
+        },
+        {
+          "itemId": 271547,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Charred Grasps",
+          "slot": "Hands",
+          "variant": "Heroic 5/6 observed",
+          "itemLevel": 331,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271547/damned-necrolytes-charred-grasps?bonus=13334%3A13691%3A6652%3A13697%3A13696%3A12853&ilvl=331&spec=266",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 138,
+              "source": "Wowhead tooltip, item level 331"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2832,
+              "source": "Wowhead tooltip, item level 331"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 44,
+              "source": "Wowhead tooltip, item level 331"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 105,
+              "source": "Wowhead tooltip, item level 331"
+            }
+          ]
+        },
+        {
+          "itemId": 271546,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Skull of the Damned Necrolyte",
+          "slot": "Head",
+          "variant": "Base item level observed",
+          "itemLevel": 219,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271546/skull-of-the-damned-necrolyte",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 65,
+              "source": "Wowhead tooltip, item level 219"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1005,
+              "source": "Wowhead tooltip, item level 219"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 34,
+              "source": "Wowhead tooltip, item level 219"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 73,
+              "source": "Wowhead tooltip, item level 219"
+            }
+          ]
+        },
+        {
+          "itemId": 271545,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Leg Bindings",
+          "slot": "Legs",
+          "variant": "Mythic 6/6 observed",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271545/damned-necrolytes-leg-bindings?bonus=4786%3A12806&ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 60,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ]
+        },
+        {
+          "itemId": 271544,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Spires of the Damned Necrolyte",
+          "slot": "Shoulders",
+          "variant": "Mythic 6/6 observed",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271544/spires-of-the-damned-necrolyte?bonus=13694%3A13440%3A6652%3A13697%3A12854&class=9&ilvl=334&spec=266",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 50,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 101,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ]
+        }
+      ],
+      "variantObservationsStatus": "partial",
+      "variantObservationsNote": "Five exact Wowhead item versions are recorded as evidence only. Chest, legs, and shoulders are Mythic 6/6; hands are observed at item level 331; head is observed only at base item level 219. This does not establish full difficulty/upgrade coverage or the complete Warlock variant ID map. Do not use these observations as optimizer candidates."
     },
     {
       "class": "Warrior",
