@@ -8,6 +8,7 @@ const vm = require("node:vm");
 
 const root = path.resolve(__dirname, "..");
 const manifest = JSON.parse(fs.readFileSync(path.join(root, "data/tier-set-item-ids.json"), "utf8"));
+const tierCatalogue = JSON.parse(fs.readFileSync(path.join(root, "data/tier-sets-midnight-season-2.json"), "utf8"));
 const sectionNames = [
   "back", "chest", "feet", "hands", "head", "legs", "main-hand",
   "necklaces", "off-hand", "rings", "shoulders", "trinkets", "waist", "wrists"
@@ -55,6 +56,22 @@ test("manifest piece IDs resolve to catalog entries in the expected slots", () =
   }
   assert.deepEqual(missing, [], "tier IDs absent from downloaded equipment sections");
   assert.deepEqual(wrongSlot, [], "tier IDs present but assigned to the wrong slot");
+});
+
+test("all 13 tier sets have five mapped pieces and unverified records remain ineligible", () => {
+  assert.equal(tierCatalogue.sets.length, 13);
+  for (const set of manifest.sets) {
+    const record = tierCatalogue.sets.find(candidate => candidate.class === set.className);
+    assert.ok(record, "missing tier-set data for " + set.className);
+    assert.equal(record.itemIdsVerified, true, set.className + " item ID mapping");
+    for (const piece of set.pieces) {
+      const records = (record.pieces || []).filter(candidate => String(candidate.itemId) === String(piece.itemId));
+      assert.ok(records.length > 0, set.className + " missing piece " + piece.itemId);
+      assert.ok(records.some(candidate => candidate.dataStatus !== "metadata-only-unverified-stats" ||
+        (candidate.candidate === false && candidate.stats.length === 0)),
+        set.className + " unverified piece must not be treated as a candidate");
+    }
+  }
 });
 
 test("catalog sections are correctly named and have unique section-local IDs", () => {
