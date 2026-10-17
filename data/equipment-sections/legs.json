@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "section": "legs",
-  "source": "Blizzard Game Data API item search",
+  "source": "Blizzard Game Data API item search; tier membership metadata merged from verified manifest (stat data pending)",
   "complete": true,
-  "candidateCount": 16,
+  "candidateCount": 29,
   "items": [
     {
       "id": 237905,
@@ -2118,6 +2118,630 @@
         }
       ],
       "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 271473,
+      "name": "Baleful Grave-Knight's Greaves",
+      "level": null,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": null,
+        "name": "Death Knight tier armor"
+      },
+      "inventoryType": {
+        "id": null,
+        "type": "LEGS",
+        "name": "Legs"
+      },
+      "equipmentCategories": [
+        "legs"
+      ],
+      "slot": "Legs",
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": {
+        "id": 2055,
+        "name": "Baleful Grave-Knight's Crucible"
+      },
+      "tierSetId": "2055",
+      "isSetPiece": true,
+      "classRestriction": "Death Knight",
+      "dataStatus": "metadata-only-unverified-stats",
+      "sourceLocations": [
+        {
+          "category": "Tier Set",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271473/baleful-grave-knights-greaves",
+          "seasonScope": "Midnight Season 2"
+        }
+      ],
+      "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
+      "statsSource": null,
+      "variants": []
+    },
+    {
+      "id": 271536,
+      "name": "Abyssal Doomhound's Legwraps",
+      "level": null,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": null,
+        "name": "Demon Hunter tier armor"
+      },
+      "inventoryType": {
+        "id": null,
+        "type": "LEGS",
+        "name": "Legs"
+      },
+      "equipmentCategories": [
+        "legs"
+      ],
+      "slot": "Legs",
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": {
+        "id": 2056,
+        "name": "Abyssal Doomhound's Pursuit"
+      },
+      "tierSetId": "2056",
+      "isSetPiece": true,
+      "classRestriction": "Demon Hunter",
+      "dataStatus": "metadata-only-unverified-stats",
+      "sourceLocations": [
+        {
+          "category": "Tier Set",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271536/abyssal-doomhounds-legwraps",
+          "seasonScope": "Midnight Season 2"
+        }
+      ],
+      "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
+      "statsSource": null,
+      "variants": []
+    },
+    {
+      "id": 271527,
+      "name": "Enigmatic Dreamwatcher's Leggings",
+      "level": null,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": null,
+        "name": "Druid tier armor"
+      },
+      "inventoryType": {
+        "id": null,
+        "type": "LEGS",
+        "name": "Legs"
+      },
+      "equipmentCategories": [
+        "legs"
+      ],
+      "slot": "Legs",
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": {
+        "id": 2057,
+        "name": "Bark of the Enigmatic Dreamwatcher"
+      },
+      "tierSetId": "2057",
+      "isSetPiece": true,
+      "classRestriction": "Druid",
+      "dataStatus": "metadata-only-unverified-stats",
+      "sourceLocations": [
+        {
+          "category": "Tier Set",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271527/enigmatic-dreamwatchers-leggings",
+          "seasonScope": "Midnight Season 2"
+        }
+      ],
+      "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
+      "statsSource": null,
+      "variants": []
+    },
+    {
+      "id": 271500,
+      "name": "Earthen Pillars of Calamity",
+      "level": null,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": null,
+        "name": "Evoker tier armor"
+      },
+      "inventoryType": {
+        "id": null,
+        "type": "LEGS",
+        "name": "Legs"
+      },
+      "equipmentCategories": [
+        "legs"
+      ],
+      "slot": "Legs",
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": {
+        "id": 2058,
+        "name": "Echo of Calamity"
+      },
+      "tierSetId": "2058",
+      "isSetPiece": true,
+      "classRestriction": "Evoker",
+      "dataStatus": "metadata-only-unverified-stats",
+      "sourceLocations": [
+        {
+          "category": "Tier Set",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271500/earthen-pillars-of-calamity",
+          "seasonScope": "Midnight Season 2"
+        }
+      ],
+      "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
+      "statsSource": null,
+      "variants": []
+    },
+    {
+      "id": 271491,
+      "name": "Skulking Viper's Coiled Legwraps",
+      "level": null,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": null,
+        "name": "Hunter tier armor"
+      },
+      "inventoryType": {
+        "id": null,
+        "type": "LEGS",
+        "name": "Legs"
+      },
+      "equipmentCategories": [
+        "legs"
+      ],
+      "slot": "Legs",
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": {
+        "id": 2059,
+        "name": "Skulking Viper's Ambush"
+      },
+      "tierSetId": "2059",
+      "isSetPiece": true,
+      "classRestriction": "Hunter",
+      "dataStatus": "metadata-only-unverified-stats",
+      "sourceLocations": [
+        {
+          "category": "Tier Set",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271491/skulking-vipers-coiled-legwraps",
+          "seasonScope": "Midnight Season 2"
+        }
+      ],
+      "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
+      "statsSource": null,
+      "variants": []
+    },
+    {
+      "id": 271563,
+      "name": "Primal Leywarden's Tailored Legwraps",
+      "level": null,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": null,
+        "name": "Mage tier armor"
+      },
+      "inventoryType": {
+        "id": null,
+        "type": "LEGS",
+        "name": "Legs"
+      },
+      "equipmentCategories": [
+        "legs"
+      ],
+      "slot": "Legs",
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": {
+        "id": 2060,
+        "name": "Primal Leywarden's Attire"
+      },
+      "tierSetId": "2060",
+      "isSetPiece": true,
+      "classRestriction": "Mage",
+      "dataStatus": "metadata-only-unverified-stats",
+      "sourceLocations": [
+        {
+          "category": "Tier Set",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271563/primal-leywardens-tailored-legwraps",
+          "seasonScope": "Midnight Season 2"
+        }
+      ],
+      "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
+      "statsSource": null,
+      "variants": []
+    },
+    {
+      "id": 271518,
+      "name": "Pantaloons of the Monkey King",
+      "level": null,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": null,
+        "name": "Monk tier armor"
+      },
+      "inventoryType": {
+        "id": null,
+        "type": "LEGS",
+        "name": "Legs"
+      },
+      "equipmentCategories": [
+        "legs"
+      ],
+      "slot": "Legs",
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": {
+        "id": 2061,
+        "name": "Guile of the Monkey King"
+      },
+      "tierSetId": "2061",
+      "isSetPiece": true,
+      "classRestriction": "Monk",
+      "dataStatus": "metadata-only-unverified-stats",
+      "sourceLocations": [
+        {
+          "category": "Tier Set",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271518/pantaloons-of-the-monkey-king",
+          "seasonScope": "Midnight Season 2"
+        }
+      ],
+      "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
+      "statsSource": null,
+      "variants": []
+    },
+    {
+      "id": 271464,
+      "name": "Greaves of the Consecrated Flame",
+      "level": null,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": null,
+        "name": "Paladin tier armor"
+      },
+      "inventoryType": {
+        "id": null,
+        "type": "LEGS",
+        "name": "Legs"
+      },
+      "equipmentCategories": [
+        "legs"
+      ],
+      "slot": "Legs",
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": {
+        "id": 2062,
+        "name": "Radiance of the Consecrated Flame"
+      },
+      "tierSetId": "2062",
+      "isSetPiece": true,
+      "classRestriction": "Paladin",
+      "dataStatus": "metadata-only-unverified-stats",
+      "sourceLocations": [
+        {
+          "category": "Tier Set",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271464/greaves-of-the-consecrated-flame",
+          "seasonScope": "Midnight Season 2"
+        }
+      ],
+      "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
+      "statsSource": null,
+      "variants": []
+    },
+    {
+      "id": 271554,
+      "name": "Enveloping Legwraps of the Cosmic Penitent",
+      "level": null,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": null,
+        "name": "Priest tier armor"
+      },
+      "inventoryType": {
+        "id": null,
+        "type": "LEGS",
+        "name": "Legs"
+      },
+      "equipmentCategories": [
+        "legs"
+      ],
+      "slot": "Legs",
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": {
+        "id": 2063,
+        "name": "Cosmic Penitent's Raiment"
+      },
+      "tierSetId": "2063",
+      "isSetPiece": true,
+      "classRestriction": "Priest",
+      "dataStatus": "metadata-only-unverified-stats",
+      "sourceLocations": [
+        {
+          "category": "Tier Set",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271554/enveloping-legwraps-of-the-cosmic-penitent",
+          "seasonScope": "Midnight Season 2"
+        }
+      ],
+      "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
+      "statsSource": null,
+      "variants": []
+    },
+    {
+      "id": 271509,
+      "name": "Chosen Bloodslayer's Reinforced Pants",
+      "level": null,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": null,
+        "name": "Rogue tier armor"
+      },
+      "inventoryType": {
+        "id": null,
+        "type": "LEGS",
+        "name": "Legs"
+      },
+      "equipmentCategories": [
+        "legs"
+      ],
+      "slot": "Legs",
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": {
+        "id": 2064,
+        "name": "Chosen Bloodslayer's Hexweave"
+      },
+      "tierSetId": "2064",
+      "isSetPiece": true,
+      "classRestriction": "Rogue",
+      "dataStatus": "metadata-only-unverified-stats",
+      "sourceLocations": [
+        {
+          "category": "Tier Set",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271509/chosen-bloodslayers-reinforced-pants",
+          "seasonScope": "Midnight Season 2"
+        }
+      ],
+      "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
+      "statsSource": null,
+      "variants": []
+    },
+    {
+      "id": 271482,
+      "name": "Leggings of the Ophidian Oracle",
+      "level": null,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": null,
+        "name": "Shaman tier armor"
+      },
+      "inventoryType": {
+        "id": null,
+        "type": "LEGS",
+        "name": "Legs"
+      },
+      "equipmentCategories": [
+        "legs"
+      ],
+      "slot": "Legs",
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": {
+        "id": 2065,
+        "name": "Ophidian Oracle's Prophecy"
+      },
+      "tierSetId": "2065",
+      "isSetPiece": true,
+      "classRestriction": "Shaman",
+      "dataStatus": "metadata-only-unverified-stats",
+      "sourceLocations": [
+        {
+          "category": "Tier Set",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271482/leggings-of-the-ophidian-oracle",
+          "seasonScope": "Midnight Season 2"
+        }
+      ],
+      "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
+      "statsSource": null,
+      "variants": []
+    },
+    {
+      "id": 271545,
+      "name": "Damned Necrolyte's Leg Bindings",
+      "level": null,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": null,
+        "name": "Warlock tier armor"
+      },
+      "inventoryType": {
+        "id": null,
+        "type": "LEGS",
+        "name": "Legs"
+      },
+      "equipmentCategories": [
+        "legs"
+      ],
+      "slot": "Legs",
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": {
+        "id": 2066,
+        "name": "Damned Necrolyte's Shattered Restraints"
+      },
+      "tierSetId": "2066",
+      "isSetPiece": true,
+      "classRestriction": "Warlock",
+      "dataStatus": "metadata-only-unverified-stats",
+      "sourceLocations": [
+        {
+          "category": "Tier Set",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271545/damned-necrolytes-leg-bindings",
+          "seasonScope": "Midnight Season 2"
+        }
+      ],
+      "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
+      "statsSource": null,
+      "variants": []
+    },
+    {
+      "id": 271455,
+      "name": "Greaves of the Jade Warlord",
+      "level": null,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": null,
+        "name": "Warrior tier armor"
+      },
+      "inventoryType": {
+        "id": null,
+        "type": "LEGS",
+        "name": "Legs"
+      },
+      "equipmentCategories": [
+        "legs"
+      ],
+      "slot": "Legs",
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": {
+        "id": 2067,
+        "name": "Jade Warlord's Dominion"
+      },
+      "tierSetId": "2067",
+      "isSetPiece": true,
+      "classRestriction": "Warrior",
+      "dataStatus": "metadata-only-unverified-stats",
+      "sourceLocations": [
+        {
+          "category": "Tier Set",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271455/greaves-of-the-jade-warlord",
+          "seasonScope": "Midnight Season 2"
+        }
+      ],
+      "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
+      "statsSource": null,
+      "variants": []
     }
   ]
 }
