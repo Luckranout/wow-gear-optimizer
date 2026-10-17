@@ -98,6 +98,7 @@ test("tier identity records are present but never scored without verified stats"
       const item = allItems.find(candidate => String(candidate.id ?? candidate.itemId) === String(piece.itemId));
       assert.ok(item, "missing tier identity: " + piece.itemId);
       assert.equal(item.dataStatus, "metadata-only-unverified-stats", piece.name);
+      assert.equal(item.candidate, false, piece.name + " must remain ineligible until stats are verified");
       assert.equal(item.classRestriction, set.className, piece.name);
       assert.equal(optimizer.hasUsableItemStats(item), false, piece.name + " must not be scored with invented stats");
       assert.equal(optimizer.itemAllowedForClass(item, set.className), true, piece.name + " should be class eligible");
