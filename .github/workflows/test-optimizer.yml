@@ -15,6 +15,7 @@ on:
       - step-4-upgrade-optimizer
       - recovery/tier-set-pve-integration
       - fix/spec-weight-availability
+      - rebuild/verified-tier-set-scoring
     paths:
       - "stacking-effects.js"
       - "optimizer.js"
