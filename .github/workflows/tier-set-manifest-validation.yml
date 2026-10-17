@@ -14,6 +14,7 @@ on:
     paths:
       - "data/tier-set-item-ids.json"
       - "data/equipment-sections/**"
+      - "optimizer.js"
       - "tests/tier-set-manifest.test.js"
       - ".github/workflows/tier-set-manifest-validation.yml"
 
