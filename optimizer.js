@@ -1432,6 +1432,27 @@ function getTierSetCoverageStatus(tierSetCatalogue = null, className = "", speci
       return slot || (Number.isFinite(itemId) ? `item:${itemId}` : null);
     }).filter(Boolean)).size
     : 0;
+  const expectedTierSlots = ["Head", "Shoulders", "Chest", "Hands", "Legs"];
+  const verifiedVariantRecords = classSet && isVariantMappingVerified(classSet)
+    ? (classSet.pieces || []).filter(piece =>
+      piece?.candidate === true &&
+      Number.isInteger(piece.itemLevel) &&
+      Array.isArray(piece.stats) && piece.stats.length > 0
+    )
+    : [];
+  const observedVariantRecords = (classSet?.verifiedVariantObservations || []).filter(piece =>
+    Number.isInteger(piece?.itemLevel) &&
+    Array.isArray(piece.stats) && piece.stats.length > 0
+  );
+  const verifiedVariantSlots = new Set(verifiedVariantRecords.map(piece => piece.slot));
+  const observedVariantSlots = new Set(observedVariantRecords.map(piece => piece.slot));
+  const slotVariantCoverage = expectedTierSlots.map(slot => ({
+    slot,
+    verifiedCandidateItemLevels: [...new Set(verifiedVariantRecords
+      .filter(piece => piece.slot === slot).map(piece => piece.itemLevel))].sort((a, b) => a - b),
+    observedOnlyItemLevels: [...new Set(observedVariantRecords
+      .filter(piece => piece.slot === slot).map(piece => piece.itemLevel))].sort((a, b) => a - b)
+  }));
   return {
     catalogueStatus: tierSetCatalogue?.itemMatching?.status || (mappingOnly ? "mapping-only" : "unavailable"),
     className: classSet?.class || classSet?.className || className || null,
@@ -1442,6 +1463,10 @@ function getTierSetCoverageStatus(tierSetCatalogue = null, className = "", speci
     variantMappingVerified: isVariantMappingVerified(classSet),
     verifiedPieceCount: uniqueVerifiedPieceIds,
     expectedPieceCount: 5,
+    verifiedCandidateSlots: expectedTierSlots.filter(slot => verifiedVariantSlots.has(slot)),
+    missingVerifiedCandidateSlots: expectedTierSlots.filter(slot => !verifiedVariantSlots.has(slot)),
+    observedOnlySlots: expectedTierSlots.filter(slot => observedVariantSlots.has(slot)),
+    slotVariantCoverage,
     bonusDescriptionsAvailable: !mappingOnly && Array.isArray(classSet?.specs) &&
       classSet.specs.some(spec => String(spec[0]).toLowerCase() === String(specialization || "").toLowerCase()),
     numericScoringAvailable: false,
