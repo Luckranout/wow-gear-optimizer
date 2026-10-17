@@ -313,39 +313,39 @@
           "setId": "baleful-grave-knight-s-crucible",
           "name": "Baleful Grave-Knight's Gibbets",
           "slot": "Shoulders",
-          "variant": "Mythic raid appearance not yet verified; Heroic 6/6 observed",
-          "itemLevel": 318,
+          "variant": "Champion 6/6 observed",
+          "itemLevel": 308,
           "candidate": false,
           "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/ptr-2/item=271472/baleful-grave-knights-gibbets?bonus=13334%3A6652%3A12849%3A13694%3A13697%3A1571%3A13696&ilvl=318&spec=250",
+          "sourceUrl": "https://www.wowhead.com/item=271472/baleful-grave-knights-gibbets?bonus=13694%3A40%3A13697%3A12838&ilvl=308",
           "stats": [
             {
               "type": {
                 "name": "strength"
               },
-              "value": 122,
-              "source": "Wowhead tooltip, item level 318"
+              "value": 111,
+              "source": "Wowhead tooltip, item level 308"
             },
             {
               "type": {
                 "name": "stamina"
               },
-              "value": 2440,
-              "source": "Wowhead tooltip, item level 318"
+              "value": 2172,
+              "source": "Wowhead tooltip, item level 308"
             },
             {
               "type": {
                 "name": "haste"
               },
-              "value": 46,
-              "source": "Wowhead tooltip, item level 318"
+              "value": 44,
+              "source": "Wowhead tooltip, item level 308"
             },
             {
               "type": {
                 "name": "versatility"
               },
-              "value": 94,
-              "source": "Wowhead tooltip, item level 318"
+              "value": 90,
+              "source": "Wowhead tooltip, item level 308"
             }
           ]
         }
