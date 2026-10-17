@@ -384,9 +384,9 @@ function renderDiminishingReturnsPanel(report) {
     const recommended = data.recommended[index];
     const delta = recommended.rating - equipped.rating;
     const deltaText = (delta > 0 ? "+" : "") + fmt(delta);
-    const tierText = entry => entry.nextThreshold === null
-      ? "Beyond last listed threshold"
-      : fmt(entry.rating) + " / next " + fmt(entry.nextThreshold);
+    const tierText = entry => "Band " + (entry.tier + 1) + (entry.nextThreshold === null
+      ? " · beyond last threshold"
+      : " · " + fmt(entry.rating) + " / next " + fmt(entry.nextThreshold));
     return '<tr>' +
       '<th scope="row">' + escapeSlotText(equipped.stat) + '</th>' +
       '<td>' + fmt(equipped.rating) + '</td>' +
