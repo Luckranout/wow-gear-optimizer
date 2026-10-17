@@ -354,3 +354,47 @@ test("optimizer coverage distinguishes verified base-piece IDs from unverified v
   assert.equal(shaman.verifiedPieceCount, 5);
   assert.equal(shaman.numericScoringAvailable, false);
 });
+
+
+test("tier thresholds can be reported descriptively without inventing numeric bonus scores", () => {
+  global.window = global.window || {};
+  require("../optimizer");
+  const { getSetBonusStatus, scoreSetBonuses } = global.window.WoWOptimizer;
+  const setBonuses = [{
+    setId: "test-tier-set",
+    name: "Test tier set",
+    pieces: [
+      { itemId: 1001, name: "Test Head" },
+      { itemId: 1002, name: "Test Shoulders" },
+      { itemId: 1003, name: "Test Chest" },
+      { itemId: 1004, name: "Test Hands" },
+      { itemId: 1005, name: "Test Legs" }
+    ],
+    thresholds: [
+      { pieces: 2, description: "Descriptive two-piece effect" },
+      { pieces: 4, description: "Descriptive four-piece effect" }
+    ]
+  }];
+  const twoPieces = {
+    Head: { id: 1001, name: "Test Head" },
+    Chest: { id: 1003, name: "Test Chest" }
+  };
+  const twoPieceStatus = getSetBonusStatus(twoPieces, setBonuses);
+  assert.equal(twoPieceStatus.counts["test-tier-set"], 2);
+  assert.equal(twoPieceStatus.bonuses.find(bonus => bonus.requiredPieces === 2).active, true);
+  assert.equal(twoPieceStatus.bonuses.find(bonus => bonus.requiredPieces === 4).active, false);
+  assert.equal(twoPieceStatus.bonuses.find(bonus => bonus.requiredPieces === 2).scoreValue, null);
+  assert.equal(scoreSetBonuses(twoPieces, setBonuses).score, 0,
+    "descriptive effects must not add score without an explicit verified scoreValue");
+
+  const fourPieces = {
+    Head: { id: 1001, name: "Test Head" },
+    Shoulders: { id: 1002, name: "Test Shoulders" },
+    Chest: { id: 1003, name: "Test Chest" },
+    Hands: { id: 1004, name: "Test Hands" }
+  };
+  const fourPieceStatus = getSetBonusStatus(fourPieces, setBonuses);
+  assert.equal(fourPieceStatus.bonuses.find(bonus => bonus.requiredPieces === 2).active, true);
+  assert.equal(fourPieceStatus.bonuses.find(bonus => bonus.requiredPieces === 4).active, true);
+  assert.equal(scoreSetBonuses(fourPieces, setBonuses).score, 0);
+});
