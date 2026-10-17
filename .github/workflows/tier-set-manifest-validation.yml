@@ -1,0 +1,30 @@
+name: Tier Set Catalog Regression
+
+on:
+  pull_request:
+    paths:
+      - "data/tier-set-item-ids.json"
+      - "data/equipment-sections/**"
+      - "tests/tier-set-manifest.test.js"
+      - ".github/workflows/tier-set-manifest-validation.yml"
+  push:
+    branches:
+      - "rebuild/verified-tier-set-scoring"
+    paths:
+      - "data/tier-set-item-ids.json"
+      - "data/equipment-sections/**"
+      - "tests/tier-set-manifest.test.js"
+      - ".github/workflows/tier-set-manifest-validation.yml"
+
+jobs:
+  tier-set-catalog-regression:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate tier-set manifest and downloaded catalog
+        run: node --test tests/tier-set-manifest.test.js
