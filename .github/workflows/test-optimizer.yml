@@ -20,6 +20,7 @@ on:
       - "optimizer.js"
       - "wow-data.js"
       - "data/tier-set-item-ids.json"
+      - "data/tier-sets-midnight-season-2.json"
       - "scripts/**"
       - "tests/**"
       - "simulation-import.js"
@@ -39,6 +40,8 @@ on:
       - ".github/workflows/test-optimizer.yml"
       - "optimizer.js"
       - "wow-data.js"
+      - "data/tier-set-item-ids.json"
+      - "data/tier-sets-midnight-season-2.json"
       - "scripts/**"
       - "tests/**"
       - "simulation-import.js"
@@ -65,6 +68,8 @@ jobs:
         run: node tests/stacking-effects.test.js
       - name: Run catalog inventory slot mapping tests
         run: node tests/catalog-inventory-slot-mapping.test.js
+      - name: Run tier-set catalogue manifest bridge tests
+        run: node tests/tier-set-catalogue-bridge.test.js
       - name: Run on-demand slot candidate API tests
         run: node tests/slot-candidates.test.js
       - name: Run live Wowhead item lookup API tests
