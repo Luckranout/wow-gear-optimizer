@@ -2898,6 +2898,88 @@
               "source": "Wowhead item version"
             }
           ]
+        },
+        {
+          "itemId": 271454,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Raging Pauldrons of the Jade Warlord",
+          "slot": "Shoulders",
+          "variant": "Mythic 6/6 observed",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271454/raging-pauldrons-of-the-jade-warlord?bonus=12854%3A42%3A13440%3A13694%3A13697%3A1587&ilvl=334&spec=72",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 141,
+              "source": "Wowhead item version"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead item version"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 46,
+              "source": "Wowhead item version"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 105,
+              "source": "Wowhead item version"
+            }
+          ]
+        },
+        {
+          "itemId": 271457,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Jeweled Gauntlets of the Jade Warlord",
+          "slot": "Hands",
+          "variant": "Mythic 6/6 observed; dropped-item stat variant",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271457/jeweled-gauntlets-of-the-jade-warlord?bonus=13691%3A13440%3A6652%3A13697%3A12854&ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 141,
+              "source": "Wowhead item version"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead item version"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 101,
+              "source": "Wowhead item version"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 50,
+              "source": "Wowhead item version"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
