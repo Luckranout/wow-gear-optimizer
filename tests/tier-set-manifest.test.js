@@ -127,7 +127,7 @@ test("tier identity records are present but never scored without verified stats"
   }
 });
 
-test("season tier catalogue reports partial variant coverage without claiming numeric scoring", () => {
+test("season tier catalogue reports class-specific variant coverage without claiming numeric scoring", () => {
   const sandbox = { window: {} };
   vm.runInNewContext(
     fs.readFileSync(path.join(root, "optimizer.js"), "utf8"),
@@ -135,12 +135,19 @@ test("season tier catalogue reports partial variant coverage without claiming nu
     { filename: "optimizer.js" }
   );
   const optimizer = sandbox.window.WoWOptimizer;
-  const coverage = optimizer.getTierSetCoverageStatus(tierCatalogue, "Death Knight", "Blood");
-  assert.equal(coverage.catalogueStatus, "partial");
-  assert.equal(coverage.itemMappingVerified, true);
-  assert.equal(coverage.verifiedPieceCount, 5);
-  assert.equal(coverage.expectedPieceCount, 5);
-  assert.equal(coverage.numericScoringAvailable, false);
+  const deathKnight = optimizer.getTierSetCoverageStatus(tierCatalogue, "Death Knight", "Blood");
+  assert.equal(deathKnight.catalogueStatus, "partial");
+  assert.equal(deathKnight.itemMappingVerified, false);
+  assert.equal(deathKnight.verifiedPieceCount, 0);
+  assert.equal(deathKnight.expectedPieceCount, 5);
+  assert.equal(deathKnight.numericScoringAvailable, false);
+  assert.ok(deathKnight.limitations.some(message => message.includes("mapping is not verified")));
+
+  const shaman = optimizer.getTierSetCoverageStatus(tierCatalogue, "Shaman", "Enhancement");
+  assert.equal(shaman.itemMappingVerified, true);
+  assert.equal(shaman.verifiedPieceCount, 5);
+  assert.equal(shaman.expectedPieceCount, 5);
+  assert.equal(shaman.numericScoringAvailable, false);
 });
 
 test("text-only tier bonus descriptions are never treated as numeric scoring", () => {
