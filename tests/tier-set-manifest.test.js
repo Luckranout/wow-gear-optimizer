@@ -68,6 +68,28 @@ test("catalog sections are correctly named and have unique section-local IDs", (
   }
 });
 
+test("tier identity records are present but never scored without verified stats", () => {
+  const sandbox = { window: {} };
+  vm.runInNewContext(
+    fs.readFileSync(path.join(root, "optimizer.js"), "utf8"),
+    sandbox,
+    { filename: "optimizer.js" }
+  );
+  const optimizer = sandbox.window.WoWOptimizer;
+  for (const set of manifest.sets) {
+    for (const piece of set.pieces) {
+      const item = allItems.find(candidate => String(candidate.id ?? candidate.itemId) === String(piece.itemId));
+      assert.ok(item, "missing tier identity: " + piece.itemId);
+      assert.equal(item.dataStatus, "metadata-only-unverified-stats", piece.name);
+      assert.equal(item.classRestriction, set.className, piece.name);
+      assert.equal(optimizer.hasUsableItemStats(item), false, piece.name + " must not be scored with invented stats");
+      assert.equal(optimizer.itemAllowedForClass(item, set.className), true, piece.name + " should be class eligible");
+      assert.equal(optimizer.itemAllowedForClass(item, "Warrior" === set.className ? "Mage" : "Warrior"), false,
+        piece.name + " must not be eligible for a different class");
+    }
+  }
+});
+
 test("text-only tier bonus descriptions are never treated as numeric scoring", () => {
   for (const set of manifest.sets) {
     for (const bonus of set.bonuses || []) {
