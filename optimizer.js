@@ -1410,6 +1410,64 @@ function getTierSetCoverageStatus(tierSetCatalogue = null, className = "", speci
   };
 }
 
+function getEquipmentStatTotals(equipment = {}) {
+  const totals = {};
+  const missingSlots = [];
+  for (const slot of WOW_EQUIPMENT_SLOTS) {
+    const item = equipment?.[slot];
+    if (!item) continue;
+    const stats = item.stats;
+    const entries = Array.isArray(stats)
+      ? stats.map(stat => [
+          normalizeItemStatName(stat?.stat?.name || stat?.type?.name || stat?.name || stat?.stat),
+          Number(stat?.value?.value ?? stat?.value?.amount ?? stat?.amount ?? stat?.value)
+        ])
+      : stats && typeof stats === "object"
+        ? Object.entries(stats).map(([name, value]) => [
+            normalizeItemStatName(name),
+            Number(value?.value ?? value?.amount ?? value)
+          ])
+        : [];
+    if (!entries.some(([name, value]) => name && Number.isFinite(value) && value > 0)) {
+      missingSlots.push(slot);
+      continue;
+    }
+    for (const [name, value] of entries) {
+      if (!name || !Number.isFinite(value)) continue;
+      totals[name] = (totals[name] || 0) + value;
+    }
+  }
+  return { totals, missingSlots };
+}
+
+function calculateProjectedStatChanges(currentEquipment = {}, projectedEquipment = {}, currentStatistics = {}) {
+  const current = getEquipmentStatTotals(currentEquipment);
+  const projected = getEquipmentStatTotals(projectedEquipment);
+  const characterStats = normalizeCharacterStatistics(currentStatistics);
+  const names = new Set([...Object.keys(characterStats), ...Object.keys(current.totals), ...Object.keys(projected.totals)]);
+  const deltas = {};
+  const projectedCharacterStats = {};
+  for (const name of names) {
+    const delta = (projected.totals[name] || 0) - (current.totals[name] || 0);
+    deltas[name] = delta;
+    if (characterStats[name] !== undefined) projectedCharacterStats[name] = characterStats[name] + delta;
+  }
+  const missingSlots = [...new Set([...current.missingSlots, ...projected.missingSlots])];
+  return {
+    available: Object.keys(projected.totals).length > 0,
+    complete: missingSlots.length === 0,
+    missingSlots,
+    currentItemStatTotals: current.totals,
+    projectedItemStatTotals: projected.totals,
+    deltas,
+    currentCharacterStats: characterStats,
+    projectedCharacterStats,
+    note: missingSlots.length
+      ? "Projection is partial because one or more equipped/projected items lack usable stat data."
+      : "Adds item-stat differences to imported character totals; this is not a combat simulation."
+  };
+}
+
 function createOptimizationReport({character = createCharacterProfile(), availableItems = [], dataset = null, upgradeSystem = null} = {}) {
   const goal = character.goal || WOW_GOALS.general;
   const simulation = character.simulation || dataset?.simulation || null;
@@ -1482,15 +1540,16 @@ function createOptimizationReport({character = createCharacterProfile(), availab
       : hasSpecProfile
         ? "specialization-profile"
         : "missing-specialization-profile",
-    numericProjectionAvailable: false,
+    projectedStats: calculateProjectedStatChanges(character.equipment, optimized.equipment, character.statistics),
+    numericProjectionAvailable: true,
     recommendationLimitations: [
       "Gear ranking is not a full combat simulation.",
       ...(simulationContext ? [] : hasSpecProfile
         ? ["Specialization profile weights are heuristics, not simulation-derived scale factors."]
         : ["No verified specialization profile or simulation weights were available; generic goal weights were used, except for explicitly coded specialization fallbacks."]),
-      "Imported item stat presence does not prove complete item or enhancement effects.",
+      "Item-stat projection is partial when any current or projected item lacks usable stat data.",
       ...(character.talentBuild?.verified ? [] : ["Active talent-node build data was not verified; build-specific talent synergies were not applied."]),
-      "Numeric projected character stats are not calculated by this report."
+      "Projection excludes unmodeled effects, temporary buffs, and enhancements not represented in item stat records."
     ],
     equipmentSlots: WOW_EQUIPMENT_SLOTS.length, generatedAt: new Date().toISOString()
   };
@@ -1511,5 +1570,5 @@ window.WoWOptimizer = {
   getItemSetId, getSetBonusStatus, getTierSetCoverageStatus, scoreSetBonuses, scoreEquipmentWithRatingDiminishingReturns, scoreLoadout,
   getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,
   calculateCrestRequirements, isAscendantVenomstoneEligible, recommendUpgradePlan,
-  createOptimizationReport, testData: WOW_OPTIMIZER_TEST_DATA
+  calculateProjectedStatChanges, getEquipmentStatTotals, createOptimizationReport, testData: WOW_OPTIMIZER_TEST_DATA
 };
