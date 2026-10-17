@@ -316,3 +316,30 @@ for (const [className, specializations] of classSpecializations) {
   }
 }
 console.log("Shared equipped/recommended DR feature coverage checked for all 13 classes and their specializations.");
+
+
+// Regression: Blizzard item-stat arrays can wrap numeric rating in value.value.
+// DR loadout summaries and the actual gear scorer must interpret those records
+// identically, or recommendations can be materially wrong for imported catalog data.
+const nestedBlizzardStats = {
+  Head: {
+    id: 9301, name: "Nested Rating Helm", slot: "Head", itemLevel: 0,
+    stats: [
+      { type: { name: "Haste" }, value: { value: 1320 } },
+      { type: { name: "Critical Strike" }, value: { value: 1380 } }
+    ]
+  }
+};
+const nestedTotals = optimizer.getSecondaryRatingTotals(nestedBlizzardStats);
+const nestedScore = optimizer.scoreEquipmentWithRatingDiminishingReturns(
+  nestedBlizzardStats,
+  { Haste: 1, CriticalStrike: 1, Mastery: 0, Versatility: 0 },
+  90
+);
+const expectedNestedScore = optimizer.applySecondaryRatingDiminishingReturns(1320, "Haste", 90) +
+  optimizer.applySecondaryRatingDiminishingReturns(1380, "CriticalStrike", 90);
+if (nestedTotals.Haste !== 1320 || nestedTotals.CriticalStrike !== 1380 ||
+    nestedScore !== expectedNestedScore) {
+  throw new Error("Nested Blizzard stat values must be parsed consistently by DR summaries and loadout scoring");
+}
+console.log("Nested Blizzard stat-value DR scoring regression passed.");

@@ -684,7 +684,7 @@ function scoreEquipmentWithRatingDiminishingReturns(equipment = {}, statWeights 
     if (item.isUniqueEffect) score += 5;
     score += scoreTrinketUseEffect(item, statWeights);
     const entries = Array.isArray(item.stats)
-      ? item.stats.map(s => [normalizeItemStatName(s.stat?.name || s.type?.name || s.name || s.stat), Number(s.value ?? s.amount) || 0])
+      ? item.stats.map(s => [normalizeItemStatName(s.stat?.name || s.type?.name || s.name || s.stat), Number(s.value?.value ?? s.value?.amount ?? s.amount ?? s.value) || 0])
       : Object.entries(item.stats || {}).map(([stat, value]) => [normalizeItemStatName(stat), Number(value?.value ?? value?.amount ?? value) || 0]);
     for (const [stat, value] of entries) {
       if (secondaryStats.has(stat)) totals[stat] = (totals[stat] || 0) + value;
