@@ -53,7 +53,11 @@ function allowedForClass(item, className, slot) {
   const expected = CLASS_ARMOR[normalizeClass(className)];
   if (!expected) return false;
   const itemClass = String(item.itemClass?.name || item.itemClass || "").toLowerCase();
-  const subclass = String(item.itemSubclass?.name || item.itemSubclass || "").toLowerCase();
+  const rawSubclass = String(item.itemSubclass?.name || item.itemSubclass || "").toLowerCase();
+  const subclass = /\\bcloth\\b/.test(rawSubclass) ? "cloth"
+    : /\\bleather\\b/.test(rawSubclass) ? "leather"
+      : /\\bmail\\b/.test(rawSubclass) ? "mail"
+        : /\\bplate\\b/.test(rawSubclass) ? "plate" : "";
   return (itemClass.includes("armor") || itemClass.includes("armour")) && subclass === expected;
 }
 const CLASS_WEAPONS = {
@@ -72,9 +76,13 @@ const CLASS_WEAPONS = {
   evoker: ["axe", "dagger", "mace", "sword", "staff"]
 };
 function normalizeWeaponType(value) {
-  const raw = String(value?.name || value || "").trim().toLowerCase();
-  if (!raw) return "";
-  if (raw.includes("staff")) return "staff";
+  const raw = String(value?.name || value || "").trim().toLowerCase()
+    .replace(/[_-]+/g, " ")
+    .replace(/\\b(two|one) handed\\b/g, "$1 hand");
+  if (!raw || /^(weapon|melee|ranged|miscellaneous|unknown)$/.test(raw)) return "";
+  if (raw.includes("shield") || raw.includes("held in off hand") || raw.includes("off hand")) return "off-hand";
+  // Classify weapon family before handedness: "Two-Handed Swords" is a sword.
+  if (raw.includes("staff") || raw.includes("staves")) return "staff";
   if (raw.includes("fist")) return "fist weapon";
   if (raw.includes("polearm")) return "polearm";
   if (raw.includes("crossbow")) return "crossbow";
@@ -82,12 +90,12 @@ function normalizeWeaponType(value) {
   if (raw.includes("gun")) return "gun";
   if (raw.includes("dagger")) return "dagger";
   if (raw.includes("wand")) return "wand";
-  if (raw.includes("sword")) return raw.includes("one-hand") ? "one-hand sword" : "sword";
-  if (raw.includes("axe")) return raw.includes("one-hand") ? "one-hand axe" : "axe";
-  if (raw.includes("mace")) return raw.includes("one-hand") ? "one-hand mace" : "mace";
-  if (raw.includes("shield") || raw.includes("held in off-hand") || raw.includes("off-hand")) return "off-hand";
-  if (raw.includes("two-hand")) return "two-hand";
-  if (raw.includes("one-hand")) return "one-hand";
+  if (raw.includes("sword")) return "sword";
+  if (raw.includes("axe")) return "axe";
+  if (raw.includes("mace")) return "mace";
+  if (raw.includes("glaive")) return "warglaive";
+  if (raw.includes("two hand")) return "two-hand";
+  if (raw.includes("one hand")) return "one-hand";
   return "";
 }
 function allowedForClassWeapon(item, className, slot) {
