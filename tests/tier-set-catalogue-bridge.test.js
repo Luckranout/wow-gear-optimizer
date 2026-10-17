@@ -96,3 +96,33 @@ test("Warrior source-checked variant observations remain evidence-only and prese
   );
   assert.equal(warrior.itemIdsVerified, false, "observations must not promote the full class variant map to verified");
 });
+
+test("Death Knight source-checked tier versions preserve observed stats without becoming optimizer candidates", () => {
+  const deathKnight = catalogue.sets.find(set => set.class === "Death Knight");
+  const observations = deathKnight.verifiedVariantObservations || [];
+  assert.equal(observations.length, 5);
+  assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
+  assert.equal(deathKnight.variantObservationsStatus, "partial");
+  assert.match(deathKnight.variantObservationsNote, /not optimizer candidates/i);
+  const manifestSet = manifest.sets.find(set => set.className === "Death Knight");
+  const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
+  for (const piece of observations) {
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.ok(piece.itemLevel > 0);
+    assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/"));
+    assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    assert.ok(Array.isArray(piece.stats) && piece.stats.length >= 4);
+    assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
+    assert.ok(piece.stats.every(stat => typeof stat.source === "string" && stat.source.length > 0));
+  }
+  const chest = observations.find(piece => piece.itemId === 271477);
+  assert.equal(chest.itemLevel, 334);
+  assert.deepEqual(
+    Object.fromEntries(chest.stats.map(stat => [stat.type.name, stat.value])),
+    { strength: 189, stamina: 3910, criticalStrike: 59, mastery: 142 }
+  );
+  assert.equal(deathKnight.itemIdsVerified, false,
+    "partial observed versions must not promote the complete class variant map");
+});
+
