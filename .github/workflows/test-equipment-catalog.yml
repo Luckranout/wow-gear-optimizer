@@ -29,6 +29,8 @@ jobs:
           python-version: "3.12"
       - name: Test equipment catalogue gap audit
         run: python -m unittest discover -s tests -p "test_equipment_catalog_audit.py" -v
+      - name: Run equipment catalogue coverage audit
+        run: python scripts/audit_equipment_catalog.py
       - name: Test section pagination and persistence
         run: python -m unittest discover -s tests -p "test_equipment_catalog_sections.py" -v
       - name: Test Blizzard request retry diagnostics
