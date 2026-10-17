@@ -263,3 +263,31 @@ for (const tank of [
   }
 }
 console.log("Protection Warrior/Paladin upgraded-variant regression tests passed.");
+
+
+// Regression: equipped and recommended loadouts each get complete secondary-stat
+// totals and DR projections, and unsupported levels fail closed for effective rating.
+const drEquipped = {
+  Head: { id: 1, slot: "Head", stats: { Haste: 700, CriticalStrike: 500 } },
+  Chest: { id: 2, slot: "Chest", stats: { Mastery: 600, Versatility: 900 } }
+};
+const drRecommended = {
+  Head: { id: 3, slot: "Head", stats: { Haste: 1600, CriticalStrike: 1200 } },
+  Chest: { id: 4, slot: "Chest", stats: { Mastery: 1500, Versatility: 1800 } }
+};
+const equippedDrSummary = optimizer.getLoadoutDiminishingReturnsSummary(drEquipped, 90);
+const recommendedDrSummary = optimizer.getLoadoutDiminishingReturnsSummary(drRecommended, 90);
+for (const stat of ["Haste", "CriticalStrike", "Mastery", "Versatility"]) {
+  const before = equippedDrSummary.find(entry => entry.stat === stat);
+  const after = recommendedDrSummary.find(entry => entry.stat === stat);
+  if (!before || !after || before.rating <= 0 || after.rating <= before.rating ||
+      after.effectiveRating === null || after.lostRating <= 0 ||
+      after.thresholds.length !== 6 || after.nextThreshold === null) {
+    throw new Error("Equipped/recommended DR summary is incomplete for " + stat);
+  }
+}
+const unsupportedDr = optimizer.getLoadoutDiminishingReturnsSummary(drRecommended, 80);
+if (unsupportedDr.some(entry => entry.supported || entry.effectiveRating !== null || entry.lostRating !== null)) {
+  throw new Error("DR effective rating must remain unavailable for unsupported character levels");
+}
+console.log("Equipped vs recommended complete-loadout DR summaries passed.");
