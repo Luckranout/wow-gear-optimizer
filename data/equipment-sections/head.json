@@ -3064,7 +3064,9 @@
       ],
       "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
       "statsSource": null,
-      "variants": []
+      "variants": [],
+      "candidate": false,
+      "itemLevel": null
     },
     {
       "id": 271537,
@@ -3112,7 +3114,9 @@
       ],
       "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
       "statsSource": null,
-      "variants": []
+      "variants": [],
+      "candidate": false,
+      "itemLevel": null
     },
     {
       "id": 271528,
@@ -3160,7 +3164,9 @@
       ],
       "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
       "statsSource": null,
-      "variants": []
+      "variants": [],
+      "candidate": false,
+      "itemLevel": null
     },
     {
       "id": 271501,
@@ -3208,7 +3214,9 @@
       ],
       "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
       "statsSource": null,
-      "variants": []
+      "variants": [],
+      "candidate": false,
+      "itemLevel": null
     },
     {
       "id": 271492,
@@ -3256,7 +3264,9 @@
       ],
       "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
       "statsSource": null,
-      "variants": []
+      "variants": [],
+      "candidate": false,
+      "itemLevel": null
     },
     {
       "id": 271564,
@@ -3304,7 +3314,9 @@
       ],
       "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
       "statsSource": null,
-      "variants": []
+      "variants": [],
+      "candidate": false,
+      "itemLevel": null
     },
     {
       "id": 271519,
@@ -3352,7 +3364,9 @@
       ],
       "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
       "statsSource": null,
-      "variants": []
+      "variants": [],
+      "candidate": false,
+      "itemLevel": null
     },
     {
       "id": 271465,
@@ -3400,7 +3414,9 @@
       ],
       "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
       "statsSource": null,
-      "variants": []
+      "variants": [],
+      "candidate": false,
+      "itemLevel": null
     },
     {
       "id": 271555,
@@ -3448,7 +3464,9 @@
       ],
       "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
       "statsSource": null,
-      "variants": []
+      "variants": [],
+      "candidate": false,
+      "itemLevel": null
     },
     {
       "id": 271510,
@@ -3496,7 +3514,9 @@
       ],
       "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
       "statsSource": null,
-      "variants": []
+      "variants": [],
+      "candidate": false,
+      "itemLevel": null
     },
     {
       "id": 271483,
@@ -3544,7 +3564,9 @@
       ],
       "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
       "statsSource": null,
-      "variants": []
+      "variants": [],
+      "candidate": false,
+      "itemLevel": null
     },
     {
       "id": 271546,
@@ -3592,7 +3614,9 @@
       ],
       "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
       "statsSource": null,
-      "variants": []
+      "variants": [],
+      "candidate": false,
+      "itemLevel": null
     },
     {
       "id": 271456,
@@ -3640,7 +3664,9 @@
       ],
       "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
       "statsSource": null,
-      "variants": []
+      "variants": [],
+      "candidate": false,
+      "itemLevel": null
     }
   ]
 }
