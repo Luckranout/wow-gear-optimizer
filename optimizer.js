@@ -843,28 +843,34 @@ function resolveCatalogItemAgainstEquippedVariant(candidate, equippedItem) {
 function findBestItemForSlot(items, slot, goal, statWeights = null, className = "", equippedItem = null, specialization = "") {
   const weights = statWeights || getGoalWeights(goal);
   const bestByIdentity = new Map();
-  for (const candidate of (items || [])) {
+  // Expand verified upgrade variants before item-level comparisons. A base
+  // record can be ilvl 219 while its verified Mythic+ variant is ilvl 340; the
+  // base level must not cause the valid upgraded variant to be discarded.
+  const expandedItems = (items || []).flatMap(rawItem => {
+    if (!Array.isArray(rawItem?.variants) || !rawItem.variants.length) return [rawItem];
+    return rawItem.variants.map(variant => ({
+      ...rawItem,
+      ...variant,
+      id: rawItem.id ?? variant.id,
+      baseItemId: rawItem.id ?? rawItem.itemId,
+      variants: undefined
+    }));
+  });
+
+  for (const candidate of expandedItems) {
     if (!itemMatchesSlot(candidate, slot) ||
         !itemAllowedForClass(candidate, className) ||
         !itemAllowedForClassWeapon(candidate, slot, className) ||
         !itemAllowedForSpecialization(candidate, slot, className, specialization) ||
         !hasUsableItemStats(candidate)) continue;
 
-    // Do not replace an equipped higher-item-level piece with a lower-level
-    // base record just because its visible secondary stats happen to score well.
-    // The catalogue currently stores base item records for some Mythic drops;
-    // those are not equivalent to their fully upgraded variants. A lower-level
-    // recommendation requires verified variant data, not an implicit downgrade.
-    const candidateLevel = Number(candidate.itemLevel ?? candidate.level);
+    const item = resolveCatalogItemAgainstEquippedVariant(candidate, equippedItem);
+    // Compare the resolved variant's level, not the base catalog record's level.
+    const candidateLevel = Number(item.itemLevel ?? item.level);
     const equippedLevel = Number(equippedItem?.itemLevel ?? equippedItem?.level);
     if (Number.isFinite(candidateLevel) && Number.isFinite(equippedLevel) &&
         candidateLevel < equippedLevel) continue;
 
-    // A seasonal catalogue can contain multiple difficulty/upgrade variants
-    // sharing the same base item ID. Resolve an equipped upgraded copy first,
-    // then retain the highest-scoring variant for each identity instead of
-    // accidentally keeping the first (often lowest-ilvl) record in the file.
-    const item = resolveCatalogItemAgainstEquippedVariant(candidate, equippedItem);
     const key = String(item.id ?? item.name) + "|" + slot;
     const score = scoreItem(item, weights);
     const previous = bestByIdentity.get(key);
