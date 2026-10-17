@@ -1416,18 +1416,25 @@ function getTierSetCoverageStatus(tierSetCatalogue = null, className = "", speci
   const classSet = sets.find(set =>
     String(set.class || set.className || "").trim().toLowerCase() === normalizedClass
   ) || null;
-  const isVerified = set => set?.itemIdsVerified === true || set?.mappingStatus === "verified";
-  const verifiedClasses = sets.filter(isVerified);
-  const unverifiedClasses = sets.filter(set => !isVerified(set));
-  const uniqueVerifiedPieceIds = classSet && isVerified(classSet)
-    ? new Set((classSet.pieces || []).map(piece => Number(piece.itemId)).filter(Number.isFinite)).size
+  const isBaseMappingVerified = set => set?.baseItemIdsVerified === true ||
+    set?.itemIdsVerified === true || set?.mappingStatus === "verified";
+  const isVariantMappingVerified = set => set?.itemIdsVerified === true || set?.mappingStatus === "verified";
+  const verifiedClasses = sets.filter(isBaseMappingVerified);
+  const unverifiedClasses = sets.filter(set => !isBaseMappingVerified(set));
+  const pieceRecords = classSet
+    ? (isVariantMappingVerified(classSet) ? (classSet.pieces || []) : (classSet.basePieces || []))
+    : [];
+  const uniqueVerifiedPieceIds = classSet && isBaseMappingVerified(classSet)
+    ? new Set(pieceRecords.map(piece => Number(piece.itemId)).filter(Number.isFinite)).size
     : 0;
   return {
     catalogueStatus: tierSetCatalogue?.itemMatching?.status || (mappingOnly ? "mapping-only" : "unavailable"),
     className: classSet?.class || classSet?.className || className || null,
     specialization: specialization || null,
     setName: classSet?.setName || null,
-    itemMappingVerified: isVerified(classSet),
+    itemMappingVerified: isBaseMappingVerified(classSet),
+    baseItemMappingVerified: isBaseMappingVerified(classSet),
+    variantMappingVerified: isVariantMappingVerified(classSet),
     verifiedPieceCount: uniqueVerifiedPieceIds,
     expectedPieceCount: 5,
     bonusDescriptionsAvailable: !mappingOnly && Array.isArray(classSet?.specs) &&
@@ -1440,7 +1447,12 @@ function getTierSetCoverageStatus(tierSetCatalogue = null, className = "", speci
       mappingOnly
         ? "The item-ID manifest verifies piece membership only; tier bonus effects and numeric scoring are unmodeled."
         : "Tier bonus descriptions do not provide a numeric gear score without simulation-derived or otherwise verified values.",
-      ...(isVerified(classSet) ? [] : ["This class's tier-piece item mapping is not verified, so equipped-piece counts may be incomplete."])
+      ...(!isBaseMappingVerified(classSet)
+        ? ["This class's base tier-piece item mapping is not verified, so equipped-piece counts may be incomplete."]
+        : []),
+      ...(isBaseMappingVerified(classSet) && !isVariantMappingVerified(classSet)
+        ? ["Base tier-piece IDs are verified, but upgraded/difficulty variant IDs and stats are not fully verified."]
+        : [])
     ]
   };
 }
