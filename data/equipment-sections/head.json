@@ -3021,7 +3021,7 @@
     {
       "id": 271474,
       "name": "Baleful Grave-Knight's Casque",
-      "level": 219,
+      "level": null,
       "requiredLevel": 90,
       "quality": {
         "id": null,
@@ -3032,8 +3032,8 @@
         "name": "Armor"
       },
       "itemSubclass": {
-        "id": 4,
-        "name": "Plate"
+        "id": null,
+        "name": "Death Knight tier armor"
       },
       "inventoryType": {
         "id": null,
@@ -3045,43 +3045,7 @@
       ],
       "slot": "Head",
       "isEquippable": true,
-      "stats": [
-        {
-          "type": {
-            "name": "strength"
-          },
-          "value": 64,
-          "source": "Wowhead base item tooltip"
-        },
-        {
-          "type": {
-            "name": "intellect"
-          },
-          "value": 64,
-          "source": "Wowhead base item tooltip"
-        },
-        {
-          "type": {
-            "name": "stamina"
-          },
-          "value": 995,
-          "source": "Wowhead base item tooltip"
-        },
-        {
-          "type": {
-            "name": "critical strike"
-          },
-          "value": 73,
-          "source": "Wowhead base item tooltip"
-        },
-        {
-          "type": {
-            "name": "mastery"
-          },
-          "value": 32,
-          "source": "Wowhead base item tooltip"
-        }
-      ],
+      "stats": [],
       "spells": [],
       "set": {
         "id": 2055,
@@ -3090,7 +3054,7 @@
       "tierSetId": "2055",
       "isSetPiece": true,
       "classRestriction": "Death Knight",
-      "dataStatus": "verified-base-and-max-upgrade-stats",
+      "dataStatus": "metadata-only-unverified-stats",
       "sourceLocations": [
         {
           "category": "Tier Set",
@@ -3098,57 +3062,11 @@
           "seasonScope": "Midnight Season 2"
         }
       ],
-      "source": "Wowhead base tooltip; Myth 6/6 tooltip explicitly reports item level 334 and verified stats.",
-      "statsSource": "https://www.wowhead.com/item=271474/baleful-grave-knights-casque",
-      "variants": [
-        {
-          "variantKey": "wowhead:myth-6-6:ilvl334",
-          "upgradeTrack": "Myth",
-          "upgradeRank": 6,
-          "itemLevel": 334,
-          "stats": [
-            {
-              "type": {
-                "name": "strength"
-              },
-              "value": 189,
-              "source": "Wowhead Myth 6/6 tooltip"
-            },
-            {
-              "type": {
-                "name": "intellect"
-              },
-              "value": 189,
-              "source": "Wowhead Myth 6/6 tooltip"
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 3910,
-              "source": "Wowhead Myth 6/6 tooltip"
-            },
-            {
-              "type": {
-                "name": "critical strike"
-              },
-              "value": 139,
-              "source": "Wowhead Myth 6/6 tooltip"
-            },
-            {
-              "type": {
-                "name": "mastery"
-              },
-              "value": 62,
-              "source": "Wowhead Myth 6/6 tooltip"
-            }
-          ],
-          "statsSource": "Wowhead tooltip explicitly resolved Myth 6/6 at item level 334",
-          "variantSource": "https://www.wowhead.com/item=271474/baleful-grave-knights-casque?bonus=13692%3A13440%3A41%3A13696%3A13698%3A12854%26ilvl=334%26spec=250"
-        }
-      ],
-      "candidate": true,
-      "itemLevel": 219
+      "source": "Verified tier-piece manifest; base stats and upgrade variants require exact tooltip verification",
+      "statsSource": null,
+      "variants": [],
+      "candidate": false,
+      "itemLevel": null
     },
     {
       "id": 271537,
