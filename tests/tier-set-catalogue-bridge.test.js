@@ -122,6 +122,12 @@ test("Death Knight source-checked tier versions preserve observed stats without 
     Object.fromEntries(chest.stats.map(stat => [stat.type.name, stat.value])),
     { strength: 189, stamina: 3910, criticalStrike: 59, mastery: 142 }
   );
+  const shoulders = observations.find(piece => piece.itemId === 271472);
+  assert.equal(shoulders.itemLevel, 308);
+  assert.deepEqual(
+    Object.fromEntries(shoulders.stats.map(stat => [stat.type.name, stat.value])),
+    { strength: 111, stamina: 2172, haste: 44, versatility: 90 }
+  );
   assert.equal(deathKnight.itemIdsVerified, false,
     "partial observed versions must not promote the complete class variant map");
 });
