@@ -604,3 +604,32 @@ test("Monk source-backed tier item versions remain evidence-only and match Wowhe
   assert.equal(monk.itemIdsVerified, false,
     "partial observed versions must not promote the complete class variant map");
 });
+
+
+test("all-class observed tier variants stay separate from eligible optimizer candidates", () => {
+  for (const set of catalogue.sets) {
+    if (set.class === "Shaman") {
+      assert.equal(set.itemIdsVerified, true);
+      assert.equal(set.pieces.length, 30);
+      assert.equal(set.pieces.filter(piece => piece.candidate === true).length, 30);
+      continue;
+    }
+    const observations = set.verifiedVariantObservations || [];
+    if (observations.length === 0) continue;
+    assert.equal(set.itemIdsVerified, false, set.class + " must not imply complete variant mapping");
+    assert.equal(set.variantObservationsStatus, "partial", set.class + " must report partial variant coverage");
+    assert.deepEqual(
+      [...new Set(observations.map(piece => piece.slot))].sort(),
+      [...EXPECTED_SLOTS].sort(),
+      set.class + " observed versions should span the five tier slots"
+    );
+    for (const piece of observations) {
+      assert.equal(piece.candidate, false, set.class + " observed version leaked into candidates");
+      assert.equal(piece.verificationScope, "observed-version-only");
+      assert.ok(Number.isInteger(piece.itemLevel) && piece.itemLevel > 0);
+      assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/"));
+      assert.ok(Array.isArray(piece.stats) && piece.stats.length >= 4);
+      assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
+    }
+  }
+});
