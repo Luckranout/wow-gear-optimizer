@@ -33,7 +33,7 @@ class EquipmentCatalogueAuditTests(unittest.TestCase):
                         "basePieces": [{"itemId": 10, "slot": "Head"}],
                         "pieces": [],
                         "verifiedVariantObservations": [{
-                            "itemId": 10, "itemLevel": 300, "candidate": False,
+                            "itemId": 10, "slot": "Head", "itemLevel": 300, "candidate": False,
                             "stats": [{"type": {"name": "haste"}, "value": 10}],
                         }],
                     }
@@ -53,7 +53,12 @@ class EquipmentCatalogueAuditTests(unittest.TestCase):
         mage = report["tierVariantCoverage"]["classes"][0]
         self.assertEqual(mage["missingBaseSlots"], ["Chest", "Hands", "Legs", "Shoulders"])
         self.assertEqual(mage["observedOnlyVariantRecordsWithLevelAndStats"], 1)
+        self.assertEqual(mage["observedOnlySlotsPresent"], ["Head"])
+        self.assertEqual(mage["missingObservedOnlySlots"], ["Chest", "Hands", "Legs", "Shoulders"])
+        self.assertEqual(mage["slotVariantLevels"]["Head"]["observedOnlyItemLevels"], [300])
         self.assertEqual(mage["optimizerEligibleVariantRecordsWithLevelAndStats"], 0)
+        self.assertEqual(mage["missingVerifiedCandidateSlots"], ["Chest", "Hands", "Legs", "Shoulders"])
+        self.assertFalse(mage["completeVariantMapVerified"])
         self.assertEqual(mage["variantCoverageStatus"], "observations-only")
 
     def test_counts_only_explicit_candidate_variants_with_numeric_stats(self):
@@ -67,11 +72,12 @@ class EquipmentCatalogueAuditTests(unittest.TestCase):
             tier_data.write_text(json.dumps({
                 "sets": [{
                     "class": "Shaman",
+                    "itemIdsVerified": True,
                     "basePieces": [],
                     "pieces": [
-                        {"candidate": True, "itemLevel": 324, "stats": [{"type": {"name": "agility"}, "value": 172}]},
-                        {"candidate": False, "itemLevel": 324, "stats": [{"type": {"name": "agility"}, "value": 172}]},
-                        {"candidate": True, "itemLevel": 324, "stats": []},
+                        {"candidate": True, "slot": "Head", "itemLevel": 324, "stats": [{"type": {"name": "agility"}, "value": 172}]},
+                        {"candidate": False, "slot": "Chest", "itemLevel": 324, "stats": [{"type": {"name": "agility"}, "value": 172}]},
+                        {"candidate": True, "slot": "Legs", "itemLevel": 324, "stats": []},
                     ],
                     "verifiedVariantObservations": [],
                 }]
@@ -81,6 +87,9 @@ class EquipmentCatalogueAuditTests(unittest.TestCase):
 
         shaman = report["tierVariantCoverage"]["classes"][0]
         self.assertEqual(shaman["optimizerEligibleVariantRecordsWithLevelAndStats"], 1)
+        self.assertEqual(shaman["verifiedCandidateSlotsPresent"], ["Head"])
+        self.assertEqual(shaman["missingVerifiedCandidateSlots"], ["Chest", "Hands", "Legs", "Shoulders"])
+        self.assertTrue(shaman["completeVariantMapVerified"])
         self.assertEqual(shaman["variantCoverageStatus"], "verified-candidates-present")
 
 
