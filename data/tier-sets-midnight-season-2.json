@@ -71,8 +71,56 @@
           "sourceType": "PvP"
         }
       ],
-      "pieces": [],
-      "itemIdsVerified": false
+      "pieces": [
+        {
+          "itemId": 271477,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Breastplate",
+          "slot": "Chest",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271477/baleful-grave-knights-breastplate",
+          "candidate": false
+        },
+        {
+          "itemId": 271475,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Deathgrips",
+          "slot": "Hands",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271475/baleful-grave-knights-deathgrips",
+          "candidate": false
+        },
+        {
+          "itemId": 271474,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Casque",
+          "slot": "Head",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271474/baleful-grave-knights-casque",
+          "candidate": false
+        },
+        {
+          "itemId": 271473,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Greaves",
+          "slot": "Legs",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271473/baleful-grave-knights-greaves",
+          "candidate": false
+        },
+        {
+          "itemId": 271472,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Gibbets",
+          "slot": "Shoulders",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271472/baleful-grave-knights-gibbets",
+          "candidate": false
+        }
+      ],
+      "itemIdsVerified": true,
+      "id": "baleful-grave-knight-s-crucible",
+      "itemIdsSource": "https://www.wowhead.com/ptr/item-set=2055/baleful-grave-knights-crucible"
     },
     {
       "class": "Demon Hunter",
@@ -127,8 +175,56 @@
           "sourceType": "PvP"
         }
       ],
-      "pieces": [],
-      "itemIdsVerified": false
+      "pieces": [
+        {
+          "itemId": 271540,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Coreguard",
+          "slot": "Chest",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271540/abyssal-doomhounds-coreguard",
+          "candidate": false
+        },
+        {
+          "itemId": 271538,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Studded Gauntlets",
+          "slot": "Hands",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271538/abyssal-doomhounds-studded-gauntlets",
+          "candidate": false
+        },
+        {
+          "itemId": 271537,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Relentless Stare",
+          "slot": "Head",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271537/abyssal-doomhounds-relentless-stare",
+          "candidate": false
+        },
+        {
+          "itemId": 271536,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Legwraps",
+          "slot": "Legs",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271536/abyssal-doomhounds-legwraps",
+          "candidate": false
+        },
+        {
+          "itemId": 271535,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Jaws",
+          "slot": "Shoulders",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271535/abyssal-doomhounds-jaws",
+          "candidate": false
+        }
+      ],
+      "itemIdsVerified": true,
+      "id": "abyssal-doomhound-s-pursuit",
+      "itemIdsSource": "https://www.wowhead.com/ptr/item-set=2056/abyssal-doomhounds-pursuit"
     },
     {
       "class": "Druid",
@@ -188,8 +284,56 @@
           "sourceType": "PvP"
         }
       ],
-      "pieces": [],
-      "itemIdsVerified": false
+      "pieces": [
+        {
+          "itemId": 271531,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Lunar Raiment",
+          "slot": "Chest",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271531/enigmatic-dreamwatchers-lunar-raiment",
+          "candidate": false
+        },
+        {
+          "itemId": 271529,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Gauntlets",
+          "slot": "Hands",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271529/enigmatic-dreamwatchers-gauntlets",
+          "candidate": false
+        },
+        {
+          "itemId": 271528,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Somnolent Stare",
+          "slot": "Head",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271528/enigmatic-dreamwatchers-somnolent-stare",
+          "candidate": false
+        },
+        {
+          "itemId": 271527,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Leggings",
+          "slot": "Legs",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271527/enigmatic-dreamwatchers-leggings",
+          "candidate": false
+        },
+        {
+          "itemId": 271526,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Plumage",
+          "slot": "Shoulders",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271526/enigmatic-dreamwatchers-plumage",
+          "candidate": false
+        }
+      ],
+      "itemIdsVerified": true,
+      "id": "bark-of-the-enigmatic-dreamwatcher",
+      "itemIdsSource": "https://www.wowhead.com/ptr/item-set=2057/bark-of-the-enigmatic-dreamwatcher"
     },
     {
       "class": "Evoker",
@@ -244,8 +388,56 @@
           "sourceType": "PvP"
         }
       ],
-      "pieces": [],
-      "itemIdsVerified": false
+      "pieces": [
+        {
+          "itemId": 271504,
+          "setId": "echo-of-calamity",
+          "name": "Searing Caldera of Calamity",
+          "slot": "Chest",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271504/searing-caldera-of-calamity",
+          "candidate": false
+        },
+        {
+          "itemId": 271502,
+          "setId": "echo-of-calamity",
+          "name": "Calamitous Echo's Ebon Greathorns",
+          "slot": "Hands",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271502/calamitous-echos-ebon-greathorns",
+          "candidate": false
+        },
+        {
+          "itemId": 271501,
+          "setId": "echo-of-calamity",
+          "name": "Calamitous Echo's Magmashapers",
+          "slot": "Head",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271501/calamitous-echos-magmashapers",
+          "candidate": false
+        },
+        {
+          "itemId": 271500,
+          "setId": "echo-of-calamity",
+          "name": "Earthen Pillars of Calamity",
+          "slot": "Legs",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271500/earthen-pillars-of-calamity",
+          "candidate": false
+        },
+        {
+          "itemId": 271499,
+          "setId": "echo-of-calamity",
+          "name": "Calamitous Echo's Sundered Peaks",
+          "slot": "Shoulders",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271499/calamitous-echos-sundered-peaks",
+          "candidate": false
+        }
+      ],
+      "itemIdsVerified": true,
+      "id": "echo-of-calamity",
+      "itemIdsSource": "https://www.wowhead.com/ptr/item-set=2058/echo-of-calamity"
     },
     {
       "class": "Hunter",
@@ -300,8 +492,56 @@
           "sourceType": "PvP"
         }
       ],
-      "pieces": [],
-      "itemIdsVerified": false
+      "pieces": [
+        {
+          "itemId": 271495,
+          "setId": "skulking-viper-s-ambush",
+          "name": "Skulking Viper's Scuteplate",
+          "slot": "Chest",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271495/skulking-vipers-scuteplate",
+          "candidate": false
+        },
+        {
+          "itemId": 271493,
+          "setId": "skulking-viper-s-ambush",
+          "name": "Skulking Viper's Hidepiercers",
+          "slot": "Hands",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271493/skulking-vipers-hidepiercers",
+          "candidate": false
+        },
+        {
+          "itemId": 271492,
+          "setId": "skulking-viper-s-ambush",
+          "name": "Skulking Viper's Weeping Fangs",
+          "slot": "Head",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271492/skulking-vipers-weeping-fangs",
+          "candidate": false
+        },
+        {
+          "itemId": 271491,
+          "setId": "skulking-viper-s-ambush",
+          "name": "Skulking Viper's Coiled Legwraps",
+          "slot": "Legs",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271491/skulking-vipers-coiled-legwraps",
+          "candidate": false
+        },
+        {
+          "itemId": 271490,
+          "setId": "skulking-viper-s-ambush",
+          "name": "Jaws of the Skulking Viper",
+          "slot": "Shoulders",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271490/jaws-of-the-skulking-viper",
+          "candidate": false
+        }
+      ],
+      "itemIdsVerified": true,
+      "id": "skulking-viper-s-ambush",
+      "itemIdsSource": "https://www.wowhead.com/ptr/item-set=2059/skulking-vipers-ambush"
     },
     {
       "class": "Mage",
@@ -356,8 +596,56 @@
           "sourceType": "PvP"
         }
       ],
-      "pieces": [],
-      "itemIdsVerified": false
+      "pieces": [
+        {
+          "itemId": 271567,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Crest of the Primal Leywarden",
+          "slot": "Chest",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271567/crest-of-the-primal-leywarden",
+          "candidate": false
+        },
+        {
+          "itemId": 271565,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Primal Leywarden's Manashapers",
+          "slot": "Hands",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271565/primal-leywardens-manashapers",
+          "candidate": false
+        },
+        {
+          "itemId": 271564,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Crown of the Primal Leywarden",
+          "slot": "Head",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271564/crown-of-the-primal-leywarden",
+          "candidate": false
+        },
+        {
+          "itemId": 271563,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Primal Leywarden's Tailored Legwraps",
+          "slot": "Legs",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271563/primal-leywardens-tailored-legwraps",
+          "candidate": false
+        },
+        {
+          "itemId": 271562,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Primal Leywarden's Manaflux",
+          "slot": "Shoulders",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271562/primal-leywardens-manaflux",
+          "candidate": false
+        }
+      ],
+      "itemIdsVerified": true,
+      "id": "primal-leywarden-s-attire",
+      "itemIdsSource": "https://www.wowhead.com/ptr/item-set=2060/primal-leywardens-attire"
     },
     {
       "class": "Monk",
@@ -412,8 +700,56 @@
           "sourceType": "PvP"
         }
       ],
-      "pieces": [],
-      "itemIdsVerified": false
+      "pieces": [
+        {
+          "itemId": 271522,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Battle Gi of the Monkey King",
+          "slot": "Chest",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271522/battle-gi-of-the-monkey-king",
+          "candidate": false
+        },
+        {
+          "itemId": 271520,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Monkey King's Fighting Fists",
+          "slot": "Hands",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271520/monkey-kings-fighting-fists",
+          "candidate": false
+        },
+        {
+          "itemId": 271519,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Monkey King's Unyielding Visage",
+          "slot": "Head",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271519/monkey-kings-unyielding-visage",
+          "candidate": false
+        },
+        {
+          "itemId": 271518,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Pantaloons of the Monkey King",
+          "slot": "Legs",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271518/pantaloons-of-the-monkey-king",
+          "candidate": false
+        },
+        {
+          "itemId": 271517,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Tassels of the Monkey King",
+          "slot": "Shoulders",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271517/tassels-of-the-monkey-king",
+          "candidate": false
+        }
+      ],
+      "itemIdsVerified": true,
+      "id": "guile-of-the-monkey-king",
+      "itemIdsSource": "https://www.wowhead.com/ptr/item-set=2061/guile-of-the-monkey-king"
     },
     {
       "class": "Paladin",
@@ -468,8 +804,56 @@
           "sourceType": "PvP"
         }
       ],
-      "pieces": [],
-      "itemIdsVerified": false
+      "pieces": [
+        {
+          "itemId": 271468,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Bulwark of the Consecrated Flame",
+          "slot": "Chest",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271468/bulwark-of-the-consecrated-flame",
+          "candidate": false
+        },
+        {
+          "itemId": 271466,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Gauntlets of the Consecrated Flame",
+          "slot": "Hands",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271466/gauntlets-of-the-consecrated-flame",
+          "candidate": false
+        },
+        {
+          "itemId": 271465,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Warhelm of the Consecrated Flame",
+          "slot": "Head",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271465/warhelm-of-the-consecrated-flame",
+          "candidate": false
+        },
+        {
+          "itemId": 271464,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Greaves of the Consecrated Flame",
+          "slot": "Legs",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271464/greaves-of-the-consecrated-flame",
+          "candidate": false
+        },
+        {
+          "itemId": 271463,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Pauldrons of the Consecrated Flame",
+          "slot": "Shoulders",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271463/pauldrons-of-the-consecrated-flame",
+          "candidate": false
+        }
+      ],
+      "itemIdsVerified": true,
+      "id": "radiance-of-the-consecrated-flame",
+      "itemIdsSource": "https://www.wowhead.com/ptr/item-set=2062/radiance-of-the-consecrated-flame"
     },
     {
       "class": "Priest",
@@ -524,8 +908,56 @@
           "sourceType": "PvP"
         }
       ],
-      "pieces": [],
-      "itemIdsVerified": false
+      "pieces": [
+        {
+          "itemId": 271558,
+          "setId": "cosmic-penitent-s-raiment",
+          "name": "Cosmic Penitent's Eclipsing Robes",
+          "slot": "Chest",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271558/cosmic-penitents-eclipsing-robes",
+          "candidate": false
+        },
+        {
+          "itemId": 271556,
+          "setId": "cosmic-penitent-s-raiment",
+          "name": "Cosmic Penitent's Celestial Grips",
+          "slot": "Hands",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271556/cosmic-penitents-celestial-grips",
+          "candidate": false
+        },
+        {
+          "itemId": 271555,
+          "setId": "cosmic-penitent-s-raiment",
+          "name": "Cosmic Penitent's Truesight",
+          "slot": "Head",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271555/cosmic-penitents-truesight",
+          "candidate": false
+        },
+        {
+          "itemId": 271554,
+          "setId": "cosmic-penitent-s-raiment",
+          "name": "Enveloping Legwraps of the Cosmic Penitent",
+          "slot": "Legs",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271554/enveloping-legwraps-of-the-cosmic-penitent",
+          "candidate": false
+        },
+        {
+          "itemId": 271553,
+          "setId": "cosmic-penitent-s-raiment",
+          "name": "Cosmic Penitent's Echoing Screams",
+          "slot": "Shoulders",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271553/cosmic-penitents-echoing-screams",
+          "candidate": false
+        }
+      ],
+      "itemIdsVerified": true,
+      "id": "cosmic-penitent-s-raiment",
+      "itemIdsSource": "https://www.wowhead.com/ptr/item-set=2063/cosmic-penitents-raiment"
     },
     {
       "class": "Rogue",
@@ -580,8 +1012,56 @@
           "sourceType": "PvP"
         }
       ],
-      "pieces": [],
-      "itemIdsVerified": false
+      "pieces": [
+        {
+          "itemId": 271513,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Banded Poncho",
+          "slot": "Chest",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271513/chosen-bloodslayers-banded-poncho",
+          "candidate": false
+        },
+        {
+          "itemId": 271511,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Fanged Grips",
+          "slot": "Hands",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271511/chosen-bloodslayers-fanged-grips",
+          "candidate": false
+        },
+        {
+          "itemId": 271510,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Spirit Shroud",
+          "slot": "Head",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271510/chosen-bloodslayers-spirit-shroud",
+          "candidate": false
+        },
+        {
+          "itemId": 271509,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Reinforced Pants",
+          "slot": "Legs",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271509/chosen-bloodslayers-reinforced-pants",
+          "candidate": false
+        },
+        {
+          "itemId": 271508,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Voodoo Guards",
+          "slot": "Shoulders",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271508/chosen-bloodslayers-voodoo-guards",
+          "candidate": false
+        }
+      ],
+      "itemIdsVerified": true,
+      "id": "chosen-bloodslayer-s-hexweave",
+      "itemIdsSource": "https://www.wowhead.com/ptr/item-set=2064/chosen-bloodslayers-hexweave"
     },
     {
       "class": "Shaman",
@@ -1574,8 +2054,56 @@
           "sourceType": "PvP"
         }
       ],
-      "pieces": [],
-      "itemIdsVerified": false
+      "pieces": [
+        {
+          "itemId": 271549,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Rattling Robes",
+          "slot": "Chest",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271549/damned-necrolytes-rattling-robes",
+          "candidate": false
+        },
+        {
+          "itemId": 271547,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Charred Grasps",
+          "slot": "Hands",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271547/damned-necrolytes-charred-grasps",
+          "candidate": false
+        },
+        {
+          "itemId": 271546,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Skull of the Damned Necrolyte",
+          "slot": "Head",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271546/skull-of-the-damned-necrolyte",
+          "candidate": false
+        },
+        {
+          "itemId": 271545,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Leg Bindings",
+          "slot": "Legs",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271545/damned-necrolytes-leg-bindings",
+          "candidate": false
+        },
+        {
+          "itemId": 271544,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Spires of the Damned Necrolyte",
+          "slot": "Shoulders",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271544/spires-of-the-damned-necrolyte",
+          "candidate": false
+        }
+      ],
+      "itemIdsVerified": true,
+      "id": "damned-necrolyte-s-shattered-restraints",
+      "itemIdsSource": "https://www.wowhead.com/ptr/item-set=2066/damned-necrolytes-shattered-restraints"
     },
     {
       "class": "Warrior",
@@ -1630,8 +2158,56 @@
           "sourceType": "PvP"
         }
       ],
-      "pieces": [],
-      "itemIdsVerified": false
+      "pieces": [
+        {
+          "itemId": 271459,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Cuirass of the Jade Warlord",
+          "slot": "Chest",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271459/cuirass-of-the-jade-warlord",
+          "candidate": false
+        },
+        {
+          "itemId": 271457,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Jeweled Gauntlets of the Jade Warlord",
+          "slot": "Hands",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271457/jeweled-gauntlets-of-the-jade-warlord",
+          "candidate": false
+        },
+        {
+          "itemId": 271456,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Tempered Horns of the Jade Warlord",
+          "slot": "Head",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271456/tempered-horns-of-the-jade-warlord",
+          "candidate": false
+        },
+        {
+          "itemId": 271455,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Greaves of the Jade Warlord",
+          "slot": "Legs",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271455/greaves-of-the-jade-warlord",
+          "candidate": false
+        },
+        {
+          "itemId": 271454,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Raging Pauldrons of the Jade Warlord",
+          "slot": "Shoulders",
+          "variant": "Base mapping",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271454/raging-pauldrons-of-the-jade-warlord",
+          "candidate": false
+        }
+      ],
+      "itemIdsVerified": true,
+      "id": "jade-warlord-s-dominion",
+      "itemIdsSource": "https://www.wowhead.com/ptr/item-set=2067/jade-warlords-dominion"
     }
   ],
   "itemMatching": {
@@ -1658,8 +2234,23 @@
       "Gladiator",
       "Elite"
     ],
-    "note": "Verified Shaman Ophidian Oracle's Prophecy base item IDs and slots from Wowhead item pages. The same item ID persists across the six item-level/appearance variants; exact item bonus IDs are not needed for set membership. Other class set pieces remain unverified and are not inferred.",
+    "note": "Verified base tier-piece item IDs and slots are bridged from data/tier-set-item-ids.json for all 13 classes. Non-Shaman entries are metadata-only mappings, not optimizer candidates; variant item levels/stats remain unverified. Numeric tier-bonus scoring remains disabled.",
     "verifiedClasses": [
+      "Death Knight",
+      "Demon Hunter",
+      "Druid",
+      "Evoker",
+      "Hunter",
+      "Mage",
+      "Monk",
+      "Paladin",
+      "Priest",
+      "Rogue",
+      "Shaman",
+      "Warlock",
+      "Warrior"
+    ],
+    "statsVerifiedClasses": [
       "Shaman"
     ]
   }
