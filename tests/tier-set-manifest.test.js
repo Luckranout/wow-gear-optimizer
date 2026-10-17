@@ -299,3 +299,60 @@ test("slot optimizer rejects a low-level base record when no complete upgrade va
   assert.equal(result, null,
     "neither a lower-level base item nor an incomplete variant may replace higher-level equipped gear");
 });
+
+
+test("upgrade-opportunity search rejects unsupported base downgrade but recognizes verified max variant", () => {
+  const sandbox = { window: {} };
+  vm.runInNewContext(
+    fs.readFileSync(path.join(root, "optimizer.js"), "utf8"),
+    sandbox,
+    { filename: "optimizer.js" }
+  );
+  const optimizer = sandbox.window.WoWOptimizer;
+  const weights = {
+    Strength: 1, Agility: 1, Intellect: 1, Stamina: 0,
+    CriticalStrike: 1, Haste: 1, Mastery: 1, Versatility: 1
+  };
+  const equipped = {
+    Chest: {
+      id: 999101, name: "Equipped Chest", slot: "Chest", itemLevel: 305,
+      stats: [
+        { type: { name: "strength" }, value: 120 },
+        { type: { name: "stamina" }, value: 2500 },
+        { type: { name: "critical strike" }, value: 80 },
+        { type: { name: "mastery" }, value: 80 }
+      ]
+    }
+  };
+  const base = {
+    id: 271477, name: "Verified Variant Chest", slot: "Chest",
+    classRestriction: "Death Knight", candidate: true,
+    dataStatus: "verified-base-and-max-upgrade-stats", itemLevel: 219,
+    stats: [
+      { type: { name: "strength" }, value: 65 },
+      { type: { name: "intellect" }, value: 65 },
+      { type: { name: "stamina" }, value: 1005 },
+      { type: { name: "critical strike" }, value: 31 },
+      { type: { name: "mastery" }, value: 76 }
+    ],
+    variants: [{
+      variantKey: "wowhead:myth-6-6:ilvl334", itemLevel: 334,
+      stats: [
+        { type: { name: "strength" }, value: 189 },
+        { type: { name: "intellect" }, value: 189 },
+        { type: { name: "stamina" }, value: 3910 },
+        { type: { name: "critical strike" }, value: 59 },
+        { type: { name: "mastery" }, value: 142 }
+      ]
+    }]
+  };
+  const result = optimizer.findUpgradeOpportunities({
+    currentEquipment: equipped, availableItems: [base], goal: "general",
+    statWeights: weights, className: "Death Knight", specialization: "Blood", limit: 6
+  });
+  const chestUpgrade = result.find(upgrade => upgrade.slot === "Chest");
+  assert.ok(chestUpgrade, "verified max-upgrade variant should be considered");
+  assert.equal(Number(chestUpgrade.recommendedItem.itemLevel), 334,
+    "upgrade shortlist must return the verified variant, not its 219 base");
+  assert.equal(chestUpgrade.recommendedItem.variantKey, "wowhead:myth-6-6:ilvl334");
+});
