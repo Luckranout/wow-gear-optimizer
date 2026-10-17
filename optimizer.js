@@ -537,15 +537,21 @@ function scoreItemStats(item, statWeights = STAT_WEIGHTS) {
 }
 
 function hasCompleteVariantStats(baseItem, variant) {
-  if (!baseItem || !variant || !Array.isArray(baseItem.stats) || !Array.isArray(variant.stats)) return false;
+  if (!baseItem || !variant || !baseItem.stats || !variant.stats) return false;
   const relevant = new Set(["Strength", "Agility", "Intellect", "CriticalStrike", "Haste", "Mastery", "Versatility"]);
   const statName = stat => normalizeItemStatName(stat?.stat?.name || stat?.type?.name || stat?.name || stat?.stat || "");
   const valueOf = stat => Number(stat?.value?.value ?? stat?.value?.amount ?? stat?.amount ?? stat?.value);
-  const baseRequired = baseItem.stats
+  const entriesOf = stats => Array.isArray(stats)
+    ? stats
+    : stats && typeof stats === "object"
+      ? Object.entries(stats).map(([name, value]) => ({ name, value }))
+      : [];
+  const baseRequired = entriesOf(baseItem.stats)
     .filter(stat => relevant.has(statName(stat)) && Number.isFinite(valueOf(stat)) && valueOf(stat) > 0)
     .map(statName);
-  const variantByName = new Map(variant.stats.map(stat => [statName(stat), stat]));
+  const variantByName = new Map(entriesOf(variant.stats).map(stat => [statName(stat), stat]));
   // A tooltip that omits every relevant base stat is partial, not a complete variant.
+  // Both imported stat arrays and Blizzard-style stat maps are valid source shapes.
   if (!baseRequired.length) return false;
   return baseRequired.every(name => {
     const stat = variantByName.get(name);
