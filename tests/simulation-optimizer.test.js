@@ -215,3 +215,35 @@ if (!importedWithBuild.talentBuild?.verified ||
   throw new Error("Imported active talent build was not passed into the optimizer character profile");
 }
 console.log("Automatic talent context and primary-stat eligibility tests passed.");
+
+
+// Regression: an upgraded variant must be expanded before comparing item level.
+// Both plate tanks share this path; a low-level base record must not hide its
+// verified high-level Mythic+ variant.
+for (const tank of [
+  { className: "Warrior", specialization: "Protection" },
+  { className: "Paladin", specialization: "Protection" }
+]) {
+  const currentPlateItem = {
+    id: 9200, name: "Equipped Plate Helm", slot: "Head", itemLevel: 305,
+    stats: { Strength: 80, Haste: 20 }
+  };
+  const catalogBase = {
+    id: 9201, name: "Upgradable Plate Helm", slot: "Head", itemLevel: 219,
+    stats: { Strength: 20, Haste: 5 },
+    variants: [{
+      itemLevel: 340,
+      slot: "Head",
+      stats: { Strength: 180, Haste: 45, Mastery: 30 }
+    }]
+  };
+  const best = optimizer.findBestItemForSlot(
+    [catalogBase], "Head", "Mythic+", null, tank.className, currentPlateItem, tank.specialization
+  );
+  if (!best || best.itemLevel !== 340) {
+    throw new Error(
+      `Verified upgraded variant was rejected for Protection ${tank.className}: expected ilvl 340, got ${best?.itemLevel ?? "no candidate"}`
+    );
+  }
+}
+console.log("Protection Warrior/Paladin upgraded-variant regression tests passed.");
