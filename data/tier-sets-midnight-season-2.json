@@ -1540,7 +1540,7 @@
           "itemLevel": 334,
           "candidate": false,
           "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/item=271495/skulking-vipers-scuteplate?ilvl=334",
+          "sourceUrl": "https://www.wowhead.com/item=271495/skulking-vipers-scuteplate?bonus=13334%3A13846%3A12854%3A42%3A13690%3A13698%3A1587%3A13696&ilvl=334&spec=254",
           "stats": [
             {
               "type": {
@@ -1558,16 +1558,16 @@
             },
             {
               "type": {
-                "name": "criticalStrike"
+                "name": "haste"
               },
-              "value": 61,
+              "value": 64,
               "source": "Wowhead tooltip, item level 334"
             },
             {
               "type": {
                 "name": "mastery"
               },
-              "value": 140,
+              "value": 137,
               "source": "Wowhead tooltip, item level 334"
             }
           ]
@@ -1581,7 +1581,7 @@
           "itemLevel": 321,
           "candidate": false,
           "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271493/skulking-vipers-hidepiercers?bonus=6652%3A13440%3A13691%3A13697%3A12846&class=3&ilvl=321&spec=254",
+          "sourceUrl": "https://www.wowhead.com/item=271493/skulking-vipers-hidepiercers?bonus=6652%3A13440%3A13691%3A13697%3A12846&ilvl=321",
           "stats": [
             {
               "type": {
@@ -1601,14 +1601,14 @@
               "type": {
                 "name": "haste"
               },
-              "value": 48,
+              "value": 94,
               "source": "Wowhead tooltip, item level 321"
             },
             {
               "type": {
-                "name": "mastery"
+                "name": "versatility"
               },
-              "value": 95,
+              "value": 49,
               "source": "Wowhead tooltip, item level 321"
             }
           ]
@@ -1622,7 +1622,7 @@
           "itemLevel": 334,
           "candidate": false,
           "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/item=271492/skulking-vipers-weeping-fangs?ilvl=334",
+          "sourceUrl": "https://www.wowhead.com/item=271492/skulking-vipers-weeping-fangs?class=3&ilvl=334",
           "stats": [
             {
               "type": {
@@ -1640,16 +1640,16 @@
             },
             {
               "type": {
-                "name": "criticalStrike"
+                "name": "haste"
               },
-              "value": 141,
+              "value": 143,
               "source": "Wowhead tooltip, item level 334"
             },
             {
               "type": {
-                "name": "versatility"
+                "name": "mastery"
               },
-              "value": 60,
+              "value": 58,
               "source": "Wowhead tooltip, item level 334"
             }
           ]
@@ -1681,16 +1681,16 @@
             },
             {
               "type": {
-                "name": "criticalStrike"
+                "name": "haste"
               },
-              "value": 75,
+              "value": 38,
               "source": "Wowhead tooltip, item level 219"
             },
             {
               "type": {
-                "name": "versatility"
+                "name": "mastery"
               },
-              "value": 32,
+              "value": 69,
               "source": "Wowhead tooltip, item level 219"
             }
           ]
@@ -1704,7 +1704,7 @@
           "itemLevel": 334,
           "candidate": false,
           "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/item=271490/jaws-of-the-skulking-viper?ilvl=334",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271490/jaws-of-the-skulking-viper?ilvl=334",
           "stats": [
             {
               "type": {
@@ -1722,23 +1722,23 @@
             },
             {
               "type": {
-                "name": "haste"
+                "name": "criticalStrike"
               },
-              "value": 102,
+              "value": 52,
               "source": "Wowhead tooltip, item level 334"
             },
             {
               "type": {
-                "name": "versatility"
+                "name": "haste"
               },
-              "value": 48,
+              "value": 98,
               "source": "Wowhead tooltip, item level 334"
             }
           ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Five source-checked item versions are recorded for evidence only. The Legs record is the base item level 219 version, not an upgraded variant. All observations remain ineligible as optimizer candidates until complete upgrade/difficulty variant coverage is verified."
+      "variantObservationsNote": "Five source-checked item versions are recorded for evidence only. The Legs record is the base item level 219 version, not an upgraded variant. Stats were cross-checked against the exact item-level Wowhead tooltips; all observations remain ineligible as optimizer candidates until complete upgrade/difficulty variant coverage is verified."
     },
     {
       "class": "Mage",
