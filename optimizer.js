@@ -1441,7 +1441,12 @@ function recommendUpgradePlan({ currentItem, upgradeSystem, availableCrests = {}
 
 function getTierSetCoverageStatus(tierSetCatalogue = null, className = "", specialization = "") {
   const sets = Array.isArray(tierSetCatalogue?.sets) ? tierSetCatalogue.sets : [];
-  const mappingOnly = sets.some(set => typeof set?.className === "string" && set?.mappingStatus === "verified");
+  // Both tier data formats are supported: the manifest uses className/mappingStatus,
+  // while the season catalogue uses class/itemIdsVerified. Neither implies numeric bonus data.
+  const mappingOnly = sets.some(set =>
+    typeof (set?.className || set?.class) === "string" &&
+    (set?.mappingStatus === "verified" || set?.itemIdsVerified === true)
+  );
   const normalizedClass = String(className || "").trim().toLowerCase();
   const classSet = sets.find(set =>
     String(set.class || set.className || "").trim().toLowerCase() === normalizedClass
