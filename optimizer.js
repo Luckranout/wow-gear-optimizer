@@ -111,6 +111,13 @@ function itemAllowedForPrimaryStat(item, className, specialization) {
 
 function itemAllowedForClass(item, className) {
   if (!item || !className) return true;
+  // Explicit class restrictions take precedence over generic armor metadata.
+  // Tier-piece identity records may be present before complete stats are imported.
+  const restriction = item.classRestriction;
+  if (typeof restriction === "string" && restriction.trim() &&
+      normalizeClassName(restriction) !== normalizeClassName(className)) return false;
+  if (Array.isArray(restriction) && restriction.length &&
+      !restriction.some(name => normalizeClassName(name) === normalizeClassName(className))) return false;
   const expectedArmor = CLASS_ARMOR_TYPE[normalizeClassName(className)];
   if (!expectedArmor) return true;
 
