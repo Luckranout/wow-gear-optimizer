@@ -554,7 +554,9 @@ function hasCompleteVariantStats(baseItem, variant) {
 }
 
 function hasUsableItemStats(item) {
-  if (!item || !item.stats) return false;
+  // Explicitly ineligible catalog records must never become scoreable merely
+  // because a later import accidentally attaches partial stats to them.
+  if (!item || item.candidate === false || item.dataStatus === "metadata-only-unverified-stats" || !item.stats) return false;
   // Blizzard character imports and catalog records can represent stat values
   // as numbers, {value}, or {amount}. Treat the same shapes as scoreItemStats;
   // otherwise equipped items can score as zero and a lower-ilvl catalog item
