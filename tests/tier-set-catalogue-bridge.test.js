@@ -454,3 +454,40 @@ test("Rogue source-backed tier item versions remain evidence-only and match Wowh
   assert.equal(rogue.itemIdsVerified, false,
     "partial observed versions must not promote the complete class variant map");
 });
+
+
+test("Mage source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
+  const mage = catalogue.sets.find(set => set.class === "Mage");
+  const observations = mage.verifiedVariantObservations || [];
+  assert.equal(observations.length, 5);
+  assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
+  assert.equal(mage.variantObservationsStatus, "partial");
+  assert.match(mage.variantObservationsNote, /do not establish coverage/i);
+  const manifestSet = manifest.sets.find(set => set.className === "Mage");
+  const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
+  for (const piece of observations) {
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.equal(piece.itemLevel, 334);
+    assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/"));
+    assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), piece.itemLevel);
+    assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    assert.ok(piece.stats.length >= 4);
+    assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
+  }
+  const expected = {
+    271567: { intellect: 189, stamina: 3910, criticalStrike: 130, haste: 71 },
+    271565: { intellect: 141, stamina: 2932, haste: 50, mastery: 101 },
+    271564: { intellect: 189, stamina: 3910, haste: 137, mastery: 63 },
+    271563: { intellect: 189, stamina: 3910, criticalStrike: 62, versatility: 139 },
+    271562: { intellect: 141, stamina: 2932, haste: 107, versatility: 44 }
+  };
+  for (const piece of observations) {
+    assert.deepEqual(
+      Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])),
+      expected[piece.itemId]
+    );
+  }
+  assert.equal(mage.itemIdsVerified, false,
+    "observed Mythic versions must not promote the complete class variant map");
+});
