@@ -491,3 +491,40 @@ test("Mage source-backed tier item versions remain evidence-only and match Wowhe
   assert.equal(mage.itemIdsVerified, false,
     "observed Mythic versions must not promote the complete class variant map");
 });
+
+
+test("Priest source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
+  const priest = catalogue.sets.find(set => set.class === "Priest");
+  const observations = priest.verifiedVariantObservations || [];
+  assert.equal(observations.length, 5);
+  assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
+  assert.equal(priest.variantObservationsStatus, "partial");
+  assert.match(priest.variantObservationsNote, /does not establish coverage/i);
+  const manifestSet = manifest.sets.find(set => set.className === "Priest");
+  const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
+  for (const piece of observations) {
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/"));
+    assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), piece.itemLevel);
+    assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    assert.ok(piece.stats.length >= 4);
+    assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
+  }
+  const expected = {
+    271558: { intellect: 189, stamina: 3910, criticalStrike: 62, mastery: 139 },
+    271556: { intellect: 108, stamina: 2096, criticalStrike: 47, mastery: 87 },
+    271555: { intellect: 189, stamina: 3910, criticalStrike: 141, mastery: 60 },
+    271554: { intellect: 189, stamina: 3910, haste: 143, versatility: 58 },
+    271553: { intellect: 141, stamina: 2932, criticalStrike: 101, haste: 49 }
+  };
+  for (const piece of observations) {
+    assert.deepEqual(
+      Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])),
+      expected[piece.itemId]
+    );
+  }
+  assert.equal(observations.find(piece => piece.itemId === 271556).itemLevel, 305);
+  assert.equal(priest.itemIdsVerified, false,
+    "partial observed versions must not promote the complete class variant map");
+});
