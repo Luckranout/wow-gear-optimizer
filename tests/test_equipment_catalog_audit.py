@@ -53,6 +53,8 @@ class EquipmentCatalogueAuditTests(unittest.TestCase):
         mage = report["tierVariantCoverage"]["classes"][0]
         self.assertEqual(mage["missingBaseSlots"], ["Chest", "Hands", "Legs", "Shoulders"])
         self.assertFalse(mage["basePieceMappingVerified"])
+        self.assertFalse(mage["manifestMappingMatchesCatalogue"])
+        self.assertEqual(mage["manifestSlotsMissingFromCatalogue"], ["Chest"])
         self.assertEqual(mage["verifiedBaseSlotsPresent"], ["Head"])
         self.assertEqual(mage["missingVerifiedBaseSlots"], ["Chest", "Hands", "Legs", "Shoulders"])
         self.assertEqual(mage["observedOnlyVariantRecordsWithLevelAndStats"], 1)
@@ -70,15 +72,30 @@ class EquipmentCatalogueAuditTests(unittest.TestCase):
             sections = root / "sections"
             sections.mkdir()
             manifest = root / "manifest.json"
-            manifest.write_text(json.dumps({"sets": []}), encoding="utf-8")
+            manifest.write_text(json.dumps({"sets": [{
+                "className": "Shaman",
+                "pieces": [
+                    {"itemId": 1, "slot": "Chest"},
+                    {"itemId": 2, "slot": "Hands"},
+                    {"itemId": 3, "slot": "Head"},
+                    {"itemId": 4, "slot": "Legs"},
+                    {"itemId": 5, "slot": "Shoulders"},
+                ],
+            }]}), encoding="utf-8")
             tier_data = root / "tier-data.json"
             tier_data.write_text(json.dumps({
                 "sets": [{
                     "class": "Shaman",
                     "itemIdsVerified": True,
-                    "basePieces": [],
+                    "basePieces": [
+                        {"itemId": 1, "slot": "Chest"},
+                        {"itemId": 2, "slot": "Hands"},
+                        {"itemId": 3, "slot": "Head"},
+                        {"itemId": 4, "slot": "Legs"},
+                        {"itemId": 5, "slot": "Shoulders"},
+                    ],
                     "pieces": [
-                        {"candidate": True, "slot": "Head", "itemLevel": 324, "stats": [{"type": {"name": "agility"}, "value": 172}]},
+                        {"itemId": 3, "candidate": True, "slot": "Head", "itemLevel": 324, "stats": [{"type": {"name": "agility"}, "value": 172}]},
                         {"candidate": False, "slot": "Chest", "itemLevel": 324, "stats": [{"type": {"name": "agility"}, "value": 172}]},
                         {"candidate": True, "slot": "Legs", "itemLevel": 324, "stats": []},
                     ],
@@ -94,8 +111,11 @@ class EquipmentCatalogueAuditTests(unittest.TestCase):
         self.assertEqual(shaman["missingVerifiedCandidateSlots"], ["Chest", "Hands", "Legs", "Shoulders"])
         self.assertTrue(shaman["completeVariantMapVerified"])
         self.assertTrue(shaman["basePieceMappingVerified"])
-        self.assertEqual(shaman["verifiedBaseSlotsPresent"], ["Head"])
-        self.assertEqual(shaman["missingVerifiedBaseSlots"], ["Chest", "Hands", "Legs", "Shoulders"])
+        self.assertTrue(shaman["manifestMappingMatchesCatalogue"])
+        self.assertEqual(shaman["manifestBasePieceCount"], 5)
+        self.assertEqual(shaman["manifestSlotsMissingFromCatalogue"], [])
+        self.assertEqual(shaman["verifiedBaseSlotsPresent"], ["Chest", "Hands", "Head", "Legs", "Shoulders"])
+        self.assertEqual(shaman["missingVerifiedBaseSlots"], [])
         self.assertEqual(shaman["variantCoverageStatus"], "verified-candidates-present")
 
 
