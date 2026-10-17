@@ -8,6 +8,8 @@ const path = require("node:path");
 const root = path.resolve(__dirname, "..");
 const manifest = JSON.parse(fs.readFileSync(path.join(root, "data/tier-set-item-ids.json"), "utf8"));
 const catalogue = JSON.parse(fs.readFileSync(path.join(root, "data/tier-sets-midnight-season-2.json"), "utf8"));
+const STAT_PROFILE_SOURCE = "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats";
+const EXPECTED_SLOTS = ["Head", "Shoulders", "Chest", "Hands", "Legs"];
 
 test("all 13 classes have five manifest-matched tier piece IDs in the season catalogue", () => {
   assert.equal(manifest.sets.length, 13);
@@ -37,4 +39,25 @@ test("catalogue reports ID mapping separately from variant stats and numeric bon
   assert.deepEqual(catalogue.itemMatching.statsVerifiedClasses, ["Shaman"]);
   assert.equal(catalogue.sets.every(set => set.numericScoringAvailable !== true), true);
   assert.match(catalogue.scoringPolicy, /Do not assign numeric optimization weights/i);
+});
+
+test("all 13 classes have source-backed secondary-stat profiles without pretending numeric stats are verified", () => {
+  assert.deepEqual(catalogue.itemMatching.secondaryStatsProfileVerifiedClasses, manifest.sets.map(set => set.className));
+  for (const set of catalogue.sets) {
+    const records = set.class === "Shaman" ? set.pieces : set.basePieces;
+    assert.equal(records.length, set.class === "Shaman" ? 30 : 5, set.class + " profile record count");
+    for (const slot of EXPECTED_SLOTS) {
+      const piece = records.find(record => record.slot === slot);
+      assert.ok(piece, set.class + " missing " + slot + " stat profile");
+      assert.equal(piece.secondaryStatsVerified, true, set.class + " " + slot);
+      assert.equal(piece.secondaryStatsSourceUrl, STAT_PROFILE_SOURCE);
+      assert.equal(piece.secondaryStats.length, 2);
+      assert.ok(piece.secondaryStats.every(stat => ["Critical Strike", "Haste", "Mastery", "Versatility"].includes(stat)));
+    }
+    if (set.class !== "Shaman") {
+      assert.equal(set.itemIdsVerified, false, set.class + " variant mapping must remain unverified");
+      assert.ok(records.every(piece => !("itemLevel" in piece) && !("stats" in piece)),
+        set.class + " profile metadata must not invent numeric item stats");
+    }
+  }
 });
