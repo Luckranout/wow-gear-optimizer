@@ -348,10 +348,297 @@
               "source": "Wowhead tooltip, item level 308"
             }
           ]
+        },
+        {
+          "itemId": 271474,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Casque",
+          "slot": "Head",
+          "variant": "Hero 6/6 observed",
+          "itemLevel": 321,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271474/baleful-grave-knights-casque?bonus=12846%3A13334%3A6652%3A13696%3A13692%3A13698%3A1574&ilvl=321&spec=251",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 167,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3369,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 132,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 58,
+              "source": "Wowhead tooltip, item level 321"
+            }
+          ]
+        },
+        {
+          "itemId": 271474,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Casque",
+          "slot": "Head",
+          "variant": "Heroic item level observed",
+          "itemLevel": 305,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271474/baleful-grave-knights-casque?bonus=6652%3A12841%3A13696%3A13440%3A13692%3A13698%3A1558&class=6&ilvl=305&spec=250",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 144,
+              "source": "Wowhead tooltip, item level 305"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2794,
+              "source": "Wowhead tooltip, item level 305"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 123,
+              "source": "Wowhead tooltip, item level 305"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 54,
+              "source": "Wowhead tooltip, item level 305"
+            }
+          ]
+        },
+        {
+          "itemId": 271474,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Casque",
+          "slot": "Head",
+          "variant": "Heroic 3/6 observed",
+          "itemLevel": 311,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr-2/item=271474/baleful-grave-knights-casque?bonus=12843%3A13334%3A13692%3A6652%3A13695%3A13698&ilvl=311&spec=252",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 152,
+              "source": "Wowhead tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Wowhead tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 126,
+              "source": "Wowhead tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 56,
+              "source": "Wowhead tooltip, item level 311"
+            }
+          ]
+        },
+        {
+          "itemId": 271474,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Casque",
+          "slot": "Head",
+          "variant": "Champion 6/6 observed",
+          "itemLevel": 308,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr-2/item=271474/baleful-grave-knights-casque?bonus=13692%3A13439%3A40%3A13696%3A13698%3A12838&class=6&ilvl=308&spec=250",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 148,
+              "source": "Wowhead tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2896,
+              "source": "Wowhead tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 125,
+              "source": "Wowhead tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 55,
+              "source": "Wowhead tooltip, item level 308"
+            }
+          ]
+        },
+        {
+          "itemId": 271472,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Gibbets",
+          "slot": "Shoulders",
+          "variant": "Raid item level observed",
+          "itemLevel": 295,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271472/baleful-grave-knights-gibbets?bonus=6652%3A12834%3A13694%3A13697%3A1548&class=6&ilvl=295&spec=252",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 98,
+              "source": "Wowhead tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Wowhead tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 42,
+              "source": "Wowhead tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 85,
+              "source": "Wowhead tooltip, item level 295"
+            }
+          ]
+        },
+        {
+          "itemId": 271472,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Gibbets",
+          "slot": "Shoulders",
+          "variant": "Heroic item level observed",
+          "itemLevel": 318,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr-2/item=271472/baleful-grave-knights-gibbets?bonus=13334%3A6652%3A12849%3A13694%3A13697%3A1571%3A13696&ilvl=318&spec=250",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 122,
+              "source": "Wowhead tooltip, item level 318"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2440,
+              "source": "Wowhead tooltip, item level 318"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 46,
+              "source": "Wowhead tooltip, item level 318"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 94,
+              "source": "Wowhead tooltip, item level 318"
+            }
+          ]
+        },
+        {
+          "itemId": 271472,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Gibbets",
+          "slot": "Shoulders",
+          "variant": "Mythic 6/6 observed",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271472/baleful-grave-knights-gibbets?bonus=13334%3A6652%3A12849%3A13694%3A13697%3A1571%3A13696&ilvl=334&spec=250",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 43,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 107,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Five source-checked item versions now preserve item-level-specific stats as evidence only. They are not optimizer candidates, and the full class/difficulty/upgrade variant map remains incomplete."
+      "variantObservationsNote": "Observed source-backed versions expand the known item-level range for Head and Shoulders, but the full per-slot variant map remains incomplete; these observations are not optimizer candidates."
     },
     {
       "class": "Demon Hunter",
