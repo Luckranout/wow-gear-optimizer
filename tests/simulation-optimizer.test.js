@@ -240,9 +240,9 @@ for (const tank of [
   const best = optimizer.findBestItemForSlot(
     [catalogBase], "Head", "Mythic+", null, tank.className, currentPlateItem, tank.specialization
   );
-  if (!best || best.itemLevel !== 340) {
+  if (!best || best.item?.itemLevel !== 340) {
     throw new Error(
-      `Verified upgraded variant was rejected for Protection ${tank.className}: expected ilvl 340, got ${best?.itemLevel ?? "no candidate"}`
+      `Verified upgraded variant was rejected for Protection ${tank.className}: expected ilvl 340, got ${best?.item?.itemLevel ?? "no candidate"}`
     );
   }
 }
