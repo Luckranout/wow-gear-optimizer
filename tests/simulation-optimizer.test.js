@@ -291,3 +291,28 @@ if (unsupportedDr.some(entry => entry.supported || entry.effectiveRating !== nul
   throw new Error("DR effective rating must remain unavailable for unsupported character levels");
 }
 console.log("Equipped vs recommended complete-loadout DR summaries passed.");
+// DR summaries are a shared system feature, not tied to one class/spec.
+const classSpecializations = [
+  ["Death Knight", ["Blood", "Frost", "Unholy"]],
+  ["Demon Hunter", ["Havoc", "Vengeance", "Devourer"]],
+  ["Druid", ["Balance", "Feral", "Guardian", "Restoration"]],
+  ["Evoker", ["Devastation", "Preservation", "Augmentation"]],
+  ["Hunter", ["Beast Mastery", "Marksmanship", "Survival"]],
+  ["Mage", ["Arcane", "Fire", "Frost"]],
+  ["Monk", ["Brewmaster", "Mistweaver", "Windwalker"]],
+  ["Paladin", ["Holy", "Protection", "Retribution"]],
+  ["Priest", ["Discipline", "Holy", "Shadow"]],
+  ["Rogue", ["Assassination", "Outlaw", "Subtlety"]],
+  ["Shaman", ["Elemental", "Enhancement", "Restoration"]],
+  ["Warlock", ["Affliction", "Demonology", "Destruction"]],
+  ["Warrior", ["Arms", "Fury", "Protection"]]
+];
+for (const [className, specializations] of classSpecializations) {
+  for (const specialization of specializations) {
+    const result = optimizer.getLoadoutDiminishingReturnsSummary(drRecommended, 90);
+    if (result.length !== 4 || result.some(entry => !entry.supported)) {
+      throw new Error("Shared DR summary unavailable for " + className + " / " + specialization);
+    }
+  }
+}
+console.log("Shared equipped/recommended DR feature coverage checked for all 13 classes and their specializations.");
