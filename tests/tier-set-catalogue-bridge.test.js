@@ -566,3 +566,41 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
   assert.equal(warlock.itemIdsVerified, false,
     "partial observed versions must not promote the complete class variant map");
 });
+
+
+test("Monk source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
+  const monk = catalogue.sets.find(set => set.class === "Monk");
+  const observations = monk.verifiedVariantObservations || [];
+  assert.equal(observations.length, 5);
+  assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
+  assert.equal(monk.variantObservationsStatus, "partial");
+  assert.match(monk.variantObservationsNote, /legs are observed at Heroic 3\/6 item level 311/i);
+  const manifestSet = manifest.sets.find(set => set.className === "Monk");
+  const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
+  for (const piece of observations) {
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/"));
+    const sourceLevel = new URL(piece.sourceUrl).searchParams.get("ilvl");
+    if (sourceLevel) assert.equal(Number(sourceLevel), piece.itemLevel);
+    assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    assert.ok(piece.stats.length >= 4);
+    assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
+  }
+  const expected = {
+    271522: { agility: 189, intellect: 189, stamina: 3910, haste: 62, mastery: 139 },
+    271520: { agility: 141, intellect: 141, stamina: 2932, haste: 106, versatility: 45 },
+    271519: { agility: 189, intellect: 189, stamina: 3910, criticalStrike: 58, mastery: 142 },
+    271518: { agility: 152, intellect: 152, stamina: 3002, criticalStrike: 118, versatility: 65 },
+    271517: { agility: 141, intellect: 141, stamina: 2932, haste: 103, mastery: 47 }
+  };
+  for (const piece of observations) {
+    assert.deepEqual(
+      Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])),
+      expected[piece.itemId]
+    );
+  }
+  assert.equal(observations.find(piece => piece.itemId === 271518).itemLevel, 311);
+  assert.equal(monk.itemIdsVerified, false,
+    "partial observed versions must not promote the complete class variant map");
+});
