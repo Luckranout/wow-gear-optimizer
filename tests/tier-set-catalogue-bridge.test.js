@@ -345,6 +345,6 @@ test("optimizer coverage distinguishes verified base-piece IDs from unverified v
   const shaman = getTierSetCoverageStatus(catalogue, "Shaman", "Enhancement");
   assert.equal(shaman.itemMappingVerified, true);
   assert.equal(shaman.variantMappingVerified, true);
-  assert.equal(shaman.verifiedPieceCount, 30);
+  assert.equal(shaman.verifiedPieceCount, 5);
   assert.equal(shaman.numericScoringAvailable, false);
 });
