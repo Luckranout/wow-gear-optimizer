@@ -341,6 +341,9 @@ test("optimizer coverage distinguishes verified base-piece IDs from unverified v
   assert.equal(deathKnight.variantMappingVerified, false);
   assert.equal(deathKnight.verifiedPieceCount, 5);
   assert.equal(deathKnight.expectedPieceCount, 5);
+  assert.equal(deathKnight.verifiedClassCount, 1,
+    "only Shaman has fully verified variant mappings");
+  assert.equal(deathKnight.baseMappingVerifiedClassCount, 13);
   assert.equal(deathKnight.numericScoringAvailable, false);
   assert.ok(deathKnight.limitations.some(note => /base tier-piece IDs are verified/i.test(note)));
   assert.ok(!deathKnight.limitations.some(note => /base tier-piece item mapping is not verified/i.test(note)));
