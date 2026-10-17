@@ -70,13 +70,22 @@ test("Warrior source-checked variant observations remain evidence-only and prese
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(warrior.variantObservationsStatus, "partial");
   assert.match(warrior.variantObservationsNote, /not eligible optimizer candidates/i);
+  const manifestWarrior = manifest.sets.find(set => set.className === "Warrior");
+  const manifestSlotsById = new Map(manifestWarrior.pieces.map(piece => [Number(piece.itemId), piece.slot]));
   for (const piece of observations) {
     assert.equal(piece.candidate, false);
     assert.equal(piece.verificationScope, "observed-version-only");
     assert.ok(piece.itemLevel > 0);
     assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/"));
+    assert.equal(manifestSlotsById.get(Number(piece.itemId)), piece.slot,
+      "observed item ID must match the manifest slot");
+    const levelInUrl = new URL(piece.sourceUrl).searchParams.get("ilvl");
+    assert.equal(Number(levelInUrl), piece.itemLevel,
+      "source URL must pin the exact observed item level");
     assert.ok(Array.isArray(piece.stats) && piece.stats.length >= 4);
     assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
+    assert.ok(piece.stats.every(stat => typeof stat.source === "string" && stat.source.length > 0),
+      "each observed stat must retain provenance");
   }
   const gloves = observations.filter(piece => piece.itemId === 271457);
   assert.equal(gloves.length, 2);
