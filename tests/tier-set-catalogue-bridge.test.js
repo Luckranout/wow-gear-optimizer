@@ -161,3 +161,43 @@ test("Paladin observed tier variants are source-backed and remain evidence-only"
     "partial observed versions must not promote the complete class variant map");
 });
 
+test("Demon Hunter source-checked tier versions remain evidence-only and preserve observed stats", () => {
+  const demonHunter = catalogue.sets.find(set => set.class === "Demon Hunter");
+  const observations = demonHunter.verifiedVariantObservations || [];
+  assert.equal(observations.length, 5);
+  assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
+  assert.equal(demonHunter.variantObservationsStatus, "partial");
+  assert.match(demonHunter.variantObservationsNote, /not a verified upgraded variant/i);
+  const manifestSet = manifest.sets.find(set => set.className === "Demon Hunter");
+  const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
+  for (const piece of observations) {
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.ok(piece.itemLevel > 0);
+    assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/"));
+    assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), piece.itemLevel,
+      "source URL must pin the exact observed item level");
+    assert.ok(Array.isArray(piece.stats) && piece.stats.length >= 4);
+    assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
+    assert.ok(piece.stats.every(stat => typeof stat.source === "string" && stat.source.length > 0));
+  }
+  const chest = observations.find(piece => piece.itemId === 271540);
+  assert.equal(chest.itemLevel, 321);
+  assert.deepEqual(
+    Object.fromEntries(chest.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 167, stamina: 3369, haste: 130, versatility: 60 }
+  );
+  const head = observations.find(piece => piece.itemId === 271537);
+  assert.equal(head.itemLevel, 334);
+  assert.deepEqual(
+    Object.fromEntries(head.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 189, stamina: 3910, criticalStrike: 135, mastery: 66 }
+  );
+  const gloves = observations.find(piece => piece.itemId === 271538);
+  assert.equal(gloves.itemLevel, 219,
+    "the known base version must be explicitly recorded as base-only evidence");
+  assert.equal(demonHunter.itemIdsVerified, false,
+    "partial observed versions must not promote the complete class variant map");
+});
+
