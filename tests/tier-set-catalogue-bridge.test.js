@@ -341,6 +341,14 @@ test("optimizer coverage distinguishes verified base-piece IDs from unverified v
   assert.equal(deathKnight.variantMappingVerified, false);
   assert.equal(deathKnight.verifiedPieceCount, 5);
   assert.equal(deathKnight.expectedPieceCount, 5);
+  assert.deepEqual(deathKnight.verifiedCandidateSlots, []);
+  assert.deepEqual(deathKnight.missingVerifiedCandidateSlots, [
+    "Head", "Shoulders", "Chest", "Hands", "Legs"
+  ]);
+  assert.deepEqual(deathKnight.observedOnlySlots, [
+    "Head", "Shoulders", "Chest", "Hands", "Legs"
+  ]);
+  assert.ok(deathKnight.slotVariantCoverage.every(slot => Array.isArray(slot.observedOnlyItemLevels)));
   assert.equal(deathKnight.verifiedClassCount, 1,
     "only Shaman has fully verified variant mappings");
   assert.equal(deathKnight.baseMappingVerifiedClassCount, 13);
@@ -352,6 +360,10 @@ test("optimizer coverage distinguishes verified base-piece IDs from unverified v
   assert.equal(shaman.itemMappingVerified, true);
   assert.equal(shaman.variantMappingVerified, true);
   assert.equal(shaman.verifiedPieceCount, 5);
+  assert.deepEqual(shaman.verifiedCandidateSlots, [
+    "Head", "Shoulders", "Chest", "Hands", "Legs"
+  ]);
+  assert.deepEqual(shaman.missingVerifiedCandidateSlots, []);
   assert.equal(shaman.numericScoringAvailable, false);
 });
 
