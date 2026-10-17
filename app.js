@@ -331,6 +331,39 @@ function renderUpgradeResults(upgrades = []) {
     </article>
   `).join("");
 }
+function renderProjectedStatsPanel(report) {
+  const projection = report?.projectedStats;
+  let panel = document.querySelector("#projectedStatsPanel");
+  if (!panel) {
+    panel = document.createElement("section");
+    panel.id = "projectedStatsPanel";
+    panel.className = "panel projected-stats-panel";
+    const loadout = document.querySelector("#loadoutResults");
+    if (loadout?.parentElement) loadout.parentElement.insertBefore(panel, loadout);
+    else document.querySelector("main")?.appendChild(panel);
+  }
+  if (!projection || !projection.available) {
+    panel.innerHTML = '<h2>Projected Character Stats</h2><p class="compare-no-stats">Projection unavailable: the optimizer has not received usable item-stat data for the proposed loadout.</p>';
+    return;
+  }
+  const preferred = ["Strength", "Agility", "Intellect", "Stamina", "CriticalStrike", "Haste", "Mastery", "Versatility", "Armor", "Leech", "Avoidance", "Speed"];
+  const names = [...new Set([...preferred.filter(name => Object.hasOwn(projection.deltas || {}, name)), ...Object.keys(projection.deltas || {}).filter(name => !preferred.includes(name))])];
+  const rows = names.map(name => {
+    const delta = Number(projection.deltas[name]) || 0;
+    const sign = delta > 0 ? "+" : "";
+    const cls = delta > 0 ? "gain" : delta < 0 ? "loss" : "same";
+    const current = projection.currentCharacterStats?.[name];
+    const projected = projection.projectedCharacterStats?.[name];
+    return '<div class="compare-stat"><span>' + escapeSlotText(name) + '</span><strong class="' + cls + '">' + sign + delta.toLocaleString() + '</strong><small>' +
+      (Number.isFinite(current) && Number.isFinite(projected) ? escapeSlotText(current.toLocaleString() + " → " + projected.toLocaleString()) : "character total unavailable") +
+      '</small></div>';
+  }).join("");
+  const missing = projection.missingSlots?.length
+    ? '<p class="compare-no-stats">Partial projection — item stats are missing for: ' + projection.missingSlots.map(escapeSlotText).join(", ") + '.</p>'
+    : '<p>Projection uses item-stat differences added to imported character totals; it is not a combat simulation.</p>';
+  panel.innerHTML = '<h2>Projected Character Stats</h2><p>Change from current gear to the optimized loadout</p><div class="projected-stats-grid">' + rows + '</div>' + missing;
+}
+
 function renderCharacterCoach(report, character) {
   const encounter = retailDataset?.encounters?.find(item =>
     String(item.id ?? item.name) === String(encounterSelect?.value || "")
@@ -989,6 +1022,7 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
 
   renderUpgradeResults(report.topUpgrades);
   renderOptimizedLoadout(report.optimizedEquipment, report.totalScore, WoWOptimizer.normalizeImportedEquipment(importedCharacter?.equipment || []));
+  renderProjectedStatsPanel(report);
   renderCharacterCoach(report, character);
   const resultPlaceholder = document.querySelector("#resultPlaceholder");
   if (resultPlaceholder) resultPlaceholder.style.display = "none";
