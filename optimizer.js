@@ -1419,8 +1419,9 @@ function getTierSetCoverageStatus(tierSetCatalogue = null, className = "", speci
   const isBaseMappingVerified = set => set?.baseItemIdsVerified === true ||
     set?.itemIdsVerified === true || set?.mappingStatus === "verified";
   const isVariantMappingVerified = set => set?.itemIdsVerified === true || set?.mappingStatus === "verified";
-  const verifiedClasses = sets.filter(isBaseMappingVerified);
-  const unverifiedClasses = sets.filter(set => !isBaseMappingVerified(set));
+  const verifiedClasses = sets.filter(isVariantMappingVerified);
+  const unverifiedClasses = sets.filter(set => !isVariantMappingVerified(set));
+  const baseMappingVerifiedClassCount = sets.filter(isBaseMappingVerified).length;
   const pieceRecords = classSet
     ? (isVariantMappingVerified(classSet) ? (classSet.pieces || []) : (classSet.basePieces || []))
     : [];
@@ -1445,6 +1446,7 @@ function getTierSetCoverageStatus(tierSetCatalogue = null, className = "", speci
       classSet.specs.some(spec => String(spec[0]).toLowerCase() === String(specialization || "").toLowerCase()),
     numericScoringAvailable: false,
     verifiedClassCount: verifiedClasses.length,
+    baseMappingVerifiedClassCount,
     totalClassCount: sets.length,
     unverifiedClasses: unverifiedClasses.map(set => set.class || set.className),
     limitations: [
