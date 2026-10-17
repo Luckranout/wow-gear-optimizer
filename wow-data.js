@@ -267,18 +267,36 @@ async function loadRetailDataset(url = "data/current-retail.json") {
     console.warn("Tier-set item ID manifest unavailable; continuing without mapping-only coverage:", error);
   }
   data.tierSetItemIdManifest = tierSetItemIdManifest;
-  const sourceBackedBonuses = (tierCatalogue?.sets || []).map(set => ({
-    setId: set.id || String(set.setName || "").trim().toLowerCase(),
-    name: set.setName,
-    class: set.class,
-    source: tierCatalogue.source?.url || null,
-    pieces: Array.isArray(set.pieces) ? set.pieces : [],
-    thresholds: [2, 4].map((pieces, index) => ({
+  const manifestSets = data.tierSetItemIdManifest?.sets || [];
+  const normalizeSetName = value => String(value || "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "");
+  const sourceBackedBonuses = (tierCatalogue?.sets || []).map(set => {
+    const manifestSet = manifestSets.find(candidate =>
+      normalizeSetName(candidate.className) === normalizeSetName(set.class) &&
+      normalizeSetName(candidate.setName) === normalizeSetName(set.setName)
+    );
+    const aliases = [...new Set([
+      set.id, set.setId, set.setName,
+      manifestSet?.setId, manifestSet?.setName
+    ].filter(value => value !== null && value !== undefined && String(value).trim() !== ""))];
+    const pieces = [...(manifestSet?.pieces || []), ...(Array.isArray(set.pieces) ? set.pieces : [])];
+    return {
+      // The verified item-ID manifest is the canonical identity when present.
+      // Keep source catalogue IDs/names as aliases because Blizzard and Wowhead
+      // item records do not always use the same set identifier.
+      setId: manifestSet?.setId || set.id || set.setId || String(set.setName || "").trim().toLowerCase(),
+      aliases,
+      name: set.setName,
+      class: set.class,
+      source: tierCatalogue.source?.url || manifestSet?.sourceUrl || null,
       pieces,
-      effects: Object.fromEntries((set.specs || []).map(spec => [spec[0], spec[index + 1]])),
-      scoreValue: null
-    }))
-  }));
+      thresholds: [2, 4].map((pieces, index) => ({
+        pieces,
+        effects: Object.fromEntries((set.specs || []).map(spec => [spec[0], spec[index + 1]])),
+        scoreValue: null,
+        source: tierCatalogue.source?.url || null
+      }))
+    };
+  });
   // Add source-backed Shaman tier candidates for four PvE difficulty variants.
   // PvP variants are mapped for set detection but remain excluded from candidates
   // until their stat and item-level records are verified.
@@ -306,14 +324,12 @@ async function loadRetailDataset(url = "data/current-retail.json") {
   // Use the independently verified item-ID manifest for set membership when
   // the richer tier catalogue is absent. Its 2pc/4pc thresholds intentionally
   // carry no score: piece mapping is not evidence of a numeric combat effect.
-  const catalogueSetIds = new Set(sourceBackedBonuses.map(set =>
-    String(set.setId ?? set.id ?? set.name ?? "").trim().toLowerCase()
-  ));
-  const manifestOnlyBonuses = (data.tierSetItemIdManifest?.sets || [])
-    .filter(set => !catalogueSetIds.has(String(set.setId ?? set.className ?? set.setName ?? "").trim().toLowerCase()) &&
-      !catalogueSetIds.has(String(set.setName || "").trim().toLowerCase()))
+  const catalogueClasses = new Set(sourceBackedBonuses.map(set => normalizeSetName(set.class)));
+  const manifestOnlyBonuses = manifestSets
+    .filter(set => !catalogueClasses.has(normalizeSetName(set.className)))
     .map(set => ({
       setId: set.setId || set.setName,
+      aliases: [set.setId, set.setName, set.className].filter(Boolean),
       name: set.setName,
       class: set.className,
       source: set.sourceUrl || "Verified Midnight Season 2 tier-piece ID manifest",
