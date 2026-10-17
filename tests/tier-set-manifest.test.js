@@ -431,3 +431,39 @@ test("loadout optimization does not recommend the same physical ring or trinket 
   assert.ok(result.equipment["Trinket 1"] && result.equipment["Trinket 2"]);
   assert.notEqual(String(result.equipment["Trinket 1"].id), String(result.equipment["Trinket 2"].id));
 });
+
+
+test("loadout optimization clears the off hand when selecting a two-handed weapon", () => {
+  const sandbox = { window: {} };
+  vm.runInNewContext(
+    fs.readFileSync(path.join(root, "optimizer.js"), "utf8"),
+    sandbox,
+    { filename: "optimizer.js" }
+  );
+  const optimizer = sandbox.window.WoWOptimizer;
+  const weights = {
+    Strength: 1, Agility: 1, Intellect: 1, Stamina: 0,
+    CriticalStrike: 1, Haste: 1, Mastery: 1, Versatility: 1
+  };
+  const twoHanded = {
+    id: 883001, name: "Two-Handed Staff", slot: "Main Hand",
+    inventoryType: "Two-Hand", itemSubclass: { name: "Staff" }, itemLevel: 340,
+    stats: { Strength: 250, CriticalStrike: 150, Haste: 100 }
+  };
+  const offhand = {
+    id: 883002, name: "Off-hand Shield", slot: "Off Hand",
+    inventoryType: "Shield", itemSubclass: { name: "Shield" }, itemLevel: 340,
+    stats: { Strength: 100, CriticalStrike: 50 }
+  };
+  const result = optimizer.optimizeEquipment({
+    items: [twoHanded, offhand],
+    character: {
+      className: "Warrior", specialization: "Arms", level: 90,
+      goal: "General / All-around", equipment: {}
+    },
+    statWeights: weights
+  });
+  assert.equal(result.equipment["Main Hand"]?.id, twoHanded.id);
+  assert.equal(result.equipment["Off Hand"], null,
+    "a two-handed main-hand recommendation must not coexist with an off-hand item");
+});
