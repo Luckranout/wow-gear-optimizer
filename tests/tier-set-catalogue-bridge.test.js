@@ -61,3 +61,29 @@ test("all 13 classes have source-backed secondary-stat profiles without pretendi
     }
   }
 });
+
+
+test("Warrior source-checked variant observations remain evidence-only and preserve same-level stat variants", () => {
+  const warrior = catalogue.sets.find(set => set.class === "Warrior");
+  const observations = warrior.verifiedVariantObservations || [];
+  assert.equal(observations.length, 6);
+  assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
+  assert.equal(warrior.variantObservationsStatus, "partial");
+  assert.match(warrior.variantObservationsNote, /not eligible optimizer candidates/i);
+  for (const piece of observations) {
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.ok(piece.itemLevel > 0);
+    assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/"));
+    assert.ok(Array.isArray(piece.stats) && piece.stats.length >= 4);
+    assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
+  }
+  const gloves = observations.filter(piece => piece.itemId === 271457);
+  assert.equal(gloves.length, 2);
+  assert.equal(gloves[0].itemLevel, gloves[1].itemLevel);
+  assert.notDeepEqual(
+    gloves[0].stats.map(stat => [stat.type.name, stat.value]).sort(),
+    gloves[1].stats.map(stat => [stat.type.name, stat.value]).sort()
+  );
+  assert.equal(warrior.itemIdsVerified, false, "observations must not promote the full class variant map to verified");
+});
