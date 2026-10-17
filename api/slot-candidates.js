@@ -54,10 +54,10 @@ function allowedForClass(item, className, slot) {
   if (!expected) return false;
   const itemClass = String(item.itemClass?.name || item.itemClass || "").toLowerCase();
   const rawSubclass = String(item.itemSubclass?.name || item.itemSubclass || "").toLowerCase();
-  const subclass = /\\bcloth\\b/.test(rawSubclass) ? "cloth"
-    : /\\bleather\\b/.test(rawSubclass) ? "leather"
-      : /\\bmail\\b/.test(rawSubclass) ? "mail"
-        : /\\bplate\\b/.test(rawSubclass) ? "plate" : "";
+  const subclass = /\bcloth\b/.test(rawSubclass) ? "cloth"
+    : /\bleather\b/.test(rawSubclass) ? "leather"
+      : /\bmail\b/.test(rawSubclass) ? "mail"
+        : /\bplate\b/.test(rawSubclass) ? "plate" : "";
   return (itemClass.includes("armor") || itemClass.includes("armour")) && subclass === expected;
 }
 const CLASS_WEAPONS = {
@@ -78,7 +78,7 @@ const CLASS_WEAPONS = {
 function normalizeWeaponType(value) {
   const raw = String(value?.name || value || "").trim().toLowerCase()
     .replace(/[_-]+/g, " ")
-    .replace(/\\b(two|one) handed\\b/g, "$1 hand");
+    .replace(/\b(two|one) handed\b/g, "$1 hand");
   if (!raw || /^(weapon|melee|ranged|miscellaneous|unknown)$/.test(raw)) return "";
   if (raw.includes("shield") || raw.includes("held in off hand") || raw.includes("off hand")) return "off-hand";
   // Classify weapon family before handedness: "Two-Handed Swords" is a sword.
