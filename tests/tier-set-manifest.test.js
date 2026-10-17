@@ -117,7 +117,7 @@ test("tier identity records are present but never scored without verified stats"
   }
 });
 
-test("season tier catalogue reports mapping-only coverage without claiming numeric scoring", () => {
+test("season tier catalogue reports partial variant coverage without claiming numeric scoring", () => {
   const sandbox = { window: {} };
   vm.runInNewContext(
     fs.readFileSync(path.join(root, "optimizer.js"), "utf8"),
@@ -126,7 +126,7 @@ test("season tier catalogue reports mapping-only coverage without claiming numer
   );
   const optimizer = sandbox.window.WoWOptimizer;
   const coverage = optimizer.getTierSetCoverageStatus(tierCatalogue, "Death Knight", "Blood");
-  assert.equal(coverage.catalogueStatus, "mapping-only");
+  assert.equal(coverage.catalogueStatus, "partial");
   assert.equal(coverage.itemMappingVerified, true);
   assert.equal(coverage.verifiedPieceCount, 5);
   assert.equal(coverage.expectedPieceCount, 5);
