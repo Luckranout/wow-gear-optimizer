@@ -58,7 +58,23 @@ def audit_catalog(section_dir=SECTION_DIR, manifest_path=TIER_MANIFEST, tier_dat
     tier_variant_data_available = Path(tier_data_path).exists()
     if tier_variant_data_available:
         tier_data = json.loads(Path(tier_data_path).read_text(encoding="utf-8"))
+        manifest_sets_by_class = {
+            tier_set.get("className"): tier_set
+            for tier_set in manifest.get("sets", [])
+            if isinstance(tier_set, dict) and isinstance(tier_set.get("className"), str)
+        }
         for tier_set in tier_data.get("sets", []):
+            class_name = tier_set.get("class")
+            manifest_set = manifest_sets_by_class.get(class_name, {})
+            manifest_pieces = [
+                piece for piece in manifest_set.get("pieces", [])
+                if isinstance(piece, dict) and isinstance(piece.get("itemId"), int)
+            ]
+            manifest_by_slot = {
+                piece.get("slot"): piece.get("itemId")
+                for piece in manifest_pieces
+                if isinstance(piece.get("slot"), str)
+            }
             base_pieces = tier_set.get("basePieces", [])
             verified_pieces = tier_set.get("pieces", [])
             observations = tier_set.get("verifiedVariantObservations", [])
@@ -82,13 +98,42 @@ def audit_catalog(section_dir=SECTION_DIR, manifest_path=TIER_MANIFEST, tier_dat
                 piece.get("slot") for piece in verified_variants
                 if isinstance(piece.get("slot"), str)
             }
+            data_piece_records = [
+                piece for piece in [*base_pieces, *verified_pieces]
+                if isinstance(piece, dict) and isinstance(piece.get("itemId"), int)
+            ]
+            data_ids_by_slot = {}
+            for piece in data_piece_records:
+                if isinstance(piece.get("slot"), str):
+                    data_ids_by_slot.setdefault(piece["slot"], set()).add(piece["itemId"])
+            manifest_mapping_mismatches = [
+                {
+                    "slot": slot,
+                    "expectedItemId": item_id,
+                    "catalogueItemIds": sorted(data_ids_by_slot.get(slot, set())),
+                }
+                for slot, item_id in manifest_by_slot.items()
+                if item_id not in data_ids_by_slot.get(slot, set())
+            ]
+            manifest_slots_missing_from_data = sorted(set(manifest_by_slot) - set(data_ids_by_slot))
+            manifest_mapping_matches = (
+                len(manifest_by_slot) == len(EXPECTED_TIER_SLOTS)
+                and not manifest_mapping_mismatches
+                and not manifest_slots_missing_from_data
+            )
             base_mapping_verified = (
-                tier_set.get("baseItemIdsVerified") is True
-                or tier_set.get("itemIdsVerified") is True
+                (
+                    tier_set.get("baseItemIdsVerified") is True
+                    or tier_set.get("itemIdsVerified") is True
+                )
+                and manifest_mapping_matches
             )
             verified_base_slots = set(base_slots)
             if not verified_base_slots and tier_set.get("itemIdsVerified") is True:
-                verified_base_slots = verified_slots
+                verified_base_slots = {
+                    slot for slot, item_id in manifest_by_slot.items()
+                    if item_id in data_ids_by_slot.get(slot, set())
+                }
             observed_slots = {
                 piece.get("slot") for piece in observation_variants_with_stats
                 if isinstance(piece.get("slot"), str)
@@ -111,6 +156,10 @@ def audit_catalog(section_dir=SECTION_DIR, manifest_path=TIER_MANIFEST, tier_dat
                 "baseSlotsPresent": sorted(base_slots),
                 "missingBaseSlots": sorted(EXPECTED_TIER_SLOTS - base_slots),
                 "basePieceMappingVerified": base_mapping_verified,
+                "manifestBasePieceCount": len(manifest_pieces),
+                "manifestMappingMatchesCatalogue": manifest_mapping_matches,
+                "manifestSlotsMissingFromCatalogue": manifest_slots_missing_from_data,
+                "manifestMappingMismatches": manifest_mapping_mismatches,
                 "verifiedBaseSlotsPresent": sorted(verified_base_slots),
                 "missingVerifiedBaseSlots": sorted(EXPECTED_TIER_SLOTS - verified_base_slots),
                 "verifiedVariantRecordCount": len(verified_pieces),
