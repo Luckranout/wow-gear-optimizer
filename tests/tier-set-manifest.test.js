@@ -4,6 +4,7 @@ const test = require("node:test");
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
+const vm = require("node:vm");
 
 const root = path.resolve(__dirname, "..");
 const manifest = JSON.parse(fs.readFileSync(path.join(root, "data/tier-set-item-ids.json"), "utf8"));
@@ -107,4 +108,49 @@ test("upgrade variants are not silently accepted when stat coverage is incomplet
     [],
     "upgrade variants with incomplete primary/secondary stats must be completed from a verified source or explicitly excluded from scoring"
   );
+});
+
+
+test("optimizer rejects incomplete upgrade variant stat payloads", () => {
+  const sandbox = { window: {} };
+  vm.runInNewContext(
+    fs.readFileSync(path.join(root, "optimizer.js"), "utf8"),
+    sandbox,
+    { filename: "optimizer.js" }
+  );
+  const complete = sandbox.window.WoWOptimizer.hasCompleteVariantStats;
+  assert.equal(typeof complete, "function");
+
+  const base = {
+    stats: [
+      { type: { name: "agility" }, value: 65 },
+      { type: { name: "stamina" }, value: 1005 },
+      { type: { name: "criticalStrike" }, value: 73 },
+      { type: { name: "mastery" }, value: 34 }
+    ]
+  };
+  assert.equal(complete(base, {
+    stats: [
+      { type: { name: "armor" }, value: 217 },
+      { type: { name: "agility" }, value: 130 },
+      { type: { name: "stamina" }, value: 3910 },
+      { type: { name: "criticalStrike" }, value: 136 },
+      { type: { name: "mastery" }, value: 64 }
+    ]
+  }), true, "complete variant stats should remain eligible");
+  assert.equal(complete(base, {
+    stats: [
+      { type: { name: "armor" }, value: 217 },
+      { type: { name: "stamina" }, value: 3910 },
+      { type: { name: "criticalStrike" }, value: 136 },
+      { type: { name: "mastery" }, value: 64 }
+    ]
+  }), false, "variant missing the base primary stat must be rejected");
+  assert.equal(complete(base, {
+    stats: [
+      { type: { name: "agility" }, value: 130 },
+      { type: { name: "stamina" }, value: 3910 },
+      { type: { name: "criticalStrike" }, value: 136 }
+    ]
+  }), false, "variant missing a base secondary stat must be rejected");
 });
