@@ -2577,7 +2577,237 @@
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
-      "baseItemIdsVerified": true
+      "baseItemIdsVerified": true,
+      "verifiedVariantObservations": [
+        {
+          "itemId": 271513,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Banded Poncho",
+          "slot": "Chest",
+          "variant": "Hero 2/6 observed",
+          "itemLevel": 305,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271513/chosen-bloodslayers-banded-poncho?bonus=12841%3A13690%3A13698%3A1558&class=4&ilvl=305&spec=259",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 144,
+              "source": "Wowhead tooltip, item level 305"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 144,
+              "source": "Wowhead tooltip, item level 305"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2794,
+              "source": "Wowhead tooltip, item level 305"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 116,
+              "source": "Wowhead tooltip, item level 305"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 61,
+              "source": "Wowhead tooltip, item level 305"
+            }
+          ]
+        },
+        {
+          "itemId": 271511,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Fanged Grips",
+          "slot": "Hands",
+          "variant": "Hero 6/6 observed",
+          "itemLevel": 321,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271511/chosen-bloodslayers-fanged-grips?bonus=6652%3A13440%3A13691%3A13697%3A12846&ilvl=321&spec=261",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 125,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 125,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 95,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 48,
+              "source": "Wowhead tooltip, item level 321"
+            }
+          ]
+        },
+        {
+          "itemId": 271510,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Spirit Shroud",
+          "slot": "Head",
+          "variant": "Champion 4/6 observed",
+          "itemLevel": 295,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271510/chosen-bloodslayers-spirit-shroud?bonus=41%3A13332%3A13696%3A13692%3A13698%3A12830&ilvl=295&spec=260",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 131,
+              "source": "Wowhead tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 131,
+              "source": "Wowhead tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2492,
+              "source": "Wowhead tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 56,
+              "source": "Wowhead tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 113,
+              "source": "Wowhead tooltip, item level 295"
+            }
+          ]
+        },
+        {
+          "itemId": 271509,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Reinforced Pants",
+          "slot": "Legs",
+          "variant": "Base item level observed",
+          "itemLevel": 219,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271509/chosen-bloodslayers-reinforced-pants?ilvl=219",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 65,
+              "source": "Wowhead tooltip, item level 219"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1005,
+              "source": "Wowhead tooltip, item level 219"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 38,
+              "source": "Wowhead tooltip, item level 219"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 69,
+              "source": "Wowhead tooltip, item level 219"
+            }
+          ]
+        },
+        {
+          "itemId": 271508,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Voodoo Guards",
+          "slot": "Shoulders",
+          "variant": "Mythic 6/6 observed",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271508/chosen-bloodslayers-voodoo-guards?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 43,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 107,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ]
+        }
+      ],
+      "variantObservationsStatus": "partial",
+      "variantObservationsNote": "Five exact Wowhead item versions are recorded as evidence only. The legs are only verified at base item level 219; full difficulty/upgrade variant coverage and the complete Rogue variant ID map remain unverified. Do not use these observations as optimizer candidates."
     },
     {
       "class": "Shaman",
