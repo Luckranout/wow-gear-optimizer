@@ -20,6 +20,12 @@ assert.equal(allowedForClass({ itemClass: { name: "Armor" }, itemSubclass: { nam
 assert.equal(allowedForClass({ itemClass: { name: "Armor" }, itemSubclass: { name: "Plate" } }, "Mage", "Head"), false);
 assert.equal(allowedForClass({ itemClass: { name: "Armor" }, itemSubclass: { name: "Plate" } }, "Unknown", "Head"), false);
 
+assert.equal(allowedForClass({ itemClass: { name: "Armor" }, itemSubclass: { name: "Plate Armor" } }, "Death Knight", "Head"), true,
+  "Blizzard subclass labels containing the expected armor family remain eligible");
+assert.equal(allowedForClassWeapon({
+  itemSubclass: { name: "Two-Handed Swords" }, inventoryType: { name: "Two-Hand" }
+}, "Warrior", "Main Hand"), true, "pluralized Blizzard weapon subclass labels normalize to a usable weapon family");
+
 assert.equal(slotMatches({ inventoryType: { name: "One-Hand" }, itemClass: { name: "Weapon" } }, "Main Hand"), true, "one-hand weapons belong in Main Hand");
 assert.equal(slotMatches({ inventoryType: { name: "One-Hand" }, itemClass: { name: "Armor" } }, "Main Hand"), false, "one-hand armor must not be treated as a weapon");
 assert.equal(slotMatches({ inventoryType: { name: "Neck" } }, "Neck"), true);
