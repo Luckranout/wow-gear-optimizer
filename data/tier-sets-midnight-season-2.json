@@ -5165,10 +5165,51 @@
               "source": "Wowhead tooltip, item level 334"
             }
           ]
+        },
+        {
+          "itemId": 271546,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Skull of the Damned Necrolyte",
+          "slot": "Head",
+          "variant": "Myth 1/6 observed",
+          "itemLevel": 318,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271546/skull-of-the-damned-necrolyte?bonus=13334%3A6652%3A12849%3A13696%3A13692%3A13698%3A1571&ilvl=318&spec=266",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 162,
+              "source": "Wowhead tooltip, item level 318"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3254,
+              "source": "Wowhead tooltip, item level 318"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 61,
+              "source": "Wowhead tooltip, item level 318"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 127,
+              "source": "Wowhead tooltip, item level 318"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Five exact Wowhead item versions are recorded as evidence only. Chest, legs, and shoulders are Mythic 6/6; hands are observed at item level 331; head is observed only at base item level 219. This does not establish full difficulty/upgrade coverage or the complete Warlock variant ID map. Do not use these observations as optimizer candidates."
+      "variantObservationsNote": "The head is source-verified at base item level 219 and at Myth 1/6 item level 318; this does not establish the complete upgrade path or full per-slot variant map, and these observations are not optimizer candidates."
     },
     {
       "class": "Warrior",
