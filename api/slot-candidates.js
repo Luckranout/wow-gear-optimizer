@@ -167,6 +167,43 @@ const SLOT_INVENTORY_SEARCHES = {
 };
 let discoveryEnabled = true;
 let discoveryProvider = null;
+let verifiedSeasonItemProvider = null;
+let verifiedSeasonItemCache = null;
+
+function getVerifiedSeasonItem(itemId) {
+  const id = Number(itemId);
+  if (!Number.isSafeInteger(id) || id <= 0) return null;
+  if (verifiedSeasonItemProvider) {
+    const provided = verifiedSeasonItemProvider(id);
+    return provided && provided.id === id ? provided : null;
+  }
+  if (!verifiedSeasonItemCache) {
+    // The importer writes current-retail.json only from independently verified
+    // PvE/PvP source records and Midnight crafting outputs. Reuse that evidence
+    // when Blizzard search finds an ID missing from the per-slot cache; Blizzard
+    // item metadata alone must never promote an unknown item into recommendations.
+    try {
+      const catalogPath = path.join(process.cwd(), "data", "current-retail.json");
+      const catalog = JSON.parse(fs.readFileSync(catalogPath, "utf8"));
+      const items = Array.isArray(catalog.items) ? catalog.items : [];
+      verifiedSeasonItemCache = new Map(items.filter(item =>
+        item && Number.isSafeInteger(Number(item.id)) &&
+        item.isEquippable === true &&
+        item.seasonScope === "Midnight Season 2+" &&
+        Array.isArray(item.sourceLocations) &&
+        item.sourceLocations.some(source =>
+          source && typeof source === "object" &&
+          source.seasonScope === "Midnight Season 2+"
+        )
+      ).map(item => [Number(item.id), item]));
+    } catch (_) {
+      // Fail closed if the source-verified catalog cannot be read or validated.
+      verifiedSeasonItemCache = new Map();
+    }
+  }
+  return verifiedSeasonItemCache.get(id) || null;
+}
+
 async function discoverSlotItems(slot) {
   if (!discoveryEnabled) return [];
   const ids = await searchItemIds(SLOT_INVENTORY_SEARCHES[slot] || [], { limit: 40 });
@@ -211,7 +248,19 @@ async function handler(req, res) {
     try { discovered = await (discoveryProvider ? discoveryProvider(slot) : discoverSlotItems(slot)); }
     catch (error) { discoveryError = error.publicMessage || "Blizzard item discovery failed."; }
     const knownIds = new Set(payload.items.map(item => Number(item.id)));
-    const newDiscovery = discovered.filter(item => !knownIds.has(Number(item.id)));
+    const newDiscovery = discovered.filter(item => !knownIds.has(Number(item.id))).map(item => {
+      const verified = getVerifiedSeasonItem(item.id);
+      if (!verified) return item;
+      // Prefer the imported source-verified record (stats and upgrade variants)
+      // while retaining a marker that this request discovered the missing slot ID.
+      return {
+        ...item,
+        ...verified,
+        discoveredOnDemand: true,
+        seasonEligibility: "verified",
+        verificationNote: "Matched by item ID to the imported Midnight Season 2+ source-evidence catalog."
+      };
+    });
     const allRecords = [...payload.items, ...newDiscovery];
     if (!sectionCacheAvailable && !discovered.length) {
       return res.status(503).json({ error: discoveryError || "Neither a validated section cache nor Blizzard discovery is available." });
@@ -253,6 +302,9 @@ handler._test = {
   setSectionDir(dir) { sectionDir = dir; },
   setDiscoveryEnabled(value) { discoveryEnabled = Boolean(value); },
   setDiscoveryProvider(fn) { discoveryProvider = typeof fn === "function" ? fn : null; },
-  discoverSlotItems
+  discoverSlotItems,
+  getVerifiedSeasonItem,
+  setVerifiedSeasonItemProvider(fn) { verifiedSeasonItemProvider = typeof fn === "function" ? fn : null; },
+  resetVerifiedSeasonItemCache() { verifiedSeasonItemCache = null; }
 };
 module.exports = handler;
