@@ -28,8 +28,8 @@ if (tierCatalogue.sets.length !== 13 ||
       set.eligibleSlots?.join(",") !== "Head,Shoulders,Chest,Hands,Legs" ||
       set.appearanceVariants?.length !== 6 ||
       (set.class === "Shaman"
-        ? set.itemIdsVerified !== true || set.pieces?.length !== 30
-        : set.itemIdsVerified !== false || set.pieces?.length !== 0))) {
+        ? set.itemIdsVerified !== true || set.pieces?.length !== 35 || set.pieces.filter(piece => piece.dataStatus !== "metadata-only-unverified-stats").length !== 30
+        : set.itemIdsVerified !== true || set.pieces?.length !== 5 || set.pieces.some(piece => piece.dataStatus !== "metadata-only-unverified-stats" || piece.candidate !== false || piece.stats?.length !== 0)))) {
   throw new Error("Tier-set catalogue must verify Shaman piece IDs while keeping other class matching explicitly incomplete");
 }
 
