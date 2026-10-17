@@ -1601,6 +1601,11 @@ function createOptimizationReport({character = createCharacterProfile(), availab
         ? "specialization-profile"
         : "missing-specialization-profile",
     projectedStats,
+    diminishingReturns: {
+      supported: Number(character.level) === SECONDARY_RATING_DR_LEVEL,
+      equipped: getLoadoutDiminishingReturnsSummary(character.equipment, character.level),
+      recommended: getLoadoutDiminishingReturnsSummary(optimized.equipment, character.level)
+    },
     numericProjectionAvailable: projectedStats.available,
     recommendationLimitations: [
       "Gear ranking is not a full combat simulation.",
