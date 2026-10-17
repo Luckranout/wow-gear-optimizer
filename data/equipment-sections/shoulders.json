@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "section": "shoulders",
-  "source": "Blizzard Game Data API item search",
+  "source": "Blizzard Game Data API item search; tier membership metadata merged from verified manifest (stat data pending)",
   "complete": true,
-  "candidateCount": 15,
+  "candidateCount": 28,
   "items": [
     {
       "id": 237906,
@@ -1995,6 +1995,630 @@
         }
       ],
       "statsSource": "Blizzard Game Data API"
+    },
+    {
+      "id": 271472,
+      "name": "Baleful Grave-Knight's Gibbets",
+      "level": null,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": null,
+        "name": "Death Knight tier armor"
+      },
+      "inventoryType": {
+        "id": null,
+        "type": "SHOULDERS",
+        "name": "Shoulders"
+      },
+      "equipmentCategories": [
+        "shoulders"
+      ],
+      "slot": "Shoulders",
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": {
+        "id": 2055,
+        "name": "Baleful Grave-Knight's Crucible"
+      },
+      "tierSetId": "2055",
+      "isSetPiece": true,
+      "classRestriction": "Death Knight",
+      "dataStatus": "metadata-only-unverified-stats",
+      "sourceLocations": [
+        {
+          "category": "Tier Set",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271472/baleful-grave-knights-gibbets",
+          "seasonScope": "Midnight Season 2"
+        }
+      ],
+      "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
+      "statsSource": null,
+      "variants": []
+    },
+    {
+      "id": 271535,
+      "name": "Abyssal Doomhound's Jaws",
+      "level": null,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": null,
+        "name": "Demon Hunter tier armor"
+      },
+      "inventoryType": {
+        "id": null,
+        "type": "SHOULDERS",
+        "name": "Shoulders"
+      },
+      "equipmentCategories": [
+        "shoulders"
+      ],
+      "slot": "Shoulders",
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": {
+        "id": 2056,
+        "name": "Abyssal Doomhound's Pursuit"
+      },
+      "tierSetId": "2056",
+      "isSetPiece": true,
+      "classRestriction": "Demon Hunter",
+      "dataStatus": "metadata-only-unverified-stats",
+      "sourceLocations": [
+        {
+          "category": "Tier Set",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271535/abyssal-doomhounds-jaws",
+          "seasonScope": "Midnight Season 2"
+        }
+      ],
+      "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
+      "statsSource": null,
+      "variants": []
+    },
+    {
+      "id": 271526,
+      "name": "Enigmatic Dreamwatcher's Plumage",
+      "level": null,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": null,
+        "name": "Druid tier armor"
+      },
+      "inventoryType": {
+        "id": null,
+        "type": "SHOULDERS",
+        "name": "Shoulders"
+      },
+      "equipmentCategories": [
+        "shoulders"
+      ],
+      "slot": "Shoulders",
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": {
+        "id": 2057,
+        "name": "Bark of the Enigmatic Dreamwatcher"
+      },
+      "tierSetId": "2057",
+      "isSetPiece": true,
+      "classRestriction": "Druid",
+      "dataStatus": "metadata-only-unverified-stats",
+      "sourceLocations": [
+        {
+          "category": "Tier Set",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271526/enigmatic-dreamwatchers-plumage",
+          "seasonScope": "Midnight Season 2"
+        }
+      ],
+      "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
+      "statsSource": null,
+      "variants": []
+    },
+    {
+      "id": 271499,
+      "name": "Calamitous Echo's Sundered Peaks",
+      "level": null,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": null,
+        "name": "Evoker tier armor"
+      },
+      "inventoryType": {
+        "id": null,
+        "type": "SHOULDERS",
+        "name": "Shoulders"
+      },
+      "equipmentCategories": [
+        "shoulders"
+      ],
+      "slot": "Shoulders",
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": {
+        "id": 2058,
+        "name": "Echo of Calamity"
+      },
+      "tierSetId": "2058",
+      "isSetPiece": true,
+      "classRestriction": "Evoker",
+      "dataStatus": "metadata-only-unverified-stats",
+      "sourceLocations": [
+        {
+          "category": "Tier Set",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271499/calamitous-echos-sundered-peaks",
+          "seasonScope": "Midnight Season 2"
+        }
+      ],
+      "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
+      "statsSource": null,
+      "variants": []
+    },
+    {
+      "id": 271490,
+      "name": "Jaws of the Skulking Viper",
+      "level": null,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": null,
+        "name": "Hunter tier armor"
+      },
+      "inventoryType": {
+        "id": null,
+        "type": "SHOULDERS",
+        "name": "Shoulders"
+      },
+      "equipmentCategories": [
+        "shoulders"
+      ],
+      "slot": "Shoulders",
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": {
+        "id": 2059,
+        "name": "Skulking Viper's Ambush"
+      },
+      "tierSetId": "2059",
+      "isSetPiece": true,
+      "classRestriction": "Hunter",
+      "dataStatus": "metadata-only-unverified-stats",
+      "sourceLocations": [
+        {
+          "category": "Tier Set",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271490/jaws-of-the-skulking-viper",
+          "seasonScope": "Midnight Season 2"
+        }
+      ],
+      "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
+      "statsSource": null,
+      "variants": []
+    },
+    {
+      "id": 271562,
+      "name": "Primal Leywarden's Manaflux",
+      "level": null,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": null,
+        "name": "Mage tier armor"
+      },
+      "inventoryType": {
+        "id": null,
+        "type": "SHOULDERS",
+        "name": "Shoulders"
+      },
+      "equipmentCategories": [
+        "shoulders"
+      ],
+      "slot": "Shoulders",
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": {
+        "id": 2060,
+        "name": "Primal Leywarden's Attire"
+      },
+      "tierSetId": "2060",
+      "isSetPiece": true,
+      "classRestriction": "Mage",
+      "dataStatus": "metadata-only-unverified-stats",
+      "sourceLocations": [
+        {
+          "category": "Tier Set",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271562/primal-leywardens-manaflux",
+          "seasonScope": "Midnight Season 2"
+        }
+      ],
+      "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
+      "statsSource": null,
+      "variants": []
+    },
+    {
+      "id": 271517,
+      "name": "Tassels of the Monkey King",
+      "level": null,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": null,
+        "name": "Monk tier armor"
+      },
+      "inventoryType": {
+        "id": null,
+        "type": "SHOULDERS",
+        "name": "Shoulders"
+      },
+      "equipmentCategories": [
+        "shoulders"
+      ],
+      "slot": "Shoulders",
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": {
+        "id": 2061,
+        "name": "Guile of the Monkey King"
+      },
+      "tierSetId": "2061",
+      "isSetPiece": true,
+      "classRestriction": "Monk",
+      "dataStatus": "metadata-only-unverified-stats",
+      "sourceLocations": [
+        {
+          "category": "Tier Set",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271517/tassels-of-the-monkey-king",
+          "seasonScope": "Midnight Season 2"
+        }
+      ],
+      "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
+      "statsSource": null,
+      "variants": []
+    },
+    {
+      "id": 271463,
+      "name": "Pauldrons of the Consecrated Flame",
+      "level": null,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": null,
+        "name": "Paladin tier armor"
+      },
+      "inventoryType": {
+        "id": null,
+        "type": "SHOULDERS",
+        "name": "Shoulders"
+      },
+      "equipmentCategories": [
+        "shoulders"
+      ],
+      "slot": "Shoulders",
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": {
+        "id": 2062,
+        "name": "Radiance of the Consecrated Flame"
+      },
+      "tierSetId": "2062",
+      "isSetPiece": true,
+      "classRestriction": "Paladin",
+      "dataStatus": "metadata-only-unverified-stats",
+      "sourceLocations": [
+        {
+          "category": "Tier Set",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271463/pauldrons-of-the-consecrated-flame",
+          "seasonScope": "Midnight Season 2"
+        }
+      ],
+      "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
+      "statsSource": null,
+      "variants": []
+    },
+    {
+      "id": 271553,
+      "name": "Cosmic Penitent's Echoing Screams",
+      "level": null,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": null,
+        "name": "Priest tier armor"
+      },
+      "inventoryType": {
+        "id": null,
+        "type": "SHOULDERS",
+        "name": "Shoulders"
+      },
+      "equipmentCategories": [
+        "shoulders"
+      ],
+      "slot": "Shoulders",
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": {
+        "id": 2063,
+        "name": "Cosmic Penitent's Raiment"
+      },
+      "tierSetId": "2063",
+      "isSetPiece": true,
+      "classRestriction": "Priest",
+      "dataStatus": "metadata-only-unverified-stats",
+      "sourceLocations": [
+        {
+          "category": "Tier Set",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271553/cosmic-penitents-echoing-screams",
+          "seasonScope": "Midnight Season 2"
+        }
+      ],
+      "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
+      "statsSource": null,
+      "variants": []
+    },
+    {
+      "id": 271508,
+      "name": "Chosen Bloodslayer's Voodoo Guards",
+      "level": null,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": null,
+        "name": "Rogue tier armor"
+      },
+      "inventoryType": {
+        "id": null,
+        "type": "SHOULDERS",
+        "name": "Shoulders"
+      },
+      "equipmentCategories": [
+        "shoulders"
+      ],
+      "slot": "Shoulders",
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": {
+        "id": 2064,
+        "name": "Chosen Bloodslayer's Hexweave"
+      },
+      "tierSetId": "2064",
+      "isSetPiece": true,
+      "classRestriction": "Rogue",
+      "dataStatus": "metadata-only-unverified-stats",
+      "sourceLocations": [
+        {
+          "category": "Tier Set",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271508/chosen-bloodslayers-voodoo-guards",
+          "seasonScope": "Midnight Season 2"
+        }
+      ],
+      "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
+      "statsSource": null,
+      "variants": []
+    },
+    {
+      "id": 271481,
+      "name": "Hissing Mantle of the Ophidian Oracle",
+      "level": null,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": null,
+        "name": "Shaman tier armor"
+      },
+      "inventoryType": {
+        "id": null,
+        "type": "SHOULDERS",
+        "name": "Shoulders"
+      },
+      "equipmentCategories": [
+        "shoulders"
+      ],
+      "slot": "Shoulders",
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": {
+        "id": 2065,
+        "name": "Ophidian Oracle's Prophecy"
+      },
+      "tierSetId": "2065",
+      "isSetPiece": true,
+      "classRestriction": "Shaman",
+      "dataStatus": "metadata-only-unverified-stats",
+      "sourceLocations": [
+        {
+          "category": "Tier Set",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271481/hissing-mantle-of-the-ophidian-oracle",
+          "seasonScope": "Midnight Season 2"
+        }
+      ],
+      "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
+      "statsSource": null,
+      "variants": []
+    },
+    {
+      "id": 271544,
+      "name": "Spires of the Damned Necrolyte",
+      "level": null,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": null,
+        "name": "Warlock tier armor"
+      },
+      "inventoryType": {
+        "id": null,
+        "type": "SHOULDERS",
+        "name": "Shoulders"
+      },
+      "equipmentCategories": [
+        "shoulders"
+      ],
+      "slot": "Shoulders",
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": {
+        "id": 2066,
+        "name": "Damned Necrolyte's Shattered Restraints"
+      },
+      "tierSetId": "2066",
+      "isSetPiece": true,
+      "classRestriction": "Warlock",
+      "dataStatus": "metadata-only-unverified-stats",
+      "sourceLocations": [
+        {
+          "category": "Tier Set",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271544/spires-of-the-damned-necrolyte",
+          "seasonScope": "Midnight Season 2"
+        }
+      ],
+      "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
+      "statsSource": null,
+      "variants": []
+    },
+    {
+      "id": 271454,
+      "name": "Raging Pauldrons of the Jade Warlord",
+      "level": null,
+      "requiredLevel": 90,
+      "quality": {
+        "id": null,
+        "name": "Epic"
+      },
+      "itemClass": {
+        "id": 4,
+        "name": "Armor"
+      },
+      "itemSubclass": {
+        "id": null,
+        "name": "Warrior tier armor"
+      },
+      "inventoryType": {
+        "id": null,
+        "type": "SHOULDERS",
+        "name": "Shoulders"
+      },
+      "equipmentCategories": [
+        "shoulders"
+      ],
+      "slot": "Shoulders",
+      "isEquippable": true,
+      "stats": [],
+      "spells": [],
+      "set": {
+        "id": 2067,
+        "name": "Jade Warlord's Dominion"
+      },
+      "tierSetId": "2067",
+      "isSetPiece": true,
+      "classRestriction": "Warrior",
+      "dataStatus": "metadata-only-unverified-stats",
+      "sourceLocations": [
+        {
+          "category": "Tier Set",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271454/raging-pauldrons-of-the-jade-warlord",
+          "seasonScope": "Midnight Season 2"
+        }
+      ],
+      "source": "Verified tier-piece manifest; stats and upgrade variants not yet verified",
+      "statsSource": null,
+      "variants": []
     }
   ]
 }
