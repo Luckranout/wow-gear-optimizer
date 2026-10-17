@@ -327,3 +327,24 @@ test("Hunter source-checked tier versions remain evidence-only and match exact W
     "partial observed versions must not promote the complete class variant map");
 });
 
+
+
+test("optimizer coverage distinguishes verified base-piece IDs from unverified variants", () => {
+  const { getTierSetCoverageStatus } = require("../optimizer");
+  const deathKnight = getTierSetCoverageStatus(catalogue, "Death Knight", "Blood");
+  assert.equal(deathKnight.catalogueStatus, "partial");
+  assert.equal(deathKnight.itemMappingVerified, true);
+  assert.equal(deathKnight.baseItemMappingVerified, true);
+  assert.equal(deathKnight.variantMappingVerified, false);
+  assert.equal(deathKnight.verifiedPieceCount, 5);
+  assert.equal(deathKnight.expectedPieceCount, 5);
+  assert.equal(deathKnight.numericScoringAvailable, false);
+  assert.ok(deathKnight.limitations.some(note => /base tier-piece IDs are verified/i.test(note)));
+  assert.ok(!deathKnight.limitations.some(note => /base tier-piece item mapping is not verified/i.test(note)));
+
+  const shaman = getTierSetCoverageStatus(catalogue, "Shaman", "Enhancement");
+  assert.equal(shaman.itemMappingVerified, true);
+  assert.equal(shaman.variantMappingVerified, true);
+  assert.equal(shaman.verifiedPieceCount, 30);
+  assert.equal(shaman.numericScoringAvailable, false);
+});
