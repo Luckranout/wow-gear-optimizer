@@ -364,6 +364,54 @@ function renderProjectedStatsPanel(report) {
   panel.innerHTML = '<h2>Projected Character Stats</h2><p>Change from current gear to the optimized loadout</p><div class="projected-stats-grid">' + rows + '</div>' + missing;
 }
 
+function renderDiminishingReturnsPanel(report) {
+  const data = report?.diminishingReturns;
+  let panel = document.querySelector("#diminishingReturnsPanel");
+  if (!panel) {
+    panel = document.createElement("section");
+    panel.id = "diminishingReturnsPanel";
+    panel.className = "panel projected-stats-panel";
+    const projection = document.querySelector("#projectedStatsPanel");
+    if (projection?.parentElement) projection.parentElement.insertBefore(panel, projection.nextSibling);
+    else document.querySelector("main")?.appendChild(panel);
+  }
+  if (!data) {
+    panel.innerHTML = '<h2>Secondary-stat diminishing returns</h2><p class="compare-no-stats">DR comparison unavailable.</p>';
+    return;
+  }
+  const fmt = value => Number(value || 0).toLocaleString(undefined, { maximumFractionDigits: 1 });
+  const rows = data.equipped.map((equipped, index) => {
+    const recommended = data.recommended[index];
+    const delta = recommended.rating - equipped.rating;
+    const deltaText = (delta > 0 ? "+" : "") + fmt(delta);
+    const tierText = entry => entry.nextThreshold === null
+      ? "Beyond last listed threshold"
+      : fmt(entry.rating) + " / next " + fmt(entry.nextThreshold);
+    return '<tr>' +
+      '<th scope="row">' + escapeSlotText(equipped.stat) + '</th>' +
+      '<td>' + fmt(equipped.rating) + '</td>' +
+      '<td>' + (data.supported ? fmt(equipped.effectiveRating) : "Unavailable") + '</td>' +
+      '<td>' + (data.supported ? fmt(equipped.lostRating) : "Unavailable") + '</td>' +
+      '<td>' + escapeSlotText(tierText(equipped)) + '</td>' +
+      '<td>' + fmt(recommended.rating) + '</td>' +
+      '<td>' + (data.supported ? fmt(recommended.effectiveRating) : "Unavailable") + '</td>' +
+      '<td>' + (data.supported ? fmt(recommended.lostRating) : "Unavailable") + '</td>' +
+      '<td>' + escapeSlotText(tierText(recommended)) + '</td>' +
+      '<td>' + escapeSlotText(deltaText) + '</td>' +
+      '</tr>';
+  }).join("");
+  const thresholds = data.equipped.map(entry => '<li><strong>' + escapeSlotText(entry.stat) + ':</strong> ' +
+    entry.thresholds.map(fmt).join(" / ") + ' rating thresholds</li>').join("");
+  panel.innerHTML = '<h2>Secondary-stat diminishing returns</h2>' +
+    '<p>Full-loadout rating totals, compared before and after optimization.</p>' +
+    '<div class="dr-table-wrap"><table class="dr-comparison-table"><thead><tr><th>Stat</th><th colspan="4">Equipped</th><th colspan="4">Recommended</th><th>Rating change</th></tr>' +
+    '<tr><th></th><th>Rating</th><th>Effective</th><th>Lost to DR</th><th>Band</th><th>Rating</th><th>Effective</th><th>Lost to DR</th><th>Band</th><th></th></tr></thead><tbody>' + rows + '</tbody></table></div>' +
+    '<p class="dr-note">' + (data.supported
+      ? 'Effective and lost rating use the configured level-90 progressive DR model. “Band” shows rating relative to the next threshold; thresholds are rating values, not percentages.'
+      : 'DR values are not calculated because the configured rating thresholds only support level 90. Rating totals are still shown; no unsupported level conversion is assumed.') + '</p>' +
+    '<details><summary>View configured rating thresholds</summary><ul>' + thresholds + '</ul></details>';
+}
+
 function renderCharacterCoach(report, character) {
   const encounter = retailDataset?.encounters?.find(item =>
     String(item.id ?? item.name) === String(encounterSelect?.value || "")
@@ -1023,6 +1071,7 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
   renderUpgradeResults(report.topUpgrades);
   renderOptimizedLoadout(report.optimizedEquipment, report.totalScore, WoWOptimizer.normalizeImportedEquipment(importedCharacter?.equipment || []));
   renderProjectedStatsPanel(report);
+  renderDiminishingReturnsPanel(report);
   renderCharacterCoach(report, character);
   const resultPlaceholder = document.querySelector("#resultPlaceholder");
   if (resultPlaceholder) resultPlaceholder.style.display = "none";
