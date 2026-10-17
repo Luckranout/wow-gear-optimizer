@@ -1467,7 +1467,9 @@ function getTierSetCoverageStatus(tierSetCatalogue = null, className = "", speci
     itemMappingVerified: isVerified(classSet),
     verifiedPieceCount: uniqueVerifiedPieceIds,
     expectedPieceCount: 5,
-    bonusDescriptionsAvailable: !mappingOnly && Array.isArray(classSet?.specs) &&
+    // Bonus descriptions may be available for a class even when another class has
+    // verified item mapping. Mapping coverage and descriptive text are separate.
+    bonusDescriptionsAvailable: Array.isArray(classSet?.specs) &&
       classSet.specs.some(spec => String(spec[0]).toLowerCase() === String(specialization || "").toLowerCase()),
     numericScoringAvailable: false,
     verifiedClassCount: verifiedClasses.length,
