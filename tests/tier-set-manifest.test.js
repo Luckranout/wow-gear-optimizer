@@ -58,18 +58,28 @@ test("manifest piece IDs resolve to catalog entries in the expected slots", () =
   assert.deepEqual(wrongSlot, [], "tier IDs present but assigned to the wrong slot");
 });
 
-test("all 13 tier sets have five mapped pieces and unverified records remain ineligible", () => {
+test("all 13 manifest sets map five identity records while only source-verified variants enter the season catalogue", () => {
   assert.equal(tierCatalogue.sets.length, 13);
   for (const set of manifest.sets) {
     const record = tierCatalogue.sets.find(candidate => candidate.class === set.className);
     assert.ok(record, "missing tier-set data for " + set.className);
-    assert.equal(record.itemIdsVerified, true, set.className + " item ID mapping");
-    for (const piece of set.pieces) {
-      const records = (record.pieces || []).filter(candidate => String(candidate.itemId) === String(piece.itemId));
-      assert.ok(records.length > 0, set.className + " missing piece " + piece.itemId);
-      assert.ok(records.some(candidate => candidate.dataStatus !== "metadata-only-unverified-stats" ||
-        (candidate.candidate === false && candidate.stats.length === 0)),
-        set.className + " unverified piece must not be treated as a candidate");
+    const sectionRecords = set.pieces.map(piece => {
+      const item = allItems.find(candidate => String(candidate.id ?? candidate.itemId) === String(piece.itemId));
+      assert.ok(item, set.className + " missing catalog identity " + piece.itemId);
+      assert.equal(item.classRestriction, set.className, piece.name);
+      if (item.dataStatus === "metadata-only-unverified-stats") {
+        assert.equal(item.candidate, false, piece.name + " must remain ineligible until stats are verified");
+        assert.deepEqual(item.stats, [], piece.name + " must not carry invented stats");
+      }
+      return item;
+    });
+    assert.equal(sectionRecords.length, 5, set.className + " identity records");
+    if (set.className === "Shaman") {
+      assert.equal(record.itemIdsVerified, true, "Shaman source-backed variant mapping");
+      assert.equal(record.pieces.length, 30, "five pieces across six variants");
+    } else {
+      assert.equal(record.itemIdsVerified, false, set.className + " must remain unverified in season variant data");
+      assert.equal(record.pieces.length, 0, set.className + " must not imply source-verified variants");
     }
   }
 });
