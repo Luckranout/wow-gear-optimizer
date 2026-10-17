@@ -103,8 +103,10 @@ function allowedForClassWeapon(item, className, slot) {
   const allowed = CLASS_WEAPONS[normalizeClass(className)];
   if (!allowed) return false;
   const type = normalizeWeaponType(item.itemSubclass || item.weaponType || item.inventoryType);
-  // A weapon with no recognizable subclass is not safe to recommend.
-  if (!type) return false;
+  // Missing or generic subclass metadata is not proof that a weapon is
+  // incompatible. The slot and equippability checks still apply; enforce
+  // proficiency strictly when Blizzard supplies a recognizable weapon family.
+  if (!type) return true;
   if (type === "off-hand") return slot === "Off Hand";
   if (slot === "Off Hand" && (type === "staff" || type === "two-hand")) return false;
   return allowed.includes(type) || (type === "one-hand" && allowed.some(value =>
