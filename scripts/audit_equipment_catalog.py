@@ -78,6 +78,26 @@ def audit_catalog(section_dir=SECTION_DIR, manifest_path=TIER_MANIFEST, tier_dat
                 and isinstance(item.get("stats"), list)
                 and item["stats"]
             ]
+            verified_slots = {
+                piece.get("slot") for piece in verified_variants
+                if isinstance(piece.get("slot"), str)
+            }
+            observed_slots = {
+                piece.get("slot") for piece in observation_variants_with_stats
+                if isinstance(piece.get("slot"), str)
+            }
+            slot_variant_levels = {}
+            for slot in sorted(EXPECTED_TIER_SLOTS):
+                slot_variant_levels[slot] = {
+                    "verifiedCandidateItemLevels": sorted({
+                        piece["itemLevel"] for piece in verified_variants
+                        if piece.get("slot") == slot
+                    }),
+                    "observedOnlyItemLevels": sorted({
+                        piece["itemLevel"] for piece in observation_variants_with_stats
+                        if piece.get("slot") == slot
+                    }),
+                }
             tier_class_audit.append({
                 "class": tier_set.get("class"),
                 "basePieceCount": len(base_pieces),
@@ -85,7 +105,13 @@ def audit_catalog(section_dir=SECTION_DIR, manifest_path=TIER_MANIFEST, tier_dat
                 "missingBaseSlots": sorted(EXPECTED_TIER_SLOTS - base_slots),
                 "verifiedVariantRecordCount": len(verified_pieces),
                 "optimizerEligibleVariantRecordsWithLevelAndStats": len(verified_variants),
+                "verifiedCandidateSlotsPresent": sorted(verified_slots),
+                "missingVerifiedCandidateSlots": sorted(EXPECTED_TIER_SLOTS - verified_slots),
                 "observedOnlyVariantRecordsWithLevelAndStats": len(observation_variants_with_stats),
+                "observedOnlySlotsPresent": sorted(observed_slots),
+                "missingObservedOnlySlots": sorted(EXPECTED_TIER_SLOTS - observed_slots),
+                "slotVariantLevels": slot_variant_levels,
+                "completeVariantMapVerified": tier_set.get("itemIdsVerified") is True,
                 "variantCoverageStatus": (
                     "verified-candidates-present" if len(verified_variants) else
                     "observations-only" if observation_variants_with_stats else
