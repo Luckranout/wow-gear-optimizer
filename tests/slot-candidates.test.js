@@ -26,6 +26,11 @@ assert.equal(allowedForClassWeapon({
   itemSubclass: { name: "Two-Handed Swords" }, inventoryType: { name: "Two-Hand" }
 }, "Warrior", "Main Hand"), true, "pluralized Blizzard weapon subclass labels normalize to a usable weapon family");
 
+assert.equal(allowedForClassWeapon({
+  itemClass: { name: "Weapon" }, itemSubclass: { name: "Weapon" }, inventoryType: { name: "One-Hand" }
+}, "Warrior", "Main Hand"), true,
+  "generic weapon metadata should not reject a slot-valid item before its source-verified variant can be scored");
+
 assert.equal(slotMatches({ inventoryType: { name: "One-Hand" }, itemClass: { name: "Weapon" } }, "Main Hand"), true, "one-hand weapons belong in Main Hand");
 assert.equal(slotMatches({ inventoryType: { name: "One-Hand" }, itemClass: { name: "Armor" } }, "Main Hand"), false, "one-hand armor must not be treated as a weapon");
 assert.equal(slotMatches({ inventoryType: { name: "Neck" } }, "Neck"), true);
