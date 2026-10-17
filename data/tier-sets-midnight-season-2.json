@@ -1166,7 +1166,244 @@
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
-      "baseItemIdsVerified": true
+      "baseItemIdsVerified": true,
+      "verifiedVariantObservations": [
+        {
+          "itemId": 271504,
+          "setId": "echo-of-calamity",
+          "name": "Searing Caldera of Calamity",
+          "slot": "Chest",
+          "variant": "Mythic 6/6 observed",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271504/searing-caldera-of-calamity?bonus=12854%3A13846%3A13335&ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 201,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ]
+        },
+        {
+          "itemId": 271502,
+          "setId": "echo-of-calamity",
+          "name": "Calamitous Echo's Ebon Greathorns",
+          "slot": "Hands",
+          "variant": "Hero 6/6 observed",
+          "itemLevel": 321,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271502/calamitous-echos-ebon-greathorns?bonus=6652%3A13440%3A13691%3A13697%3A12846&class=13&ilvl=321&spec=1468",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 125,
+              "source": "Wowhead tooltip, item level 321; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 125,
+              "source": "Wowhead tooltip, item level 321; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 92,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 51,
+              "source": "Wowhead tooltip, item level 321"
+            }
+          ]
+        },
+        {
+          "itemId": 271501,
+          "setId": "echo-of-calamity",
+          "name": "Calamitous Echo's Magmashapers",
+          "slot": "Head",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271501/calamitous-echos-magmashapers?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 135,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 66,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ]
+        },
+        {
+          "itemId": 271500,
+          "setId": "echo-of-calamity",
+          "name": "Earthen Pillars of Calamity",
+          "slot": "Legs",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271500/earthen-pillars-of-calamity?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 138,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 63,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ]
+        },
+        {
+          "itemId": 271499,
+          "setId": "echo-of-calamity",
+          "name": "Calamitous Echo's Sundered Peaks",
+          "slot": "Shoulders",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271499/calamitous-echos-sundered-peaks?bonus=13334%3A6652%3A13694%3A13697%3A12854&ilvl=334&spec=1473",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 104,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 46,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ]
+        }
+      ],
+      "variantObservationsStatus": "partial",
+      "variantObservationsNote": "Five source-checked item versions are recorded for evidence only. Hands are observed at Hero 6/6; the other four slots have Mythic 6/6 observations, but the complete variant mapping and specialization-specific primary-stat representation are not verified. All observations remain ineligible as optimizer candidates."
     },
     {
       "class": "Hunter",
