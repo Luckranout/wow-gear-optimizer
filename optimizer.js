@@ -529,6 +529,23 @@ function scoreItemStats(item, statWeights = STAT_WEIGHTS) {
     score + value * (statWeights[stat] ?? 0), 0);
 }
 
+function hasCompleteVariantStats(baseItem, variant) {
+  if (!baseItem || !variant || !Array.isArray(baseItem.stats) || !Array.isArray(variant.stats)) return false;
+  const relevant = new Set(["Strength", "Agility", "Intellect", "CriticalStrike", "Haste", "Mastery", "Versatility"]);
+  const statName = stat => normalizeItemStatName(stat?.stat?.name || stat?.type?.name || stat?.name || stat?.stat || "");
+  const valueOf = stat => Number(stat?.value?.value ?? stat?.value?.amount ?? stat?.amount ?? stat?.value);
+  const baseRequired = baseItem.stats
+    .filter(stat => relevant.has(statName(stat)) && Number.isFinite(valueOf(stat)) && valueOf(stat) > 0)
+    .map(statName);
+  const variantByName = new Map(variant.stats.map(stat => [statName(stat), stat]));
+  // A tooltip that omits every relevant base stat is partial, not a complete variant.
+  if (!baseRequired.length) return false;
+  return baseRequired.every(name => {
+    const stat = variantByName.get(name);
+    return stat && Number.isFinite(valueOf(stat)) && valueOf(stat) > 0;
+  });
+}
+
 function hasUsableItemStats(item) {
   if (!item || !item.stats) return false;
   // Blizzard character imports and catalog records can represent stat values
@@ -875,13 +892,16 @@ function findBestItemForSlot(items, slot, goal, statWeights = null, className = 
   // base level must not cause the valid upgraded variant to be discarded.
   const expandedItems = (items || []).flatMap(rawItem => {
     if (!Array.isArray(rawItem?.variants) || !rawItem.variants.length) return [rawItem];
-    return rawItem.variants.map(variant => ({
-      ...rawItem,
-      ...variant,
-      id: rawItem.id ?? variant.id,
-      baseItemId: rawItem.id ?? rawItem.itemId,
-      variants: undefined
-    }));
+    return [
+      rawItem,
+      ...rawItem.variants.filter(variant => hasCompleteVariantStats(rawItem, variant)).map(variant => ({
+        ...rawItem,
+        ...variant,
+        id: rawItem.id ?? variant.id,
+        baseItemId: rawItem.id ?? rawItem.itemId,
+        variants: undefined
+      }))
+    ];
   });
 
   for (const candidate of expandedItems) {
@@ -934,7 +954,7 @@ function optimizeEquipment({
     expandedItems.push(rawItem);
     if (Array.isArray(rawItem.variants)) {
       for (const variant of rawItem.variants) {
-        if (!variant || typeof variant !== "object") continue;
+        if (!variant || typeof variant !== "object" || !hasCompleteVariantStats(rawItem, variant)) continue;
         expandedItems.push({
           ...rawItem,
           ...variant,
@@ -1180,7 +1200,12 @@ function findUpgradeOpportunities({
   // record can be a low-level drop while its verified variant is the usable upgrade.
   const upgradeCandidates = (availableItems || []).flatMap(rawItem => {
     if (!Array.isArray(rawItem?.variants) || !rawItem.variants.length) return [rawItem];
-    return rawItem.variants.map(variant => ({ ...rawItem, ...variant, id: rawItem.id ?? variant.id, baseItemId: rawItem.id ?? rawItem.itemId, variants: undefined }));
+    return [
+      rawItem,
+      ...rawItem.variants.filter(variant => hasCompleteVariantStats(rawItem, variant)).map(variant => ({
+        ...rawItem, ...variant, id: rawItem.id ?? variant.id, baseItemId: rawItem.id ?? rawItem.itemId, variants: undefined
+      }))
+    ];
   });
 
   for (const slot of WOW_EQUIPMENT_SLOTS) {
@@ -1628,7 +1653,7 @@ window.WoWOptimizer = {
   applySecondaryRatingDiminishingReturns, getSecondaryRatingDiminishingReturns, SECONDARY_RATING_DR_TABLE, SECONDARY_RATING_DR_SOFT_TARGETS, getSecondaryRatingTotals, getSecondaryRatingHardCapViolations, getSecondaryRatingSoftTargetPenalty,
   applyTertiaryRatingDiminishingReturns, TERTIARY_RATING_DR_TABLE, getTertiaryRatingTotals,
   createCharacterProfile, normalizeCharacterStatistics, scoreCharacterStatistics, getCharacterStatSummary, resolveStatWeights, normalizeSimulationScaleFactors, getSimulationWeightContext, findBlizzardSpecialization, getSpecProfileContext,
-  normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, hasUsableItemStats, itemAllowedForClass, expectedPrimaryStat, itemPrimaryStats, itemAllowedForPrimaryStat, scoreTrinketUseEffect, scoreItem, scoreEquipment, getGoalWeights,
+  normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, hasUsableItemStats, hasCompleteVariantStats, itemAllowedForClass, expectedPrimaryStat, itemPrimaryStats, itemAllowedForPrimaryStat, scoreTrinketUseEffect, scoreItem, scoreEquipment, getGoalWeights,
   findBestItemForSlot, itemMatchesSlot, itemAllowedForClassWeapon, itemAllowedForSpecialization, getWeaponMetadata, normalizeWeaponType, optimizeEquipment, findUpgradeOpportunities, rankItems,
   getItemSetId, getSetBonusStatus, getTierSetCoverageStatus, scoreSetBonuses, scoreEquipmentWithRatingDiminishingReturns, scoreLoadout,
   getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,
