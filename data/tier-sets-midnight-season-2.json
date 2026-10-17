@@ -2660,7 +2660,216 @@
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
-      "baseItemIdsVerified": true
+      "baseItemIdsVerified": true,
+      "verifiedVariantObservations": [
+        {
+          "itemId": 271558,
+          "setId": "cosmic-penitent-s-raiment",
+          "name": "Cosmic Penitent's Eclipsing Robes",
+          "slot": "Chest",
+          "variant": "Mythic 6/6 observed",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271558/cosmic-penitents-eclipsing-robes?bonus=6652%3A13335%3A13690%3A13698%3A12854&ilvl=334&spec=257",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 62,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 139,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ]
+        },
+        {
+          "itemId": 271556,
+          "setId": "cosmic-penitent-s-raiment",
+          "name": "Cosmic Penitent's Celestial Grips",
+          "slot": "Hands",
+          "variant": "Heroic item level observed",
+          "itemLevel": 305,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271556/cosmic-penitents-celestial-grips?bonus=13691%3A43%3A12841%3A13658&ilvl=305",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 108,
+              "source": "Wowhead tooltip, item level 305"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2096,
+              "source": "Wowhead tooltip, item level 305"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 47,
+              "source": "Wowhead tooltip, item level 305"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 87,
+              "source": "Wowhead tooltip, item level 305"
+            }
+          ]
+        },
+        {
+          "itemId": 271555,
+          "setId": "cosmic-penitent-s-raiment",
+          "name": "Cosmic Penitent's Truesight",
+          "slot": "Head",
+          "variant": "Mythic 6/6 observed",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271555/cosmic-penitents-truesight?bonus=13334%3A6652%3A13846%3A12854%3A13696%3A13692%3A13698%3A1587&ilvl=334&spec=257",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 60,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ]
+        },
+        {
+          "itemId": 271554,
+          "setId": "cosmic-penitent-s-raiment",
+          "name": "Enveloping Legwraps of the Cosmic Penitent",
+          "slot": "Legs",
+          "variant": "Mythic 6/6 observed",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271554/enveloping-legwraps-of-the-cosmic-penitent?bonus=6652%3A13440%3A13693%3A13698%3A12854&ilvl=334&spec=257",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 143,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 58,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ]
+        },
+        {
+          "itemId": 271553,
+          "setId": "cosmic-penitent-s-raiment",
+          "name": "Cosmic Penitent's Echoing Screams",
+          "slot": "Shoulders",
+          "variant": "Mythic 6/6 observed",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271553/cosmic-penitents-echoing-screams?bonus=13334%3A13694%3A6652%3A13697%3A12854&ilvl=334&spec=257",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 101,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 49,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ]
+        }
+      ],
+      "variantObservationsStatus": "partial",
+      "variantObservationsNote": "Five exact Wowhead item versions are recorded as evidence only. Four are Mythic 6/6; the hands are observed at item level 305. This does not establish coverage for all difficulty/upgrade tracks or the complete Priest variant ID map. Do not use these observations as optimizer candidates."
     },
     {
       "class": "Rogue",
