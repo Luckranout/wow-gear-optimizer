@@ -1425,7 +1425,11 @@ function getTierSetCoverageStatus(tierSetCatalogue = null, className = "", speci
     ? (isVariantMappingVerified(classSet) ? (classSet.pieces || []) : (classSet.basePieces || []))
     : [];
   const uniqueVerifiedPieceIds = classSet && isBaseMappingVerified(classSet)
-    ? new Set(pieceRecords.map(piece => Number(piece.itemId)).filter(Number.isFinite)).size
+    ? new Set(pieceRecords.map(piece => {
+      const slot = String(piece.slot || "").trim().toLowerCase();
+      const itemId = Number(piece.itemId);
+      return slot || (Number.isFinite(itemId) ? `item:${itemId}` : null);
+    }).filter(Boolean)).size
     : 0;
   return {
     catalogueStatus: tierSetCatalogue?.itemMatching?.status || (mappingOnly ? "mapping-only" : "unavailable"),
