@@ -398,3 +398,59 @@ test("tier thresholds can be reported descriptively without inventing numeric bo
   assert.equal(fourPieceStatus.bonuses.find(bonus => bonus.requiredPieces === 4).active, true);
   assert.equal(scoreSetBonuses(fourPieces, setBonuses).score, 0);
 });
+
+
+test("Rogue source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
+  const rogue = catalogue.sets.find(set => set.class === "Rogue");
+  const observations = rogue.verifiedVariantObservations || [];
+  assert.equal(observations.length, 5);
+  assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
+  assert.equal(rogue.variantObservationsStatus, "partial");
+  assert.match(rogue.variantObservationsNote, /remain unverified/i);
+  const manifestSet = manifest.sets.find(set => set.className === "Rogue");
+  const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
+  for (const piece of observations) {
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.ok(piece.itemLevel > 0);
+    assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/"));
+    assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), piece.itemLevel,
+      "source URL must pin the exact observed item level");
+    assert.ok(Array.isArray(piece.stats) && piece.stats.length >= 4);
+    assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
+    assert.ok(piece.stats.every(stat => typeof stat.source === "string" && stat.source.length > 0));
+  }
+  const chest = observations.find(piece => piece.itemId === 271513);
+  assert.equal(chest.itemLevel, 305);
+  assert.deepEqual(
+    Object.fromEntries(chest.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 144, intellect: 144, stamina: 2794, haste: 116, versatility: 61 }
+  );
+  const hands = observations.find(piece => piece.itemId === 271511);
+  assert.deepEqual(
+    Object.fromEntries(hands.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 125, intellect: 125, stamina: 2527, criticalStrike: 95, mastery: 48 }
+  );
+  const head = observations.find(piece => piece.itemId === 271510);
+  assert.equal(head.itemLevel, 295);
+  assert.deepEqual(
+    Object.fromEntries(head.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 131, intellect: 131, stamina: 2492, criticalStrike: 56, mastery: 113 }
+  );
+  const legs = observations.find(piece => piece.itemId === 271509);
+  assert.equal(legs.itemLevel, 219,
+    "the legs entry is base-only evidence; it must not imply an upgraded version is verified");
+  assert.deepEqual(
+    Object.fromEntries(legs.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 65, stamina: 1005, criticalStrike: 38, haste: 69 }
+  );
+  const shoulders = observations.find(piece => piece.itemId === 271508);
+  assert.equal(shoulders.itemLevel, 334);
+  assert.deepEqual(
+    Object.fromEntries(shoulders.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 141, stamina: 2932, haste: 43, versatility: 107 }
+  );
+  assert.equal(rogue.itemIdsVerified, false,
+    "partial observed versions must not promote the complete class variant map");
+});
