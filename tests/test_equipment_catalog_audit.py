@@ -52,6 +52,9 @@ class EquipmentCatalogueAuditTests(unittest.TestCase):
         self.assertEqual(report["sections"]["head"]["recordedVariantCount"], 1)
         mage = report["tierVariantCoverage"]["classes"][0]
         self.assertEqual(mage["missingBaseSlots"], ["Chest", "Hands", "Legs", "Shoulders"])
+        self.assertFalse(mage["basePieceMappingVerified"])
+        self.assertEqual(mage["verifiedBaseSlotsPresent"], ["Head"])
+        self.assertEqual(mage["missingVerifiedBaseSlots"], ["Chest", "Hands", "Legs", "Shoulders"])
         self.assertEqual(mage["observedOnlyVariantRecordsWithLevelAndStats"], 1)
         self.assertEqual(mage["observedOnlySlotsPresent"], ["Head"])
         self.assertEqual(mage["missingObservedOnlySlots"], ["Chest", "Hands", "Legs", "Shoulders"])
@@ -90,6 +93,9 @@ class EquipmentCatalogueAuditTests(unittest.TestCase):
         self.assertEqual(shaman["verifiedCandidateSlotsPresent"], ["Head"])
         self.assertEqual(shaman["missingVerifiedCandidateSlots"], ["Chest", "Hands", "Legs", "Shoulders"])
         self.assertTrue(shaman["completeVariantMapVerified"])
+        self.assertTrue(shaman["basePieceMappingVerified"])
+        self.assertEqual(shaman["verifiedBaseSlotsPresent"], ["Head"])
+        self.assertEqual(shaman["missingVerifiedBaseSlots"], ["Chest", "Hands", "Legs", "Shoulders"])
         self.assertEqual(shaman["variantCoverageStatus"], "verified-candidates-present")
 
 
