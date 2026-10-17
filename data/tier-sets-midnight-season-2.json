@@ -1238,7 +1238,216 @@
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
-      "baseItemIdsVerified": true
+      "baseItemIdsVerified": true,
+      "verifiedVariantObservations": [
+        {
+          "itemId": 271468,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Bulwark of the Consecrated Flame",
+          "slot": "Chest",
+          "variant": "Mythic 6/6 observed",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271468/bulwark-of-the-consecrated-flame?bonus=4786%3A12854&ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 64,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 137,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ]
+        },
+        {
+          "itemId": 271466,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Gauntlets of the Consecrated Flame",
+          "slot": "Hands",
+          "variant": "Heroic 6/6 observed",
+          "itemLevel": 321,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271466/gauntlets-of-the-consecrated-flame?bonus=13334%3A13691%3A6652%3A13697%3A12846&ilvl=321",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 125,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 47,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 96,
+              "source": "Wowhead tooltip, item level 321"
+            }
+          ]
+        },
+        {
+          "itemId": 271465,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Warhelm of the Consecrated Flame",
+          "slot": "Head",
+          "variant": "Mythic 6/6 observed",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271465/warhelm-of-the-consecrated-flame?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 60,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ]
+        },
+        {
+          "itemId": 271464,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Greaves of the Consecrated Flame",
+          "slot": "Legs",
+          "variant": "Mythic 6/6 observed",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271464/greaves-of-the-consecrated-flame?bonus=4786%3A12806&ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 67,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 134,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ]
+        },
+        {
+          "itemId": 271463,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Pauldrons of the Consecrated Flame",
+          "slot": "Shoulders",
+          "variant": "Mythic 6/6 observed",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271463/pauldrons-of-the-consecrated-flame?bonus=12854%3A13440&original-item=251138",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 95,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 56,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ]
+        }
+      ],
+      "variantObservationsStatus": "partial",
+      "variantObservationsNote": "Five source-checked Paladin tier versions preserve observed item-level-specific stats as evidence only. They are not optimizer candidates, and the full class/difficulty/upgrade variant map remains incomplete."
     },
     {
       "class": "Priest",
