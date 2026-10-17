@@ -1,8 +1,7 @@
-"""Audit equipment catalogue breadth without confusing section completeness with full gear coverage.
+"""Audit equipment catalogue breadth and tier variant verification coverage.
 
 Run with: python scripts/audit_equipment_catalog.py
-The report is informational: missing candidates and incomplete variants are surfaced,
-never silently promoted into optimizer-eligible records.
+Missing candidates and incomplete variants are surfaced, never silently promoted.
 """
 import json
 from pathlib import Path
@@ -10,9 +9,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SECTION_DIR = ROOT / "data" / "equipment-sections"
 TIER_MANIFEST = ROOT / "data" / "tier-set-item-ids.json"
+TIER_DATA = ROOT / "data" / "tier-sets-midnight-season-2.json"
+EXPECTED_TIER_SLOTS = {"Head", "Shoulders", "Chest", "Hands", "Legs"}
 
 
-def audit_catalog(section_dir=SECTION_DIR, manifest_path=TIER_MANIFEST):
+def audit_catalog(section_dir=SECTION_DIR, manifest_path=TIER_MANIFEST, tier_data_path=TIER_DATA):
     manifest = json.loads(Path(manifest_path).read_text(encoding="utf-8"))
     sections = {}
     known_ids = set()
@@ -53,9 +54,49 @@ def audit_catalog(section_dir=SECTION_DIR, manifest_path=TIER_MANIFEST):
                     "slot": piece.get("slot"),
                 })
 
+    tier_class_audit = []
+    tier_variant_data_available = Path(tier_data_path).exists()
+    if tier_variant_data_available:
+        tier_data = json.loads(Path(tier_data_path).read_text(encoding="utf-8"))
+        for tier_set in tier_data.get("sets", []):
+            base_pieces = tier_set.get("basePieces", [])
+            verified_pieces = tier_set.get("pieces", [])
+            observations = tier_set.get("verifiedVariantObservations", [])
+            base_slots = {piece.get("slot") for piece in base_pieces if isinstance(piece, dict)}
+            verified_variants = [
+                piece for piece in verified_pieces
+                if isinstance(piece, dict)
+                and piece.get("candidate") is True
+                and isinstance(piece.get("itemLevel"), int)
+                and isinstance(piece.get("stats"), list)
+                and piece["stats"]
+            ]
+            observation_variants_with_stats = [
+                item for item in observations
+                if isinstance(item, dict)
+                and isinstance(item.get("itemLevel"), int)
+                and isinstance(item.get("stats"), list)
+                and item["stats"]
+            ]
+            tier_class_audit.append({
+                "class": tier_set.get("class"),
+                "basePieceCount": len(base_pieces),
+                "baseSlotsPresent": sorted(base_slots),
+                "missingBaseSlots": sorted(EXPECTED_TIER_SLOTS - base_slots),
+                "verifiedVariantRecordCount": len(verified_pieces),
+                "optimizerEligibleVariantRecordsWithLevelAndStats": len(verified_variants),
+                "observedOnlyVariantRecordsWithLevelAndStats": len(observation_variants_with_stats),
+                "variantCoverageStatus": (
+                    "verified-candidates-present" if len(verified_variants) else
+                    "observations-only" if observation_variants_with_stats else
+                    "base-mapping-only" if base_pieces else "unavailable"
+                ),
+                "sourcePolicy": "Only explicit candidate=true variant records with item level and numeric stats count as optimizer-eligible here; observations are evidence only.",
+            })
+
     return {
         "schemaVersion": 1,
-        "auditScope": "all saved equipment-section files compared with the tier-piece ID manifest",
+        "auditScope": "all saved equipment-section files compared with the tier-piece ID manifest and per-class tier variant data",
         "sectionCount": len(sections),
         "totalSectionItemRecords": sum(section["candidateCount"] for section in sections.values()),
         "totalUniqueSectionItemIds": len(known_ids),
@@ -67,6 +108,12 @@ def audit_catalog(section_dir=SECTION_DIR, manifest_path=TIER_MANIFEST):
             "piecesPresentInEquipmentSections": total_tier_pieces - len(missing_tier_pieces),
             "piecesMissingFromEquipmentSections": len(missing_tier_pieces),
             "missingPieces": missing_tier_pieces,
+        },
+        "tierVariantCoverage": {
+            "dataAvailable": tier_variant_data_available,
+            "classCount": len(tier_class_audit),
+            "classes": tier_class_audit,
+            "note": "Base item IDs and secondary-stat profiles do not prove numeric upgrade variants. Observed-only versions are not eligible candidates.",
         },
     }
 
