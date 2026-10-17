@@ -1084,9 +1084,11 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
   const tierCoverage = report.tierSetCoverage;
   const tierCoverageNote = !tierCoverage || tierCoverage.catalogueStatus === "unavailable"
     ? " Tier-set coverage unavailable; set bonuses are not verified."
-    : tierCoverage.itemMappingVerified
-      ? ` Tier set: ${tierCoverage.setName} piece mapping verified (${tierCoverage.verifiedPieceCount}/${tierCoverage.expectedPieceCount}); numeric bonus scoring remains disabled.`
-      : ` Tier-set warning: ${tierCoverage.className || character.className} piece mapping is unverified; do not treat set counts or bonus optimization as complete. ${tierCoverage.verifiedClassCount}/${tierCoverage.totalClassCount} classes have verified mappings.`;
+    : tierCoverage.itemMappingVerified && tierCoverage.variantMappingVerified === false
+      ? ` Tier set: base piece mapping verified (${tierCoverage.verifiedPieceCount}/${tierCoverage.expectedPieceCount} slots), but upgraded/difficulty variant IDs and stats are not fully verified; numeric bonus scoring remains disabled.`
+      : tierCoverage.itemMappingVerified
+        ? ` Tier set: ${tierCoverage.setName} piece mapping verified (${tierCoverage.verifiedPieceCount}/${tierCoverage.expectedPieceCount} slots); numeric bonus scoring remains disabled.`
+        : ` Tier-set warning: ${tierCoverage.className || character.className} piece mapping is unverified; do not treat set counts or bonus optimization as complete. ${tierCoverage.verifiedClassCount}/${tierCoverage.totalClassCount} classes have verified variant mappings.`;
   const coverageNote = candidateCoverageNote + tierCoverageNote;
   resultMessage.textContent = report.topUpgrades.length
     ? `${label} • ${character.goal} — ${report.topUpgrades.length} gear candidates ranked. This is a ranking aid, not a verified best-in-slot result or numeric projected-stat calculation.${coverageNote}`
