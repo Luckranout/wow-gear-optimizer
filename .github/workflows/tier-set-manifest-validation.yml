@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - "data/tier-set-item-ids.json"
+      - "data/tier-sets-midnight-season-2.json"
       - "data/equipment-sections/**"
       - "optimizer.js"
       - "tests/tier-set-manifest.test.js"
