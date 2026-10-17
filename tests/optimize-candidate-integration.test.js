@@ -51,6 +51,16 @@ assert.match(optimizer, /meetsEquippedLevel\(item, secondSlot\)/);
 assert.match(optimizer, /Array\.isArray\(rawItem\.variants\)/);
 assert.match(optimizer, /for \(const rawItem of expandedItems\)/);
 
+// Projected totals must be based on current-vs-optimized item stat deltas and
+// clearly report missing item-stat coverage instead of pretending the projection is complete.
+assert.match(optimizer, /function getEquipmentStatTotals\(equipment = \{\}\)/);
+assert.match(optimizer, /function calculateProjectedStatChanges\(currentEquipment = \{\}, projectedEquipment = \{\}, currentStatistics = \{\}\)/);
+assert.match(optimizer, /missingSlots/);
+assert.match(optimizer, /projectedCharacterStats/);
+assert.match(optimizer, /projectedStats,\s*numericProjectionAvailable: projectedStats\.available/);
+assert.match(optimizer, /Projection excludes unmodeled effects, temporary buffs/);
+
+
 // The endpoint must not fabricate results when the catalog file is absent or
 // invalid, and must filter by explicit season verification, equippability,
 // usable stats, requested slot, and class armor restrictions.
