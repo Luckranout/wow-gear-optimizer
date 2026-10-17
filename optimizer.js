@@ -1445,6 +1445,30 @@ function getTierSetCoverageStatus(tierSetCatalogue = null, className = "", speci
   };
 }
 
+function getLoadoutDiminishingReturnsSummary(equipment = {}, characterLevel = null) {
+  const totals = getSecondaryRatingTotals(equipment);
+  const supported = Number(characterLevel) === SECONDARY_RATING_DR_LEVEL;
+  return Object.entries(SECONDARY_RATING_DR_TABLE).map(([stat, thresholds]) => {
+    const rating = totals[stat] || 0;
+    const dr = getSecondaryRatingDiminishingReturns(rating, stat, characterLevel);
+    let tier = 0;
+    for (let index = 0; index < thresholds.length; index++) {
+      if (rating <= thresholds[index]) { tier = index; break; }
+      tier = index + 1;
+    }
+    const nextThreshold = thresholds.find(threshold => rating < threshold) ?? null;
+    return {
+      stat, rating,
+      effectiveRating: supported ? dr.effectiveRating : null,
+      lostRating: supported ? dr.lostRating : null,
+      tier, thresholds: [...thresholds], nextThreshold,
+      ratingToFirstThresholdPercent: thresholds[0] > 0 ? Math.round(rating / thresholds[0] * 1000) / 10 : 0,
+      supported,
+      note: supported ? null : "Verified level-90 rating DR data is unavailable for this character level."
+    };
+  });
+}
+
 function getEquipmentStatTotals(equipment = {}) {
   const totals = {};
   const missingSlots = [];
@@ -1606,5 +1630,5 @@ window.WoWOptimizer = {
   getItemSetId, getSetBonusStatus, getTierSetCoverageStatus, scoreSetBonuses, scoreEquipmentWithRatingDiminishingReturns, scoreLoadout,
   getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,
   calculateCrestRequirements, isAscendantVenomstoneEligible, recommendUpgradePlan,
-  calculateProjectedStatChanges, getEquipmentStatTotals, createOptimizationReport, testData: WOW_OPTIMIZER_TEST_DATA
+  calculateProjectedStatChanges, getEquipmentStatTotals, getLoadoutDiminishingReturnsSummary, createOptimizationReport, testData: WOW_OPTIMIZER_TEST_DATA
 };
