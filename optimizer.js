@@ -1507,6 +1507,7 @@ function createOptimizationReport({character = createCharacterProfile(), availab
       availableCrests: character.crestInventory || {}, weeklyUsed: character.weeklyCrestUsed || 0
     }) : null)
     .filter(Boolean);
+  const projectedStats = calculateProjectedStatChanges(character.equipment, optimized.equipment, character.statistics);
   return {
     character, goal, statWeights, optimizedEquipment: optimized.equipment, totalScore: optimized.score,
     setBonusStatus: optimized.setBonusStatus,
@@ -1540,8 +1541,8 @@ function createOptimizationReport({character = createCharacterProfile(), availab
       : hasSpecProfile
         ? "specialization-profile"
         : "missing-specialization-profile",
-    projectedStats: calculateProjectedStatChanges(character.equipment, optimized.equipment, character.statistics),
-    numericProjectionAvailable: true,
+    projectedStats,
+    numericProjectionAvailable: projectedStats.available,
     recommendationLimitations: [
       "Gear ranking is not a full combat simulation.",
       ...(simulationContext ? [] : hasSpecProfile
