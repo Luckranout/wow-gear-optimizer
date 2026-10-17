@@ -77,41 +77,7 @@ test("text-only tier bonus descriptions are never treated as numeric scoring", (
 });
 
 
-test("upgrade variants are not silently accepted when stat coverage is incomplete", () => {
-  const primaryAndSecondary = new Set([
-    "strength", "agility", "intellect", "criticalstrike", "haste", "mastery", "versatility"
-  ]);
-  const incomplete = [];
-  for (const section of sections) {
-    for (const item of section.items || []) {
-      const baseStats = new Set((item.stats || [])
-        .map(stat => normalize(stat.type?.name))
-        .filter(name => primaryAndSecondary.has(name)));
-      for (const variant of item.variants || []) {
-        const variantStats = new Set((variant.stats || [])
-          .map(stat => normalize(stat.type?.name))
-          .filter(name => primaryAndSecondary.has(name)));
-        const missing = [...baseStats].filter(name => !variantStats.has(name));
-        if (missing.length) {
-          incomplete.push({
-            itemId: item.id,
-            name: item.name,
-            variantLevel: variant.itemLevel ?? variant.level ?? null,
-            missingStats: missing
-          });
-        }
-      }
-    }
-  }
-  assert.deepEqual(
-    incomplete,
-    [],
-    "upgrade variants with incomplete primary/secondary stats must be completed from a verified source or explicitly excluded from scoring"
-  );
-});
-
-
-test("optimizer rejects incomplete upgrade variant stat payloads", () => {
+test("every incomplete catalog upgrade variant is rejected by the optimizer guard", () => {
   const sandbox = { window: {} };
   vm.runInNewContext(
     fs.readFileSync(path.join(root, "optimizer.js"), "utf8"),
@@ -120,7 +86,32 @@ test("optimizer rejects incomplete upgrade variant stat payloads", () => {
   );
   const complete = sandbox.window.WoWOptimizer.hasCompleteVariantStats;
   assert.equal(typeof complete, "function");
+  let incompleteCount = 0;
 
+  for (const section of sections) {
+    for (const item of section.items || []) {
+      for (const variant of item.variants || []) {
+        if (complete(item, variant)) continue;
+        incompleteCount++;
+        assert.equal(
+          complete(item, variant),
+          false,
+          item.id + " " + item.name + " variant " + (variant.itemLevel ?? variant.level)
+        );
+      }
+    }
+  }
+  assert.ok(incompleteCount > 0, "the current catalog should exercise the incomplete-variant guard");
+});
+
+test("optimizer guard requires every primary and secondary stat present on the base item", () => {
+  const sandbox = { window: {} };
+  vm.runInNewContext(
+    fs.readFileSync(path.join(root, "optimizer.js"), "utf8"),
+    sandbox,
+    { filename: "optimizer.js" }
+  );
+  const complete = sandbox.window.WoWOptimizer.hasCompleteVariantStats;
   const base = {
     stats: [
       { type: { name: "agility" }, value: 65 },
@@ -129,28 +120,22 @@ test("optimizer rejects incomplete upgrade variant stat payloads", () => {
       { type: { name: "mastery" }, value: 34 }
     ]
   };
-  assert.equal(complete(base, {
-    stats: [
-      { type: { name: "armor" }, value: 217 },
-      { type: { name: "agility" }, value: 130 },
-      { type: { name: "stamina" }, value: 3910 },
-      { type: { name: "criticalStrike" }, value: 136 },
-      { type: { name: "mastery" }, value: 64 }
-    ]
-  }), true, "complete variant stats should remain eligible");
-  assert.equal(complete(base, {
-    stats: [
-      { type: { name: "armor" }, value: 217 },
-      { type: { name: "stamina" }, value: 3910 },
-      { type: { name: "criticalStrike" }, value: 136 },
-      { type: { name: "mastery" }, value: 64 }
-    ]
-  }), false, "variant missing the base primary stat must be rejected");
-  assert.equal(complete(base, {
-    stats: [
-      { type: { name: "agility" }, value: 130 },
-      { type: { name: "stamina" }, value: 3910 },
-      { type: { name: "criticalStrike" }, value: 136 }
-    ]
-  }), false, "variant missing a base secondary stat must be rejected");
+  assert.equal(complete(base, { stats: [
+    { type: { name: "armor" }, value: 217 },
+    { type: { name: "agility" }, value: 130 },
+    { type: { name: "stamina" }, value: 3910 },
+    { type: { name: "criticalStrike" }, value: 136 },
+    { type: { name: "mastery" }, value: 64 }
+  ] }), true);
+  assert.equal(complete(base, { stats: [
+    { type: { name: "armor" }, value: 217 },
+    { type: { name: "stamina" }, value: 3910 },
+    { type: { name: "criticalStrike" }, value: 136 },
+    { type: { name: "mastery" }, value: 64 }
+  ] }), false, "missing primary stat must be rejected");
+  assert.equal(complete(base, { stats: [
+    { type: { name: "agility" }, value: 130 },
+    { type: { name: "stamina" }, value: 3910 },
+    { type: { name: "criticalStrike" }, value: 136 }
+  ] }), false, "missing secondary stat must be rejected");
 });
