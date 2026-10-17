@@ -241,3 +241,36 @@ test("Druid source-checked tier versions remain evidence-only and preserve obser
     "partial observed versions must not promote the complete class variant map");
 });
 
+test("Evoker source-checked tier versions remain evidence-only and preserve observed stats", () => {
+  const evoker = catalogue.sets.find(set => set.class === "Evoker");
+  const observations = evoker.verifiedVariantObservations || [];
+  assert.equal(observations.length, 5);
+  assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
+  assert.equal(evoker.variantObservationsStatus, "partial");
+  assert.match(evoker.variantObservationsNote, /remain ineligible as optimizer candidates/i);
+  const manifestSet = manifest.sets.find(set => set.className === "Evoker");
+  const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
+  for (const piece of observations) {
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.ok(piece.itemLevel > 0);
+    assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/"));
+    assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), piece.itemLevel,
+      "source URL must pin the exact observed item level");
+    assert.ok(Array.isArray(piece.stats) && piece.stats.length >= 3);
+    assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
+    assert.ok(piece.stats.every(stat => typeof stat.source === "string" && stat.source.length > 0));
+  }
+  const head = observations.find(piece => piece.itemId === 271501);
+  assert.equal(head.itemLevel, 334);
+  assert.deepEqual(
+    Object.fromEntries(head.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 189, intellect: 189, stamina: 3910, haste: 135, versatility: 66 }
+  );
+  const gloves = observations.find(piece => piece.itemId === 271502);
+  assert.equal(gloves.itemLevel, 321);
+  assert.equal(evoker.itemIdsVerified, false,
+    "partial observed versions must not promote the complete class variant map");
+});
+
