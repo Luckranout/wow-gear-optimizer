@@ -564,7 +564,6 @@ function scoreItem(item, statWeights = STAT_WEIGHTS) {
   if (!item || !hasUsableItemStats(item)) return 0;
   const itemLevel = Number(item.itemLevel ?? item.level) || 0;
   let effectScore = Number(item.effectValue) || 0;
-  if (item.isSetPiece) effectScore += 10;
   if (item.isUniqueEffect) effectScore += 5;
   effectScore += scoreTrinketUseEffect(item, statWeights);
   return itemLevel * 2 + scoreItemStats(item, statWeights) + effectScore;
@@ -680,7 +679,6 @@ function scoreEquipmentWithRatingDiminishingReturns(equipment = {}, statWeights 
     if (!item || !hasUsableItemStats(item)) continue;
     score += (Number(item.itemLevel ?? item.level) || 0) * 2;
     score += Number(item.effectValue) || 0;
-    if (item.isSetPiece) score += 10;
     if (item.isUniqueEffect) score += 5;
     score += scoreTrinketUseEffect(item, statWeights);
     const entries = Array.isArray(item.stats)
