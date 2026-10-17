@@ -97,12 +97,19 @@ test("tier identity records are present but never scored without verified stats"
     for (const piece of set.pieces) {
       const item = allItems.find(candidate => String(candidate.id ?? candidate.itemId) === String(piece.itemId));
       assert.ok(item, "missing tier identity: " + piece.itemId);
-      assert.equal(item.dataStatus, "metadata-only-unverified-stats", piece.name);
-      assert.equal(item.candidate, false, piece.name + " must remain ineligible until stats are verified");
       assert.equal(item.classRestriction, set.className, piece.name);
-      assert.equal(optimizer.hasUsableItemStats(item), false, piece.name + " must not be scored with invented stats");
-      assert.equal(optimizer.hasUsableItemStats({ ...item, stats: [{ stat: { name: "Agility" }, value: 999 }] }), false,
-        piece.name + " must remain ineligible even if partial stats are accidentally attached");
+      if (item.dataStatus === "metadata-only-unverified-stats") {
+        assert.equal(item.candidate, false, piece.name + " must remain ineligible until stats are verified");
+        assert.equal(optimizer.hasUsableItemStats(item), false, piece.name + " must not be scored with invented stats");
+        assert.equal(optimizer.hasUsableItemStats({ ...item, stats: [{ stat: { name: "Agility" }, value: 999 }] }), false,
+          piece.name + " must remain ineligible even if partial stats are accidentally attached");
+      } else {
+        assert.equal(item.dataStatus, "verified-base-and-max-upgrade-stats", piece.name);
+        assert.equal(item.candidate, true, piece.name + " has verified source-backed stats");
+        assert.equal(optimizer.hasUsableItemStats(item), true, piece.name + " should be scoreable with verified stats");
+        assert.ok(item.variants?.some(variant => Number(variant.itemLevel) === 334 && optimizer.hasCompleteVariantStats(item, variant)),
+          piece.name + " should expose the verified Myth 6/6 variant");
+      }
       assert.equal(optimizer.itemAllowedForClass(item, set.className), true, piece.name + " should be class eligible");
       assert.equal(optimizer.itemAllowedForClass(item, "Warrior" === set.className ? "Mage" : "Warrior"), false,
         piece.name + " must not be eligible for a different class");
