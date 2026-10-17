@@ -49,18 +49,24 @@ const CLASS_WEAPON_PROFICIENCIES = {
 };
 
 function normalizeWeaponType(value) {
-  const key = String(value || "").trim().toLowerCase().replace(/[_-]+/g, " ");
-  const aliases = {
-    axes: "axe", "one handed axe": "axe", "two handed axe": "axe",
-    daggers: "dagger", "one handed dagger": "dagger",
-    "fist weapons": "fist weapon", fist: "fist weapon",
-    maces: "mace", "one handed mace": "mace", "two handed mace": "mace",
-    staves: "staff", polearms: "polearm", swords: "sword",
-    "one handed sword": "sword", "two handed sword": "sword",
-    bows: "bow", guns: "gun", crossbows: "crossbow", wands: "wand",
-    glaive: "warglaive", glaives: "warglaive", "war glaive": "warglaive"
-  };
-  return aliases[key] || key;
+  const raw = String(value?.name || value || "").trim().toLowerCase()
+    .replace(/[_-]+/g, " ")
+    .replace(/\\b(two|one) handed\\b/g, "$1 hand");
+  if (!raw || /^(weapon|melee|ranged|miscellaneous|unknown)$/.test(raw)) return "";
+  // Blizzard subclass labels can be plural or include a hand qualifier.
+  if (raw.includes("warglaive") || raw.includes("war glaive") || raw.includes("glaive")) return "warglaive";
+  if (raw.includes("fist")) return "fist weapon";
+  if (raw.includes("crossbow")) return "crossbow";
+  if (raw.includes("polearm")) return "polearm";
+  if (raw.includes("staff") || raw.includes("staves")) return "staff";
+  if (raw.includes("dagger")) return "dagger";
+  if (raw.includes("sword")) return "sword";
+  if (raw.includes("mace")) return "mace";
+  if (raw.includes("axe")) return "axe";
+  if (raw.includes("bow")) return "bow";
+  if (raw.includes("gun")) return "gun";
+  if (raw.includes("wand")) return "wand";
+  return raw;
 }
 
 
@@ -190,6 +196,18 @@ function itemAllowedForSpecialization(item, slot, className, specialization) {
 
 function itemMatchesSlot(item, slot) {
   if (!item || !slot) return false;
+  // Honor the importer's canonical inventory-type mapping first. Generic
+  // Blizzard "Weapon" labels otherwise cause valid weapons to vanish before scoring.
+  const categoryBySlot = {
+    Head: "head", Neck: "necklaces", Shoulders: "shoulders", Back: "back",
+    Chest: "chest", Wrists: "wrists", Hands: "hands", Waist: "waist",
+    Legs: "legs", Feet: "feet", "Ring 1": "rings", "Ring 2": "rings",
+    "Trinket 1": "trinkets", "Trinket 2": "trinkets",
+    "Main Hand": "main-hand", "Off Hand": "off-hand"
+  };
+  if (Array.isArray(item.equipmentCategories) && item.equipmentCategories.length) {
+    return item.equipmentCategories.includes(categoryBySlot[slot]);
+  }
   const inventoryType = String(item.inventoryType?.name || item.inventoryType || "").trim().toLowerCase();
   const map = {
     head: ["Head"], neck: ["Neck"], shoulder: ["Shoulders"], shoulders: ["Shoulders"],
