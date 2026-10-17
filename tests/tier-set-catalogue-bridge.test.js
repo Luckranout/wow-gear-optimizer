@@ -129,7 +129,7 @@ test("Death Knight source-checked tier versions preserve observed stats without 
     { strength: 111, stamina: 2172, haste: 44, versatility: 90 }
   );
   const headLevels = observations.filter(piece => piece.itemId === 271474).map(piece => piece.itemLevel).sort((a, b) => a - b);
-  assert.deepEqual(headLevels, [308, 311, 321, 334],
+  assert.deepEqual(headLevels, [305, 308, 311, 321, 334],
     "Head must retain each independently sourced item-level observation");
   const shoulderLevels = observations.filter(piece => piece.itemId === 271472).map(piece => piece.itemLevel).sort((a, b) => a - b);
   assert.deepEqual(shoulderLevels, [295, 308, 318],
