@@ -272,7 +272,7 @@ const drEquipped = {
   Chest: { id: 2, slot: "Chest", stats: { Mastery: 600, Versatility: 900 } }
 };
 const drRecommended = {
-  Head: { id: 3, slot: "Head", stats: { Haste: 1600, CriticalStrike: 1200 } },
+  Head: { id: 3, slot: "Head", stats: { Haste: 1600, CriticalStrike: 1800 } },
   Chest: { id: 4, slot: "Chest", stats: { Mastery: 1500, Versatility: 1800 } }
 };
 const equippedDrSummary = optimizer.getLoadoutDiminishingReturnsSummary(drEquipped, 90);
