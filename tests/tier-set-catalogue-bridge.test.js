@@ -332,7 +332,8 @@ test("Hunter source-checked tier versions remain evidence-only and match exact W
 test("optimizer coverage distinguishes verified base-piece IDs from unverified variants", () => {
   // optimizer.js attaches its browser API to window at load time.
   global.window = global.window || {};
-  const { getTierSetCoverageStatus } = require("../optimizer");
+  require("../optimizer");
+  const { getTierSetCoverageStatus } = global.window.WoWOptimizer;
   const deathKnight = getTierSetCoverageStatus(catalogue, "Death Knight", "Blood");
   assert.equal(deathKnight.catalogueStatus, "partial");
   assert.equal(deathKnight.itemMappingVerified, true);
