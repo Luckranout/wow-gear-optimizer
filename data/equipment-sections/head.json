@@ -24,8 +24,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -141,8 +145,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -258,8 +266,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -375,8 +387,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -492,8 +508,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -602,8 +622,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -712,8 +736,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -822,8 +850,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -932,8 +964,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1065,8 +1101,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1198,8 +1238,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1331,8 +1375,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1464,8 +1512,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1597,8 +1649,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1730,8 +1786,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1863,8 +1923,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1996,8 +2060,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2129,8 +2197,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2262,8 +2334,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2395,8 +2471,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2514,8 +2594,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2633,8 +2717,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2766,8 +2854,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [],
       "spells": [],
@@ -2823,8 +2915,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [],
       "spells": [],
@@ -2880,8 +2976,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [],
       "spells": [],

@@ -24,8 +24,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "NECK",
         "name": "Neck"
       },
+      "equipmentCategories": [
+        "necklaces"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -120,8 +124,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "NECK",
         "name": "Neck"
       },
+      "equipmentCategories": [
+        "necklaces"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -232,8 +240,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "NECK",
         "name": "Neck"
       },
+      "equipmentCategories": [
+        "necklaces"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -362,8 +374,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "NECK",
         "name": "Neck"
       },
+      "equipmentCategories": [
+        "necklaces"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -474,8 +490,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "NECK",
         "name": "Neck"
       },
+      "equipmentCategories": [
+        "necklaces"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -586,8 +606,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "NECK",
         "name": "Neck"
       },
+      "equipmentCategories": [
+        "necklaces"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -698,8 +722,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "NECK",
         "name": "Neck"
       },
+      "equipmentCategories": [
+        "necklaces"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -838,8 +866,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "NECK",
         "name": "Neck"
       },
+      "equipmentCategories": [
+        "necklaces"
+      ],
       "isEquippable": true,
       "stats": [
         {

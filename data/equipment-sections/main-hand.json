@@ -24,8 +24,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -137,8 +142,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -250,8 +260,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -356,8 +370,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -462,8 +480,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -575,8 +598,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -694,8 +722,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -813,8 +846,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -932,8 +970,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1051,8 +1094,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1170,8 +1218,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1280,8 +1332,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1399,8 +1456,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1512,8 +1574,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1625,8 +1692,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1738,8 +1810,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1844,8 +1920,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1950,8 +2030,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2056,8 +2140,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2162,8 +2250,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2272,8 +2364,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "RANGED",
         "name": "Ranged"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2382,8 +2478,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2508,8 +2608,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2644,8 +2749,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2770,8 +2879,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2906,8 +3020,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -3032,8 +3150,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -3158,8 +3280,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -3294,8 +3421,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -3420,8 +3551,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -3556,8 +3692,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "RANGEDRIGHT",
         "name": "Ranged"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -3682,8 +3822,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "RANGEDRIGHT",
         "name": "Ranged"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -3808,8 +3952,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -3934,8 +4082,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -4070,8 +4223,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -4206,8 +4364,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -4342,8 +4505,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -4478,8 +4646,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -4604,8 +4776,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -4747,8 +4924,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [],
       "spells": [],
@@ -4814,8 +4996,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "RANGED",
         "name": "Ranged"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -4920,8 +5106,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "RANGED",
         "name": "Ranged"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -5026,8 +5216,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -5152,8 +5346,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -5278,8 +5476,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "RANGEDRIGHT",
         "name": "Ranged"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -5404,8 +5606,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -5547,8 +5754,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -5669,8 +5881,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -5805,8 +6022,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -5941,8 +6163,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -6067,8 +6293,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -6203,8 +6434,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "RANGED",
         "name": "Ranged"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -6315,8 +6550,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -6451,8 +6691,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPONMAINHAND",
         "name": "Main Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -6577,8 +6821,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -6713,8 +6962,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -6849,8 +7103,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -6975,8 +7233,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -7101,8 +7363,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -7213,8 +7479,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -7349,8 +7620,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -7459,8 +7734,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "RANGEDRIGHT",
         "name": "Ranged"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -7569,8 +7848,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -7705,8 +7989,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -7827,8 +8116,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -7949,8 +8243,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "RANGEDRIGHT",
         "name": "Ranged"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -8075,8 +8373,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -8211,8 +8514,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -8347,8 +8655,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -8473,8 +8785,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -8599,8 +8915,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "RANGED",
         "name": "Ranged"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -8725,8 +9045,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -8868,8 +9193,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {

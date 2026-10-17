@@ -24,8 +24,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHOULDER",
         "name": "Shoulder"
       },
+      "equipmentCategories": [
+        "shoulders"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -141,8 +145,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHOULDER",
         "name": "Shoulder"
       },
+      "equipmentCategories": [
+        "shoulders"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -258,8 +266,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHOULDER",
         "name": "Shoulder"
       },
+      "equipmentCategories": [
+        "shoulders"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -375,8 +387,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHOULDER",
         "name": "Shoulder"
       },
+      "equipmentCategories": [
+        "shoulders"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -492,8 +508,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHOULDER",
         "name": "Shoulder"
       },
+      "equipmentCategories": [
+        "shoulders"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -625,8 +645,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHOULDER",
         "name": "Shoulder"
       },
+      "equipmentCategories": [
+        "shoulders"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -758,8 +782,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHOULDER",
         "name": "Shoulder"
       },
+      "equipmentCategories": [
+        "shoulders"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -891,8 +919,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHOULDER",
         "name": "Shoulder"
       },
+      "equipmentCategories": [
+        "shoulders"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1024,8 +1056,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHOULDER",
         "name": "Shoulder"
       },
+      "equipmentCategories": [
+        "shoulders"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1157,8 +1193,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHOULDER",
         "name": "Shoulder"
       },
+      "equipmentCategories": [
+        "shoulders"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1290,8 +1330,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHOULDER",
         "name": "Shoulder"
       },
+      "equipmentCategories": [
+        "shoulders"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1423,8 +1467,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHOULDER",
         "name": "Shoulder"
       },
+      "equipmentCategories": [
+        "shoulders"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1556,8 +1604,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHOULDER",
         "name": "Shoulder"
       },
+      "equipmentCategories": [
+        "shoulders"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1689,8 +1741,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHOULDER",
         "name": "Shoulder"
       },
+      "equipmentCategories": [
+        "shoulders"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1822,8 +1878,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHOULDER",
         "name": "Shoulder"
       },
+      "equipmentCategories": [
+        "shoulders"
+      ],
       "isEquippable": true,
       "stats": [
         {

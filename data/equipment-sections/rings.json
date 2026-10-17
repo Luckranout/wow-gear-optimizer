@@ -24,8 +24,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FINGER",
         "name": "Finger"
       },
+      "equipmentCategories": [
+        "rings"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -120,8 +124,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FINGER",
         "name": "Finger"
       },
+      "equipmentCategories": [
+        "rings"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -232,8 +240,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FINGER",
         "name": "Finger"
       },
+      "equipmentCategories": [
+        "rings"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -344,8 +356,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FINGER",
         "name": "Finger"
       },
+      "equipmentCategories": [
+        "rings"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -456,8 +472,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FINGER",
         "name": "Finger"
       },
+      "equipmentCategories": [
+        "rings"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -568,8 +588,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FINGER",
         "name": "Finger"
       },
+      "equipmentCategories": [
+        "rings"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -680,8 +704,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FINGER",
         "name": "Finger"
       },
+      "equipmentCategories": [
+        "rings"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -792,8 +820,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FINGER",
         "name": "Finger"
       },
+      "equipmentCategories": [
+        "rings"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -904,8 +936,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FINGER",
         "name": "Finger"
       },
+      "equipmentCategories": [
+        "rings"
+      ],
       "isEquippable": true,
       "stats": [
         {

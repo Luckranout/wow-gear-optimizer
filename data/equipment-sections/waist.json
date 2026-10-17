@@ -24,8 +24,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -141,8 +145,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -254,8 +262,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -371,8 +383,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -488,8 +504,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -605,8 +625,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -732,8 +756,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -865,8 +893,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -998,8 +1030,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1131,8 +1167,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1264,8 +1304,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1397,8 +1441,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1530,8 +1578,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1663,8 +1715,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1796,8 +1852,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1929,8 +1989,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2062,8 +2126,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2195,8 +2263,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2328,8 +2400,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2461,8 +2537,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2594,8 +2674,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {

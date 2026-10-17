@@ -24,8 +24,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "CLOAK",
         "name": "Back"
       },
+      "equipmentCategories": [
+        "back"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -148,8 +152,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "CLOAK",
         "name": "Back"
       },
+      "equipmentCategories": [
+        "back"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -288,8 +296,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "CLOAK",
         "name": "Back"
       },
+      "equipmentCategories": [
+        "back"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -428,8 +440,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "CLOAK",
         "name": "Back"
       },
+      "equipmentCategories": [
+        "back"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -568,8 +584,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "CLOAK",
         "name": "Back"
       },
+      "equipmentCategories": [
+        "back"
+      ],
       "isEquippable": true,
       "stats": [
         {

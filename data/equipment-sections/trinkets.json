@@ -24,8 +24,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -100,8 +104,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -182,8 +190,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -258,8 +270,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -349,8 +365,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -420,8 +440,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [],
       "spells": [],
@@ -499,8 +523,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -590,8 +618,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -661,8 +693,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -752,8 +788,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -843,8 +883,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -914,8 +958,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [],
       "spells": [],
@@ -972,8 +1020,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1043,8 +1095,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1127,8 +1183,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1211,8 +1271,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1295,8 +1359,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1373,8 +1441,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1444,8 +1516,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1528,8 +1604,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1612,8 +1692,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1696,8 +1780,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1774,8 +1862,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1845,8 +1937,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1929,8 +2025,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2018,8 +2118,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2102,8 +2206,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2186,8 +2294,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2270,8 +2382,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2354,8 +2470,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2425,8 +2545,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2509,8 +2633,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2600,8 +2728,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2684,8 +2816,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2768,8 +2904,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2846,8 +2986,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {

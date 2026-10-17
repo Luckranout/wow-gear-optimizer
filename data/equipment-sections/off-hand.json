@@ -24,8 +24,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHIELD",
         "name": "Off Hand"
       },
+      "equipmentCategories": [
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -151,8 +155,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -264,8 +273,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -377,8 +391,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -490,8 +509,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -609,8 +633,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -728,8 +757,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -847,8 +881,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHIELD",
         "name": "Off Hand"
       },
+      "equipmentCategories": [
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -978,8 +1016,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1097,8 +1140,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1216,8 +1264,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1335,8 +1388,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1448,8 +1506,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1561,8 +1624,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1674,8 +1742,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HOLDABLE",
         "name": "Held In Off-hand"
       },
+      "equipmentCategories": [
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1780,8 +1852,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HOLDABLE",
         "name": "Held In Off-hand"
       },
+      "equipmentCategories": [
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1886,8 +1962,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HOLDABLE",
         "name": "Held In Off-hand"
       },
+      "equipmentCategories": [
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1996,8 +2076,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2132,8 +2217,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2268,8 +2358,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHIELD",
         "name": "Off Hand"
       },
+      "equipmentCategories": [
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2415,8 +2509,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2551,8 +2650,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2687,8 +2791,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HOLDABLE",
         "name": "Held In Off-hand"
       },
+      "equipmentCategories": [
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2813,8 +2921,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2949,8 +3062,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHIELD",
         "name": "Off Hand"
       },
+      "equipmentCategories": [
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -3096,8 +3213,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -3232,8 +3354,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -3368,8 +3495,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -3504,8 +3636,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -3647,8 +3784,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [],
       "spells": [],
@@ -3714,8 +3856,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHIELD",
         "name": "Off Hand"
       },
+      "equipmentCategories": [
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -3861,8 +4007,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HOLDABLE",
         "name": "Held In Off-hand"
       },
+      "equipmentCategories": [
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -3987,8 +4137,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -4130,8 +4285,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -4252,8 +4412,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -4388,8 +4553,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -4524,8 +4694,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -4660,8 +4835,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -4796,8 +4976,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -4932,8 +5117,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -5068,8 +5258,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHIELD",
         "name": "Off Hand"
       },
+      "equipmentCategories": [
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -5215,8 +5409,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HOLDABLE",
         "name": "Held In Off-hand"
       },
+      "equipmentCategories": [
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -5341,8 +5539,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -5477,8 +5680,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -5613,8 +5821,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -5735,8 +5948,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -5857,8 +6075,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HOLDABLE",
         "name": "Held In Off-hand"
       },
+      "equipmentCategories": [
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -5983,8 +6205,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -6119,8 +6346,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HOLDABLE",
         "name": "Held In Off-hand"
       },
+      "equipmentCategories": [
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -6245,8 +6476,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -6381,8 +6617,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -6524,8 +6765,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {

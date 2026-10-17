@@ -6,7 +6,7 @@
   "season": 2,
   "patch": "12.1.0",
   "status": "season-2-plus-source-imported",
-  "updatedAt": "2026-10-17T09:05:56.812423+00:00",
+  "updatedAt": "2026-10-17T16:07:27.802116+00:00",
   "source": "Blizzard Game Data API",
   "items": [
     {
@@ -28,8 +28,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -164,8 +169,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -235,8 +244,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -313,8 +326,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -397,8 +414,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -481,8 +502,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -624,8 +650,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FINGER",
         "name": "Finger"
       },
+      "equipmentCategories": [
+        "rings"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -736,8 +766,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -869,8 +903,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "CHEST",
         "name": "Chest"
       },
+      "equipmentCategories": [
+        "chest"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1002,8 +1040,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "CHEST",
         "name": "Chest"
       },
+      "equipmentCategories": [
+        "chest"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1135,8 +1177,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "LEGS",
         "name": "Legs"
       },
+      "equipmentCategories": [
+        "legs"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1268,8 +1314,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "ROBE",
         "name": "Chest"
       },
+      "equipmentCategories": [
+        "chest"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1401,8 +1451,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "RANGED",
         "name": "Ranged"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1527,8 +1581,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1653,8 +1711,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1779,8 +1841,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "NECK",
         "name": "Neck"
       },
+      "equipmentCategories": [
+        "necklaces"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -1891,8 +1957,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2027,8 +2098,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HOLDABLE",
         "name": "Held In Off-hand"
       },
+      "equipmentCategories": [
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2153,8 +2228,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2289,8 +2369,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FEET",
         "name": "Feet"
       },
+      "equipmentCategories": [
+        "feet"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2422,8 +2506,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "LEGS",
         "name": "Legs"
       },
+      "equipmentCategories": [
+        "legs"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2555,8 +2643,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WRIST",
         "name": "Wrist"
       },
+      "equipmentCategories": [
+        "wrists"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2688,8 +2780,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHOULDER",
         "name": "Shoulder"
       },
+      "equipmentCategories": [
+        "shoulders"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2821,8 +2917,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HAND",
         "name": "Hands"
       },
+      "equipmentCategories": [
+        "hands"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -2954,8 +3054,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "LEGS",
         "name": "Legs"
       },
+      "equipmentCategories": [
+        "legs"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -3073,8 +3177,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "CHEST",
         "name": "Chest"
       },
+      "equipmentCategories": [
+        "chest"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -3192,8 +3300,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -3311,8 +3423,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -3430,8 +3546,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -3552,8 +3673,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -3674,8 +3800,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -3810,8 +3941,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -3901,8 +4036,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -3985,8 +4124,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -4056,8 +4199,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -4140,8 +4287,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -4224,8 +4375,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -4308,8 +4463,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -4392,8 +4551,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -4481,8 +4644,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -4565,8 +4732,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -4636,8 +4807,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -4714,8 +4889,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -4798,8 +4977,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -4882,8 +5065,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -4966,8 +5153,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -5037,8 +5228,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FINGER",
         "name": "Finger"
       },
+      "equipmentCategories": [
+        "rings"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -5149,8 +5344,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "NECK",
         "name": "Neck"
       },
+      "equipmentCategories": [
+        "necklaces"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -5289,8 +5488,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -5425,8 +5629,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HOLDABLE",
         "name": "Held In Off-hand"
       },
+      "equipmentCategories": [
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -5551,8 +5759,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHIELD",
         "name": "Off Hand"
       },
+      "equipmentCategories": [
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -5698,8 +5910,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FEET",
         "name": "Feet"
       },
+      "equipmentCategories": [
+        "feet"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -5831,8 +6047,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FEET",
         "name": "Feet"
       },
+      "equipmentCategories": [
+        "feet"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -5964,8 +6184,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -6097,8 +6321,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FEET",
         "name": "Feet"
       },
+      "equipmentCategories": [
+        "feet"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -6230,8 +6458,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -6363,8 +6595,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -6496,8 +6732,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FEET",
         "name": "Feet"
       },
+      "equipmentCategories": [
+        "feet"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -6629,8 +6869,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -6762,8 +7006,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "CLOAK",
         "name": "Back"
       },
+      "equipmentCategories": [
+        "back"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -6902,8 +7150,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FINGER",
         "name": "Finger"
       },
+      "equipmentCategories": [
+        "rings"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -7014,8 +7266,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "NECK",
         "name": "Neck"
       },
+      "equipmentCategories": [
+        "necklaces"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -7126,8 +7382,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "NECK",
         "name": "Neck"
       },
+      "equipmentCategories": [
+        "necklaces"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -7238,8 +7498,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FINGER",
         "name": "Finger"
       },
+      "equipmentCategories": [
+        "rings"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -7350,8 +7614,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "CLOAK",
         "name": "Back"
       },
+      "equipmentCategories": [
+        "back"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -7490,8 +7758,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FEET",
         "name": "Feet"
       },
+      "equipmentCategories": [
+        "feet"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -7623,8 +7895,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHOULDER",
         "name": "Shoulder"
       },
+      "equipmentCategories": [
+        "shoulders"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -7756,8 +8032,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FEET",
         "name": "Feet"
       },
+      "equipmentCategories": [
+        "feet"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -7889,8 +8169,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -8022,8 +8306,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HAND",
         "name": "Hands"
       },
+      "equipmentCategories": [
+        "hands"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -8155,8 +8443,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -8288,8 +8580,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHOULDER",
         "name": "Shoulder"
       },
+      "equipmentCategories": [
+        "shoulders"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -8421,8 +8717,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WRIST",
         "name": "Wrist"
       },
+      "equipmentCategories": [
+        "wrists"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -8554,8 +8854,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WRIST",
         "name": "Wrist"
       },
+      "equipmentCategories": [
+        "wrists"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -8687,8 +8991,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HAND",
         "name": "Hands"
       },
+      "equipmentCategories": [
+        "hands"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -8820,8 +9128,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "LEGS",
         "name": "Legs"
       },
+      "equipmentCategories": [
+        "legs"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -8953,8 +9265,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "LEGS",
         "name": "Legs"
       },
+      "equipmentCategories": [
+        "legs"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -9086,8 +9402,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "ROBE",
         "name": "Chest"
       },
+      "equipmentCategories": [
+        "chest"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -9219,8 +9539,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HAND",
         "name": "Hands"
       },
+      "equipmentCategories": [
+        "hands"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -9352,8 +9676,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FEET",
         "name": "Feet"
       },
+      "equipmentCategories": [
+        "feet"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -9485,8 +9813,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -9618,8 +9950,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHOULDER",
         "name": "Shoulder"
       },
+      "equipmentCategories": [
+        "shoulders"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -9751,8 +10087,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -9884,8 +10224,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -10017,8 +10361,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WRIST",
         "name": "Wrist"
       },
+      "equipmentCategories": [
+        "wrists"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -10150,8 +10498,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -10283,8 +10635,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHOULDER",
         "name": "Shoulder"
       },
+      "equipmentCategories": [
+        "shoulders"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -10416,8 +10772,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "LEGS",
         "name": "Legs"
       },
+      "equipmentCategories": [
+        "legs"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -10549,8 +10909,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "LEGS",
         "name": "Legs"
       },
+      "equipmentCategories": [
+        "legs"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -10682,8 +11046,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "CHEST",
         "name": "Chest"
       },
+      "equipmentCategories": [
+        "chest"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -10815,8 +11183,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "CHEST",
         "name": "Chest"
       },
+      "equipmentCategories": [
+        "chest"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -10948,8 +11320,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "ROBE",
         "name": "Chest"
       },
+      "equipmentCategories": [
+        "chest"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -11081,8 +11457,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HAND",
         "name": "Hands"
       },
+      "equipmentCategories": [
+        "hands"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -11214,8 +11594,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -11347,8 +11731,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FEET",
         "name": "Feet"
       },
+      "equipmentCategories": [
+        "feet"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -11480,8 +11868,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WRIST",
         "name": "Wrist"
       },
+      "equipmentCategories": [
+        "wrists"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -11613,8 +12005,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -11746,8 +12142,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -11858,8 +12258,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -11984,8 +12388,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -12110,8 +12518,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -12246,8 +12659,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -12382,8 +12800,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPONMAINHAND",
         "name": "Main Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -12508,8 +12930,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -12644,8 +13071,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "RANGED",
         "name": "Ranged"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -12756,8 +13187,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -12892,8 +13328,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -13018,8 +13458,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -13154,8 +13599,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -13290,8 +13740,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -13412,8 +13867,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -13555,8 +14015,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "RANGEDRIGHT",
         "name": "Ranged"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -13681,8 +14145,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -13807,8 +14275,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -13933,8 +14405,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HOLDABLE",
         "name": "Held In Off-hand"
       },
+      "equipmentCategories": [
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -14059,8 +14535,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHIELD",
         "name": "Off Hand"
       },
+      "equipmentCategories": [
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -14206,8 +14686,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "RANGEDRIGHT",
         "name": "Ranged"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -14316,8 +14800,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -14426,8 +14914,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "RANGED",
         "name": "Ranged"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -14532,8 +15024,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "RANGED",
         "name": "Ranged"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -14638,8 +15134,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HOLDABLE",
         "name": "Held In Off-hand"
       },
+      "equipmentCategories": [
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -14748,8 +15248,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "RANGED",
         "name": "Ranged"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -14858,8 +15362,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -14968,8 +15476,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -15074,8 +15586,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -15180,8 +15696,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -15286,8 +15806,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -15392,8 +15916,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HOLDABLE",
         "name": "Held In Off-hand"
       },
+      "equipmentCategories": [
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -15498,8 +16026,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HOLDABLE",
         "name": "Held In Off-hand"
       },
+      "equipmentCategories": [
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -15604,8 +16136,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -15680,8 +16216,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -15762,8 +16302,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -15838,8 +16382,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FEET",
         "name": "Feet"
       },
+      "equipmentCategories": [
+        "feet"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -15948,8 +16496,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FEET",
         "name": "Feet"
       },
+      "equipmentCategories": [
+        "feet"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -16058,8 +16610,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FEET",
         "name": "Feet"
       },
+      "equipmentCategories": [
+        "feet"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -16168,8 +16724,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FEET",
         "name": "Feet"
       },
+      "equipmentCategories": [
+        "feet"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -16278,8 +16838,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WRIST",
         "name": "Wrist"
       },
+      "equipmentCategories": [
+        "wrists"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -16388,8 +16952,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WRIST",
         "name": "Wrist"
       },
+      "equipmentCategories": [
+        "wrists"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -16498,8 +17066,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WRIST",
         "name": "Wrist"
       },
+      "equipmentCategories": [
+        "wrists"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -16608,8 +17180,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WRIST",
         "name": "Wrist"
       },
+      "equipmentCategories": [
+        "wrists"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -16718,8 +17294,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -16828,8 +17408,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -16938,8 +17522,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -17048,8 +17636,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -17158,8 +17750,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -17271,8 +17868,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HAND",
         "name": "Hands"
       },
+      "equipmentCategories": [
+        "hands"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -17398,8 +17999,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "CHEST",
         "name": "Chest"
       },
+      "equipmentCategories": [
+        "chest"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -17525,8 +18130,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -17652,8 +18261,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FEET",
         "name": "Feet"
       },
+      "equipmentCategories": [
+        "feet"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -17779,8 +18392,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FEET",
         "name": "Feet"
       },
+      "equipmentCategories": [
+        "feet"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -17892,8 +18509,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WRIST",
         "name": "Wrist"
       },
+      "equipmentCategories": [
+        "wrists"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -18009,8 +18630,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HAND",
         "name": "Hands"
       },
+      "equipmentCategories": [
+        "hands"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -18126,8 +18751,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "LEGS",
         "name": "Legs"
       },
+      "equipmentCategories": [
+        "legs"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -18243,8 +18872,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -18360,8 +18993,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHOULDER",
         "name": "Shoulder"
       },
+      "equipmentCategories": [
+        "shoulders"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -18477,8 +19114,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -18594,8 +19235,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "CHEST",
         "name": "Chest"
       },
+      "equipmentCategories": [
+        "chest"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -18711,8 +19356,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FEET",
         "name": "Feet"
       },
+      "equipmentCategories": [
+        "feet"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -18828,8 +19477,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WRIST",
         "name": "Wrist"
       },
+      "equipmentCategories": [
+        "wrists"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -18945,8 +19598,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HAND",
         "name": "Hands"
       },
+      "equipmentCategories": [
+        "hands"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -19062,8 +19719,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "LEGS",
         "name": "Legs"
       },
+      "equipmentCategories": [
+        "legs"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -19179,8 +19840,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -19296,8 +19961,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHOULDER",
         "name": "Shoulder"
       },
+      "equipmentCategories": [
+        "shoulders"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -19413,8 +20082,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -19530,8 +20203,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "CHEST",
         "name": "Chest"
       },
+      "equipmentCategories": [
+        "chest"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -19647,8 +20324,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FEET",
         "name": "Feet"
       },
+      "equipmentCategories": [
+        "feet"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -19764,8 +20445,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "NECK",
         "name": "Neck"
       },
+      "equipmentCategories": [
+        "necklaces"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -19860,8 +20545,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FINGER",
         "name": "Finger"
       },
+      "equipmentCategories": [
+        "rings"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -19956,8 +20645,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "CHEST",
         "name": "Chest"
       },
+      "equipmentCategories": [
+        "chest"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -20073,8 +20766,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FEET",
         "name": "Feet"
       },
+      "equipmentCategories": [
+        "feet"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -20190,8 +20887,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHOULDER",
         "name": "Shoulder"
       },
+      "equipmentCategories": [
+        "shoulders"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -20307,8 +21008,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -20424,8 +21129,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "LEGS",
         "name": "Legs"
       },
+      "equipmentCategories": [
+        "legs"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -20541,8 +21250,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -20658,8 +21371,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HAND",
         "name": "Hands"
       },
+      "equipmentCategories": [
+        "hands"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -20775,8 +21492,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "CLOAK",
         "name": "Back"
       },
+      "equipmentCategories": [
+        "back"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -20899,8 +21620,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WRIST",
         "name": "Wrist"
       },
+      "equipmentCategories": [
+        "wrists"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -21016,8 +21741,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WRIST",
         "name": "Wrist"
       },
+      "equipmentCategories": [
+        "wrists"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -21095,8 +21824,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -21208,8 +21941,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -21321,8 +22059,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -21434,8 +22177,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -21553,8 +22301,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -21663,8 +22415,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -21782,8 +22539,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -21901,8 +22663,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHIELD",
         "name": "Off Hand"
       },
+      "equipmentCategories": [
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -22032,8 +22798,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -22151,8 +22922,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -22270,8 +23046,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -22389,8 +23170,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WRIST",
         "name": "Wrist"
       },
+      "equipmentCategories": [
+        "wrists"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -22506,8 +23291,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -22623,8 +23412,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHOULDER",
         "name": "Shoulder"
       },
+      "equipmentCategories": [
+        "shoulders"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -22740,8 +23533,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "LEGS",
         "name": "Legs"
       },
+      "equipmentCategories": [
+        "legs"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -22857,8 +23654,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -22974,8 +23775,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HAND",
         "name": "Hands"
       },
+      "equipmentCategories": [
+        "hands"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -23091,8 +23896,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FEET",
         "name": "Feet"
       },
+      "equipmentCategories": [
+        "feet"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -23208,8 +24017,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "CHEST",
         "name": "Chest"
       },
+      "equipmentCategories": [
+        "chest"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -23325,8 +24138,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -23438,8 +24256,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -23544,8 +24366,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -23650,8 +24476,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -23763,8 +24594,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -23876,8 +24712,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HAND",
         "name": "Hands"
       },
+      "equipmentCategories": [
+        "hands"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -23989,8 +24829,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHIELD",
         "name": "Off Hand"
       },
+      "equipmentCategories": [
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -24116,8 +24960,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "CHEST",
         "name": "Chest"
       },
+      "equipmentCategories": [
+        "chest"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -24229,8 +25077,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FEET",
         "name": "Feet"
       },
+      "equipmentCategories": [
+        "feet"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -24342,8 +25194,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HOLDABLE",
         "name": "Held In Off-hand"
       },
+      "equipmentCategories": [
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -24468,8 +25324,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "RANGEDRIGHT",
         "name": "Ranged"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -24594,8 +25454,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FINGER",
         "name": "Finger"
       },
+      "equipmentCategories": [
+        "rings"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -24706,8 +25570,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -24839,8 +25707,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "NECK",
         "name": "Neck"
       },
+      "equipmentCategories": [
+        "necklaces"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -24951,8 +25823,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "CHEST",
         "name": "Chest"
       },
+      "equipmentCategories": [
+        "chest"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -25084,8 +25960,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -25217,8 +26097,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -25360,8 +26245,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -25486,8 +26375,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -25619,8 +26512,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -25752,8 +26649,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHOULDER",
         "name": "Shoulder"
       },
+      "equipmentCategories": [
+        "shoulders"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -25885,8 +26786,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "CHEST",
         "name": "Chest"
       },
+      "equipmentCategories": [
+        "chest"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -26018,8 +26923,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -26154,8 +27064,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -26290,8 +27205,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHOULDER",
         "name": "Shoulder"
       },
+      "equipmentCategories": [
+        "shoulders"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -26423,8 +27342,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -26556,8 +27479,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HAND",
         "name": "Hands"
       },
+      "equipmentCategories": [
+        "hands"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -26689,8 +27616,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -26822,8 +27753,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FEET",
         "name": "Feet"
       },
+      "equipmentCategories": [
+        "feet"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -26955,8 +27890,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -27091,8 +28031,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HAND",
         "name": "Hands"
       },
+      "equipmentCategories": [
+        "hands"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -27224,8 +28168,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WRIST",
         "name": "Wrist"
       },
+      "equipmentCategories": [
+        "wrists"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -27357,8 +28305,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -27490,8 +28442,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "LEGS",
         "name": "Legs"
       },
+      "equipmentCategories": [
+        "legs"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -27623,8 +28579,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HAND",
         "name": "Hands"
       },
+      "equipmentCategories": [
+        "hands"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -27756,8 +28716,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHIELD",
         "name": "Off Hand"
       },
+      "equipmentCategories": [
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -27903,8 +28867,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -28039,8 +29008,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FINGER",
         "name": "Finger"
       },
+      "equipmentCategories": [
+        "rings"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -28151,8 +29124,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "CHEST",
         "name": "Chest"
       },
+      "equipmentCategories": [
+        "chest"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -28284,8 +29261,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -28410,8 +29391,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HOLDABLE",
         "name": "Held In Off-hand"
       },
+      "equipmentCategories": [
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -28536,8 +29521,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "CLOAK",
         "name": "Back"
       },
+      "equipmentCategories": [
+        "back"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -28676,8 +29665,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -28809,8 +29802,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "RANGEDRIGHT",
         "name": "Ranged"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -28935,8 +29932,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "RANGEDRIGHT",
         "name": "Ranged"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -29061,8 +30062,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -29197,8 +30203,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -29330,8 +30340,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHOULDER",
         "name": "Shoulder"
       },
+      "equipmentCategories": [
+        "shoulders"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -29463,8 +30477,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WRIST",
         "name": "Wrist"
       },
+      "equipmentCategories": [
+        "wrists"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -29596,8 +30614,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "LEGS",
         "name": "Legs"
       },
+      "equipmentCategories": [
+        "legs"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -29729,8 +30751,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -29855,8 +30881,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -29991,8 +31022,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "NECK",
         "name": "Neck"
       },
+      "equipmentCategories": [
+        "necklaces"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -30121,8 +31156,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HAND",
         "name": "Hands"
       },
+      "equipmentCategories": [
+        "hands"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -30254,8 +31293,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "LEGS",
         "name": "Legs"
       },
+      "equipmentCategories": [
+        "legs"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -30387,8 +31430,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "CHEST",
         "name": "Chest"
       },
+      "equipmentCategories": [
+        "chest"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -30520,8 +31567,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -30653,8 +31704,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -30779,8 +31834,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -30912,8 +31971,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WRIST",
         "name": "Wrist"
       },
+      "equipmentCategories": [
+        "wrists"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -31045,8 +32108,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FEET",
         "name": "Feet"
       },
+      "equipmentCategories": [
+        "feet"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -31178,8 +32245,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HAND",
         "name": "Hands"
       },
+      "equipmentCategories": [
+        "hands"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -31311,8 +32382,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "CHEST",
         "name": "Chest"
       },
+      "equipmentCategories": [
+        "chest"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -31444,8 +32519,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHIELD",
         "name": "Off Hand"
       },
+      "equipmentCategories": [
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -31591,8 +32670,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -31717,8 +32800,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FINGER",
         "name": "Finger"
       },
+      "equipmentCategories": [
+        "rings"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -31829,8 +32916,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "CHEST",
         "name": "Chest"
       },
+      "equipmentCategories": [
+        "chest"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -31962,8 +33053,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHOULDER",
         "name": "Shoulder"
       },
+      "equipmentCategories": [
+        "shoulders"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -32095,8 +33190,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FEET",
         "name": "Feet"
       },
+      "equipmentCategories": [
+        "feet"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -32228,8 +33327,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WAIST",
         "name": "Waist"
       },
+      "equipmentCategories": [
+        "waist"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -32361,8 +33464,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -32497,8 +33605,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "NECK",
         "name": "Neck"
       },
+      "equipmentCategories": [
+        "necklaces"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -32609,8 +33721,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "LEGS",
         "name": "Legs"
       },
+      "equipmentCategories": [
+        "legs"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -32742,8 +33858,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -32875,8 +33995,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "CHEST",
         "name": "Chest"
       },
+      "equipmentCategories": [
+        "chest"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -33008,8 +34132,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHOULDER",
         "name": "Shoulder"
       },
+      "equipmentCategories": [
+        "shoulders"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -33141,8 +34269,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FEET",
         "name": "Feet"
       },
+      "equipmentCategories": [
+        "feet"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -33274,8 +34406,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FINGER",
         "name": "Finger"
       },
+      "equipmentCategories": [
+        "rings"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -33386,8 +34522,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WRIST",
         "name": "Wrist"
       },
+      "equipmentCategories": [
+        "wrists"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -33519,8 +34659,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -33645,8 +34789,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WRIST",
         "name": "Wrist"
       },
+      "equipmentCategories": [
+        "wrists"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -33778,8 +34926,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "CLOAK",
         "name": "Back"
       },
+      "equipmentCategories": [
+        "back"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -33918,8 +35070,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "SHOULDER",
         "name": "Shoulder"
       },
+      "equipmentCategories": [
+        "shoulders"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -34051,8 +35207,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "LEGS",
         "name": "Legs"
       },
+      "equipmentCategories": [
+        "legs"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -34184,8 +35344,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HAND",
         "name": "Hands"
       },
+      "equipmentCategories": [
+        "hands"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -34317,8 +35481,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -34453,8 +35622,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WRIST",
         "name": "Wrist"
       },
+      "equipmentCategories": [
+        "wrists"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -34586,8 +35759,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -34719,8 +35896,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "FEET",
         "name": "Feet"
       },
+      "equipmentCategories": [
+        "feet"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -34852,8 +36033,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HAND",
         "name": "Hands"
       },
+      "equipmentCategories": [
+        "hands"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -34985,8 +36170,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TWOHWEAPON",
         "name": "Two-Hand"
       },
+      "equipmentCategories": [
+        "main-hand"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -35111,8 +36300,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -35189,8 +36382,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -35273,8 +36470,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -35357,8 +36558,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -35441,8 +36646,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -35512,8 +36721,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [],
       "spells": [],
@@ -35570,8 +36783,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -35641,8 +36858,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -35732,8 +36953,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -35823,8 +37048,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -35894,8 +37123,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -35985,8 +37218,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [],
       "spells": [],
@@ -36064,8 +37301,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -36135,8 +37376,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "TRINKET",
         "name": "Trinket"
       },
+      "equipmentCategories": [
+        "trinkets"
+      ],
       "isEquippable": true,
       "stats": [
         {
@@ -36226,8 +37471,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [],
       "spells": [],
@@ -36283,8 +37532,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [],
       "spells": [],
@@ -36340,8 +37593,12 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "HEAD",
         "name": "Head"
       },
+      "equipmentCategories": [
+        "head"
+      ],
       "isEquippable": true,
       "stats": [],
       "spells": [],
@@ -36397,8 +37654,13 @@
       },
       "inventoryType": {
         "id": null,
+        "type": "WEAPON",
         "name": "One-Hand"
       },
+      "equipmentCategories": [
+        "main-hand",
+        "off-hand"
+      ],
       "isEquippable": true,
       "stats": [],
       "spells": [],
@@ -36613,8 +37875,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -36795,8 +38059,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -36977,8 +38243,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -37159,8 +38427,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -37362,8 +38632,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -37565,8 +38837,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -37768,8 +39042,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -37971,8 +39247,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -38153,8 +39431,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -38335,8 +39615,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -38517,8 +39799,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -38699,8 +39983,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -38902,8 +40188,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -39105,8 +40393,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -39308,8 +40598,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -39511,8 +40803,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -39693,8 +40987,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -39875,8 +41171,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -40057,8 +41355,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -40239,8 +41539,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -40442,8 +41744,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -40645,8 +41949,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -40848,8 +42154,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -41051,8 +42359,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -41233,8 +42543,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -41415,8 +42727,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -41597,8 +42911,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -41779,8 +43095,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -41982,8 +43300,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -42185,8 +43505,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -42388,8 +43710,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -42591,8 +43915,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -42784,8 +44110,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -42977,8 +44305,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -43170,8 +44500,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -43363,8 +44695,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -43556,8 +44890,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -43749,8 +45085,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -43942,8 +45280,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -44002,8 +45342,10 @@
         },
         "inventoryType": {
           "id": null,
+          "type": "NON_EQUIP",
           "name": "Non-equippable"
         },
+        "equipmentCategories": [],
         "isEquippable": false,
         "stats": [],
         "spells": [],
@@ -60039,8 +61381,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -60135,8 +61479,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -60270,8 +61616,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -60577,8 +61925,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -60803,8 +62153,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -61029,8 +62381,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -61194,8 +62548,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -61546,8 +62902,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -61711,8 +63069,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -62562,8 +63922,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -62939,8 +64301,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -63562,8 +64926,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -64252,8 +65618,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -64478,8 +65846,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -64734,8 +66104,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -64879,8 +66251,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -65024,8 +66398,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -65169,8 +66545,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -65324,8 +66702,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -65703,8 +67083,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -65842,8 +67224,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -66086,8 +67470,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -66176,8 +67562,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -66238,8 +67626,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -68255,8 +69645,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -69042,8 +70434,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -69295,8 +70689,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -70185,8 +71581,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -70369,8 +71767,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -70735,8 +72135,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -205909,8 +207311,13 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "WEAPON",
             "name": "One-Hand"
           },
+          "equipmentCategories": [
+            "main-hand",
+            "off-hand"
+          ],
           "isEquippable": true,
           "stats": [
             {
@@ -206282,8 +207689,13 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "WEAPON",
             "name": "One-Hand"
           },
+          "equipmentCategories": [
+            "main-hand",
+            "off-hand"
+          ],
           "isEquippable": true,
           "stats": [
             {
@@ -206753,8 +208165,13 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "WEAPON",
             "name": "One-Hand"
           },
+          "equipmentCategories": [
+            "main-hand",
+            "off-hand"
+          ],
           "isEquippable": true,
           "stats": [
             {
@@ -207224,8 +208641,12 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "TWOHWEAPON",
             "name": "Two-Hand"
           },
+          "equipmentCategories": [
+            "main-hand"
+          ],
           "isEquippable": true,
           "stats": [
             {
@@ -207688,8 +209109,12 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "TWOHWEAPON",
             "name": "Two-Hand"
           },
+          "equipmentCategories": [
+            "main-hand"
+          ],
           "isEquippable": true,
           "stats": [
             {
@@ -208159,8 +209584,13 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "WEAPON",
             "name": "One-Hand"
           },
+          "equipmentCategories": [
+            "main-hand",
+            "off-hand"
+          ],
           "isEquippable": true,
           "stats": [
             {
@@ -208630,8 +210060,13 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "WEAPON",
             "name": "One-Hand"
           },
+          "equipmentCategories": [
+            "main-hand",
+            "off-hand"
+          ],
           "isEquippable": true,
           "stats": [
             {
@@ -209006,8 +210441,13 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "WEAPON",
             "name": "One-Hand"
           },
+          "equipmentCategories": [
+            "main-hand",
+            "off-hand"
+          ],
           "isEquippable": true,
           "stats": [
             {
@@ -209470,8 +210910,12 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "HAND",
             "name": "Hands"
           },
+          "equipmentCategories": [
+            "hands"
+          ],
           "isEquippable": true,
           "stats": [
             {
@@ -209941,8 +211385,12 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "SHIELD",
             "name": "Off Hand"
           },
+          "equipmentCategories": [
+            "off-hand"
+          ],
           "isEquippable": true,
           "stats": [
             {
@@ -210412,8 +211860,12 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "CHEST",
             "name": "Chest"
           },
+          "equipmentCategories": [
+            "chest"
+          ],
           "isEquippable": true,
           "stats": [
             {
@@ -210883,8 +212335,12 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "FEET",
             "name": "Feet"
           },
+          "equipmentCategories": [
+            "feet"
+          ],
           "isEquippable": true,
           "stats": [
             {
@@ -211382,8 +212838,12 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "WAIST",
             "name": "Waist"
           },
+          "equipmentCategories": [
+            "waist"
+          ],
           "isEquippable": true,
           "stats": [
             {
@@ -211780,8 +213240,12 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "WRIST",
             "name": "Wrist"
           },
+          "equipmentCategories": [
+            "wrists"
+          ],
           "isEquippable": true,
           "stats": [
             {
@@ -212146,8 +213610,12 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "TWOHWEAPON",
             "name": "Two-Hand"
           },
+          "equipmentCategories": [
+            "main-hand"
+          ],
           "isEquippable": true,
           "stats": [
             {
@@ -212512,8 +213980,12 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "TWOHWEAPON",
             "name": "Two-Hand"
           },
+          "equipmentCategories": [
+            "main-hand"
+          ],
           "isEquippable": true,
           "stats": [
             {
@@ -212878,8 +214350,12 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "HOLDABLE",
             "name": "Held In Off-hand"
           },
+          "equipmentCategories": [
+            "off-hand"
+          ],
           "isEquippable": true,
           "stats": [
             {
@@ -213244,8 +214720,12 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "RANGED",
             "name": "Ranged"
           },
+          "equipmentCategories": [
+            "main-hand"
+          ],
           "isEquippable": true,
           "stats": [
             {
@@ -213684,8 +215164,12 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "TWOHWEAPON",
             "name": "Two-Hand"
           },
+          "equipmentCategories": [
+            "main-hand"
+          ],
           "isEquippable": true,
           "stats": [
             {
@@ -214124,8 +215608,12 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "TWOHWEAPON",
             "name": "Two-Hand"
           },
+          "equipmentCategories": [
+            "main-hand"
+          ],
           "isEquippable": true,
           "stats": [
             {
@@ -214564,8 +216052,12 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "HOLDABLE",
             "name": "Held In Off-hand"
           },
+          "equipmentCategories": [
+            "off-hand"
+          ],
           "isEquippable": true,
           "stats": [
             {
@@ -215004,8 +216496,12 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "RANGED",
             "name": "Ranged"
           },
+          "equipmentCategories": [
+            "main-hand"
+          ],
           "isEquippable": true,
           "stats": [
             {
@@ -215330,8 +216826,12 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "CHEST",
             "name": "Chest"
           },
+          "equipmentCategories": [
+            "chest"
+          ],
           "isEquippable": true,
           "stats": [
             {
@@ -215663,8 +217163,12 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "HAND",
             "name": "Hands"
           },
+          "equipmentCategories": [
+            "hands"
+          ],
           "isEquippable": true,
           "stats": [
             {
@@ -216038,8 +217542,12 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "WAIST",
             "name": "Waist"
           },
+          "equipmentCategories": [
+            "waist"
+          ],
           "isEquippable": true,
           "stats": [
             {
@@ -216381,8 +217889,12 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "FEET",
             "name": "Feet"
           },
+          "equipmentCategories": [
+            "feet"
+          ],
           "isEquippable": true,
           "stats": [
             {
@@ -216866,8 +218378,12 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "FEET",
             "name": "Feet"
           },
+          "equipmentCategories": [
+            "feet"
+          ],
           "isEquippable": true,
           "stats": [
             {
@@ -217125,8 +218641,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "PROFESSION_TOOL",
             "name": "Profession Tool"
           },
+          "equipmentCategories": [],
           "isEquippable": true,
           "stats": [],
           "spells": [],
@@ -217326,8 +218844,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "PROFESSION_TOOL",
             "name": "Profession Tool"
           },
+          "equipmentCategories": [],
           "isEquippable": true,
           "stats": [],
           "spells": [],
@@ -217527,8 +219047,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "PROFESSION_TOOL",
             "name": "Profession Tool"
           },
+          "equipmentCategories": [],
           "isEquippable": true,
           "stats": [],
           "spells": [],
@@ -217688,8 +219210,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "PROFESSION_GEAR",
             "name": "Profession Equipment"
           },
+          "equipmentCategories": [],
           "isEquippable": true,
           "stats": [],
           "spells": [],
@@ -217849,8 +219373,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "PROFESSION_GEAR",
             "name": "Profession Equipment"
           },
+          "equipmentCategories": [],
           "isEquippable": true,
           "stats": [],
           "spells": [],
@@ -218070,8 +219596,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "PROFESSION_TOOL",
             "name": "Profession Tool"
           },
+          "equipmentCategories": [],
           "isEquippable": true,
           "stats": [],
           "spells": [],
@@ -218261,8 +219789,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "PROFESSION_GEAR",
             "name": "Profession Equipment"
           },
+          "equipmentCategories": [],
           "isEquippable": true,
           "stats": [],
           "spells": [],
@@ -218452,8 +219982,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "PROFESSION_GEAR",
             "name": "Profession Equipment"
           },
+          "equipmentCategories": [],
           "isEquippable": true,
           "stats": [],
           "spells": [],
@@ -218655,8 +220187,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -218858,8 +220392,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -219061,8 +220597,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -219254,8 +220792,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -219447,8 +220987,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -219616,8 +221158,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -235591,8 +237135,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -235746,8 +237292,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "BAG",
             "name": "Bag"
           },
+          "equipmentCategories": [],
           "isEquippable": true,
           "stats": [],
           "spells": [],
@@ -235877,8 +237425,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -235984,8 +237534,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -236091,8 +237643,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -236308,8 +237862,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -236525,8 +238081,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -236728,8 +238286,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -236902,8 +238462,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "PROFESSION_TOOL",
             "name": "Profession Tool"
           },
+          "equipmentCategories": [],
           "isEquippable": true,
           "stats": [],
           "spells": [],
@@ -237159,8 +238721,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "PROFESSION_TOOL",
             "name": "Profession Tool"
           },
+          "equipmentCategories": [],
           "isEquippable": true,
           "stats": [],
           "spells": [],
@@ -237230,8 +238794,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -237375,8 +238941,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -237435,8 +239003,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -237529,8 +239099,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -237662,8 +239234,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -237785,8 +239359,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -237908,8 +239484,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -238041,8 +239619,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -238204,8 +239784,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -238381,8 +239963,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -238544,8 +240128,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -238677,8 +240263,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -238830,8 +240418,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -238973,8 +240563,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -239116,8 +240708,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -239239,8 +240833,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -239392,8 +240988,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -239535,8 +241133,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -239678,8 +241278,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -239821,8 +241423,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -239974,8 +241578,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -240111,8 +241717,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -240248,8 +241856,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -240385,8 +241995,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -240445,8 +242057,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -240505,8 +242119,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -240666,8 +242282,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "PROFESSION_GEAR",
             "name": "Profession Equipment"
           },
+          "equipmentCategories": [],
           "isEquippable": true,
           "stats": [],
           "spells": [],
@@ -240885,8 +242503,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "PROFESSION_GEAR",
             "name": "Profession Equipment"
           },
+          "equipmentCategories": [],
           "isEquippable": true,
           "stats": [],
           "spells": [],
@@ -241070,8 +242690,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "PROFESSION_GEAR",
             "name": "Profession Equipment"
           },
+          "equipmentCategories": [],
           "isEquippable": true,
           "stats": [],
           "spells": [],
@@ -241251,8 +242873,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -241432,8 +243056,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -241603,8 +243229,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -241785,8 +243413,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -241991,8 +243621,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -242242,8 +243874,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -242445,8 +244079,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -242710,8 +244346,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -242903,8 +244541,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -243109,8 +244749,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -243291,8 +244933,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -243518,8 +245162,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -243649,8 +245295,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -243780,8 +245428,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -243887,8 +245537,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
@@ -243994,8 +245646,10 @@
           },
           "inventoryType": {
             "id": null,
+            "type": "NON_EQUIP",
             "name": "Non-equippable"
           },
+          "equipmentCategories": [],
           "isEquippable": false,
           "stats": [],
           "spells": [],
