@@ -74,3 +74,37 @@ test("text-only tier bonus descriptions are never treated as numeric scoring", (
     }
   }
 });
+
+
+test("upgrade variants are not silently accepted when stat coverage is incomplete", () => {
+  const primaryAndSecondary = new Set([
+    "strength", "agility", "intellect", "criticalstrike", "haste", "mastery", "versatility"
+  ]);
+  const incomplete = [];
+  for (const section of sections) {
+    for (const item of section.items || []) {
+      const baseStats = new Set((item.stats || [])
+        .map(stat => normalize(stat.type?.name))
+        .filter(name => primaryAndSecondary.has(name)));
+      for (const variant of item.variants || []) {
+        const variantStats = new Set((variant.stats || [])
+          .map(stat => normalize(stat.type?.name))
+          .filter(name => primaryAndSecondary.has(name)));
+        const missing = [...baseStats].filter(name => !variantStats.has(name));
+        if (missing.length) {
+          incomplete.push({
+            itemId: item.id,
+            name: item.name,
+            variantLevel: variant.itemLevel ?? variant.level ?? null,
+            missingStats: missing
+          });
+        }
+      }
+    }
+  }
+  assert.deepEqual(
+    incomplete,
+    [],
+    "upgrade variants with incomplete primary/secondary stats must be completed from a verified source or explicitly excluded from scoring"
+  );
+});
