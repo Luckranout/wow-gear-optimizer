@@ -31,6 +31,62 @@ SECTION_SEARCHES = {
 }
 SECTION_DIR = Path("data/equipment-sections")
 
+# Canonical Blizzard inventory-type codes are the primary mapping key. Names are
+# fallback-only because localized display names can vary by locale/API shape.
+INVENTORY_TYPE_NAME_ALIASES = {
+    "FINGER": "rings", "RING": "rings", "NECK": "necklaces", "NECKLACE": "necklaces",
+    "TRINKET": "trinkets", "HEAD": "head", "SHOULDER": "shoulders",
+    "CLOAK": "back", "BACK": "back", "CHEST": "chest", "ROBE": "chest",
+    "WRIST": "wrists", "HAND": "hands", "WAIST": "waist",
+    "LEGS": "legs", "LEG": "legs", "FEET": "feet",
+}
+INVENTORY_TYPE_NAME_ALIASES.update({
+    "WEAPONMAINHAND": "main-hand", "TWOHWEAPON": "main-hand",
+    "RANGED": "main-hand", "RANGEDRIGHT": "main-hand", "THROWN": "main-hand",
+    "WEAPONOFFHAND": "off-hand", "HOLDABLE": "off-hand", "SHIELD": "off-hand",
+})
+
+
+def sections_for_inventory_type(inventory_type):
+    """Map Blizzard item-detail inventory metadata to one or more catalog categories.
+
+    Accepts the canonical inventory_type.type code or a Blizzard inventory_type
+    object. Generic WEAPON metadata is intentionally mapped to both hand sections;
+    class/spec/slot eligibility is the optimizer/API's responsibility.
+    """
+    if isinstance(inventory_type, dict):
+        code = inventory_type.get("type")
+        name = inventory_type.get("name")
+    else:
+        code = inventory_type
+        name = inventory_type
+    code = str(code or "").strip().upper().replace("-", "").replace("_", "")
+    name = str(name or "").strip().lower()
+    code_map = {
+        key.replace("-", "").replace("_", ""): value
+        for key, value in INVENTORY_TYPE_NAME_ALIASES.items()
+    }
+    if code in code_map:
+        return (code_map[code],)
+    if code == "WEAPON":
+        return ("main-hand", "off-hand")
+    name_aliases = {
+        "finger": "rings", "ring": "rings", "neck": "necklaces",
+        "necklace": "necklaces", "trinket": "trinkets", "head": "head",
+        "shoulder": "shoulders", "cloak": "back", "back": "back",
+        "chest": "chest", "robe": "chest", "wrist": "wrists",
+        "hand": "hands", "waist": "waist", "legs": "legs", "leg": "legs",
+        "feet": "feet", "weapon": "main-hand",
+        "weapon main hand": "main-hand", "two-hand": "main-hand",
+        "weapon off hand": "off-hand", "held in off-hand": "off-hand",
+        "shield": "off-hand",
+    }
+    if name in name_aliases:
+        return (name_aliases[name],)
+    return ()
+
+
+
 
 def validate_required_sections(section_ids):
     """Fail closed when any required equipment section has no verified candidates.
@@ -132,6 +188,11 @@ def collect_equipment_section_ids(token, get_api_json, allowed_item_ids, sleep=t
             type_to_sections.setdefault(inventory_type, set()).add(section)
 
     detail_errors = 0
+    rejection_counts = {
+        "not_equippable": 0,
+        "unsupported_inventory_type": {},
+        "missing_source_evidence": 0,
+    }
     for index, item_id in enumerate(sorted(allowed_item_ids), start=1):
         try:
             detail = get_api_json(
@@ -148,11 +209,25 @@ def collect_equipment_section_ids(token, get_api_json, allowed_item_ids, sleep=t
             continue
 
         if not isinstance(detail, dict) or not detail.get("is_equippable"):
+            rejection_counts["not_equippable"] += 1
+            print(
+                f"Equipment source excluded: id={item_id}; "
+                "reason=Blizzard item detail does not confirm is_equippable."
+            )
             continue
         inventory = detail.get("inventory_type") or {}
         inventory_type = inventory.get("type") if isinstance(inventory, dict) else None
         matched_sections = type_to_sections.get(inventory_type, set())
         if not matched_sections:
+            key = str(inventory_type or "missing")
+            rejection_counts["unsupported_inventory_type"][key] = (
+                rejection_counts["unsupported_inventory_type"].get(key, 0) + 1
+            )
+            print(
+                f"Equipment source not classified: id={item_id}; "
+                f"name={detail.get('name')!r}; inventory_type={key!r}; "
+                "reason=no equipment section mapping."
+            )
             continue
 
         print(
@@ -164,7 +239,11 @@ def collect_equipment_section_ids(token, get_api_json, allowed_item_ids, sleep=t
         if isinstance(evidence, dict):
             evidence = [evidence]
         if not evidence:
-            print(f"Equipment source rejected without provenance: id={item_id}; no source evidence.")
+            rejection_counts["missing_source_evidence"] += 1
+            print(
+                f"Equipment source not classified: id={item_id}; "
+                "reason=no independent source evidence."
+            )
             continue
 
         # Do not use item-detail "level" as a season eligibility gate. Blizzard's
@@ -192,6 +271,9 @@ def collect_equipment_section_ids(token, get_api_json, allowed_item_ids, sleep=t
     print(
         "Equipment source classification summary: "
         f"verified_source_ids={len(allowed_item_ids)}; detail_errors={detail_errors}; "
+        f"not_equippable={rejection_counts['not_equippable']}; "
+        f"missing_source_evidence={rejection_counts['missing_source_evidence']}; "
+        f"unsupported_inventory_types={rejection_counts['unsupported_inventory_type']}; "
         f"section_counts={{{', '.join(f'{key}: {len(value)}' for key, value in sorted(section_ids.items()))}}}"
     )
     if detail_errors:
@@ -199,6 +281,19 @@ def collect_equipment_section_ids(token, get_api_json, allowed_item_ids, sleep=t
             f"Blizzard item-detail classification was incomplete: {detail_errors} of "
             f"{len(allowed_item_ids)} source item lookups failed. Refusing to publish "
             "a catalog from a partial source scan; rerun after Blizzard/API access recovers."
+        )
+    if rejection_counts["unsupported_inventory_type"]:
+        unsupported = ", ".join(
+            f"{inventory_type}={count}"
+            for inventory_type, count in sorted(
+                rejection_counts["unsupported_inventory_type"].items()
+            )
+        )
+        raise RuntimeError(
+            "Blizzard returned equippable, source-verified items whose inventory types "
+            "are not mapped to an equipment section. Refusing to publish a catalog that "
+            f"silently omits these records: {unsupported}. Add an explicit section mapping "
+            "or an explicit documented exclusion before rerunning."
         )
     return section_ids, source_map
 
@@ -274,3 +369,27 @@ def write_section_catalogs(section_ids, enriched_items, output_dir=SECTION_DIR, 
                 stale_path.unlink()
                 print(f"Removed stale unverified equipment section: {section}.")
     return summary
+
+
+def discover_equipment_inventory_ids(token, get_api_json, sleep=time.sleep):
+    """Discover the broad equipment ID universe by Blizzard inventory metadata.
+
+    This is discovery only: returned IDs carry no season/source verification and
+    must not be promoted directly into the recommendation catalog. The separate
+    index lets later detail hydration cover equipment beyond the current-season
+    loot allow-list without confusing discovery with eligibility.
+    """
+    discovered = {}
+    inventory_types = sorted({kind for kinds in SECTION_SEARCHES.values() for kind in kinds})
+    for inventory_type in inventory_types:
+        ids = fetch_inventory_type_ids(token, inventory_type, get_api_json, sleep=sleep)
+        for section in sections_for_inventory_type(inventory_type):
+            discovered.setdefault(section, set()).update(ids)
+    missing = [section for section in SECTION_SEARCHES if not discovered.get(section)]
+    if missing:
+        raise RuntimeError(
+            "Blizzard inventory discovery returned no IDs for equipment section(s): "
+            + ", ".join(missing)
+            + ". Refusing to replace the discovery index with incomplete results."
+        )
+    return {section: sorted(ids) for section, ids in discovered.items()}

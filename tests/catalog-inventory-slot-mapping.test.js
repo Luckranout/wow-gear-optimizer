@@ -35,10 +35,14 @@ const warriorResult = optimizer.optimizeEquipment({
 assert.equal(warriorResult.equipment.Head.id, 22, "plate wearer must not be recommended mail head armor, even if mail scores higher");
 assert.equal(warriorResult.equipment.Chest.id, 24, "plate wearer must not be recommended mail chest armor, even if mail scores higher");
 
+const hunterArmorCandidates = [
+  { id: 31, name: "Mail Headpiece", slot: "Head", itemClass: { name: "Armor" }, itemSubclass: { name: "Mail" }, level: 500, stats: [{ type: { name: "agility" }, value: 1000 }] },
+  { id: 32, name: "Plate Helm", slot: "Head", itemClass: { name: "Armor" }, itemSubclass: { name: "Plate" }, level: 400, stats: [{ type: { name: "agility" }, value: 10 }] }
+];
 const hunterResult = optimizer.optimizeEquipment({
-  items: armorCandidates,
+  items: hunterArmorCandidates,
   character: { className: "Hunter", equipment: {} }
 });
-assert.equal(hunterResult.equipment.Head.id, 21, "mail wearer should still be eligible for mail armor");
+assert.equal(hunterResult.equipment.Head.id, 31, "mail wearer should still be eligible for mail armor with its correct primary stat");
 
 console.log("Catalog inventory-type slot mapping and class armor eligibility tests passed.");

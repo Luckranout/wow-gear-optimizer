@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const { setCorsHeaders } = require("./cors");
+const { searchItemIds, getItem } = require("../server/blizzard-item-catalog");
 
 let sectionDir = path.join(process.cwd(), "data", "equipment-sections");
 const SLOT_SECTION = {
@@ -23,6 +24,12 @@ function normalizeClass(value) {
   return String(value || "").toLowerCase().replace(/[\s'_-]/g, "");
 }
 function slotMatches(item, slot) {
+  // Prefer the importer's canonical Blizzard metadata mapping when present.
+  // Older catalog records without this field continue through compatibility aliases.
+  const expectedSection = SLOT_SECTION[slot];
+  if (Array.isArray(item.equipmentCategories)) {
+    return Boolean(expectedSection && item.equipmentCategories.includes(expectedSection));
+  }
   const inv = String(item.inventoryType?.name || item.inventoryType || "").toLowerCase();
   if (slot === "Ring 1" || slot === "Ring 2") return /finger|ring/.test(inv);
   if (slot === "Trinket 1" || slot === "Trinket 2") return /trinket/.test(inv);
@@ -46,7 +53,11 @@ function allowedForClass(item, className, slot) {
   const expected = CLASS_ARMOR[normalizeClass(className)];
   if (!expected) return false;
   const itemClass = String(item.itemClass?.name || item.itemClass || "").toLowerCase();
-  const subclass = String(item.itemSubclass?.name || item.itemSubclass || "").toLowerCase();
+  const rawSubclass = String(item.itemSubclass?.name || item.itemSubclass || "").toLowerCase();
+  const subclass = /\bcloth\b/.test(rawSubclass) ? "cloth"
+    : /\bleather\b/.test(rawSubclass) ? "leather"
+      : /\bmail\b/.test(rawSubclass) ? "mail"
+        : /\bplate\b/.test(rawSubclass) ? "plate" : "";
   return (itemClass.includes("armor") || itemClass.includes("armour")) && subclass === expected;
 }
 const CLASS_WEAPONS = {
@@ -65,9 +76,13 @@ const CLASS_WEAPONS = {
   evoker: ["axe", "dagger", "mace", "sword", "staff"]
 };
 function normalizeWeaponType(value) {
-  const raw = String(value?.name || value || "").trim().toLowerCase();
-  if (!raw) return "";
-  if (raw.includes("staff")) return "staff";
+  const raw = String(value?.name || value || "").trim().toLowerCase()
+    .replace(/[_-]+/g, " ")
+    .replace(/\b(two|one) handed\b/g, "$1 hand");
+  if (!raw || /^(weapon|melee|ranged|miscellaneous|unknown)$/.test(raw)) return "";
+  if (raw.includes("shield") || raw.includes("held in off hand") || raw.includes("off hand")) return "off-hand";
+  // Classify weapon family before handedness: "Two-Handed Swords" is a sword.
+  if (raw.includes("staff") || raw.includes("staves")) return "staff";
   if (raw.includes("fist")) return "fist weapon";
   if (raw.includes("polearm")) return "polearm";
   if (raw.includes("crossbow")) return "crossbow";
@@ -75,12 +90,12 @@ function normalizeWeaponType(value) {
   if (raw.includes("gun")) return "gun";
   if (raw.includes("dagger")) return "dagger";
   if (raw.includes("wand")) return "wand";
-  if (raw.includes("sword")) return raw.includes("one-hand") ? "one-hand sword" : "sword";
-  if (raw.includes("axe")) return raw.includes("one-hand") ? "one-hand axe" : "axe";
-  if (raw.includes("mace")) return raw.includes("one-hand") ? "one-hand mace" : "mace";
-  if (raw.includes("shield") || raw.includes("held in off-hand") || raw.includes("off-hand")) return "off-hand";
-  if (raw.includes("two-hand")) return "two-hand";
-  if (raw.includes("one-hand")) return "one-hand";
+  if (raw.includes("sword")) return "sword";
+  if (raw.includes("axe")) return "axe";
+  if (raw.includes("mace")) return "mace";
+  if (raw.includes("glaive")) return "warglaive";
+  if (raw.includes("two hand")) return "two-hand";
+  if (raw.includes("one hand")) return "one-hand";
   return "";
 }
 function allowedForClassWeapon(item, className, slot) {
@@ -88,8 +103,10 @@ function allowedForClassWeapon(item, className, slot) {
   const allowed = CLASS_WEAPONS[normalizeClass(className)];
   if (!allowed) return false;
   const type = normalizeWeaponType(item.itemSubclass || item.weaponType || item.inventoryType);
-  // A weapon with no recognizable subclass is not safe to recommend.
-  if (!type) return false;
+  // Missing or generic subclass metadata is not proof that a weapon is
+  // incompatible. The slot and equippability checks still apply; enforce
+  // proficiency strictly when Blizzard supplies a recognizable weapon family.
+  if (!type) return true;
   if (type === "off-hand") return slot === "Off Hand";
   if (slot === "Off Hand" && (type === "staff" || type === "two-hand")) return false;
   return allowed.includes(type) || (type === "one-hand" && allowed.some(value =>
@@ -140,6 +157,62 @@ function hasUsableStats(item) {
   };
   return hasStats(item) || (Array.isArray(item.variants) && item.variants.some(hasStats));
 }
+const SLOT_INVENTORY_SEARCHES = {
+  Head: ["HEAD"], Neck: ["NECK"], Shoulders: ["SHOULDER"], Back: ["CLOAK"],
+  Chest: ["CHEST", "ROBE"], Wrists: ["WRIST"], Hands: ["HAND"], Waist: ["WAIST"],
+  Legs: ["LEGS"], Feet: ["FEET"], "Ring 1": ["FINGER"], "Ring 2": ["FINGER"],
+  "Trinket 1": ["TRINKET"], "Trinket 2": ["TRINKET"],
+  "Main Hand": ["WEAPON", "WEAPONMAINHAND", "TWOHWEAPON"],
+  "Off Hand": ["WEAPON", "WEAPONOFFHAND", "HOLDABLE", "SHIELD"]
+};
+let discoveryEnabled = true;
+let discoveryProvider = null;
+let verifiedSeasonItemProvider = null;
+let verifiedSeasonItemCache = null;
+
+function getVerifiedSeasonItem(itemId) {
+  const id = Number(itemId);
+  if (!Number.isSafeInteger(id) || id <= 0) return null;
+  if (verifiedSeasonItemProvider) {
+    const provided = verifiedSeasonItemProvider(id);
+    return provided && provided.id === id ? provided : null;
+  }
+  if (!verifiedSeasonItemCache) {
+    // The importer writes current-retail.json only from independently verified
+    // PvE/PvP source records and Midnight crafting outputs. Reuse that evidence
+    // when Blizzard search finds an ID missing from the per-slot cache; Blizzard
+    // item metadata alone must never promote an unknown item into recommendations.
+    try {
+      const catalogPath = path.join(process.cwd(), "data", "current-retail.json");
+      const catalog = JSON.parse(fs.readFileSync(catalogPath, "utf8"));
+      const items = Array.isArray(catalog.items) ? catalog.items : [];
+      verifiedSeasonItemCache = new Map(items.filter(item =>
+        item && Number.isSafeInteger(Number(item.id)) &&
+        item.isEquippable === true &&
+        item.seasonScope === "Midnight Season 2+" &&
+        Array.isArray(item.sourceLocations) &&
+        item.sourceLocations.some(source =>
+          source && typeof source === "object" &&
+          source.seasonScope === "Midnight Season 2+"
+        )
+      ).map(item => [Number(item.id), item]));
+    } catch (_) {
+      // Fail closed if the source-verified catalog cannot be read or validated.
+      verifiedSeasonItemCache = new Map();
+    }
+  }
+  return verifiedSeasonItemCache.get(id) || null;
+}
+
+async function discoverSlotItems(slot) {
+  if (!discoveryEnabled) return [];
+  const ids = await searchItemIds(SLOT_INVENTORY_SEARCHES[slot] || [], { limit: 40 });
+  const results = await Promise.all(ids.map(async id => {
+    try { const result = await getItem(id); return result.item || null; }
+    catch (_) { return null; }
+  }));
+  return results.filter(Boolean).map(item => ({ ...item, discoveredOnDemand: true }));
+}
 function createResponse() {
   return {
     statusCode: 200, headers: {}, body: undefined,
@@ -161,32 +234,77 @@ async function handler(req, res) {
   if (!section) return res.status(400).json({ error: "Unsupported equipment slot." });
   if (!className) return res.status(400).json({ error: "Class is required to enforce armor restrictions." });
   const file = path.join(sectionDir, section + ".json");
+  let payload = { complete: true, items: [] };
+  let sectionCacheAvailable = false;
   try {
-    const payload = JSON.parse(fs.readFileSync(file, "utf8"));
-    if (payload.complete !== true || !Array.isArray(payload.items)) {
-      return res.status(503).json({ error: "This equipment section is not validated yet." });
+    const saved = JSON.parse(fs.readFileSync(file, "utf8"));
+    if (saved.complete === true && Array.isArray(saved.items)) { payload = saved; sectionCacheAvailable = true; }
+  } catch (error) {
+    if (error.code !== "ENOENT" && !(error instanceof SyntaxError)) throw error;
+  }
+  try {
+    let discovered = [];
+    let discoveryError = null;
+    try { discovered = await (discoveryProvider ? discoveryProvider(slot) : discoverSlotItems(slot)); }
+    catch (error) { discoveryError = error.publicMessage || "Blizzard item discovery failed."; }
+    const knownIds = new Set(payload.items.map(item => Number(item.id)));
+    const newDiscovery = discovered.filter(item => !knownIds.has(Number(item.id))).map(item => {
+      const verified = getVerifiedSeasonItem(item.id);
+      if (!verified) return item;
+      // Prefer the imported source-verified record (stats and upgrade variants)
+      // while retaining a marker that this request discovered the missing slot ID.
+      return {
+        ...item,
+        ...verified,
+        discoveredOnDemand: true,
+        seasonEligibility: "verified",
+        verificationNote: "Matched by item ID to the imported Midnight Season 2+ source-evidence catalog."
+      };
+    });
+    const allRecords = [...payload.items, ...newDiscovery];
+    if (!sectionCacheAvailable && !discovered.length) {
+      return res.status(503).json({ error: discoveryError || "Neither a validated section cache nor Blizzard discovery is available." });
     }
-    const items = payload.items.filter(item =>
+    const eligibleByMetadata = allRecords.filter(item =>
       item.isEquippable === true &&
       item.seasonScope === "Midnight Season 2+" &&
-      hasUsableStats(item) &&
       slotMatches(item, slot) &&
       allowedForClass(item, className, slot) &&
       allowedForClassWeapon(item, className, slot) &&
       allowedForSpecialization(item, className, specialization, slot)
     );
-    res.setHeader("Cache-Control", "public, s-maxage=900, stale-while-revalidate=1800");
-    return res.status(200).json({ slot, section, count: items.length, items, coverage: items.length ? "candidates-available" : "no-validated-compatible-candidates", source: "verified-season-section-cache" });
+    const items = eligibleByMetadata.filter(hasUsableStats);
+    const pendingStatVerification = allRecords
+      .filter(item => item.isEquippable === true && slotMatches(item, slot) &&
+        allowedForClass(item, className, slot) && allowedForClassWeapon(item, className, slot) &&
+        allowedForSpecialization(item, className, specialization, slot) && !hasUsableStats(item))
+      .slice(0, 8).map(item => ({ ...item, requiresWowheadVerification: true }));
+    const pendingSeasonVerification = newDiscovery.filter(item => item.seasonEligibility !== "verified");
+    res.setHeader("Cache-Control", "public, s-maxage=300, stale-while-revalidate=600");
+    return res.status(200).json({
+      slot, section, count: items.length, items, pendingStatVerification,
+      pendingStatVerificationCount: pendingStatVerification.length,
+      discoveredCount: newDiscovery.length, discoveredItems: newDiscovery,
+      pendingSeasonVerificationCount: pendingSeasonVerification.length,
+      discoveryError,
+      coverage: items.length ? "candidates-available" : pendingSeasonVerification.length
+        ? "blizzard-items-discovered-season-verification-required"
+        : pendingStatVerification.length ? "combat-stats-require-wowhead-verification" : "no-validated-compatible-candidates",
+      source: sectionCacheAvailable ? "blizzard-on-demand-plus-section-cache" : "blizzard-on-demand"
+    });
   } catch (error) {
-    if (error.code === "ENOENT" || error instanceof SyntaxError) {
-      return res.status(503).json({ error: "Verified equipment section is not available yet; no fallback catalog was used." });
-    }
-    return res.status(500).json({ error: "Unable to load the verified equipment section." });
+    return res.status(500).json({ error: "Unable to retrieve slot candidates." });
   }
 }
 handler._test = {
   SLOT_SECTION, slotMatches, allowedForClass, allowedForClassWeapon, allowedForSpecialization, normalizeWeaponType, normalizeClass, hasUsableStats,
   createResponse,
-  setSectionDir(dir) { sectionDir = dir; }
+  setSectionDir(dir) { sectionDir = dir; },
+  setDiscoveryEnabled(value) { discoveryEnabled = Boolean(value); },
+  setDiscoveryProvider(fn) { discoveryProvider = typeof fn === "function" ? fn : null; },
+  discoverSlotItems,
+  getVerifiedSeasonItem,
+  setVerifiedSeasonItemProvider(fn) { verifiedSeasonItemProvider = typeof fn === "function" ? fn : null; },
+  resetVerifiedSeasonItemCache() { verifiedSeasonItemCache = null; }
 };
 module.exports = handler;

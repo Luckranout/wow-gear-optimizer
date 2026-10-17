@@ -40,7 +40,7 @@ test("slot candidates retain an eligible item when only a verified variant has u
   }
 });
 
-test("slot candidates still reject items with neither base nor variant stats", async () => {
+test("slot candidates reject items without combat-stat evidence to avoid transmog-only recommendations", async () => {
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), "slot-candidates-"));
   fs.writeFileSync(path.join(directory, "trinkets.json"), JSON.stringify({
     complete: true,
@@ -60,7 +60,9 @@ test("slot candidates still reject items with neither base nor variant stats", a
   try {
     await slotCandidates({ method: "GET", query: { slot: "Trinket 1", class: "mage" } }, res);
     assert.equal(res.statusCode, 200);
-    assert.equal(res.body.count, 0);
+    assert.equal(res.body.count, 0, "Blizzard equippable metadata and empty stats alone must not admit a cosmetic/transmog-only item");
+    assert.deepEqual(res.body.pendingStatVerification.map(candidate => candidate.id), [987655],
+      "statless record is only queued for external verification and is not a scoring candidate");
   } finally {
     slotCandidates._test.setSectionDir(path.join(process.cwd(), "data", "equipment-sections"));
     fs.rmSync(directory, { recursive: true, force: true });

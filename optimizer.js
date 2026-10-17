@@ -49,23 +49,64 @@ const CLASS_WEAPON_PROFICIENCIES = {
 };
 
 function normalizeWeaponType(value) {
-  const key = String(value || "").trim().toLowerCase().replace(/[_-]+/g, " ");
-  const aliases = {
-    axes: "axe", "one handed axe": "axe", "two handed axe": "axe",
-    daggers: "dagger", "one handed dagger": "dagger",
-    "fist weapons": "fist weapon", fist: "fist weapon",
-    maces: "mace", "one handed mace": "mace", "two handed mace": "mace",
-    staves: "staff", polearms: "polearm", swords: "sword",
-    "one handed sword": "sword", "two handed sword": "sword",
-    bows: "bow", guns: "gun", crossbows: "crossbow", wands: "wand",
-    glaive: "warglaive", glaives: "warglaive", "war glaive": "warglaive"
-  };
-  return aliases[key] || key;
+  const raw = String(value?.name || value || "").trim().toLowerCase()
+    .replace(/[_-]+/g, " ")
+    .replace(/\b(two|one) handed\b/g, "$1 hand");
+  if (!raw || /^(weapon|melee|ranged|miscellaneous|unknown)$/.test(raw)) return "";
+  // Blizzard subclass labels can be plural or include a hand qualifier.
+  if (raw.includes("warglaive") || raw.includes("war glaive") || raw.includes("glaive")) return "warglaive";
+  if (raw.includes("fist")) return "fist weapon";
+  if (raw.includes("crossbow")) return "crossbow";
+  if (raw.includes("polearm")) return "polearm";
+  if (raw.includes("staff") || raw.includes("staves")) return "staff";
+  if (raw.includes("dagger")) return "dagger";
+  if (raw.includes("sword")) return "sword";
+  if (raw.includes("mace")) return "mace";
+  if (raw.includes("axe")) return "axe";
+  if (raw.includes("bow")) return "bow";
+  if (raw.includes("gun")) return "gun";
+  if (raw.includes("wand")) return "wand";
+  return raw;
 }
 
 
 function normalizeClassName(className) {
   return String(className || "").toLowerCase().replace(/[\s'_-]/g, "");
+}
+
+function expectedPrimaryStat(className, specialization) {
+  const cls = normalizeClassName(className);
+  const spec = String(specialization || "").trim().toLowerCase();
+  if (["warrior", "paladin", "deathknight"].includes(cls)) return "Strength";
+  if (["hunter", "rogue", "demonhunter", "monk"].includes(cls)) return "Agility";
+  if (cls === "druid") return ["balance", "restoration"].includes(spec) ? "Intellect" : "Agility";
+  if (cls === "shaman") return spec === "enhancement" ? "Agility" : "Intellect";
+  if (["mage", "priest", "warlock", "evoker"].includes(cls)) return "Intellect";
+  return null;
+}
+
+function itemPrimaryStats(item) {
+  const stats = Array.isArray(item?.stats)
+    ? item.stats
+    : item?.stats && typeof item.stats === "object"
+      ? Object.entries(item.stats).map(([name, value]) => ({ name, value }))
+      : [];
+  const found = new Set();
+  for (const stat of stats) {
+    const name = normalizeItemStatName(stat?.type?.name || stat?.name || stat?.stat?.name || stat?.stat || stat?.type);
+    if (["Strength", "Agility", "Intellect"].includes(name) && Number(stat?.value ?? stat?.amount) > 0) found.add(name);
+  }
+  return found;
+}
+
+function itemAllowedForPrimaryStat(item, className, specialization) {
+  const expected = expectedPrimaryStat(className, specialization);
+  if (!expected) return true;
+  const primaryStats = itemPrimaryStats(item);
+  // Items without primary-stat metadata remain eligible; don't infer incompatibility
+  // from missing catalog data. If a primary stat is explicitly present, it must
+  // match the class/spec's primary stat.
+  return primaryStats.size === 0 || primaryStats.has(expected);
 }
 
 function itemAllowedForClass(item, className) {
@@ -120,6 +161,7 @@ function itemAllowedForClassWeapon(item, slot, className) {
 }
 
 function itemAllowedForSpecialization(item, slot, className, specialization) {
+  if (!itemAllowedForPrimaryStat(item, className, specialization)) return false;
   if (normalizeClassName(className) !== "shaman") return true;
   const spec = String(specialization || "").trim().toLowerCase();
   if (spec !== "enhancement") return true;
@@ -154,6 +196,18 @@ function itemAllowedForSpecialization(item, slot, className, specialization) {
 
 function itemMatchesSlot(item, slot) {
   if (!item || !slot) return false;
+  // Honor the importer's canonical inventory-type mapping first. Generic
+  // Blizzard "Weapon" labels otherwise cause valid weapons to vanish before scoring.
+  const categoryBySlot = {
+    Head: "head", Neck: "necklaces", Shoulders: "shoulders", Back: "back",
+    Chest: "chest", Wrists: "wrists", Hands: "hands", Waist: "waist",
+    Legs: "legs", Feet: "feet", "Ring 1": "rings", "Ring 2": "rings",
+    "Trinket 1": "trinkets", "Trinket 2": "trinkets",
+    "Main Hand": "main-hand", "Off Hand": "off-hand"
+  };
+  if (Array.isArray(item.equipmentCategories) && item.equipmentCategories.length) {
+    return item.equipmentCategories.includes(categoryBySlot[slot]);
+  }
   const inventoryType = String(item.inventoryType?.name || item.inventoryType || "").trim().toLowerCase();
   const map = {
     head: ["Head"], neck: ["Neck"], shoulder: ["Shoulders"], shoulders: ["Shoulders"],
@@ -421,6 +475,14 @@ function createCharacterProfileFromImport({ importedCharacter, goal = WOW_GOALS.
   character.equipment = normalizeImportedEquipment(importedCharacter.equipment);
   character.statistics = normalizeCharacterStatistics(importedCharacter.statistics);
   character.talents = Array.isArray(importedCharacter.talents) ? importedCharacter.talents : [];
+  character.talentBuild = importedCharacter.talentBuild && typeof importedCharacter.talentBuild === "object"
+    ? importedCharacter.talentBuild
+    : {
+        source: importedCharacter.source || "Imported character",
+        verified: character.talents.length > 0,
+        selectedNodes: character.talents,
+        selectedNodeCount: character.talents.length
+      };
 
   return {
     ...character,
@@ -430,7 +492,8 @@ function createCharacterProfileFromImport({ importedCharacter, goal = WOW_GOALS.
     level: importedCharacter.level ?? null,
     classId: importedCharacter.class?.id ?? null,
     specializationId: importedCharacter.activeSpec?.id ?? null,
-    source: importedCharacter.source || "Imported character"
+    source: importedCharacter.source || "Imported character",
+    talentBuild: character.talentBuild
   };
 }
 
@@ -681,8 +744,15 @@ function getSpecProfileContext({ dataset = null, className = "", specialization 
     specializationId,
     specialization
   );
-  const optimizationProfile =
-    dataset?.optimizationProfiles?.[className]?.[specialization] || null;
+  const profiles = dataset?.optimizationProfiles;
+  const classKey = Object.keys(profiles || {}).find(key =>
+    normalizeClassName(key) === normalizeClassName(className)
+  );
+  const classProfiles = classKey ? profiles[classKey] : null;
+  const specKey = Object.keys(classProfiles || {}).find(key =>
+    String(key || "").trim().toLowerCase() === String(specialization || "").trim().toLowerCase()
+  );
+  const optimizationProfile = specKey ? classProfiles[specKey] : null;
 
   return {
     specialization: specializationRecord,
@@ -791,28 +861,34 @@ function resolveCatalogItemAgainstEquippedVariant(candidate, equippedItem) {
 function findBestItemForSlot(items, slot, goal, statWeights = null, className = "", equippedItem = null, specialization = "") {
   const weights = statWeights || getGoalWeights(goal);
   const bestByIdentity = new Map();
-  for (const candidate of (items || [])) {
+  // Expand verified upgrade variants before item-level comparisons. A base
+  // record can be ilvl 219 while its verified Mythic+ variant is ilvl 340; the
+  // base level must not cause the valid upgraded variant to be discarded.
+  const expandedItems = (items || []).flatMap(rawItem => {
+    if (!Array.isArray(rawItem?.variants) || !rawItem.variants.length) return [rawItem];
+    return rawItem.variants.map(variant => ({
+      ...rawItem,
+      ...variant,
+      id: rawItem.id ?? variant.id,
+      baseItemId: rawItem.id ?? rawItem.itemId,
+      variants: undefined
+    }));
+  });
+
+  for (const candidate of expandedItems) {
     if (!itemMatchesSlot(candidate, slot) ||
         !itemAllowedForClass(candidate, className) ||
         !itemAllowedForClassWeapon(candidate, slot, className) ||
         !itemAllowedForSpecialization(candidate, slot, className, specialization) ||
         !hasUsableItemStats(candidate)) continue;
 
-    // Do not replace an equipped higher-item-level piece with a lower-level
-    // base record just because its visible secondary stats happen to score well.
-    // The catalogue currently stores base item records for some Mythic drops;
-    // those are not equivalent to their fully upgraded variants. A lower-level
-    // recommendation requires verified variant data, not an implicit downgrade.
-    const candidateLevel = Number(candidate.itemLevel ?? candidate.level);
+    const item = resolveCatalogItemAgainstEquippedVariant(candidate, equippedItem);
+    // Compare the resolved variant's level, not the base catalog record's level.
+    const candidateLevel = Number(item.itemLevel ?? item.level);
     const equippedLevel = Number(equippedItem?.itemLevel ?? equippedItem?.level);
     if (Number.isFinite(candidateLevel) && Number.isFinite(equippedLevel) &&
         candidateLevel < equippedLevel) continue;
 
-    // A seasonal catalogue can contain multiple difficulty/upgrade variants
-    // sharing the same base item ID. Resolve an equipped upgraded copy first,
-    // then retain the highest-scoring variant for each identity instead of
-    // accidentally keeping the first (often lowest-ilvl) record in the file.
-    const item = resolveCatalogItemAgainstEquippedVariant(candidate, equippedItem);
     const key = String(item.id ?? item.name) + "|" + slot;
     const score = scoreItem(item, weights);
     const previous = bestByIdentity.get(key);
@@ -1014,13 +1090,18 @@ function optimizeEquipment({
       for (const candidate of candidates) {
         const pairedSlot = ({
           "Ring 1": "Ring 2", "Ring 2": "Ring 1",
-          "Trinket 1": "Trinket 2", "Trinket 2": "Trinket 1"
+          "Trinket 1": "Trinket 2", "Trinket 2": "Trinket 1",
+          "Main Hand": "Off Hand", "Off Hand": "Main Hand"
         })[slot];
         const pairedItem = pairedSlot ? optimizedEquipment[pairedSlot] : null;
+        // Enforce uniqueness for both weapon hands on every whole-loadout pass.
+        // Earlier selection checks are insufficient because this pass can replace
+        // a previously valid weapon and reintroduce the same item in both slots.
         if (pairedItem && candidate.id != null && pairedItem.id != null &&
             String(candidate.id) === String(pairedItem.id)) continue;
         if (pairedItem && candidate.id == null && pairedItem.id == null &&
-            candidate.name && pairedItem.name && candidate.name === pairedItem.name) continue;
+            candidate.name && pairedItem.name &&
+            candidate.name.trim().toLowerCase() === pairedItem.name.trim().toLowerCase()) continue;
 
         // A two-handed main-hand weapon occupies both weapon slots. Clear the
         // off hand in the same trial; never score an invalid 2H + off-hand loadout.
@@ -1353,10 +1434,75 @@ function getTierSetCoverageStatus(tierSetCatalogue = null, className = "", speci
   };
 }
 
+function getEquipmentStatTotals(equipment = {}) {
+  const totals = {};
+  const missingSlots = [];
+  for (const slot of WOW_EQUIPMENT_SLOTS) {
+    const item = equipment?.[slot];
+    if (!item) continue;
+    const stats = item.stats;
+    const entries = Array.isArray(stats)
+      ? stats.map(stat => [
+          normalizeItemStatName(stat?.stat?.name || stat?.type?.name || stat?.name || stat?.stat),
+          Number(stat?.value?.value ?? stat?.value?.amount ?? stat?.amount ?? stat?.value)
+        ])
+      : stats && typeof stats === "object"
+        ? Object.entries(stats).map(([name, value]) => [
+            normalizeItemStatName(name),
+            Number(value?.value ?? value?.amount ?? value)
+          ])
+        : [];
+    if (!entries.some(([name, value]) => name && Number.isFinite(value) && value > 0)) {
+      missingSlots.push(slot);
+      continue;
+    }
+    for (const [name, value] of entries) {
+      if (!name || !Number.isFinite(value)) continue;
+      totals[name] = (totals[name] || 0) + value;
+    }
+  }
+  return { totals, missingSlots };
+}
+
+function calculateProjectedStatChanges(currentEquipment = {}, projectedEquipment = {}, currentStatistics = {}) {
+  const current = getEquipmentStatTotals(currentEquipment);
+  const projected = getEquipmentStatTotals(projectedEquipment);
+  const characterStats = normalizeCharacterStatistics(currentStatistics);
+  const names = new Set([...Object.keys(characterStats), ...Object.keys(current.totals), ...Object.keys(projected.totals)]);
+  const deltas = {};
+  const projectedCharacterStats = {};
+  for (const name of names) {
+    const delta = (projected.totals[name] || 0) - (current.totals[name] || 0);
+    deltas[name] = delta;
+    if (characterStats[name] !== undefined) projectedCharacterStats[name] = characterStats[name] + delta;
+  }
+  const missingSlots = [...new Set([...current.missingSlots, ...projected.missingSlots])];
+  return {
+    available: Object.keys(projected.totals).length > 0,
+    complete: missingSlots.length === 0,
+    missingSlots,
+    currentItemStatTotals: current.totals,
+    projectedItemStatTotals: projected.totals,
+    deltas,
+    currentCharacterStats: characterStats,
+    projectedCharacterStats,
+    note: missingSlots.length
+      ? "Projection is partial because one or more equipped/projected items lack usable stat data."
+      : "Adds item-stat differences to imported character totals; this is not a combat simulation."
+  };
+}
+
 function createOptimizationReport({character = createCharacterProfile(), availableItems = [], dataset = null, upgradeSystem = null} = {}) {
   const goal = character.goal || WOW_GOALS.general;
   const simulation = character.simulation || dataset?.simulation || null;
   const simulationContext = getSimulationWeightContext(simulation);
+  const profileContext = getSpecProfileContext({
+    dataset,
+    className: character.className,
+    specialization: character.specialization,
+    specializationId: character.specializationId
+  });
+  const hasSpecProfile = !!(profileContext.optimizationProfile && typeof profileContext.optimizationProfile === "object");
   const statWeights = resolveStatWeights({
     goal,
     className: character.className,
@@ -1385,6 +1531,7 @@ function createOptimizationReport({character = createCharacterProfile(), availab
       availableCrests: character.crestInventory || {}, weeklyUsed: character.weeklyCrestUsed || 0
     }) : null)
     .filter(Boolean);
+  const projectedStats = calculateProjectedStatChanges(character.equipment, optimized.equipment, character.statistics);
   return {
     character, goal, statWeights, optimizedEquipment: optimized.equipment, totalScore: optimized.score,
     setBonusStatus: optimized.setBonusStatus,
@@ -1410,13 +1557,24 @@ function createOptimizationReport({character = createCharacterProfile(), availab
     },
     recommendationStatus: simulationContext
       ? "simulation-weighted-ranking-not-full-stat-projection"
-      : "heuristic-ranking-not-simulation-validated",
-    numericProjectionAvailable: false,
+      : hasSpecProfile
+        ? "specialization-profile-heuristic-not-simulation-validated"
+        : "generic-fallback-not-specialization-specific",
+    optimizationProfileStatus: simulationContext
+      ? "simulation-weights"
+      : hasSpecProfile
+        ? "specialization-profile"
+        : "missing-specialization-profile",
+    projectedStats,
+    numericProjectionAvailable: projectedStats.available,
     recommendationLimitations: [
       "Gear ranking is not a full combat simulation.",
-      "Static fallback weights are not specialization-specific.",
-      "Imported item stat presence does not prove complete item or enhancement effects.",
-      "Numeric projected character stats are not calculated by this report."
+      ...(simulationContext ? [] : hasSpecProfile
+        ? ["Specialization profile weights are heuristics, not simulation-derived scale factors."]
+        : ["No verified specialization profile or simulation weights were available; generic goal weights were used, except for explicitly coded specialization fallbacks."]),
+      "Item-stat projection is partial when any current or projected item lacks usable stat data.",
+      ...(character.talentBuild?.verified ? [] : ["Active talent-node build data was not verified; build-specific talent synergies were not applied."]),
+      "Projection excludes unmodeled effects, temporary buffs, and enhancements not represented in item stat records."
     ],
     equipmentSlots: WOW_EQUIPMENT_SLOTS.length, generatedAt: new Date().toISOString()
   };
@@ -1432,10 +1590,10 @@ window.WoWOptimizer = {
   applySecondaryRatingDiminishingReturns, getSecondaryRatingDiminishingReturns, SECONDARY_RATING_DR_TABLE, SECONDARY_RATING_DR_SOFT_TARGETS, getSecondaryRatingTotals, getSecondaryRatingHardCapViolations, getSecondaryRatingSoftTargetPenalty,
   applyTertiaryRatingDiminishingReturns, TERTIARY_RATING_DR_TABLE, getTertiaryRatingTotals,
   createCharacterProfile, normalizeCharacterStatistics, scoreCharacterStatistics, getCharacterStatSummary, resolveStatWeights, normalizeSimulationScaleFactors, getSimulationWeightContext, findBlizzardSpecialization, getSpecProfileContext,
-  normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, hasUsableItemStats, itemAllowedForClass, scoreTrinketUseEffect, scoreItem, scoreEquipment, getGoalWeights,
+  normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, hasUsableItemStats, itemAllowedForClass, expectedPrimaryStat, itemPrimaryStats, itemAllowedForPrimaryStat, scoreTrinketUseEffect, scoreItem, scoreEquipment, getGoalWeights,
   findBestItemForSlot, itemMatchesSlot, itemAllowedForClassWeapon, itemAllowedForSpecialization, getWeaponMetadata, normalizeWeaponType, optimizeEquipment, findUpgradeOpportunities, rankItems,
   getItemSetId, getSetBonusStatus, getTierSetCoverageStatus, scoreSetBonuses, scoreEquipmentWithRatingDiminishingReturns, scoreLoadout,
   getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,
   calculateCrestRequirements, isAscendantVenomstoneEligible, recommendUpgradePlan,
-  createOptimizationReport, testData: WOW_OPTIMIZER_TEST_DATA
+  calculateProjectedStatChanges, getEquipmentStatTotals, createOptimizationReport, testData: WOW_OPTIMIZER_TEST_DATA
 };

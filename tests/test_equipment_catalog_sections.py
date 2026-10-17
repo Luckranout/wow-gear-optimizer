@@ -9,6 +9,8 @@ from scripts.equipment_catalog_sections import (
     SECTION_SEARCHES,
     collect_equipment_section_ids,
     fetch_inventory_type_ids,
+    discover_equipment_inventory_ids,
+    sections_for_inventory_type,
     validate_required_sections,
     write_section_catalogs,
 )
@@ -93,6 +95,50 @@ class EquipmentSectionPaginationTests(unittest.TestCase):
         ids = fetch_inventory_type_ids("token", "NECK", search, sleep=lambda _s: None)
         self.assertEqual(ids, set(range(1, PAGE_SIZE + 1)))
         self.assertEqual(calls, [1, 2])
+
+    def test_broad_inventory_discovery_covers_all_categories_without_claiming_verification(self):
+        calls = []
+
+        def search(_path, _token, params):
+            inventory_type = params["inventory_type.type"]
+            calls.append(inventory_type)
+            return {"results": [{"data": {"id": 1000 + len(calls)}}], "max_page": 1}
+
+        discovered = discover_equipment_inventory_ids("token", search, sleep=lambda _s: None)
+        self.assertEqual(set(discovered), set(SECTION_SEARCHES))
+        self.assertIn("rings", discovered)
+        self.assertIn("necklaces", discovered)
+        self.assertIn("trinkets", discovered)
+        self.assertIn("main-hand", discovered)
+        self.assertIn("off-hand", discovered)
+        self.assertGreaterEqual(len(calls), len(SECTION_SEARCHES))
+        # This helper returns IDs only. Season verification is intentionally not inferred.
+        self.assertTrue(all(isinstance(item_id, int) for ids in discovered.values() for item_id in ids))
+
+    def test_blizzard_inventory_metadata_maps_to_normalized_equipment_categories(self):
+        cases = [
+            ({"type": "FINGER", "name": {"en_US": "Finger"}}, ("rings",)),
+            ({"type": "NECK", "name": {"en_US": "Neck"}}, ("necklaces",)),
+            ({"type": "TRINKET", "name": {"en_US": "Trinket"}}, ("trinkets",)),
+            ({"type": "SHIELD", "name": {"en_US": "Shield"}}, ("off-hand",)),
+            ({"type": "WEAPON", "name": {"en_US": "Weapon"}}, ("main-hand", "off-hand")),
+            ({"type": "ROBE", "name": {"en_US": "Robe"}}, ("chest",)),
+        ]
+        for metadata, expected in cases:
+            with self.subTest(metadata=metadata):
+                self.assertEqual(sections_for_inventory_type(metadata), expected)
+
+    def test_normalized_blizzard_item_preserves_canonical_inventory_type_and_categories(self):
+        item = import_blizzard_data.normalize_item({
+            "id": 123,
+            "name": {"en_US": "Test Ring"},
+            "inventory_type": {"id": 11, "type": "FINGER", "name": {"en_US": "Finger"}},
+            "item_class": {"id": 4, "name": {"en_US": "Armor"}},
+            "item_subclass": {"id": 0, "name": {"en_US": "Miscellaneous"}},
+            "is_equippable": True,
+        })
+        self.assertEqual(item["inventoryType"]["type"], "FINGER")
+        self.assertEqual(item["equipmentCategories"], ["rings"])
 
     def test_section_plan_covers_all_supported_slot_families(self):
         expected = {
@@ -219,6 +265,26 @@ class EquipmentSectionPaginationTests(unittest.TestCase):
         )
         self.assertEqual(sections, {"rings": {22}})
         self.assertEqual(sources[22][0]["category"], "PvP")
+
+    def test_unknown_inventory_type_fails_instead_of_silently_dropping_verified_item(self):
+        details = {
+            17: {
+                "id": 17, "name": "Verified but unmapped item",
+                "is_equippable": True,
+                "inventory_type": {"type": "NEW_BLIZZARD_TYPE", "name": "New inventory type"},
+            },
+        }
+
+        def get_detail(path, _token, _params):
+            return details[int(path.rsplit("/", 1)[-1])]
+
+        with self.assertRaisesRegex(RuntimeError, "not mapped to an equipment section"):
+            collect_equipment_section_ids(
+                "token", get_detail, {17}, sleep=lambda _s: None,
+                source_evidence={
+                    17: [{"category": "PvE", "seasonScope": "Midnight Season 2+"}],
+                },
+            )
 
     def test_item_without_source_evidence_is_rejected(self):
         details = {
@@ -363,4 +429,6 @@ class BlizzardMythicSeasonVerificationTests(unittest.TestCase):
 
         self.assertEqual(set(ids), {222, 333})
         self.assertEqual(matched, ["The Tidebound Grotto", "The Venomous Abyss"])
-        self.assertIn("Kings' Rest", missing)
+        # Kings' Rest is a legacy dungeon and is no longer part of the configured Season 2 source set.
+        self.assertNotIn("Kings' Rest", matched)
+        self.assertIn("The Blinding Vale", missing)

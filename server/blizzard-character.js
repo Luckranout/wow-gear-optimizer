@@ -85,6 +85,39 @@ function normalizeCharacterTalents(specializations) {
   })).filter(talent => talent.id != null || talent.name);
 }
 
+function normalizeCharacterTalentBuild(specializations) {
+  if (!specializations || typeof specializations !== "object") {
+    return { source: "Blizzard WoW Profile API", verified: false, selectedNodes: [], selectedNodeCount: 0 };
+  }
+  const entries = Array.isArray(specializations.specializations)
+    ? specializations.specializations
+    : Array.isArray(specializations)
+      ? specializations
+      : [];
+  const active = entries.find(entry => entry.active) || entries[0] || null;
+  if (!active) {
+    return { source: "Blizzard WoW Profile API", verified: false, selectedNodes: [], selectedNodeCount: 0 };
+  }
+  const selectedNodes = (Array.isArray(active.talents) ? active.talents : []).map(talent => ({
+    id: resourceId(talent.id || talent.talent),
+    name: normalizeName(talent.name || talent.talent?.name),
+    rank: Number(talent.rank ?? talent.points ?? 0),
+    spellId: resourceId(talent.spell_tooltip?.spell),
+    rawNodeId: talent.node_id ?? talent.node?.id ?? null
+  })).filter(talent => talent.id != null || talent.name || talent.rawNodeId != null);
+  const specialization = active.specialization || active.spec || {};
+  return {
+    source: "Blizzard WoW Profile API",
+    verified: selectedNodes.length > 0,
+    specializationId: resourceId(specialization),
+    specializationName: normalizeName(specialization.name || active.name),
+    active: Boolean(active.active),
+    loadoutName: normalizeName(active.loadout_name || active.loadout?.name || active.name),
+    selectedNodes,
+    selectedNodeCount: selectedNodes.length
+  };
+}
+
 function normalizeStatistics(statistics) {
   if (!statistics || typeof statistics !== "object") return {};
   const normalized = {};
@@ -132,6 +165,7 @@ function normalizeCharacter(profile, equipment, statistics, specializations) {
     activeSpec: { id: resourceId(activeSpec), name: normalizeName(activeSpec.name) },
     statistics: normalizeStatistics(statistics),
     talents: normalizeCharacterTalents(specializations),
+    talentBuild: normalizeCharacterTalentBuild(specializations),
     equipment: items,
     equipmentCount: items.length,
     fetchedAt: new Date().toISOString(),
@@ -237,4 +271,4 @@ async function fetchItemMedia({ itemId, clientId, clientSecret }) {
   return { itemId: id, icon };
 }
 
-module.exports = { slugify, normalizeEquippedItem, normalizeStatistics, normalizeCharacterTalents, normalizeCharacter, fetchCharacter, fetchRealms, fetchItemMedia };
+module.exports = { slugify, normalizeEquippedItem, normalizeStatistics, normalizeCharacterTalents, normalizeCharacterTalentBuild, normalizeCharacter, fetchCharacter, fetchRealms, fetchItemMedia };

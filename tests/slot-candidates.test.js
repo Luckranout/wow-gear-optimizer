@@ -3,7 +3,7 @@ const fs = require("node:fs");
 const os = require("node:os");
 const path = require("node:path");
 const handler = require("../api/slot-candidates");
-const { SLOT_SECTION, slotMatches, allowedForClass, allowedForClassWeapon, allowedForSpecialization, normalizeClass, hasUsableStats, createResponse, setSectionDir } = handler._test;
+const { SLOT_SECTION, slotMatches, allowedForClass, allowedForClassWeapon, allowedForSpecialization, normalizeClass, hasUsableStats, createResponse, setSectionDir, setDiscoveryProvider, setVerifiedSeasonItemProvider } = handler._test;
 
 assert.equal(SLOT_SECTION.Neck, "necklaces");
 assert.equal(SLOT_SECTION.Shoulders, "shoulders");
@@ -20,9 +20,23 @@ assert.equal(allowedForClass({ itemClass: { name: "Armor" }, itemSubclass: { nam
 assert.equal(allowedForClass({ itemClass: { name: "Armor" }, itemSubclass: { name: "Plate" } }, "Mage", "Head"), false);
 assert.equal(allowedForClass({ itemClass: { name: "Armor" }, itemSubclass: { name: "Plate" } }, "Unknown", "Head"), false);
 
+assert.equal(allowedForClass({ itemClass: { name: "Armor" }, itemSubclass: { name: "Plate Armor" } }, "Death Knight", "Head"), true,
+  "Blizzard subclass labels containing the expected armor family remain eligible");
+assert.equal(allowedForClassWeapon({
+  itemSubclass: { name: "Two-Handed Swords" }, inventoryType: { name: "Two-Hand" }
+}, "Warrior", "Main Hand"), true, "pluralized Blizzard weapon subclass labels normalize to a usable weapon family");
+
+assert.equal(allowedForClassWeapon({
+  itemClass: { name: "Weapon" }, itemSubclass: { name: "Weapon" }, inventoryType: { name: "One-Hand" }
+}, "Warrior", "Main Hand"), true,
+  "generic weapon metadata should not reject a slot-valid item before its source-verified variant can be scored");
+
 assert.equal(slotMatches({ inventoryType: { name: "One-Hand" }, itemClass: { name: "Weapon" } }, "Main Hand"), true, "one-hand weapons belong in Main Hand");
 assert.equal(slotMatches({ inventoryType: { name: "One-Hand" }, itemClass: { name: "Armor" } }, "Main Hand"), false, "one-hand armor must not be treated as a weapon");
 assert.equal(slotMatches({ inventoryType: { name: "Neck" } }, "Neck"), true);
+assert.equal(slotMatches({ inventoryType: { type: "NECK", name: "Neck" }, equipmentCategories: ["necklaces"] }, "Neck"), true, "canonical normalized category matches Neck");
+assert.equal(slotMatches({ inventoryType: { type: "NECK", name: "Neck" }, equipmentCategories: ["rings"] }, "Neck"), false, "explicit normalized category prevents contradictory fallback matches");
+assert.equal(slotMatches({ inventoryType: { type: "WEAPON", name: "Weapon" }, equipmentCategories: ["main-hand", "off-hand"] }, "Off Hand"), true, "generic Blizzard weapon inventory type can be classified for both hands before weapon eligibility filtering");
 assert.equal(slotMatches({ inventoryType: { name: "Finger" } }, "Ring 2"), true);
 assert.equal(slotMatches({ inventoryType: { name: "Trinket" } }, "Trinket 1"), true);
 assert.equal(slotMatches({ slot: "Shoulders" }, "Shoulders"), true);
@@ -59,6 +73,7 @@ assert.equal(allowedForSpecialization({
 (async () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "slot-candidates-"));
   setSectionDir(dir);
+  setDiscoveryProvider(async () => []);
   try {
     const validShoulders = {
       id: 101, name: "Season 2 Plate Shoulders", slot: "Shoulders",
@@ -77,9 +92,48 @@ assert.equal(allowedForSpecialization({
     writeSection(dir, "shoulders", { complete: true, items: candidates });
     let res = await call("GET", { slot: "Shoulders", class: "Warrior" });
     assert.equal(res.statusCode, 200, "valid section returns 200");
-    assert.deepEqual(res.body.items.map(item => item.id), [101], "filters legacy, wrong class, non-equippable, missing stats, and wrong-slot items");
+    assert.deepEqual(res.body.items.map(item => item.id), [101], "filters legacy, wrong class, non-equippable, missing-stat cosmetic/unknown items, and wrong-slot items");
     assert.equal(res.body.count, 1);
-    assert.match(res.headers["cache-control"], /s-maxage=900/);
+    assert.deepEqual(res.body.pendingStatVerification.map(item => item.id), [105],
+      "stat-incomplete but otherwise compatible seasonal records are queued for verification, never scored directly");
+    assert.equal(res.body.pendingStatVerification[0].requiresWowheadVerification, true);
+    assert.match(res.headers["cache-control"], /s-maxage=300/);
+    const discoveredShoulders = {
+      id: 999, name: "New Blizzard-discovered Plate Shoulders", slot: "Shoulders",
+      inventoryType: { type: "SHOULDER", name: "Shoulder" }, isEquippable: true,
+      seasonScope: "unknown", seasonEligibility: "unverified",
+      itemClass: { name: "Armor" }, itemSubclass: { name: "Plate" }, stats: [{ name: "strength", value: 30 }]
+    };
+    setDiscoveryProvider(async slot => slot === "Shoulders" ? [discoveredShoulders] : []);
+    res = await call("GET", { slot: "Shoulders", class: "Warrior" });
+    assert.equal(res.statusCode, 200, "slot request succeeds when Blizzard supplies newly discovered records");
+    assert.equal(res.body.discoveredCount, 1, "newly discovered item is surfaced separately from saved candidates");
+    assert.equal(res.body.discoveredItems[0].id, 999);
+    assert.equal(res.body.pendingSeasonVerificationCount, 1, "item existence is not mistaken for season eligibility");
+    assert.equal(res.body.items.some(item => item.id === 999), false, "unverified season items do not silently enter scoring");
+
+    const sourceVerifiedShoulders = {
+      ...discoveredShoulders,
+      id: 1000,
+      name: "Source-verified seasonal shoulders",
+      seasonScope: "Midnight Season 2+",
+      seasonEligibility: "verified",
+      sourceLocations: [{ seasonScope: "Midnight Season 2+", category: "PvE", instance: "Current Season Raid" }],
+      variants: [{ variantKey: "wowhead:upgd6:ilvl334", itemLevel: 334, stats: { Strength: 80, Haste: 35 } }]
+    };
+    setVerifiedSeasonItemProvider(id => id === 1000 ? sourceVerifiedShoulders : null);
+    setDiscoveryProvider(async slot => slot === "Shoulders" ? [
+      { ...discoveredShoulders, id: 1000, name: "Blizzard base record for verified shoulders" }
+    ] : []);
+    res = await call("GET", { slot: "Shoulders", class: "Warrior" });
+    assert.equal(res.body.items.some(item => item.id === 1000), true,
+      "a discovered item with matching imported season-source evidence is eligible for scoring");
+    assert.equal(res.body.pendingSeasonVerificationCount, 0,
+      "matching verified source evidence clears the season-verification queue");
+    assert.equal(res.body.items.find(item => item.id === 1000).variants[0].itemLevel, 334,
+      "source-verified record retains its upgraded variant when promoted to the slot candidate list");
+    setVerifiedSeasonItemProvider(null);
+    setDiscoveryProvider(async () => []);
 
     const oneHandDagger = {
       id: 401, name: "Season One-Hand Dagger", inventoryType: { name: "One-Hand" },
@@ -126,6 +180,8 @@ assert.equal(allowedForSpecialization({
     res = await call("GET", { slot: "Off Hand", class: "Warrior" });
     assert.deepEqual(res.body.items.map(item => item.id), [302], "off-hand does not accept a generic one-hand weapon as an off-hand item");
   } finally {
+    setDiscoveryProvider(null);
+    setVerifiedSeasonItemProvider(null);
     setSectionDir(path.join(process.cwd(), "data", "equipment-sections"));
     fs.rmSync(dir, { recursive: true, force: true });
   }

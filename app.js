@@ -305,28 +305,65 @@ function renderUpgradeResults(upgrades = []) {
     <article class="upgrade-card">
       <div class="upgrade-card-top">
         <div>
-          <div class="upgrade-slot">${upgrade.slot}</div>
-          <h3>${upgrade.recommendedItem?.name || "Recommended upgrade"}</h3>
+          <div class="upgrade-slot">${escapeSlotText(upgrade.slot)}</div>
+          <h3>${escapeSlotText(upgrade.recommendedItem?.name || "Recommended upgrade")}</h3>
         </div>
         <div class="upgrade-badge">${sourceLabel}</div>
       </div>
       <div class="upgrade-comparison">
-        <div>
+        <div class="upgrade-item-detail">
           <span>Current</span>
-          <strong>${upgrade.currentItem?.name || "Empty slot"}</strong>
+          <strong>${escapeSlotText(upgrade.currentItem?.name || "Empty slot")}</strong>
+          <small>Item level ${escapeSlotText(displayItemLevel(upgrade.currentItem?.itemLevel ?? upgrade.currentItem?.level) || "unavailable")}</small>
           <small>Score ${formatGearScore(upgrade.currentScore)}</small>
+          ${upgrade.currentItem ? renderItemHoverTooltip(upgrade.currentItem) : ""}
         </div>
         <div class="upgrade-arrow">→</div>
-        <div>
+        <div class="upgrade-item-detail">
           <span>Recommended</span>
-          <strong>${upgrade.recommendedItem?.name || "Unknown item"}</strong>
+          <strong>${escapeSlotText(upgrade.recommendedItem?.name || "Unknown item")}</strong>
+          <small>Item level ${escapeSlotText(displayItemLevel(upgrade.recommendedItem?.itemLevel ?? upgrade.recommendedItem?.level) || "unavailable")}</small>
           <small>Score ${formatGearScore(upgrade.recommendedScore)}</small>
+          ${upgrade.recommendedItem ? renderItemHoverTooltip(upgrade.recommendedItem) : ""}
         </div>
       </div>
       <div class="upgrade-improvement">+${formatGearScore(upgrade.improvement)} weighted score</div>
     </article>
   `).join("");
 }
+function renderProjectedStatsPanel(report) {
+  const projection = report?.projectedStats;
+  let panel = document.querySelector("#projectedStatsPanel");
+  if (!panel) {
+    panel = document.createElement("section");
+    panel.id = "projectedStatsPanel";
+    panel.className = "panel projected-stats-panel";
+    const loadout = document.querySelector("#loadoutResults");
+    if (loadout?.parentElement) loadout.parentElement.insertBefore(panel, loadout);
+    else document.querySelector("main")?.appendChild(panel);
+  }
+  if (!projection || !projection.available) {
+    panel.innerHTML = '<h2>Projected Character Stats</h2><p class="compare-no-stats">Projection unavailable: the optimizer has not received usable item-stat data for the proposed loadout.</p>';
+    return;
+  }
+  const preferred = ["Strength", "Agility", "Intellect", "Stamina", "CriticalStrike", "Haste", "Mastery", "Versatility", "Armor", "Leech", "Avoidance", "Speed"];
+  const names = [...new Set([...preferred.filter(name => Object.hasOwn(projection.deltas || {}, name)), ...Object.keys(projection.deltas || {}).filter(name => !preferred.includes(name))])];
+  const rows = names.map(name => {
+    const delta = Number(projection.deltas[name]) || 0;
+    const sign = delta > 0 ? "+" : "";
+    const cls = delta > 0 ? "gain" : delta < 0 ? "loss" : "same";
+    const current = projection.currentCharacterStats?.[name];
+    const projected = projection.projectedCharacterStats?.[name];
+    return '<div class="compare-stat"><span>' + escapeSlotText(name) + '</span><strong class="' + cls + '">' + sign + delta.toLocaleString() + '</strong><small>' +
+      (Number.isFinite(current) && Number.isFinite(projected) ? escapeSlotText(current.toLocaleString() + " → " + projected.toLocaleString()) : "character total unavailable") +
+      '</small></div>';
+  }).join("");
+  const missing = projection.missingSlots?.length
+    ? '<p class="compare-no-stats">Partial projection — item stats are missing for: ' + projection.missingSlots.map(escapeSlotText).join(", ") + '.</p>'
+    : '<p>Projection uses item-stat differences added to imported character totals; it is not a combat simulation.</p>';
+  panel.innerHTML = '<h2>Projected Character Stats</h2><p>Change from current gear to the optimized loadout</p><div class="projected-stats-grid">' + rows + '</div>' + missing;
+}
+
 function renderCharacterCoach(report, character) {
   const encounter = retailDataset?.encounters?.find(item =>
     String(item.id ?? item.name) === String(encounterSelect?.value || "")
@@ -588,8 +625,13 @@ function applyLiveCharacter(character) {
   specSelect.innerHTML = `<option value="${profile.specialization}">${profile.specialization}</option>`;
   specSelect.value = profile.specialization;
   importStatus.classList.remove("error");
+  const talentBuild = profile.talentBuild;
+  const talentStatus = talentBuild?.verified
+    ? ` • Active talent build detected: ${talentBuild.selectedNodeCount} talent entries${talentBuild.loadoutName ? ` • ${talentBuild.loadoutName}` : ""}`
+    : " • Blizzard did not provide verifiable active talent-node data; build-specific synergies will not be guessed";
   importStatus.textContent = WoWCharacterImport.formatImportedCharacterSummary(character) +
-    " • Live Blizzard data retrieved " + new Date(character.fetchedAt || Date.now()).toLocaleTimeString();
+    " • Live Blizzard data retrieved " + new Date(character.fetchedAt || Date.now()).toLocaleTimeString() +
+    talentStatus;
   renderCharacterStats(profile.statistics);
   renderSlots();
   resultMessage.textContent = "Live character data loaded. Run the optimizer to evaluate the current gear.";
@@ -741,7 +783,17 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
         return { slot, items: [], failed: true, reason: payload.error || `HTTP ${response.status}` };
       }
       const items = Array.isArray(payload.items) ? payload.items : [];
-      return { slot, items, failed: false, empty: items.length === 0 };
+      const pendingStatVerification = Array.isArray(payload.pendingStatVerification)
+        ? payload.pendingStatVerification : [];
+      // Keep discovery separate from scoring eligibility. The endpoint can return
+      // records discovered from Blizzard that have not yet passed season/stat
+      // verification; carry them forward so the optimizer can resolve them rather
+      // than silently dropping the discovery result.
+      const discoveredItems = Array.isArray(payload.discoveredItems) ? payload.discoveredItems : [];
+      return {
+        slot, items, pendingStatVerification, discoveredItems, failed: false,
+        empty: items.length === 0 && pendingStatVerification.length === 0 && discoveredItems.length === 0
+      };
     } catch (error) {
       console.warn(`Candidate request failed for ${slot}:`, error);
       return { slot, items: [], failed: true, reason: error?.message || "Network or response error" };
@@ -759,13 +811,98 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
   ].filter(Boolean).join("");
   const byId = new Map();
   // Prefer the verified slot-section record over the broad retail dataset when
-  // both contain the same item ID. Slot records carry the validated current-season
-  // stats and item metadata; first-wins deduplication silently discarded them.
+  // both contain the same item ID. Slot records carry validated season evidence.
   for (const item of requests.map(request => request.items).flat().concat(availableItems)) {
     const key = item?.id != null ? String(item.id) : item?.name;
     if (key != null && !byId.has(key)) byId.set(key, item);
   }
   availableItems.splice(0, availableItems.length, ...byId.values());
+
+  // Resolve a small, bounded queue of season-verified but stat-incomplete records
+  // before scoring. They are never candidates until Wowhead supplies a positive
+  // item level and at least one positive combat stat, which keeps transmog-only
+  // records out of the optimizer while allowing valid upgraded gear to be found.
+  const hasVerifiedCombatStats = item => {
+    const stats = item?.stats ?? item?.statValues ?? item?.stat_values ?? item?.attributes;
+    const positive = values => Array.isArray(values)
+      ? values.some(stat => Number(stat?.value ?? stat?.amount ?? stat) > 0)
+      : values && typeof values === "object"
+        ? Object.values(values).some(value => Number(value?.value ?? value?.amount ?? value) > 0)
+        : false;
+    return positive(stats) || (Array.isArray(item?.variants) && item.variants.some(variant =>
+      Number(variant?.itemLevel) > 0 && positive(variant?.stats)
+    ));
+  };
+  const pendingById = new Map();
+  // Include on-demand discoveries in the bounded verification queue, but never
+  // promote them directly to scoring: season eligibility must be explicit.
+  const verificationCandidates = requests.flatMap(request => [
+    ...(request.pendingStatVerification || []),
+    ...(request.discoveredItems || []).filter(item =>
+      item?.requiresWowheadVerification === true ||
+      item?.seasonScope !== "Midnight Season 2+" ||
+      !hasVerifiedCombatStats(item)
+    )
+  ]);
+  for (const item of verificationCandidates) {
+    const id = Number(item?.id);
+    if (!Number.isSafeInteger(id) || id <= 0 || pendingById.has(id)) continue;
+    const existing = byId.get(String(id));
+    // The broad retail dataset may already contain the same item ID with no
+    // usable stats. Do not let that incomplete duplicate suppress the verified
+    // slot record's Wowhead lookup.
+    if (existing && hasVerifiedCombatStats(existing)) continue;
+    pendingById.set(id, item);
+  }
+  const pendingLookupIds = [...pendingById.keys()].slice(0, 24);
+  let preScoreWowheadVerified = 0;
+  let preScoreWowheadUnavailable = 0;
+  await Promise.all(pendingLookupIds.map(async id => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/item-lookup?id=${encodeURIComponent(id)}`);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json();
+      const variants = Array.isArray(payload.variants) ? payload.variants.filter(variant => {
+        const stats = variant?.stats;
+        const hasPositiveStats = Array.isArray(stats)
+          ? stats.some(stat => Number(stat?.value ?? stat?.amount) > 0)
+          : stats && typeof stats === "object"
+            ? Object.values(stats).some(value => Number(value?.value ?? value?.amount ?? value) > 0)
+            : false;
+        return Number(variant?.itemLevel) > 0 && hasPositiveStats;
+      }) : [];
+      if (payload.status !== "verified" || !variants.length) {
+        preScoreWowheadUnavailable++;
+        return;
+      }
+      const pending = pendingById.get(id);
+      const base = byId.get(String(id)) || pending;
+      // Preserve the richest slot metadata while enriching an existing broad
+      // catalog record rather than creating a duplicate item ID.
+      for (const field of ["name", "slot", "inventoryType", "itemClass", "itemSubclass", "quality", "isEquippable", "seasonScope", "equipmentCategories"]) {
+        if ((base[field] == null || base[field] === "") && pending[field] != null) base[field] = pending[field];
+      }
+      base.variants = [...(Array.isArray(base.variants) ? base.variants : []), ...variants.map(variant => ({
+        ...variant, id, name: base.name, slot: base.slot, inventoryType: base.inventoryType,
+        itemClass: base.itemClass, itemSubclass: base.itemSubclass, quality: base.quality,
+        isEquippable: base.isEquippable
+      }))];
+      base.wowheadLookupStatus = "verified";
+      base.combatStatsVerifiedBy = "wowhead";
+      base.requiresWowheadVerification = false;
+      // Wowhead stat verification alone does not establish current-season
+      // eligibility. Only add a newly discovered record to the scoring catalog
+      // when the endpoint already supplied explicit season verification.
+      if (!byId.has(String(id)) && base.seasonScope === "Midnight Season 2+") {
+        byId.set(String(id), base);
+        availableItems.push(base);
+      }
+      preScoreWowheadVerified++;
+    } catch (_) {
+      preScoreWowheadUnavailable++;
+    }
+  }));
+
   let report = WoWOptimizer.createOptimizationReport({
     character,
     availableItems,
@@ -780,7 +917,13 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
     ...Object.values(report.optimizedEquipment || {}),
     ...(report.topUpgrades || []).map(entry => entry.recommendedItem).filter(Boolean)
   ];
-  const lookupIds = [...new Set(proposed.map(item => Number(item?.id)).filter(id => Number.isSafeInteger(id) && id > 0))].slice(0, 24);
+  // Verify current equipped variants as well as proposed replacements. Without
+  // these lookups, the current side of the comparison can show only Blizzard's
+  // base record while the recommended side shows a Wowhead-upgraded variant.
+  const equippedForVerification = Object.values(character.equipment || {}).filter(item => item && typeof item === "object");
+  const lookupIds = [...new Set([...proposed, ...equippedForVerification]
+    .map(item => Number(item?.id))
+    .filter(id => Number.isSafeInteger(id) && id > 0))].slice(0, 24);
   let wowheadVerified = 0;
   let wowheadUnavailable = 0;
   const wowheadVariants = [];
@@ -804,18 +947,30 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
       byVariant.set(key, variant);
     }
     for (const variant of byVariant.values()) {
-      const base = availableItems.find(item => Number(item.id) === Number(variant.id));
-      if (!base) continue;
-      base.variants = [...(base.variants || []).filter(existing =>
-        String(existing.variantKey || "") !== String(variant.variantKey || "")
-      ), { ...variant, name: base.name, slot: base.slot, inventoryType: base.inventoryType,
-        itemClass: base.itemClass, itemSubclass: base.itemSubclass,
-        quality: base.quality, isEquippable: base.isEquippable }];
-      base.wowheadLookupStatus = "verified";
+      const id = Number(variant.id);
+      const bases = [
+        ...availableItems.filter(item => Number(item.id) === id),
+        ...equippedForVerification.filter(item => Number(item.id) === id)
+      ];
+      for (const base of new Set(bases)) {
+        base.variants = [...(base.variants || []).filter(existing =>
+          String(existing.variantKey || "") !== String(variant.variantKey || "")
+        ), { ...variant, name: base.name, slot: base.slot || variant.slot,
+          inventoryType: base.inventoryType, itemClass: base.itemClass, itemSubclass: base.itemSubclass,
+          quality: base.quality, isEquippable: base.isEquippable }];
+        base.wowheadLookupStatus = "verified";
+      }
     }
     report = WoWOptimizer.createOptimizationReport({ character, availableItems, dataset: retailDataset });
   }
-  window.__wowheadLookupSummary = { requested: lookupIds.length, verified: wowheadVerified, unavailable: wowheadUnavailable };
+  window.__wowheadLookupSummary = {
+    requested: lookupIds.length + pendingLookupIds.length,
+    verified: wowheadVerified + preScoreWowheadVerified,
+    unavailable: wowheadUnavailable + preScoreWowheadUnavailable,
+    preScoreRequested: pendingLookupIds.length,
+    preScoreVerified: preScoreWowheadVerified,
+    preScoreUnavailable: preScoreWowheadUnavailable
+  };
 
 
   const ratingStatus = report.ratingConstraintStatus;
@@ -855,10 +1010,19 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
   renderCharacterStats(report.currentStats.trackedStats);
   optimizationSource.textContent = report.recommendationStatus === "simulation-weighted-ranking-not-full-stat-projection"
     ? `Simulation-derived stat weights • ${character.goal} • not a full stat projection`
-    : `Static heuristic ranking • ${character.goal} • not spec-specific simulation`;
+    : report.optimizationProfileStatus === "specialization-profile"
+      ? `Specialization-profile heuristic weights • ${character.className} / ${character.specialization} • not simulation-validated`
+      : report.optimizationProfileStatus === "missing-specialization-profile"
+        ? `WARNING: no verified ${character.className} / ${character.specialization} profile • generic fallback weights used • ${character.goal}`
+        : `Static heuristic ranking • ${character.goal} • not spec-specific simulation`;
+  const talentBuild = character.talentBuild;
+  optimizationSource.textContent += talentBuild?.verified
+    ? ` • Talent build detected (${talentBuild.selectedNodeCount} entries); no verified talent-specific scoring profile is available`
+    : " • Talent build unverified; talent-specific scoring is disabled";
 
   renderUpgradeResults(report.topUpgrades);
   renderOptimizedLoadout(report.optimizedEquipment, report.totalScore, WoWOptimizer.normalizeImportedEquipment(importedCharacter?.equipment || []));
+  renderProjectedStatsPanel(report);
   renderCharacterCoach(report, character);
   const resultPlaceholder = document.querySelector("#resultPlaceholder");
   if (resultPlaceholder) resultPlaceholder.style.display = "none";

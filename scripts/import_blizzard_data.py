@@ -17,6 +17,7 @@ from email.utils import parsedate_to_datetime
 try:
     from .equipment_catalog_sections import (
         collect_equipment_section_ids,
+        sections_for_inventory_type,
         validate_required_sections,
         write_section_catalogs,
     )
@@ -24,6 +25,7 @@ except ImportError:  # Support direct execution and importlib-based tests.
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     from equipment_catalog_sections import (
         collect_equipment_section_ids,
+        sections_for_inventory_type,
         validate_required_sections,
         write_section_catalogs,
     )
@@ -583,8 +585,12 @@ def normalize_item(data, source=None):
         },
         "inventoryType": {
             "id": nested_id(inventory_type),
+            "type": inventory_type.get("type") if isinstance(inventory_type, dict) else None,
             "name": localized_name(inventory_type.get("name")) if isinstance(inventory_type, dict) else None,
         },
+        # Stable category labels are derived from Blizzard's canonical inventory
+        # type, not from class/spec guesses or localized names alone.
+        "equipmentCategories": list(sections_for_inventory_type(inventory_type)),
         "isEquippable": data.get("is_equippable"),
         "stats": data.get("stats") or normalize_preview_stats((data.get("preview_item") or {}).get("stats", [])),
         "spells": data.get("spells", []),
@@ -2336,6 +2342,10 @@ def main():
         sys.exit(1)
 
     token = get_access_token(client_id, client_secret)
+
+    # Equipment IDs are discovered on demand by optimizer/API requests. The scheduled
+    # importer refreshes supporting data and independently verifies current-season
+    # source items; it must not scan the entire historical equipment universe.
 
     item_classes = get_api_json(
         "/data/wow/item-class/index",

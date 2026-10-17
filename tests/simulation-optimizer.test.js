@@ -97,6 +97,22 @@ if (upgradeResults.length !== 1 ||
 
 console.log("Step 19 SimulationCraft weighted gear ranking passed.");
 
+const canonicalWeaponRegression = {
+  id: 99101, name: "Verified Main-Hand Weapon", itemLevel: 350,
+  equipmentCategories: ["main-hand"], inventoryType: { type: "WEAPON", name: "Weapon" },
+  itemClass: { name: "Weapon" }, itemSubclass: { name: "Two-Handed Swords" },
+  stats: { Strength: 150, Haste: 45 }
+};
+if (!optimizer.itemMatchesSlot(canonicalWeaponRegression, "Main Hand")) {
+  throw new Error("Canonical equipmentCategories must keep generic Blizzard weapon records eligible for the correct slot");
+}
+if (!optimizer.itemAllowedForClassWeapon(canonicalWeaponRegression, "Main Hand", "Warrior")) {
+  throw new Error("Pluralized Two-Handed Sword subclass must normalize to a usable sword family");
+}
+if (optimizer.itemMatchesSlot({ ...canonicalWeaponRegression, equipmentCategories: ["off-hand"] }, "Main Hand")) {
+  throw new Error("Explicit equipmentCategories must prevent a mismatched slot candidate");
+}
+
 const importedProfile = optimizer.createCharacterProfileFromImport({
   importedCharacter: {
     id: 42,
@@ -133,3 +149,117 @@ if (!appSource.includes("character.simulation = importedSimulation;") ||
   throw new Error("UI simulation import must parse user weights and attach them for imported-character optimization");
 }
 
+
+const noProfileCharacter = optimizer.createCharacterProfileFromImport({
+  importedCharacter: {
+    id: 43,
+    name: "NoProfile",
+    level: 90,
+    class: { name: "Warrior" },
+    activeSpec: { id: 73, name: "Protection" },
+    equipment: []
+  },
+  goal: "Mythic+"
+});
+const noProfileReport = optimizer.createOptimizationReport({
+  character: noProfileCharacter,
+  availableItems: gearCandidates,
+  dataset: { optimizationProfiles: {} }
+});
+if (noProfileReport.optimizationProfileStatus !== "missing-specialization-profile" ||
+    noProfileReport.recommendationStatus !== "generic-fallback-not-specialization-specific" ||
+    !noProfileReport.recommendationLimitations.some(note => note.includes("No verified specialization profile"))) {
+  throw new Error("Missing specialization profiles must be reported instead of presented as spec-specific scoring");
+}
+const caseInsensitiveContext = optimizer.getSpecProfileContext({
+  dataset: { optimizationProfiles: { warrior: { protection: { Strength: 1.7 } } } },
+  className: "Warrior",
+  specialization: "Protection"
+});
+if (caseInsensitiveContext.optimizationProfile?.Strength !== 1.7) {
+  throw new Error("Specialization profile lookup should be case-insensitive");
+}
+if (!appSource.includes("WARNING: no verified") || !appSource.includes("generic fallback weights used")) {
+  throw new Error("UI must clearly warn when generic fallback weights replace missing specialization profiles");
+}
+
+
+const primaryStatEligibility = [
+  {
+    item: { id: 9101, name: "Agility Sword", slot: "Main Hand", itemLevel: 350, stats: { Agility: 120, Haste: 40 } },
+    slot: "Main Hand", className: "Warrior", specialization: "Protection", expected: false
+  },
+  {
+    item: { id: 9102, name: "Intellect Shield", slot: "Off Hand", itemLevel: 350, stats: { Intellect: 120, Mastery: 40 } },
+    slot: "Off Hand", className: "Warrior", specialization: "Protection", expected: false
+  },
+  {
+    item: { id: 9103, name: "Strength Shield", slot: "Off Hand", itemLevel: 350, stats: { Strength: 120, Haste: 40 } },
+    slot: "Off Hand", className: "Warrior", specialization: "Protection", expected: true
+  },
+  {
+    item: { id: 9104, name: "Agility Axe", slot: "Main Hand", itemLevel: 350, stats: { Agility: 120, Haste: 40 } },
+    slot: "Main Hand", className: "Shaman", specialization: "Enhancement", expected: true
+  },
+  {
+    item: { id: 9105, name: "Unknown Primary Stat", slot: "Main Hand", itemLevel: 350, stats: { Haste: 40, Mastery: 40 } },
+    slot: "Main Hand", className: "Warrior", specialization: "Protection", expected: true
+  }
+];
+for (const test of primaryStatEligibility) {
+  const actual = optimizer.itemAllowedForSpecialization(test.item, test.slot, test.className, test.specialization);
+  if (actual !== test.expected) {
+    throw new Error(`Primary-stat eligibility failed for ${test.item.name}: expected ${test.expected}, got ${actual}`);
+  }
+}
+
+const importedWithBuild = optimizer.createCharacterProfileFromImport({
+  importedCharacter: {
+    id: 77, name: "Testwarrior", realm: { name: "Area 52" },
+    class: { name: "Warrior", id: 1 }, activeSpec: { name: "Protection", id: 73 },
+    talents: [{ id: 201, name: "Defensive Talent", rank: 1 }],
+    talentBuild: {
+      source: "Blizzard WoW Profile API", verified: true,
+      specializationName: "Protection", selectedNodes: [{ id: 201, rawNodeId: 9001, rank: 1 }],
+      selectedNodeCount: 1, loadoutName: "Test build"
+    },
+    equipment: []
+  }
+});
+if (!importedWithBuild.talentBuild?.verified ||
+    importedWithBuild.talentBuild.selectedNodes?.[0]?.rawNodeId !== 9001) {
+  throw new Error("Imported active talent build was not passed into the optimizer character profile");
+}
+console.log("Automatic talent context and primary-stat eligibility tests passed.");
+
+
+// Regression: an upgraded variant must be expanded before comparing item level.
+// Both plate tanks share this path; a low-level base record must not hide its
+// verified high-level Mythic+ variant.
+for (const tank of [
+  { className: "Warrior", specialization: "Protection" },
+  { className: "Paladin", specialization: "Protection" }
+]) {
+  const currentPlateItem = {
+    id: 9200, name: "Equipped Plate Helm", slot: "Head", itemLevel: 305,
+    stats: { Strength: 80, Haste: 20 }
+  };
+  const catalogBase = {
+    id: 9201, name: "Upgradable Plate Helm", slot: "Head", itemLevel: 219,
+    stats: { Strength: 20, Haste: 5 },
+    variants: [{
+      itemLevel: 340,
+      slot: "Head",
+      stats: { Strength: 180, Haste: 45, Mastery: 30 }
+    }]
+  };
+  const best = optimizer.findBestItemForSlot(
+    [catalogBase], "Head", "Mythic+", null, tank.className, currentPlateItem, tank.specialization
+  );
+  if (!best || best.item?.itemLevel !== 340) {
+    throw new Error(
+      `Verified upgraded variant was rejected for Protection ${tank.className}: expected ilvl 340, got ${best?.item?.itemLevel ?? "no candidate"}`
+    );
+  }
+}
+console.log("Protection Warrior/Paladin upgraded-variant regression tests passed.");
