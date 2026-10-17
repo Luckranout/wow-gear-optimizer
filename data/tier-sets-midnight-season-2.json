@@ -2199,7 +2199,251 @@
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
-      "baseItemIdsVerified": true
+      "baseItemIdsVerified": true,
+      "verifiedVariantObservations": [
+        {
+          "itemId": 271522,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Battle Gi of the Monkey King",
+          "slot": "Chest",
+          "variant": "Mythic 6/6 observed",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271522/battle-gi-of-the-monkey-king?bonus=13335%3A13690%3A6652%3A13698%3A12854&ilvl=334&spec=269",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 62,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 139,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ]
+        },
+        {
+          "itemId": 271520,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Monkey King's Fighting Fists",
+          "slot": "Hands",
+          "variant": "Mythic 6/6 observed",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271520/monkey-kings-fighting-fists?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 106,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 45,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ]
+        },
+        {
+          "itemId": 271519,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Monkey King's Unyielding Visage",
+          "slot": "Head",
+          "variant": "Mythic 6/6 observed",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271519/monkey-kings-unyielding-visage",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 189,
+              "source": "Wowhead Mythic 6/6 tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead Mythic 6/6 tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead Mythic 6/6 tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 58,
+              "source": "Wowhead Mythic 6/6 tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 142,
+              "source": "Wowhead Mythic 6/6 tooltip, item level 334"
+            }
+          ]
+        },
+        {
+          "itemId": 271518,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Pantaloons of the Monkey King",
+          "slot": "Legs",
+          "variant": "Heroic 3/6 observed",
+          "itemLevel": 311,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271518/pantaloons-of-the-monkey-king?bonus=12843%3A13334%3A13693%3A43%3A13698&ilvl=311&spec=270",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 152,
+              "source": "Wowhead tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 152,
+              "source": "Wowhead tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Wowhead tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 118,
+              "source": "Wowhead tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 65,
+              "source": "Wowhead tooltip, item level 311"
+            }
+          ]
+        },
+        {
+          "itemId": 271517,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Tassels of the Monkey King",
+          "slot": "Shoulders",
+          "variant": "Mythic 6/6 observed",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271517/tassels-of-the-monkey-king?bonus=6652%3A13335%3A12854%3A13694%3A13697%3A1587&ilvl=334&spec=269",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 103,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 47,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ]
+        }
+      ],
+      "variantObservationsStatus": "partial",
+      "variantObservationsNote": "Five exact Wowhead item versions are recorded as evidence only. Chest, hands, head, and shoulders are observed at Mythic 6/6 item level 334; legs are observed at Heroic 3/6 item level 311. This does not establish coverage for all difficulty/upgrade tracks or the complete Monk variant ID map. Do not use these observations as optimizer candidates."
     },
     {
       "class": "Paladin",
