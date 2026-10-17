@@ -51,7 +51,7 @@ class EquipmentCatalogueAuditTests(unittest.TestCase):
         self.assertFalse(report["sections"]["head"]["allGearCoverage"])
         self.assertEqual(report["sections"]["head"]["recordedVariantCount"], 1)
         mage = report["tierVariantCoverage"]["classes"][0]
-        self.assertEqual(mage["missingBaseSlots"], ["Chest", "Hands", "Head", "Legs", "Shoulders"])
+        self.assertEqual(mage["missingBaseSlots"], ["Chest", "Hands", "Legs", "Shoulders"])
         self.assertEqual(mage["observedOnlyVariantRecordsWithLevelAndStats"], 1)
         self.assertEqual(mage["optimizerEligibleVariantRecordsWithLevelAndStats"], 0)
         self.assertEqual(mage["variantCoverageStatus"], "observations-only")
