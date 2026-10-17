@@ -528,3 +528,41 @@ test("Priest source-backed tier item versions remain evidence-only and match Wow
   assert.equal(priest.itemIdsVerified, false,
     "partial observed versions must not promote the complete class variant map");
 });
+
+
+test("Warlock source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
+  const warlock = catalogue.sets.find(set => set.class === "Warlock");
+  const observations = warlock.verifiedVariantObservations || [];
+  assert.equal(observations.length, 5);
+  assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
+  assert.equal(warlock.variantObservationsStatus, "partial");
+  assert.match(warlock.variantObservationsNote, /head is observed only at base item level 219/i);
+  const manifestSet = manifest.sets.find(set => set.className === "Warlock");
+  const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
+  for (const piece of observations) {
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/"));
+    const sourceLevel = new URL(piece.sourceUrl).searchParams.get("ilvl");
+    if (sourceLevel) assert.equal(Number(sourceLevel), piece.itemLevel);
+    assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    assert.ok(piece.stats.length >= 4);
+    assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
+  }
+  const expected = {
+    271549: { intellect: 189, stamina: 3910, haste: 141, mastery: 60 },
+    271547: { intellect: 138, stamina: 2832, criticalStrike: 44, haste: 105 },
+    271546: { intellect: 65, stamina: 1005, versatility: 34, mastery: 73 },
+    271545: { intellect: 189, stamina: 3910, haste: 141, mastery: 60 },
+    271544: { intellect: 141, stamina: 2932, haste: 50, versatility: 101 }
+  };
+  for (const piece of observations) {
+    assert.deepEqual(
+      Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])),
+      expected[piece.itemId]
+    );
+  }
+  assert.equal(observations.find(piece => piece.itemId === 271546).itemLevel, 219);
+  assert.equal(warlock.itemIdsVerified, false,
+    "partial observed versions must not promote the complete class variant map");
+});
