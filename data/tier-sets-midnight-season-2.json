@@ -9,7 +9,7 @@
     "name": "Wowhead Midnight Season 2 Tier Set Overview and item pages",
     "url": "https://www.wowhead.com/guide/classes/shaman/enhancement/midnight-season-2",
     "accessedAt": "2026-10-13",
-    "scope": "Tier bonus descriptions plus manifest-verified base item IDs and slots for all 13 class sets. Only Shaman has verified appearance variants and item stats. Numeric set bonus scoring remains disabled absent simulation-derived values."
+    "scope": "Tier bonus descriptions and base item IDs/slots for all 13 classes; secondary-stat pair profiles are sourced from Method's Midnight Season 2 tier set stats guide. Only Shaman has variant mappings and numeric item stats; non-Shaman variant IDs/item levels/numeric stats remain unverified. Numeric set bonus scoring remains disabled."
   },
   "thresholds": [
     2,
@@ -81,35 +81,65 @@
           "setId": "baleful-grave-knight-s-crucible",
           "name": "Baleful Grave-Knight's Breastplate",
           "slot": "Chest",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271477/baleful-grave-knights-breastplate"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271477/baleful-grave-knights-breastplate",
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271475,
           "setId": "baleful-grave-knight-s-crucible",
           "name": "Baleful Grave-Knight's Deathgrips",
           "slot": "Hands",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271475/baleful-grave-knights-deathgrips"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271475/baleful-grave-knights-deathgrips",
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271474,
           "setId": "baleful-grave-knight-s-crucible",
           "name": "Baleful Grave-Knight's Casque",
           "slot": "Head",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271474/baleful-grave-knights-casque"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271474/baleful-grave-knights-casque",
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271473,
           "setId": "baleful-grave-knight-s-crucible",
           "name": "Baleful Grave-Knight's Greaves",
           "slot": "Legs",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271473/baleful-grave-knights-greaves"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271473/baleful-grave-knights-greaves",
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271472,
           "setId": "baleful-grave-knight-s-crucible",
           "name": "Baleful Grave-Knight's Gibbets",
           "slot": "Shoulders",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271472/baleful-grave-knights-gibbets"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271472/baleful-grave-knights-gibbets",
+          "secondaryStats": [
+            "Versatility",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "baseItemIdsVerified": true
@@ -177,35 +207,65 @@
           "setId": "abyssal-doomhound-s-pursuit",
           "name": "Abyssal Doomhound's Coreguard",
           "slot": "Chest",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271540/abyssal-doomhounds-coreguard"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271540/abyssal-doomhounds-coreguard",
+          "secondaryStats": [
+            "Haste",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271538,
           "setId": "abyssal-doomhound-s-pursuit",
           "name": "Abyssal Doomhound's Studded Gauntlets",
           "slot": "Hands",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271538/abyssal-doomhounds-studded-gauntlets"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271538/abyssal-doomhounds-studded-gauntlets",
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271537,
           "setId": "abyssal-doomhound-s-pursuit",
           "name": "Abyssal Doomhound's Relentless Stare",
           "slot": "Head",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271537/abyssal-doomhounds-relentless-stare"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271537/abyssal-doomhounds-relentless-stare",
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271536,
           "setId": "abyssal-doomhound-s-pursuit",
           "name": "Abyssal Doomhound's Legwraps",
           "slot": "Legs",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271536/abyssal-doomhounds-legwraps"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271536/abyssal-doomhounds-legwraps",
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271535,
           "setId": "abyssal-doomhound-s-pursuit",
           "name": "Abyssal Doomhound's Jaws",
           "slot": "Shoulders",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271535/abyssal-doomhounds-jaws"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271535/abyssal-doomhounds-jaws",
+          "secondaryStats": [
+            "Versatility",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "baseItemIdsVerified": true
@@ -278,35 +338,65 @@
           "setId": "bark-of-the-enigmatic-dreamwatcher",
           "name": "Enigmatic Dreamwatcher's Lunar Raiment",
           "slot": "Chest",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271531/enigmatic-dreamwatchers-lunar-raiment"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271531/enigmatic-dreamwatchers-lunar-raiment",
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271529,
           "setId": "bark-of-the-enigmatic-dreamwatcher",
           "name": "Enigmatic Dreamwatcher's Gauntlets",
           "slot": "Hands",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271529/enigmatic-dreamwatchers-gauntlets"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271529/enigmatic-dreamwatchers-gauntlets",
+          "secondaryStats": [
+            "Versatility",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271528,
           "setId": "bark-of-the-enigmatic-dreamwatcher",
           "name": "Enigmatic Dreamwatcher's Somnolent Stare",
           "slot": "Head",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271528/enigmatic-dreamwatchers-somnolent-stare"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271528/enigmatic-dreamwatchers-somnolent-stare",
+          "secondaryStats": [
+            "Haste",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271527,
           "setId": "bark-of-the-enigmatic-dreamwatcher",
           "name": "Enigmatic Dreamwatcher's Leggings",
           "slot": "Legs",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271527/enigmatic-dreamwatchers-leggings"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271527/enigmatic-dreamwatchers-leggings",
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271526,
           "setId": "bark-of-the-enigmatic-dreamwatcher",
           "name": "Enigmatic Dreamwatcher's Plumage",
           "slot": "Shoulders",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271526/enigmatic-dreamwatchers-plumage"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271526/enigmatic-dreamwatchers-plumage",
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "baseItemIdsVerified": true
@@ -374,35 +464,65 @@
           "setId": "echo-of-calamity",
           "name": "Searing Caldera of Calamity",
           "slot": "Chest",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271504/searing-caldera-of-calamity"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271504/searing-caldera-of-calamity",
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271502,
           "setId": "echo-of-calamity",
           "name": "Calamitous Echo's Ebon Greathorns",
           "slot": "Hands",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271502/calamitous-echos-ebon-greathorns"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271502/calamitous-echos-ebon-greathorns",
+          "secondaryStats": [
+            "Haste",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271501,
           "setId": "echo-of-calamity",
           "name": "Calamitous Echo's Magmashapers",
           "slot": "Head",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271501/calamitous-echos-magmashapers"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271501/calamitous-echos-magmashapers",
+          "secondaryStats": [
+            "Haste",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271500,
           "setId": "echo-of-calamity",
           "name": "Earthen Pillars of Calamity",
           "slot": "Legs",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271500/earthen-pillars-of-calamity"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271500/earthen-pillars-of-calamity",
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271499,
           "setId": "echo-of-calamity",
           "name": "Calamitous Echo's Sundered Peaks",
           "slot": "Shoulders",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271499/calamitous-echos-sundered-peaks"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271499/calamitous-echos-sundered-peaks",
+          "secondaryStats": [
+            "Critical Strike",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "baseItemIdsVerified": true
@@ -470,35 +590,65 @@
           "setId": "skulking-viper-s-ambush",
           "name": "Skulking Viper's Scuteplate",
           "slot": "Chest",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271495/skulking-vipers-scuteplate"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271495/skulking-vipers-scuteplate",
+          "secondaryStats": [
+            "Mastery",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271493,
           "setId": "skulking-viper-s-ambush",
           "name": "Skulking Viper's Hidepiercers",
           "slot": "Hands",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271493/skulking-vipers-hidepiercers"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271493/skulking-vipers-hidepiercers",
+          "secondaryStats": [
+            "Haste",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271492,
           "setId": "skulking-viper-s-ambush",
           "name": "Skulking Viper's Weeping Fangs",
           "slot": "Head",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271492/skulking-vipers-weeping-fangs"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271492/skulking-vipers-weeping-fangs",
+          "secondaryStats": [
+            "Haste",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271491,
           "setId": "skulking-viper-s-ambush",
           "name": "Skulking Viper's Coiled Legwraps",
           "slot": "Legs",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271491/skulking-vipers-coiled-legwraps"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271491/skulking-vipers-coiled-legwraps",
+          "secondaryStats": [
+            "Mastery",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271490,
           "setId": "skulking-viper-s-ambush",
           "name": "Jaws of the Skulking Viper",
           "slot": "Shoulders",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271490/jaws-of-the-skulking-viper"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271490/jaws-of-the-skulking-viper",
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "baseItemIdsVerified": true
@@ -566,35 +716,65 @@
           "setId": "primal-leywarden-s-attire",
           "name": "Crest of the Primal Leywarden",
           "slot": "Chest",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271567/crest-of-the-primal-leywarden"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271567/crest-of-the-primal-leywarden",
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271565,
           "setId": "primal-leywarden-s-attire",
           "name": "Primal Leywarden's Manashapers",
           "slot": "Hands",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271565/primal-leywardens-manashapers"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271565/primal-leywardens-manashapers",
+          "secondaryStats": [
+            "Mastery",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271564,
           "setId": "primal-leywarden-s-attire",
           "name": "Crown of the Primal Leywarden",
           "slot": "Head",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271564/crown-of-the-primal-leywarden"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271564/crown-of-the-primal-leywarden",
+          "secondaryStats": [
+            "Haste",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271563,
           "setId": "primal-leywarden-s-attire",
           "name": "Primal Leywarden's Tailored Legwraps",
           "slot": "Legs",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271563/primal-leywardens-tailored-legwraps"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271563/primal-leywardens-tailored-legwraps",
+          "secondaryStats": [
+            "Versatility",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271562,
           "setId": "primal-leywarden-s-attire",
           "name": "Primal Leywarden's Manaflux",
           "slot": "Shoulders",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271562/primal-leywardens-manaflux"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271562/primal-leywardens-manaflux",
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "baseItemIdsVerified": true
@@ -662,35 +842,65 @@
           "setId": "guile-of-the-monkey-king",
           "name": "Battle Gi of the Monkey King",
           "slot": "Chest",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271522/battle-gi-of-the-monkey-king"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271522/battle-gi-of-the-monkey-king",
+          "secondaryStats": [
+            "Mastery",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271520,
           "setId": "guile-of-the-monkey-king",
           "name": "Monkey King's Fighting Fists",
           "slot": "Hands",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271520/monkey-kings-fighting-fists"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271520/monkey-kings-fighting-fists",
+          "secondaryStats": [
+            "Haste",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271519,
           "setId": "guile-of-the-monkey-king",
           "name": "Monkey King's Unyielding Visage",
           "slot": "Head",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271519/monkey-kings-unyielding-visage"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271519/monkey-kings-unyielding-visage",
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271518,
           "setId": "guile-of-the-monkey-king",
           "name": "Pantaloons of the Monkey King",
           "slot": "Legs",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271518/pantaloons-of-the-monkey-king"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271518/pantaloons-of-the-monkey-king",
+          "secondaryStats": [
+            "Critical Strike",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271517,
           "setId": "guile-of-the-monkey-king",
           "name": "Tassels of the Monkey King",
           "slot": "Shoulders",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271517/tassels-of-the-monkey-king"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271517/tassels-of-the-monkey-king",
+          "secondaryStats": [
+            "Haste",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "baseItemIdsVerified": true
@@ -758,35 +968,65 @@
           "setId": "radiance-of-the-consecrated-flame",
           "name": "Bulwark of the Consecrated Flame",
           "slot": "Chest",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271468/bulwark-of-the-consecrated-flame"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271468/bulwark-of-the-consecrated-flame",
+          "secondaryStats": [
+            "Mastery",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271466,
           "setId": "radiance-of-the-consecrated-flame",
           "name": "Gauntlets of the Consecrated Flame",
           "slot": "Hands",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271466/gauntlets-of-the-consecrated-flame"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271466/gauntlets-of-the-consecrated-flame",
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271465,
           "setId": "radiance-of-the-consecrated-flame",
           "name": "Warhelm of the Consecrated Flame",
           "slot": "Head",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271465/warhelm-of-the-consecrated-flame"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271465/warhelm-of-the-consecrated-flame",
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271464,
           "setId": "radiance-of-the-consecrated-flame",
           "name": "Greaves of the Consecrated Flame",
           "slot": "Legs",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271464/greaves-of-the-consecrated-flame"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271464/greaves-of-the-consecrated-flame",
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271463,
           "setId": "radiance-of-the-consecrated-flame",
           "name": "Pauldrons of the Consecrated Flame",
           "slot": "Shoulders",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271463/pauldrons-of-the-consecrated-flame"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271463/pauldrons-of-the-consecrated-flame",
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "baseItemIdsVerified": true
@@ -854,35 +1094,65 @@
           "setId": "cosmic-penitent-s-raiment",
           "name": "Cosmic Penitent's Eclipsing Robes",
           "slot": "Chest",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271558/cosmic-penitents-eclipsing-robes"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271558/cosmic-penitents-eclipsing-robes",
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271556,
           "setId": "cosmic-penitent-s-raiment",
           "name": "Cosmic Penitent's Celestial Grips",
           "slot": "Hands",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271556/cosmic-penitents-celestial-grips"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271556/cosmic-penitents-celestial-grips",
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271555,
           "setId": "cosmic-penitent-s-raiment",
           "name": "Cosmic Penitent's Truesight",
           "slot": "Head",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271555/cosmic-penitents-truesight"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271555/cosmic-penitents-truesight",
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271554,
           "setId": "cosmic-penitent-s-raiment",
           "name": "Enveloping Legwraps of the Cosmic Penitent",
           "slot": "Legs",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271554/enveloping-legwraps-of-the-cosmic-penitent"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271554/enveloping-legwraps-of-the-cosmic-penitent",
+          "secondaryStats": [
+            "Haste",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271553,
           "setId": "cosmic-penitent-s-raiment",
           "name": "Cosmic Penitent's Echoing Screams",
           "slot": "Shoulders",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271553/cosmic-penitents-echoing-screams"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271553/cosmic-penitents-echoing-screams",
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "baseItemIdsVerified": true
@@ -950,35 +1220,65 @@
           "setId": "chosen-bloodslayer-s-hexweave",
           "name": "Chosen Bloodslayer's Banded Poncho",
           "slot": "Chest",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271513/chosen-bloodslayers-banded-poncho"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271513/chosen-bloodslayers-banded-poncho",
+          "secondaryStats": [
+            "Haste",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271511,
           "setId": "chosen-bloodslayer-s-hexweave",
           "name": "Chosen Bloodslayer's Fanged Grips",
           "slot": "Hands",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271511/chosen-bloodslayers-fanged-grips"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271511/chosen-bloodslayers-fanged-grips",
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271510,
           "setId": "chosen-bloodslayer-s-hexweave",
           "name": "Chosen Bloodslayer's Spirit Shroud",
           "slot": "Head",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271510/chosen-bloodslayers-spirit-shroud"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271510/chosen-bloodslayers-spirit-shroud",
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271509,
           "setId": "chosen-bloodslayer-s-hexweave",
           "name": "Chosen Bloodslayer's Reinforced Pants",
           "slot": "Legs",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271509/chosen-bloodslayers-reinforced-pants"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271509/chosen-bloodslayers-reinforced-pants",
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271508,
           "setId": "chosen-bloodslayer-s-hexweave",
           "name": "Chosen Bloodslayer's Voodoo Guards",
           "slot": "Shoulders",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271508/chosen-bloodslayers-voodoo-guards"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271508/chosen-bloodslayers-voodoo-guards",
+          "secondaryStats": [
+            "Versatility",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "baseItemIdsVerified": true
@@ -1075,7 +1375,13 @@
               "value": 112,
               "source": "Wowhead item page; season variant"
             }
-          ]
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271483,
@@ -1115,7 +1421,13 @@
               "value": 120,
               "source": "Wowhead item page; season variant"
             }
-          ]
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271483,
@@ -1155,7 +1467,13 @@
               "value": 127,
               "source": "Wowhead item page; season variant"
             }
-          ]
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271483,
@@ -1195,7 +1513,13 @@
               "value": 134,
               "source": "Wowhead item page; season variant"
             }
-          ]
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271483,
@@ -1203,7 +1527,13 @@
           "name": "Serpent Crown of the Ophidian Oracle",
           "slot": "Head",
           "variant": "Gladiator",
-          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle"
+          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle",
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271483,
@@ -1211,7 +1541,13 @@
           "name": "Serpent Crown of the Ophidian Oracle",
           "slot": "Head",
           "variant": "Elite",
-          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle"
+          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle",
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271481,
@@ -1251,7 +1587,13 @@
               "value": 78,
               "source": "Wowhead item page; season variant"
             }
-          ]
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271481,
@@ -1291,7 +1633,13 @@
               "value": 83,
               "source": "Wowhead item page; season variant"
             }
-          ]
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271481,
@@ -1331,7 +1679,13 @@
               "value": 89,
               "source": "Wowhead item page; season variant"
             }
-          ]
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271481,
@@ -1371,7 +1725,13 @@
               "value": 94,
               "source": "Wowhead item page; season variant"
             }
-          ]
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271481,
@@ -1379,7 +1739,13 @@
           "name": "Hissing Mantle of the Ophidian Oracle",
           "slot": "Shoulders",
           "variant": "Gladiator",
-          "sourceUrl": "https://www.wowhead.com/item=271481/hissing-mantle-of-the-ophidian-oracle"
+          "sourceUrl": "https://www.wowhead.com/item=271481/hissing-mantle-of-the-ophidian-oracle",
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271481,
@@ -1387,7 +1753,13 @@
           "name": "Hissing Mantle of the Ophidian Oracle",
           "slot": "Shoulders",
           "variant": "Elite",
-          "sourceUrl": "https://www.wowhead.com/item=271481/hissing-mantle-of-the-ophidian-oracle"
+          "sourceUrl": "https://www.wowhead.com/item=271481/hissing-mantle-of-the-ophidian-oracle",
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271486,
@@ -1427,7 +1799,13 @@
               "value": 48,
               "source": "Wowhead item page; season variant"
             }
-          ]
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271486,
@@ -1467,7 +1845,13 @@
               "value": 52,
               "source": "Wowhead item page; season variant"
             }
-          ]
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271486,
@@ -1507,7 +1891,13 @@
               "value": 55,
               "source": "Wowhead item page; season variant"
             }
-          ]
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271486,
@@ -1547,7 +1937,13 @@
               "value": 58,
               "source": "Wowhead item page; season variant"
             }
-          ]
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271486,
@@ -1555,7 +1951,13 @@
           "name": "Fanged Raiment of the Ophidian Oracle",
           "slot": "Chest",
           "variant": "Gladiator",
-          "sourceUrl": "https://www.wowhead.com/item=271486/fanged-raiment-of-the-ophidian-oracle"
+          "sourceUrl": "https://www.wowhead.com/item=271486/fanged-raiment-of-the-ophidian-oracle",
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271486,
@@ -1563,7 +1965,13 @@
           "name": "Fanged Raiment of the Ophidian Oracle",
           "slot": "Chest",
           "variant": "Elite",
-          "sourceUrl": "https://www.wowhead.com/item=271486/fanged-raiment-of-the-ophidian-oracle"
+          "sourceUrl": "https://www.wowhead.com/item=271486/fanged-raiment-of-the-ophidian-oracle",
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271484,
@@ -1603,7 +2011,13 @@
               "value": 83,
               "source": "Wowhead item page; season variant"
             }
-          ]
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271484,
@@ -1643,7 +2057,13 @@
               "value": 88,
               "source": "Wowhead item page; season variant"
             }
-          ]
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271484,
@@ -1683,7 +2103,13 @@
               "value": 94,
               "source": "Wowhead item page; season variant"
             }
-          ]
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271484,
@@ -1723,7 +2149,13 @@
               "value": 99,
               "source": "Wowhead item page; season variant"
             }
-          ]
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271484,
@@ -1731,7 +2163,13 @@
           "name": "Hexing Grips of the Ophidian Oracle",
           "slot": "Hands",
           "variant": "Gladiator",
-          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle"
+          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle",
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271484,
@@ -1739,7 +2177,13 @@
           "name": "Hexing Grips of the Ophidian Oracle",
           "slot": "Hands",
           "variant": "Elite",
-          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle"
+          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle",
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271482,
@@ -1779,7 +2223,13 @@
               "value": 105,
               "source": "Wowhead item page; season variant"
             }
-          ]
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271482,
@@ -1819,7 +2269,13 @@
               "value": 112,
               "source": "Wowhead item page; season variant"
             }
-          ]
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271482,
@@ -1859,7 +2315,13 @@
               "value": 119,
               "source": "Wowhead item page; season variant"
             }
-          ]
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271482,
@@ -1899,7 +2361,13 @@
               "value": 125,
               "source": "Wowhead item page; season variant"
             }
-          ]
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271482,
@@ -1907,7 +2375,13 @@
           "name": "Leggings of the Ophidian Oracle",
           "slot": "Legs",
           "variant": "Gladiator",
-          "sourceUrl": "https://www.wowhead.com/item=271482/leggings-of-the-ophidian-oracle"
+          "sourceUrl": "https://www.wowhead.com/item=271482/leggings-of-the-ophidian-oracle",
+          "secondaryStats": [
+            "Versatility",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271482,
@@ -1915,7 +2389,13 @@
           "name": "Leggings of the Ophidian Oracle",
           "slot": "Legs",
           "variant": "Elite",
-          "sourceUrl": "https://www.wowhead.com/item=271482/leggings-of-the-ophidian-oracle"
+          "sourceUrl": "https://www.wowhead.com/item=271482/leggings-of-the-ophidian-oracle",
+          "secondaryStats": [
+            "Versatility",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "itemIdsVerified": true,
@@ -1984,35 +2464,65 @@
           "setId": "damned-necrolyte-s-shattered-restraints",
           "name": "Damned Necrolyte's Rattling Robes",
           "slot": "Chest",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271549/damned-necrolytes-rattling-robes"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271549/damned-necrolytes-rattling-robes",
+          "secondaryStats": [
+            "Haste",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271547,
           "setId": "damned-necrolyte-s-shattered-restraints",
           "name": "Damned Necrolyte's Charred Grasps",
           "slot": "Hands",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271547/damned-necrolytes-charred-grasps"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271547/damned-necrolytes-charred-grasps",
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271546,
           "setId": "damned-necrolyte-s-shattered-restraints",
           "name": "Skull of the Damned Necrolyte",
           "slot": "Head",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271546/skull-of-the-damned-necrolyte"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271546/skull-of-the-damned-necrolyte",
+          "secondaryStats": [
+            "Mastery",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271545,
           "setId": "damned-necrolyte-s-shattered-restraints",
           "name": "Damned Necrolyte's Leg Bindings",
           "slot": "Legs",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271545/damned-necrolytes-leg-bindings"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271545/damned-necrolytes-leg-bindings",
+          "secondaryStats": [
+            "Haste",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271544,
           "setId": "damned-necrolyte-s-shattered-restraints",
           "name": "Spires of the Damned Necrolyte",
           "slot": "Shoulders",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271544/spires-of-the-damned-necrolyte"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271544/spires-of-the-damned-necrolyte",
+          "secondaryStats": [
+            "Versatility",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "baseItemIdsVerified": true
@@ -2080,35 +2590,65 @@
           "setId": "jade-warlord-s-dominion",
           "name": "Cuirass of the Jade Warlord",
           "slot": "Chest",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271459/cuirass-of-the-jade-warlord"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271459/cuirass-of-the-jade-warlord",
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271457,
           "setId": "jade-warlord-s-dominion",
           "name": "Jeweled Gauntlets of the Jade Warlord",
           "slot": "Hands",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271457/jeweled-gauntlets-of-the-jade-warlord"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271457/jeweled-gauntlets-of-the-jade-warlord",
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271456,
           "setId": "jade-warlord-s-dominion",
           "name": "Tempered Horns of the Jade Warlord",
           "slot": "Head",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271456/tempered-horns-of-the-jade-warlord"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271456/tempered-horns-of-the-jade-warlord",
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271455,
           "setId": "jade-warlord-s-dominion",
           "name": "Greaves of the Jade Warlord",
           "slot": "Legs",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271455/greaves-of-the-jade-warlord"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271455/greaves-of-the-jade-warlord",
+          "secondaryStats": [
+            "Versatility",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271454,
           "setId": "jade-warlord-s-dominion",
           "name": "Raging Pauldrons of the Jade Warlord",
           "slot": "Shoulders",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271454/raging-pauldrons-of-the-jade-warlord"
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271454/raging-pauldrons-of-the-jade-warlord",
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "baseItemIdsVerified": true
@@ -2138,7 +2678,7 @@
       "Gladiator",
       "Elite"
     ],
-    "note": "Shaman has verified variant mappings and stats. All 13 classes have manifest-matched base item IDs and slots in basePieces, but non-Shaman variant mappings and stats remain unverified; base-only records are metadata and never optimizer candidates.",
+    "note": "Shaman has verified variant mappings and numeric item stats. All 13 classes have manifest-matched base item IDs/slots and Method-sourced secondary-stat pair profiles in basePieces (or Shaman variant records). Non-Shaman variant item-level mappings and numeric stats remain unverified; base-only records are metadata and never optimizer candidates.",
     "verifiedClasses": [
       "Shaman"
     ],
@@ -2146,6 +2686,21 @@
       "Shaman"
     ],
     "baseItemIdsVerifiedClasses": [
+      "Death Knight",
+      "Demon Hunter",
+      "Druid",
+      "Evoker",
+      "Hunter",
+      "Mage",
+      "Monk",
+      "Paladin",
+      "Priest",
+      "Rogue",
+      "Shaman",
+      "Warlock",
+      "Warrior"
+    ],
+    "secondaryStatsProfileVerifiedClasses": [
       "Death Knight",
       "Demon Hunter",
       "Druid",
