@@ -3,12 +3,17 @@ const vm = require("vm");
 
 const context = { window: {}, fetch: async url => {
   const requested = String(url);
-  const path = requested.includes("tier-sets-midnight-season-2.json") ? "data/tier-sets-midnight-season-2.json" : requested.includes("data/equipment-sections/") ? requested : "data/current-retail.json";
+  const path = requested.includes("tier-sets-midnight-season-2.json") ? "data/tier-sets-midnight-season-2.json" : requested.includes("tier-set-item-ids.json") ? "data/tier-set-item-ids.json" : requested.includes("data/equipment-sections/") ? requested : "data/current-retail.json";
   return { ok: true, json: async () => JSON.parse(fs.readFileSync(path, "utf8")) };
 } };
 vm.createContext(context);
 vm.runInContext(fs.readFileSync("wow-data.js", "utf8"), context);
 const dataLayer = context.window.WoWData;
+const optimizerContext = { window: {} };
+vm.createContext(optimizerContext);
+vm.runInContext(fs.readFileSync("optimizer.js", "utf8"), optimizerContext);
+const optimizer = optimizerContext.window.WoWOptimizer;
+
 const tierCatalogue = JSON.parse(fs.readFileSync("data/tier-sets-midnight-season-2.json", "utf8"));
 const tierCatalogueErrors = dataLayer.validateTierSetCatalogue(tierCatalogue);
 if (tierCatalogueErrors.length) {
@@ -68,6 +73,51 @@ if (validation.length) throw new Error("Normalized test dataset failed validatio
     }
   }
   if (dataLayer.validateRetailDataset(real).length) throw new Error("Real retail dataset failed validation");
+
+  // Every class must use the manifest's canonical set ID even when an item
+  // record carries a different raw set label. Verify 2pc/4pc activation across
+  // the five eligible slots and ensure the fifth piece adds no new threshold.
+  const manifest = JSON.parse(fs.readFileSync("data/tier-set-item-ids.json", "utf8"));
+  if (manifest.sets.length !== 13) throw new Error("Expected 13 verified class tier-set mappings");
+  for (const manifestSet of manifest.sets) {
+    const definition = real.setBonuses.find(set => String(set.setId) === String(manifestSet.setId));
+    if (!definition) throw new Error("Missing optimizer tier-set definition for " + manifestSet.className);
+    for (const piece of manifestSet.pieces) {
+      const resolvedId = optimizer.getItemSetId({
+        id: piece.itemId, name: piece.name, setId: "inconsistent-source-set-id"
+      }, real.setBonuses);
+      if (String(resolvedId) !== String(manifestSet.setId).toLowerCase()) {
+        throw new Error("Verified item ID did not resolve to canonical tier set for " + manifestSet.className + ": " + resolvedId);
+      }
+    }
+    const specName = tierCatalogue.sets.find(set => set.class === manifestSet.className)?.specs?.[0]?.[0];
+    if (!specName) throw new Error("Missing specialization bonus descriptions for " + manifestSet.className);
+    const buildLoadout = count => Object.fromEntries(manifestSet.pieces.slice(0, count).map(piece => [
+      piece.slot,
+      { id: piece.itemId, itemId: piece.itemId, name: piece.name, slot: piece.slot, setId: "inconsistent-source-set-id" }
+    ]));
+    const two = optimizer.getSetBonusStatus(buildLoadout(2), real.setBonuses, specName);
+    const four = optimizer.getSetBonusStatus(buildLoadout(4), real.setBonuses, specName);
+    const five = optimizer.getSetBonusStatus(buildLoadout(5), real.setBonuses, specName);
+    const active = (status, threshold) => status.bonuses.find(bonus =>
+      String(bonus.setId) === String(manifestSet.setId).toLowerCase() &&
+      bonus.requiredPieces === threshold
+    );
+    if (active(two, 2)?.active !== true || active(two, 4)?.active !== false ||
+        active(four, 2)?.active !== true || active(four, 4)?.active !== true ||
+        active(five, 2)?.active !== true || active(five, 4)?.active !== true ||
+        five.counts[String(manifestSet.setId).toLowerCase()] !== 5) {
+      throw new Error("Tier threshold counting failed for " + manifestSet.className);
+    }
+    if (typeof active(two, 2)?.effect !== "string" || !active(two, 2).effect ||
+        typeof active(four, 4)?.effect !== "string" || !active(four, 4).effect) {
+      throw new Error("Specialization-specific bonus descriptions were not attached for " + manifestSet.className);
+    }
+    if (active(four, 2)?.scoreValue !== null || active(four, 4)?.scoreValue !== null) {
+      throw new Error("Unverified numeric bonus scores must remain disabled for " + manifestSet.className);
+    }
+  }
+  console.log("All 13 class tier-set IDs, specialization descriptions, 2pc/4pc thresholds, and optional fifth-piece behavior passed.");
 
   // Tier-set coverage is an optional enhancement: a missing/broken tier file
   // must not disable otherwise-valid PvE equipment optimization.

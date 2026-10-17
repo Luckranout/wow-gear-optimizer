@@ -584,18 +584,27 @@ function getItemSetId(item, setBonuses = []) {
   const set = item?.set;
   const raw = item?.tierSetId ?? item?.setId ??
     (set && typeof set === "object" ? (set.id ?? set.name) : set);
-  if (raw !== null && raw !== undefined && String(raw).trim() !== "") {
-    return normalizeSetIdentity(raw);
-  }
-
-  // Blizzard item records do not always expose a set identity on the equipped
-  // item. Fall back to explicit, source-backed item IDs/names in the set
-  // definitions; never infer set membership from class, faction, or item level.
+  const rawIdentity = normalizeSetIdentity(raw);
   const itemId = Number(item?.id ?? item?.itemId);
   const itemName = normalizeSetIdentity(item?.name);
+
+  // Normalize source-specific identifiers (for example, Wowhead slugs) to the
+  // verified manifest ID when a definition explicitly declares those aliases.
   for (const definition of setBonuses || []) {
-    const setId = normalizeSetIdentity(definition?.setId ?? definition?.id ?? definition?.name);
-    if (!setId) continue;
+    const canonicalId = normalizeSetIdentity(definition?.setId ?? definition?.id ?? definition?.name);
+    if (!canonicalId) continue;
+    const aliases = Array.isArray(definition.aliases) ? definition.aliases : [];
+    if (rawIdentity && [canonicalId, ...aliases.map(normalizeSetIdentity)].includes(rawIdentity)) {
+      return canonicalId;
+    }
+  }
+
+  // Blizzard item records do not always expose a consistent set identity.
+  // Prefer verified item-ID/name membership over an unrelated raw set label;
+  // this also handles Catalyst-converted variants whose metadata differs.
+  for (const definition of setBonuses || []) {
+    const canonicalId = normalizeSetIdentity(definition?.setId ?? definition?.id ?? definition?.name);
+    if (!canonicalId) continue;
     const pieces = Array.isArray(definition.pieces) ? definition.pieces : [];
     const matches = pieces.some(piece => {
       if (typeof piece === "number" || typeof piece === "string") {
@@ -608,11 +617,13 @@ function getItemSetId(item, setBonuses = []) {
       return (Number.isFinite(itemId) && Number.isFinite(pieceId) && itemId === pieceId) ||
         (itemName && pieceName === itemName);
     });
-    if (matches) return setId;
+    if (matches) return canonicalId;
   }
-  return null;
-}
 
+  // Preserve unrelated set identities for definitions supplied by other data
+  // sources, but never let them override a verified manifest piece match.
+  return rawIdentity;
+}
 function getSetBonusStatus(equipment = {}, setBonuses = [], specialization = "") {
   const counts = {};
   for (const item of Object.values(equipment || {})) {
