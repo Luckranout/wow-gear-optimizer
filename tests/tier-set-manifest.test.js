@@ -356,3 +356,78 @@ test("upgrade-opportunity search rejects unsupported base downgrade but recogniz
     "upgrade shortlist must return the verified variant, not its 219 base");
   assert.equal(chestUpgrade.recommendedItem.variantKey, "wowhead:myth-6-6:ilvl334");
 });
+
+
+test("class and specialization eligibility rejects incompatible primary stats and weapons", () => {
+  const sandbox = { window: {} };
+  vm.runInNewContext(
+    fs.readFileSync(path.join(root, "optimizer.js"), "utf8"),
+    sandbox,
+    { filename: "optimizer.js" }
+  );
+  const optimizer = sandbox.window.WoWOptimizer;
+  const intellectCasterChest = {
+    id: 880001, name: "Caster Chest", slot: "Chest", itemLevel: 340,
+    stats: [{ type: { name: "intellect" }, value: 200 }, { type: { name: "haste" }, value: 100 }]
+  };
+  const agilityChest = {
+    id: 880002, name: "Agility Chest", slot: "Chest", itemLevel: 340,
+    stats: [{ type: { name: "agility" }, value: 200 }, { type: { name: "haste" }, value: 100 }]
+  };
+  assert.equal(optimizer.expectedPrimaryStat("Shaman", "Enhancement"), "Agility");
+  assert.equal(optimizer.itemAllowedForSpecialization(intellectCasterChest, "Chest", "Shaman", "Enhancement"), false);
+  assert.equal(optimizer.itemAllowedForSpecialization(agilityChest, "Chest", "Shaman", "Enhancement"), true);
+  assert.equal(optimizer.itemAllowedForSpecialization(intellectCasterChest, "Chest", "Shaman", "Elemental"), true);
+
+  const staff = {
+    id: 880003, name: "Caster Staff", slot: "Main Hand", inventoryType: "Two-Hand",
+    itemSubclass: { name: "Staff" }, itemLevel: 340,
+    stats: [{ type: { name: "agility" }, value: 200 }, { type: { name: "haste" }, value: 100 }]
+  };
+  assert.equal(optimizer.itemAllowedForSpecialization(staff, "Main Hand", "Shaman", "Enhancement"), false);
+  assert.equal(optimizer.itemAllowedForClassWeapon(staff, "Main Hand", "Shaman"), true,
+    "Shaman weapon proficiency alone does not make a staff valid for Enhancement");
+});
+
+test("loadout optimization does not recommend the same physical ring or trinket twice", () => {
+  const sandbox = { window: {} };
+  vm.runInNewContext(
+    fs.readFileSync(path.join(root, "optimizer.js"), "utf8"),
+    sandbox,
+    { filename: "optimizer.js" }
+  );
+  const optimizer = sandbox.window.WoWOptimizer;
+  const weights = {
+    Strength: 1, Agility: 1, Intellect: 1, Stamina: 0,
+    CriticalStrike: 1, Haste: 1, Mastery: 1, Versatility: 1
+  };
+  const ringA = {
+    id: 881001, name: "Ring A", slot: "Ring 1", inventoryType: "Finger", itemLevel: 340,
+    stats: { Strength: 100, CriticalStrike: 100 }
+  };
+  const ringB = {
+    id: 881002, name: "Ring B", slot: "Ring 1", inventoryType: "Finger", itemLevel: 340,
+    stats: { Strength: 80, Haste: 80 }
+  };
+  const trinketA = {
+    id: 882001, name: "Trinket A", slot: "Trinket 1", inventoryType: "Trinket", itemLevel: 340,
+    stats: { Strength: 100, CriticalStrike: 100 }
+  };
+  const trinketB = {
+    id: 882002, name: "Trinket B", slot: "Trinket 1", inventoryType: "Trinket", itemLevel: 340,
+    stats: { Strength: 80, Haste: 80 }
+  };
+  const character = {
+    className: "Warrior", specialization: "Arms", level: 90, goal: "General / All-around",
+    equipment: {}
+  };
+  const result = optimizer.optimizeEquipment({
+    items: [ringA, ringB, trinketA, trinketB],
+    character,
+    statWeights: weights
+  });
+  assert.ok(result.equipment["Ring 1"] && result.equipment["Ring 2"]);
+  assert.notEqual(String(result.equipment["Ring 1"].id), String(result.equipment["Ring 2"].id));
+  assert.ok(result.equipment["Trinket 1"] && result.equipment["Trinket 2"]);
+  assert.notEqual(String(result.equipment["Trinket 1"].id), String(result.equipment["Trinket 2"].id));
+});
