@@ -108,6 +108,22 @@ test("tier identity records are present but never scored without verified stats"
   }
 });
 
+test("season tier catalogue reports mapping-only coverage without claiming numeric scoring", () => {
+  const sandbox = { window: {} };
+  vm.runInNewContext(
+    fs.readFileSync(path.join(root, "optimizer.js"), "utf8"),
+    sandbox,
+    { filename: "optimizer.js" }
+  );
+  const optimizer = sandbox.window.WoWOptimizer;
+  const coverage = optimizer.getTierSetCoverageStatus(tierCatalogue, "Death Knight", "Blood");
+  assert.equal(coverage.catalogueStatus, "mapping-only");
+  assert.equal(coverage.itemMappingVerified, true);
+  assert.equal(coverage.verifiedPieceCount, 5);
+  assert.equal(coverage.expectedPieceCount, 5);
+  assert.equal(coverage.numericScoringAvailable, false);
+});
+
 test("text-only tier bonus descriptions are never treated as numeric scoring", () => {
   for (const set of manifest.sets) {
     for (const bonus of set.bonuses || []) {
