@@ -51,7 +51,7 @@ const CLASS_WEAPON_PROFICIENCIES = {
 function normalizeWeaponType(value) {
   const raw = String(value?.name || value || "").trim().toLowerCase()
     .replace(/[_-]+/g, " ")
-    .replace(/\\b(two|one) handed\\b/g, "$1 hand");
+    .replace(/\b(two|one) handed\b/g, "$1 hand");
   if (!raw || /^(weapon|melee|ranged|miscellaneous|unknown)$/.test(raw)) return "";
   // Blizzard subclass labels can be plural or include a hand qualifier.
   if (raw.includes("warglaive") || raw.includes("war glaive") || raw.includes("glaive")) return "warglaive";
