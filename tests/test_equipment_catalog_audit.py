@@ -7,6 +7,18 @@ from scripts.audit_equipment_catalog import audit_catalog
 
 
 class EquipmentCatalogueAuditTests(unittest.TestCase):
+    def test_real_tier_catalogue_matches_manifest_for_all_thirteen_classes(self):
+        report = audit_catalog()
+        classes = report["tierVariantCoverage"]["classes"]
+
+        self.assertEqual(len(classes), 13)
+        for tier_class in classes:
+            with self.subTest(class_name=tier_class["class"]):
+                self.assertTrue(tier_class["manifestMappingMatchesCatalogue"])
+                self.assertEqual(tier_class["manifestSlotsMissingFromCatalogue"], [])
+                self.assertEqual(tier_class["manifestMappingMismatches"], [])
+                self.assertTrue(tier_class["basePieceMappingVerified"])
+
     def test_reports_missing_tier_items_and_does_not_claim_full_gear_coverage(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
