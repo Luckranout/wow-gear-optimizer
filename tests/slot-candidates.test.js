@@ -3,7 +3,7 @@ const fs = require("node:fs");
 const os = require("node:os");
 const path = require("node:path");
 const handler = require("../api/slot-candidates");
-const { SLOT_SECTION, slotMatches, allowedForClass, allowedForClassWeapon, allowedForSpecialization, normalizeClass, hasUsableStats, createResponse, setSectionDir, setDiscoveryProvider } = handler._test;
+const { SLOT_SECTION, slotMatches, allowedForClass, allowedForClassWeapon, allowedForSpecialization, normalizeClass, hasUsableStats, createResponse, setSectionDir, setDiscoveryProvider, setVerifiedSeasonItemProvider } = handler._test;
 
 assert.equal(SLOT_SECTION.Neck, "necklaces");
 assert.equal(SLOT_SECTION.Shoulders, "shoulders");
@@ -111,6 +111,28 @@ assert.equal(allowedForSpecialization({
     assert.equal(res.body.discoveredItems[0].id, 999);
     assert.equal(res.body.pendingSeasonVerificationCount, 1, "item existence is not mistaken for season eligibility");
     assert.equal(res.body.items.some(item => item.id === 999), false, "unverified season items do not silently enter scoring");
+
+    const sourceVerifiedShoulders = {
+      ...discoveredShoulders,
+      id: 1000,
+      name: "Source-verified seasonal shoulders",
+      seasonScope: "Midnight Season 2+",
+      seasonEligibility: "verified",
+      sourceLocations: [{ seasonScope: "Midnight Season 2+", category: "PvE", instance: "Current Season Raid" }],
+      variants: [{ variantKey: "wowhead:upgd6:ilvl334", itemLevel: 334, stats: { Strength: 80, Haste: 35 } }]
+    };
+    setVerifiedSeasonItemProvider(id => id === 1000 ? sourceVerifiedShoulders : null);
+    setDiscoveryProvider(async slot => slot === "Shoulders" ? [
+      { ...discoveredShoulders, id: 1000, name: "Blizzard base record for verified shoulders" }
+    ] : []);
+    res = await call("GET", { slot: "Shoulders", class: "Warrior" });
+    assert.equal(res.body.items.some(item => item.id === 1000), true,
+      "a discovered item with matching imported season-source evidence is eligible for scoring");
+    assert.equal(res.body.pendingSeasonVerificationCount, 0,
+      "matching verified source evidence clears the season-verification queue");
+    assert.equal(res.body.items.find(item => item.id === 1000).variants[0].itemLevel, 334,
+      "source-verified record retains its upgraded variant when promoted to the slot candidate list");
+    setVerifiedSeasonItemProvider(null);
     setDiscoveryProvider(async () => []);
 
     const oneHandDagger = {
@@ -159,6 +181,7 @@ assert.equal(allowedForSpecialization({
     assert.deepEqual(res.body.items.map(item => item.id), [302], "off-hand does not accept a generic one-hand weapon as an off-hand item");
   } finally {
     setDiscoveryProvider(null);
+    setVerifiedSeasonItemProvider(null);
     setSectionDir(path.join(process.cwd(), "data", "equipment-sections"));
     fs.rmSync(dir, { recursive: true, force: true });
   }
