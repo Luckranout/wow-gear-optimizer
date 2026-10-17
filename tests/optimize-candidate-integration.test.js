@@ -41,6 +41,11 @@ assert.match(app, /\[\.\.\.proposed, \.\.\.equippedForVerification\]/);
 assert.match(app, /equippedForVerification\.filter\(item => Number\(item\.id\) === id\)/);
 assert.match(app, /renderItemHoverTooltip\(upgrade\.currentItem\)/);
 assert.match(app, /renderItemHoverTooltip\(upgrade\.recommendedItem\)/);
+assert.match(app, /function renderProjectedStatsPanel\(report\)/);
+assert.match(app, /renderProjectedStatsPanel\(report\)/);
+assert.match(app, /projected-stats-grid/);
+assert.match(app, /Partial projection — item stats are missing for/);
+
 assert.match(app, /displayItemLevel\(upgrade\.recommendedItem\?\.itemLevel \?\? upgrade\.recommendedItem\?\.level\)/);
 
 
