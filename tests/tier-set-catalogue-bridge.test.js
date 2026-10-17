@@ -611,7 +611,10 @@ test("all-class observed tier variants stay separate from eligible optimizer can
     if (set.class === "Shaman") {
       assert.equal(set.itemIdsVerified, true);
       assert.equal(set.pieces.length, 30);
-      assert.equal(set.pieces.filter(piece => piece.candidate === true).length, 30);
+      assert.equal(set.pieces.filter(piece => piece.candidate === true).length, 20,
+        "only the four PvE difficulty variants per slot have verified numeric stats");
+      assert.equal(set.pieces.filter(piece => piece.candidate !== true).length, 10,
+        "PvP appearance records without verified numeric stats must stay ineligible");
       continue;
     }
     const observations = set.verifiedVariantObservations || [];
