@@ -82,6 +82,13 @@ def audit_catalog(section_dir=SECTION_DIR, manifest_path=TIER_MANIFEST, tier_dat
                 piece.get("slot") for piece in verified_variants
                 if isinstance(piece.get("slot"), str)
             }
+            base_mapping_verified = (
+                tier_set.get("baseItemIdsVerified") is True
+                or tier_set.get("itemIdsVerified") is True
+            )
+            verified_base_slots = set(base_slots)
+            if not verified_base_slots and tier_set.get("itemIdsVerified") is True:
+                verified_base_slots = verified_slots
             observed_slots = {
                 piece.get("slot") for piece in observation_variants_with_stats
                 if isinstance(piece.get("slot"), str)
@@ -103,6 +110,9 @@ def audit_catalog(section_dir=SECTION_DIR, manifest_path=TIER_MANIFEST, tier_dat
                 "basePieceCount": len(base_pieces),
                 "baseSlotsPresent": sorted(base_slots),
                 "missingBaseSlots": sorted(EXPECTED_TIER_SLOTS - base_slots),
+                "basePieceMappingVerified": base_mapping_verified,
+                "verifiedBaseSlotsPresent": sorted(verified_base_slots),
+                "missingVerifiedBaseSlots": sorted(EXPECTED_TIER_SLOTS - verified_base_slots),
                 "verifiedVariantRecordCount": len(verified_pieces),
                 "optimizerEligibleVariantRecordsWithLevelAndStats": len(verified_variants),
                 "verifiedCandidateSlotsPresent": sorted(verified_slots),
