@@ -480,3 +480,15 @@ footer {
 .item-hover-full-tooltip summary { cursor: pointer; color: #d8c17b; font-size: 11px; }
 .item-hover-full-tooltip pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 240px; overflow: auto; margin: 6px 0 0; color: #d7deea; font: inherit; font-size: 11px; line-height: 1.45; }
 .item-hover-timing { color: #d8c17b; }
+
+
+/* Equipped vs recommended full-loadout diminishing-return comparison. */
+.dr-table-wrap { width: 100%; overflow-x: auto; }
+.dr-comparison-table { width: 100%; min-width: 940px; border-collapse: collapse; font-size: 12px; }
+.dr-comparison-table th, .dr-comparison-table td { padding: 8px 7px; border-bottom: 1px solid #2a3140; text-align: right; white-space: nowrap; }
+.dr-comparison-table thead th { color: #aeb8ca; font-weight: 600; }
+.dr-comparison-table th:first-child, .dr-comparison-table td:first-child { text-align: left; }
+.dr-note { color: #aeb8ca; font-size: 12px; line-height: 1.5; }
+#diminishingReturnsPanel details { margin-top: 10px; }
+#diminishingReturnsPanel summary { cursor: pointer; }
+#diminishingReturnsPanel ul { padding-left: 20px; }

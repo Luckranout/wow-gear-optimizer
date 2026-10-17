@@ -263,3 +263,56 @@ for (const tank of [
   }
 }
 console.log("Protection Warrior/Paladin upgraded-variant regression tests passed.");
+
+
+// Regression: equipped and recommended loadouts each get complete secondary-stat
+// totals and DR projections, and unsupported levels fail closed for effective rating.
+const drEquipped = {
+  Head: { id: 1, slot: "Head", stats: { Haste: 700, CriticalStrike: 500 } },
+  Chest: { id: 2, slot: "Chest", stats: { Mastery: 600, Versatility: 900 } }
+};
+const drRecommended = {
+  Head: { id: 3, slot: "Head", stats: { Haste: 1600, CriticalStrike: 1800 } },
+  Chest: { id: 4, slot: "Chest", stats: { Mastery: 1500, Versatility: 1800 } }
+};
+const equippedDrSummary = optimizer.getLoadoutDiminishingReturnsSummary(drEquipped, 90);
+const recommendedDrSummary = optimizer.getLoadoutDiminishingReturnsSummary(drRecommended, 90);
+for (const stat of ["Haste", "CriticalStrike", "Mastery", "Versatility"]) {
+  const before = equippedDrSummary.find(entry => entry.stat === stat);
+  const after = recommendedDrSummary.find(entry => entry.stat === stat);
+  if (!before || !after || before.rating <= 0 || after.rating <= before.rating ||
+      after.effectiveRating === null || after.lostRating <= 0 ||
+      after.thresholds.length !== 6 || after.nextThreshold === null) {
+    throw new Error("Equipped/recommended DR summary is incomplete for " + stat);
+  }
+}
+const unsupportedDr = optimizer.getLoadoutDiminishingReturnsSummary(drRecommended, 80);
+if (unsupportedDr.some(entry => entry.supported || entry.effectiveRating !== null || entry.lostRating !== null)) {
+  throw new Error("DR effective rating must remain unavailable for unsupported character levels");
+}
+console.log("Equipped vs recommended complete-loadout DR summaries passed.");
+// DR summaries are a shared system feature, not tied to one class/spec.
+const classSpecializations = [
+  ["Death Knight", ["Blood", "Frost", "Unholy"]],
+  ["Demon Hunter", ["Havoc", "Vengeance", "Devourer"]],
+  ["Druid", ["Balance", "Feral", "Guardian", "Restoration"]],
+  ["Evoker", ["Devastation", "Preservation", "Augmentation"]],
+  ["Hunter", ["Beast Mastery", "Marksmanship", "Survival"]],
+  ["Mage", ["Arcane", "Fire", "Frost"]],
+  ["Monk", ["Brewmaster", "Mistweaver", "Windwalker"]],
+  ["Paladin", ["Holy", "Protection", "Retribution"]],
+  ["Priest", ["Discipline", "Holy", "Shadow"]],
+  ["Rogue", ["Assassination", "Outlaw", "Subtlety"]],
+  ["Shaman", ["Elemental", "Enhancement", "Restoration"]],
+  ["Warlock", ["Affliction", "Demonology", "Destruction"]],
+  ["Warrior", ["Arms", "Fury", "Protection"]]
+];
+for (const [className, specializations] of classSpecializations) {
+  for (const specialization of specializations) {
+    const result = optimizer.getLoadoutDiminishingReturnsSummary(drRecommended, 90);
+    if (result.length !== 4 || result.some(entry => !entry.supported)) {
+      throw new Error("Shared DR summary unavailable for " + className + " / " + specialization);
+    }
+  }
+}
+console.log("Shared equipped/recommended DR feature coverage checked for all 13 classes and their specializations.");
