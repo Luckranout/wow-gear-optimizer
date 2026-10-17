@@ -97,6 +97,22 @@ if (upgradeResults.length !== 1 ||
 
 console.log("Step 19 SimulationCraft weighted gear ranking passed.");
 
+const canonicalWeaponRegression = {
+  id: 99101, name: "Verified Main-Hand Weapon", itemLevel: 350,
+  equipmentCategories: ["main-hand"], inventoryType: { type: "WEAPON", name: "Weapon" },
+  itemClass: { name: "Weapon" }, itemSubclass: { name: "Two-Handed Swords" },
+  stats: { Strength: 150, Haste: 45 }
+};
+if (!optimizer.itemMatchesSlot(canonicalWeaponRegression, "Main Hand")) {
+  throw new Error("Canonical equipmentCategories must keep generic Blizzard weapon records eligible for the correct slot");
+}
+if (!optimizer.itemAllowedForClassWeapon(canonicalWeaponRegression, "Main Hand", "Warrior")) {
+  throw new Error("Pluralized Two-Handed Sword subclass must normalize to a usable sword family");
+}
+if (optimizer.itemMatchesSlot({ ...canonicalWeaponRegression, equipmentCategories: ["off-hand"] }, "Main Hand")) {
+  throw new Error("Explicit equipmentCategories must prevent a mismatched slot candidate");
+}
+
 const importedProfile = optimizer.createCharacterProfileFromImport({
   importedCharacter: {
     id: 42,
