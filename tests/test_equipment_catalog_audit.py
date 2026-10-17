@@ -57,7 +57,7 @@ class EquipmentCatalogueAuditTests(unittest.TestCase):
         self.assertEqual(mage["missingObservedOnlySlots"], ["Chest", "Hands", "Legs", "Shoulders"])
         self.assertEqual(mage["slotVariantLevels"]["Head"]["observedOnlyItemLevels"], [300])
         self.assertEqual(mage["optimizerEligibleVariantRecordsWithLevelAndStats"], 0)
-        self.assertEqual(mage["missingVerifiedCandidateSlots"], ["Chest", "Hands", "Legs", "Shoulders"])
+        self.assertEqual(mage["missingVerifiedCandidateSlots"], ["Chest", "Hands", "Head", "Legs", "Shoulders"])
         self.assertFalse(mage["completeVariantMapVerified"])
         self.assertEqual(mage["variantCoverageStatus"], "observations-only")
 
