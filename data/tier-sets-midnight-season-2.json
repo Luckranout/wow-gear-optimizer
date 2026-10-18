@@ -3873,46 +3873,46 @@
           "setId": "bark-of-the-enigmatic-dreamwatcher",
           "name": "Enigmatic Dreamwatcher's Leggings",
           "slot": "Legs",
-          "variant": "Item level 334 observed (equipped profile)",
+          "variant": "Mythic 6/6 observed",
           "itemLevel": 334,
           "candidate": false,
           "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/item=271527/enigmatic-dreamwatchers-leggings?ilvl=334",
+          "sourceUrl": "https://mythicsim.com/bis/guardian-druid",
           "stats": [
             {
               "type": {
                 "name": "agility"
               },
               "value": 189,
-              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Leggings at item level 334."
+              "source": "MythicSim Guardian Druid tier-item listing, item level 334: 189 Agility"
             },
             {
               "type": {
                 "name": "intellect"
               },
               "value": 189,
-              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Leggings at item level 334."
+              "source": "Azeroth Codex equipped profile explicitly lists this item at item level 334"
             },
             {
               "type": {
                 "name": "stamina"
               },
               "value": 3910,
-              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Leggings at item level 334."
+              "source": "Azeroth Codex equipped profile explicitly lists this item at item level 334"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 67,
+              "source": "MythicSim Guardian Druid tier-item listing, item level 334: 67 Critical Strike"
             },
             {
               "type": {
                 "name": "haste"
               },
-              "value": 63,
-              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Leggings at item level 334."
-            },
-            {
-              "type": {
-                "name": "mastery"
-              },
-              "value": 138,
-              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Leggings at item level 334."
+              "value": 134,
+              "source": "MythicSim Guardian Druid tier-item listing, item level 334: 134 Haste"
             }
           ]
         },
@@ -8006,46 +8006,46 @@
           "setId": "guile-of-the-monkey-king",
           "name": "Pantaloons of the Monkey King",
           "slot": "Legs",
-          "variant": "Item level 334 observed (equipped profile)",
+          "variant": "Mythic 6/6 observed",
           "itemLevel": 334,
           "candidate": false,
           "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/item=271518/pantaloons-of-the-monkey-king?ilvl=334",
+          "sourceUrl": "https://azerothcodex.up.railway.app/personnage/eu/ravencrest/Monksea",
           "stats": [
             {
               "type": {
                 "name": "agility"
               },
               "value": 189,
-              "source": "Azeroth Codex equipped profile explicitly lists Pantaloons of the Monkey King at item level 334."
+              "source": "Azeroth Codex equipped profile explicitly lists this item at item level 334"
             },
             {
               "type": {
                 "name": "intellect"
               },
               "value": 189,
-              "source": "Azeroth Codex equipped profile explicitly lists Pantaloons of the Monkey King at item level 334."
+              "source": "Azeroth Codex equipped profile explicitly lists this item at item level 334"
             },
             {
               "type": {
                 "name": "stamina"
               },
               "value": 3910,
-              "source": "Azeroth Codex equipped profile explicitly lists Pantaloons of the Monkey King at item level 334."
+              "source": "Azeroth Codex equipped profile explicitly lists this item at item level 334"
             },
             {
               "type": {
                 "name": "criticalStrike"
               },
               "value": 130,
-              "source": "Azeroth Codex equipped profile explicitly lists Pantaloons of the Monkey King at item level 334."
+              "source": "Azeroth Codex equipped profile explicitly lists this item at item level 334"
             },
             {
               "type": {
                 "name": "versatility"
               },
               "value": 71,
-              "source": "Azeroth Codex equipped profile explicitly lists Pantaloons of the Monkey King at item level 334."
+              "source": "Azeroth Codex equipped profile explicitly lists this item at item level 334"
             }
           ]
         },
