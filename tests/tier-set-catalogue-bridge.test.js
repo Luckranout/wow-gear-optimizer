@@ -813,7 +813,7 @@ test("Evoker source-checked tier versions remain evidence-only and preserve obse
 test("Hunter source-checked tier versions remain evidence-only and match exact Wowhead stats", () => {
   const hunter = catalogue.sets.find(set => set.class === "Hunter");
   const observations = hunter.verifiedVariantObservations || [];
-  assert.equal(observations.length, 19);
+  assert.equal(observations.length, 20);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(hunter.variantObservationsStatus, "partial");
   assert.match(hunter.variantObservationsNote, /remain ineligible as optimizer candidates/i);
@@ -844,6 +844,15 @@ test("Hunter source-checked tier versions remain evidence-only and match exact W
   assert.deepEqual(Object.fromEntries(chest311.stats.map(stat => [stat.type.name, stat.value])),
     { agility: 152, stamina: 3002, haste: 58, mastery: 125 });
   assert.ok(chest311.stats.every(stat => stat.source.includes("311")));
+  const chest324 = observations.find(piece => piece.itemId === 271495 && piece.itemLevel === 324);
+  assert.ok(chest324, "missing Hunter chest Mythic 3/6 item level 324 observation");
+  assert.equal(chest324.variant, "Myth 3/6 observed");
+  assert.equal(chest324.candidate, false);
+  assert.equal(chest324.verificationScope, "observed-version-only");
+  assert.equal(new URL(chest324.sourceUrl).hostname, "warcraft.wiki.gg");
+  assert.deepEqual(Object.fromEntries(chest324.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 172, stamina: 3487, haste: 61, mastery: 132 });
+  assert.ok(chest324.stats.every(stat => stat.source.includes("324")));
   const chest = observations.find(piece => piece.itemId === 271495 && piece.itemLevel === 334);
   assert.equal(chest.itemLevel, 334);
   assert.deepEqual(
