@@ -49,32 +49,32 @@ For every class marked incomplete below, all five slots still need a complete, s
 
 The immediate priority is **standard Mythic 6/6 tier gear at item level 334 for all 13 classes and all five tier slots**. Do not count a special item-level 344 reward as the standard Mythic 6/6 variant. Record special 344 variants separately with their own exact source and stats. Do not infer 334 stats from another rank.
 
-### Standard Mythic 6/6 (334) gap checklist
+### Standard Mythic 6/6 (334) observation checklist
 
-This is a working inventory of current observations, not a certification that the recorded entries have complete stats/provenance. A slot counts as covered here only when its exact 334 item version is source-verified; candidate eligibility remains off until the full class map is verified.
+The current catalogue records at least one item-level-334 observation for all five tier slots across all 13 classes. This is **observation coverage only**, not a claim that every exact source version, stat profile, difficulty variant, or upgrade rank is fully verified. All non-Shaman observations remain evidence-only and must not become optimizer candidates.
 
-| Class | Recorded at 334 | Slots still needing a verified 334 version |
+| Class | Slots with a recorded 334 observation | Highest-priority variant gaps |
 |---|---|---|
-| Death Knight | 25 observations | Head levels 285/298/305/308/311/321/324/334; Shoulders 282/295/308/318/321/334; Chest 298/311/321/334; Hands 321/334; Legs 285/298/311/324/334. | Added the source-checked Champion 3/6 chest at level 298 (Strength 135, Stamina 2,579, Critical Strike 50, Mastery 122), alongside Hero 3/6 level 311 and Hero 6/6 level 321. All observations remain evidence-only; complete missing difficulty and upgrade variants across all slots. |
-| Demon Hunter | Head, Shoulders, Hands, Chest, Legs | None for level-334 observations; complete variant mapping still missing |
-| Druid | Head, Shoulders, Chest, Hands, Legs | None missing from current 334 observations; validate exact version provenance for Legs |
-| Evoker | Head, Shoulders, Chest, Legs, Hands | None missing from current 334 observations; validate exact source/stats and complete all other variants |
-| Hunter | 15 observations | All five slots have level-334 observations: Chest (271495), Head (271492), Shoulders (271490), Legs (271491), and Hands (271493). Hands include item levels 295, 308, 321, and 334; the 308 Hero 2/6 tooltip records Agility 111, Stamina 2,172, Haste 89, and Versatility 46. The 334 hands tooltip records Agility/Intellect 141, Stamina 2,932, Haste 99, and Versatility 52. All observations remain evidence-only. | Continue verifying remaining difficulty/upgrade variants across all five slots; keep unverified observations ineligible. |
-| Mage | Head, Shoulders, Chest, Hands, Legs | None recorded as missing; validate exact source/stats for all five |
-| Monk | Head, Shoulders, Chest, Hands, Legs | None missing from current 334 observations; validate exact version provenance for Legs |
-| Paladin | Head, Shoulders, Chest, Hands, Legs | None missing from current 334 observations; all five still need complete variant maps |
-| Priest | Head, Shoulders, Chest, Hands, Legs | None missing from current 334 observations; all five still need complete variant maps |
-| Rogue | Head, Shoulders, Chest, Hands, Legs | None missing from current 334 observations; validate exact source/stats for all five slots |
-| Shaman | Head, Shoulders, Chest, Hands, Legs | No missing 334 observations; all five exact Mythic 6/6 versions are recorded separately as evidence-only. Continue validating upgrade-track variants. |
-| Warlock | Head, Shoulders, Chest, Legs, Hands | None missing from current 334 observations; validate exact source/stats and complete all other variants |
-| Warrior | Head, Shoulders, Chest, Hands, Legs | None missing from current 334 observations; validate exact source/stats for all five slots |
+| Death Knight | Head, Shoulders, Chest, Hands, Legs | Complete the exact source-verified Raid Finder, Normal, Heroic, Mythic base variants and distinct upgrade ranks for all five slots. |
+| Demon Hunter | Head, Shoulders, Chest, Hands, Legs | Complete difficulty and upgrade-rank maps; preserve the level-219 hands observation as a separate version, never as a replacement for 334. |
+| Druid | Head, Shoulders, Chest, Hands, Legs | Complete difficulty and upgrade-rank maps; verify the provenance of each equipped-profile observation. |
+| Evoker | Head, Shoulders, Chest, Hands, Legs | Complete difficulty and upgrade-rank maps for all five slots. |
+| Hunter | Head, Shoulders, Chest, Hands, Legs | Head, Shoulders, and Chest currently have only a 334 observation; add independently sourced lower variants and verify exact stats. |
+| Mage | Head, Shoulders, Chest, Hands, Legs | Complete difficulty and upgrade-rank maps; verify the exact version and stat provenance for every recorded observation. |
+| Monk | Head, Shoulders, Chest, Hands, Legs | Chest has only a 334 observation; Hands and Legs have sparse lower-rank evidence. Fill missing difficulty and upgrade ranks. |
+| Paladin | Head, Shoulders, Chest, Hands, Legs | Head and Legs have only a 334 observation; Chest has 321 and 334. Fill missing difficulty and upgrade ranks. |
+| Priest | Head, Shoulders, Chest, Hands, Legs | Chest and Legs have only a 334 observation. Fill missing difficulty and upgrade ranks. |
+| Rogue | Head, Shoulders, Chest, Hands, Legs | Shoulder has only a 334 observation; other slots also need complete difficulty and upgrade-rank maps. |
+| Shaman | Head, Shoulders, Chest, Hands, Legs | Keep the 20 verified PvE candidate records separate from the 25 evidence-only observations; complete intermediate upgrade-rank mapping. |
+| Warlock | Head, Shoulders, Chest, Hands, Legs | Shoulders, Chest, and Legs have only a 334 observation; Hands has 331 and 334. Fill missing difficulty and upgrade ranks. |
+| Warrior | Head, Shoulders, Chest, Hands, Legs | Head has only a 334 observation; Hands and Legs have sparse lower-rank evidence. Keep the special 344 chest reward separate from standard Mythic 6/6 at 334. |
 
 ### Work sequence
 
-1. Verify missing standard Mythic 6/6 pieces from exact item-specific sources, recording item ID, slot, item level, numeric stats, source URL, and any variant/bonus identifiers. Prioritize remaining gaps for Druid, Evoker, Monk, Paladin, and Priest; then validate exact source/stats for classes with all five observations.
-2. Re-check the five Mage observations and Shaman's new level-334 records against exact source versions and upgrade metadata; keep them evidence-only until the full variant map is verified.
-3. Keep item-level 344 special rewards separate from standard Mythic 6/6 334 variants.
-4. Add regression tests for each confirmed item/version and explicit tests that a missing or unverified slot cannot be marked complete or candidate-eligible.
-5. After the 334 pass, fill Raid Finder/Normal/Heroic/Mythic base versions and intermediate upgrade ranks, then audit all 16 equipment slots and non-tier gear.
-6. Keep partial evidence ineligible and numeric tier-bonus scoring disabled until separately verified.
-7. Run catalogue and optimizer CI on the draft branch. Do not merge or deploy without explicit authorization.
+1. For each class and tier slot, enumerate the required Raid Finder, Normal, Heroic, and Mythic versions plus distinct upgrade ranks exposed by the source.
+2. Verify each exact item version against an item-specific source. Record item ID, slot, item level, numeric stats, source URL, and relevant bonus/upgrade identifiers. Never interpolate stats from another rank.
+3. Keep Catalyst and dropped-item variants separate when their stats differ, even if they share a base item ID or item level.
+4. Add regression tests for each confirmed item/version and explicit tests that missing or unverified variants cannot be marked complete or candidate-eligible.
+5. Audit all 16 equipment slots and non-tier gear after the tier-set variant map is complete.
+6. Keep partial evidence ineligible and numeric tier-bonus scoring disabled until independently verified.
+7. Run catalogue and optimizer CI on this draft branch. Do not merge or deploy without explicit authorization.
