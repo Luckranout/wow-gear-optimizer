@@ -113,7 +113,7 @@ test("Warrior source-checked variant observations remain evidence-only and prese
   assert.equal(observations.length, 21);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(warrior.variantObservationsStatus, "partial");
-  assert.match(warrior.variantObservationsNote, /not eligible optimizer candidates/i);
+  assert.match(warrior.variantObservationsNote, /Five exact item-level-334 Mythic 6\/6 versions are candidates/i);
   const manifestWarrior = manifest.sets.find(set => set.className === "Warrior");
   const manifestSlotsById = new Map(manifestWarrior.pieces.map(piece => [Number(piece.itemId), piece.slot]));
   for (const piece of observations) {
@@ -1343,7 +1343,7 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(warlock.variantObservationsStatus, "partial");
   assert.match(warlock.variantObservationsNote, /Head is observed at item levels 219, 285 .* 298 .* 305, 308 .* 311 .* 315, 318, 321, 324 .* and 334/i);
-  assert.match(warlock.variantObservationsNote, /intermediate upgrade ranks remain evidence-only/i);
+  assert.match(warlock.variantObservationsNote, /other difficulty and upgrade variants remain unverified/i);
   const manifestSet = manifest.sets.find(set => set.className === "Warlock");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
   for (const piece of observations) {
@@ -1510,6 +1510,8 @@ test("Monk source-backed tier item versions remain evidence-only and match sourc
     "271519:298": { agilityOrIntellect: 135, stamina: 2579, criticalStrike: 50, mastery: 122 },
     "271519:311": { agilityOrIntellect: 152, stamina: 3002, criticalStrike: 53, mastery: 129 },
     "271519:324": { agilityOrIntellect: 172, stamina: 3487, criticalStrike: 56, mastery: 137 },
+    "271518:285": { agility: 119, stamina: 2219, criticalStrike: 104, versatility: 57 },
+    "271518:298": { agility: 135, stamina: 2579, criticalStrike: 111, versatility: 61 },
     "271518:311": { agility: 152, intellect: 152, stamina: 3002, criticalStrike: 118, versatility: 65 },
     "271518:324": { agility: 172, intellect: 172, stamina: 3487, criticalStrike: 125, versatility: 68 },
     "271518:334": { agility: 189, intellect: 189, stamina: 3910, criticalStrike: 130, versatility: 71 },
