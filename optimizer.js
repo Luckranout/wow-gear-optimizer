@@ -1419,13 +1419,16 @@ function getTierSetCoverageStatus(tierSetCatalogue = null, className = "", speci
   const isBaseMappingVerified = set => set?.baseItemIdsVerified === true ||
     set?.itemIdsVerified === true || set?.mappingStatus === "verified";
   const isVariantMappingVerified = set => set?.itemIdsVerified === true || set?.mappingStatus === "verified";
-  const hasVerifiedCandidates = set => Array.isArray(set?.pieces) &&
-    set.pieces.some(piece => piece?.candidate === true);
+  const candidatePieces = set => [
+    ...(Array.isArray(set?.pieces) ? set.pieces : []),
+    ...(Array.isArray(set?.upgradeRankCandidates) ? set.upgradeRankCandidates : [])
+  ].filter(piece => piece?.candidate === true);
+  const hasVerifiedCandidates = set => candidatePieces(set).length > 0;
   const verifiedClasses = sets.filter(isVariantMappingVerified);
   const unverifiedClasses = sets.filter(set => !isVariantMappingVerified(set));
   const baseMappingVerifiedClassCount = sets.filter(isBaseMappingVerified).length;
   const pieceRecords = classSet
-    ? (hasVerifiedCandidates(classSet) ? (classSet.pieces || []) : (classSet.basePieces || []))
+    ? (hasVerifiedCandidates(classSet) ? candidatePieces(classSet) : (classSet.basePieces || []))
     : [];
   const uniqueVerifiedPieceIds = classSet && isBaseMappingVerified(classSet)
     ? new Set(pieceRecords.map(piece => {
@@ -1436,7 +1439,7 @@ function getTierSetCoverageStatus(tierSetCatalogue = null, className = "", speci
     : 0;
   const expectedTierSlots = ["Head", "Shoulders", "Chest", "Hands", "Legs"];
   const verifiedVariantRecords = classSet && hasVerifiedCandidates(classSet)
-    ? (classSet.pieces || []).filter(piece =>
+    ? candidatePieces(classSet).filter(piece =>
       piece?.candidate === true &&
       Number.isInteger(piece.itemLevel) &&
       Array.isArray(piece.stats) && piece.stats.length > 0
