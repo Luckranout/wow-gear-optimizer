@@ -3873,11 +3873,11 @@
           "setId": "bark-of-the-enigmatic-dreamwatcher",
           "name": "Enigmatic Dreamwatcher's Leggings",
           "slot": "Legs",
-          "variant": "Mythic 6/6 observed",
+          "variant": "Item level 334 observed; upgrade rank unverified",
           "itemLevel": 334,
           "candidate": false,
           "verificationScope": "observed-version-only",
-          "sourceUrl": "https://mythicsim.com/bis/guardian-druid",
+          "sourceUrl": "https://www.wowhead.com/item=271527/enigmatic-dreamwatchers-leggings?ilvl=334",
           "stats": [
             {
               "type": {
@@ -8006,11 +8006,11 @@
           "setId": "guile-of-the-monkey-king",
           "name": "Pantaloons of the Monkey King",
           "slot": "Legs",
-          "variant": "Mythic 6/6 observed",
+          "variant": "Item level 334 observed; upgrade rank unverified",
           "itemLevel": 334,
           "candidate": false,
           "verificationScope": "observed-version-only",
-          "sourceUrl": "https://azerothcodex.up.railway.app/personnage/eu/ravencrest/Monksea",
+          "sourceUrl": "https://www.wowhead.com/item=271518/pantaloons-of-the-monkey-king?ilvl=334",
           "stats": [
             {
               "type": {
