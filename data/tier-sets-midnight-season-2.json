@@ -11779,10 +11779,51 @@
               "source": "Azeroth Codex equipped profile and Wowhead item tooltip, item level 334"
             }
           ]
+        },
+        {
+          "itemId": 271546,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Skull of the Damned Necrolyte",
+          "slot": "Head",
+          "variant": "Mythic 6/6 observed",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271546/skull-of-the-damned-necrolyte?ilvl=334&spec=266",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, Mythic 6/6 item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip, Mythic 6/6 item level 334"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 65,
+              "source": "Wowhead tooltip, Mythic 6/6 item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 136,
+              "source": "Wowhead tooltip, Mythic 6/6 item level 334"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Fifteen source-checked item versions are recorded as evidence only. Head is observed at item levels 219, 285 (Veteran 3/6), 298 (Champion 3/6), 305, 308 (Hero 2/6), 311 (Hero 3/6), 315, 318, 321, and 324 (Myth 3/6). Hands now have a source-cross-checked Mythic 6/6 item-level 334 observation; Chest, Legs, and Shoulders have isolated item-level 334 observations. Other difficulty and upgrade variants remain unverified. All observations remain evidence-only and are not optimizer candidates."
+      "variantObservationsNote": "Sixteen source-checked item versions are recorded as evidence only. Head is observed at item levels 219, 285 (Veteran 3/6), 298 (Champion 3/6), 305, 308 (Hero 2/6), 311 (Hero 3/6), 315, 318, 321, 324 (Myth 3/6), and 334 (Mythic 6/6). Hands have a source-cross-checked Mythic 6/6 item-level 334 observation; Chest, Legs, and Shoulders have isolated item-level 334 observations. Other difficulty and upgrade variants remain unverified. All observations remain evidence-only and are not optimizer candidates."
     },
     {
       "class": "Warrior",
