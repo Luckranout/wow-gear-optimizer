@@ -210,7 +210,7 @@ test("Paladin observed tier variants are source-backed and remain evidence-only"
     { strength: 189, stamina: 3910, haste: 64, mastery: 137 }
   );
   const handsByLevel = new Map(observations.filter(piece => piece.itemId === 271466).map(piece => [piece.itemLevel, piece]));
-  assert.deepEqual([...handsByLevel.keys()].sort((a, b) => a - b), [282, 295, 308, 321]);
+  assert.deepEqual([...handsByLevel.keys()].sort((a, b) => a - b), [282, 295, 308, 321, 334]);
   const expectedHands = {
     282: { strength: 87, stamina: 1606, criticalStrike: 39, mastery: 80 },
     295: { strength: 98, stamina: 1869, criticalStrike: 42, mastery: 86 },
@@ -715,7 +715,8 @@ test("Evoker source-checked tier versions remain evidence-only and preserve obse
     282: { intellect: 87, stamina: 1606, haste: 77, mastery: 42 },
     295: { intellect: 98, stamina: 1869, haste: 82, mastery: 45 },
     308: { intellect: 111, stamina: 2172, haste: 87, mastery: 48 },
-    321: { agility: 125, intellect: 125, stamina: 2527, haste: 92, mastery: 51 }
+    321: { agility: 125, intellect: 125, stamina: 2527, haste: 92, mastery: 51 },
+    334: { agility: 141, intellect: 141, stamina: 2932, haste: 97, mastery: 53 }
   };
   for (const [level, piece] of glovesByLevel) {
     assert.equal(piece.candidate, false);
