@@ -3931,10 +3931,106 @@
               "source": "Wowhead tooltip, item level 334"
             }
           ]
+        },
+        {
+          "itemId": 271509,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Reinforced Pants",
+          "slot": "Legs",
+          "variant": "Heroic 4/6 observed",
+          "itemLevel": 315,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271509/chosen-bloodslayers-reinforced-pants?bonus=13334%3A6652%3A12844%3A13693%3A13698%3A1568&ilvl=315&spec=261",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 158,
+              "source": "Wowhead tooltip, item level 315"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 158,
+              "source": "Wowhead tooltip, item level 315"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3143,
+              "source": "Wowhead tooltip, item level 315"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 66,
+              "source": "Wowhead tooltip, item level 315"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 120,
+              "source": "Wowhead tooltip, item level 315"
+            }
+          ]
+        },
+        {
+          "itemId": 271509,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Reinforced Pants",
+          "slot": "Legs",
+          "variant": "Heroic 6/6 observed",
+          "itemLevel": 321,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271509/chosen-bloodslayers-reinforced-pants?bonus=13334%3A13693%3A6652%3A13698%3A12846&ilvl=321&spec=261",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 167,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 167,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3369,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 67,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 123,
+              "source": "Wowhead tooltip, item level 321"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Five exact Wowhead item versions are recorded as evidence only. The legs are only verified at base item level 219; full difficulty/upgrade variant coverage and the complete Rogue variant ID map remain unverified. Do not use these observations as optimizer candidates."
+      "variantObservationsNote": "Seven exact Wowhead item versions are recorded as evidence only. Legs are observed at item levels 219, 315, and 321; the remaining difficulty/upgrade variants and complete Rogue variant ID map remain unverified. Do not use these observations as optimizer candidates."
     },
     {
       "class": "Shaman",
