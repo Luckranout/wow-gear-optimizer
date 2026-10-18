@@ -1109,7 +1109,7 @@ test("Priest source-backed tier item versions remain evidence-only and match Wow
 test("Warlock source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
   const warlock = catalogue.sets.find(set => set.class === "Warlock");
   const observations = warlock.verifiedVariantObservations || [];
-  assert.equal(observations.length, 14);
+  assert.equal(observations.length, 15);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(warlock.variantObservationsStatus, "partial");
   assert.match(warlock.variantObservationsNote, /Head is observed at item levels 219, 285 .* 298 .* 305, 308 .* 311 .* 315, 318, 321, and 324/i);
@@ -1143,6 +1143,7 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
     "271546:321": { intellect: 167, stamina: 3369, versatility: 61, mastery: 129 },
     "271546:324": { intellect: 172, stamina: 3487, versatility: 62, mastery: 131 },
     271545: { intellect: 189, stamina: 3910, haste: 141, mastery: 60 },
+    271547: { intellect: 141, stamina: 2932, criticalStrike: 45, haste: 106 },
     271544: { intellect: 141, stamina: 2932, haste: 50, versatility: 101 }
   };
   for (const piece of observations) {
@@ -1158,7 +1159,13 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
   assert.equal(observations.find(piece => piece.itemId === 271546 && piece.itemLevel === 308).variant, "Hero 2/6 observed");
   assert.equal(observations.find(piece => piece.itemId === 271546 && piece.itemLevel === 318).variant, "Myth 1/6 observed");
   assert.equal(observations.find(piece => piece.itemId === 271546 && piece.itemLevel === 321).variant, "Item level 321 observed");
-  assert.equal(warlock.itemIdsVerified, false,
+  const mythicHands = observations.find(piece => piece.itemId === 271547 && piece.itemLevel === 334);
+  assert.equal(mythicHands.variant, "Mythic 6/6 observed");
+  assert.equal(mythicHands.candidate, false);
+  assert.equal(mythicHands.verificationScope, "observed-version-only");
+  assert.equal(Number(new URL(mythicHands.sourceUrl).searchParams.get("ilvl")), 334);
+  assert.deepEqual(Object.fromEntries(mythicHands.stats.map(stat => [stat.type.name, stat.value])), expected[271547]);
+    assert.equal(warlock.itemIdsVerified, false,
     "partial observed versions must not promote the complete class variant map");
 });
 
@@ -1302,6 +1309,7 @@ test("Mage source-checked shoulder versions remain evidence-only", () => {
 test("Warrior source-checked shoulder variants preserve exact stats and remain evidence-only", () => {
   const warrior = catalogue.sets.find(set => set.class === "Warrior");
   const observations = warrior.verifiedVariantObservations || [];
+  assert.equal(observations.length, 17);
   const shoulders = new Map(observations.filter(piece => piece.itemId === 271454 && piece.slot === "Shoulders").map(piece => [piece.itemLevel, piece]));
   assert.deepEqual([...shoulders.keys()].sort((a, b) => a - b), [282, 295, 308, 321, 334]);
   for (const [level, expected] of [
@@ -1336,6 +1344,19 @@ test("Warrior source-checked chest versions remain evidence-only", () => {
     assert.equal(new URL(piece.sourceUrl).hostname, level === 334 ? "www.wowhead.com" : "warcraft.wiki.gg");
     assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
   }
+});
+
+
+test("Warrior Mythic 6/6 legs observation remains evidence-only", () => {
+  const warrior = catalogue.sets.find(set => set.class === "Warrior");
+  const piece = (warrior.verifiedVariantObservations || []).find(item => item.itemId === 271455 && item.itemLevel === 334);
+  assert.ok(piece);
+  assert.equal(piece.variant, "Mythic 6/6 observed");
+  assert.equal(piece.candidate, false);
+  assert.equal(piece.verificationScope, "observed-version-only");
+  assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), 334);
+  assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])),
+    { strength: 189, stamina: 3910, versatility: 135, mastery: 66 });
 });
 
 test("Priest source-checked helm variants retain their exact source stats and remain evidence-only", () => {
