@@ -9,7 +9,7 @@ Scope: source-verified numeric item variants needed before tier pieces can becom
 - Base tier membership: **13/13 classes mapped**, with five base item IDs per class (65 total).
 - Complete variant mapping: **1/13 classes** — Shaman.
 - Verified Shaman PvE candidates: **20/20** (four PvE difficulty variants across five slots).
-- Non-Shaman evidence-only observations: **119 records across 12 classes**. These are useful evidence, not complete variant maps.
+- Non-Shaman evidence-only observations: **123 records across 12 classes**. These are useful evidence, not complete variant maps.
 - Remaining baseline: **12 classes × 5 slots = 60 incomplete slot maps**, with up to **240 baseline PvE slot/difficulty records** to verify (four PvE difficulty variants per slot). Additional upgrade-track variants must be recorded when the source exposes distinct upgraded item levels/stats.
 - PvP appearances are not optimizer candidates unless their numeric item level and stats are independently verified.
 - Do not enable numeric tier-bonus scoring without a separate trustworthy, simulation-backed scoring source.
@@ -28,7 +28,7 @@ For every class marked incomplete below, all five slots still need a complete, s
 | Mage | 5 observations | All five slots have a level 334 Mythic 6/6 observation only. | Add source-backed lower-difficulty and relevant upgrade-track variants for every slot; validate full variant IDs. |
 | Monk | 5 observations | Legs level 311; other four slots level 334 only. | Verify all difficulty/upgrade variants for all five slots and specialization-specific stats. |
 | Paladin | 5 observations | Hands level 321; other four slots level 334 only. | Verify all difficulty/upgrade variants for all five slots and specialization-specific stat variants. |
-| Priest | 5 observations | Hands level 305; other four slots level 334 only. | Verify Hands' missing variants and complete all remaining slot/difficulty maps. |
+| Priest | 9 observations | Hands levels 282, 295, 305, 308, and 321; other four slots level 334 only. | Hands now has source-checked Raid Finder, Normal, Heroic, and Mythic versions plus a 305 observation; verify remaining upgrade ranks and all other slot/difficulty maps. |
 | Rogue | 12 observations | Legs levels 219, 285, 298, 311, 315, 321, and 324; Hands levels 282, 295, and 321; Chest 305; Head 295; Shoulders 334. | Four additional item-specific leg versions and a Veteran 2/6 hands version are source-checked; verify remaining difficulties/upgrades and all other slot variants. |
 | Shaman | 30 records | Four PvE variants per slot are numeric and candidate-eligible. Ten PvP appearance records lack verified numeric stats. | PvE baseline complete. Keep PvP records appearance-only until their numeric item levels/stats are verified. |
 | Warlock | 14 observations | Head levels 219, 285, 298, 305, 308, 311, 315, 318, 321, and 324; Hands 331; Chest/Legs/Shoulders level 334 only. | Five additional item-specific helm versions are source-checked; verify remaining head upgrades and all missing variants across the five slots. |
