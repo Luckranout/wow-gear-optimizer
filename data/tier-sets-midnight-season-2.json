@@ -5661,10 +5661,58 @@
               "source": "Warcraft Wiki item page, item level 298"
             }
           ]
+        },
+        {
+          "itemId": 271493,
+          "setId": "skulking-viper-s-ambush",
+          "name": "Skulking Viper's Hidepiercers",
+          "slot": "Hands",
+          "variant": "Mythic 6/6 observed",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271493/skulking-vipers-hidepiercers?bonus=13335%3A13691%3A6652%3A13697%3A12854&ilvl=334&spec=254",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334 (primary stat shown for Hunter class/spec context)"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 99,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 52,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Thirteen source-checked item versions are recorded for evidence only. Hands are observed at item levels 295 and 321; Legs at item levels 219, 285 (Veteran 3/6), 298 (Champion 3/6), 308, 311 (Hero 3/6), 318 (Myth 3/6), 321, and 334. Chest, Head, and Shoulders have Mythic 6/6 observations at 334. Other difficulty and upgrade variants remain unverified. All observations remain ineligible as optimizer candidates until complete variant coverage is verified."
+      "variantObservationsNote": "Fourteen source-checked item versions are recorded for evidence only. Hands are observed at item levels 295, 321, and 334; Legs at item levels 219, 285 (Veteran 3/6), 298 (Champion 3/6), 308, 311 (Hero 3/6), 318 (Myth 3/6), 321, and 334. Chest, Head, and Shoulders have Mythic 6/6 observations at 334. Other difficulty and upgrade variants remain unverified. All observations remain ineligible as optimizer candidates until complete variant coverage is verified."
     },
     {
       "class": "Mage",
