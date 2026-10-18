@@ -963,6 +963,47 @@
               "source": "Warcraft Wiki set item entry, item level 311"
             }
           ]
+        },
+        {
+          "itemId": 271472,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Gibbets",
+          "slot": "Shoulders",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/fr/item=271472/gibets-de-chevalier-de-la-tombe-sinistre?bonus=12854",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 50,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 101,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
