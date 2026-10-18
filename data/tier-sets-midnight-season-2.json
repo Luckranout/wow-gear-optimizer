@@ -10777,6 +10777,170 @@
           "setId": "chosen-bloodslayer-s-hexweave",
           "name": "Chosen Bloodslayer's Voodoo Guards",
           "slot": "Shoulders",
+          "variant": "Veteran 2/6 observed",
+          "itemLevel": 282,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Voodoo_Guards",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki tier item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "Warcraft Wiki tier item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 34,
+              "source": "Warcraft Wiki tier item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 85,
+              "source": "Warcraft Wiki tier item page, item level 282"
+            }
+          ]
+        },
+        {
+          "itemId": 271508,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Voodoo Guards",
+          "slot": "Shoulders",
+          "variant": "Champion 2/6 observed",
+          "itemLevel": 295,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Voodoo_Guards",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 98,
+              "source": "Warcraft Wiki tier item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Warcraft Wiki tier item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 37,
+              "source": "Warcraft Wiki tier item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 90,
+              "source": "Warcraft Wiki tier item page, item level 295"
+            }
+          ]
+        },
+        {
+          "itemId": 271508,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Voodoo Guards",
+          "slot": "Shoulders",
+          "variant": "Hero 2/6 observed",
+          "itemLevel": 308,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Voodoo_Guards",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki tier item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Warcraft Wiki tier item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 39,
+              "source": "Warcraft Wiki tier item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 96,
+              "source": "Warcraft Wiki tier item page, item level 308"
+            }
+          ]
+        },
+        {
+          "itemId": 271508,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Voodoo Guards",
+          "slot": "Shoulders",
+          "variant": "Myth 2/6 observed",
+          "itemLevel": 321,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Voodoo_Guards",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 125,
+              "source": "Warcraft Wiki tier item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Warcraft Wiki tier item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 41,
+              "source": "Warcraft Wiki tier item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 102,
+              "source": "Warcraft Wiki tier item page, item level 321"
+            }
+          ]
+        },
+        {
+          "itemId": 271508,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Voodoo Guards",
+          "slot": "Shoulders",
           "variant": "Mythic 6/6 observed",
           "itemLevel": 334,
           "candidate": false,
