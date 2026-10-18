@@ -826,7 +826,7 @@ test("Hunter source-checked tier versions remain evidence-only and match exact W
   );
   assert.ok(heroGloves.stats.every(stat => stat.source.includes("308")),
     "Warcraft Wiki stats must identify the exact observed item level");
-  const gloves = observations.find(piece => piece.itemId === 271493);
+  const gloves = observations.find(piece => piece.itemId === 271493 && piece.itemLevel === 334);
   assert.deepEqual(
     Object.fromEntries(gloves.stats.map(stat => [stat.type.name, stat.value])),
     { agility: 125, stamina: 2527, haste: 94, versatility: 49 }
@@ -840,7 +840,7 @@ test("Hunter source-checked tier versions remain evidence-only and match exact W
     Object.fromEntries(mythicGloves.stats.map(stat => [stat.type.name, stat.value])),
     { agility: 141, intellect: 141, stamina: 2932, haste: 99, versatility: 52 }
   );
-  const head = observations.find(piece => piece.itemId === 271492);
+  const head = observations.find(piece => piece.itemId === 271492 && piece.itemLevel === 334);
   assert.deepEqual(
     Object.fromEntries(head.stats.map(stat => [stat.type.name, stat.value])),
     { agility: 189, stamina: 3910, haste: 143, mastery: 58 }
@@ -891,7 +891,7 @@ test("Hunter source-checked tier versions remain evidence-only and match exact W
     Object.fromEntries(legs.stats.map(stat => [stat.type.name, stat.value])),
     { agility: 65, stamina: 1005, haste: 38, mastery: 69 }
   );
-  const shoulders = observations.find(piece => piece.itemId === 271490);
+  const shoulders = observations.find(piece => piece.itemId === 271490 && piece.itemLevel === 334);
   assert.deepEqual(
     Object.fromEntries(shoulders.stats.map(stat => [stat.type.name, stat.value])),
     { agility: 141, stamina: 2932, criticalStrike: 52, haste: 98 }
