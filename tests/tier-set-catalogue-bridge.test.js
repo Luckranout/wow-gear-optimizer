@@ -170,10 +170,10 @@ test("Paladin observed tier variants are source-backed and remain evidence-only"
 test("Demon Hunter source-checked tier versions remain evidence-only and preserve observed stats", () => {
   const demonHunter = catalogue.sets.find(set => set.class === "Demon Hunter");
   const observations = demonHunter.verifiedVariantObservations || [];
-  assert.equal(observations.length, 8);
+  assert.equal(observations.length, 10);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(demonHunter.variantObservationsStatus, "partial");
-  assert.match(demonHunter.variantObservationsNote, /Hands at base item level 219 and Hero 1\/6 item level 305/i);
+  assert.match(demonHunter.variantObservationsNote, /Hands at base item level 219 and Hero 1\/6 item level 305, Hero 2\/6 item level 308, and Myth 2\/6 item level 321/i);
   assert.match(demonHunter.variantObservationsNote, /Legs at item levels 295, 311, and 318/i);
   const manifestSet = manifest.sets.find(set => set.className === "Demon Hunter");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
@@ -217,6 +217,16 @@ test("Demon Hunter source-checked tier versions remain evidence-only and preserv
   assert.deepEqual(
     Object.fromEntries(upgradedGloves.stats.map(stat => [stat.type.name, stat.value])),
     { agility: 108, stamina: 2096, criticalStrike: 92, mastery: 42 }
+  );
+  const heroicGloves = observations.find(piece => piece.itemId === 271538 && piece.itemLevel === 308);
+  assert.deepEqual(
+    Object.fromEntries(heroicGloves.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 111, stamina: 2172, criticalStrike: 93, mastery: 42 }
+  );
+  const mythicGloves = observations.find(piece => piece.itemId === 271538 && piece.itemLevel === 321);
+  assert.deepEqual(
+    Object.fromEntries(mythicGloves.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 125, stamina: 2527, criticalStrike: 98, mastery: 45 }
   );
   const legs = observations.filter(piece => piece.itemId === 271536).sort((a, b) => a.itemLevel - b.itemLevel);
   assert.deepEqual(legs.map(piece => piece.itemLevel), [295, 311, 318]);
