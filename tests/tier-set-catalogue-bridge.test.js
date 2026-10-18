@@ -1142,6 +1142,7 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
     "271546:311": { intellect: 152, stamina: 3002, versatility: 59, mastery: 124 },
     "271546:321": { intellect: 167, stamina: 3369, versatility: 61, mastery: 129 },
     "271546:324": { intellect: 172, stamina: 3487, versatility: 62, mastery: 131 },
+    "271547:321": { intellect: 138, stamina: 2832, criticalStrike: 44, haste: 105 },
     271545: { intellect: 189, stamina: 3910, haste: 141, mastery: 60 },
     "271547:334": { intellect: 141, stamina: 2932, criticalStrike: 45, haste: 106 },
     271544: { intellect: 141, stamina: 2932, haste: 50, versatility: 101 }
