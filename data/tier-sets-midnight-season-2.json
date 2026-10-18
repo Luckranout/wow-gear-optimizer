@@ -9457,6 +9457,102 @@
               "source": "Wowhead tooltip, item level 334"
             }
           ]
+        },
+        {
+          "itemId": 271513,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Banded Poncho",
+          "slot": "Chest",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271513/chosen-bloodslayers-banded-poncho?bonus=12854&ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 132,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 69,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ]
+        },
+        {
+          "itemId": 271511,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Fanged Grips",
+          "slot": "Hands",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271511/chosen-bloodslayers-fanged-grips?bonus=13335%3A12854&ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 100,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 51,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
