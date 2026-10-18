@@ -3648,6 +3648,54 @@
               "source": "Warcraft Wiki item page, item level 321"
             }
           ]
+        },
+        {
+          "itemId": 271526,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Plumage",
+          "slot": "Shoulders",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://azerothcodex.up.railway.app/stats/us/illidan/Bigbloom",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 141,
+              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Plumage at item level 334; Wowhead confirms the item identity and secondary-stat family."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 141,
+              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Plumage at item level 334; Wowhead confirms the item identity and secondary-stat family."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Plumage at item level 334."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 99,
+              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Plumage at item level 334."
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 52,
+              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Plumage at item level 334."
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
