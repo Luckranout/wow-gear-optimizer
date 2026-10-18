@@ -10203,6 +10203,170 @@
               "source": "Wowhead tooltip, item level 334"
             }
           ]
+        },
+        {
+          "itemId": 271554,
+          "setId": "cosmic-penitent-s-raiment",
+          "name": "Enveloping Legwraps of the Cosmic Penitent",
+          "slot": "Legs",
+          "variant": "Veteran 3/6 observed",
+          "itemLevel": 285,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Enveloping_Legwraps_of_the_Cosmic_Penitent",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki tier item listing, item level 285"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki tier item listing, item level 285"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 47,
+              "source": "Warcraft Wiki tier item listing, item level 285"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 114,
+              "source": "Warcraft Wiki tier item listing, item level 285"
+            }
+          ]
+        },
+        {
+          "itemId": 271554,
+          "setId": "cosmic-penitent-s-raiment",
+          "name": "Enveloping Legwraps of the Cosmic Penitent",
+          "slot": "Legs",
+          "variant": "Champion 3/6 observed",
+          "itemLevel": 298,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Enveloping_Legwraps_of_the_Cosmic_Penitent",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki tier item listing, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki tier item listing, item level 298"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 50,
+              "source": "Warcraft Wiki tier item listing, item level 298"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 122,
+              "source": "Warcraft Wiki tier item listing, item level 298"
+            }
+          ]
+        },
+        {
+          "itemId": 271554,
+          "setId": "cosmic-penitent-s-raiment",
+          "name": "Enveloping Legwraps of the Cosmic Penitent",
+          "slot": "Legs",
+          "variant": "Hero 3/6 observed",
+          "itemLevel": 311,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Enveloping_Legwraps_of_the_Cosmic_Penitent",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki tier item listing, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Warcraft Wiki tier item listing, item level 311"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 53,
+              "source": "Warcraft Wiki tier item listing, item level 311"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 129,
+              "source": "Warcraft Wiki tier item listing, item level 311"
+            }
+          ]
+        },
+        {
+          "itemId": 271554,
+          "setId": "cosmic-penitent-s-raiment",
+          "name": "Enveloping Legwraps of the Cosmic Penitent",
+          "slot": "Legs",
+          "variant": "Myth 3/6 observed",
+          "itemLevel": 324,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Enveloping_Legwraps_of_the_Cosmic_Penitent",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki tier item listing, item level 324"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki tier item listing, item level 324"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 56,
+              "source": "Warcraft Wiki tier item listing, item level 324"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 137,
+              "source": "Warcraft Wiki tier item listing, item level 324"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
