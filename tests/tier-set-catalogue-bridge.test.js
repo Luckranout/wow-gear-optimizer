@@ -225,7 +225,7 @@ test("Paladin observed tier variants are source-backed and remain evidence-only"
     assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
     assert.ok(piece.stats.every(stat => typeof stat.source === "string" && stat.source.length > 0));
   }
-  const chest = observations.find(piece => piece.itemId === 271468);
+  const chest = observations.find(piece => piece.itemId === 271468 && piece.itemLevel === 334);
   assert.equal(chest.itemLevel, 334);
   assert.deepEqual(
     Object.fromEntries(chest.stats.map(stat => [stat.type.name, stat.value])),
