@@ -105,7 +105,7 @@ test("Warrior source-checked variant observations remain evidence-only and prese
 test("Death Knight source-checked tier versions preserve observed stats without becoming optimizer candidates", () => {
   const deathKnight = catalogue.sets.find(set => set.class === "Death Knight");
   const observations = deathKnight.verifiedVariantObservations || [];
-  assert.equal(observations.length, 20);
+  assert.equal(observations.length, 24);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(deathKnight.variantObservationsStatus, "partial");
   assert.match(deathKnight.variantObservationsNote, /remain ineligible as optimizer candidates/i);
@@ -576,6 +576,21 @@ test("Evoker source-checked tier versions remain evidence-only and preserve obse
     assert.equal(chest.verificationScope, "observed-version-only");
     assert.equal(new URL(chest.sourceUrl).hostname, "warcraft.wiki.gg");
     assert.deepEqual(Object.fromEntries(chest.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+  const legsByLevel = new Map(observations.filter(piece => piece.itemId === 271500).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...legsByLevel.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334]);
+  const expectedLegs = {
+    285: { agility: 119, intellect: 119, stamina: 2219, criticalStrike: 110, haste: 51 },
+    298: { agility: 135, intellect: 135, stamina: 2579, criticalStrike: 118, haste: 54 },
+    311: { agility: 152, intellect: 152, stamina: 3002, criticalStrike: 125, haste: 57 },
+    324: { agility: 172, intellect: 172, stamina: 3487, criticalStrike: 132, haste: 61 }
+  };
+  for (const [level, expected] of Object.entries(expectedLegs)) {
+    const legs = legsByLevel.get(Number(level));
+    assert.equal(legs.candidate, false);
+    assert.equal(legs.verificationScope, "observed-version-only");
+    assert.equal(new URL(legs.sourceUrl).hostname, "warcraft.wiki.gg");
+    assert.deepEqual(Object.fromEntries(legs.stats.map(stat => [stat.type.name, stat.value])), expected);
   }
   const gloves = observations.find(piece => piece.itemId === 271502);
   assert.equal(gloves.itemLevel, 321);
