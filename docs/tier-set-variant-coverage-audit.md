@@ -32,7 +32,7 @@ For every class marked incomplete below, all five slots still need a complete, s
 | Rogue | 16 observations | Head, Shoulders, Chest, Hands, and Legs now each have a source-checked Mythic 6/6 version at item level 334; lower-rank observations are also recorded for Chest, Hands, Head, and Legs. | Chest (271513) and Hands (271511) now include exact Wowhead Mythic 6/6 level-334 stats. Continue checking source/version consistency for all five slots and complete the remaining difficulty and upgrade-track variants; all observations remain evidence-only. |
 | Shaman | 30 records | Four PvE variants per slot are numeric and candidate-eligible. Ten PvP appearance records lack verified numeric stats. | PvE baseline complete. Keep PvP records appearance-only until their numeric item levels/stats are verified. |
 | Warlock | 14 observations | Head levels 219, 285, 298, 305, 308, 311, 315, 318, 321, and 324; Hands 331; Chest/Legs/Shoulders level 334 only. | Five additional item-specific helm versions are source-checked; verify remaining head upgrades and all missing variants across the five slots. |
-| Warrior | 15 observations | Chest levels 285, 298, 311, 324, and 344; Shoulders have levels 282, 295, 308, 321, and 334; Hands have distinct same-level stat variants at 321 and a 334 observation; Legs 321; Head 334. | Shoulders now include source-checked 282/295/308 variants, and Chest has source-checked 285/298/311/324 variants. Preserve distinct same-ID/stat variants and continue filling the remaining gaps in Head, Hands, and Legs. |
+| Warrior | 16 observations | Chest levels 285, 298, 311, 324, 334, and 344; Shoulders have levels 282, 295, 308, 321, and 334; Hands have distinct same-level stat variants at 321 and a 334 observation; Legs 321; Head 334. | Chest now includes a source-checked standard Mythic 6/6 item level 334 in addition to the special 344 reward. Preserve distinct same-ID/stat variants and continue filling remaining intermediate upgrade ranks and other slots. |
 
 ## Acceptance criteria
 
@@ -67,7 +67,7 @@ This is a working inventory of current observations, not a certification that th
 | Rogue | Head, Shoulders, Chest, Hands, Legs | None missing from current 334 observations; validate exact source/stats for all five slots |
 | Shaman | Five PvE slots exist in the separate numeric pieces schema; verify which records are exactly standard Mythic 6/6 at 334 | Validate exact 334 version and stats per slot |
 | Warlock | Shoulders, Chest, Legs | Head, Hands |
-| Warrior | Head, Shoulders, Hands | Chest, Legs; current Chest record at 344 is a special variant, not standard 334 |
+| Warrior | Head, Shoulders, Hands, Chest | Legs |
 
 ### Work sequence
 
