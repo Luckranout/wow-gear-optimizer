@@ -1115,3 +1115,22 @@ test("Warrior source-checked shoulder variants preserve exact stats and remain e
     assert.ok(piece.stats.every(stat => /Warcraft Wiki item page/.test(stat.source)));
   }
 });
+
+test("Warrior source-checked chest versions remain evidence-only", () => {
+  const warrior = catalogue.sets.find(set => set.class === "Warrior");
+  const observations = warrior.verifiedVariantObservations || [];
+  const chest = new Map(observations.filter(piece => piece.itemId === 271459 && piece.slot === "Chest").map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...chest.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 344]);
+  for (const [level, expected] of [
+    [285, { strength: 119, stamina: 2219, criticalStrike: 47, mastery: 114 }],
+    [298, { strength: 135, stamina: 2579, criticalStrike: 51, mastery: 121 }],
+    [311, { strength: 152, stamina: 3002, criticalStrike: 54, mastery: 129 }],
+    [324, { strength: 172, stamina: 3487, criticalStrike: 57, mastery: 136 }]
+  ]) {
+    const piece = chest.get(level);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.match(piece.sourceUrl, /warcraft\\.wiki\\.gg/);
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+});
