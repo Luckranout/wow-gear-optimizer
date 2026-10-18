@@ -1130,7 +1130,7 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Twenty-four source-checked item versions are recorded for evidence only. Head levels 285/298/305/308/311/321/324/334; Shoulders 282/295/308/318/321/334; Chest 311/321/334; Hands 321/334; Legs 285/298/311/324/334. Complete all missing difficulty and upgrade variants across all slots before eligibility."
+      "variantObservationsNote": "Twenty-four source-checked item versions are recorded for evidence only. Head levels 285/298/305/308/311/321/324/334; Shoulders 282/295/308/318/321/334; Chest 311/321/334; Hands 321/334; Legs 285/298/311/324/334. Other difficulty and upgrade variants remain incomplete; these observations remain ineligible as optimizer candidates until all slots are fully verified."
     },
     {
       "class": "Demon Hunter",
