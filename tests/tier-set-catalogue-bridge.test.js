@@ -162,7 +162,7 @@ test("Death Knight source-checked tier versions preserve observed stats without 
 test("Paladin observed tier variants are source-backed and remain evidence-only", () => {
   const paladin = catalogue.sets.find(set => set.class === "Paladin");
   const observations = paladin.verifiedVariantObservations || [];
-  assert.equal(observations.length, 8);
+  assert.equal(observations.length, 12);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(paladin.variantObservationsStatus, "partial");
   assert.match(paladin.variantObservationsNote, /not optimizer candidates/i);
@@ -195,6 +195,18 @@ test("Paladin observed tier variants are source-backed and remain evidence-only"
   for (const [level, piece] of handsByLevel) {
     assert.equal(piece.candidate, false);
     assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expectedHands[level]);
+  }
+  const shouldersByLevel = new Map(observations.filter(piece => piece.itemId === 271463).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...shouldersByLevel.keys()].sort((a, b) => a - b), [282, 295, 308, 321]);
+  const expectedShoulders = {
+    282: { strength: 87, intellect: 87, stamina: 1606, criticalStrike: 83, mastery: 36 },
+    295: { strength: 98, intellect: 98, stamina: 1869, criticalStrike: 89, mastery: 38 },
+    308: { strength: 111, intellect: 111, stamina: 2172, criticalStrike: 94, mastery: 41 },
+    321: { strength: 125, intellect: 125, stamina: 2527, criticalStrike: 100, mastery: 43 }
+  };
+  for (const [level, piece] of shouldersByLevel) {
+    assert.equal(piece.candidate, false);
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expectedShoulders[level]);
   }
   assert.equal(paladin.itemIdsVerified, false,
     "partial observed versions must not promote the complete class variant map");
