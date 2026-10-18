@@ -209,7 +209,7 @@ test("Death Knight source-checked tier versions preserve observed stats without 
 test("Paladin observed tier variants are source-backed and remain evidence-only", () => {
   const paladin = catalogue.sets.find(set => set.class === "Paladin");
   const observations = paladin.verifiedVariantObservations || [];
-  assert.equal(observations.length, 16);
+  assert.equal(observations.length, 17);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(paladin.variantObservationsStatus, "partial");
   assert.match(paladin.variantObservationsNote, /not optimizer candidates/i);
@@ -1220,6 +1220,7 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
   }
   const expected = {
     271549: { intellect: 189, stamina: 3910, haste: 141, mastery: 60 },
+    "271549:321": { intellect: 167, stamina: 3369, haste: 134, mastery: 57 },
     "271547:331": { intellect: 138, stamina: 2832, criticalStrike: 44, haste: 105 },
     "271546:219": { intellect: 65, stamina: 1005, versatility: 34, mastery: 73 },
     "271546:305": { intellect: 144, stamina: 2794, versatility: 57, mastery: 120 },
@@ -1240,9 +1241,13 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
   for (const piece of observations) {
     assert.deepEqual(
       Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])),
-      expected[[271546, 271547].includes(piece.itemId) ? `${piece.itemId}:${piece.itemLevel}` : piece.itemId]
+      expected[[271546, 271547].includes(piece.itemId) || (piece.itemId === 271549 && piece.itemLevel === 321) ? `${piece.itemId}:${piece.itemLevel}` : piece.itemId]
     );
   }
+  const chest321 = observations.find(piece => piece.itemId === 271549 && piece.itemLevel === 321);
+  assert.ok(chest321, "missing Warlock chest item level 321 observation");
+  assert.equal(chest321.candidate, false);
+  assert.equal(Number(new URL(chest321.sourceUrl).searchParams.get("ilvl")), 321);
   assert.deepEqual(
     observations.filter(piece => piece.itemId === 271546).map(piece => piece.itemLevel).sort((a, b) => a - b),
     [219, 285, 298, 305, 308, 311, 315, 318, 321, 324, 334]
