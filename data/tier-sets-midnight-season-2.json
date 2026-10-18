@@ -1872,6 +1872,170 @@
               "source": "Warcraft Wiki item page, item level 324"
             }
           ]
+        },
+        {
+          "itemId": 271535,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Jaws",
+          "slot": "Shoulders",
+          "variant": "Veteran 2/6",
+          "itemLevel": 282,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Abyssal_Doomhound%27s_Pursuit",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki tier set table, item level 282"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "Warcraft Wiki tier set table, item level 282"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 42,
+              "source": "Warcraft Wiki tier set table, item level 282"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 77,
+              "source": "Warcraft Wiki tier set table, item level 282"
+            }
+          ]
+        },
+        {
+          "itemId": 271535,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Jaws",
+          "slot": "Shoulders",
+          "variant": "Champion 2/6",
+          "itemLevel": 295,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Abyssal_Doomhound%27s_Pursuit",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 98,
+              "source": "Warcraft Wiki tier set table, item level 295"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Warcraft Wiki tier set table, item level 295"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 45,
+              "source": "Warcraft Wiki tier set table, item level 295"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 82,
+              "source": "Warcraft Wiki tier set table, item level 295"
+            }
+          ]
+        },
+        {
+          "itemId": 271535,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Jaws",
+          "slot": "Shoulders",
+          "variant": "Hero 2/6",
+          "itemLevel": 308,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Abyssal_Doomhound%27s_Pursuit",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki tier set table, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Warcraft Wiki tier set table, item level 308"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 48,
+              "source": "Warcraft Wiki tier set table, item level 308"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki tier set table, item level 308"
+            }
+          ]
+        },
+        {
+          "itemId": 271535,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Jaws",
+          "slot": "Shoulders",
+          "variant": "Myth 2/6",
+          "itemLevel": 321,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Abyssal_Doomhound%27s_Pursuit",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 125,
+              "source": "Warcraft Wiki tier set table, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Warcraft Wiki tier set table, item level 321"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 51,
+              "source": "Warcraft Wiki tier set table, item level 321"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 92,
+              "source": "Warcraft Wiki tier set table, item level 321"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
