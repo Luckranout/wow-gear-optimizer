@@ -2773,6 +2773,129 @@
               "source": "Warcraft Wiki tier-set page, item level 298"
             }
           ]
+        },
+        {
+          "itemId": 271526,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Plumage",
+          "slot": "Shoulders",
+          "variant": "Veteran 2/6 observed",
+          "itemLevel": 282,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Enigmatic_Dreamwatcher%27s_Plumage",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki item page, item level 282; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 82,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 37,
+              "source": "Warcraft Wiki item page, item level 282"
+            }
+          ]
+        },
+        {
+          "itemId": 271526,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Plumage",
+          "slot": "Shoulders",
+          "variant": "Champion 2/6 observed",
+          "itemLevel": 295,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Enigmatic_Dreamwatcher%27s_Plumage",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 98,
+              "source": "Warcraft Wiki item page, item level 295; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Warcraft Wiki item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 88,
+              "source": "Warcraft Wiki item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 39,
+              "source": "Warcraft Wiki item page, item level 295"
+            }
+          ]
+        },
+        {
+          "itemId": 271526,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Plumage",
+          "slot": "Shoulders",
+          "variant": "Myth 2/6 observed",
+          "itemLevel": 321,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Enigmatic_Dreamwatcher%27s_Plumage",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 125,
+              "source": "Warcraft Wiki item page, item level 321; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Warcraft Wiki item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 99,
+              "source": "Warcraft Wiki item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 44,
+              "source": "Warcraft Wiki item page, item level 321"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
