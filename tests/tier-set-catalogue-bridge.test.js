@@ -224,6 +224,7 @@ test("Demon Hunter source-checked tier versions remain evidence-only and preserv
     { agility: 111, stamina: 2172, criticalStrike: 93, mastery: 42 }
   );
   const mythicGloves = observations.find(piece => piece.itemId === 271538 && piece.itemLevel === 321);
+  const championGloves = observations.find(piece => piece.itemId === 271538 && piece.itemLevel === 295);
   assert.deepEqual(
     Object.fromEntries(mythicGloves.stats.map(stat => [stat.type.name, stat.value])),
     { agility: 125, stamina: 2527, criticalStrike: 98, mastery: 45 }
@@ -331,6 +332,10 @@ test("Evoker source-checked tier versions remain evidence-only and preserve obse
     { agility: 189, intellect: 189, stamina: 3910, haste: 135, versatility: 66 }
   );
   const gloves = observations.find(piece => piece.itemId === 271502);
+  assert.equal(championGloves.variant, "Champion 2/6 observed");
+  assert.equal(championGloves.candidate, false);
+  assert.deepEqual(Object.fromEntries(championGloves.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 98, stamina: 1869, criticalStrike: 87, mastery: 40 });
   assert.equal(gloves.itemLevel, 321);
   assert.equal(evoker.itemIdsVerified, false,
     "partial observed versions must not promote the complete class variant map");
