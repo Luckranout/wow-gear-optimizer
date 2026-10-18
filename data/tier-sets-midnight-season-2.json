@@ -2405,6 +2405,54 @@
               "source": "Wowhead tooltip, item level 334"
             }
           ]
+        },
+        {
+          "itemId": 271540,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Coreguard",
+          "slot": "Chest",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271540/abyssal-doomhounds-coreguard?ilvl=334&spec=581",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 189,
+              "source": "Wowhead item level 334 version; cross-checked against level-334 equipped profile"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead item level 334 version; primary stat shown for eligible Demon Hunter specs"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead item level 334 version; cross-checked against level-334 equipped profile"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 139,
+              "source": "Azeroth Codex level-334 equipped profile"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 62,
+              "source": "Azeroth Codex level-334 equipped profile"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
