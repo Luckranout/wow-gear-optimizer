@@ -494,7 +494,7 @@ test("Death Knight source-checked leg versions remain evidence-only", () => {
 test("Druid source-checked tier versions remain evidence-only and preserve observed stats", () => {
   const druid = catalogue.sets.find(set => set.class === "Druid");
   const observations = druid.verifiedVariantObservations || [];
-  assert.equal(observations.length, 25);
+  assert.equal(observations.length, 26);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(druid.variantObservationsStatus, "partial");
   assert.match(druid.variantObservationsNote, /all observations remain ineligible as optimizer candidates/i);
@@ -511,17 +511,23 @@ test("Druid source-checked tier versions remain evidence-only and preserve obser
     assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
   }
   const chestByLevel = new Map(observations.filter(piece => piece.slot === "Chest").map(piece => [piece.itemLevel, piece]));
-  assert.deepEqual([...chestByLevel.keys()].sort((a, b) => a - b), [285, 292, 298, 311, 324]);
+  assert.deepEqual([...chestByLevel.keys()].sort((a, b) => a - b), [285, 292, 298, 311, 324, 334]);
   for (const [level, expected] of [
     [285, { agility: 119, stamina: 2219, criticalStrike: 105, haste: 56 }],
     [298, { agility: 135, stamina: 2579, criticalStrike: 112, haste: 60 }],
     [311, { agility: 152, stamina: 3002, criticalStrike: 119, haste: 63 }],
-    [324, { agility: 172, stamina: 3487, criticalStrike: 126, haste: 67 }]
+    [324, { agility: 172, stamina: 3487, criticalStrike: 126, haste: 67 }],
+    [334, { agility: 189, intellect: 189, stamina: 3910, haste: 139, mastery: 62 }]
   ]) {
     const piece = chestByLevel.get(level);
     assert.equal(piece.candidate, false);
     assert.equal(piece.verificationScope, "observed-version-only");
-    assert.equal(new URL(piece.sourceUrl).hostname, "warcraft.wiki.gg");
+    if (level === 334) {
+      assert.equal(new URL(piece.sourceUrl).hostname, "www.wowhead.com");
+      assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), 334);
+    } else {
+      assert.equal(new URL(piece.sourceUrl).hostname, "warcraft.wiki.gg");
+    }
     assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
   }
   const shouldersByLevel = new Map(observations.filter(piece => piece.slot === "Shoulders").map(piece => [piece.itemLevel, piece]));
