@@ -11518,10 +11518,106 @@
               "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
             }
           ]
+        },
+        {
+          "itemId": 271483,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Serpent Crown of the Ophidian Oracle",
+          "slot": "Head",
+          "variant": "Item level 295 observed",
+          "itemLevel": 295,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271483/serpent-crown-of-the-ophidian-oracle?bonus=13332%3A13692%3A6652%3A13696%3A13698%3A12830&ilvl=295&spec=264",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 131,
+              "source": "Wowhead item tooltip explicitly lists item level 295."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 131,
+              "source": "Wowhead item tooltip explicitly lists item level 295."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2492,
+              "source": "Wowhead item tooltip explicitly lists item level 295."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 51,
+              "source": "Wowhead item tooltip explicitly lists item level 295."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 118,
+              "source": "Wowhead item tooltip explicitly lists item level 295."
+            }
+          ]
+        },
+        {
+          "itemId": 271483,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Serpent Crown of the Ophidian Oracle",
+          "slot": "Head",
+          "variant": "Hero 6/6",
+          "itemLevel": 321,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271483/serpent-crown-of-the-ophidian-oracle?bonus=6652%3A13440%3A13695%3A13692%3A13698%3A12846&ilvl=321&spec=262",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 167,
+              "source": "Wowhead item tooltip explicitly lists Hero 6/6 at item level 321."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 167,
+              "source": "Wowhead item tooltip explicitly lists Hero 6/6 at item level 321."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3369,
+              "source": "Wowhead item tooltip explicitly lists Hero 6/6 at item level 321."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 58,
+              "source": "Wowhead item tooltip explicitly lists Hero 6/6 at item level 321."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 133,
+              "source": "Wowhead item tooltip explicitly lists Hero 6/6 at item level 321."
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Five exact Wowhead Mythic 6/6 item-level-334 versions are recorded as evidence-only, one for each tier slot. The baseline raid-difficulty candidate records remain separate. Upgrade-track, socket, tertiary-stat, and spec-specific item variants still require explicit verification; these observations must not be treated as optimizer candidates."
+      "variantObservationsNote": "Seven exact Shaman tier item versions are recorded as evidence only: Mythic 6/6 item level 334 for all five slots, plus exact Head item levels 295 and 321. These records are separate from the baseline raid-difficulty candidates. Other intermediate upgrade ranks and complete upgrade-track coverage remain unfinished; no observation here is optimizer-eligible."
     },
     {
       "class": "Warlock",
