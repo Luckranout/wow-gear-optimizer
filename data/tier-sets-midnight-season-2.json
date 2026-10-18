@@ -840,6 +840,129 @@
               "source": "Warcraft Wiki set item entry, Mythic item level 324"
             }
           ]
+        },
+        {
+          "itemId": 271473,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Greaves",
+          "slot": "Legs",
+          "variant": "Veteran 3/6 observed",
+          "itemLevel": 285,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Baleful_Grave-Knight%27s_Crucible",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki set item entry, item level 285"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki set item entry, item level 285"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 47,
+              "source": "Warcraft Wiki set item entry, item level 285"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 114,
+              "source": "Warcraft Wiki set item entry, item level 285"
+            }
+          ]
+        },
+        {
+          "itemId": 271473,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Greaves",
+          "slot": "Legs",
+          "variant": "Champion 3/6 observed",
+          "itemLevel": 298,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Baleful_Grave-Knight%27s_Crucible",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki set item entry, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki set item entry, item level 298"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 50,
+              "source": "Warcraft Wiki set item entry, item level 298"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 121,
+              "source": "Warcraft Wiki set item entry, item level 298"
+            }
+          ]
+        },
+        {
+          "itemId": 271473,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Greaves",
+          "slot": "Legs",
+          "variant": "Hero 3/6 observed",
+          "itemLevel": 311,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Baleful_Grave-Knight%27s_Crucible",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki set item entry, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Warcraft Wiki set item entry, item level 311"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 54,
+              "source": "Warcraft Wiki set item entry, item level 311"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 129,
+              "source": "Warcraft Wiki set item entry, item level 311"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
