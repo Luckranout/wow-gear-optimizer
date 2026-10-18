@@ -489,7 +489,7 @@ test("Death Knight source-checked leg versions remain evidence-only", () => {
 test("Druid source-checked tier versions remain evidence-only and preserve observed stats", () => {
   const druid = catalogue.sets.find(set => set.class === "Druid");
   const observations = druid.verifiedVariantObservations || [];
-  assert.equal(observations.length, 24);
+  assert.equal(observations.length, 25);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(druid.variantObservationsStatus, "partial");
   assert.match(druid.variantObservationsNote, /all observations remain ineligible as optimizer candidates/i);
@@ -520,11 +520,12 @@ test("Druid source-checked tier versions remain evidence-only and preserve obser
     assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
   }
   const shouldersByLevel = new Map(observations.filter(piece => piece.slot === "Shoulders").map(piece => [piece.itemLevel, piece]));
-  assert.deepEqual([...shouldersByLevel.keys()].sort((a, b) => a - b), [282, 295, 308, 321]);
+  assert.deepEqual([...shouldersByLevel.keys()].sort((a, b) => a - b), [282, 295, 308, 321, 334]);
   for (const [level, expected] of [
     [282, { agility: 87, stamina: 1606, criticalStrike: 82, mastery: 37 }],
     [295, { agility: 98, stamina: 1869, criticalStrike: 88, mastery: 39 }],
-    [321, { agility: 125, stamina: 2527, criticalStrike: 99, mastery: 44 }]
+    [321, { agility: 125, stamina: 2527, criticalStrike: 99, mastery: 44 }],
+    [334, { agility: 141, intellect: 141, stamina: 2932, criticalStrike: 99, mastery: 52 }]
   ]) {
     const piece = shouldersByLevel.get(level);
     assert.equal(piece.candidate, false);
