@@ -1175,10 +1175,51 @@
               "source": "Warcraft Wiki item page, item level 295"
             }
           ]
+        },
+        {
+          "itemId": 271538,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Studded Gauntlets",
+          "slot": "Hands",
+          "variant": "Raid Finder 2/6 observed",
+          "itemLevel": 282,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Abyssal_Doomhound%27s_Studded_Gauntlets",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 82,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 37,
+              "source": "Warcraft Wiki item page, item level 282"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Partial source-checked observations only. Hands at base item level 219, Champion 2/6 item level 295, and Hero 1/6 item level 305, Hero 2/6 item level 308, and Myth 2/6 item level 321; Legs at item levels 295, 311, and 318. Other slots have only isolated observed versions. All observations remain evidence-only until complete slot/difficulty/upgrade maps are verified."
+      "variantObservationsNote": "Partial source-checked observations only. Hands at base item level 219, Raid Finder 2/6 item level 282, Champion 2/6 item level 295, and Hero 1/6 item level 305, Hero 2/6 item level 308, and Myth 2/6 item level 321; Legs at item levels 295, 311, and 318. Other slots have only isolated observed versions. All observations remain evidence-only until complete slot/difficulty/upgrade maps are verified."
     },
     {
       "class": "Druid",
