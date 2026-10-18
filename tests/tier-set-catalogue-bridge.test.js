@@ -1077,3 +1077,22 @@ test("Mage source-checked leg versions remain evidence-only", () => {
     assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
   }
 });
+
+test("Mage source-checked shoulder versions remain evidence-only", () => {
+  const mage = catalogue.sets.find(set => set.class === "Mage");
+  const observations = mage.verifiedVariantObservations || [];
+  const shoulders = new Map(observations.filter(piece => piece.itemId === 271562 && piece.slot === "Shoulders").map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...shoulders.keys()].sort((a, b) => a - b), [282, 295, 308, 321, 334]);
+  for (const [level, expected] of [
+    [282, { intellect: 87, stamina: 1606, criticalStrike: 81, haste: 38 }],
+    [295, { intellect: 98, stamina: 1869, criticalStrike: 86, haste: 41 }],
+    [308, { intellect: 111, stamina: 2172, criticalStrike: 92, haste: 43 }],
+    [321, { intellect: 125, stamina: 2527, criticalStrike: 97, haste: 46 }]
+  ]) {
+    const piece = shoulders.get(level);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.match(piece.sourceUrl, /warcraft\\.wiki\\.gg/);
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+});
