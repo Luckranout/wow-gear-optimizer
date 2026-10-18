@@ -1168,6 +1168,47 @@
               "source": "Warcraft Wiki set item listing, item level 298"
             }
           ]
+        },
+        {
+          "itemId": 271475,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Deathgrips",
+          "slot": "Hands",
+          "variant": "Champion 3/6 observed",
+          "itemLevel": 298,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271475/baleful-grave-knights-deathgrips?bonus=6652%3A13691%3A13697%3A12835&ilvl=298&spec=252",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 101,
+              "source": "Wowhead tooltip, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1935,
+              "source": "Wowhead tooltip, item level 298"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 44,
+              "source": "Wowhead tooltip, item level 298"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 85,
+              "source": "Wowhead tooltip, item level 298"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
