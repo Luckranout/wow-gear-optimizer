@@ -587,7 +587,7 @@ test("Evoker source-checked tier versions remain evidence-only and preserve obse
 test("Hunter source-checked tier versions remain evidence-only and match exact Wowhead stats", () => {
   const hunter = catalogue.sets.find(set => set.class === "Hunter");
   const observations = hunter.verifiedVariantObservations || [];
-  assert.equal(observations.length, 13);
+  assert.equal(observations.length, 17);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(hunter.variantObservationsStatus, "partial");
   assert.match(hunter.variantObservationsNote, /remain ineligible as optimizer candidates/i);
@@ -1161,6 +1161,20 @@ test("Priest source-checked helm variants retain their exact source stats and re
   assert.equal(observations.length, 13);
   const heads = new Map(observations.filter(piece => piece.itemId === 271555 && piece.slot === "Head").map(piece => [piece.itemLevel, piece]));
   assert.deepEqual([...heads.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334]);
+  const shoulders = new Map(observations.filter(piece => piece.itemId === 271553 && piece.slot === "Shoulders").map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...shoulders.keys()].sort((a, b) => a - b), [282, 295, 308, 321, 334]);
+  for (const [level, expected] of [
+    [282, { intellect: 87, stamina: 1606, criticalStrike: 80, haste: 39 }],
+    [295, { intellect: 98, stamina: 1869, criticalStrike: 85, haste: 42 }],
+    [308, { intellect: 111, stamina: 2172, criticalStrike: 91, haste: 44 }],
+    [321, { intellect: 125, stamina: 2527, criticalStrike: 96, haste: 47 }]
+  ]) {
+    const piece = shoulders.get(level);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.ok(piece.sourceUrl.includes("warcraft.wiki.gg"));
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
   for (const [level, expected] of [
     [285, { intellect: 119, stamina: 2219, criticalStrike: 113, mastery: 48 }],
     [298, { intellect: 135, stamina: 2579, criticalStrike: 120, mastery: 51 }],
