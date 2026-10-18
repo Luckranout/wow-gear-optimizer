@@ -338,7 +338,7 @@ test("Demon Hunter source-checked tier versions remain evidence-only and preserv
 test("Druid source-checked tier versions remain evidence-only and preserve observed stats", () => {
   const druid = catalogue.sets.find(set => set.class === "Druid");
   const observations = druid.verifiedVariantObservations || [];
-  assert.equal(observations.length, 15);
+  assert.equal(observations.length, 17);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(druid.variantObservationsStatus, "partial");
   assert.match(druid.variantObservationsNote, /all observations remain ineligible as optimizer candidates/i);
@@ -376,6 +376,17 @@ test("Druid source-checked tier versions remain evidence-only and preserve obser
     assert.ok(Array.isArray(piece.stats) && piece.stats.length >= 4);
     assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
     assert.ok(piece.stats.every(stat => typeof stat.source === "string" && stat.source.length > 0));
+  }
+  for (const [level, expected] of [
+    [282, { agility: 87, stamina: 1606, versatility: 84, mastery: 35 }],
+    [308, { agility: 111, stamina: 2172, versatility: 95, mastery: 40 }]
+  ]) {
+    const piece = observations.find(item => item.itemId === 271529 && item.itemLevel === level);
+    assert.ok(piece, "missing Druid hand observation at item level " + level);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.match(piece.sourceUrl, /warcraft\\.wiki\\.gg/);
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
   }
   const championGloves = observations.find(piece => piece.itemId === 271529 && piece.itemLevel === 295);
   assert.equal(championGloves.variant, "Champion 2/6");
