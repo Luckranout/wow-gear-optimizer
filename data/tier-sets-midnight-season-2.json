@@ -12190,10 +12190,154 @@
               "source": "Wowhead item tooltip explicitly lists item level 308."
             }
           ]
+        },
+        {
+          "itemId": 271483,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Serpent Crown of the Ophidian Oracle",
+          "slot": "Head",
+          "variant": "Item level 311 observed",
+          "itemLevel": 311,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr-2/item=271483/serpent-crown-of-the-ophidian-oracle?bonus=6652%3A13440%3A13695%3A13692%3A13698%3A12843&ilvl=311&spec=264",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 152,
+              "source": "Wowhead item tooltip explicitly lists item level 311."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 152,
+              "source": "Wowhead item tooltip explicitly lists item level 311."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Wowhead item tooltip explicitly lists item level 311."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 55,
+              "source": "Wowhead item tooltip explicitly lists item level 311."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 127,
+              "source": "Wowhead item tooltip explicitly lists item level 311."
+            }
+          ]
+        },
+        {
+          "itemId": 271486,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Fanged Raiment of the Ophidian Oracle",
+          "slot": "Chest",
+          "variant": "Item level 311 observed",
+          "itemLevel": 311,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271486/fanged-raiment-of-the-ophidian-oracle?bonus=12843%3A13334%3A13690%3A43%3A13698&ilvl=311&spec=262",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 152,
+              "source": "Wowhead item tooltip explicitly lists item level 311."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 152,
+              "source": "Wowhead item tooltip explicitly lists item level 311."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Wowhead item tooltip explicitly lists item level 311."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 128,
+              "source": "Wowhead item tooltip explicitly lists item level 311."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 55,
+              "source": "Wowhead item tooltip explicitly lists item level 311."
+            }
+          ]
+        },
+        {
+          "itemId": 271482,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Leggings of the Ophidian Oracle",
+          "slot": "Legs",
+          "variant": "Item level 295 observed",
+          "itemLevel": 295,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271482/leggings-of-the-ophidian-oracle?bonus=6652%3A12830%3A13693%3A13698%3A1548&ilvl=295&spec=262",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 131,
+              "source": "Wowhead item tooltip explicitly lists item level 295."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 131,
+              "source": "Wowhead item tooltip explicitly lists item level 295."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2492,
+              "source": "Wowhead item tooltip explicitly lists item level 295."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 59,
+              "source": "Wowhead item tooltip explicitly lists item level 295."
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 110,
+              "source": "Wowhead item tooltip explicitly lists item level 295."
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Nineteen exact Shaman tier item versions are recorded as evidence only: Mythic 6/6 item level 334 for all five slots; Head 295/321; Shoulders 302/321; Chest 289/308/318/328; Hands 295/308/311/321; Legs 318/321. These records are separate from baseline raid-difficulty candidates. Remaining intermediate upgrade ranks and complete upgrade-track coverage are unfinished; no observation here is optimizer-eligible."
+      "variantObservationsNote": "Twenty-two exact Shaman tier item versions are recorded as evidence only: Mythic 6/6 item level 334 for all five slots; Head 295/311/321; Shoulders 302/321; Chest 289/308/311/318/328; Hands 295/308/311/321; Legs 295/318/321. These records are separate from baseline raid-difficulty candidates. Remaining intermediate upgrade ranks and complete upgrade-track coverage are unfinished; no observation here is optimizer-eligible."
     },
     {
       "class": "Warlock",
