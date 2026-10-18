@@ -1349,7 +1349,7 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
   for (const piece of observations) {
     assert.equal(piece.candidate, false);
     assert.equal(piece.verificationScope, "observed-version-only");
-    assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/") || piece.sourceUrl === "https://warcraft.wiki.gg/wiki/Skull_of_the_Damned_Necrolyte");
+    assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/") || piece.sourceUrl.startsWith("https://warcraft.wiki.gg/wiki/"));
     const sourceLevel = new URL(piece.sourceUrl).searchParams.get("ilvl");
     if (sourceLevel) assert.equal(Number(sourceLevel), piece.itemLevel);
     if (piece.sourceUrl.startsWith("https://warcraft.wiki.gg/")) {
@@ -1500,6 +1500,8 @@ test("Monk source-backed tier item versions remain evidence-only and match sourc
     assert.ok(piece.stats.every(stat => stat.source.includes(String(level))));
   }
   const expected = {
+    "271522:285": { agility: 119, stamina: 2219, haste: 50, mastery: 112 },
+    "271522:298": { agility: 135, stamina: 2579, haste: 53, mastery: 119 },
     "271522:311": { agility: 152, intellect: 152, stamina: 3002, haste: 56, mastery: 126 },
     "271522:324": { agility: 172, intellect: 172, stamina: 3487, haste: 59, mastery: 134 },
     "271522:334": { agility: 189, intellect: 189, stamina: 3910, haste: 62, mastery: 139 },
@@ -1717,7 +1719,7 @@ test("Mage source-checked shoulder versions remain evidence-only", () => {
 test("Warrior source-checked shoulder variants preserve exact stats and remain evidence-only", () => {
   const warrior = catalogue.sets.find(set => set.class === "Warrior");
   const observations = warrior.verifiedVariantObservations || [];
-  assert.equal(observations.length, 21);
+  assert.equal(observations.length, 24);
   const shoulders = new Map(observations.filter(piece => piece.itemId === 271454 && piece.slot === "Shoulders").map(piece => [piece.itemLevel, piece]));
   assert.deepEqual([...shoulders.keys()].sort((a, b) => a - b), [282, 295, 308, 321, 334]);
   for (const [level, expected] of [
