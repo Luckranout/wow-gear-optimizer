@@ -311,7 +311,7 @@ test("Evoker source-checked tier versions remain evidence-only and preserve obse
 test("Hunter source-checked tier versions remain evidence-only and match exact Wowhead stats", () => {
   const hunter = catalogue.sets.find(set => set.class === "Hunter");
   const observations = hunter.verifiedVariantObservations || [];
-  assert.equal(observations.length, 9);
+  assert.equal(observations.length, 11);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(hunter.variantObservationsStatus, "partial");
   assert.match(hunter.variantObservationsNote, /remain ineligible as optimizer candidates/i);
