@@ -5274,8 +5274,1226 @@
           "sourceType": "PvP"
         }
       ],
-      "pieces": [],
-      "itemIdsVerified": false,
+      "pieces": [
+        {
+          "itemId": 271528,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Somnolent Stare",
+          "slot": "Head",
+          "variant": "Raid Finder",
+          "itemLevel": 285,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Bark_of_the_Enigmatic_Dreamwatcher",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki tier set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki tier set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 114,
+              "source": "Warcraft Wiki tier set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 47,
+              "source": "Warcraft Wiki tier set page, item level 285"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271528,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Somnolent Stare",
+          "slot": "Head",
+          "variant": "Normal",
+          "itemLevel": 298,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Bark_of_the_Enigmatic_Dreamwatcher",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki tier set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki tier set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 121,
+              "source": "Warcraft Wiki tier set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 51,
+              "source": "Warcraft Wiki tier set page, item level 298"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271528,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Somnolent Stare",
+          "slot": "Head",
+          "variant": "Heroic",
+          "itemLevel": 311,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Bark_of_the_Enigmatic_Dreamwatcher",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki tier set page, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Warcraft Wiki tier set page, item level 311"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 129,
+              "source": "Warcraft Wiki tier set page, item level 311"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 54,
+              "source": "Warcraft Wiki tier set page, item level 311"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271528,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Somnolent Stare",
+          "slot": "Head",
+          "variant": "Mythic",
+          "itemLevel": 324,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Bark_of_the_Enigmatic_Dreamwatcher",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki tier set page, item level 324"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki tier set page, item level 324"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 136,
+              "source": "Warcraft Wiki tier set page, item level 324"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 57,
+              "source": "Warcraft Wiki tier set page, item level 324"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271528,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Somnolent Stare",
+          "slot": "Head",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271528/enigmatic-dreamwatchers-somnolent-stare?bonus=4786%3A12806&ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 142,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 59,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271526,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Plumage",
+          "slot": "Shoulders",
+          "variant": "Raid Finder",
+          "itemLevel": 282,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Enigmatic_Dreamwatcher%27s_Plumage",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki item page, item level 282; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 82,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 37,
+              "source": "Warcraft Wiki item page, item level 282"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271526,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Plumage",
+          "slot": "Shoulders",
+          "variant": "Normal",
+          "itemLevel": 295,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Enigmatic_Dreamwatcher%27s_Plumage",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 98,
+              "source": "Warcraft Wiki item page, item level 295; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Warcraft Wiki item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 88,
+              "source": "Warcraft Wiki item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 39,
+              "source": "Warcraft Wiki item page, item level 295"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271526,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Plumage",
+          "slot": "Shoulders",
+          "variant": "Heroic",
+          "itemLevel": 308,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271526/enigmatic-dreamwatchers-plumage?bonus=12842%3A41%3A13440%3A13694%3A13697%3A1561&ilvl=308&spec=105",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 111,
+              "source": "Wowhead tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 111,
+              "source": "Wowhead tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Wowhead tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 93,
+              "source": "Wowhead tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 42,
+              "source": "Wowhead tooltip, item level 308"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271526,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Plumage",
+          "slot": "Shoulders",
+          "variant": "Mythic",
+          "itemLevel": 321,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Enigmatic_Dreamwatcher%27s_Plumage",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 125,
+              "source": "Warcraft Wiki item page, item level 321; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Warcraft Wiki item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 99,
+              "source": "Warcraft Wiki item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 44,
+              "source": "Warcraft Wiki item page, item level 321"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271526,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Plumage",
+          "slot": "Shoulders",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271526/enigmatic-dreamwatchers-plumage?ilvl=334&spec=105",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 141,
+              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Plumage at item level 334; Wowhead confirms the item identity and secondary-stat family."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 141,
+              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Plumage at item level 334; Wowhead confirms the item identity and secondary-stat family."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Plumage at item level 334."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 99,
+              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Plumage at item level 334."
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 52,
+              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Plumage at item level 334."
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271531,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Lunar Raiment",
+          "slot": "Chest",
+          "variant": "Raid Finder",
+          "itemLevel": 285,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Bark_of_the_Enigmatic_Dreamwatcher",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki tier-set page, item level 285; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 105,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 56,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271531,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Lunar Raiment",
+          "slot": "Chest",
+          "variant": "Normal",
+          "itemLevel": 298,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Bark_of_the_Enigmatic_Dreamwatcher",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki tier-set page, item level 298; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 112,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 60,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271531,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Lunar Raiment",
+          "slot": "Chest",
+          "variant": "Heroic",
+          "itemLevel": 311,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Bark_of_the_Enigmatic_Dreamwatcher",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki tier-set page, item level 311; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Warcraft Wiki tier-set page, item level 311"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki tier-set page, item level 311"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 63,
+              "source": "Warcraft Wiki tier-set page, item level 311"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271531,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Lunar Raiment",
+          "slot": "Chest",
+          "variant": "Mythic",
+          "itemLevel": 324,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Bark_of_the_Enigmatic_Dreamwatcher",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki tier-set page, item level 324; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki tier-set page, item level 324"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 126,
+              "source": "Warcraft Wiki tier-set page, item level 324"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 67,
+              "source": "Warcraft Wiki tier-set page, item level 324"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271531,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Lunar Raiment",
+          "slot": "Chest",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271531/enigmatic-dreamwatchers-lunar-raiment?ilvl=334&spec=105",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 189,
+              "source": "Wowhead exact item-level URL; cross-checked against Azeroth Codex level-334 equipped profile."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead exact item-level URL; cross-checked against Azeroth Codex level-334 equipped profile."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead exact item-level URL; cross-checked against Azeroth Codex level-334 equipped profile."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 139,
+              "source": "Azeroth Codex level-334 equipped profile; secondary stats vary by observed version, so this is one exact observed variant."
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 62,
+              "source": "Azeroth Codex level-334 equipped profile; secondary stats vary by observed version, so this is one exact observed variant."
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271529,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Gauntlets",
+          "slot": "Hands",
+          "variant": "Raid Finder",
+          "itemLevel": 282,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Bark_of_the_Enigmatic_Dreamwatcher",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki tier-set page, item level 282; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "Warcraft Wiki tier-set page, item level 282"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 84,
+              "source": "Warcraft Wiki tier-set page, item level 282"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 35,
+              "source": "Warcraft Wiki tier-set page, item level 282"
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271529,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Gauntlets",
+          "slot": "Hands",
+          "variant": "Normal",
+          "itemLevel": 295,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271529/enigmatic-dreamwatchers-gauntlets?bonus=12834%3A13333%3A13691%3A6652%3A13697&class=11&ilvl=295&spec=102",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 98,
+              "source": "Wowhead tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 98,
+              "source": "Wowhead tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Wowhead tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 90,
+              "source": "Wowhead tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 37,
+              "source": "Wowhead tooltip, item level 295"
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271529,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Gauntlets",
+          "slot": "Hands",
+          "variant": "Heroic",
+          "itemLevel": 308,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Bark_of_the_Enigmatic_Dreamwatcher",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki tier-set page, item level 308; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Warcraft Wiki tier-set page, item level 308"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 95,
+              "source": "Warcraft Wiki tier-set page, item level 308"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 40,
+              "source": "Warcraft Wiki tier-set page, item level 308"
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271529,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Gauntlets",
+          "slot": "Hands",
+          "variant": "Mythic",
+          "itemLevel": 321,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271529/enigmatic-dreamwatchers-gauntlets?bonus=6652%3A13691%3A13697%3A12846&ilvl=321&spec=104",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 125,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 125,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 101,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 42,
+              "source": "Wowhead tooltip, item level 321"
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271529,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Gauntlets",
+          "slot": "Hands",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271529/enigmatic-dreamwatchers-gauntlets?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 106,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 44,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271527,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Leggings",
+          "slot": "Legs",
+          "variant": "Raid Finder",
+          "itemLevel": 285,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Bark_of_the_Enigmatic_Dreamwatcher",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 54,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 108,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271527,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Leggings",
+          "slot": "Legs",
+          "variant": "Normal",
+          "itemLevel": 298,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Bark_of_the_Enigmatic_Dreamwatcher",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 57,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 115,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271527,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Leggings",
+          "slot": "Legs",
+          "variant": "Heroic",
+          "itemLevel": 311,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Bark_of_the_Enigmatic_Dreamwatcher",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki tier-set page, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Warcraft Wiki tier-set page, item level 311"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 61,
+              "source": "Warcraft Wiki tier-set page, item level 311"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 122,
+              "source": "Warcraft Wiki tier-set page, item level 311"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271527,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Leggings",
+          "slot": "Legs",
+          "variant": "Mythic",
+          "itemLevel": 324,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Bark_of_the_Enigmatic_Dreamwatcher",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki tier-set page, item level 324"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki tier-set page, item level 324"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 64,
+              "source": "Warcraft Wiki tier-set page, item level 324"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 129,
+              "source": "Warcraft Wiki tier-set page, item level 324"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271527,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Leggings",
+          "slot": "Legs",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271527/enigmatic-dreamwatchers-leggings?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 189,
+              "source": "Item-level-334 observation for Enigmatic Dreamwatcher's Leggings (271527); MythicSim Guardian Druid tier listing reports 189 agility. Exact upgrade rank remains unverified."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Item-level-334 observation for Enigmatic Dreamwatcher's Leggings (271527); Azeroth Codex equipped profile reports 189 intellect. Exact upgrade rank remains unverified."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Item-level-334 observation for Enigmatic Dreamwatcher's Leggings (271527); Azeroth Codex equipped profile reports 3910 stamina. Exact upgrade rank remains unverified."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 67,
+              "source": "Item-level-334 observation for Enigmatic Dreamwatcher's Leggings (271527); MythicSim Guardian Druid tier listing reports 67 criticalStrike. Exact upgrade rank remains unverified."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 134,
+              "source": "Item-level-334 observation for Enigmatic Dreamwatcher's Leggings (271527); MythicSim Guardian Druid tier listing reports 134 haste. Exact upgrade rank remains unverified."
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        }
+      ],
+      "itemIdsVerified": true,
       "id": "bark-of-the-enigmatic-dreamwatcher",
       "itemIdsSource": "https://www.wowhead.com/ptr/item-set=2057/bark-of-the-enigmatic-dreamwatcher",
       "basePieces": [
@@ -18520,15 +19738,17 @@
       "Gladiator",
       "Elite"
     ],
-    "note": "Demon Hunter, Death Knight, and Shaman have source-verified baseline PvE candidate maps across all five tier slots; each also includes exact Mythic 6/6 item-level-334 candidates in all five slots. Other classes have manifest-matched base item IDs and source-backed secondary-stat profiles, but their variant item levels and numeric stats remain unverified. Additional intermediate upgrade ranks are evidence-only unless the exact item level and stats are independently verified. Base-only records are never optimizer candidates.",
+    "note": "Source-verified baseline PvE candidate maps currently exist for Death Knight, Demon Hunter, Druid, and Shaman. Candidate entries are exact observed item versions only; unverified intermediate upgrade ranks remain evidence-only, and overall variant coverage is still partial.",
     "verifiedClasses": [
       "Death Knight",
       "Demon Hunter",
+      "Druid",
       "Shaman"
     ],
     "statsVerifiedClasses": [
       "Death Knight",
       "Demon Hunter",
+      "Druid",
       "Shaman"
     ],
     "baseItemIdsVerifiedClasses": [
