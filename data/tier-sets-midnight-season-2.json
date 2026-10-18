@@ -28706,7 +28706,7 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "The 20 baseline PvE records remain in pieces; 18 source-verified upgrade-rank candidates are stored separately, including all five Mythic 6/6 item-level-334 variants. Added intermediate versions only where exact item stats and the upgrade rank are independently supported. Other observed versions and PvP appearance-only records remain ineligible; full rank-by-rank coverage is still partial.",
+      "variantObservationsNote": "The 20 baseline PvE records remain in pieces; 20 source-verified upgrade-rank candidates are stored separately, including all five Mythic 6/6 item-level-334 variants. Intermediate candidates require exact item-version stats plus independent rank evidence. Other observed versions and PvP appearance-only records remain ineligible; full rank-by-rank coverage is still partial.",
       "baseItemIdsVerified": true,
       "candidateVariantsAvailable": true,
       "upgradeRankCandidates": [
@@ -29691,6 +29691,118 @@
               },
               "value": 122,
               "source": "Wowhead item tooltip explicitly lists item level 318."
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats",
+          "verificationScope": "exact-item-stats-and-rank-cross-checked"
+        },
+        {
+          "itemId": 271481,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hissing Mantle of the Ophidian Oracle",
+          "slot": "Shoulders",
+          "variant": "Champion 4/6",
+          "itemLevel": 302,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271481/hissing-mantle-of-the-ophidian-oracle?bonus=13452%3A13658%3A13694%3A13697%3A12836&ilvl=302",
+          "rankSourceUrl": "https://guildsofwow.com/player/195623/bagel",
+          "rankEvidence": "Public equipped profile identifies Hissing Mantle at item level 302 as Champion 4/6.",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 105,
+              "source": "Wowhead item tooltip explicitly lists item level 302."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 105,
+              "source": "Wowhead item tooltip explicitly lists item level 302."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2024,
+              "source": "Wowhead item tooltip explicitly lists item level 302."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 45,
+              "source": "Wowhead item tooltip explicitly lists item level 302."
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 86,
+              "source": "Wowhead item tooltip explicitly lists item level 302."
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats",
+          "verificationScope": "exact-item-stats-and-rank-cross-checked"
+        },
+        {
+          "itemId": 271482,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Leggings of the Ophidian Oracle",
+          "slot": "Legs",
+          "variant": "Hero 6/6",
+          "itemLevel": 321,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271482/leggings-of-the-ophidian-oracle?bonus=13334%3A13693%3A6652%3A13698%3A12846&ilvl=321&spec=262",
+          "rankSourceUrl": "https://guildsofwow.com/player/145201/yojisi",
+          "rankEvidence": "Public equipped profile identifies Leggings of the Ophidian Oracle at item level 321 as Hero 6/6.",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 167,
+              "source": "Wowhead item tooltip explicitly lists item level 321."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 167,
+              "source": "Wowhead item tooltip explicitly lists item level 321."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3369,
+              "source": "Wowhead item tooltip explicitly lists item level 321."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 67,
+              "source": "Wowhead item tooltip explicitly lists item level 321."
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 124,
+              "source": "Wowhead item tooltip explicitly lists item level 321."
             }
           ],
           "secondaryStats": [
