@@ -216,7 +216,7 @@ test("Paladin observed tier variants are source-backed and remain evidence-only"
 test("Demon Hunter source-checked tier versions remain evidence-only and preserve observed stats", () => {
   const demonHunter = catalogue.sets.find(set => set.class === "Demon Hunter");
   const observations = demonHunter.verifiedVariantObservations || [];
-  assert.equal(observations.length, 16);
+  assert.equal(observations.length, 19);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(demonHunter.variantObservationsStatus, "partial");
   assert.match(demonHunter.variantObservationsNote, /Hands at base item level 219, Veteran 2\/6 item level 282, Champion 2\/6 item level 295, Hero 1\/6 item level 305, Hero 2\/6 item level 308, and Myth 2\/6 item level 321/i);
@@ -278,6 +278,21 @@ test("Demon Hunter source-checked tier versions remain evidence-only and preserv
     Object.fromEntries(head.stats.map(stat => [stat.type.name, stat.value])),
     { agility: 189, stamina: 3910, criticalStrike: 135, mastery: 66 }
   );
+  for (const expected of [
+    { level: 298, stats: { agility: 135, stamina: 2579, criticalStrike: 115, mastery: 56 } },
+    { level: 311, stats: { agility: 152, stamina: 3002, criticalStrike: 123, mastery: 60 } },
+    { level: 324, stats: { agility: 172, stamina: 3487, criticalStrike: 130, mastery: 63 } },
+  ]) {
+    const item = observations.find(piece => piece.itemId === 271537 && piece.itemLevel === expected.level);
+    assert.ok(item, "missing Demon Hunter head observation at item level " + expected.level);
+    assert.equal(item.candidate, false);
+    assert.equal(item.verificationScope, "observed-version-only");
+    assert.match(item.sourceUrl, /warcraft\\.wiki\\.gg/);
+    assert.deepEqual(
+      Object.fromEntries(item.stats.map(stat => [stat.type.name, stat.value])),
+      expected.stats
+    );
+  }
   const veteranHead = observations.find(piece => piece.itemId === 271537 && piece.itemLevel === 285);
   assert.equal(veteranHead.variant, "Veteran 3/6 observed");
   assert.equal(veteranHead.candidate, false);
