@@ -1231,7 +1231,7 @@ test("Priest source-backed tier item versions remain evidence-only and match Wow
 test("Warlock source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
   const warlock = catalogue.sets.find(set => set.class === "Warlock");
   const observations = warlock.verifiedVariantObservations || [];
-  assert.equal(observations.length, 23);
+  assert.equal(observations.length, 24);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(warlock.variantObservationsStatus, "partial");
   assert.match(warlock.variantObservationsNote, /Head is observed at item levels 219, 285 .* 298 .* 305, 308 .* 311 .* 315, 318, 321, 324 .* and 334/i);
@@ -1272,6 +1272,7 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
     "271546:321": { intellect: 167, stamina: 3369, versatility: 61, mastery: 129 },
     "271546:324": { intellect: 172, stamina: 3487, versatility: 62, mastery: 131 },
     "271547:321": { intellect: 138, stamina: 2832, criticalStrike: 44, haste: 105 },
+    "271545:305": { intellect: 144, stamina: 2794, haste: 125, mastery: 53 },
     271545: { intellect: 189, stamina: 3910, haste: 141, mastery: 60 },
     "271547:334": { intellect: 141, stamina: 2932, criticalStrike: 45, haste: 106 },
     "271546:334": { intellect: 189, stamina: 3910, versatility: 65, mastery: 136 },
@@ -1280,9 +1281,19 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
   for (const piece of observations) {
     assert.deepEqual(
       Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])),
-      expected[[271546, 271547].includes(piece.itemId) || ([271549, 271544].includes(piece.itemId) && (piece.itemId === 271544 ? piece.itemLevel !== 334 : piece.itemLevel !== 334)) ? `${piece.itemId}:${piece.itemLevel}` : piece.itemId]
+      expected[[271546, 271547].includes(piece.itemId) || (piece.itemId === 271545 && piece.itemLevel !== 334) || ([271549, 271544].includes(piece.itemId) && piece.itemLevel !== 334) ? `${piece.itemId}:${piece.itemLevel}` : piece.itemId]
     );
   }
+  const legs305 = observations.find(piece => piece.itemId === 271545 && piece.itemLevel === 305);
+  assert.ok(legs305, "missing Warlock legs Champion 5/6 item level 305 observation");
+  assert.equal(legs305.variant, "Champion 5/6 observed");
+  assert.equal(legs305.candidate, false);
+  assert.equal(legs305.verificationScope, "observed-version-only");
+  assert.equal(Number(new URL(legs305.sourceUrl).searchParams.get("ilvl")), 305);
+  assert.deepEqual(Object.fromEntries(legs305.stats.map(stat => [stat.type.name, stat.value])),
+    { intellect: 144, stamina: 2794, haste: 125, mastery: 53 });
+  const legLevels = observations.filter(piece => piece.itemId === 271545).map(piece => piece.itemLevel).sort((a, b) => a - b);
+  assert.deepEqual(legLevels, [305, 334]);
   const shoulders321 = observations.find(piece => piece.itemId === 271544 && piece.itemLevel === 321);
   assert.ok(shoulders321, "missing Warlock shoulders item level 321 observation");
   assert.equal(shoulders321.candidate, false);
