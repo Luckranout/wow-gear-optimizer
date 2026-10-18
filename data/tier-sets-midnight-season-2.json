@@ -1127,10 +1127,51 @@
               "source": "Wowhead tooltip, item level 321"
             }
           ]
+        },
+        {
+          "itemId": 271477,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Breastplate",
+          "slot": "Chest",
+          "variant": "Champion 3/6 observed",
+          "itemLevel": 298,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Baleful_Grave-Knight%27s_Crucible",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki set item listing, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki set item listing, item level 298"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 50,
+              "source": "Warcraft Wiki set item listing, item level 298"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 122,
+              "source": "Warcraft Wiki set item listing, item level 298"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Twenty-four source-checked item versions are recorded for evidence only. Head levels 285/298/305/308/311/321/324/334; Shoulders 282/295/308/318/321/334; Chest 311/321/334; Hands 321/334; Legs 285/298/311/324/334. Other difficulty and upgrade variants remain incomplete; these observations remain ineligible as optimizer candidates until all slots are fully verified."
+      "variantObservationsNote": "Twenty-five source-checked item versions are recorded for evidence only. Head levels 285/298/305/308/311/321/324/334; Shoulders 282/295/308/318/321/334; Chest 298/311/321/334; Hands 321/334; Legs 285/298/311/324/334. Other difficulty and upgrade variants remain incomplete; these observations remain ineligible as optimizer candidates until all slots are fully verified."
     },
     {
       "class": "Demon Hunter",
