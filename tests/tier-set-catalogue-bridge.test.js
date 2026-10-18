@@ -1109,10 +1109,10 @@ test("Priest source-backed tier item versions remain evidence-only and match Wow
 test("Warlock source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
   const warlock = catalogue.sets.find(set => set.class === "Warlock");
   const observations = warlock.verifiedVariantObservations || [];
-  assert.equal(observations.length, 15);
+  assert.equal(observations.length, 16);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(warlock.variantObservationsStatus, "partial");
-  assert.match(warlock.variantObservationsNote, /Head is observed at item levels 219, 285 .* 298 .* 305, 308 .* 311 .* 315, 318, 321, and 324/i);
+  assert.match(warlock.variantObservationsNote, /Head is observed at item levels 219, 285 .* 298 .* 305, 308 .* 311 .* 315, 318, 321, 324 .* and 334/i);
   assert.match(warlock.variantObservationsNote, /other difficulty and upgrade variants remain unverified/i);
   const manifestSet = manifest.sets.find(set => set.className === "Warlock");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
@@ -1145,6 +1145,7 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
     "271547:321": { intellect: 138, stamina: 2832, criticalStrike: 44, haste: 105 },
     271545: { intellect: 189, stamina: 3910, haste: 141, mastery: 60 },
     "271547:334": { intellect: 141, stamina: 2932, criticalStrike: 45, haste: 106 },
+    "271546:334": { intellect: 189, stamina: 3910, versatility: 65, mastery: 136 },
     271544: { intellect: 141, stamina: 2932, haste: 50, versatility: 101 }
   };
   for (const piece of observations) {
@@ -1155,11 +1156,17 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
   }
   assert.deepEqual(
     observations.filter(piece => piece.itemId === 271546).map(piece => piece.itemLevel).sort((a, b) => a - b),
-    [219, 285, 298, 305, 308, 311, 315, 318, 321, 324]
+    [219, 285, 298, 305, 308, 311, 315, 318, 321, 324, 334]
   );
   assert.equal(observations.find(piece => piece.itemId === 271546 && piece.itemLevel === 308).variant, "Hero 2/6 observed");
   assert.equal(observations.find(piece => piece.itemId === 271546 && piece.itemLevel === 318).variant, "Myth 1/6 observed");
   assert.equal(observations.find(piece => piece.itemId === 271546 && piece.itemLevel === 321).variant, "Item level 321 observed");
+  const mythicHead = observations.find(piece => piece.itemId === 271546 && piece.itemLevel === 334);
+  assert.equal(mythicHead.variant, "Mythic 6/6 observed");
+  assert.equal(mythicHead.candidate, false);
+  assert.equal(mythicHead.verificationScope, "observed-version-only");
+  assert.equal(Number(new URL(mythicHead.sourceUrl).searchParams.get("ilvl")), 334);
+  assert.deepEqual(Object.fromEntries(mythicHead.stats.map(stat => [stat.type.name, stat.value])), expected["271546:334"]);
   const mythicHands = observations.find(piece => piece.itemId === 271547 && piece.itemLevel === 334);
   assert.equal(mythicHands.variant, "Mythic 6/6 observed");
   assert.equal(mythicHands.candidate, false);
