@@ -2344,6 +2344,88 @@
               "source": "Wowhead tooltip, item level 334"
             }
           ]
+        },
+        {
+          "itemId": 271491,
+          "setId": "skulking-viper-s-ambush",
+          "name": "Skulking Viper's Coiled Legwraps",
+          "slot": "Legs",
+          "variant": "Heroic 3/6 observed",
+          "itemLevel": 311,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Skulking_Viper%27s_Coiled_Legwraps",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki item variant, Heroic item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Warcraft Wiki item variant, Heroic item level 311"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 64,
+              "source": "Warcraft Wiki item variant, Heroic item level 311"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 118,
+              "source": "Warcraft Wiki item variant, Heroic item level 311"
+            }
+          ]
+        },
+        {
+          "itemId": 271491,
+          "setId": "skulking-viper-s-ambush",
+          "name": "Skulking Viper's Coiled Legwraps",
+          "slot": "Legs",
+          "variant": "Mythic 3/6 observed",
+          "itemLevel": 318,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Skulking_Viper%27s_Coiled_Legwraps",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki item variant, Mythic item level 318"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki item variant, Mythic item level 318"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 68,
+              "source": "Warcraft Wiki item variant, Mythic item level 318"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 125,
+              "source": "Warcraft Wiki item variant, Mythic item level 318"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
