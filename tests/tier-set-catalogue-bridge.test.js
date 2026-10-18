@@ -209,7 +209,7 @@ test("Death Knight source-checked tier versions preserve observed stats without 
 test("Paladin observed tier variants are source-backed and remain evidence-only", () => {
   const paladin = catalogue.sets.find(set => set.class === "Paladin");
   const observations = paladin.verifiedVariantObservations || [];
-  assert.equal(observations.length, 14);
+  assert.equal(observations.length, 16);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(paladin.variantObservationsStatus, "partial");
   assert.match(paladin.variantObservationsNote, /not optimizer candidates/i);
@@ -232,7 +232,15 @@ test("Paladin observed tier variants are source-backed and remain evidence-only"
     { strength: 189, stamina: 3910, haste: 64, mastery: 137 }
   );
   const chestByLevel = new Map(observations.filter(piece => piece.itemId === 271468).map(piece => [piece.itemLevel, piece]));
-  assert.deepEqual([...chestByLevel.keys()].sort((a, b) => a - b), [321, 334]);
+  assert.deepEqual([...chestByLevel.keys()].sort((a, b) => a - b), [308, 311, 321, 334]);
+  assert.deepEqual(Object.fromEntries(chestByLevel.get(308).stats.map(stat => [stat.type.name, stat.value])),
+    { strength: 148, intellect: 148, stamina: 2896, haste: 57, mastery: 123 });
+  assert.deepEqual(Object.fromEntries(chestByLevel.get(311).stats.map(stat => [stat.type.name, stat.value])),
+    { strength: 152, intellect: 152, stamina: 3002, haste: 58, mastery: 124 });
+  for (const level of [308, 311]) {
+    assert.equal(chestByLevel.get(level).candidate, false);
+    assert.equal(Number(new URL(chestByLevel.get(level).sourceUrl).searchParams.get("ilvl")), level);
+  }
   assert.deepEqual(Object.fromEntries(chestByLevel.get(321).stats.map(stat => [stat.type.name, stat.value])),
     { strength: 167, intellect: 167, stamina: 3369, haste: 61, mastery: 130 });
   assert.equal(chestByLevel.get(321).candidate, false);
