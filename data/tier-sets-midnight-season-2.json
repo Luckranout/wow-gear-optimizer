@@ -11614,10 +11614,202 @@
               "source": "Wowhead item tooltip explicitly lists Hero 6/6 at item level 321."
             }
           ]
+        },
+        {
+          "itemId": 271486,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Fanged Raiment of the Ophidian Oracle",
+          "slot": "Chest",
+          "variant": "Item level 289 observed",
+          "itemLevel": 289,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr-2/item=271486/fanged-raiment-of-the-ophidian-oracle?bonus=12828%3A13659%3A13690%3A1542%3A13658&ilvl=289",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 124,
+              "source": "Wowhead item tooltip explicitly lists item level 289."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 124,
+              "source": "Wowhead item tooltip explicitly lists item level 289."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2326,
+              "source": "Wowhead item tooltip explicitly lists item level 289."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 115,
+              "source": "Wowhead item tooltip explicitly lists item level 289."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 49,
+              "source": "Wowhead item tooltip explicitly lists item level 289."
+            }
+          ]
+        },
+        {
+          "itemId": 271486,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Fanged Raiment of the Ophidian Oracle",
+          "slot": "Chest",
+          "variant": "Item level 308 observed",
+          "itemLevel": 308,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr-2/item=271486/fanged-raiment-of-the-ophidian-oracle?bonus=6652%3A13846%3A13333%3A12838%3A13690%3A13698%3A1561&ilvl=308",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 148,
+              "source": "Wowhead item tooltip explicitly lists item level 308."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 148,
+              "source": "Wowhead item tooltip explicitly lists item level 308."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2896,
+              "source": "Wowhead item tooltip explicitly lists item level 308."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 126,
+              "source": "Wowhead item tooltip explicitly lists item level 308."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 54,
+              "source": "Wowhead item tooltip explicitly lists item level 308."
+            }
+          ]
+        },
+        {
+          "itemId": 271486,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Fanged Raiment of the Ophidian Oracle",
+          "slot": "Chest",
+          "variant": "Item level 318 observed",
+          "itemLevel": 318,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271486/fanged-raiment-of-the-ophidian-oracle?bonus=13334%3A6652%3A13846%3A12849%3A13690%3A13698%3A1571&ilvl=318&spec=264",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 162,
+              "source": "Wowhead item tooltip explicitly lists item level 318."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 162,
+              "source": "Wowhead item tooltip explicitly lists item level 318."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3254,
+              "source": "Wowhead item tooltip explicitly lists item level 318."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 132,
+              "source": "Wowhead item tooltip explicitly lists item level 318."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 56,
+              "source": "Wowhead item tooltip explicitly lists item level 318."
+            }
+          ]
+        },
+        {
+          "itemId": 271486,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Fanged Raiment of the Ophidian Oracle",
+          "slot": "Chest",
+          "variant": "Item level 328 observed",
+          "itemLevel": 328,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271486/fanged-raiment-of-the-ophidian-oracle?bonus=6652%3A13440%3A13690%3A13698%3A12852&ilvl=328",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 178,
+              "source": "Wowhead item tooltip explicitly lists item level 328."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 178,
+              "source": "Wowhead item tooltip explicitly lists item level 328."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3649,
+              "source": "Wowhead item tooltip explicitly lists item level 328."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 137,
+              "source": "Wowhead item tooltip explicitly lists item level 328."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 59,
+              "source": "Wowhead item tooltip explicitly lists item level 328."
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Seven exact Shaman tier item versions are recorded as evidence only: Mythic 6/6 item level 334 for all five slots, plus exact Head item levels 295 and 321. These records are separate from the baseline raid-difficulty candidates. Other intermediate upgrade ranks and complete upgrade-track coverage remain unfinished; no observation here is optimizer-eligible."
+      "variantObservationsNote": "Eleven exact Shaman tier item versions are recorded as evidence only: Mythic 6/6 item level 334 for all five slots; Head item levels 295 and 321; Chest item levels 289, 308, 318, and 328. These records are separate from baseline raid-difficulty candidates. Other intermediate upgrade ranks and complete upgrade-track coverage remain unfinished; no observation here is optimizer-eligible."
     },
     {
       "class": "Warlock",
