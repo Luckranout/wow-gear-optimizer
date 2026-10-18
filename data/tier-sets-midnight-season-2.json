@@ -5216,6 +5216,198 @@
               "source": "Warcraft Wiki item page, item level 308"
             }
           ]
+        },
+        {
+          "itemId": 271463,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Pauldrons of the Consecrated Flame",
+          "slot": "Shoulders",
+          "variant": "Veteran 2/6 observed",
+          "itemLevel": 282,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271463/pauldrons-of-the-consecrated-flame?ilvl=282",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki item page, item level 282; primary stat listed as Strength or Intellect"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki item page, item level 282; primary stat listed as Strength or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 83,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 36,
+              "source": "Warcraft Wiki item page, item level 282"
+            }
+          ]
+        },
+        {
+          "itemId": 271463,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Pauldrons of the Consecrated Flame",
+          "slot": "Shoulders",
+          "variant": "Champion 2/6 observed",
+          "itemLevel": 295,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271463/pauldrons-of-the-consecrated-flame?ilvl=295",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 98,
+              "source": "Warcraft Wiki item page, item level 295; primary stat listed as Strength or Intellect"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 98,
+              "source": "Warcraft Wiki item page, item level 295; primary stat listed as Strength or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Warcraft Wiki item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 89,
+              "source": "Warcraft Wiki item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 38,
+              "source": "Warcraft Wiki item page, item level 295"
+            }
+          ]
+        },
+        {
+          "itemId": 271463,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Pauldrons of the Consecrated Flame",
+          "slot": "Shoulders",
+          "variant": "Hero 2/6 observed",
+          "itemLevel": 308,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271463/pauldrons-of-the-consecrated-flame?ilvl=308",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki item page, item level 308; primary stat listed as Strength or Intellect"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki item page, item level 308; primary stat listed as Strength or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Warcraft Wiki item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 94,
+              "source": "Warcraft Wiki item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 41,
+              "source": "Warcraft Wiki item page, item level 308"
+            }
+          ]
+        },
+        {
+          "itemId": 271463,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Pauldrons of the Consecrated Flame",
+          "slot": "Shoulders",
+          "variant": "Myth 2/6 observed",
+          "itemLevel": 321,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271463/pauldrons-of-the-consecrated-flame?ilvl=321",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 125,
+              "source": "Warcraft Wiki item page, item level 321; primary stat listed as Strength or Intellect"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 125,
+              "source": "Warcraft Wiki item page, item level 321; primary stat listed as Strength or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Warcraft Wiki item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 100,
+              "source": "Warcraft Wiki item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 43,
+              "source": "Warcraft Wiki item page, item level 321"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
