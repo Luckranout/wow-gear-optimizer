@@ -1615,7 +1615,7 @@ test("Mage source-checked shoulder versions remain evidence-only", () => {
 test("Warrior source-checked shoulder variants preserve exact stats and remain evidence-only", () => {
   const warrior = catalogue.sets.find(set => set.class === "Warrior");
   const observations = warrior.verifiedVariantObservations || [];
-  assert.equal(observations.length, 17);
+  assert.equal(observations.length, 18);
   const shoulders = new Map(observations.filter(piece => piece.itemId === 271454 && piece.slot === "Shoulders").map(piece => [piece.itemLevel, piece]));
   assert.deepEqual([...shoulders.keys()].sort((a, b) => a - b), [282, 295, 308, 321, 334]);
   for (const [level, expected] of [
@@ -1652,6 +1652,21 @@ test("Warrior source-checked chest versions remain evidence-only", () => {
   }
 });
 
+
+test("Warrior Mythic 3/6 helm variant preserves exact stats and remains evidence-only", () => {
+  const warrior = catalogue.sets.find(set => set.class === "Warrior");
+  const observations = warrior.verifiedVariantObservations || [];
+  const heads = new Map(observations.filter(piece => piece.itemId === 271456 && piece.slot === "Head").map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...heads.keys()].sort((a, b) => a - b), [324, 334]);
+  const piece = heads.get(324);
+  assert.equal(piece.variant, "Myth 3/6 observed");
+  assert.equal(piece.candidate, false);
+  assert.equal(piece.verificationScope, "observed-version-only");
+  assert.equal(piece.sourceUrl, "https://warcraft.wiki.gg/wiki/Tempered_Horns_of_the_Jade_Warlord");
+  assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])),
+    { strength: 172, stamina: 3487, criticalStrike: 134, haste: 58 });
+  assert.ok(piece.stats.every(stat => /Mythic 3\/6, item level 324/.test(stat.source)));
+});
 
 test("Warrior Mythic 6/6 legs observation remains evidence-only", () => {
   const warrior = catalogue.sets.find(set => set.class === "Warrior");
