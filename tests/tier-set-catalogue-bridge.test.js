@@ -339,7 +339,7 @@ test("Hunter source-checked tier versions remain evidence-only and match exact W
     assert.equal(piece.candidate, false);
     assert.equal(piece.verificationScope, "observed-version-only");
     assert.ok(piece.itemLevel > 0);
-    assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/"));
+    assert.ok(["www.wowhead.com", "warcraft.wiki.gg"].includes(new URL(piece.sourceUrl).hostname));
     assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
     if (new URL(piece.sourceUrl).hostname === "www.wowhead.com") {
       assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), piece.itemLevel,
