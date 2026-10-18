@@ -28706,7 +28706,7 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "The 20 baseline PvE records remain in pieces; 22 source-verified upgrade-rank candidates are stored separately, including all five Mythic 6/6 item-level-334 variants. Intermediate candidates require exact item-version stats plus independent rank evidence. Other observed versions and PvP appearance-only records remain ineligible; full rank-by-rank coverage is still partial.",
+      "variantObservationsNote": "The 20 baseline PvE records remain in pieces; 23 source-verified upgrade-rank candidates are stored separately, including all five Mythic 6/6 item-level-334 variants. Intermediate candidates require exact item-version stats plus independent rank evidence or an exact upgrade-bonus identifier. Other observed versions and PvP appearance-only records remain ineligible; full rank-by-rank coverage is still partial.",
       "baseItemIdsVerified": true,
       "candidateVariantsAvailable": true,
       "upgradeRankCandidates": [
@@ -29924,6 +29924,62 @@
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats",
           "verificationScope": "exact-item-stats-and-rank-cross-checked"
+        },
+        {
+          "itemId": 271486,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Fanged Raiment of the Ophidian Oracle",
+          "slot": "Chest",
+          "variant": "Veteran 4/6",
+          "itemLevel": 289,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/ptr-2/item=271486/fanged-raiment-of-the-ophidian-oracle?bonus=12828%3A13659%3A13690%3A1542%3A13658&ilvl=289",
+          "rankSourceUrl": "https://www.wowhead.com/ptr-2/item=271486/fanged-raiment-of-the-ophidian-oracle?bonus=12828%3A13659%3A13690%3A1542%3A13658&ilvl=289",
+          "rankEvidence": "The exact Wowhead item-version URL pins upgrade bonus ID 12828; Wowhead item versions using bonus ID 12828 explicitly identify Veteran 4/6. The numeric stats are from this exact item ID and item-level-289 tooltip.",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 124,
+              "source": "Wowhead item tooltip explicitly lists item level 289."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 124,
+              "source": "Wowhead item tooltip explicitly lists item level 289."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2326,
+              "source": "Wowhead item tooltip explicitly lists item level 289."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 115,
+              "source": "Wowhead item tooltip explicitly lists item level 289."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 49,
+              "source": "Wowhead item tooltip explicitly lists item level 289."
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats",
+          "verificationScope": "exact-item-stats-and-upgrade-bonus-verified"
         }
       ]
     },
