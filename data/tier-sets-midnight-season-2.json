@@ -11806,10 +11806,106 @@
               "source": "Wowhead item tooltip explicitly lists item level 328."
             }
           ]
+        },
+        {
+          "itemId": 271482,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Leggings of the Ophidian Oracle",
+          "slot": "Legs",
+          "variant": "Item level 318 observed",
+          "itemLevel": 318,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271482/leggings-of-the-ophidian-oracle?bonus=13693%3A12849%3A13440%3A6652%3A13698&ilvl=318",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 162,
+              "source": "Wowhead item tooltip explicitly lists item level 318."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 162,
+              "source": "Wowhead item tooltip explicitly lists item level 318."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3254,
+              "source": "Wowhead item tooltip explicitly lists item level 318."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 66,
+              "source": "Wowhead item tooltip explicitly lists item level 318."
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 122,
+              "source": "Wowhead item tooltip explicitly lists item level 318."
+            }
+          ]
+        },
+        {
+          "itemId": 271482,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Leggings of the Ophidian Oracle",
+          "slot": "Legs",
+          "variant": "Item level 321 observed",
+          "itemLevel": 321,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271482/leggings-of-the-ophidian-oracle?bonus=13334%3A13693%3A6652%3A13698%3A12846&ilvl=321&spec=262",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 167,
+              "source": "Wowhead item tooltip explicitly lists item level 321."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 167,
+              "source": "Wowhead item tooltip explicitly lists item level 321."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3369,
+              "source": "Wowhead item tooltip explicitly lists item level 321."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 67,
+              "source": "Wowhead item tooltip explicitly lists item level 321."
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 124,
+              "source": "Wowhead item tooltip explicitly lists item level 321."
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Eleven exact Shaman tier item versions are recorded as evidence only: Mythic 6/6 item level 334 for all five slots; Head item levels 295 and 321; Chest item levels 289, 308, 318, and 328. These records are separate from baseline raid-difficulty candidates. Other intermediate upgrade ranks and complete upgrade-track coverage remain unfinished; no observation here is optimizer-eligible."
+      "variantObservationsNote": "Thirteen exact Shaman tier item versions are recorded as evidence only: Mythic 6/6 item level 334 for all five slots; Head item levels 295 and 321; Chest item levels 289, 308, 318, and 328; Legs item levels 318 and 321. These records are separate from baseline raid-difficulty candidates. Other intermediate upgrade ranks and complete upgrade-track coverage remain unfinished; no observation here is optimizer-eligible."
     },
     {
       "class": "Warlock",
