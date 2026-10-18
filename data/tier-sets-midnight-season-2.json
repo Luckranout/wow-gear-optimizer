@@ -5196,10 +5196,51 @@
               "source": "Warcraft Wiki tier-set page, item level 324"
             }
           ]
+        },
+        {
+          "itemId": 271493,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Fanged Grips",
+          "slot": "Hands",
+          "variant": "Veteran 2/6 observed",
+          "itemLevel": 282,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki set item entry, Veteran 2/6 item level 282"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "Warcraft Wiki set item entry, Veteran 2/6 item level 282"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 79,
+              "source": "Warcraft Wiki set item entry, Veteran 2/6 item level 282"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 40,
+              "source": "Warcraft Wiki set item entry, Veteran 2/6 item level 282"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Eleven source-checked item versions are recorded as evidence only. Legs are observed at item levels 219, 285 (Veteran 3/6), 298 (Champion 3/6), 311 (Hero 3/6), 315, 321, and 324 (Myth 3/6); Chest 305, Head 295, Hands 321, and Shoulders 334. Other difficulty and upgrade variants and the complete Rogue variant ID map remain unverified. All observations remain ineligible as optimizer candidates."
+      "variantObservationsNote": "Twelve source-checked item versions are recorded as evidence only. Legs are observed at item levels 219, 285 (Veteran 3/6), 298 (Champion 3/6), 311 (Hero 3/6), 315, 321, and 324 (Myth 3/6); Hands at 282 (Veteran 2/6), 295 (Champion item level), and 321 (Myth 2/6). Chest 305, Head 295, and Shoulders 334. Other difficulty and upgrade variants and the complete Rogue variant ID map remain unverified. All observations remain ineligible as optimizer candidates."
     },
     {
       "class": "Shaman",
