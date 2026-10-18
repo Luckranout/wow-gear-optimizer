@@ -363,7 +363,7 @@ test("Evoker source-checked tier versions remain evidence-only and preserve obse
 test("Hunter source-checked tier versions remain evidence-only and match exact Wowhead stats", () => {
   const hunter = catalogue.sets.find(set => set.class === "Hunter");
   const observations = hunter.verifiedVariantObservations || [];
-  assert.equal(observations.length, 11);
+  assert.equal(observations.length, 13);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(hunter.variantObservationsStatus, "partial");
   assert.match(hunter.variantObservationsNote, /remain ineligible as optimizer candidates/i);
@@ -407,6 +407,18 @@ test("Hunter source-checked tier versions remain evidence-only and match exact W
   assert.deepEqual(
     Object.fromEntries(head.stats.map(stat => [stat.type.name, stat.value])),
     { agility: 189, stamina: 3910, haste: 143, mastery: 58 }
+  );
+  const lfrLegs = observations.find(piece => piece.itemId === 271491 && piece.itemLevel === 285);
+  assert.equal(lfrLegs.variant, "Veteran 3/6 observed");
+  assert.deepEqual(
+    Object.fromEntries(lfrLegs.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 119, stamina: 2219, haste: 57, mastery: 105 }
+  );
+  const normalLegs = observations.find(piece => piece.itemId === 271491 && piece.itemLevel === 298);
+  assert.equal(normalLegs.variant, "Champion 3/6 observed");
+  assert.deepEqual(
+    Object.fromEntries(normalLegs.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 135, stamina: 2579, haste: 60, mastery: 112 }
   );
   const upgradedLegs = observations.find(piece => piece.itemId === 271491 && piece.itemLevel === 308);
   assert.equal(upgradedLegs.variant, "Heroic item level observed");
