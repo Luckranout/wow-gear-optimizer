@@ -1419,11 +1419,13 @@ function getTierSetCoverageStatus(tierSetCatalogue = null, className = "", speci
   const isBaseMappingVerified = set => set?.baseItemIdsVerified === true ||
     set?.itemIdsVerified === true || set?.mappingStatus === "verified";
   const isVariantMappingVerified = set => set?.itemIdsVerified === true || set?.mappingStatus === "verified";
+  const hasVerifiedCandidates = set => Array.isArray(set?.pieces) &&
+    set.pieces.some(piece => piece?.candidate === true);
   const verifiedClasses = sets.filter(isVariantMappingVerified);
   const unverifiedClasses = sets.filter(set => !isVariantMappingVerified(set));
   const baseMappingVerifiedClassCount = sets.filter(isBaseMappingVerified).length;
   const pieceRecords = classSet
-    ? (isVariantMappingVerified(classSet) ? (classSet.pieces || []) : (classSet.basePieces || []))
+    ? (hasVerifiedCandidates(classSet) ? (classSet.pieces || []) : (classSet.basePieces || []))
     : [];
   const uniqueVerifiedPieceIds = classSet && isBaseMappingVerified(classSet)
     ? new Set(pieceRecords.map(piece => {
@@ -1433,7 +1435,7 @@ function getTierSetCoverageStatus(tierSetCatalogue = null, className = "", speci
     }).filter(Boolean)).size
     : 0;
   const expectedTierSlots = ["Head", "Shoulders", "Chest", "Hands", "Legs"];
-  const verifiedVariantRecords = classSet && isVariantMappingVerified(classSet)
+  const verifiedVariantRecords = classSet && hasVerifiedCandidates(classSet)
     ? (classSet.pieces || []).filter(piece =>
       piece?.candidate === true &&
       Number.isInteger(piece.itemLevel) &&
@@ -1483,6 +1485,9 @@ function getTierSetCoverageStatus(tierSetCatalogue = null, className = "", speci
         : []),
       ...(isBaseMappingVerified(classSet) && !isVariantMappingVerified(classSet)
         ? ["Base tier-piece IDs are verified, but upgraded/difficulty variant IDs and stats are not fully verified."]
+        : []),
+      ...(hasVerifiedCandidates(classSet) && !isVariantMappingVerified(classSet)
+        ? ["Some exact candidate variants are verified, but the complete class variant map remains partial."]
         : [])
     ]
   };
