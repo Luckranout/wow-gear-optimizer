@@ -13954,6 +13954,47 @@
           "setId": "damned-necrolyte-s-shattered-restraints",
           "name": "Spires of the Damned Necrolyte",
           "slot": "Shoulders",
+          "variant": "Hero 6/6 observed",
+          "itemLevel": 321,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271544/spires-of-the-damned-necrolyte?bonus=13334%3A40%3A13694%3A13697%3A12846&ilvl=321&spec=266",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 125,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 47,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 96,
+              "source": "Wowhead tooltip, item level 321"
+            }
+          ]
+        },
+        {
+          "itemId": 271544,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Spires of the Damned Necrolyte",
+          "slot": "Shoulders",
           "variant": "Mythic 6/6 observed",
           "itemLevel": 334,
           "candidate": false,
