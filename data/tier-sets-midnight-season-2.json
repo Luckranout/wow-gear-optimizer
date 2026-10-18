@@ -3747,7 +3747,7 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Seven source-checked item versions are recorded for evidence only. Hands are observed at item levels 295 (Champion 2/6), 321 (Hero 6/6), and 334 (Mythic 6/6); Chest is 292, Shoulders 308, Head 334, and Legs remain base item level 219. Upgraded variants remain unverified. All observations remain ineligible as optimizer candidates until complete variant coverage is verified."
+      "variantObservationsNote": "Twenty-six source-checked item-version observations are recorded for evidence only. Level-334 Mythic 6/6 observations now exist for Head, Hands, Shoulders, and Chest. Legs have observed versions at 219, 285, 298, 311, and 324; exact level-334 legs remain unverified. Lower-rank variants are recorded for multiple slots, but the full difficulty/upgrade map is incomplete. All observations remain ineligible as optimizer candidates until complete variant coverage is verified."
     },
     {
       "class": "Evoker",
