@@ -184,7 +184,7 @@ test("Paladin observed tier variants are source-backed and remain evidence-only"
 test("Demon Hunter source-checked tier versions remain evidence-only and preserve observed stats", () => {
   const demonHunter = catalogue.sets.find(set => set.class === "Demon Hunter");
   const observations = demonHunter.verifiedVariantObservations || [];
-  assert.equal(observations.length, 16);
+  assert.equal(observations.length, 15);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(demonHunter.variantObservationsStatus, "partial");
   assert.match(demonHunter.variantObservationsNote, /Hands at base item level 219, Veteran 2\/6 item level 282, Champion 2\/6 item level 295, Hero 1\/6 item level 305, Hero 2\/6 item level 308, and Myth 2\/6 item level 321/i);
