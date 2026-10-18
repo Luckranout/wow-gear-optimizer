@@ -11432,7 +11432,7 @@
           "itemLevel": 334,
           "candidate": false,
           "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle?bonus=13334%3A13691%3A6652%3A13697%3A12854&spec=263",
+          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle?bonus=13334%3A13691%3A6652%3A13697%3A12854&spec=263&ilvl=334",
           "stats": [
             {
               "type": {
@@ -11480,7 +11480,7 @@
           "itemLevel": 334,
           "candidate": false,
           "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271482/leggings-of-the-ophidian-oracle",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271482/leggings-of-the-ophidian-oracle?ilvl=334",
           "stats": [
             {
               "type": {
