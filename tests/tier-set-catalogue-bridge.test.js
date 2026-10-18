@@ -385,7 +385,7 @@ test("Demon Hunter source-checked tier versions remain evidence-only and preserv
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(demonHunter.variantObservationsStatus, "partial");
   assert.match(demonHunter.variantObservationsNote, /baseline PvE candidates cover each slot.*Mythic 6\/6/i);
-  assert.match(demonHunter.variantObservationsNote, /Legs are observed at item levels 285, 295, 298, 311, 318, 324, and 334/i);
+  assert.match(demonHunter.variantObservationsNote, /intermediate upgrade ranks are not all verified/i);
   const manifestSet = manifest.sets.find(set => set.className === "Demon Hunter");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
   for (const piece of observations) {
@@ -642,7 +642,7 @@ test("Druid source-checked tier versions remain evidence-only and preserve obser
   assert.equal(observations.length, 28);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(druid.variantObservationsStatus, "partial");
-  assert.match(druid.variantObservationsNote, /all observations remain ineligible as optimizer candidates/i);
+  assert.match(druid.variantObservationsNote, /Legs 334 observation lacks source-verified upgrade-rank evidence/i);
   const legsByLevel = new Map(observations.filter(piece => piece.slot === "Legs").map(piece => [piece.itemLevel, piece]));
   assert.deepEqual([...legsByLevel.keys()].sort((a, b) => a - b), [219, 285, 298, 311, 324, 334]);
   for (const [level, expected] of [
@@ -787,7 +787,7 @@ test("Evoker source-checked tier versions remain evidence-only and preserve obse
   assert.equal(observations.length, 25);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(evoker.variantObservationsStatus, "partial");
-  assert.match(evoker.variantObservationsNote, /remain ineligible as optimizer candidates/i);
+  assert.match(evoker.variantObservationsNote, /full class variant map remains partial/i);
   const manifestSet = manifest.sets.find(set => set.className === "Evoker");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
   for (const piece of observations) {
@@ -1243,7 +1243,7 @@ test("Mage source-backed tier item versions remain evidence-only and match Wowhe
   assert.equal(observations.length, 26);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(mage.variantObservationsStatus, "partial");
-  assert.match(mage.variantObservationsNote, /do not establish coverage/i);
+  assert.match(mage.variantObservationsNote, /full class variant map remains partial/i);
   const manifestSet = manifest.sets.find(set => set.className === "Mage");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
   for (const piece of observations) {
@@ -1294,7 +1294,7 @@ test("Priest source-backed tier item versions remain evidence-only and match Wow
   assert.equal(handsByLevel.get(308).variant, "Hero 2/6 observed");
   assert.equal(handsByLevel.get(321).variant, "Myth 2/6 observed");
   assert.equal(handsByLevel.get(334).variant, "Mythic 6/6");
-  assert.match(priest.variantObservationsNote, /does not establish coverage/i);
+  assert.match(priest.variantObservationsNote, /intermediate upgrade ranks remain evidence-only/i);
   const manifestSet = manifest.sets.find(set => set.className === "Priest");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
   for (const piece of observations) {
@@ -1459,7 +1459,7 @@ test("Monk source-backed tier item versions remain evidence-only and match sourc
   assert.equal(observations.length, 25);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(monk.variantObservationsStatus, "partial");
-  assert.match(monk.variantObservationsNote, /legs have item-level-334 observations/i);
+  assert.match(monk.variantObservationsNote, /Legs 334 observation lacks source-verified upgrade-rank evidence/i);
   const manifestSet = manifest.sets.find(set => set.className === "Monk");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
   for (const piece of observations) {
