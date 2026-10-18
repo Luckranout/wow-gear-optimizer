@@ -1689,7 +1689,7 @@ test("Shaman independently rank-verified intermediate variants are optimizer can
     ["Hands", 321, "Hero 6/6"],
     ["Legs", 295, "Veteran 6/6"],
     ["Legs", 321, "Hero 6/6"],
-    ["Legs", 318, "Hero 5/6"]
+    ["Legs", 318, "Myth 1/6"]
   ];
   for (const [slot, itemLevel, variant] of expected) {
     const piece = candidates.find(entry => entry.slot === slot && entry.itemLevel === itemLevel && entry.variant === variant);
