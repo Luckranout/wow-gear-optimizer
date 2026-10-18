@@ -1486,7 +1486,7 @@ test("Monk source-backed tier item versions remain evidence-only and match sourc
   assert.equal(observations.length, 25);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(monk.variantObservationsStatus, "partial");
-  assert.match(monk.variantObservationsNote, /Legs 334 observation lacks source-verified upgrade-rank evidence/i);
+  assert.match(monk.variantObservationsNote, /Legs 334 item version is verified as Mythic 6\/6/i);
   const manifestSet = manifest.sets.find(set => set.className === "Monk");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
   for (const piece of observations) {
@@ -1515,7 +1515,8 @@ test("Monk source-backed tier item versions remain evidence-only and match sourc
   assert.ok(mythicThreeLegs.stats.every(stat => stat.source.includes("324")));
   const maxLegs = observations.find(piece => piece.itemId === 271518 && piece.itemLevel === 334);
   assert.ok(maxLegs, "missing Monk Legs observation at item level 334");
-  assert.equal(maxLegs.variant, "Item level 334 observed; upgrade rank unverified");
+  assert.match(maxLegs.variant, /Mythic 6\/6 observed/i);
+  assert.match(maxLegs.rankSourceUrl, /guildsofwow\.com/);
   assert.equal(new URL(maxLegs.sourceUrl).hostname, "www.wowhead.com");
   assert.equal(Number(new URL(maxLegs.sourceUrl).searchParams.get("ilvl")), 334);
   assert.equal(maxLegs.candidate, false);
@@ -1921,7 +1922,8 @@ test("Druid tier observations preserve the source-backed Hero 6/6 head at item l
   assert.ok(head.stats.every(stat => stat.source.includes("item level 321")));
   const maxLegs = observations.find(piece => piece.itemId === 271527 && piece.itemLevel === 334);
   assert.ok(maxLegs, "missing Druid Legs observation at item level 334");
-  assert.equal(maxLegs.variant, "Item level 334 observed; upgrade rank unverified");
+  assert.match(maxLegs.variant, /Mythic 6\/6 observed/i);
+  assert.match(maxLegs.rankSourceUrl, /guildsofwow\.com/);
   assert.equal(new URL(maxLegs.sourceUrl).hostname, "www.wowhead.com");
   assert.equal(Number(new URL(maxLegs.sourceUrl).searchParams.get("ilvl")), 334);
   assert.equal(maxLegs.candidate, false);
