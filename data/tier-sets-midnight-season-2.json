@@ -7898,10 +7898,58 @@
               "source": "Azeroth Codex equipped profile explicitly lists Pantaloons of the Monkey King at item level 334."
             }
           ]
+        },
+        {
+          "itemId": 271520,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Monkey King's Fighting Fists",
+          "slot": "Hands",
+          "variant": "Item level 321 observed",
+          "itemLevel": 321,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271520/monkey-kings-fighting-fists?ilvl=321",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 125,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 125,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 100,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 42,
+              "source": "Wowhead tooltip, item level 321"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Fourteen source-checked item-version observations are recorded as evidence only. Chest, hands, head, shoulders, and legs have item-level-334 observations; the Legs stats are from an equipped-profile observation and remain evidence-only. This does not establish coverage for all difficulty/upgrade tracks or the complete Monk variant ID map. Do not use these observations as optimizer candidates."
+      "variantObservationsNote": "Fifteen source-checked item-version observations are recorded as evidence only. Chest, hands, head, shoulders, and legs have item-level-334 observations; Hands also include an exact Wowhead item-level-321 observation. The Legs stats are from an equipped-profile observation and remain evidence-only. This does not establish coverage for all difficulty/upgrade tracks or the complete Monk variant ID map. Do not use these observations as optimizer candidates."
     },
     {
       "class": "Paladin",
@@ -8594,6 +8642,54 @@
               },
               "value": 101,
               "source": "Wowhead item-specific tooltip explicitly lists Mythic 6/6 at item level 334."
+            }
+          ]
+        },
+        {
+          "itemId": 271468,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Bulwark of the Consecrated Flame",
+          "slot": "Chest",
+          "variant": "Item level 321 observed",
+          "itemLevel": 321,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271468/bulwark-of-the-consecrated-flame?bonus=12850%3A13334%3A6652%3A13690%3A13698%3A1574&ilvl=321&spec=70",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 167,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 167,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3369,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 61,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 130,
+              "source": "Wowhead tooltip, item level 321"
             }
           ]
         }
