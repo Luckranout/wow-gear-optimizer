@@ -7393,7 +7393,7 @@
         },
         {
           "itemId": 271555,
-          "setId": "cosmic-penitent-s-regalia",
+          "setId": "cosmic-penitent-s-raiment",
           "name": "Cosmic Penitent's Truesight",
           "slot": "Head",
           "variant": "Veteran 3/6 observed",
@@ -7407,34 +7407,34 @@
                 "name": "intellect"
               },
               "value": 119,
-              "source": "Warcraft Wiki item page, item level 285"
+              "source": "Warcraft Wiki Cosmic Penitent's Raiment item table, item level 285"
             },
             {
               "type": {
                 "name": "stamina"
               },
               "value": 2219,
-              "source": "Warcraft Wiki item page, item level 285"
+              "source": "Warcraft Wiki Cosmic Penitent's Raiment item table, item level 285"
             },
             {
               "type": {
-                "name": "haste"
+                "name": "criticalStrike"
               },
-              "value": 105,
-              "source": "Warcraft Wiki item page, item level 285"
+              "value": 113,
+              "source": "Warcraft Wiki Cosmic Penitent's Raiment item table, item level 285"
             },
             {
               "type": {
-                "name": "versatility"
+                "name": "mastery"
               },
-              "value": 57,
-              "source": "Warcraft Wiki item page, item level 285"
+              "value": 48,
+              "source": "Warcraft Wiki Cosmic Penitent's Raiment item table, item level 285"
             }
           ]
         },
         {
           "itemId": 271555,
-          "setId": "cosmic-penitent-s-regalia",
+          "setId": "cosmic-penitent-s-raiment",
           "name": "Cosmic Penitent's Truesight",
           "slot": "Head",
           "variant": "Champion 3/6 observed",
@@ -7448,34 +7448,34 @@
                 "name": "intellect"
               },
               "value": 135,
-              "source": "Warcraft Wiki item page, item level 298"
+              "source": "Warcraft Wiki Cosmic Penitent's Raiment item table, item level 298"
             },
             {
               "type": {
                 "name": "stamina"
               },
               "value": 2579,
-              "source": "Warcraft Wiki item page, item level 298"
+              "source": "Warcraft Wiki Cosmic Penitent's Raiment item table, item level 298"
             },
             {
               "type": {
-                "name": "haste"
+                "name": "criticalStrike"
               },
-              "value": 111,
-              "source": "Warcraft Wiki item page, item level 298"
+              "value": 120,
+              "source": "Warcraft Wiki Cosmic Penitent's Raiment item table, item level 298"
             },
             {
               "type": {
-                "name": "versatility"
+                "name": "mastery"
               },
-              "value": 60,
-              "source": "Warcraft Wiki item page, item level 298"
+              "value": 51,
+              "source": "Warcraft Wiki Cosmic Penitent's Raiment item table, item level 298"
             }
           ]
         },
         {
           "itemId": 271555,
-          "setId": "cosmic-penitent-s-regalia",
+          "setId": "cosmic-penitent-s-raiment",
           "name": "Cosmic Penitent's Truesight",
           "slot": "Head",
           "variant": "Hero 3/6 observed",
@@ -7489,34 +7489,34 @@
                 "name": "intellect"
               },
               "value": 152,
-              "source": "Warcraft Wiki item page, item level 311"
+              "source": "Warcraft Wiki Cosmic Penitent's Raiment item table, item level 311"
             },
             {
               "type": {
                 "name": "stamina"
               },
               "value": 3002,
-              "source": "Warcraft Wiki item page, item level 311"
+              "source": "Warcraft Wiki Cosmic Penitent's Raiment item table, item level 311"
             },
             {
               "type": {
-                "name": "haste"
+                "name": "criticalStrike"
               },
-              "value": 118,
-              "source": "Warcraft Wiki item page, item level 311"
+              "value": 128,
+              "source": "Warcraft Wiki Cosmic Penitent's Raiment item table, item level 311"
             },
             {
               "type": {
-                "name": "versatility"
+                "name": "mastery"
               },
-              "value": 64,
-              "source": "Warcraft Wiki item page, item level 311"
+              "value": 55,
+              "source": "Warcraft Wiki Cosmic Penitent's Raiment item table, item level 311"
             }
           ]
         },
         {
           "itemId": 271555,
-          "setId": "cosmic-penitent-s-regalia",
+          "setId": "cosmic-penitent-s-raiment",
           "name": "Cosmic Penitent's Truesight",
           "slot": "Head",
           "variant": "Myth 3/6 observed",
@@ -7530,28 +7530,28 @@
                 "name": "intellect"
               },
               "value": 172,
-              "source": "Warcraft Wiki item page, item level 324"
+              "source": "Warcraft Wiki Cosmic Penitent's Raiment item table, item level 324"
             },
             {
               "type": {
                 "name": "stamina"
               },
               "value": 3487,
-              "source": "Warcraft Wiki item page, item level 324"
+              "source": "Warcraft Wiki Cosmic Penitent's Raiment item table, item level 324"
             },
             {
               "type": {
-                "name": "haste"
+                "name": "criticalStrike"
               },
-              "value": 125,
-              "source": "Warcraft Wiki item page, item level 324"
+              "value": 135,
+              "source": "Warcraft Wiki Cosmic Penitent's Raiment item table, item level 324"
             },
             {
               "type": {
-                "name": "versatility"
+                "name": "mastery"
               },
-              "value": 68,
-              "source": "Warcraft Wiki item page, item level 324"
+              "value": 58,
+              "source": "Warcraft Wiki Cosmic Penitent's Raiment item table, item level 324"
             }
           ]
         }
