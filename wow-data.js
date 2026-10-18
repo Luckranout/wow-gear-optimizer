@@ -278,7 +278,7 @@ async function loadRetailDataset(url = "data/current-retail.json") {
       set.id, set.setId, set.setName,
       manifestSet?.setId, manifestSet?.setName
     ].filter(value => value !== null && value !== undefined && String(value).trim() !== ""))];
-    const pieces = [...(manifestSet?.pieces || []), ...(Array.isArray(set.pieces) ? set.pieces : [])];
+    const pieces = [...(manifestSet?.pieces || []), ...(Array.isArray(set.pieces) ? set.pieces : []), ...(Array.isArray(set.upgradeRankCandidates) ? set.upgradeRankCandidates : [])];
     return {
       // The verified item-ID manifest is the canonical identity when present.
       // Keep source catalogue IDs/names as aliases because Blizzard and Wowhead
@@ -301,7 +301,7 @@ async function loadRetailDataset(url = "data/current-retail.json") {
   // PvP variants are mapped for set detection but remain excluded from candidates
   // until their stat and item-level records are verified.
   const verifiedTierCandidates = (tierCatalogue?.sets || []).flatMap(set =>
-    (set.pieces || []).filter(piece => piece.candidate === true && Number.isFinite(Number(piece.itemLevel)) &&
+    [...(set.pieces || []), ...(set.upgradeRankCandidates || [])].filter(piece => piece.candidate === true && Number.isFinite(Number(piece.itemLevel)) &&
       Array.isArray(piece.stats) && piece.stats.length > 0).map(piece => ({
         id: piece.itemId,
         name: piece.name,
@@ -383,6 +383,7 @@ function validateTierSetCatalogue(catalogue) {
   for (const set of catalogue.sets || []) {
     const pieces = Array.isArray(set.pieces) ? set.pieces : [];
     const candidates = pieces.filter(piece => piece?.candidate === true);
+    const rankCandidates = Array.isArray(set.upgradeRankCandidates) ? set.upgradeRankCandidates : [];
     if (set.itemIdsVerified) {
       const itemIds = new Set();
       for (const piece of pieces) {
@@ -416,9 +417,18 @@ function validateTierSetCatalogue(catalogue) {
       errors.push(`Tier set ${set.setName} advertises candidates but contains no candidate records.`);
     }
   }
+    for (const piece of rankCandidates) {
+      if (set.baseItemIdsVerified !== true || piece?.candidate !== true ||
+          !Number.isInteger(Number(piece?.itemId)) || !piece?.setId || !piece?.slot || !piece?.sourceUrl ||
+          !Number.isFinite(Number(piece?.itemLevel)) || !Array.isArray(piece?.stats) || piece.stats.length < 4 ||
+          !piece.stats.every(stat => Number.isFinite(stat?.value) && stat.value > 0 && typeof stat.source === "string" && stat.source.length)) {
+        errors.push(`Tier set ${set.setName} has an incomplete intermediate-rank candidate.`);
+        break;
+      }
+    }
   const verifiedSets = (catalogue.sets || []).filter(set => set.itemIdsVerified).length;
   const candidateSets = (catalogue.sets || []).filter(set =>
-    set.candidateVariantsAvailable === true && Array.isArray(set.pieces) && set.pieces.some(piece => piece?.candidate === true)
+    set.candidateVariantsAvailable === true && ((Array.isArray(set.pieces) && set.pieces.some(piece => piece?.candidate === true)) || (Array.isArray(set.upgradeRankCandidates) && set.upgradeRankCandidates.some(piece => piece?.candidate === true)))
   ).length;
   if (matchingStatus === "incomplete" && (verifiedSets > 0 || candidateSets > 0)) {
     errors.push("Tier-set matching cannot be incomplete when verified candidates are present.");
