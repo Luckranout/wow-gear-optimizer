@@ -7,7 +7,7 @@ Scope: source-verified numeric item variants needed before tier pieces can becom
 ## Summary
 
 - Base tier membership: **13/13 classes mapped**, with five base item IDs per class (65 total).
-- Complete baseline PvE + Mythic 6/6 slot mapping: **13/13 classes** — all five tier slots for every class have baseline/max-rank candidate coverage. Warrior's previously listed Hands/Legs baseline gaps are resolved in the current catalogue. No class has complete rank-by-rank upgrade coverage yet.
+- Complete baseline PvE + Mythic 6/6 slot mapping: **12/13 classes** — Death Knight, Demon Hunter, Druid, Evoker, Hunter, Mage, Monk, Paladin, Priest, Rogue, Shaman, and Warlock. Warrior still lacks baseline Hands 282 and Legs 285/298/311/324. No class has complete rank-by-rank upgrade coverage yet.
 - Shaman candidates: **20/20** baseline PvE variants across five slots plus **20** independently rank-verified variants stored separately; 10 PvP appearance-only records and other unverified ranks remain ineligible.
 - Verified Death Knight PvE candidates: **25/25** (four baseline PvE difficulty variants plus exact Mythic 6/6 item-level-334 variants across five slots).
 - Verified Demon Hunter PvE candidates: **25/25** (source-documented baseline PvE variants plus exact Mythic 6/6 item-level-334 variants across five slots).
@@ -19,7 +19,7 @@ Scope: source-verified numeric item variants needed before tier pieces can becom
 - Verified Paladin PvE candidates: **25/25** (source-documented baseline PvE variants plus exact Mythic 6/6 item-level-334 variants across five slots).
 - Verified Hunter PvE candidates: **25/25**; the source identifies the baseline Mythic Legs variant at item level 318, with the exact Mythic 6/6 variant at 334.
 - Non-Shaman evidence-only observations: **340 records across 12 classes**. These observations remain distinct from candidate records and do not by themselves complete a variant map.
-- Remaining baseline: no class is currently listed as missing a standard baseline/max-rank slot candidate. Warrior's previously listed Hands 282 and Legs 285/298/311/324 gaps, and Druid/Monk Legs 334 gaps, are resolved in the current catalogue. Full intermediate upgrade-rank coverage remains incomplete across classes; missing ranks remain evidence-only.
+- Remaining baseline: Warrior still needs source-verified baseline Hands 282 and Legs 285/298/311/324. Druid and Monk's previously missing Legs 334 candidates are now present. Full intermediate upgrade-rank coverage remains incomplete across classes; missing ranks remain evidence-only.
 - PvP appearances are not optimizer candidates unless their numeric item level and stats are independently verified.
 - Do not enable numeric tier-bonus scoring without a separate trustworthy, simulation-backed scoring source.
 
@@ -41,7 +41,7 @@ For every class marked incomplete below, all five slots still need a complete, s
 | Rogue | 30 observations + 27 candidates | All five slots have source-backed Raid Finder, Normal, Heroic, and Mythic baseline variants plus exact item-level-334 Mythic 6/6 candidates. | Added 10 exact Head, Chest, and Hands baseline records from the Warcraft Wiki set listing, then promoted baseline versions and two additional exact source-verified intermediate-rank versions into candidates. Intermediate upgrade ranks remain evidence-only and the full rank-by-rank map is unfinished. |
 | Shaman | 25 observations + 40 candidates + 10 PvP appearance-only records | Four baseline PvE variants per slot remain candidate-eligible. There are now 20 additional rank-verified candidates, including all five Mythic 6/6 versions and exact intermediate ranks across Head, Shoulders, Chest, Hands, and Legs. Ten PvP appearance records lack verified numeric stats. | Added twelve rank-verified versions with independent profile/tooltip evidence: Head 295 Champion 2/6; Shoulders 302 Champion 4/6, 308 Champion 6/6, and 321 Hero 6/6; Chest 308 Champion 6/6, 318 Myth 1/6, 328 Myth 4/6; Hands 311 Hero 3/6 and 321 Hero 6/6; Legs 295 Veteran 6/6, 318 Hero 5/6, and 321 Hero 6/6. Observation records remain separate and ineligible; remaining rank gaps are explicitly listed below. |
 | Warlock | 36 observations + 31 candidates | All five slots now have source-backed Raid Finder, Normal, Heroic, and Mythic baseline variants plus exact item-level-334 Mythic 6/6 candidates. | Added 12 exact Shoulder, Chest, Hands, and Legs baseline records from the Warcraft Wiki item pages, then promoted baseline versions plus six exact source-verified intermediate-rank versions into candidates. Remaining unverified ranks stay evidence-only. |
-| Warrior | 28 observations + 28 candidates | All five slots have standard Mythic 6/6 item-level-334 coverage; the previously listed baseline Hands/Legs gaps are resolved in the current catalogue. The separate item-level-344 chest variant remains distinct. | Continue only with source-verified intermediate ranks; do not reopen the completed baseline/max-rank mapping or infer missing stats. |
+| Warrior | 28 observations + 28 candidates | Head, Shoulders, and Chest have baseline difficulty candidates plus Mythic 6/6 at 334. Hands lack baseline 282; Legs still lack baseline 285/298/311/324. The separate item-level-344 chest variant remains distinct. | Warrior baseline coverage remains partial; keep working on other classes as requested, and do not infer missing stats. |
 
 ## Acceptance criteria
 
@@ -76,7 +76,7 @@ The current catalogue records at least one item-level-334 observation for all fi
 | Rogue | Head, Shoulders, Chest, Hands, Legs | Baseline and 334 observations exist across all five slots; remaining work is exact rank-by-rank upgrade variants. |
 | Shaman | Head, Shoulders, Chest, Hands, Legs | Keep the 20 baseline PvE candidates and 18 independently rank-verified variants separate from the 25-observation ledger; continue filling the remaining exact rank gaps. |
 | Warlock | Head, Shoulders, Chest, Hands, Legs | Baseline and 334 observations exist across all five slots; remaining work is exact rank-by-rank upgrade variants. |
-| Warrior | Head, Shoulders, Chest, Hands, Legs | Standard item-level-334 candidates and baseline variants are mapped across all five slots. Keep the separate 344 chest variant distinct; continue only on exact intermediate-rank gaps. |
+| Warrior | Head, Shoulders, Chest, Hands, Legs | Standard item-level-334 observations exist across all five slots, but baseline Hands 282 and Legs 285/298/311/324 remain gaps. Keep the separate 344 chest variant distinct. |
 
 ### Work sequence
 
