@@ -28933,6 +28933,282 @@
           ],
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271549,
+          "setId": "damned-necrolyte",
+          "name": "Damned Necrolyte's Rattling Robes",
+          "slot": "Chest",
+          "variant": "Hero 6/6 observed",
+          "itemLevel": 321,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271549/damned-necrolytes-rattling-robes?bonus=41%3A13440%3A13690%3A13698%3A12846&class=9&ilvl=321&spec=265",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 167,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3369,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 134,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 57,
+              "source": "Wowhead tooltip, item level 321"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271549,
+          "setId": "damned-necrolyte",
+          "name": "Damned Necrolyte's Rattling Robes",
+          "slot": "Chest",
+          "variant": "Mythic 4/6 observed",
+          "itemLevel": 328,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271549/damned-necrolytes-rattling-robes?bonus=6652%3A13335%3A13690%3A13698%3A12852&ilvl=328&spec=266",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 178,
+              "source": "Wowhead tooltip, item level 328"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3649,
+              "source": "Wowhead tooltip, item level 328"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 138,
+              "source": "Wowhead tooltip, item level 328"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 58,
+              "source": "Wowhead tooltip, item level 328"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271546,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Skull of the Damned Necrolyte",
+          "slot": "Head",
+          "variant": "Hero 2/6 observed",
+          "itemLevel": 308,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271546/skull-of-the-damned-necrolyte?bonus=13333%3A13692%3A41%3A13696%3A13698%3A12838&class=9&ilvl=308&spec=266",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 148,
+              "source": "Wowhead tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2896,
+              "source": "Wowhead tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 58,
+              "source": "Wowhead tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 122,
+              "source": "Wowhead tooltip, item level 308"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271546,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Skull of the Damned Necrolyte",
+          "slot": "Head",
+          "variant": "Myth 1/6 observed",
+          "itemLevel": 318,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271546/skull-of-the-damned-necrolyte?bonus=13334%3A6652%3A12849%3A13696%3A13692%3A13698%3A1571&ilvl=318&spec=266",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 162,
+              "source": "Wowhead tooltip, item level 318"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3254,
+              "source": "Wowhead tooltip, item level 318"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 61,
+              "source": "Wowhead tooltip, item level 318"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 127,
+              "source": "Wowhead tooltip, item level 318"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271545,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Leg Bindings",
+          "slot": "Legs",
+          "variant": "Champion 5/6 observed",
+          "itemLevel": 305,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271545/damned-necrolytes-leg-bindings?bonus=13333%3A13693%3A6652%3A13698%3A12837&ilvl=305&spec=267",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 144,
+              "source": "Wowhead item tooltip, Champion 5/6, item level 305"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2794,
+              "source": "Wowhead item tooltip, Champion 5/6, item level 305"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 125,
+              "source": "Wowhead item tooltip, Champion 5/6, item level 305"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 53,
+              "source": "Wowhead item tooltip, Champion 5/6, item level 305"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271544,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Spires of the Damned Necrolyte",
+          "slot": "Shoulders",
+          "variant": "Hero 3/6 observed",
+          "itemLevel": 311,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/ptr-2/item%3D271544/spires-of-the-damned-necrolyte?bonus=6652%3A13440%3A13694%3A13697%3A12843&ilvl=311",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 114,
+              "source": "Wowhead tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2252,
+              "source": "Wowhead tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 45,
+              "source": "Wowhead tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 92,
+              "source": "Wowhead tooltip, item level 311"
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "itemIdsVerified": false,
@@ -30485,7 +30761,7 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Twenty-four source-checked item versions are recorded as evidence only. Head is observed at item levels 219, 285 (Veteran 3/6), 298 (Champion 3/6), 305, 308 (Hero 2/6), 311 (Hero 3/6), 315, 318, 321, 324 (Myth 3/6), and 334 (Mythic 6/6). Legs now include a source-checked Champion 5/6 version at item level 305 and a Mythic 6/6 version at 334. Hands have source-cross-checked item-level 331 and 334 observations; Chest has 311, 321, 324, 328, and 334; Shoulders have 308, 311, 321, and 334. Other difficulty and upgrade variants remain unverified. All observations remain evidence-only and are not optimizer candidates.",
+      "variantObservationsNote": "Baseline Raid Finder/Normal/Heroic/Mythic candidates plus item-level-334 Mythic 6/6 candidates cover all five slots. Additional explicit source-verified upgrade-rank observations (including Champion/Hero/Myth 1/6 through 6/6 where available) are also candidates. Remaining ranks not independently source-verified stay evidence-only; complete rank-by-rank coverage is still partial.",
       "candidateVariantsAvailable": true
     },
     {
@@ -33085,7 +33361,7 @@
       "Gladiator",
       "Elite"
     ],
-    "note": "Source-backed baseline candidate versions exist for Death Knight, Demon Hunter, Druid, Evoker, Hunter, Mage, Monk, Paladin, Priest, Rogue, and Shaman. Warlock has source-backed baseline candidates for all five slots. Warrior has exact candidates including baseline difficulty maps for Head, Shoulders, and Chest, Hands at 295/305/308/315/318/321/334, and Legs at 282/289/321/334; baseline Hands 282 and Legs 285/298/311/324 remain incomplete. Druid and Monk each have 24/25 candidates pending exact Legs 334 upgrade-rank proof. No class is marked fully variant-verified until every required upgrade rank is source-verified.",
+    "note": "Warlock now includes baseline and max-rank candidates for all five slots plus additional source-verified intermediate upgrade-rank candidates. Other classes have baseline/max candidates or exact isolated variants; missing ranks remain evidence-only. Druid and Monk each have 24/25 candidates pending exact Legs 334 rank evidence. Warrior still lacks baseline Hands 282 and Legs 285/298/311/324. No class is marked fully variant-verified until every required upgrade rank is source-verified.",
     "verifiedClasses": [],
     "statsVerifiedClasses": [
       "Death Knight",
