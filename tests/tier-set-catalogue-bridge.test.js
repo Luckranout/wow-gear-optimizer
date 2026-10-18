@@ -169,7 +169,13 @@ test("Death Knight source-checked tier versions preserve observed stats without 
     assert.equal(piece.variant, variant);
     assert.equal(piece.candidate, false);
     assert.equal(piece.verificationScope, "observed-version-only");
-    assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), level);
+    const sourceUrl = new URL(piece.sourceUrl);
+    if (sourceUrl.hostname === "www.wowhead.com") {
+      assert.equal(Number(sourceUrl.searchParams.get("ilvl")), level);
+    } else {
+      assert.ok(piece.stats.every(stat => stat.source.includes(`item level ${level}`)),
+        "Warcraft Wiki stat provenance must identify the exact observed item level");
+    }
     assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
   }
   const headLevels = observations.filter(piece => piece.itemId === 271474).map(piece => piece.itemLevel).sort((a, b) => a - b);
