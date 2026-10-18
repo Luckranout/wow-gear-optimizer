@@ -23,16 +23,17 @@ if (tierCatalogue.sets.length !== 13 ||
     new Set(tierCatalogue.sets.map(set => set.class)).size !== 13 ||
     tierCatalogue.thresholds.join(",") !== "2,4" ||
     tierCatalogue.itemMatching.status !== "partial" ||
-    tierCatalogue.itemMatching.verifiedClasses?.length !== 0 ||
+    tierCatalogue.itemMatching.verifiedClasses?.length !== 1 ||
+    !tierCatalogue.itemMatching.verifiedClasses.includes("Shaman") ||
     tierCatalogue.itemMatching.candidateVariantClasses?.length !== 13 ||
     tierCatalogue.sets.some(set =>
       set.eligibleSlots?.join(",") !== "Head,Shoulders,Chest,Hands,Legs" ||
       set.appearanceVariants?.length !== 6 ||
-      set.itemIdsVerified !== false ||
+      set.itemIdsVerified !== (set.class === "Shaman") ||
       set.baseItemIdsVerified !== true ||
       set.candidateVariantsAvailable !== true ||
       !set.pieces?.some(piece => piece.candidate === true))) {
-  throw new Error("Tier-set catalogue must distinguish verified base IDs and source-backed partial candidates from complete variant maps");
+  throw new Error("Tier-set catalogue must distinguish Shaman's canonical six-variant map from partial candidate maps for every class");
 }
 
 
