@@ -799,10 +799,51 @@
               "source": "Warcraft Wiki tier item page, item level 321"
             }
           ]
+        },
+        {
+          "itemId": 271473,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Greaves",
+          "slot": "Legs",
+          "variant": "Mythic 3/6 observed",
+          "itemLevel": 324,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Baleful_Grave-Knight%27s_Crucible",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki set item entry, Mythic item level 324"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki set item entry, Mythic item level 324"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 57,
+              "source": "Warcraft Wiki set item entry, Mythic item level 324"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 136,
+              "source": "Warcraft Wiki set item entry, Mythic item level 324"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Sixteen source-checked item versions are recorded as evidence only. Head is observed at item levels 285, 298, 305, 308, 311, 321, 324, and 334; Shoulders at 282, 295, 308, 318, and 321. Chest, Hands, and Legs have isolated observed versions only. Other difficulty and upgrade variants remain unverified; all observations remain ineligible as optimizer candidates."
+      "variantObservationsNote": "Seventeen source-checked item versions are recorded as evidence only. Head is observed at item levels 285, 298, 305, 308, 311, 321, 324, and 334; Shoulders at 282, 295, 308, 318, and 321; Legs at 324 and 334. Chest and Hands have isolated observed versions only. Other difficulty and upgrade variants remain unverified; all observations remain ineligible as optimizer candidates."
     },
     {
       "class": "Demon Hunter",
