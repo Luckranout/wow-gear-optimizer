@@ -2323,10 +2323,51 @@
               "source": "Warcraft Wiki item page, item level 324"
             }
           ]
+        },
+        {
+          "itemId": 271538,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Studded Gauntlets",
+          "slot": "Hands",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271538/abyssal-doomhounds-studded-gauntlets?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 104,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 47,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Twenty-nine source-checked observations remain evidence-only. Hands at base item level 219, Veteran 2/6 item level 282, Champion 2/6 item level 295, Hero 1/6 item level 305, Hero 2/6 item level 308, and Myth 2/6 item level 321. Head at Veteran 3/6 item level 285 and Mythic 6/6 item level 334. Legs are observed at item levels 285, 295, 298, 311, 318, and 324. Chest and Shoulders have isolated observed versions only; remaining difficulty and upgrade variants are unverified. All observations remain ineligible as optimizer candidates until complete slot/difficulty/upgrade maps are verified."
+      "variantObservationsNote": "Thirty source-checked observations remain evidence-only. Hands at base item level 219, Veteran 2/6 item level 282, Champion 2/6 item level 295, Hero 1/6 item level 305, Hero 2/6 item level 308, and Myth 2/6 item level 321. Head at Veteran 3/6 item level 285 and Mythic 6/6 item level 334. Legs are observed at item levels 285, 295, 298, 311, 318, and 324. Hands and Shoulders now have exact Mythic 6/6 item-level 334 observations; Chest has isolated observed versions only; remaining difficulty and upgrade variants are unverified. All observations remain ineligible as optimizer candidates until complete slot/difficulty/upgrade maps are verified."
     },
     {
       "class": "Druid",
