@@ -635,11 +635,12 @@ test("Druid source-checked tier versions remain evidence-only and preserve obser
     { agility: 141, stamina: 2932, versatility: 106, mastery: 44 }
   );
   const headVariants = new Map(observations.filter(piece => piece.itemId === 271528).map(piece => [piece.itemLevel, piece]));
-  assert.deepEqual([...headVariants.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334]);
+  assert.deepEqual([...headVariants.keys()].sort((a, b) => a - b), [285, 298, 311, 321, 324, 334]);
   for (const [level, expected] of [
     [285, { agility: 119, stamina: 2219, haste: 114, versatility: 47 }],
     [298, { agility: 135, stamina: 2579, haste: 121, versatility: 51 }],
     [311, { agility: 152, stamina: 3002, haste: 129, versatility: 54 }],
+    [321, { agility: 167, stamina: 3369, haste: 134, versatility: 56 }],
     [324, { agility: 172, stamina: 3487, haste: 136, versatility: 57 }],
     [334, { agility: 189, stamina: 3910, haste: 142, versatility: 59 }]
   ]) {
