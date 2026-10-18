@@ -13175,6 +13175,47 @@
           "setId": "damned-necrolyte",
           "name": "Damned Necrolyte's Rattling Robes",
           "slot": "Chest",
+          "variant": "Hero 3/6 observed",
+          "itemLevel": 311,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271549/damned-necrolytes-rattling-robes?bonus=12843%3A13334%3A13690%3A6652%3A13698&ilvl=311&spec=267",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 152,
+              "source": "Wowhead tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Wowhead tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 128,
+              "source": "Wowhead tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 54,
+              "source": "Wowhead tooltip, item level 311"
+            }
+          ]
+        },
+        {
+          "itemId": 271549,
+          "setId": "damned-necrolyte",
+          "name": "Damned Necrolyte's Rattling Robes",
+          "slot": "Chest",
           "variant": "Hero 6/6 observed",
           "itemLevel": 321,
           "candidate": false,
@@ -13208,6 +13249,88 @@
               },
               "value": 57,
               "source": "Wowhead tooltip, item level 321"
+            }
+          ]
+        },
+        {
+          "itemId": 271549,
+          "setId": "damned-necrolyte",
+          "name": "Damned Necrolyte's Rattling Robes",
+          "slot": "Chest",
+          "variant": "Mythic 2/6 observed",
+          "itemLevel": 324,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271549/damned-necrolytes-rattling-robes?bonus=13334%3A6652%3A13690%3A13698%3A12851&ilvl=324&spec=266",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 172,
+              "source": "Wowhead tooltip, item level 324"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Wowhead tooltip, item level 324"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 135,
+              "source": "Wowhead tooltip, item level 324"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 57,
+              "source": "Wowhead tooltip, item level 324"
+            }
+          ]
+        },
+        {
+          "itemId": 271549,
+          "setId": "damned-necrolyte",
+          "name": "Damned Necrolyte's Rattling Robes",
+          "slot": "Chest",
+          "variant": "Mythic 4/6 observed",
+          "itemLevel": 328,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271549/damned-necrolytes-rattling-robes?bonus=6652%3A13335%3A13690%3A13698%3A12852&ilvl=328&spec=266",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 178,
+              "source": "Wowhead tooltip, item level 328"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3649,
+              "source": "Wowhead tooltip, item level 328"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 138,
+              "source": "Wowhead tooltip, item level 328"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 58,
+              "source": "Wowhead tooltip, item level 328"
             }
           ]
         },
