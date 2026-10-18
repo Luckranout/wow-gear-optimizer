@@ -986,10 +986,10 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
 });
 
 
-test("Monk source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
+test("Monk source-backed tier item versions remain evidence-only and match source stats", () => {
   const monk = catalogue.sets.find(set => set.class === "Monk");
   const observations = monk.verifiedVariantObservations || [];
-  assert.equal(observations.length, 9);
+  assert.equal(observations.length, 13);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(monk.variantObservationsStatus, "partial");
   assert.match(monk.variantObservationsNote, /legs are observed at Heroic 3\/6 item level 311/i);
@@ -998,9 +998,9 @@ test("Monk source-backed tier item versions remain evidence-only and match Wowhe
   for (const piece of observations) {
     assert.equal(piece.candidate, false);
     assert.equal(piece.verificationScope, "observed-version-only");
-    assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/"));
+    assert.ok(["www.wowhead.com", "warcraft.wiki.gg"].includes(new URL(piece.sourceUrl).hostname));
     const sourceLevel = new URL(piece.sourceUrl).searchParams.get("ilvl");
-    if (sourceLevel) assert.equal(Number(sourceLevel), piece.itemLevel);
+    if (sourceLevel) assert.equal(Number(sourceLevel), piece.itemLevel);\n    else assert.ok(piece.stats.every(stat => stat.source.includes(String(piece.itemLevel))));
     assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
     assert.ok(piece.stats.length >= 4);
     assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
@@ -1016,6 +1016,21 @@ test("Monk source-backed tier item versions remain evidence-only and match Wowhe
     "271517:321": { agility: 125, intellect: 125, stamina: 2527, haste: 98, mastery: 45 },
     "271517:334": { agility: 141, intellect: 141, stamina: 2932, haste: 103, mastery: 47 }
   };
+
+  const headByLevel = new Map(observations.filter(piece => piece.itemId === 271519).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...headByLevel.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334]);
+  for (const [level, expectedStats] of [
+    [285, { agilityOrIntellect: 119, stamina: 2219, criticalStrike: 47, mastery: 114 }],
+    [298, { agilityOrIntellect: 135, stamina: 2579, criticalStrike: 50, mastery: 122 }],
+    [311, { agilityOrIntellect: 152, stamina: 3002, criticalStrike: 53, mastery: 129 }],
+    [324, { agilityOrIntellect: 172, stamina: 3487, criticalStrike: 56, mastery: 137 }]
+  ]) {
+    const piece = headByLevel.get(level);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expectedStats);
+  }
+
   const shouldersByLevel = new Map(observations.filter(piece => piece.itemId === 271517).map(piece => [piece.itemLevel, piece]));
   assert.deepEqual([...shouldersByLevel.keys()].sort((a, b) => a - b), [282, 295, 308, 321, 334]);
   for (const piece of observations) {
