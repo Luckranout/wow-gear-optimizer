@@ -221,7 +221,7 @@ test("Paladin observed tier variants are source-backed and remain evidence-only"
 test("Demon Hunter source-checked tier versions remain evidence-only and preserve observed stats", () => {
   const demonHunter = catalogue.sets.find(set => set.class === "Demon Hunter");
   const observations = demonHunter.verifiedVariantObservations || [];
-  assert.equal(observations.length, 19);
+  assert.equal(observations.length, 23);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(demonHunter.variantObservationsStatus, "partial");
   assert.match(demonHunter.variantObservationsNote, /Hands at base item level 219, Veteran 2\/6 item level 282, Champion 2\/6 item level 295, Hero 1\/6 item level 305, Hero 2\/6 item level 308, and Myth 2\/6 item level 321/i);
@@ -270,6 +270,20 @@ test("Demon Hunter source-checked tier versions remain evidence-only and preserv
       Object.fromEntries(item.stats.map(stat => [stat.type.name, stat.value])),
       expected.stats
     );
+  }
+  const expectedShoulders = {
+    282: { agility: 87, stamina: 1606, criticalStrike: 42, versatility: 77 },
+    295: { agility: 98, stamina: 1869, criticalStrike: 45, versatility: 82 },
+    308: { agility: 111, stamina: 2172, criticalStrike: 48, versatility: 87 },
+    321: { agility: 125, stamina: 2527, criticalStrike: 51, versatility: 92 }
+  };
+  for (const [level, expected] of Object.entries(expectedShoulders)) {
+    const piece = observations.find(item => item.slot === "Shoulders" && item.itemLevel === Number(level));
+    assert.ok(piece, `missing Demon Hunter shoulder observation at item level ${level}`);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.match(piece.sourceUrl, /warcraft\.wiki\.gg/);
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
   }
   const chest = observations.find(piece => piece.itemId === 271540);
   assert.equal(chest.itemLevel, 321);
