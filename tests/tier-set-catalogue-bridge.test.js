@@ -671,7 +671,7 @@ test("Mage source-backed tier item versions remain evidence-only and match Wowhe
   const mage = catalogue.sets.find(set => set.class === "Mage");
   const observations = mage.verifiedVariantObservations || [];
   assert.equal(observations.length, 9);
-  assert.deepEqual([...new Set(observations.map(piece => piece.slot)).sort(), [...EXPECTED_SLOTS].sort());
+  assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(mage.variantObservationsStatus, "partial");
   assert.match(mage.variantObservationsNote, /do not establish coverage/i);
   const manifestSet = manifest.sets.find(set => set.className === "Mage");
