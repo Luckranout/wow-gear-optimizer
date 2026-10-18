@@ -3884,35 +3884,35 @@
                 "name": "agility"
               },
               "value": 189,
-              "source": "MythicSim Guardian Druid tier-item listing, item level 334: 189 Agility"
+              "source": "Wowhead item-specific item-level-334 tooltip for Enigmatic Dreamwatcher's Leggings (271527): 189 agility"
             },
             {
               "type": {
                 "name": "intellect"
               },
               "value": 189,
-              "source": "Azeroth Codex equipped profile explicitly lists this item at item level 334"
+              "source": "Wowhead item-specific item-level-334 tooltip for Enigmatic Dreamwatcher's Leggings (271527): 189 intellect"
             },
             {
               "type": {
                 "name": "stamina"
               },
               "value": 3910,
-              "source": "Azeroth Codex equipped profile explicitly lists this item at item level 334"
+              "source": "Wowhead item-specific item-level-334 tooltip for Enigmatic Dreamwatcher's Leggings (271527): 3910 stamina"
             },
             {
               "type": {
                 "name": "criticalStrike"
               },
               "value": 67,
-              "source": "MythicSim Guardian Druid tier-item listing, item level 334: 67 Critical Strike"
+              "source": "Wowhead item-specific item-level-334 tooltip for Enigmatic Dreamwatcher's Leggings (271527): 67 criticalStrike"
             },
             {
               "type": {
                 "name": "haste"
               },
               "value": 134,
-              "source": "MythicSim Guardian Druid tier-item listing, item level 334: 134 Haste"
+              "source": "Wowhead item-specific item-level-334 tooltip for Enigmatic Dreamwatcher's Leggings (271527): 134 haste"
             }
           ]
         },
@@ -8065,35 +8065,35 @@
                 "name": "agility"
               },
               "value": 189,
-              "source": "Azeroth Codex equipped profile explicitly lists this item at item level 334"
+              "source": "Wowhead item-specific item-level-334 tooltip for Pantaloons of the Monkey King (271518): 189 agility"
             },
             {
               "type": {
                 "name": "intellect"
               },
               "value": 189,
-              "source": "Azeroth Codex equipped profile explicitly lists this item at item level 334"
+              "source": "Wowhead item-specific item-level-334 tooltip for Pantaloons of the Monkey King (271518): 189 intellect"
             },
             {
               "type": {
                 "name": "stamina"
               },
               "value": 3910,
-              "source": "Azeroth Codex equipped profile explicitly lists this item at item level 334"
+              "source": "Wowhead item-specific item-level-334 tooltip for Pantaloons of the Monkey King (271518): 3910 stamina"
             },
             {
               "type": {
                 "name": "criticalStrike"
               },
               "value": 130,
-              "source": "Azeroth Codex equipped profile explicitly lists this item at item level 334"
+              "source": "Wowhead item-specific item-level-334 tooltip for Pantaloons of the Monkey King (271518): 130 criticalStrike"
             },
             {
               "type": {
                 "name": "versatility"
               },
               "value": 71,
-              "source": "Azeroth Codex equipped profile explicitly lists this item at item level 334"
+              "source": "Wowhead item-specific item-level-334 tooltip for Pantaloons of the Monkey King (271518): 71 versatility"
             }
           ]
         },
