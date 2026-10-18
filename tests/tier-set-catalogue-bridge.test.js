@@ -1441,7 +1441,7 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
     assert.equal(Number(new URL(shoulder.sourceUrl).searchParams.get("ilvl")), level);
   }
   const chestLevels = observations.filter(piece => piece.itemId === 271549).map(piece => piece.itemLevel).sort((a, b) => a - b);
-  assert.deepEqual(chestLevels, [311, 321, 324, 328, 334]);
+  assert.deepEqual(chestLevels, [285, 298, 311, 321, 324, 328, 334]);
   for (const level of [311, 321, 324, 328]) {
     const chestVariant = observations.find(piece => piece.itemId === 271549 && piece.itemLevel === level);
     assert.ok(chestVariant, `missing Warlock chest item level ${level} observation`);
