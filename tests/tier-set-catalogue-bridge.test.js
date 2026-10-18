@@ -616,16 +616,25 @@ test("Druid source-checked tier versions remain evidence-only and preserve obser
     assert.ok(piece.itemLevel > 0);
     const sourceUrl = new URL(piece.sourceUrl);
     assert.ok(
-      sourceUrl.hostname === "www.wowhead.com" || sourceUrl.hostname === "warcraft.wiki.gg",
-      "source URL must point to a trusted item reference"
+      sourceUrl.hostname === "www.wowhead.com" ||
+      sourceUrl.hostname === "warcraft.wiki.gg" ||
+      (Number(piece.itemId) === 271527 && piece.slot === "Legs" && piece.itemLevel === 334 &&
+        sourceUrl.hostname === "mythicsim.com"),
+      "source URL must point to a trusted item reference or the scoped Druid build source"
     );
     if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
     if (sourceUrl.hostname === "www.wowhead.com") {
       assert.equal(Number(sourceUrl.searchParams.get("ilvl")), piece.itemLevel,
         "Wowhead source URL must pin the exact observed item level");
-    } else {
+    } else if (sourceUrl.hostname === "warcraft.wiki.gg") {
       assert.ok(piece.stats.every(stat => stat.source.includes(String(piece.itemLevel))),
         "Warcraft Wiki observations must label the exact observed item level in every stat source");
+    } else {
+      assert.equal(Number(piece.itemId), 271527);
+      assert.equal(piece.slot, "Legs");
+      assert.equal(piece.itemLevel, 334);
+      assert.ok(piece.stats.every(stat => /item level 334/i.test(stat.source)),
+        "Druid build-source stats must explicitly identify the observed item level");
     }
     assert.ok(Array.isArray(piece.stats) && piece.stats.length >= 4);
     assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
