@@ -80,7 +80,6 @@
           "variant": "Raid Finder",
           "itemLevel": 285,
           "candidate": true,
-          "verificationScope": "observed-version-only",
           "sourceUrl": "https://warcraft.wiki.gg/wiki/Baleful_Grave-Knight%27s_Casque",
           "stats": [
             {
@@ -127,7 +126,6 @@
           "variant": "Normal",
           "itemLevel": 298,
           "candidate": true,
-          "verificationScope": "observed-version-only",
           "sourceUrl": "https://warcraft.wiki.gg/wiki/Baleful_Grave-Knight%27s_Casque",
           "stats": [
             {
@@ -174,7 +172,6 @@
           "variant": "Heroic",
           "itemLevel": 311,
           "candidate": true,
-          "verificationScope": "observed-version-only",
           "sourceUrl": "https://www.wowhead.com/ptr-2/item=271474/baleful-grave-knights-casque?bonus=12843%3A13334%3A13692%3A6652%3A13695%3A13698&ilvl=311&spec=252",
           "stats": [
             {
@@ -221,7 +218,6 @@
           "variant": "Mythic",
           "itemLevel": 324,
           "candidate": true,
-          "verificationScope": "observed-version-only",
           "sourceUrl": "https://warcraft.wiki.gg/wiki/Baleful_Grave-Knight%27s_Casque",
           "stats": [
             {
@@ -268,7 +264,6 @@
           "variant": "Mythic 6/6",
           "itemLevel": 334,
           "candidate": true,
-          "verificationScope": "observed-version-only",
           "sourceUrl": "https://www.wowhead.com/item=271474/baleful-grave-knights-casque?bonus=13692%3A13440%3A41%3A13696%3A13698%3A12854&ilvl=334&spec=250",
           "stats": [
             {
@@ -315,7 +310,6 @@
           "variant": "Raid Finder",
           "itemLevel": 282,
           "candidate": true,
-          "verificationScope": "observed-version-only",
           "sourceUrl": "https://warcraft.wiki.gg/wiki/Baleful_Grave-Knight%27s_Crucible",
           "stats": [
             {
@@ -362,7 +356,6 @@
           "variant": "Normal",
           "itemLevel": 295,
           "candidate": true,
-          "verificationScope": "observed-version-only",
           "sourceUrl": "https://www.wowhead.com/ptr/item=271472/baleful-grave-knights-gibbets?bonus=6652%3A12834%3A13694%3A13697%3A1548&class=6&ilvl=295&spec=252",
           "stats": [
             {
@@ -409,7 +402,6 @@
           "variant": "Heroic",
           "itemLevel": 308,
           "candidate": true,
-          "verificationScope": "observed-version-only",
           "sourceUrl": "https://www.wowhead.com/item=271472/baleful-grave-knights-gibbets?bonus=13694%3A40%3A13697%3A12838&ilvl=308",
           "stats": [
             {
@@ -456,7 +448,6 @@
           "variant": "Mythic",
           "itemLevel": 321,
           "candidate": true,
-          "verificationScope": "observed-version-only",
           "sourceUrl": "https://warcraft.wiki.gg/wiki/Baleful_Grave-Knight%27s_Crucible",
           "stats": [
             {
@@ -503,7 +494,6 @@
           "variant": "Mythic 6/6",
           "itemLevel": 334,
           "candidate": true,
-          "verificationScope": "observed-version-only",
           "sourceUrl": "https://www.wowhead.com/fr/item=271472/gibets-de-chevalier-de-la-tombe-sinistre?bonus=12854&ilvl=334",
           "stats": [
             {
@@ -550,7 +540,6 @@
           "variant": "Raid Finder",
           "itemLevel": 285,
           "candidate": true,
-          "verificationScope": "observed-version-only",
           "sourceUrl": "https://warcraft.wiki.gg/wiki/Baleful_Grave-Knight%27s_Crucible",
           "stats": [
             {
@@ -597,7 +586,6 @@
           "variant": "Normal",
           "itemLevel": 298,
           "candidate": true,
-          "verificationScope": "observed-version-only",
           "sourceUrl": "https://warcraft.wiki.gg/wiki/Baleful_Grave-Knight%27s_Crucible",
           "stats": [
             {
@@ -644,7 +632,6 @@
           "variant": "Heroic",
           "itemLevel": 311,
           "candidate": true,
-          "verificationScope": "observed-version-only",
           "sourceUrl": "https://www.wowhead.com/item=271477/baleful-grave-knights-breastplate?bonus=12843%3A42%3A13440%3A13690%3A13698%3A1564&ilvl=311&spec=252",
           "stats": [
             {
@@ -691,7 +678,6 @@
           "variant": "Mythic",
           "itemLevel": 324,
           "candidate": true,
-          "verificationScope": "observed-version-only",
           "sourceUrl": "https://warcraft.wiki.gg/wiki/Baleful_Grave-Knight%27s_Crucible",
           "stats": [
             {
@@ -738,7 +724,6 @@
           "variant": "Mythic 6/6",
           "itemLevel": 334,
           "candidate": true,
-          "verificationScope": "observed-version-only",
           "sourceUrl": "https://www.wowhead.com/item=271477/baleful-grave-knights-breastplate?bonus=13334%3A40%3A13690%3A13698%3A12854%3A13696&ilvl=334&spec=250",
           "stats": [
             {
@@ -785,7 +770,6 @@
           "variant": "Raid Finder",
           "itemLevel": 282,
           "candidate": true,
-          "verificationScope": "observed-version-only",
           "sourceUrl": "https://warcraft.wiki.gg/wiki/Baleful_Grave-Knight%27s_Crucible",
           "stats": [
             {
@@ -832,7 +816,6 @@
           "variant": "Normal",
           "itemLevel": 295,
           "candidate": true,
-          "verificationScope": "observed-version-only",
           "sourceUrl": "https://warcraft.wiki.gg/wiki/Baleful_Grave-Knight%27s_Crucible",
           "stats": [
             {
@@ -879,7 +862,6 @@
           "variant": "Heroic",
           "itemLevel": 308,
           "candidate": true,
-          "verificationScope": "observed-version-only",
           "sourceUrl": "https://warcraft.wiki.gg/wiki/Baleful_Grave-Knight%27s_Crucible",
           "stats": [
             {
@@ -926,7 +908,6 @@
           "variant": "Mythic",
           "itemLevel": 321,
           "candidate": true,
-          "verificationScope": "observed-version-only",
           "sourceUrl": "https://www.wowhead.com/item=271475/baleful-grave-knights-deathgrips?bonus=6652%3A13440%3A13691%3A13697%3A12846&ilvl=321&spec=250",
           "stats": [
             {
@@ -973,7 +954,6 @@
           "variant": "Mythic 6/6",
           "itemLevel": 334,
           "candidate": true,
-          "verificationScope": "observed-version-only",
           "sourceUrl": "https://www.wowhead.com/item=271475/baleful-grave-knights-deathgrips?ilvl=334&spec=250",
           "stats": [
             {
@@ -1020,7 +1000,6 @@
           "variant": "Raid Finder",
           "itemLevel": 285,
           "candidate": true,
-          "verificationScope": "observed-version-only",
           "sourceUrl": "https://warcraft.wiki.gg/wiki/Baleful_Grave-Knight%27s_Crucible",
           "stats": [
             {
@@ -1067,7 +1046,6 @@
           "variant": "Normal",
           "itemLevel": 298,
           "candidate": true,
-          "verificationScope": "observed-version-only",
           "sourceUrl": "https://warcraft.wiki.gg/wiki/Baleful_Grave-Knight%27s_Crucible",
           "stats": [
             {
@@ -1114,7 +1092,6 @@
           "variant": "Heroic",
           "itemLevel": 311,
           "candidate": true,
-          "verificationScope": "observed-version-only",
           "sourceUrl": "https://warcraft.wiki.gg/wiki/Baleful_Grave-Knight%27s_Crucible",
           "stats": [
             {
@@ -1161,7 +1138,6 @@
           "variant": "Mythic",
           "itemLevel": 324,
           "candidate": true,
-          "verificationScope": "observed-version-only",
           "sourceUrl": "https://warcraft.wiki.gg/wiki/Baleful_Grave-Knight%27s_Crucible",
           "stats": [
             {
@@ -1208,7 +1184,6 @@
           "variant": "Mythic 6/6",
           "itemLevel": 334,
           "candidate": true,
-          "verificationScope": "observed-version-only",
           "sourceUrl": "https://www.wowhead.com/item=271473/baleful-grave-knights-greaves?ilvl=334",
           "stats": [
             {
