@@ -1680,10 +1680,12 @@ test("Shaman independently rank-verified intermediate variants are optimizer can
   const expected = [
     ["Head", 295, "Champion 2/6"],
     ["Head", 302, "Champion 4/6"],
+    ["Head", 305, "Hero 1/6"],
     ["Head", 311, "Hero 3/6"],
     ["Shoulders", 302, "Champion 4/6"],
     ["Shoulders", 308, "Champion 6/6"],
     ["Shoulders", 321, "Hero 6/6"],
+    ["Shoulders", 328, "Myth 4/6"],
     ["Chest", 289, "Veteran 4/6"],
     ["Chest", 308, "Champion 6/6"],
     ["Chest", 311, "Hero 3/6"],
@@ -1693,7 +1695,8 @@ test("Shaman independently rank-verified intermediate variants are optimizer can
     ["Hands", 321, "Hero 6/6"],
     ["Legs", 295, "Veteran 6/6"],
     ["Legs", 321, "Hero 6/6"],
-    ["Legs", 318, "Myth 1/6"]
+    ["Legs", 318, "Myth 1/6"],
+    ["Legs", 308, "Champion 6/6"]
   ];
   for (const [slot, itemLevel, variant] of expected) {
     const piece = candidates.find(entry => entry.slot === slot && entry.itemLevel === itemLevel && entry.variant === variant);
@@ -1706,7 +1709,7 @@ test("Shaman independently rank-verified intermediate variants are optimizer can
     assert.ok(typeof piece.rankEvidence === "string" && piece.rankEvidence.length > 0);
     assert.ok(piece.stats.length >= 4 && piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
   }
-  assert.equal(candidates.length, 24);
+  assert.equal(candidates.length, 27);
   assert.ok(shaman.verifiedVariantObservations.every(piece => piece.candidate === false),
     "observation ledger remains evidence-only even when a separately verified candidate exists");
 });

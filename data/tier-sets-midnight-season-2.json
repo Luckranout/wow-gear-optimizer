@@ -28706,7 +28706,7 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "The 20 baseline PvE records remain in pieces; 24 source-verified upgrade-rank candidates are stored separately, including all five Mythic 6/6 item-level-334 variants. Intermediate candidates require exact item-version stats plus independent rank evidence or an exact upgrade-bonus identifier. Other observed versions and PvP appearance-only records remain ineligible; full rank-by-rank coverage is still partial.",
+      "variantObservationsNote": "The 20 baseline PvE records remain in pieces; 27 source-verified upgrade-rank candidates are stored separately, including all five Mythic 6/6 item-level-334 variants. Intermediate candidates require exact item-version stats plus independent rank evidence or an exact upgrade-bonus identifier. Other observed versions and PvP appearance-only records remain ineligible; full rank-by-rank coverage is still partial.",
       "baseItemIdsVerified": true,
       "candidateVariantsAvailable": true,
       "upgradeRankCandidates": [
@@ -30036,6 +30036,177 @@
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats",
           "verificationScope": "exact-item-stats-and-upgrade-bonus-verified"
+        },
+        {
+          "itemId": 271483,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Serpent Crown of the Ophidian Oracle",
+          "slot": "Head",
+          "variant": "Hero 1/6",
+          "itemLevel": 305,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle?bonus=13333%3A13692%3A42%3A13696%3A13698%3A12838&ilvl=305",
+          "rankSourceUrl": "https://guildsofwow.com/player/166367/thewrongcast",
+          "rankEvidence": "Guilds of WoW profile identifies Serpent Crown at item level 305 as Hero 1/6.",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 144,
+              "source": "Exact item-level 305 stats cross-checked against public equipped item data."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 144,
+              "source": "Exact item-level 305 stats cross-checked against public equipped item data."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2794,
+              "source": "Exact item-level 305 stats cross-checked against public equipped item data."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 112,
+              "source": "Exact item-level 305 stats cross-checked against public equipped item data."
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 66,
+              "source": "Exact item-level 305 stats cross-checked against public equipped item data."
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats",
+          "statsSourceUrl": "https://azerothcodex.up.railway.app/personnage/eu/kael-thas/Valaeria",
+          "verificationScope": "exact-item-stats-and-rank-cross-checked"
+        },
+        {
+          "itemId": 271481,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hissing Mantle of the Ophidian Oracle",
+          "slot": "Shoulders",
+          "variant": "Myth 4/6",
+          "itemLevel": 328,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271481/hissing-mantle-of-the-ophidian-oracle?bonus=6652%3A13440%3A13694%3A13697%3A12852&ilvl=328",
+          "rankSourceUrl": "https://www.method.gg/guides/all-midnight-season-2-upgrade-tracks-and-item-levels",
+          "rankEvidence": "Exact item variant is item level 328 with upgrade bonus ID 12852; Season 2 upgrade table maps item level 328 to Myth 4/6.",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 134,
+              "source": "Exact item-level 328 stats cross-checked against public equipped item data."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 134,
+              "source": "Exact item-level 328 stats cross-checked against public equipped item data."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2737,
+              "source": "Exact item-level 328 stats cross-checked against public equipped item data."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 50,
+              "source": "Exact item-level 328 stats cross-checked against public equipped item data."
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 97,
+              "source": "Exact item-level 328 stats cross-checked against public equipped item data."
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats",
+          "statsSourceUrl": "https://azerothcodex.up.railway.app/personnage/eu/ysondre/Sin%C3%B4cx",
+          "verificationScope": "exact-item-stats-and-upgrade-bonus-verified"
+        },
+        {
+          "itemId": 271482,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Leggings of the Ophidian Oracle",
+          "slot": "Legs",
+          "variant": "Champion 6/6",
+          "itemLevel": 308,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271482/leggings-of-the-ophidian-oracle?bonus=6652%3A13693%3A13698%3A12838&ilvl=308",
+          "rankSourceUrl": "https://guildsofwow.com/player/158410/diabolus",
+          "rankEvidence": "Guilds of WoW profile identifies Leggings at item level 308 as Champion 6/6.",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 148,
+              "source": "Exact item-level 308 stats cross-checked against public equipped item data."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 148,
+              "source": "Exact item-level 308 stats cross-checked against public equipped item data."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2896,
+              "source": "Exact item-level 308 stats cross-checked against public equipped item data."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 90,
+              "source": "Exact item-level 308 stats cross-checked against public equipped item data."
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 90,
+              "source": "Exact item-level 308 stats cross-checked against public equipped item data."
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats",
+          "statsSourceUrl": "https://azerothcodex.up.railway.app/personnage/us/area-52/cmdrkraab",
+          "verificationScope": "exact-item-stats-and-rank-cross-checked"
         }
       ]
     },
