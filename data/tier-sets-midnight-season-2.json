@@ -1618,10 +1618,174 @@
               "source": "Wowhead tooltip, item level 295"
             }
           ]
+        },
+        {
+          "itemId": 271527,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Leggings",
+          "slot": "Legs",
+          "variant": "Veteran 3/6 observed",
+          "itemLevel": 285,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Bark_of_the_Enigmatic_Dreamwatcher",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 54,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 108,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            }
+          ]
+        },
+        {
+          "itemId": 271527,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Leggings",
+          "slot": "Legs",
+          "variant": "Champion 3/6 observed",
+          "itemLevel": 298,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Bark_of_the_Enigmatic_Dreamwatcher",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 57,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 115,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            }
+          ]
+        },
+        {
+          "itemId": 271527,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Leggings",
+          "slot": "Legs",
+          "variant": "Hero 3/6 observed",
+          "itemLevel": 311,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Bark_of_the_Enigmatic_Dreamwatcher",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki tier-set page, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Warcraft Wiki tier-set page, item level 311"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 61,
+              "source": "Warcraft Wiki tier-set page, item level 311"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 122,
+              "source": "Warcraft Wiki tier-set page, item level 311"
+            }
+          ]
+        },
+        {
+          "itemId": 271527,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Leggings",
+          "slot": "Legs",
+          "variant": "Myth 3/6 observed",
+          "itemLevel": 324,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Bark_of_the_Enigmatic_Dreamwatcher",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki tier-set page, item level 324"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki tier-set page, item level 324"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 64,
+              "source": "Warcraft Wiki tier-set page, item level 324"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 129,
+              "source": "Warcraft Wiki tier-set page, item level 324"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Six source-checked item versions are recorded for evidence only. Hands are observed at item levels 295 (Champion 2/6) and 334 (Mythic 6/6); Chest is 292, Shoulders 308, Head 334, and Legs remain base item level 219. Upgraded variants remain unverified. All observations remain ineligible as optimizer candidates until complete variant coverage is verified."
+      "variantObservationsNote": "Ten source-checked item versions are recorded for evidence only. Hands are observed at item levels 295 (Champion 2/6) and 334 (Mythic 6/6); Chest is 292, Shoulders 308, Head 334, and Legs at item levels 219, 285 (Veteran 3/6), 298 (Champion 3/6), 311 (Hero 3/6), and 324 (Myth 3/6). Other difficulty and upgrade variants remain unverified. All observations remain ineligible as optimizer candidates until complete variant coverage is verified."
     },
     {
       "class": "Evoker",
