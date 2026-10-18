@@ -1263,7 +1263,7 @@ test("Monk source-backed tier item versions remain evidence-only and match sourc
 test("Shaman tier item versions remain evidence-only with exact source levels", () => {
   const shaman = catalogue.sets.find(set => set.class === "Shaman");
   const observations = shaman.verifiedVariantObservations || [];
-  assert.equal(observations.length, 7);
+  assert.equal(observations.length, 11);
   const level334 = observations.filter(piece => piece.itemLevel === 334);
   assert.equal(level334.length, 5);
   assert.deepEqual([...level334.map(piece => piece.slot)].sort(), [...EXPECTED_SLOTS].sort());
@@ -1297,6 +1297,20 @@ test("Shaman tier item versions remain evidence-only with exact source levels", 
   assert.equal(headByLevel.get(321).variant, "Hero 6/6");
   assert.deepEqual(Object.fromEntries(headByLevel.get(321).stats.map(stat => [stat.type.name, stat.value])),
     { agility: 167, intellect: 167, stamina: 3369, criticalStrike: 58, haste: 133 });
+  const chestByLevel = new Map(observations.filter(piece => piece.itemId === 271486).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...chestByLevel.keys()].sort((a, b) => a - b), [289, 308, 318, 328, 334]);
+  const expectedChest = {
+    289: { agility: 124, intellect: 124, stamina: 2326, criticalStrike: 115, haste: 49 },
+    308: { agility: 148, intellect: 148, stamina: 2896, criticalStrike: 126, haste: 54 },
+    318: { agility: 162, intellect: 162, stamina: 3254, criticalStrike: 132, haste: 56 },
+    328: { agility: 178, intellect: 178, stamina: 3649, criticalStrike: 137, haste: 59 }
+  };
+  for (const [level, stats] of Object.entries(expectedChest)) {
+    const piece = chestByLevel.get(Number(level));
+    assert.equal(piece.variant, `Item level ${level} observed`);
+    assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), Number(level));
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), stats);
+  }
   assert.equal(shaman.pieces.length, 30, "separate observations must not change the existing 20 PvE candidate and 10 PvP appearance records");
   assert.equal(shaman.pieces.filter(piece => piece.candidate === true).length, 20);
 });
