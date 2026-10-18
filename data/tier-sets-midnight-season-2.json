@@ -2839,7 +2839,7 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Eight source-checked item versions are recorded for evidence only. Hands are observed at item levels 295 and 321; Legs at item levels 219, 285 (Veteran 3/6), 298 (Champion 3/6), 308, 311 (Hero 3/6), 318 (Myth 3/6), 321, and 334. Chest, Head, and Shoulders have Mythic 6/6 observations at 334. Other difficulty and upgrade variants remain unverified. All observations remain ineligible as optimizer candidates until complete variant coverage is verified."
+      "variantObservationsNote": "Thirteen source-checked item versions are recorded for evidence only. Hands are observed at item levels 295 and 321; Legs at item levels 219, 285 (Veteran 3/6), 298 (Champion 3/6), 308, 311 (Hero 3/6), 318 (Myth 3/6), 321, and 334. Chest, Head, and Shoulders have Mythic 6/6 observations at 334. Other difficulty and upgrade variants remain unverified. All observations remain ineligible as optimizer candidates until complete variant coverage is verified."
     },
     {
       "class": "Mage",
