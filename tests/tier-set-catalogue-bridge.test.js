@@ -446,7 +446,7 @@ test("tier thresholds can be reported descriptively without inventing numeric bo
 test("Rogue source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
   const rogue = catalogue.sets.find(set => set.class === "Rogue");
   const observations = rogue.verifiedVariantObservations || [];
-  assert.equal(observations.length, 5);
+  assert.equal(observations.length, 7);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(rogue.variantObservationsStatus, "partial");
   assert.match(rogue.variantObservationsNote, /remain unverified/i);
@@ -481,6 +481,14 @@ test("Rogue source-backed tier item versions remain evidence-only and match Wowh
     Object.fromEntries(head.stats.map(stat => [stat.type.name, stat.value])),
     { agility: 131, intellect: 131, stamina: 2492, criticalStrike: 56, mastery: 113 }
   );
+  const legs315 = observations.find(piece => piece.itemId === 271509 && piece.itemLevel === 315);
+  assert.equal(legs315.variant, "Heroic 4/6 observed");
+  assert.deepEqual(Object.fromEntries(legs315.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 158, intellect: 158, stamina: 3143, criticalStrike: 66, haste: 120 });
+  const legs321 = observations.find(piece => piece.itemId === 271509 && piece.itemLevel === 321);
+  assert.equal(legs321.variant, "Heroic 6/6 observed");
+  assert.deepEqual(Object.fromEntries(legs321.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 167, intellect: 167, stamina: 3369, criticalStrike: 67, haste: 123 });
   const legs = observations.find(piece => piece.itemId === 271509);
   assert.equal(legs.itemLevel, 219,
     "the legs entry is base-only evidence; it must not imply an upgraded version is verified");
