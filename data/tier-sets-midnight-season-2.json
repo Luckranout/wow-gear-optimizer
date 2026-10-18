@@ -4970,10 +4970,58 @@
               "source": "Warcraft Wiki Echo of Calamity item table, item level 324"
             }
           ]
+        },
+        {
+          "itemId": 271502,
+          "setId": "echo-of-calamity",
+          "name": "Calamitous Echo's Ebon Greathorns",
+          "slot": "Hands",
+          "variant": "Mythic 6/6 observed",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271502/calamitous-echos-ebon-greathorns?bonus=12854&ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, Mythic 6/6 item level 334; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, Mythic 6/6 item level 334; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead tooltip, Mythic 6/6 item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 97,
+              "source": "Wowhead tooltip, Mythic 6/6 item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 53,
+              "source": "Wowhead tooltip, Mythic 6/6 item level 334"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Five source-checked item versions are recorded for evidence only. Hands are observed at Hero 6/6; the other four slots have Mythic 6/6 observations, but the complete variant mapping and specialization-specific primary-stat representation are not verified. All observations remain ineligible as optimizer candidates."
+      "variantObservationsNote": "Twenty-five source-checked item versions are recorded as evidence only. Head, Shoulders, Chest, and Legs have isolated Mythic 6/6 item-level 334 observations; Hands now also have a source-backed Mythic 6/6 item-level 334 observation. Other difficulty and upgrade variants remain unverified. All observations remain evidence-only and are not optimizer candidates."
     },
     {
       "class": "Hunter",
