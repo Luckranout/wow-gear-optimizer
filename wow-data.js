@@ -416,7 +416,6 @@ function validateTierSetCatalogue(catalogue) {
     } else if (set.candidateVariantsAvailable === true) {
       errors.push(`Tier set ${set.setName} advertises candidates but contains no candidate records.`);
     }
-    }
     for (const piece of rankCandidates) {
       if (set.baseItemIdsVerified !== true || piece?.candidate !== true ||
           !Number.isInteger(Number(piece?.itemId)) || !piece?.setId || !piece?.slot || !piece?.sourceUrl ||
