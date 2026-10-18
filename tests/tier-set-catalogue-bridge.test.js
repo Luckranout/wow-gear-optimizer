@@ -209,7 +209,7 @@ test("Death Knight source-checked tier versions preserve observed stats without 
 test("Paladin observed tier variants are source-backed and remain evidence-only", () => {
   const paladin = catalogue.sets.find(set => set.class === "Paladin");
   const observations = paladin.verifiedVariantObservations || [];
-  assert.equal(observations.length, 13);
+  assert.equal(observations.length, 14);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(paladin.variantObservationsStatus, "partial");
   assert.match(paladin.variantObservationsNote, /not optimizer candidates/i);
@@ -231,6 +231,12 @@ test("Paladin observed tier variants are source-backed and remain evidence-only"
     Object.fromEntries(chest.stats.map(stat => [stat.type.name, stat.value])),
     { strength: 189, stamina: 3910, haste: 64, mastery: 137 }
   );
+  const chestByLevel = new Map(observations.filter(piece => piece.itemId === 271468).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...chestByLevel.keys()].sort((a, b) => a - b), [321, 334]);
+  assert.deepEqual(Object.fromEntries(chestByLevel.get(321).stats.map(stat => [stat.type.name, stat.value])),
+    { strength: 167, intellect: 167, stamina: 3369, haste: 61, mastery: 130 });
+  assert.equal(chestByLevel.get(321).candidate, false);
+  assert.equal(Number(new URL(chestByLevel.get(321).sourceUrl).searchParams.get("ilvl")), 321);
   const handsByLevel = new Map(observations.filter(piece => piece.itemId === 271466).map(piece => [piece.itemLevel, piece]));
   assert.deepEqual([...handsByLevel.keys()].sort((a, b) => a - b), [282, 295, 308, 321, 334]);
   const expectedHands = {
@@ -1232,7 +1238,7 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
 test("Monk source-backed tier item versions remain evidence-only and match source stats", () => {
   const monk = catalogue.sets.find(set => set.class === "Monk");
   const observations = monk.verifiedVariantObservations || [];
-  assert.equal(observations.length, 14);
+  assert.equal(observations.length, 15);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(monk.variantObservationsStatus, "partial");
   assert.match(monk.variantObservationsNote, /legs have item-level-334 observations/i);
@@ -1251,6 +1257,7 @@ test("Monk source-backed tier item versions remain evidence-only and match sourc
   }
   const expected = {
     "271522:334": { agility: 189, intellect: 189, stamina: 3910, haste: 62, mastery: 139 },
+    "271520:321": { agility: 125, intellect: 125, stamina: 2527, haste: 100, versatility: 42 },
     "271520:334": { agility: 141, intellect: 141, stamina: 2932, haste: 106, versatility: 45 },
     "271519:334": { agility: 189, intellect: 189, stamina: 3910, criticalStrike: 58, mastery: 142 },
     "271519:285": { agilityOrIntellect: 119, stamina: 2219, criticalStrike: 47, mastery: 114 },
