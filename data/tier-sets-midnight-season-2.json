@@ -28706,7 +28706,7 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "The 20 baseline PvE records remain in pieces; 27 source-verified upgrade-rank candidates are stored separately, including all five Mythic 6/6 item-level-334 variants. Intermediate candidates require exact item-version stats plus independent rank evidence or an exact upgrade-bonus identifier. Other observed versions and PvP appearance-only records remain ineligible; full rank-by-rank coverage is still partial.",
+      "variantObservationsNote": "The 20 baseline PvE records remain in pieces; 28 source-verified upgrade-rank candidates are stored separately, including all five Mythic 6/6 item-level-334 variants. Distinct Catalyst stat variants remain separate from dropped-item stat variants. Other observed versions and PvP appearance-only records remain ineligible; full rank-by-rank coverage is still partial.",
       "baseItemIdsVerified": true,
       "candidateVariantsAvailable": true,
       "upgradeRankCandidates": [
@@ -30045,7 +30045,7 @@
           "variant": "Hero 1/6",
           "itemLevel": 305,
           "candidate": true,
-          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle?bonus=13333%3A13692%3A42%3A13696%3A13698%3A12838&ilvl=305",
+          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle?ilvl=305",
           "rankSourceUrl": "https://guildsofwow.com/player/166367/thewrongcast",
           "rankEvidence": "Guilds of WoW profile identifies Serpent Crown at item level 305 as Hero 1/6.",
           "stats": [
@@ -30054,35 +30054,35 @@
                 "name": "agility"
               },
               "value": 144,
-              "source": "Exact item-level 305 stats cross-checked against public equipped item data."
+              "source": "WoW Gear Tracker exact item-level 305 tier-item table."
             },
             {
               "type": {
                 "name": "intellect"
               },
               "value": 144,
-              "source": "Exact item-level 305 stats cross-checked against public equipped item data."
+              "source": "WoW Gear Tracker exact item-level 305 tier-item table."
             },
             {
               "type": {
                 "name": "stamina"
               },
               "value": 2794,
-              "source": "Exact item-level 305 stats cross-checked against public equipped item data."
+              "source": "WoW Gear Tracker exact item-level 305 tier-item table."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 54,
+              "source": "WoW Gear Tracker exact item-level 305 tier-item table."
             },
             {
               "type": {
                 "name": "haste"
               },
-              "value": 112,
-              "source": "Exact item-level 305 stats cross-checked against public equipped item data."
-            },
-            {
-              "type": {
-                "name": "mastery"
-              },
-              "value": 66,
-              "source": "Exact item-level 305 stats cross-checked against public equipped item data."
+              "value": 124,
+              "source": "WoW Gear Tracker exact item-level 305 tier-item table."
             }
           ],
           "secondaryStats": [
@@ -30091,7 +30091,7 @@
           ],
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats",
-          "statsSourceUrl": "https://azerothcodex.up.railway.app/personnage/eu/kael-thas/Valaeria",
+          "statsSourceUrl": "https://wowgeartracker.com/",
           "verificationScope": "exact-item-stats-and-rank-cross-checked"
         },
         {
@@ -30206,6 +30206,63 @@
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats",
           "statsSourceUrl": "https://azerothcodex.up.railway.app/personnage/us/area-52/cmdrkraab",
+          "verificationScope": "exact-item-stats-and-rank-cross-checked"
+        },
+        {
+          "itemId": 271483,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Serpent Crown of the Ophidian Oracle",
+          "slot": "Head",
+          "variant": "Hero 1/6 Catalyst",
+          "itemLevel": 305,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle?ilvl=305",
+          "statsSourceUrl": "https://azerothcodex.up.railway.app/personnage/eu/kael-thas/Valaeria",
+          "rankSourceUrl": "https://guildsofwow.com/player/166367/thewrongcast",
+          "rankEvidence": "Guilds of WoW profile identifies Serpent Crown at item level 305 as Hero 1/6; Azeroth Codex independently shows the equipped tier item at item level 305 with its retained Haste/Mastery secondary stats.",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 144,
+              "source": "Azeroth Codex equipped-item tooltip, item level 305 Catalyst stats variant."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 144,
+              "source": "Azeroth Codex equipped-item tooltip, item level 305 Catalyst stats variant."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2794,
+              "source": "Azeroth Codex equipped-item tooltip, item level 305 Catalyst stats variant."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 112,
+              "source": "Azeroth Codex equipped-item tooltip, item level 305 Catalyst stats variant."
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 66,
+              "source": "Azeroth Codex equipped-item tooltip, item level 305 Catalyst stats variant."
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats",
           "verificationScope": "exact-item-stats-and-rank-cross-checked"
         }
       ]
