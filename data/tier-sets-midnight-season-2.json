@@ -973,7 +973,7 @@
           "itemLevel": 334,
           "candidate": false,
           "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/fr/item=271472/gibets-de-chevalier-de-la-tombe-sinistre?bonus=12854",
+          "sourceUrl": "https://www.wowhead.com/fr/item=271472/gibets-de-chevalier-de-la-tombe-sinistre?bonus=12854&ilvl=334",
           "stats": [
             {
               "type": {
@@ -7196,7 +7196,7 @@
           "itemLevel": 334,
           "candidate": false,
           "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271519/monkey-kings-unyielding-visage",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271519/monkey-kings-unyielding-visage?ilvl=334",
           "stats": [
             {
               "type": {
@@ -8038,7 +8038,7 @@
           "itemLevel": 334,
           "candidate": false,
           "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/item=271463/pauldrons-of-the-consecrated-flame?bonus=12854%3A13440&original-item=251138",
+          "sourceUrl": "https://www.wowhead.com/item=271463/pauldrons-of-the-consecrated-flame?bonus=12854%3A13440&original-item=251138&ilvl=334",
           "stats": [
             {
               "type": {
@@ -11658,7 +11658,7 @@
           "itemLevel": 334,
           "candidate": false,
           "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/item=271549/damned-necrolytes-rattling-robes",
+          "sourceUrl": "https://www.wowhead.com/item=271549/damned-necrolytes-rattling-robes?ilvl=334",
           "stats": [
             {
               "type": {
