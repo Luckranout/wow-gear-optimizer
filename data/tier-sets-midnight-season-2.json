@@ -7554,6 +7554,170 @@
               "source": "Warcraft Wiki Cosmic Penitent's Raiment item table, item level 324"
             }
           ]
+        },
+        {
+          "itemId": 271553,
+          "setId": "cosmic-penitent-s-raiment",
+          "name": "Cosmic Penitent's Echoing Screams",
+          "slot": "Shoulders",
+          "variant": "Veteran 2/6 observed",
+          "itemLevel": 282,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Cosmic_Penitent%27s_Echoing_Screams",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 80,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 39,
+              "source": "Warcraft Wiki item page, item level 282"
+            }
+          ]
+        },
+        {
+          "itemId": 271553,
+          "setId": "cosmic-penitent-s-raiment",
+          "name": "Cosmic Penitent's Echoing Screams",
+          "slot": "Shoulders",
+          "variant": "Champion 2/6 observed",
+          "itemLevel": 295,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Cosmic_Penitent%27s_Echoing_Screams",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 98,
+              "source": "Warcraft Wiki item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Warcraft Wiki item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 85,
+              "source": "Warcraft Wiki item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 42,
+              "source": "Warcraft Wiki item page, item level 295"
+            }
+          ]
+        },
+        {
+          "itemId": 271553,
+          "setId": "cosmic-penitent-s-raiment",
+          "name": "Cosmic Penitent's Echoing Screams",
+          "slot": "Shoulders",
+          "variant": "Hero 2/6 observed",
+          "itemLevel": 308,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Cosmic_Penitent%27s_Echoing_Screams",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Warcraft Wiki item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 91,
+              "source": "Warcraft Wiki item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 44,
+              "source": "Warcraft Wiki item page, item level 308"
+            }
+          ]
+        },
+        {
+          "itemId": 271553,
+          "setId": "cosmic-penitent-s-raiment",
+          "name": "Cosmic Penitent's Echoing Screams",
+          "slot": "Shoulders",
+          "variant": "Myth 2/6 observed",
+          "itemLevel": 321,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Cosmic_Penitent%27s_Echoing_Screams",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 125,
+              "source": "Warcraft Wiki item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Warcraft Wiki item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 96,
+              "source": "Warcraft Wiki item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 47,
+              "source": "Warcraft Wiki item page, item level 321"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
