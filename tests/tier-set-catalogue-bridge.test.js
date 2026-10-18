@@ -384,7 +384,7 @@ test("Demon Hunter source-checked tier versions remain evidence-only and preserv
   assert.equal(observations.length, 32);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(demonHunter.variantObservationsStatus, "partial");
-  assert.match(demonHunter.variantObservationsNote, /exact candidate versions cover all five slots.*Mythic 6\\/6/i);
+  assert.match(demonHunter.variantObservationsNote, /exact candidate versions cover all five slots.*Mythic 6\/6/i);
   assert.match(demonHunter.variantObservationsNote, /intermediate upgrade ranks are not all verified/i);
   const manifestSet = manifest.sets.find(set => set.className === "Demon Hunter");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
