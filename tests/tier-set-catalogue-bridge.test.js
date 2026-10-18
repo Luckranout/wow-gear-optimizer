@@ -1069,7 +1069,7 @@ test("Rogue source-backed tier item versions remain evidence-only and match Wowh
 test("Mage source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
   const mage = catalogue.sets.find(set => set.class === "Mage");
   const observations = mage.verifiedVariantObservations || [];
-  assert.equal(observations.length, 25);
+  assert.equal(observations.length, 26);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(mage.variantObservationsStatus, "partial");
   assert.match(mage.variantObservationsNote, /do not establish coverage/i);
