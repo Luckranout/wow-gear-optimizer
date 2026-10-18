@@ -353,8 +353,6 @@ test("Demon Hunter source-checked tier versions remain evidence-only and preserv
     assert.match(piece.sourceUrl, /warcraft\.wiki\.gg/);
     assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
   }
-  assert.deepEqual(Object.fromEntries(chestByLevel.get(311).stats.map(stat => [stat.type.name, stat.value])),
-    { agility: 152, intellect: 152, stamina: 3002, criticalStrike: 128, haste: 55 });
   const expectedChest = {
     285: { agility: 119, stamina: 2219, haste: 110, versatility: 51 },
     298: { agility: 135, stamina: 2579, haste: 118, versatility: 54 },
@@ -1303,6 +1301,8 @@ test("Shaman tier item versions remain evidence-only with exact source levels", 
     { agility: 167, intellect: 167, stamina: 3369, criticalStrike: 58, haste: 133 });
   const chestByLevel = new Map(observations.filter(piece => piece.itemId === 271486).map(piece => [piece.itemLevel, piece]));
   assert.deepEqual([...chestByLevel.keys()].sort((a, b) => a - b), [289, 308, 311, 318, 328, 334]);
+  assert.deepEqual(Object.fromEntries(chestByLevel.get(311).stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 152, intellect: 152, stamina: 3002, criticalStrike: 128, haste: 55 });
   const expectedChest = {
     289: { agility: 124, intellect: 124, stamina: 2326, criticalStrike: 115, haste: 49 },
     308: { agility: 148, intellect: 148, stamina: 2896, criticalStrike: 126, haste: 54 },
