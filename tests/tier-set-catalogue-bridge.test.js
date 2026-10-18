@@ -566,7 +566,7 @@ test("tier thresholds can be reported descriptively without inventing numeric bo
 test("Rogue source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
   const rogue = catalogue.sets.find(set => set.class === "Rogue");
   const observations = rogue.verifiedVariantObservations || [];
-  assert.equal(observations.length, 11);
+  assert.equal(observations.length, 12);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(rogue.variantObservationsStatus, "partial");
   assert.match(rogue.variantObservationsNote, /remain unverified/i);
@@ -600,6 +600,13 @@ test("Rogue source-backed tier item versions remain evidence-only and match Wowh
     Object.fromEntries(hands.stats.map(stat => [stat.type.name, stat.value])),
     { agility: 125, intellect: 125, stamina: 2527, criticalStrike: 95, mastery: 48 }
   );
+  const veteranHands = observations.find(piece => piece.itemId === 271493 && piece.itemLevel === 282);
+  assert.equal(veteranHands.variant, "Veteran 2/6 observed");
+  assert.deepEqual(
+    Object.fromEntries(veteranHands.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 87, stamina: 1606, criticalStrike: 79, mastery: 40 }
+  );
+  assert.equal(veteranHands.candidate, false);
   const head = observations.find(piece => piece.itemId === 271510);
   assert.equal(head.itemLevel, 295);
   assert.deepEqual(
