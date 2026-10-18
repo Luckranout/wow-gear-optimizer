@@ -107,6 +107,7 @@ test("Death Knight source-checked tier versions preserve observed stats without 
   assert.equal(deathKnight.itemIdsVerified, true, "Death Knight baseline tier map must be verified");
   assert.equal(deathKnight.pieces.length, 25, "Death Knight must expose 20 baseline candidates plus five exact Mythic 6/6 variants");
   assert.equal(deathKnight.pieces.filter(piece => piece.candidate).length, 25);
+  assert.ok(deathKnight.pieces.every(piece => piece.candidate === true && !("verificationScope" in piece)), "verified candidate records must not retain evidence-only scope");
   for (const slot of EXPECTED_SLOTS) {
     const slotCandidates = deathKnight.pieces.filter(piece => piece.slot === slot);
     assert.deepEqual(slotCandidates.map(piece => [piece.variant, piece.itemLevel]), [
