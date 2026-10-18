@@ -380,10 +380,10 @@ test("Demon Hunter source-checked tier versions remain evidence-only and preserv
     Object.fromEntries(heroicGloves.stats.map(stat => [stat.type.name, stat.value])),
     { agility: 111, stamina: 2172, criticalStrike: 93, mastery: 42 }
   );
-  const mythicGloves = observations.find(piece => piece.itemId === 271538 && piece.itemLevel === 321);
+  const mythicGloves321 = observations.find(piece => piece.itemId === 271538 && piece.itemLevel === 321);
   const championGloves = observations.find(piece => piece.itemId === 271538 && piece.itemLevel === 295);
   assert.deepEqual(
-    Object.fromEntries(mythicGloves.stats.map(stat => [stat.type.name, stat.value])),
+    Object.fromEntries(mythicGloves321.stats.map(stat => [stat.type.name, stat.value])),
     { agility: 125, stamina: 2527, criticalStrike: 98, mastery: 45 }
   );
   assert.equal(championGloves.variant, "Champion 2/6 observed");
