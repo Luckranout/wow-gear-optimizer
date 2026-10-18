@@ -12094,10 +12094,106 @@
               "source": "Wowhead item tooltip explicitly lists item level 321."
             }
           ]
+        },
+        {
+          "itemId": 271484,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hexing Grips of the Ophidian Oracle",
+          "slot": "Hands",
+          "variant": "Item level 295 observed",
+          "itemLevel": 295,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271484/hexing-grips-of-the-ophidian-oracle?bonus=12834%3A13333%3A13691%3A6652%3A13658&ilvl=295&spec=263",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 98,
+              "source": "Wowhead item tooltip explicitly lists item level 295."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 98,
+              "source": "Wowhead item tooltip explicitly lists item level 295."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Wowhead item tooltip explicitly lists item level 295."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 39,
+              "source": "Wowhead item tooltip explicitly lists item level 295."
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 88,
+              "source": "Wowhead item tooltip explicitly lists item level 295."
+            }
+          ]
+        },
+        {
+          "itemId": 271484,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hexing Grips of the Ophidian Oracle",
+          "slot": "Hands",
+          "variant": "Item level 308 observed",
+          "itemLevel": 308,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271484/hexing-grips-of-the-ophidian-oracle?bonus=12842%3A13334%3A13691%3A40%3A13697&ilvl=308&spec=264",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 111,
+              "source": "Wowhead item tooltip explicitly lists item level 308."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 111,
+              "source": "Wowhead item tooltip explicitly lists item level 308."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Wowhead item tooltip explicitly lists item level 308."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 41,
+              "source": "Wowhead item tooltip explicitly lists item level 308."
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 94,
+              "source": "Wowhead item tooltip explicitly lists item level 308."
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Seventeen exact Shaman tier item versions are recorded as evidence only: Mythic 6/6 item level 334 for all five slots; Head 295/321; Shoulders 302/321; Chest 289/308/318/328; Hands 311/321; Legs 318/321. These records are separate from baseline raid-difficulty candidates. Remaining intermediate upgrade ranks and complete upgrade-track coverage are unfinished; no observation here is optimizer-eligible."
+      "variantObservationsNote": "Nineteen exact Shaman tier item versions are recorded as evidence only: Mythic 6/6 item level 334 for all five slots; Head 295/321; Shoulders 302/321; Chest 289/308/318/328; Hands 295/308/311/321; Legs 318/321. These records are separate from baseline raid-difficulty candidates. Remaining intermediate upgrade ranks and complete upgrade-track coverage are unfinished; no observation here is optimizer-eligible."
     },
     {
       "class": "Warlock",
