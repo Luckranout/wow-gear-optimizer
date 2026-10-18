@@ -487,17 +487,19 @@ test("Mage source-checked helm versions remain evidence-only", () => {
   const mage = catalogue.sets.find(set => set.class === "Mage");
   const observations = mage.verifiedVariantObservations || [];
   const head = new Map(observations.filter(piece => piece.itemId === 271564 && piece.slot === "Head").map(piece => [piece.itemLevel, piece]));
-  assert.deepEqual([...head.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334]);
+  assert.deepEqual([...head.keys()].sort((a, b) => a - b), [285, 298, 311, 315, 324, 334]);
   for (const [level, expected] of [
     [285, { intellect: 119, stamina: 2219, haste: 110, mastery: 51 }],
     [298, { intellect: 135, stamina: 2579, haste: 118, mastery: 54 }],
     [311, { intellect: 152, stamina: 3002, haste: 125, mastery: 58 }],
+    [315, { intellect: 158, stamina: 3143, haste: 127, mastery: 59 }],
     [324, { intellect: 172, stamina: 3487, haste: 132, mastery: 61 }]
   ]) {
     const piece = head.get(level);
     assert.equal(piece.candidate, false);
     assert.equal(piece.verificationScope, "observed-version-only");
-    assert.equal(new URL(piece.sourceUrl).hostname, "warcraft.wiki.gg");
+    assert.equal(piece.sourceUrl.includes("ilvl=315"), level === 315);
+    assert.equal(new URL(piece.sourceUrl).hostname, level === 315 ? "www.wowhead.com" : "warcraft.wiki.gg");
     assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
   }
 });
