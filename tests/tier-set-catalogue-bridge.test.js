@@ -1552,3 +1552,24 @@ test("Priest source-checked helm variants retain their exact source stats and re
     assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
   }
 });
+
+
+test("Druid tier observations preserve the source-backed Hero 6/6 head at item level 321", () => {
+  const druid = catalogue.sets.find(set => set.class === "Druid");
+  const observations = druid.verifiedVariantObservations || [];
+  assert.equal(observations.length, 28);
+  const head = observations.find(piece => piece.itemId === 271528 && piece.itemLevel === 321);
+  assert.ok(head, "missing Druid Hero 6/6 head at item level 321");
+  assert.equal(head.variant, "Hero 6/6 observed");
+  assert.equal(head.candidate, false);
+  assert.equal(head.verificationScope, "observed-version-only");
+  assert.equal(head.slot, "Head");
+  const sourceUrl = new URL(head.sourceUrl);
+  assert.equal(sourceUrl.hostname, "www.wowhead.com");
+  assert.equal(Number(sourceUrl.searchParams.get("ilvl")), 321);
+  assert.deepEqual(
+    Object.fromEntries(head.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 167, stamina: 3369, haste: 134, versatility: 56 }
+  );
+  assert.ok(head.stats.every(stat => stat.source.includes("item level 321")));
+});
