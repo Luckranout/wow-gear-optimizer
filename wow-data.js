@@ -379,10 +379,11 @@ function validateTierSetCatalogue(catalogue) {
   if (!["incomplete", "partial", "complete"].includes(matchingStatus)) {
     errors.push("Tier-set item matching status must be incomplete, partial, or complete.");
   }
+  const expectedVariants = catalogue.itemMatching?.expectedVariants || [];
   for (const set of catalogue.sets || []) {
     const pieces = Array.isArray(set.pieces) ? set.pieces : [];
+    const candidates = pieces.filter(piece => piece?.candidate === true);
     if (set.itemIdsVerified) {
-      const expectedVariants = catalogue.itemMatching?.expectedVariants || [];
       const itemIds = new Set();
       for (const piece of pieces) {
         if (!Number.isInteger(Number(piece?.itemId)) || !piece?.setId || !piece?.slot ||
@@ -396,18 +397,37 @@ function validateTierSetCatalogue(catalogue) {
         errors.push(`Verified tier set ${set.setName} must map five pieces across every expected variant.`);
       }
     } else if (pieces.length) {
-      errors.push(`Tier set ${set.setName} has piece records but is not marked itemIdsVerified.`);
+      if (set.baseItemIdsVerified !== true || set.candidateVariantsAvailable !== true || candidates.length === 0) {
+        errors.push(`Tier set ${set.setName} has candidate records without verified base IDs and partial-candidate metadata.`);
+      }
+      for (const piece of pieces) {
+        if (!Number.isInteger(Number(piece?.itemId)) || !piece?.setId || !piece?.slot || !piece?.sourceUrl) {
+          errors.push(`Partial tier set ${set.setName} contains an incomplete source record.`);
+          break;
+        }
+        if (piece.candidate === true &&
+            (!Array.isArray(piece.stats) || piece.stats.length < 4 ||
+             !piece.stats.every(stat => Number.isFinite(stat?.value) && stat.value > 0 && typeof stat.source === "string" && stat.source.length))) {
+          errors.push(`Partial tier set ${set.setName} has a candidate without exact numeric stat provenance.`);
+          break;
+        }
+      }
+    } else if (set.candidateVariantsAvailable === true) {
+      errors.push(`Tier set ${set.setName} advertises candidates but contains no candidate records.`);
     }
   }
   const verifiedSets = (catalogue.sets || []).filter(set => set.itemIdsVerified).length;
-  if (matchingStatus === "incomplete" && verifiedSets > 0) {
-    errors.push("Tier-set matching cannot be incomplete when verified set pieces are present.");
+  const candidateSets = (catalogue.sets || []).filter(set =>
+    set.candidateVariantsAvailable === true && Array.isArray(set.pieces) && set.pieces.some(piece => piece?.candidate === true)
+  ).length;
+  if (matchingStatus === "incomplete" && (verifiedSets > 0 || candidateSets > 0)) {
+    errors.push("Tier-set matching cannot be incomplete when verified candidates are present.");
   }
   if (matchingStatus === "complete" && verifiedSets !== (catalogue.sets || []).length) {
     errors.push("Tier-set matching cannot be complete while any class set is unverified.");
   }
-  if (matchingStatus === "partial" && (verifiedSets === 0 || verifiedSets === (catalogue.sets || []).length)) {
-    errors.push("Partial tier-set matching requires both verified and unverified class sets.");
+  if (matchingStatus === "partial" && (candidateSets === 0 || verifiedSets === (catalogue.sets || []).length)) {
+    errors.push("Partial tier-set matching requires source-verified candidates and incomplete class maps.");
   }
   return errors;
 }
