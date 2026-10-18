@@ -97,7 +97,7 @@ test("Demon Hunter has verified baseline PvE and exact Mythic 6/6 candidates for
         assert.equal(Number(sourceUrl.searchParams.get("ilvl")), piece.itemLevel,
           "Wowhead candidate source must pin the exact item level");
       } else {
-        assert.ok(piece.stats.every(stat => stat.source.includes(`item level ${piece.itemLevel}`)),
+        assert.ok(piece.stats.every(stat => new RegExp(`item[- ]level ${piece.itemLevel}`, "i").test(stat.source)),
           "wiki candidate stat provenance must pin the exact item level");
       }
     }
