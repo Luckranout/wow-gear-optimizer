@@ -616,11 +616,8 @@ test("Druid source-checked tier versions remain evidence-only and preserve obser
     assert.ok(piece.itemLevel > 0);
     const sourceUrl = new URL(piece.sourceUrl);
     assert.ok(
-      sourceUrl.hostname === "www.wowhead.com" ||
-      sourceUrl.hostname === "warcraft.wiki.gg" ||
-      (Number(piece.itemId) === 271527 && piece.slot === "Legs" && piece.itemLevel === 334 &&
-        sourceUrl.hostname === "mythicsim.com"),
-      "source URL must point to a trusted item reference or the scoped Druid build source"
+      sourceUrl.hostname === "www.wowhead.com" || sourceUrl.hostname === "warcraft.wiki.gg",
+      "source URL must point to a trusted item reference"
     );
     if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
     if (sourceUrl.hostname === "www.wowhead.com") {
@@ -630,11 +627,8 @@ test("Druid source-checked tier versions remain evidence-only and preserve obser
       assert.ok(piece.stats.every(stat => stat.source.includes(String(piece.itemLevel))),
         "Warcraft Wiki observations must label the exact observed item level in every stat source");
     } else {
-      assert.equal(Number(piece.itemId), 271527);
-      assert.equal(piece.slot, "Legs");
-      assert.equal(piece.itemLevel, 334);
-      assert.ok(piece.stats.every(stat => /item level 334/i.test(stat.source)),
-        "Druid build-source stats must explicitly identify the observed item level");
+      assert.ok(piece.stats.every(stat => stat.source.includes(String(piece.itemLevel))),
+        "Warcraft Wiki observations must label the exact observed item level in every stat source");
     }
     assert.ok(Array.isArray(piece.stats) && piece.stats.length >= 4);
     assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
@@ -691,8 +685,9 @@ test("Druid source-checked tier versions remain evidence-only and preserve obser
   const mythicLegs = observations.find(piece => piece.itemId === 271527 && piece.itemLevel === 334);
   assert.ok(mythicLegs, "missing Druid Legs item-level-334 observation");
   assert.equal(mythicLegs.candidate, false);
-  assert.equal(mythicLegs.variant, "Mythic 6/6 observed");
-  assert.equal(new URL(mythicLegs.sourceUrl).hostname, "mythicsim.com");
+  assert.equal(mythicLegs.variant, "Item level 334 observed; upgrade rank unverified");
+  assert.equal(new URL(mythicLegs.sourceUrl).hostname, "www.wowhead.com");
+  assert.equal(Number(new URL(mythicLegs.sourceUrl).searchParams.get("ilvl")), 334);
   assert.deepEqual(Object.fromEntries(mythicLegs.stats.map(stat => [stat.type.name, stat.value])),
     { agility: 189, intellect: 189, stamina: 3910, criticalStrike: 67, haste: 134 });
   assert.ok(mythicLegs.stats.every(stat => stat.source.includes("item level 334")));
@@ -1362,8 +1357,10 @@ test("Monk source-backed tier item versions remain evidence-only and match sourc
   const chestByLevel = new Map(observations.filter(piece => piece.itemId === 271522).map(piece => [piece.itemLevel, piece]));
   assert.deepEqual([...chestByLevel.keys()].sort((a, b) => a - b), [311, 324, 334]);
   const maxLegs = observations.find(piece => piece.itemId === 271518 && piece.itemLevel === 334);
-  assert.ok(maxLegs, "missing Monk Mythic 6/6 legs at item level 334");
-  assert.equal(maxLegs.variant, "Mythic 6/6 observed");
+  assert.ok(maxLegs, "missing Monk Legs observation at item level 334");
+  assert.equal(maxLegs.variant, "Item level 334 observed; upgrade rank unverified");
+  assert.equal(new URL(maxLegs.sourceUrl).hostname, "www.wowhead.com");
+  assert.equal(Number(new URL(maxLegs.sourceUrl).searchParams.get("ilvl")), 334);
   assert.equal(maxLegs.candidate, false);
   assert.equal(maxLegs.verificationScope, "observed-version-only");
   for (const level of [311, 324]) {
