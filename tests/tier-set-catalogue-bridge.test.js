@@ -203,18 +203,6 @@ test("Paladin observed tier variants are source-backed and remain evidence-only"
   }
   const shouldersByLevel = new Map(observations.filter(piece => piece.itemId === 271463).map(piece => [piece.itemLevel, piece]));
   assert.deepEqual([...shouldersByLevel.keys()].sort((a, b) => a - b), [282, 295, 308, 321, 334]);
-  const expectedHands = {
-    311: { agility: 152, stamina: 3002, criticalStrike: 94, mastery: 43 },
-    324: { agility: 172, stamina: 3487, criticalStrike: 98, mastery: 45 }
-  };
-  for (const [level, expected] of Object.entries(expectedHands)) {
-    const piece = observations.find(item => item.itemId === 271538 && item.itemLevel === Number(level));
-    assert.ok(piece, `missing Demon Hunter hand observation at item level ${level}`);
-    assert.equal(piece.candidate, false);
-    assert.equal(piece.verificationScope, "observed-version-only");
-    assert.match(piece.sourceUrl, /warcraft\.wiki\.gg/);
-    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
-  }
   const expectedShoulders = {
     282: { strength: 87, intellect: 87, stamina: 1606, criticalStrike: 83, mastery: 36 },
     295: { strength: 98, intellect: 98, stamina: 1869, criticalStrike: 89, mastery: 38 },
@@ -292,6 +280,18 @@ test("Demon Hunter source-checked tier versions remain evidence-only and preserv
   for (const [level, expected] of Object.entries(expectedShoulders)) {
     const piece = observations.find(item => item.slot === "Shoulders" && item.itemLevel === Number(level));
     assert.ok(piece, `missing Demon Hunter shoulder observation at item level ${level}`);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.match(piece.sourceUrl, /warcraft\.wiki\.gg/);
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+  const expectedHandUpgrades = {
+    311: { agility: 152, stamina: 3002, criticalStrike: 94, mastery: 43 },
+    324: { agility: 172, stamina: 3487, criticalStrike: 98, mastery: 45 }
+  };
+  for (const [level, expected] of Object.entries(expectedHandUpgrades)) {
+    const piece = observations.find(item => item.itemId === 271538 && item.itemLevel === Number(level));
+    assert.ok(piece, `missing Demon Hunter hand observation at item level ${level}`);
     assert.equal(piece.candidate, false);
     assert.equal(piece.verificationScope, "observed-version-only");
     assert.match(piece.sourceUrl, /warcraft\.wiki\.gg/);
