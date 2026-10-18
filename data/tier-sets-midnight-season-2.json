@@ -27758,7 +27758,1183 @@
           "sourceType": "PvP"
         }
       ],
-      "pieces": [],
+      "pieces": [
+        {
+          "itemId": 271546,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Skull of the Damned Necrolyte",
+          "slot": "Head",
+          "variant": "Raid Finder",
+          "itemLevel": 285,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Skull_of_the_Damned_Necrolyte",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 52,
+              "source": "Warcraft Wiki item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 109,
+              "source": "Warcraft Wiki item page, item level 285"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271546,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Skull of the Damned Necrolyte",
+          "slot": "Head",
+          "variant": "Normal",
+          "itemLevel": 298,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Skull_of_the_Damned_Necrolyte",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 55,
+              "source": "Warcraft Wiki item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 116,
+              "source": "Warcraft Wiki item page, item level 298"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271546,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Skull of the Damned Necrolyte",
+          "slot": "Head",
+          "variant": "Heroic",
+          "itemLevel": 311,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Skull_of_the_Damned_Necrolyte",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki item page, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Warcraft Wiki item page, item level 311"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 59,
+              "source": "Warcraft Wiki item page, item level 311"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 124,
+              "source": "Warcraft Wiki item page, item level 311"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271546,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Skull of the Damned Necrolyte",
+          "slot": "Head",
+          "variant": "Mythic",
+          "itemLevel": 324,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Skull_of_the_Damned_Necrolyte",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 62,
+              "source": "Warcraft Wiki item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 131,
+              "source": "Warcraft Wiki item page, item level 324"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271546,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Skull of the Damned Necrolyte",
+          "slot": "Head",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271546/skull-of-the-damned-necrolyte?ilvl=334&spec=266",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, Mythic 6/6 item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip, Mythic 6/6 item level 334"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 65,
+              "source": "Wowhead tooltip, Mythic 6/6 item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 136,
+              "source": "Wowhead tooltip, Mythic 6/6 item level 334"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271544,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Spires of the Damned Necrolyte",
+          "slot": "Shoulders",
+          "variant": "Raid Finder",
+          "itemLevel": 282,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Spires_of_the_Damned_Necrolyte",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki tier item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "Warcraft Wiki tier item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 39,
+              "source": "Warcraft Wiki tier item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 80,
+              "source": "Warcraft Wiki tier item page, item level 282"
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271544,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Spires of the Damned Necrolyte",
+          "slot": "Shoulders",
+          "variant": "Normal",
+          "itemLevel": 295,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Spires_of_the_Damned_Necrolyte",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 98,
+              "source": "Warcraft Wiki tier item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Warcraft Wiki tier item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 42,
+              "source": "Warcraft Wiki tier item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 85,
+              "source": "Warcraft Wiki tier item page, item level 295"
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271544,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Spires of the Damned Necrolyte",
+          "slot": "Shoulders",
+          "variant": "Heroic",
+          "itemLevel": 308,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271544/spires-of-the-damned-necrolyte?bonus=13333%3A13694%3A6652%3A13697%3A12838&ilvl=308&spec=267",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 111,
+              "source": "Wowhead tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Wowhead tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 45,
+              "source": "Wowhead tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 90,
+              "source": "Wowhead tooltip, item level 308"
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271544,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Spires of the Damned Necrolyte",
+          "slot": "Shoulders",
+          "variant": "Mythic",
+          "itemLevel": 321,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271544/spires-of-the-damned-necrolyte?bonus=13334%3A40%3A13694%3A13697%3A12846&ilvl=321&spec=266",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 125,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 47,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 96,
+              "source": "Wowhead tooltip, item level 321"
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271544,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Spires of the Damned Necrolyte",
+          "slot": "Shoulders",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271544/spires-of-the-damned-necrolyte?bonus=13694%3A13440%3A6652%3A13697%3A12854&class=9&ilvl=334&spec=266",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 50,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 101,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271549,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Rattling Robes",
+          "slot": "Chest",
+          "variant": "Raid Finder",
+          "itemLevel": 285,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Damned_Necrolyte%27s_Rattling_Robes",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki tier item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki tier item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 113,
+              "source": "Warcraft Wiki tier item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 48,
+              "source": "Warcraft Wiki tier item page, item level 285"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271549,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Rattling Robes",
+          "slot": "Chest",
+          "variant": "Normal",
+          "itemLevel": 298,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Damned_Necrolyte%27s_Rattling_Robes",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki tier item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki tier item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 121,
+              "source": "Warcraft Wiki tier item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 51,
+              "source": "Warcraft Wiki tier item page, item level 298"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271549,
+          "setId": "damned-necrolyte",
+          "name": "Damned Necrolyte's Rattling Robes",
+          "slot": "Chest",
+          "variant": "Heroic",
+          "itemLevel": 311,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271549/damned-necrolytes-rattling-robes?bonus=12843%3A13334%3A13690%3A6652%3A13698&ilvl=311&spec=267",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 152,
+              "source": "Wowhead tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Wowhead tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 128,
+              "source": "Wowhead tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 54,
+              "source": "Wowhead tooltip, item level 311"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271549,
+          "setId": "damned-necrolyte",
+          "name": "Damned Necrolyte's Rattling Robes",
+          "slot": "Chest",
+          "variant": "Mythic",
+          "itemLevel": 324,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271549/damned-necrolytes-rattling-robes?bonus=13334%3A6652%3A13690%3A13698%3A12851&ilvl=324&spec=266",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 172,
+              "source": "Wowhead tooltip, item level 324"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Wowhead tooltip, item level 324"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 135,
+              "source": "Wowhead tooltip, item level 324"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 57,
+              "source": "Wowhead tooltip, item level 324"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271549,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Rattling Robes",
+          "slot": "Chest",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271549/damned-necrolytes-rattling-robes?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead Mythic 6/6 tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead Mythic 6/6 tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 141,
+              "source": "Wowhead Mythic 6/6 tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 60,
+              "source": "Wowhead Mythic 6/6 tooltip, item level 334"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271547,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Charred Grasps",
+          "slot": "Hands",
+          "variant": "Raid Finder",
+          "itemLevel": 282,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Damned_Necrolyte%27s_Charred_Grasps",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki tier item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "Warcraft Wiki tier item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 35,
+              "source": "Warcraft Wiki tier item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 84,
+              "source": "Warcraft Wiki tier item page, item level 282"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271547,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Charred Grasps",
+          "slot": "Hands",
+          "variant": "Normal",
+          "itemLevel": 295,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Damned_Necrolyte%27s_Charred_Grasps",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 98,
+              "source": "Warcraft Wiki tier item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Warcraft Wiki tier item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 38,
+              "source": "Warcraft Wiki tier item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 89,
+              "source": "Warcraft Wiki tier item page, item level 295"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271547,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Charred Grasps",
+          "slot": "Hands",
+          "variant": "Heroic",
+          "itemLevel": 308,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Damned_Necrolyte%27s_Charred_Grasps",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki tier item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Warcraft Wiki tier item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 40,
+              "source": "Warcraft Wiki tier item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 95,
+              "source": "Warcraft Wiki tier item page, item level 308"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271547,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Charred Grasps",
+          "slot": "Hands",
+          "variant": "Mythic",
+          "itemLevel": 321,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Damned_Necrolyte%27s_Charred_Grasps",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 125,
+              "source": "Warcraft Wiki tier item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Warcraft Wiki tier item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 42,
+              "source": "Warcraft Wiki tier item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 100,
+              "source": "Warcraft Wiki tier item page, item level 321"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271547,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Charred Grasps",
+          "slot": "Hands",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271547/damned-necrolytes-charred-grasps?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 141,
+              "source": "Azeroth Codex equipped profile and Wowhead item tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Azeroth Codex equipped profile and Wowhead item tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 45,
+              "source": "Azeroth Codex equipped profile and Wowhead item tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 106,
+              "source": "Azeroth Codex equipped profile and Wowhead item tooltip, item level 334"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271545,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Leg Bindings",
+          "slot": "Legs",
+          "variant": "Raid Finder",
+          "itemLevel": 285,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Damned_Necrolyte%27s_Leg_Bindings",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki tier item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki tier item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 113,
+              "source": "Warcraft Wiki tier item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 48,
+              "source": "Warcraft Wiki tier item page, item level 285"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271545,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Leg Bindings",
+          "slot": "Legs",
+          "variant": "Normal",
+          "itemLevel": 298,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Damned_Necrolyte%27s_Leg_Bindings",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki tier item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki tier item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 121,
+              "source": "Warcraft Wiki tier item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 51,
+              "source": "Warcraft Wiki tier item page, item level 298"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271545,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Leg Bindings",
+          "slot": "Legs",
+          "variant": "Heroic",
+          "itemLevel": 311,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Damned_Necrolyte%27s_Leg_Bindings",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki tier item page, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Warcraft Wiki tier item page, item level 311"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 128,
+              "source": "Warcraft Wiki tier item page, item level 311"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 54,
+              "source": "Warcraft Wiki tier item page, item level 311"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271545,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Leg Bindings",
+          "slot": "Legs",
+          "variant": "Mythic",
+          "itemLevel": 324,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Damned_Necrolyte%27s_Leg_Bindings",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki tier item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki tier item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki tier item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 57,
+              "source": "Warcraft Wiki tier item page, item level 324"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271545,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Leg Bindings",
+          "slot": "Legs",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271545/damned-necrolytes-leg-bindings?bonus=4786%3A12806&ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 60,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        }
+      ],
       "itemIdsVerified": false,
       "id": "damned-necrolyte-s-shattered-restraints",
       "itemIdsSource": "https://www.wowhead.com/ptr/item-set=2066/damned-necrolytes-shattered-restraints",
@@ -28814,11 +29990,503 @@
               "source": "Wowhead tooltip, item level 334"
             }
           ]
+        },
+        {
+          "itemId": 271544,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Spires of the Damned Necrolyte",
+          "slot": "Shoulders",
+          "variant": "Raid Finder observed",
+          "itemLevel": 282,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Spires_of_the_Damned_Necrolyte",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki tier item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "Warcraft Wiki tier item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 39,
+              "source": "Warcraft Wiki tier item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 80,
+              "source": "Warcraft Wiki tier item page, item level 282"
+            }
+          ]
+        },
+        {
+          "itemId": 271544,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Spires of the Damned Necrolyte",
+          "slot": "Shoulders",
+          "variant": "Normal observed",
+          "itemLevel": 295,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Spires_of_the_Damned_Necrolyte",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 98,
+              "source": "Warcraft Wiki tier item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Warcraft Wiki tier item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 42,
+              "source": "Warcraft Wiki tier item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 85,
+              "source": "Warcraft Wiki tier item page, item level 295"
+            }
+          ]
+        },
+        {
+          "itemId": 271549,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Rattling Robes",
+          "slot": "Chest",
+          "variant": "Raid Finder observed",
+          "itemLevel": 285,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Damned_Necrolyte%27s_Rattling_Robes",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki tier item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki tier item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 113,
+              "source": "Warcraft Wiki tier item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 48,
+              "source": "Warcraft Wiki tier item page, item level 285"
+            }
+          ]
+        },
+        {
+          "itemId": 271549,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Rattling Robes",
+          "slot": "Chest",
+          "variant": "Normal observed",
+          "itemLevel": 298,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Damned_Necrolyte%27s_Rattling_Robes",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki tier item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki tier item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 121,
+              "source": "Warcraft Wiki tier item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 51,
+              "source": "Warcraft Wiki tier item page, item level 298"
+            }
+          ]
+        },
+        {
+          "itemId": 271547,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Charred Grasps",
+          "slot": "Hands",
+          "variant": "Raid Finder observed",
+          "itemLevel": 282,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Damned_Necrolyte%27s_Charred_Grasps",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki tier item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "Warcraft Wiki tier item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 35,
+              "source": "Warcraft Wiki tier item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 84,
+              "source": "Warcraft Wiki tier item page, item level 282"
+            }
+          ]
+        },
+        {
+          "itemId": 271547,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Charred Grasps",
+          "slot": "Hands",
+          "variant": "Normal observed",
+          "itemLevel": 295,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Damned_Necrolyte%27s_Charred_Grasps",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 98,
+              "source": "Warcraft Wiki tier item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Warcraft Wiki tier item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 38,
+              "source": "Warcraft Wiki tier item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 89,
+              "source": "Warcraft Wiki tier item page, item level 295"
+            }
+          ]
+        },
+        {
+          "itemId": 271547,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Charred Grasps",
+          "slot": "Hands",
+          "variant": "Heroic observed",
+          "itemLevel": 308,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Damned_Necrolyte%27s_Charred_Grasps",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki tier item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Warcraft Wiki tier item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 40,
+              "source": "Warcraft Wiki tier item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 95,
+              "source": "Warcraft Wiki tier item page, item level 308"
+            }
+          ]
+        },
+        {
+          "itemId": 271547,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Charred Grasps",
+          "slot": "Hands",
+          "variant": "Mythic observed",
+          "itemLevel": 321,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Damned_Necrolyte%27s_Charred_Grasps",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 125,
+              "source": "Warcraft Wiki tier item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Warcraft Wiki tier item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 42,
+              "source": "Warcraft Wiki tier item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 100,
+              "source": "Warcraft Wiki tier item page, item level 321"
+            }
+          ]
+        },
+        {
+          "itemId": 271545,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Leg Bindings",
+          "slot": "Legs",
+          "variant": "Raid Finder observed",
+          "itemLevel": 285,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Damned_Necrolyte%27s_Leg_Bindings",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki tier item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki tier item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 113,
+              "source": "Warcraft Wiki tier item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 48,
+              "source": "Warcraft Wiki tier item page, item level 285"
+            }
+          ]
+        },
+        {
+          "itemId": 271545,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Leg Bindings",
+          "slot": "Legs",
+          "variant": "Normal observed",
+          "itemLevel": 298,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Damned_Necrolyte%27s_Leg_Bindings",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki tier item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki tier item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 121,
+              "source": "Warcraft Wiki tier item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 51,
+              "source": "Warcraft Wiki tier item page, item level 298"
+            }
+          ]
+        },
+        {
+          "itemId": 271545,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Leg Bindings",
+          "slot": "Legs",
+          "variant": "Heroic observed",
+          "itemLevel": 311,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Damned_Necrolyte%27s_Leg_Bindings",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki tier item page, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Warcraft Wiki tier item page, item level 311"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 128,
+              "source": "Warcraft Wiki tier item page, item level 311"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 54,
+              "source": "Warcraft Wiki tier item page, item level 311"
+            }
+          ]
+        },
+        {
+          "itemId": 271545,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Leg Bindings",
+          "slot": "Legs",
+          "variant": "Mythic observed",
+          "itemLevel": 324,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Damned_Necrolyte%27s_Leg_Bindings",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki tier item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki tier item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki tier item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 57,
+              "source": "Warcraft Wiki tier item page, item level 324"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
       "variantObservationsNote": "Twenty-four source-checked item versions are recorded as evidence only. Head is observed at item levels 219, 285 (Veteran 3/6), 298 (Champion 3/6), 305, 308 (Hero 2/6), 311 (Hero 3/6), 315, 318, 321, 324 (Myth 3/6), and 334 (Mythic 6/6). Legs now include a source-checked Champion 5/6 version at item level 305 and a Mythic 6/6 version at 334. Hands have source-cross-checked item-level 331 and 334 observations; Chest has 311, 321, 324, 328, and 334; Shoulders have 308, 311, 321, and 334. Other difficulty and upgrade variants remain unverified. All observations remain evidence-only and are not optimizer candidates.",
-      "candidateVariantsAvailable": false
+      "candidateVariantsAvailable": true
     },
     {
       "class": "Warrior",
@@ -29837,7 +31505,7 @@
       "Gladiator",
       "Elite"
     ],
-    "note": "Source-backed baseline candidate versions exist for Death Knight, Demon Hunter, Druid, Evoker, Hunter, Mage, Monk, Paladin, Priest, Rogue, and Shaman. Druid and Monk have 24/25 candidates pending exact Legs 334 upgrade-rank proof. Warlock and Warrior still need candidate promotion. No class is marked as fully variant-verified until the complete upgrade-rank map is source-verified.",
+    "note": "Source-backed baseline candidate versions exist for Death Knight, Demon Hunter, Druid, Evoker, Hunter, Mage, Monk, Paladin, Priest, Rogue, Shaman, and Warlock. Druid and Monk have 24/25 candidates pending exact Legs 334 upgrade-rank proof. Warrior still needs candidate promotion. No class is marked fully variant-verified until every required upgrade rank is source-verified.",
     "verifiedClasses": [],
     "statsVerifiedClasses": [
       "Death Knight",
@@ -29850,7 +31518,8 @@
       "Paladin",
       "Priest",
       "Rogue",
-      "Shaman"
+      "Shaman",
+      "Warlock"
     ],
     "baseItemIdsVerifiedClasses": [
       "Death Knight",
@@ -29893,7 +31562,8 @@
       "Paladin",
       "Priest",
       "Rogue",
-      "Shaman"
+      "Shaman",
+      "Warlock"
     ]
   }
 }
