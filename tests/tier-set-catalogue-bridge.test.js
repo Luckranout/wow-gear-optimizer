@@ -1671,7 +1671,7 @@ test("Shaman tier item versions remain evidence-only with exact source levels", 
     { agility: 125, intellect: 125, stamina: 2527, criticalStrike: 43, mastery: 99 });
   assert.equal(shaman.pieces.length, 30, "canonical six-variant mapping remains separate from intermediate-rank candidates");
   assert.equal(shaman.pieces.filter(piece => piece.candidate === true).length, 20);
-  assert.equal(shaman.upgradeRankCandidates.length, 23);
+  assert.equal(shaman.upgradeRankCandidates.length, 27);
 });
 
 test("Shaman independently rank-verified intermediate variants are optimizer candidates while observations remain evidence-only", () => {
@@ -1724,7 +1724,7 @@ test("all-class observed tier variants stay separate from eligible optimizer can
         "baseline PvE candidates stay in the canonical map; exact intermediate ranks are stored separately");
       assert.equal(set.pieces.filter(piece => piece.candidate !== true).length, 10,
         "PvP appearance records without verified numeric stats must stay ineligible");
-      assert.equal(set.upgradeRankCandidates.length, 23, "verified intermediate ranks stay separate from the canonical six-variant map");
+      assert.equal(set.upgradeRankCandidates.length, 27, "verified intermediate ranks stay separate from the canonical six-variant map");
       continue;
     }
     const observations = set.verifiedVariantObservations || [];
