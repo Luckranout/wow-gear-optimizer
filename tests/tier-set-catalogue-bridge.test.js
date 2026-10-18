@@ -297,10 +297,19 @@ test("Evoker source-checked tier versions remain evidence-only and preserve obse
     assert.equal(piece.candidate, false);
     assert.equal(piece.verificationScope, "observed-version-only");
     assert.ok(piece.itemLevel > 0);
-    assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/"));
+    const sourceUrl = new URL(piece.sourceUrl);
+    assert.ok(
+      sourceUrl.hostname === "www.wowhead.com" || sourceUrl.hostname === "warcraft.wiki.gg",
+      "source URL must point to a trusted item reference"
+    );
     assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
-    assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), piece.itemLevel,
-      "source URL must pin the exact observed item level");
+    if (sourceUrl.hostname === "www.wowhead.com") {
+      assert.equal(Number(sourceUrl.searchParams.get("ilvl")), piece.itemLevel,
+        "Wowhead source URL must pin the exact observed item level");
+    } else {
+      assert.ok(piece.stats.every(stat => stat.source.includes(String(piece.itemLevel))),
+        "Warcraft Wiki observations must label the exact observed item level in every stat source");
+    }
     assert.ok(Array.isArray(piece.stats) && piece.stats.length >= 3);
     assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
     assert.ok(piece.stats.every(stat => typeof stat.source === "string" && stat.source.length > 0));
