@@ -7124,10 +7124,51 @@
               "source": "Warcraft Wiki item page, item level 321"
             }
           ]
+        },
+        {
+          "itemId": 271564,
+          "setId": "primal-leywardens-attire",
+          "name": "Crown of the Primal Leywarden",
+          "slot": "Head",
+          "variant": "Hero 4/6 observed",
+          "itemLevel": 315,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271564/crown-of-the-primal-leywarden?bonus=6652%3A13440%3A13695%3A13692%3A13698%3A12844&ilvl=315&spec=62",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 158,
+              "source": "Wowhead item tooltip explicitly lists Mythic+ Hero 4/6 at item level 315."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3143,
+              "source": "Wowhead item tooltip explicitly lists Mythic+ Hero 4/6 at item level 315."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 127,
+              "source": "Wowhead item tooltip explicitly lists Mythic+ Hero 4/6 at item level 315."
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 59,
+              "source": "Wowhead item tooltip explicitly lists Mythic+ Hero 4/6 at item level 315."
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Five exact Wowhead item versions are recorded as evidence only. These Mythic 6/6 observations do not establish coverage for all raid difficulties, upgrade tracks, or the complete Mage variant ID map. Do not use these observations as optimizer candidates."
+      "variantObservationsNote": "Six exact Wowhead item versions are recorded as evidence only. These observations do not establish coverage for all raid difficulties, upgrade tracks, or the complete Mage variant ID map. Do not use these observations as optimizer candidates."
     },
     {
       "class": "Monk",
