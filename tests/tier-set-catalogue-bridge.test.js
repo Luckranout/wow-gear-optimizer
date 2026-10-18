@@ -253,10 +253,22 @@ test("Demon Hunter source-checked tier versions remain evidence-only and preserv
 test("Druid source-checked tier versions remain evidence-only and preserve observed stats", () => {
   const druid = catalogue.sets.find(set => set.class === "Druid");
   const observations = druid.verifiedVariantObservations || [];
-  assert.equal(observations.length, 6);
+  assert.equal(observations.length, 10);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(druid.variantObservationsStatus, "partial");
   assert.match(druid.variantObservationsNote, /all observations remain ineligible as optimizer candidates/i);
+  const legsByLevel = new Map(observations.filter(piece => piece.slot === "Legs").map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...legsByLevel.keys()].sort((a, b) => a - b), [219, 285, 298, 311, 324]);
+  for (const [level, expected] of [
+    [285, { agility: 119, stamina: 2219, criticalStrike: 54, haste: 108 }],
+    [298, { agility: 135, stamina: 2579, criticalStrike: 57, haste: 115 }],
+    [311, { agility: 152, stamina: 3002, criticalStrike: 61, haste: 122 }],
+    [324, { agility: 172, stamina: 3487, criticalStrike: 64, haste: 129 }]
+  ]) {
+    const piece = legsByLevel.get(level);
+    assert.equal(piece.candidate, false);
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
   const manifestSet = manifest.sets.find(set => set.className === "Druid");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
   for (const piece of observations) {
