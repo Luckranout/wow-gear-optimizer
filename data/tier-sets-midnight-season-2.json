@@ -30541,7 +30541,243 @@
           "sourceType": "PvP"
         }
       ],
-      "pieces": [],
+      "pieces": [
+        {
+          "itemId": 271456,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Tempered Horns of the Jade Warlord",
+          "slot": "Head",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271456/tempered-horns-of-the-jade-warlord?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 189,
+              "source": "Wowhead item version"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead item version"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 140,
+              "source": "Wowhead item version"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 61,
+              "source": "Wowhead item version"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271454,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Raging Pauldrons of the Jade Warlord",
+          "slot": "Shoulders",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271454/raging-pauldrons-of-the-jade-warlord?bonus=12854%3A42%3A13440%3A13694%3A13697%3A1587&ilvl=334&spec=72",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 141,
+              "source": "Wowhead item version"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead item version"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 46,
+              "source": "Wowhead item version"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 105,
+              "source": "Wowhead item version"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271459,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Cuirass of the Jade Warlord",
+          "slot": "Chest",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271459/cuirass-of-the-jade-warlord?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, Mythic 6/6 item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip, Mythic 6/6 item level 334"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 59,
+              "source": "Wowhead tooltip, Mythic 6/6 item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 142,
+              "source": "Wowhead tooltip, Mythic 6/6 item level 334"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271457,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Jeweled Gauntlets of the Jade Warlord",
+          "slot": "Hands",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271457/jeweled-gauntlets-of-the-jade-warlord?bonus=13691%3A13440%3A6652%3A13697%3A12854&ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 141,
+              "source": "Wowhead item version"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead item version"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 101,
+              "source": "Wowhead item version"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 50,
+              "source": "Wowhead item version"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271455,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Greaves of the Jade Warlord",
+          "slot": "Legs",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271455/greaves-of-the-jade-warlord?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 189,
+              "source": "MythicSim item listing and Wowhead item page, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead item tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 135,
+              "source": "MythicSim item listing and Wowhead item page, item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 66,
+              "source": "MythicSim item listing and Wowhead item page, item level 334"
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        }
+      ],
       "itemIdsVerified": false,
       "id": "jade-warlord-s-dominion",
       "itemIdsSource": "https://www.wowhead.com/ptr/item-set=2067/jade-warlords-dominion",
@@ -31477,8 +31713,8 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Seventeen source-checked versions are recorded as evidence only. Mythic 6/6 item-level 334 observations now exist for Head, Shoulders, Chest, Hands, and Legs; lower-rank records are also present for Shoulders, Chest, Hands, and Legs. These are not eligible optimizer candidates and do not establish a complete difficulty/upgrade/effect variant map. Preserve distinct records when item ID and item level match but stats differ.",
-      "candidateVariantsAvailable": false
+      "variantObservationsNote": "Five exact item-level-334 Mythic 6/6 versions are candidates, one for each tier slot. Baseline Raid Finder/Normal/Heroic/Mythic variants for Hands and Legs are not fully source-verified, so the class map remains partial; the 344 item-level-344 variant is a separate special item version and is not treated as a 334 Mythic 6/6 variant.",
+      "candidateVariantsAvailable": true
     }
   ],
   "itemMatching": {
@@ -31505,7 +31741,7 @@
       "Gladiator",
       "Elite"
     ],
-    "note": "Source-backed baseline candidate versions exist for Death Knight, Demon Hunter, Druid, Evoker, Hunter, Mage, Monk, Paladin, Priest, Rogue, Shaman, and Warlock. Druid and Monk have 24/25 candidates pending exact Legs 334 upgrade-rank proof. Warrior still needs candidate promotion. No class is marked fully variant-verified until every required upgrade rank is source-verified.",
+    "note": "Source-backed baseline candidate versions exist for Death Knight, Demon Hunter, Druid, Evoker, Hunter, Mage, Monk, Paladin, Priest, Rogue, and Shaman. Warlock has source-backed baseline candidates for all five slots; Warrior currently has exact Mythic 6/6 candidates for all five slots but still lacks source-verified baseline variants for Hands and Legs. Druid and Monk each have 24/25 candidates pending exact Legs 334 upgrade-rank proof. No class is marked fully variant-verified until every required upgrade rank is source-verified.",
     "verifiedClasses": [],
     "statsVerifiedClasses": [
       "Death Knight",
@@ -31519,7 +31755,8 @@
       "Priest",
       "Rogue",
       "Shaman",
-      "Warlock"
+      "Warlock",
+      "Warrior"
     ],
     "baseItemIdsVerifiedClasses": [
       "Death Knight",
@@ -31563,7 +31800,8 @@
       "Priest",
       "Rogue",
       "Shaman",
-      "Warlock"
+      "Warlock",
+      "Warrior"
     ]
   }
 }
