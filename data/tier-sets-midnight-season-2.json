@@ -15048,6 +15048,47 @@
           "setId": "jade-warlord-s-dominion",
           "name": "Tempered Horns of the Jade Warlord",
           "slot": "Head",
+          "variant": "Myth 3/6 observed",
+          "itemLevel": 324,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Tempered_Horns_of_the_Jade_Warlord",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki tier item page, Mythic 3/6, item level 324"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki tier item page, Mythic 3/6, item level 324"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 134,
+              "source": "Warcraft Wiki tier item page, Mythic 3/6, item level 324"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 58,
+              "source": "Warcraft Wiki tier item page, Mythic 3/6, item level 324"
+            }
+          ]
+        },
+        {
+          "itemId": 271456,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Tempered Horns of the Jade Warlord",
+          "slot": "Head",
           "variant": "Mythic 6/6 observed",
           "itemLevel": 334,
           "candidate": false,
