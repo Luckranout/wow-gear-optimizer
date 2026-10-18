@@ -100,7 +100,7 @@ test("Warrior source-checked variant observations remain evidence-only and prese
 test("Death Knight source-checked tier versions preserve observed stats without becoming optimizer candidates", () => {
   const deathKnight = catalogue.sets.find(set => set.class === "Death Knight");
   const observations = deathKnight.verifiedVariantObservations || [];
-  assert.equal(observations.length, 20);
+  assert.equal(observations.length, 21);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(deathKnight.variantObservationsStatus, "partial");
   assert.match(deathKnight.variantObservationsNote, /remain ineligible as optimizer candidates/i);
@@ -358,6 +358,7 @@ test("Druid source-checked tier versions remain evidence-only and preserve obser
   assert.deepEqual([...chestByLevel.keys()].sort((a, b) => a - b), [285, 292, 298, 311, 324]);
   for (const [level, expected] of [
     [285, { agility: 119, stamina: 2219, criticalStrike: 105, haste: 56 }],
+    [298, { agility: 135, stamina: 2579, criticalStrike: 112, haste: 60 }],
     [311, { agility: 152, stamina: 3002, criticalStrike: 119, haste: 63 }],
     [324, { agility: 172, stamina: 3487, criticalStrike: 126, haste: 67 }]
   ]) {
