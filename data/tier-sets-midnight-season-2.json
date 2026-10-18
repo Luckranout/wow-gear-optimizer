@@ -27382,440 +27382,9 @@
           ],
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
-        },
-        {
-          "itemId": 271483,
-          "setId": "ophidian-oracle-prophecy",
-          "name": "Serpent Crown of the Ophidian Oracle",
-          "slot": "Head",
-          "variant": "Mythic 6/6",
-          "itemLevel": 334,
-          "candidate": true,
-          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle?ilvl=334",
-          "stats": [
-            {
-              "type": {
-                "name": "agility"
-              },
-              "value": 189,
-              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
-            },
-            {
-              "type": {
-                "name": "intellect"
-              },
-              "value": 189,
-              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 3910,
-              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
-            },
-            {
-              "type": {
-                "name": "criticalStrike"
-              },
-              "value": 61,
-              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
-            },
-            {
-              "type": {
-                "name": "haste"
-              },
-              "value": 140,
-              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
-            },
-            {
-              "type": {
-                "name": "leech"
-              },
-              "value": 86,
-              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
-            }
-          ],
-          "secondaryStats": [
-            "Haste",
-            "Critical Strike"
-          ],
-          "secondaryStatsVerified": true,
-          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
-        },
-        {
-          "itemId": 271481,
-          "setId": "ophidian-oracle-prophecy",
-          "name": "Hissing Mantle of the Ophidian Oracle",
-          "slot": "Shoulders",
-          "variant": "Mythic 6/6",
-          "itemLevel": 334,
-          "candidate": true,
-          "sourceUrl": "https://www.wowhead.com/item=271481/hissing-mantle-of-the-ophidian-oracle?bonus=13334%3A13694%3A6652%3A13697%3A13696%3A12854&class=7&ilvl=334&spec=264",
-          "stats": [
-            {
-              "type": {
-                "name": "agility"
-              },
-              "value": 141,
-              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
-            },
-            {
-              "type": {
-                "name": "intellect"
-              },
-              "value": 141,
-              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 2932,
-              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
-            },
-            {
-              "type": {
-                "name": "criticalStrike"
-              },
-              "value": 52,
-              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
-            },
-            {
-              "type": {
-                "name": "mastery"
-              },
-              "value": 99,
-              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
-            }
-          ],
-          "secondaryStats": [
-            "Mastery",
-            "Critical Strike"
-          ],
-          "secondaryStatsVerified": true,
-          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
-        },
-        {
-          "itemId": 271486,
-          "setId": "ophidian-oracle-prophecy",
-          "name": "Fanged Raiment of the Ophidian Oracle",
-          "slot": "Chest",
-          "variant": "Mythic 6/6",
-          "itemLevel": 334,
-          "candidate": true,
-          "sourceUrl": "https://www.wowhead.com/item=271486/fanged-raiment-of-the-ophidian-oracle?ilvl=334",
-          "stats": [
-            {
-              "type": {
-                "name": "agility"
-              },
-              "value": 189,
-              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
-            },
-            {
-              "type": {
-                "name": "intellect"
-              },
-              "value": 189,
-              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 3910,
-              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
-            },
-            {
-              "type": {
-                "name": "criticalStrike"
-              },
-              "value": 141,
-              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
-            },
-            {
-              "type": {
-                "name": "haste"
-              },
-              "value": 60,
-              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
-            }
-          ],
-          "secondaryStats": [
-            "Critical Strike",
-            "Haste"
-          ],
-          "secondaryStatsVerified": true,
-          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
-        },
-        {
-          "itemId": 271484,
-          "setId": "ophidian-oracle-prophecy",
-          "name": "Hexing Grips of the Ophidian Oracle",
-          "slot": "Hands",
-          "variant": "Mythic 6/6",
-          "itemLevel": 334,
-          "candidate": true,
-          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle?bonus=13334%3A13691%3A6652%3A13697%3A12854&spec=263&ilvl=334",
-          "stats": [
-            {
-              "type": {
-                "name": "agility"
-              },
-              "value": 141,
-              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
-            },
-            {
-              "type": {
-                "name": "intellect"
-              },
-              "value": 141,
-              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 2932,
-              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
-            },
-            {
-              "type": {
-                "name": "criticalStrike"
-              },
-              "value": 46,
-              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
-            },
-            {
-              "type": {
-                "name": "mastery"
-              },
-              "value": 105,
-              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
-            }
-          ],
-          "secondaryStats": [
-            "Mastery",
-            "Critical Strike"
-          ],
-          "secondaryStatsVerified": true,
-          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
-        },
-        {
-          "itemId": 271482,
-          "setId": "ophidian-oracle-prophecy",
-          "name": "Leggings of the Ophidian Oracle",
-          "slot": "Legs",
-          "variant": "Mythic 6/6",
-          "itemLevel": 334,
-          "candidate": true,
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271482/leggings-of-the-ophidian-oracle?ilvl=334",
-          "stats": [
-            {
-              "type": {
-                "name": "agility"
-              },
-              "value": 189,
-              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
-            },
-            {
-              "type": {
-                "name": "intellect"
-              },
-              "value": 189,
-              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 3910,
-              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
-            },
-            {
-              "type": {
-                "name": "haste"
-              },
-              "value": 70,
-              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
-            },
-            {
-              "type": {
-                "name": "versatility"
-              },
-              "value": 131,
-              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
-            }
-          ],
-          "secondaryStats": [
-            "Versatility",
-            "Haste"
-          ],
-          "secondaryStatsVerified": true,
-          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
-        },
-        {
-          "itemId": 271483,
-          "setId": "ophidian-oracle-prophecy",
-          "name": "Serpent Crown of the Ophidian Oracle",
-          "slot": "Head",
-          "variant": "Hero 6/6",
-          "itemLevel": 321,
-          "candidate": true,
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271483/serpent-crown-of-the-ophidian-oracle?bonus=6652%3A13440%3A13695%3A13692%3A13698%3A12846&ilvl=321&spec=262",
-          "stats": [
-            {
-              "type": {
-                "name": "agility"
-              },
-              "value": 167,
-              "source": "Wowhead item tooltip explicitly lists Hero 6/6 at item level 321."
-            },
-            {
-              "type": {
-                "name": "intellect"
-              },
-              "value": 167,
-              "source": "Wowhead item tooltip explicitly lists Hero 6/6 at item level 321."
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 3369,
-              "source": "Wowhead item tooltip explicitly lists Hero 6/6 at item level 321."
-            },
-            {
-              "type": {
-                "name": "criticalStrike"
-              },
-              "value": 58,
-              "source": "Wowhead item tooltip explicitly lists Hero 6/6 at item level 321."
-            },
-            {
-              "type": {
-                "name": "haste"
-              },
-              "value": 133,
-              "source": "Wowhead item tooltip explicitly lists Hero 6/6 at item level 321."
-            }
-          ],
-          "secondaryStats": [
-            "Haste",
-            "Critical Strike"
-          ],
-          "secondaryStatsVerified": true,
-          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
-        },
-        {
-          "itemId": 271484,
-          "setId": "ophidian-oracle-prophecy",
-          "name": "Hexing Grips of the Ophidian Oracle",
-          "slot": "Hands",
-          "variant": "Hero 5/6",
-          "itemLevel": 318,
-          "candidate": true,
-          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle?bonus=40%3A13440%3A13691%3A13697%3A12845&ilvl=318&spec=264",
-          "stats": [
-            {
-              "type": {
-                "name": "agility"
-              },
-              "value": 122,
-              "source": "Wowhead item tooltip explicitly lists Hero 5/6 at item level 318."
-            },
-            {
-              "type": {
-                "name": "intellect"
-              },
-              "value": 122,
-              "source": "Wowhead item tooltip explicitly lists Hero 5/6 at item level 318."
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 2440,
-              "source": "Wowhead item tooltip explicitly lists Hero 5/6 at item level 318."
-            },
-            {
-              "type": {
-                "name": "criticalStrike"
-              },
-              "value": 43,
-              "source": "Wowhead item tooltip explicitly lists Hero 5/6 at item level 318."
-            },
-            {
-              "type": {
-                "name": "mastery"
-              },
-              "value": 98,
-              "source": "Wowhead item tooltip explicitly lists Hero 5/6 at item level 318."
-            }
-          ],
-          "secondaryStats": [
-            "Mastery",
-            "Critical Strike"
-          ],
-          "secondaryStatsVerified": true,
-          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
-        },
-        {
-          "itemId": 271483,
-          "setId": "ophidian-oracle-prophecy",
-          "name": "Serpent Crown of the Ophidian Oracle",
-          "slot": "Head",
-          "variant": "Hero 4/6",
-          "itemLevel": 315,
-          "candidate": true,
-          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle?bonus=6652%3A12844%3A13696%3A13440%3A13692%3A13698%3A1568&ilvl=315&spec=263",
-          "stats": [
-            {
-              "type": {
-                "name": "agility"
-              },
-              "value": 158,
-              "source": "Wowhead item tooltip explicitly lists Hero 4/6 at item level 315."
-            },
-            {
-              "type": {
-                "name": "intellect"
-              },
-              "value": 158,
-              "source": "Wowhead item tooltip explicitly lists Hero 4/6 at item level 315."
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 3143,
-              "source": "Wowhead item tooltip explicitly lists Hero 4/6 at item level 315."
-            },
-            {
-              "type": {
-                "name": "criticalStrike"
-              },
-              "value": 56,
-              "source": "Wowhead item tooltip explicitly lists Hero 4/6 at item level 315."
-            },
-            {
-              "type": {
-                "name": "haste"
-              },
-              "value": 129,
-              "source": "Wowhead item tooltip explicitly lists Hero 4/6 at item level 315."
-            }
-          ],
-          "secondaryStats": [
-            "Haste",
-            "Critical Strike"
-          ],
-          "secondaryStatsVerified": true,
-          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
-      "itemIdsVerified": false,
+      "itemIdsVerified": true,
       "id": "ophidian-oracle-prophecy",
       "verifiedVariantObservations": [
         {
@@ -29027,9 +28596,442 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Twenty exact PvE candidate versions cover all five slots at four source-documented baseline PvE difficulty levels. Ten additional PvP appearance records remain ineligible. Source-checked intermediate upgrade-rank observations are separate from candidates; full upgrade-track coverage remains partial. Added 8 additional source-verified intermediate upgrade-rank candidates. Unverified ranks remain evidence-only; full rank-by-rank coverage remains partial.",
+      "variantObservationsNote": "All five tier item IDs are mapped across the six named appearance/difficulty variants in pieces. Twenty numeric PvE candidates are baseline difficulty versions; ten PvP appearance records remain appearance-only. Eight additional exact source-verified intermediate upgrade-rank candidates are stored separately in upgradeRankCandidates; the full upgrade-rank map remains partial.",
       "baseItemIdsVerified": true,
-      "candidateVariantsAvailable": true
+      "candidateVariantsAvailable": true,
+      "upgradeRankCandidates": [
+        {
+          "itemId": 271483,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Serpent Crown of the Ophidian Oracle",
+          "slot": "Head",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 189,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 61,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 140,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "leech"
+              },
+              "value": 86,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271481,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hissing Mantle of the Ophidian Oracle",
+          "slot": "Shoulders",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271481/hissing-mantle-of-the-ophidian-oracle?bonus=13334%3A13694%3A6652%3A13697%3A13696%3A12854&class=7&ilvl=334&spec=264",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 141,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 141,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 52,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 99,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271486,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Fanged Raiment of the Ophidian Oracle",
+          "slot": "Chest",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271486/fanged-raiment-of-the-ophidian-oracle?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 189,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 141,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 60,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271484,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hexing Grips of the Ophidian Oracle",
+          "slot": "Hands",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle?bonus=13334%3A13691%3A6652%3A13697%3A12854&spec=263&ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 141,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 141,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 46,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 105,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271482,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Leggings of the Ophidian Oracle",
+          "slot": "Legs",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271482/leggings-of-the-ophidian-oracle?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 189,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 70,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 131,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271483,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Serpent Crown of the Ophidian Oracle",
+          "slot": "Head",
+          "variant": "Hero 6/6",
+          "itemLevel": 321,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271483/serpent-crown-of-the-ophidian-oracle?bonus=6652%3A13440%3A13695%3A13692%3A13698%3A12846&ilvl=321&spec=262",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 167,
+              "source": "Wowhead item tooltip explicitly lists Hero 6/6 at item level 321."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 167,
+              "source": "Wowhead item tooltip explicitly lists Hero 6/6 at item level 321."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3369,
+              "source": "Wowhead item tooltip explicitly lists Hero 6/6 at item level 321."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 58,
+              "source": "Wowhead item tooltip explicitly lists Hero 6/6 at item level 321."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 133,
+              "source": "Wowhead item tooltip explicitly lists Hero 6/6 at item level 321."
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271484,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hexing Grips of the Ophidian Oracle",
+          "slot": "Hands",
+          "variant": "Hero 5/6",
+          "itemLevel": 318,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle?bonus=40%3A13440%3A13691%3A13697%3A12845&ilvl=318&spec=264",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 122,
+              "source": "Wowhead item tooltip explicitly lists Hero 5/6 at item level 318."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 122,
+              "source": "Wowhead item tooltip explicitly lists Hero 5/6 at item level 318."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2440,
+              "source": "Wowhead item tooltip explicitly lists Hero 5/6 at item level 318."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 43,
+              "source": "Wowhead item tooltip explicitly lists Hero 5/6 at item level 318."
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 98,
+              "source": "Wowhead item tooltip explicitly lists Hero 5/6 at item level 318."
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271483,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Serpent Crown of the Ophidian Oracle",
+          "slot": "Head",
+          "variant": "Hero 4/6",
+          "itemLevel": 315,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle?bonus=6652%3A12844%3A13696%3A13440%3A13692%3A13698%3A1568&ilvl=315&spec=263",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 158,
+              "source": "Wowhead item tooltip explicitly lists Hero 4/6 at item level 315."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 158,
+              "source": "Wowhead item tooltip explicitly lists Hero 4/6 at item level 315."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3143,
+              "source": "Wowhead item tooltip explicitly lists Hero 4/6 at item level 315."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 56,
+              "source": "Wowhead item tooltip explicitly lists Hero 4/6 at item level 315."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 129,
+              "source": "Wowhead item tooltip explicitly lists Hero 4/6 at item level 315."
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        }
+      ]
     },
     {
       "class": "Warlock",
@@ -34779,8 +34781,10 @@
       "Gladiator",
       "Elite"
     ],
-    "note": "Exact source-verified intermediate upgrade-rank observations are promoted to optimizer candidates where the item ID matches the class's base slot item and the source pins the exact item level and numeric stats. Candidate coverage is broader than baseline+Mythic 6/6, but full rank-by-rank coverage remains partial where source variants are missing. Druid and Monk still lack exact upgrade-rank proof for Legs at item level 334; Warrior still lacks baseline Hands 282 and Legs 285/298/311/324.",
-    "verifiedClasses": [],
+    "note": "Shaman's five tier IDs remain verified across the six canonical variants, with intermediate rank candidates stored separately from the canonical 30-record mapping. Exact source-verified intermediate upgrade-rank candidates are promoted for Death Knight, Demon Hunter, Druid, Mage, Paladin, Priest, Rogue, Warlock, and Warrior where available. Druid and Monk still lack exact rank evidence for Legs 334; Warrior still lacks baseline Hands 282 and Legs 285/298/311/324. No class has complete rank-by-rank coverage.",
+    "verifiedClasses": [
+      "Shaman"
+    ],
     "statsVerifiedClasses": [
       "Death Knight",
       "Demon Hunter",
