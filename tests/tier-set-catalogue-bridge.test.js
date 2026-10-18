@@ -26,7 +26,7 @@ test("all 13 classes have five manifest-matched base tier IDs and source-backed 
     assert.deepEqual([...new Set(baseActual)], expected, `${manifestSet.className} base item IDs differ from the manifest`);
     assert.equal(catalogueSet.itemIdsVerified, false,
       `${manifestSet.className} must not claim its complete upgrade-rank map is verified`);
-    const candidates = (catalogueSet.pieces || []).filter(piece => piece.candidate === true);
+    const candidates = [...(catalogueSet.pieces || []), ...(catalogueSet.upgradeRankCandidates || [])].filter(piece => piece.candidate === true);
     assert.equal(catalogueSet.candidateVariantsAvailable, candidates.length > 0);
     const baseBySlot = new Map(baseRecords.map(piece => [piece.slot, piece]));
     for (const piece of candidates) {
@@ -41,7 +41,7 @@ test("all 13 classes have five manifest-matched base tier IDs and source-backed 
 });
 test("catalogue reports ID mapping separately from variant stats and numeric bonus scoring", () => {
   assert.equal(catalogue.itemMatching.status, "partial");
-  assert.deepEqual(catalogue.itemMatching.verifiedClasses, []);
+  assert.deepEqual(catalogue.itemMatching.verifiedClasses, ["Shaman"]);
   assert.deepEqual(catalogue.itemMatching.candidateVariantClasses, ["Death Knight", "Demon Hunter", "Druid", "Evoker", "Hunter", "Mage", "Monk", "Paladin", "Priest", "Rogue", "Shaman", "Warlock", "Warrior"]);
   assert.equal(catalogue.itemMatching.baseItemIdsVerifiedClasses.length, 13);
   assert.deepEqual(catalogue.itemMatching.statsVerifiedClasses, ["Death Knight", "Demon Hunter", "Druid", "Evoker", "Hunter", "Mage", "Monk", "Paladin", "Priest", "Rogue", "Shaman", "Warlock", "Warrior"]);
@@ -53,7 +53,7 @@ test("all 13 classes have source-backed secondary-stat profiles without pretendi
   assert.deepEqual(catalogue.itemMatching.secondaryStatsProfileVerifiedClasses, manifest.sets.map(set => set.className));
   for (const set of catalogue.sets) {
     const records = set.class === "Shaman" ? set.pieces : set.basePieces;
-    assert.equal(records.length, set.class === "Shaman" ? 38 : 5, set.class + " profile record count");
+    assert.equal(records.length, set.class === "Shaman" ? 30 : 5, set.class + " profile record count");
     for (const slot of EXPECTED_SLOTS) {
       const piece = records.find(record => record.slot === slot);
       assert.ok(piece, set.class + " missing " + slot + " stat profile");
@@ -1667,8 +1667,9 @@ test("Shaman tier item versions remain evidence-only with exact source levels", 
   assert.equal(handsByLevel.get(318).variant, "Hero 5/6");
   assert.deepEqual(Object.fromEntries(handsByLevel.get(321).stats.map(stat => [stat.type.name, stat.value])),
     { agility: 125, intellect: 125, stamina: 2527, criticalStrike: 43, mastery: 99 });
-  assert.equal(shaman.pieces.length, 38, "includes baseline PvE, exact intermediate-rank, and ineligible PvP appearance records");
-  assert.equal(shaman.pieces.filter(piece => piece.candidate === true).length, 28);
+  assert.equal(shaman.pieces.length, 30, "canonical six-variant mapping remains separate from intermediate-rank candidates");
+  assert.equal(shaman.pieces.filter(piece => piece.candidate === true).length, 20);
+  assert.equal(shaman.upgradeRankCandidates.length, 8);
 });
 
 test("all-class observed tier variants stay separate from eligible optimizer candidates", () => {
@@ -1676,8 +1677,8 @@ test("all-class observed tier variants stay separate from eligible optimizer can
     if (set.class === "Shaman") {
       assert.equal(set.itemIdsVerified, false);
       assert.equal(set.candidateVariantsAvailable, true);
-      assert.equal(set.pieces.length, 38);
-      assert.equal(set.pieces.filter(piece => piece.candidate === true).length, 28,
+      assert.equal(set.pieces.length, 30);
+      assert.equal(set.pieces.filter(piece => piece.candidate === true).length, 20,
         "baseline PvE and exact source-verified intermediate-rank variants are eligible");
       assert.equal(set.pieces.filter(piece => piece.candidate !== true).length, 10,
         "PvP appearance records without verified numeric stats must stay ineligible");
