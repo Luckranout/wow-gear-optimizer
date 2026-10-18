@@ -3861,6 +3861,198 @@
               "source": "Warcraft Wiki Echo of Calamity set table, item level 324"
             }
           ]
+        },
+        {
+          "itemId": 271504,
+          "setId": "echo-of-calamity",
+          "name": "Searing Caldera of Calamity",
+          "slot": "Chest",
+          "variant": "Veteran 3/6 observed",
+          "itemLevel": 285,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Searing_Caldera_of_Calamity",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki Searing Caldera of Calamity item entry, item level 285; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki Searing Caldera of Calamity item entry, item level 285; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki Searing Caldera of Calamity item entry, item level 285"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 112,
+              "source": "Warcraft Wiki Searing Caldera of Calamity item entry, item level 285"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 49,
+              "source": "Warcraft Wiki Searing Caldera of Calamity item entry, item level 285"
+            }
+          ]
+        },
+        {
+          "itemId": 271504,
+          "setId": "echo-of-calamity",
+          "name": "Searing Caldera of Calamity",
+          "slot": "Chest",
+          "variant": "Champion 3/6 observed",
+          "itemLevel": 298,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Searing_Caldera_of_Calamity",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki Searing Caldera of Calamity item entry, item level 298; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki Searing Caldera of Calamity item entry, item level 298; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki Searing Caldera of Calamity item entry, item level 298"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki Searing Caldera of Calamity item entry, item level 298"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 52,
+              "source": "Warcraft Wiki Searing Caldera of Calamity item entry, item level 298"
+            }
+          ]
+        },
+        {
+          "itemId": 271504,
+          "setId": "echo-of-calamity",
+          "name": "Searing Caldera of Calamity",
+          "slot": "Chest",
+          "variant": "Hero 3/6 observed",
+          "itemLevel": 311,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Searing_Caldera_of_Calamity",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki Searing Caldera of Calamity item entry, item level 311; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki Searing Caldera of Calamity item entry, item level 311; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Warcraft Wiki Searing Caldera of Calamity item entry, item level 311"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 127,
+              "source": "Warcraft Wiki Searing Caldera of Calamity item entry, item level 311"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 56,
+              "source": "Warcraft Wiki Searing Caldera of Calamity item entry, item level 311"
+            }
+          ]
+        },
+        {
+          "itemId": 271504,
+          "setId": "echo-of-calamity",
+          "name": "Searing Caldera of Calamity",
+          "slot": "Chest",
+          "variant": "Myth 3/6 observed",
+          "itemLevel": 324,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Searing_Caldera_of_Calamity",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki Searing Caldera of Calamity item entry, item level 324; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki Searing Caldera of Calamity item entry, item level 324; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki Searing Caldera of Calamity item entry, item level 324"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 134,
+              "source": "Warcraft Wiki Searing Caldera of Calamity item entry, item level 324"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 59,
+              "source": "Warcraft Wiki Searing Caldera of Calamity item entry, item level 324"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
