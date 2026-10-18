@@ -8291,7 +8291,7 @@
           "itemLevel": 308,
           "candidate": false,
           "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271468/bulwark-of-the-consecrated-flame?bonus=42%3A13690%3A13698%3A12838&ilvl=308&spec=70",
+          "sourceUrl": "https://www.wowhead.com/item=271468/bulwark-of-the-consecrated-flame?bonus=42%3A13690%3A13698%3A12838&ilvl=308&spec=70",
           "stats": [
             {
               "type": {
@@ -8339,7 +8339,7 @@
           "itemLevel": 311,
           "candidate": false,
           "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271468/bulwark-of-the-consecrated-flame?bonus=12843%3A13334%3A13690%3A6652%3A13698&ilvl=311&spec=65",
+          "sourceUrl": "https://www.wowhead.com/item=271468/bulwark-of-the-consecrated-flame?bonus=12843%3A13334%3A13690%3A6652%3A13698&ilvl=311&spec=65",
           "stats": [
             {
               "type": {
