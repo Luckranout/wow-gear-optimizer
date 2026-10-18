@@ -5407,6 +5407,95 @@
           "setId": "skulking-viper-s-ambush",
           "name": "Skulking Viper's Hidepiercers",
           "slot": "Hands",
+          "variant": "Champion item level observed",
+          "itemLevel": 295,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271493/skulking-vipers-hidepiercers?ilvl=295",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 98,
+              "source": "Wowhead tooltip, item level 295 (Agility or Intellect shown)"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 98,
+              "source": "Wowhead tooltip, item level 295 (Agility or Intellect shown)"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Wowhead tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 83,
+              "source": "Wowhead tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 44,
+              "source": "Wowhead tooltip, item level 295"
+            }
+          ]
+        },
+        {
+          "itemId": 271493,
+          "setId": "skulking-viper-s-ambush",
+          "name": "Skulking Viper's Hidepiercers",
+          "slot": "Hands",
+          "variant": "Hero 2/6 observed",
+          "itemLevel": 308,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Skulking_Viper%27s_Hidepiercers",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Warcraft Wiki tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 89,
+              "source": "Warcraft Wiki tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 46,
+              "source": "Warcraft Wiki tooltip, item level 308"
+            }
+          ]
+        },
+        {
+          "itemId": 271493,
+          "setId": "skulking-viper-s-ambush",
+          "name": "Skulking Viper's Hidepiercers",
+          "slot": "Hands",
           "variant": "Hero 6/6 observed",
           "itemLevel": 321,
           "candidate": false,
@@ -5440,6 +5529,136 @@
               },
               "value": 49,
               "source": "Wowhead tooltip, item level 321"
+            }
+          ]
+        },
+        {
+          "itemId": 271493,
+          "setId": "skulking-viper-s-ambush",
+          "name": "Skulking Viper's Hidepiercers",
+          "slot": "Hands",
+          "variant": "Mythic 6/6 observed",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271493/skulking-vipers-hidepiercers?bonus=13335%3A13691%3A6652%3A13697%3A12854&ilvl=334&spec=254",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334 (primary stat shown for Hunter class/spec context)"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 99,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 52,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ]
+        },
+        {
+          "itemId": 271492,
+          "setId": "skulking-viper-s-ambush",
+          "name": "Skulking Viper's Weeping Fangs",
+          "slot": "Head",
+          "variant": "Item level 308 observed",
+          "itemLevel": 308,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271492/skulking-vipers-weeping-fangs?bonus=13334%3A6652%3A13696%3A13692%3A13698%3A12842&ilvl=308",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 148,
+              "source": "Wowhead tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2896,
+              "source": "Wowhead tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 128,
+              "source": "Wowhead tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 52,
+              "source": "Wowhead tooltip, item level 308"
+            }
+          ]
+        },
+        {
+          "itemId": 271492,
+          "setId": "skulking-viper-s-ambush",
+          "name": "Skulking Viper's Weeping Fangs",
+          "slot": "Head",
+          "variant": "Hero 3/6 observed",
+          "itemLevel": 311,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271492/skulking-vipers-weeping-fangs?bonus=13334%3A6652%3A12843%3A13695%3A13692%3A13698%3A1564&ilvl=311&spec=254",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 152,
+              "source": "Wowhead tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Wowhead tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 130,
+              "source": "Wowhead tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 52,
+              "source": "Wowhead tooltip, item level 311"
             }
           ]
         },
@@ -5526,91 +5745,84 @@
           ]
         },
         {
-          "itemId": 271490,
+          "itemId": 271491,
           "setId": "skulking-viper-s-ambush",
-          "name": "Jaws of the Skulking Viper",
-          "slot": "Shoulders",
-          "variant": "Mythic 6/6 observed",
-          "itemLevel": 334,
+          "name": "Skulking Viper's Coiled Legwraps",
+          "slot": "Legs",
+          "variant": "Veteran 3/6 observed",
+          "itemLevel": 285,
           "candidate": false,
           "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271490/jaws-of-the-skulking-viper?ilvl=334",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Skulking_Viper%27s_Coiled_Legwraps",
           "stats": [
             {
               "type": {
                 "name": "agility"
               },
-              "value": 141,
-              "source": "Wowhead tooltip, item level 334"
+              "value": 119,
+              "source": "Warcraft Wiki item page, item level 285"
             },
             {
               "type": {
                 "name": "stamina"
               },
-              "value": 2932,
-              "source": "Wowhead tooltip, item level 334"
-            },
-            {
-              "type": {
-                "name": "criticalStrike"
-              },
-              "value": 52,
-              "source": "Wowhead tooltip, item level 334"
+              "value": 2219,
+              "source": "Warcraft Wiki item page, item level 285"
             },
             {
               "type": {
                 "name": "haste"
               },
-              "value": 98,
-              "source": "Wowhead tooltip, item level 334"
+              "value": 57,
+              "source": "Warcraft Wiki item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 105,
+              "source": "Warcraft Wiki item page, item level 285"
             }
           ]
         },
         {
-          "itemId": 271493,
+          "itemId": 271491,
           "setId": "skulking-viper-s-ambush",
-          "name": "Skulking Viper's Hidepiercers",
-          "slot": "Hands",
-          "variant": "Champion item level observed",
-          "itemLevel": 295,
+          "name": "Skulking Viper's Coiled Legwraps",
+          "slot": "Legs",
+          "variant": "Champion 3/6 observed",
+          "itemLevel": 298,
           "candidate": false,
           "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/item=271493/skulking-vipers-hidepiercers?ilvl=295",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Skulking_Viper%27s_Coiled_Legwraps",
           "stats": [
             {
               "type": {
                 "name": "agility"
               },
-              "value": 98,
-              "source": "Wowhead tooltip, item level 295 (Agility or Intellect shown)"
-            },
-            {
-              "type": {
-                "name": "intellect"
-              },
-              "value": 98,
-              "source": "Wowhead tooltip, item level 295 (Agility or Intellect shown)"
+              "value": 135,
+              "source": "Warcraft Wiki item page, item level 298"
             },
             {
               "type": {
                 "name": "stamina"
               },
-              "value": 1869,
-              "source": "Wowhead tooltip, item level 295"
+              "value": 2579,
+              "source": "Warcraft Wiki item page, item level 298"
             },
             {
               "type": {
                 "name": "haste"
               },
-              "value": 83,
-              "source": "Wowhead tooltip, item level 295"
+              "value": 60,
+              "source": "Warcraft Wiki item page, item level 298"
             },
             {
               "type": {
-                "name": "versatility"
+                "name": "mastery"
               },
-              "value": 44,
-              "source": "Wowhead tooltip, item level 295"
+              "value": 112,
+              "source": "Warcraft Wiki item page, item level 298"
             }
           ]
         },
@@ -5659,6 +5871,88 @@
               },
               "value": 117,
               "source": "Wowhead tooltip, item level 308"
+            }
+          ]
+        },
+        {
+          "itemId": 271491,
+          "setId": "skulking-viper-s-ambush",
+          "name": "Skulking Viper's Coiled Legwraps",
+          "slot": "Legs",
+          "variant": "Heroic 3/6 observed",
+          "itemLevel": 311,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Skulking_Viper%27s_Coiled_Legwraps",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki item variant, Heroic item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Warcraft Wiki item variant, Heroic item level 311"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 64,
+              "source": "Warcraft Wiki item variant, Heroic item level 311"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 118,
+              "source": "Warcraft Wiki item variant, Heroic item level 311"
+            }
+          ]
+        },
+        {
+          "itemId": 271491,
+          "setId": "skulking-viper-s-ambush",
+          "name": "Skulking Viper's Coiled Legwraps",
+          "slot": "Legs",
+          "variant": "Mythic 3/6 observed",
+          "itemLevel": 318,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Skulking_Viper%27s_Coiled_Legwraps",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki item variant, Mythic item level 318"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki item variant, Mythic item level 318"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 68,
+              "source": "Warcraft Wiki item variant, Mythic item level 318"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 125,
+              "source": "Warcraft Wiki item variant, Mythic item level 318"
             }
           ]
         },
@@ -5759,179 +6053,56 @@
           ]
         },
         {
-          "itemId": 271491,
+          "itemId": 271490,
           "setId": "skulking-viper-s-ambush",
-          "name": "Skulking Viper's Coiled Legwraps",
-          "slot": "Legs",
-          "variant": "Heroic 3/6 observed",
-          "itemLevel": 311,
+          "name": "Jaws of the Skulking Viper",
+          "slot": "Shoulders",
+          "variant": "Item level 321 observed",
+          "itemLevel": 321,
           "candidate": false,
           "verificationScope": "observed-version-only",
-          "sourceUrl": "https://warcraft.wiki.gg/wiki/Skulking_Viper%27s_Coiled_Legwraps",
+          "sourceUrl": "https://www.wowhead.com/item=271490/jaws-of-the-skulking-viper?bonus=12846%3A13334%3A6652%3A13694%3A13697%3A1574&ilvl=321&spec=254",
           "stats": [
             {
               "type": {
                 "name": "agility"
-              },
-              "value": 152,
-              "source": "Warcraft Wiki item variant, Heroic item level 311"
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 3002,
-              "source": "Warcraft Wiki item variant, Heroic item level 311"
-            },
-            {
-              "type": {
-                "name": "haste"
-              },
-              "value": 64,
-              "source": "Warcraft Wiki item variant, Heroic item level 311"
-            },
-            {
-              "type": {
-                "name": "mastery"
-              },
-              "value": 118,
-              "source": "Warcraft Wiki item variant, Heroic item level 311"
-            }
-          ]
-        },
-        {
-          "itemId": 271491,
-          "setId": "skulking-viper-s-ambush",
-          "name": "Skulking Viper's Coiled Legwraps",
-          "slot": "Legs",
-          "variant": "Mythic 3/6 observed",
-          "itemLevel": 318,
-          "candidate": false,
-          "verificationScope": "observed-version-only",
-          "sourceUrl": "https://warcraft.wiki.gg/wiki/Skulking_Viper%27s_Coiled_Legwraps",
-          "stats": [
-            {
-              "type": {
-                "name": "agility"
-              },
-              "value": 172,
-              "source": "Warcraft Wiki item variant, Mythic item level 318"
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 3487,
-              "source": "Warcraft Wiki item variant, Mythic item level 318"
-            },
-            {
-              "type": {
-                "name": "haste"
-              },
-              "value": 68,
-              "source": "Warcraft Wiki item variant, Mythic item level 318"
-            },
-            {
-              "type": {
-                "name": "mastery"
               },
               "value": 125,
-              "source": "Warcraft Wiki item variant, Mythic item level 318"
-            }
-          ]
-        },
-        {
-          "itemId": 271491,
-          "setId": "skulking-viper-s-ambush",
-          "name": "Skulking Viper's Coiled Legwraps",
-          "slot": "Legs",
-          "variant": "Veteran 3/6 observed",
-          "itemLevel": 285,
-          "candidate": false,
-          "verificationScope": "observed-version-only",
-          "sourceUrl": "https://warcraft.wiki.gg/wiki/Skulking_Viper%27s_Coiled_Legwraps",
-          "stats": [
-            {
-              "type": {
-                "name": "agility"
-              },
-              "value": 119,
-              "source": "Warcraft Wiki item page, item level 285"
+              "source": "Wowhead tooltip, item level 321"
             },
             {
               "type": {
                 "name": "stamina"
               },
-              "value": 2219,
-              "source": "Warcraft Wiki item page, item level 285"
+              "value": 2527,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 50,
+              "source": "Wowhead tooltip, item level 321"
             },
             {
               "type": {
                 "name": "haste"
               },
-              "value": 57,
-              "source": "Warcraft Wiki item page, item level 285"
-            },
-            {
-              "type": {
-                "name": "mastery"
-              },
-              "value": 105,
-              "source": "Warcraft Wiki item page, item level 285"
+              "value": 93,
+              "source": "Wowhead tooltip, item level 321"
             }
           ]
         },
         {
-          "itemId": 271491,
+          "itemId": 271490,
           "setId": "skulking-viper-s-ambush",
-          "name": "Skulking Viper's Coiled Legwraps",
-          "slot": "Legs",
-          "variant": "Champion 3/6 observed",
-          "itemLevel": 298,
-          "candidate": false,
-          "verificationScope": "observed-version-only",
-          "sourceUrl": "https://warcraft.wiki.gg/wiki/Skulking_Viper%27s_Coiled_Legwraps",
-          "stats": [
-            {
-              "type": {
-                "name": "agility"
-              },
-              "value": 135,
-              "source": "Warcraft Wiki item page, item level 298"
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 2579,
-              "source": "Warcraft Wiki item page, item level 298"
-            },
-            {
-              "type": {
-                "name": "haste"
-              },
-              "value": 60,
-              "source": "Warcraft Wiki item page, item level 298"
-            },
-            {
-              "type": {
-                "name": "mastery"
-              },
-              "value": 112,
-              "source": "Warcraft Wiki item page, item level 298"
-            }
-          ]
-        },
-        {
-          "itemId": 271493,
-          "setId": "skulking-viper-s-ambush",
-          "name": "Skulking Viper's Hidepiercers",
-          "slot": "Hands",
+          "name": "Jaws of the Skulking Viper",
+          "slot": "Shoulders",
           "variant": "Mythic 6/6 observed",
           "itemLevel": 334,
           "candidate": false,
           "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/item=271493/skulking-vipers-hidepiercers?bonus=13335%3A13691%3A6652%3A13697%3A12854&ilvl=334&spec=254",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271490/jaws-of-the-skulking-viper?ilvl=334",
           "stats": [
             {
               "type": {
@@ -5939,13 +6110,6 @@
               },
               "value": 141,
               "source": "Wowhead tooltip, item level 334"
-            },
-            {
-              "type": {
-                "name": "intellect"
-              },
-              "value": 141,
-              "source": "Wowhead tooltip, item level 334 (primary stat shown for Hunter class/spec context)"
             },
             {
               "type": {
@@ -5956,58 +6120,17 @@
             },
             {
               "type": {
-                "name": "haste"
-              },
-              "value": 99,
-              "source": "Wowhead tooltip, item level 334"
-            },
-            {
-              "type": {
-                "name": "versatility"
+                "name": "criticalStrike"
               },
               "value": 52,
               "source": "Wowhead tooltip, item level 334"
-            }
-          ]
-        },
-        {
-          "itemId": 271493,
-          "setId": "skulking-viper-s-ambush",
-          "name": "Skulking Viper's Hidepiercers",
-          "slot": "Hands",
-          "variant": "Hero 2/6 observed",
-          "itemLevel": 308,
-          "candidate": false,
-          "verificationScope": "observed-version-only",
-          "sourceUrl": "https://warcraft.wiki.gg/wiki/Skulking_Viper%27s_Hidepiercers",
-          "stats": [
-            {
-              "type": {
-                "name": "agility"
-              },
-              "value": 111,
-              "source": "Warcraft Wiki tooltip, item level 308"
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 2172,
-              "source": "Warcraft Wiki tooltip, item level 308"
             },
             {
               "type": {
                 "name": "haste"
               },
-              "value": 89,
-              "source": "Warcraft Wiki tooltip, item level 308"
-            },
-            {
-              "type": {
-                "name": "versatility"
-              },
-              "value": 46,
-              "source": "Warcraft Wiki tooltip, item level 308"
+              "value": 98,
+              "source": "Wowhead tooltip, item level 334"
             }
           ]
         }
