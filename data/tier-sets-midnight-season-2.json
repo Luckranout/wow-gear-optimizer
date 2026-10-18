@@ -31596,6 +31596,114 @@
           ],
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271457,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Jeweled Gauntlets of the Jade Warlord",
+          "slot": "Hands",
+          "variant": "Champion 5/6 observed",
+          "itemLevel": 305,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271457/jeweled-gauntlets-of-the-jade-warlord?bonus=13333%3A13691%3A6652%3A13697%3A12837&class=1&ilvl=305&spec=72",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 108,
+              "source": "Wowhead item tooltip, item level 305"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2096,
+              "source": "Wowhead item tooltip, item level 305"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 89,
+              "source": "Wowhead item tooltip, item level 305"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 44,
+              "source": "Wowhead item tooltip, item level 305"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 108,
+              "source": "Wowhead item tooltip, item level 305"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271457,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Jeweled Gauntlets of the Jade Warlord",
+          "slot": "Hands",
+          "variant": "Hero 4/6 observed",
+          "itemLevel": 315,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271457/jeweled-gauntlets-of-the-jade-warlord?bonus=13334%3A13691%3A6652%3A13697%3A12844&spec=71",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 118,
+              "source": "Wowhead item tooltip, item level 315"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2358,
+              "source": "Wowhead item tooltip, item level 315"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 93,
+              "source": "Wowhead item tooltip, item level 315"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 46,
+              "source": "Wowhead item tooltip, item level 315"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 118,
+              "source": "Wowhead item tooltip, item level 315"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "itemIdsVerified": false,
@@ -32674,10 +32782,106 @@
               "source": "Wowhead item tooltip, item level 318"
             }
           ]
+        },
+        {
+          "itemId": 271457,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Jeweled Gauntlets of the Jade Warlord",
+          "slot": "Hands",
+          "variant": "Champion 5/6 observed",
+          "itemLevel": 305,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271457/jeweled-gauntlets-of-the-jade-warlord?bonus=13333%3A13691%3A6652%3A13697%3A12837&class=1&ilvl=305&spec=72",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 108,
+              "source": "Wowhead item tooltip, item level 305"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2096,
+              "source": "Wowhead item tooltip, item level 305"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 89,
+              "source": "Wowhead item tooltip, item level 305"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 44,
+              "source": "Wowhead item tooltip, item level 305"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 108,
+              "source": "Wowhead item tooltip, item level 305"
+            }
+          ]
+        },
+        {
+          "itemId": 271457,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Jeweled Gauntlets of the Jade Warlord",
+          "slot": "Hands",
+          "variant": "Hero 4/6 observed",
+          "itemLevel": 315,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271457/jeweled-gauntlets-of-the-jade-warlord?bonus=13334%3A13691%3A6652%3A13697%3A12844&spec=71",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 118,
+              "source": "Wowhead item tooltip, item level 315"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2358,
+              "source": "Wowhead item tooltip, item level 315"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 93,
+              "source": "Wowhead item tooltip, item level 315"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 46,
+              "source": "Wowhead item tooltip, item level 315"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 118,
+              "source": "Wowhead item tooltip, item level 315"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Source-verified candidates include baseline Raid Finder/Normal/Heroic/Mythic plus Mythic 6/6 for Head, Shoulders, and Chest. Hands have exact source-backed item versions at 295, 308, 318, 321 (dropped-item stat variant), and 334; Legs have exact versions at 321 and 334. Baseline Hands 282 and Legs 285/298/311/324 remain missing from verified candidate coverage. The 344 chest item remains a separate special version, not Mythic 6/6 at 334.",
+      "variantObservationsNote": "Source-verified candidates include baseline Raid Finder/Normal/Heroic/Mythic plus Mythic 6/6 for Head, Shoulders, and Chest. Hands have exact source-backed versions at 295, 305, 308, 315, 318, 321, and 334; Legs have exact versions at 321 and 334. Baseline Hands 282 and Legs 285/298/311/324 remain missing from verified candidate coverage. The 344 chest item remains a separate special version, not Mythic 6/6 at 334.",
       "candidateVariantsAvailable": true
     }
   ],
@@ -32705,7 +32909,7 @@
       "Gladiator",
       "Elite"
     ],
-    "note": "Source-backed baseline candidate versions exist for Death Knight, Demon Hunter, Druid, Evoker, Hunter, Mage, Monk, Paladin, Priest, Rogue, and Shaman. Warlock has source-backed baseline candidates for all five slots. Warrior now has exact candidates including baseline difficulty maps for Head, Shoulders, and Chest, Hands at 295/308/318/321/334, and Legs at 321/334; baseline Hands 282 and Legs 285/298/311/324 remain incomplete. Druid and Monk each have 24/25 candidates pending exact Legs 334 upgrade-rank proof. No class is marked fully variant-verified until every required upgrade rank is source-verified.",
+    "note": "Source-backed baseline candidate versions exist for Death Knight, Demon Hunter, Druid, Evoker, Hunter, Mage, Monk, Paladin, Priest, Rogue, and Shaman. Warlock has source-backed baseline candidates for all five slots. Warrior has exact candidates including baseline difficulty maps for Head, Shoulders, and Chest, Hands at 295/305/308/315/318/321/334, and Legs at 321/334; baseline Hands 282 and Legs 285/298/311/324 remain incomplete. Druid and Monk each have 24/25 candidates pending exact Legs 334 upgrade-rank proof. No class is marked fully variant-verified until every required upgrade rank is source-verified.",
     "verifiedClasses": [],
     "statsVerifiedClasses": [
       "Death Knight",
