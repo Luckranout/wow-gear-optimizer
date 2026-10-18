@@ -21,7 +21,7 @@ For every class marked incomplete below, all five slots still need a complete, s
 | Class | Current evidence | Highest-priority gaps | Required before eligibility |
 |---|---:|---|---|
 | Death Knight | 11 observations | Head has observed levels 305/308/311/321/334; Shoulders 295/308/318. Chest, Hands, Legs only have one observed version each. | Complete all five slot maps; verify every difficulty/upgrade variant and preserve source-backed stat variants. |
-| Demon Hunter | 5 observations | Hands only base level 219; Legs level 311; Chest level 321; Head and Shoulders level 334. | Upgrade Hands and Legs evidence; verify complete variants for all five slots. |
+| Demon Hunter | 8 observations | Hands levels 219 and 305; Legs levels 295, 311, and 318; Chest level 321; Head and Shoulders level 334. | Verify remaining Hands/Legs difficulty and upgrade variants, then complete all five slot maps. |
 | Druid | 5 observations | Legs only base level 219; Chest level 292; Shoulders level 308. Hands and Head have level 334 observations only. | Verify upgraded Legs, Chest/Shoulders variants, and all missing difficulty variants for all five slots. |
 | Evoker | 5 observations | Hands level 321; remaining four slots level 334 only. Agility/Intellect representation needs spec-aware verification. | Verify all difficulty/upgrade variants and validate primary-stat handling for each Evoker specialization. |
 | Hunter | 5 observations | Legs only base level 219; Hands level 321; other three slots level 334 only. | Verify upgraded Legs and all missing difficulty/upgrade variants across all slots. |
