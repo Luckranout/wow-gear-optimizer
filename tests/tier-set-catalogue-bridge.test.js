@@ -1903,7 +1903,11 @@ test("Druid has baseline candidates and excludes unranked item-level-334 Legs", 
   }
   assert.equal(druid.variantObservationsStatus, "partial",
     "baseline candidates must not imply all intermediate upgrade ranks are complete");
-  const unrankedLegs = druid.verifiedVariantObservations.find(piece => piece.slot === "Legs" && piece.itemLevel === 334);\n  assert.ok(unrankedLegs);\n  assert.equal(unrankedLegs.candidate, false);\n  assert.match(unrankedLegs.variant, /upgrade rank unverified/i);\n  assert.ok(druid.verifiedVariantObservations.every(piece => piece.candidate === false),
+  const unrankedLegs = druid.verifiedVariantObservations.find(piece => piece.slot === "Legs" && piece.itemLevel === 334);
+  assert.ok(unrankedLegs);
+  assert.equal(unrankedLegs.candidate, false);
+  assert.match(unrankedLegs.variant, /upgrade rank unverified/i);
+  assert.ok(druid.verifiedVariantObservations.every(piece => piece.candidate === false),
     "additional upgrade-rank observations remain evidence-only");
 });
 
