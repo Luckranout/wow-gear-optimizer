@@ -150,7 +150,7 @@ test("Death Knight source-checked tier versions preserve observed stats without 
   assert.deepEqual(headLevels, [285, 298, 305, 308, 311, 321, 324, 334],
     "Head must retain each independently sourced item-level observation");
   const shoulderLevels = observations.filter(piece => piece.itemId === 271472).map(piece => piece.itemLevel).sort((a, b) => a - b);
-  assert.deepEqual(shoulderLevels, [282, 295, 308, 318, 321],
+  assert.deepEqual(shoulderLevels, [282, 295, 308, 318, 321, 334],
     "Shoulders must retain each independently sourced item-level observation");
   for (const [itemId, itemLevel, expected] of [
     [271474, 285, { strength: 119, stamina: 2219, criticalStrike: 112, mastery: 49 }],
