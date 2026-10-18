@@ -113,7 +113,7 @@ test("Warrior source-checked variant observations remain evidence-only and prese
   assert.equal(observations.length, 28);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(warrior.variantObservationsStatus, "partial");
-  assert.match(warrior.variantObservationsNote, /Hands have exact source-backed versions at 295, 305, 308, 315, 318, 321, and 334/i);
+  assert.match(warrior.variantObservationsNote, /Additional explicit source-verified intermediate upgrade-rank records are optimizer candidates/i);
   const manifestWarrior = manifest.sets.find(set => set.className === "Warrior");
   const manifestSlotsById = new Map(manifestWarrior.pieces.map(piece => [Number(piece.itemId), piece.slot]));
   for (const piece of observations) {
@@ -1136,7 +1136,7 @@ test("Rogue source-backed tier item versions remain evidence-only and match Wowh
   assert.equal(observations.length, 30);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(rogue.variantObservationsStatus, "partial");
-  assert.match(rogue.variantObservationsNote, /remain unverified/i);
+  assert.match(rogue.variantObservationsNote, /Ranks not independently source-verified remain evidence-only/i);
   const manifestSet = manifest.sets.find(set => set.className === "Rogue");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
   for (const piece of observations) {
@@ -1355,7 +1355,7 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
   assert.equal(warlock.variantObservationsStatus, "partial");
   assert.equal(warlock.pieces.length, 31, "Warlock candidates include baseline and exact intermediate upgrade ranks");
   assert.match(warlock.variantObservationsNote, /Additional explicit source-verified upgrade-rank observations.*are also candidates/i);
-  assert.match(warlock.variantObservationsNote, /other difficulty and upgrade variants remain unverified/i);
+  assert.match(warlock.variantObservationsNote, /Remaining ranks not independently source-verified stay evidence-only/i);
   const manifestSet = manifest.sets.find(set => set.className === "Warlock");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
   for (const piece of observations) {
