@@ -679,10 +679,11 @@ test("Druid source-checked tier versions remain evidence-only and preserve obser
   const mythicLegs = observations.find(piece => piece.itemId === 271527 && piece.itemLevel === 334);
   assert.ok(mythicLegs, "missing Druid Legs item-level-334 observation");
   assert.equal(mythicLegs.candidate, false);
-  assert.equal(mythicLegs.variant, "Item level 334 observed (equipped profile)");
-  assert.equal(Number(new URL(mythicLegs.sourceUrl).searchParams.get("ilvl")), 334);
+  assert.equal(mythicLegs.variant, "Mythic 6/6 observed");
+  assert.equal(new URL(mythicLegs.sourceUrl).hostname, "mythicsim.com");
   assert.deepEqual(Object.fromEntries(mythicLegs.stats.map(stat => [stat.type.name, stat.value])),
-    { agility: 189, intellect: 189, stamina: 3910, haste: 63, mastery: 138 });
+    { agility: 189, intellect: 189, stamina: 3910, criticalStrike: 67, haste: 134 });
+  assert.ok(mythicLegs.stats.every(stat => stat.source.includes("item level 334")));
   assert.equal(druid.itemIdsVerified, false,
     "partial observed versions must not promote the complete class variant map");
 });
