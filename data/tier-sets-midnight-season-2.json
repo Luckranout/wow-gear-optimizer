@@ -11593,6 +11593,47 @@
           "setId": "jade-warlord-s-dominion",
           "name": "Cuirass of the Jade Warlord",
           "slot": "Chest",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271459/cuirass-of-the-jade-warlord?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, Mythic 6/6 item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip, Mythic 6/6 item level 334"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 59,
+              "source": "Wowhead tooltip, Mythic 6/6 item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 142,
+              "source": "Wowhead tooltip, Mythic 6/6 item level 334"
+            }
+          ]
+        },
+        {
+          "itemId": 271459,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Cuirass of the Jade Warlord",
+          "slot": "Chest",
           "variant": "Mythic 6/6 observed",
           "itemLevel": 344,
           "candidate": false,
