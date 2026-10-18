@@ -707,9 +707,15 @@ test("Mage source-backed tier item versions remain evidence-only and match Wowhe
 test("Priest source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
   const priest = catalogue.sets.find(set => set.class === "Priest");
   const observations = priest.verifiedVariantObservations || [];
-  assert.equal(observations.length, 5);
+  assert.equal(observations.length, 9);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(priest.variantObservationsStatus, "partial");
+  const handsByLevel = new Map(observations.filter(piece => piece.itemId === 271556).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...handsByLevel.keys()].sort((a, b) => a - b), [282, 295, 305, 308, 321]);
+  assert.equal(handsByLevel.get(282).variant, "Veteran 2/6 observed");
+  assert.equal(handsByLevel.get(295).variant, "Champion 2/6 observed");
+  assert.equal(handsByLevel.get(308).variant, "Hero 2/6 observed");
+  assert.equal(handsByLevel.get(321).variant, "Myth 2/6 observed");
   assert.match(priest.variantObservationsNote, /does not establish coverage/i);
   const manifestSet = manifest.sets.find(set => set.className === "Priest");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
@@ -723,16 +729,21 @@ test("Priest source-backed tier item versions remain evidence-only and match Wow
     assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
   }
   const expected = {
-    271558: { intellect: 189, stamina: 3910, criticalStrike: 62, mastery: 139 },
-    271556: { intellect: 108, stamina: 2096, criticalStrike: 47, mastery: 87 },
-    271555: { intellect: 189, stamina: 3910, criticalStrike: 141, mastery: 60 },
-    271554: { intellect: 189, stamina: 3910, haste: 143, versatility: 58 },
-    271553: { intellect: 141, stamina: 2932, criticalStrike: 101, haste: 49 }
+    "271558:334": { intellect: 189, stamina: 3910, criticalStrike: 62, mastery: 139 },
+    "271556:305": { intellect: 108, stamina: 2096, criticalStrike: 47, mastery: 87 },
+    "271556:282": { intellect: 87, stamina: 1606, criticalStrike: 42, mastery: 77 },
+    "271556:295": { intellect: 98, stamina: 1869, criticalStrike: 44, mastery: 83 },
+    "271556:308": { intellect: 111, stamina: 2172, criticalStrike: 47, mastery: 88 },
+    "271556:321": { intellect: 125, stamina: 2527, criticalStrike: 50, mastery: 93 },
+    "271555:334": { intellect: 189, stamina: 3910, criticalStrike: 141, mastery: 60 },
+    "271554:334": { intellect: 189, stamina: 3910, haste: 143, versatility: 58 },
+    "271553:334": { intellect: 141, stamina: 2932, criticalStrike: 101, haste: 49 }
   };
   for (const piece of observations) {
+    const key = `${piece.itemId}:${piece.itemLevel}`;
     assert.deepEqual(
       Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])),
-      expected[piece.itemId]
+      expected[key]
     );
   }
   assert.equal(observations.find(piece => piece.itemId === 271556).itemLevel, 305);
