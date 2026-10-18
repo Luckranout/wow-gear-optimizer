@@ -6945,6 +6945,60 @@
           ],
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271527,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Leggings",
+          "slot": "Legs",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271527/enigmatic-dreamwatchers-leggings?ilvl=334",
+          "rankSourceUrl": "https://guildsofwow.com/player/202222/vikke",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 189,
+              "source": "Wowhead exact item-level-334 tooltip; Mythic 6/6 rank independently verified by Guilds of WoW equipped profile."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Azeroth Codex equipped profile reports 189 Intellect; Mythic 6/6 rank independently verified by Guilds of WoW equipped profile."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead exact item-level-334 tooltip; Mythic 6/6 rank independently verified by Guilds of WoW equipped profile."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 67,
+              "source": "MythicSim Guardian Druid tier listing reports 67 Critical Strike; Mythic 6/6 rank independently verified by Guilds of WoW equipped profile."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 134,
+              "source": "MythicSim Guardian Druid tier listing reports 134 Haste; Mythic 6/6 rank independently verified by Guilds of WoW equipped profile."
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "itemIdsVerified": false,
@@ -8219,7 +8273,7 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Twenty-eight source-checked observations remain evidence-only. Twenty-four exact candidate versions cover Head, Shoulders, Chest, and Hands at baseline difficulties plus Mythic 6/6 at 334, and Legs at the four baseline difficulties. The Legs 334 observation lacks source-verified upgrade-rank evidence and remains ineligible. Intermediate upgrade ranks remain evidence-only. Added 1 additional source-verified intermediate upgrade-rank candidates. Unverified ranks remain evidence-only; full rank-by-rank coverage remains partial.",
+      "variantObservationsNote": "Twenty-eight source-checked observations remain evidence-only. Twenty-five exact candidate versions cover Head, Shoulders, Chest, and Hands at baseline difficulties plus Mythic 6/6 at 334, and Legs at the four baseline difficulties plus Mythic 6/6 at 334. The Legs 334 item version is verified as Mythic 6/6 by an equipped-profile source; the separate observation ledger remains evidence-only. Intermediate upgrade ranks remain evidence-only. Added 1 additional source-verified intermediate upgrade-rank candidates. Unverified ranks remain evidence-only; full rank-by-rank coverage remains partial.",
       "candidateVariantsAvailable": true
     },
     {
@@ -17041,6 +17095,60 @@
           ],
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271518,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Pantaloons of the Monkey King",
+          "slot": "Legs",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271518/pantaloons-of-the-monkey-king?ilvl=334",
+          "rankSourceUrl": "https://guildsofwow.com/player/90713/minocow",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 189,
+              "source": "Azeroth Codex equipped profile reports 189 Agility; Myth 6/6 rank independently verified by Guilds of WoW equipped profile."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Azeroth Codex equipped profile reports 189 Intellect; Myth 6/6 rank independently verified by Guilds of WoW equipped profile."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Azeroth Codex equipped profile reports 3910 Stamina; Myth 6/6 rank independently verified by Guilds of WoW equipped profile."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 130,
+              "source": "Azeroth Codex equipped profile reports 130 Critical Strike; Myth 6/6 rank independently verified by Guilds of WoW equipped profile."
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 71,
+              "source": "Azeroth Codex equipped profile reports 71 Versatility; Myth 6/6 rank independently verified by Guilds of WoW equipped profile."
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "itemIdsVerified": false,
@@ -18241,7 +18349,7 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Twenty-five source-checked observations remain evidence-only. Twenty-four exact candidate versions cover Head, Shoulders, Chest, and Hands at baseline difficulties plus Mythic 6/6 at 334, and Legs at the four baseline difficulties. The Legs 334 observation lacks source-verified upgrade-rank evidence and remains ineligible. Intermediate upgrade ranks remain evidence-only.",
+      "variantObservationsNote": "Twenty-five source-checked observations remain evidence-only. Twenty-five exact candidate versions cover Head, Shoulders, Chest, and Hands at baseline difficulties plus Mythic 6/6 at 334, and Legs at the four baseline difficulties plus Mythic 6/6 at 334. The Legs 334 item version is verified as Mythic 6/6 by an equipped-profile source; the separate observation ledger remains evidence-only. Intermediate upgrade ranks remain evidence-only.",
       "candidateVariantsAvailable": true
     },
     {
@@ -34783,7 +34891,7 @@
       "Gladiator",
       "Elite"
     ],
-    "note": "Shaman's five tier IDs remain verified across the six canonical variants, with intermediate rank candidates stored separately from the canonical 30-record mapping. Exact source-verified intermediate upgrade-rank candidates are promoted for Death Knight, Demon Hunter, Druid, Mage, Paladin, Priest, Rogue, Warlock, and Warrior where available. Druid and Monk still lack exact rank evidence for Legs 334; Warrior still lacks baseline Hands 282 and Legs 285/298/311/324. No class has complete rank-by-rank coverage.",
+    "note": "Shaman's five tier IDs remain verified across the six canonical variants, with intermediate rank candidates stored separately from the canonical 30-record mapping. Exact source-verified intermediate upgrade-rank candidates are promoted for Death Knight, Demon Hunter, Druid, Mage, Paladin, Priest, Rogue, Warlock, and Warrior where available. Druid and Monk Legs 334 are now exact Mythic 6/6 candidates with independent equipped-profile rank evidence; Warrior still lacks baseline Hands 282 and Legs 285/298/311/324. No class has complete rank-by-rank coverage.",
     "verifiedClasses": [
       "Shaman"
     ],
