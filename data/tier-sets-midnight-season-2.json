@@ -1221,6 +1221,190 @@
           ],
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271474,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Casque",
+          "slot": "Head",
+          "variant": "Hero 6/6 observed",
+          "itemLevel": 321,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271474/baleful-grave-knights-casque?bonus=12846%3A13334%3A6652%3A13696%3A13692%3A13698%3A1574&ilvl=321&spec=251",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 167,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3369,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 132,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 58,
+              "source": "Wowhead tooltip, item level 321"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271474,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Casque",
+          "slot": "Head",
+          "variant": "Champion 6/6 observed",
+          "itemLevel": 308,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/ptr-2/item=271474/baleful-grave-knights-casque?bonus=13692%3A13439%3A40%3A13696%3A13698%3A12838&class=6&ilvl=308&spec=250",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 148,
+              "source": "Wowhead tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2896,
+              "source": "Wowhead tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 125,
+              "source": "Wowhead tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 55,
+              "source": "Wowhead tooltip, item level 308"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271477,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Breastplate",
+          "slot": "Chest",
+          "variant": "Hero 6/6 observed",
+          "itemLevel": 321,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271477/baleful-grave-knights-breastplate?bonus=42%3A13440%3A13690%3A13698%3A12846&ilvl=321&spec=252",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 167,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3369,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 56,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 135,
+              "source": "Wowhead tooltip, item level 321"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271475,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Deathgrips",
+          "slot": "Hands",
+          "variant": "Champion 3/6 observed",
+          "itemLevel": 298,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271475/baleful-grave-knights-deathgrips?bonus=6652%3A13691%3A13697%3A12835&ilvl=298&spec=252",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 101,
+              "source": "Wowhead tooltip, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1935,
+              "source": "Wowhead tooltip, item level 298"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 44,
+              "source": "Wowhead tooltip, item level 298"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 85,
+              "source": "Wowhead tooltip, item level 298"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "itemIdsVerified": false,
@@ -2568,7 +2752,7 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Twenty-five exact candidate versions cover all five slots at the four source-documented baseline PvE difficulties plus Mythic 6/6 item level 334. The full class variant map remains partial because intermediate upgrade ranks are not all verified; observations outside the candidate list remain evidence-only.",
+      "variantObservationsNote": "Twenty-five exact candidate versions cover all five slots at the four source-documented baseline PvE difficulties plus Mythic 6/6 item level 334. The full class variant map remains partial because intermediate upgrade ranks are not all verified; observations outside the candidate list remain evidence-only. Added 4 additional source-verified intermediate upgrade-rank candidates. Unverified ranks remain evidence-only; full rank-by-rank coverage remains partial.",
       "candidateVariantsAvailable": true
     },
     {
@@ -3810,6 +3994,282 @@
           "secondaryStats": [
             "Mastery",
             "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271536,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Legwraps",
+          "slot": "Legs",
+          "variant": "Champion 4/6 observed",
+          "itemLevel": 295,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271536/abyssal-doomhounds-legwraps?bonus=6652%3A13693%3A13698%3A12830&ilvl=295&spec=1480",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 131,
+              "source": "Wowhead tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2492,
+              "source": "Wowhead tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 52,
+              "source": "Wowhead tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 117,
+              "source": "Wowhead tooltip, item level 295"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271536,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Legwraps",
+          "slot": "Legs",
+          "variant": "Myth 1/6 observed",
+          "itemLevel": 318,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271536/abyssal-doomhounds-legwraps?bonus=13334%3A13693%3A6652%3A13698%3A12845&ilvl=318&spec=577",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 162,
+              "source": "Wowhead tooltip, item level 318"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3254,
+              "source": "Wowhead tooltip, item level 318"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 58,
+              "source": "Wowhead tooltip, item level 318"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 130,
+              "source": "Wowhead tooltip, item level 318"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271538,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Studded Gauntlets",
+          "slot": "Hands",
+          "variant": "Hero 1/6 observed",
+          "itemLevel": 305,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271538/abyssal-doomhounds-studded-gauntlets?bonus=12841&ilvl=305",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 108,
+              "source": "Wowhead tooltip, Hero 1/6 item level 305"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2096,
+              "source": "Wowhead tooltip, Hero 1/6 item level 305"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 92,
+              "source": "Wowhead tooltip, Hero 1/6 item level 305"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 42,
+              "source": "Wowhead tooltip, Hero 1/6 item level 305"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271540,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Coreguard",
+          "slot": "Chest",
+          "variant": "Hero 6/6 observed",
+          "itemLevel": 321,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271540/abyssal-doomhounds-coreguard?bonus=6652%3A13440%3A13690%3A13698%3A12846&class=12&ilvl=321&spec=581",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 167,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3369,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 130,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 60,
+              "source": "Wowhead tooltip, item level 321"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271538,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Studded Gauntlets",
+          "slot": "Hands",
+          "variant": "Hero 3/6 observed",
+          "itemLevel": 311,
+          "candidate": true,
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Abyssal_Doomhound%27s_Studded_Gauntlets",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki item page, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Warcraft Wiki item page, item level 311"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 94,
+              "source": "Warcraft Wiki item page, item level 311"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 43,
+              "source": "Warcraft Wiki item page, item level 311"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271538,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Studded Gauntlets",
+          "slot": "Hands",
+          "variant": "Myth 3/6 observed",
+          "itemLevel": 324,
+          "candidate": true,
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Abyssal_Doomhound%27s_Studded_Gauntlets",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 98,
+              "source": "Warcraft Wiki item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 45,
+              "source": "Warcraft Wiki item page, item level 324"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
           ],
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
@@ -5215,7 +5675,7 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Twenty-five exact candidate versions cover all five slots at the source-documented Raid Finder, Normal, Heroic, and Mythic baseline levels plus Mythic 6/6 item level 334. The full class variant map remains partial because intermediate upgrade ranks are not all verified; observations outside the candidate list remain evidence-only.",
+      "variantObservationsNote": "Twenty-five exact candidate versions cover all five slots at the source-documented Raid Finder, Normal, Heroic, and Mythic baseline levels plus Mythic 6/6 item level 334. The full class variant map remains partial because intermediate upgrade ranks are not all verified; observations outside the candidate list remain evidence-only. Added 6 additional source-verified intermediate upgrade-rank candidates. Unverified ranks remain evidence-only; full rank-by-rank coverage remains partial.",
       "candidateVariantsAvailable": true
     },
     {
@@ -6436,6 +6896,52 @@
           "secondaryStats": [
             "Haste",
             "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271528,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Somnolent Stare",
+          "slot": "Head",
+          "variant": "Hero 6/6 observed",
+          "itemLevel": 321,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271528/enigmatic-dreamwatchers-somnolent-stare?bonus=12846&ilvl=321",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 167,
+              "source": "Wowhead tooltip, item level 321; primary stat is Agility or Intellect by specialization"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3369,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 134,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 56,
+              "source": "Wowhead tooltip, item level 321"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Versatility"
           ],
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
@@ -7712,7 +8218,7 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Twenty-eight source-checked observations remain evidence-only. Twenty-four exact candidate versions cover Head, Shoulders, Chest, and Hands at baseline difficulties plus Mythic 6/6 at 334, and Legs at the four baseline difficulties. The Legs 334 observation lacks source-verified upgrade-rank evidence and remains ineligible. Intermediate upgrade ranks remain evidence-only.",
+      "variantObservationsNote": "Twenty-eight source-checked observations remain evidence-only. Twenty-four exact candidate versions cover Head, Shoulders, Chest, and Hands at baseline difficulties plus Mythic 6/6 at 334, and Legs at the four baseline difficulties. The Legs 334 observation lacks source-verified upgrade-rank evidence and remains ineligible. Intermediate upgrade ranks remain evidence-only. Added 1 additional source-verified intermediate upgrade-rank candidates. Unverified ranks remain evidence-only; full rank-by-rank coverage remains partial.",
       "candidateVariantsAvailable": true
     },
     {
@@ -14065,6 +14571,52 @@
           ],
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271564,
+          "setId": "primal-leywardens-attire",
+          "name": "Crown of the Primal Leywarden",
+          "slot": "Head",
+          "variant": "Hero 4/6 observed",
+          "itemLevel": 315,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271564/crown-of-the-primal-leywarden?bonus=13334%3A13692%3A6652%3A13696%3A13698%3A12844&class=8&ilvl=315&spec=62",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 158,
+              "source": "Wowhead item tooltip explicitly lists Mythic+ Hero 4/6 at item level 315."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3143,
+              "source": "Wowhead item tooltip explicitly lists Mythic+ Hero 4/6 at item level 315."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 127,
+              "source": "Wowhead item tooltip explicitly lists Mythic+ Hero 4/6 at item level 315."
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 59,
+              "source": "Wowhead item tooltip explicitly lists Mythic+ Hero 4/6 at item level 315."
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "itemIdsVerified": false,
@@ -15207,7 +15759,7 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Twenty-six source-checked observations remain evidence-only. Twenty-five exact candidate versions cover the five slots at baseline PvE difficulties plus Mythic 6/6 item level 334. Baseline Legs versions use verified item ID 271566 while the item-level-334 version uses item ID 271563; both IDs are source-verified for the same named slot item. The full class variant map remains partial; intermediate upgrade ranks remain evidence-only.",
+      "variantObservationsNote": "Twenty-six source-checked observations remain evidence-only. Twenty-five exact candidate versions cover the five slots at baseline PvE difficulties plus Mythic 6/6 item level 334. Baseline Legs versions use verified item ID 271566 while the item-level-334 version uses item ID 271563; both IDs are source-verified for the same named slot item. The full class variant map remains partial; intermediate upgrade ranks remain evidence-only. Added 1 additional source-verified intermediate upgrade-rank candidates. Unverified ranks remain evidence-only; full rank-by-rank coverage remains partial.",
       "candidateVariantsAvailable": true,
       "verifiedVariantItemIds": {
         "Legs": [
@@ -18960,6 +19512,151 @@
           ],
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271468,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Bulwark of the Consecrated Flame",
+          "slot": "Chest",
+          "variant": "Champion 6/6 observed",
+          "itemLevel": 308,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271468/bulwark-of-the-consecrated-flame?bonus=42%3A13690%3A13698%3A12838&ilvl=308&spec=70",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 148,
+              "source": "Wowhead tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2896,
+              "source": "Wowhead tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 57,
+              "source": "Wowhead tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 123,
+              "source": "Wowhead tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 148,
+              "source": "Wowhead tooltip, item level 308"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271465,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Warhelm of the Consecrated Flame",
+          "slot": "Head",
+          "variant": "Hero 6/6 observed",
+          "itemLevel": 321,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271465/warhelm-of-the-consecrated-flame?bonus=12846%3A6652%3A13440%3A13695%3A13692%3A13698%3A1574&ilvl=321&spec=70",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 167,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3369,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 134,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 57,
+              "source": "Wowhead tooltip, item level 321"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271464,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Greaves of the Consecrated Flame",
+          "slot": "Legs",
+          "variant": "Mythic 1/6 observed",
+          "itemLevel": 318,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271464/greaves-of-the-consecrated-flame?class=2&ilvl=318",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 162,
+              "source": "Wowhead tooltip, item level 318"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3254,
+              "source": "Wowhead tooltip, item level 318"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 63,
+              "source": "Wowhead tooltip, item level 318"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 125,
+              "source": "Wowhead tooltip, item level 318"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "itemIdsVerified": false,
@@ -20281,7 +20978,7 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Twenty-nine source-checked observations remain evidence-only. Twenty-five exact candidate versions cover all five slots at baseline PvE difficulties plus Mythic 6/6 item level 334. Intermediate upgrade ranks remain evidence-only and full class variant coverage is unfinished.",
+      "variantObservationsNote": "Twenty-nine source-checked observations remain evidence-only. Twenty-five exact candidate versions cover all five slots at baseline PvE difficulties plus Mythic 6/6 item level 334. Intermediate upgrade ranks remain evidence-only and full class variant coverage is unfinished. Added 3 additional source-verified intermediate upgrade-rank candidates. Unverified ranks remain evidence-only; full rank-by-rank coverage remains partial.",
       "candidateVariantsAvailable": true
     },
     {
@@ -21512,6 +22209,98 @@
           ],
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271558,
+          "setId": "cosmic-penitent-s-raiment",
+          "name": "Cosmic Penitent's Eclipsing Robes",
+          "slot": "Chest",
+          "variant": "Hero 2/6 observed",
+          "itemLevel": 308,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271558/cosmic-penitents-eclipsing-robes?bonus=6652%3A13439%3A13690%3A13698%3A12838&class=5&ilvl=308&spec=257",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 148,
+              "source": "Wowhead tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2896,
+              "source": "Wowhead tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 56,
+              "source": "Wowhead tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 124,
+              "source": "Wowhead tooltip, item level 308"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271558,
+          "setId": "cosmic-penitent-s-raiment",
+          "name": "Cosmic Penitent's Eclipsing Robes",
+          "slot": "Chest",
+          "variant": "Hero 6/6 observed",
+          "itemLevel": 321,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271558/cosmic-penitents-eclipsing-robes?bonus=13334%3A13690%3A6652%3A13698%3A12846&ilvl=321&spec=257",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 167,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3369,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 59,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 131,
+              "source": "Wowhead tooltip, item level 321"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "itemIdsVerified": false,
@@ -22736,7 +23525,7 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Twenty-eight source-checked observations remain evidence-only. Twenty-five exact candidate versions cover all five slots at baseline PvE difficulties plus Mythic 6/6 item level 334. Intermediate upgrade ranks remain evidence-only and full class variant coverage is unfinished.",
+      "variantObservationsNote": "Twenty-eight source-checked observations remain evidence-only. Twenty-five exact candidate versions cover all five slots at baseline PvE difficulties plus Mythic 6/6 item level 334. Intermediate upgrade ranks remain evidence-only and full class variant coverage is unfinished. Added 2 additional source-verified intermediate upgrade-rank candidates. Unverified ranks remain evidence-only; full rank-by-rank coverage remains partial.",
       "candidateVariantsAvailable": true
     },
     {
@@ -26593,6 +27382,437 @@
           ],
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271483,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Serpent Crown of the Ophidian Oracle",
+          "slot": "Head",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 189,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 61,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 140,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "leech"
+              },
+              "value": 86,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271481,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hissing Mantle of the Ophidian Oracle",
+          "slot": "Shoulders",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271481/hissing-mantle-of-the-ophidian-oracle?bonus=13334%3A13694%3A6652%3A13697%3A13696%3A12854&class=7&ilvl=334&spec=264",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 141,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 141,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 52,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 99,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271486,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Fanged Raiment of the Ophidian Oracle",
+          "slot": "Chest",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271486/fanged-raiment-of-the-ophidian-oracle?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 189,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 141,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 60,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271484,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hexing Grips of the Ophidian Oracle",
+          "slot": "Hands",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle?bonus=13334%3A13691%3A6652%3A13697%3A12854&spec=263&ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 141,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 141,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 46,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 105,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271482,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Leggings of the Ophidian Oracle",
+          "slot": "Legs",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271482/leggings-of-the-ophidian-oracle?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 189,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 70,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 131,
+              "source": "Wowhead item tooltip explicitly lists Mythic 6/6 at item level 334."
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271483,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Serpent Crown of the Ophidian Oracle",
+          "slot": "Head",
+          "variant": "Hero 6/6",
+          "itemLevel": 321,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271483/serpent-crown-of-the-ophidian-oracle?bonus=6652%3A13440%3A13695%3A13692%3A13698%3A12846&ilvl=321&spec=262",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 167,
+              "source": "Wowhead item tooltip explicitly lists Hero 6/6 at item level 321."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 167,
+              "source": "Wowhead item tooltip explicitly lists Hero 6/6 at item level 321."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3369,
+              "source": "Wowhead item tooltip explicitly lists Hero 6/6 at item level 321."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 58,
+              "source": "Wowhead item tooltip explicitly lists Hero 6/6 at item level 321."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 133,
+              "source": "Wowhead item tooltip explicitly lists Hero 6/6 at item level 321."
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271484,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hexing Grips of the Ophidian Oracle",
+          "slot": "Hands",
+          "variant": "Hero 5/6",
+          "itemLevel": 318,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle?bonus=40%3A13440%3A13691%3A13697%3A12845&ilvl=318&spec=264",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 122,
+              "source": "Wowhead item tooltip explicitly lists Hero 5/6 at item level 318."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 122,
+              "source": "Wowhead item tooltip explicitly lists Hero 5/6 at item level 318."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2440,
+              "source": "Wowhead item tooltip explicitly lists Hero 5/6 at item level 318."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 43,
+              "source": "Wowhead item tooltip explicitly lists Hero 5/6 at item level 318."
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 98,
+              "source": "Wowhead item tooltip explicitly lists Hero 5/6 at item level 318."
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271483,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Serpent Crown of the Ophidian Oracle",
+          "slot": "Head",
+          "variant": "Hero 4/6",
+          "itemLevel": 315,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle?bonus=6652%3A12844%3A13696%3A13440%3A13692%3A13698%3A1568&ilvl=315&spec=263",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 158,
+              "source": "Wowhead item tooltip explicitly lists Hero 4/6 at item level 315."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 158,
+              "source": "Wowhead item tooltip explicitly lists Hero 4/6 at item level 315."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3143,
+              "source": "Wowhead item tooltip explicitly lists Hero 4/6 at item level 315."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 56,
+              "source": "Wowhead item tooltip explicitly lists Hero 4/6 at item level 315."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 129,
+              "source": "Wowhead item tooltip explicitly lists Hero 4/6 at item level 315."
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "itemIdsVerified": false,
@@ -27807,7 +29027,7 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Twenty exact PvE candidate versions cover all five slots at four source-documented baseline PvE difficulty levels. Ten additional PvP appearance records remain ineligible. Source-checked intermediate upgrade-rank observations are separate from candidates; full upgrade-track coverage remains partial.",
+      "variantObservationsNote": "Twenty exact PvE candidate versions cover all five slots at four source-documented baseline PvE difficulty levels. Ten additional PvP appearance records remain ineligible. Source-checked intermediate upgrade-rank observations are separate from candidates; full upgrade-track coverage remains partial. Added 8 additional source-verified intermediate upgrade-rank candidates. Unverified ranks remain evidence-only; full rank-by-rank coverage remains partial.",
       "baseItemIdsVerified": true,
       "candidateVariantsAvailable": true
     },
@@ -33559,7 +34779,7 @@
       "Gladiator",
       "Elite"
     ],
-    "note": "Source-verified intermediate upgrade-rank candidates have been added for Rogue, Warlock, and Warrior in addition to baseline and maximum-rank candidates. Druid and Monk each have 24/25 candidates pending exact Legs 334 rank evidence. Warrior still lacks baseline Hands 282 and Legs 285/298/311/324. No class is marked fully variant-verified until every required upgrade rank is source-verified.",
+    "note": "Exact source-verified intermediate upgrade-rank observations are promoted to optimizer candidates where the item ID matches the class's base slot item and the source pins the exact item level and numeric stats. Candidate coverage is broader than baseline+Mythic 6/6, but full rank-by-rank coverage remains partial where source variants are missing. Druid and Monk still lack exact upgrade-rank proof for Legs at item level 334; Warrior still lacks baseline Hands 282 and Legs 285/298/311/324.",
     "verifiedClasses": [],
     "statsVerifiedClasses": [
       "Death Knight",
