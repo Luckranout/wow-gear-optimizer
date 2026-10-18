@@ -105,7 +105,7 @@ test("Warrior source-checked variant observations remain evidence-only and prese
 test("Death Knight source-checked tier versions preserve observed stats without becoming optimizer candidates", () => {
   const deathKnight = catalogue.sets.find(set => set.class === "Death Knight");
   const observations = deathKnight.verifiedVariantObservations || [];
-  assert.equal(observations.length, 25);
+  assert.equal(observations.length, 26);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(deathKnight.variantObservationsStatus, "partial");
   assert.match(deathKnight.variantObservationsNote, /remain ineligible as optimizer candidates/i);
@@ -155,6 +155,16 @@ test("Death Knight source-checked tier versions preserve observed stats without 
   assert.deepEqual(
     Object.fromEntries(mythicHands.stats.map(stat => [stat.type.name, stat.value])),
     { strength: 141, stamina: 2932, criticalStrike: 52, mastery: 99 }
+  );
+  const championHands = observations.find(piece => piece.itemId === 271475 && piece.itemLevel === 298);
+  assert.ok(championHands, "missing Death Knight Champion 3/6 hands at item level 298");
+  assert.equal(championHands.variant, "Champion 3/6 observed");
+  assert.equal(championHands.candidate, false);
+  assert.equal(championHands.verificationScope, "observed-version-only");
+  assert.equal(Number(new URL(championHands.sourceUrl).searchParams.get("ilvl")), 298);
+  assert.deepEqual(
+    Object.fromEntries(championHands.stats.map(stat => [stat.type.name, stat.value])),
+    { strength: 101, stamina: 1935, criticalStrike: 44, mastery: 85 }
   );
   const chestLevels = observations.filter(piece => piece.itemId === 271477).map(piece => piece.itemLevel).sort((a, b) => a - b);
   assert.deepEqual(chestLevels, [298, 311, 321, 334],
