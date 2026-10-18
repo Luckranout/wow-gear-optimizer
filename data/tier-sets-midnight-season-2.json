@@ -2609,6 +2609,129 @@
               "source": "Warcraft Wiki tier-set page, item level 308"
             }
           ]
+        },
+        {
+          "itemId": 271531,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Lunar Raiment",
+          "slot": "Chest",
+          "variant": "Veteran 3/6 observed",
+          "itemLevel": 285,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Bark_of_the_Enigmatic_Dreamwatcher",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki tier-set page, item level 285; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 105,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 56,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            }
+          ]
+        },
+        {
+          "itemId": 271531,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Lunar Raiment",
+          "slot": "Chest",
+          "variant": "Hero 3/6 observed",
+          "itemLevel": 311,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Bark_of_the_Enigmatic_Dreamwatcher",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki tier-set page, item level 311; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Warcraft Wiki tier-set page, item level 311"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki tier-set page, item level 311"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 63,
+              "source": "Warcraft Wiki tier-set page, item level 311"
+            }
+          ]
+        },
+        {
+          "itemId": 271531,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Lunar Raiment",
+          "slot": "Chest",
+          "variant": "Myth 3/6 observed",
+          "itemLevel": 324,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Bark_of_the_Enigmatic_Dreamwatcher",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki tier-set page, item level 324; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki tier-set page, item level 324"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 126,
+              "source": "Warcraft Wiki tier-set page, item level 324"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 67,
+              "source": "Warcraft Wiki tier-set page, item level 324"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
