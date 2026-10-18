@@ -20,7 +20,7 @@ test("all 13 classes have five manifest-matched tier piece IDs in the season cat
     const expected = manifestSet.pieces.map(piece => Number(piece.itemId)).sort((a, b) => a - b);
     const actual = (catalogueSet.pieces || []).map(piece => Number(piece.itemId)).filter(Number.isFinite).sort((a, b) => a - b);
     const baseActual = (catalogueSet.basePieces || []).map(piece => Number(piece.itemId)).filter(Number.isFinite).sort((a, b) => a - b);
-    if (["Shaman", "Death Knight"].includes(manifestSet.className)) {
+    if (["Shaman", "Death Knight", "Demon Hunter"].includes(manifestSet.className)) {
       assert.equal(catalogueSet.itemIdsVerified, true);
       assert.deepEqual([...new Set(actual)], expected);
     } else {
@@ -34,7 +34,7 @@ test("all 13 classes have five manifest-matched tier piece IDs in the season cat
 
 test("catalogue reports ID mapping separately from variant stats and numeric bonus scoring", () => {
   assert.equal(catalogue.itemMatching.status, "partial");
-  assert.deepEqual(catalogue.itemMatching.verifiedClasses, ["Death Knight", "Shaman"]);
+  assert.deepEqual(catalogue.itemMatching.verifiedClasses, ["Death Knight", "Demon Hunter", "Shaman"]);
   assert.equal(catalogue.itemMatching.baseItemIdsVerifiedClasses.length, 13);
   assert.deepEqual(catalogue.itemMatching.statsVerifiedClasses, ["Death Knight", "Shaman"]);
   assert.equal(catalogue.sets.every(set => set.numericScoringAvailable !== true), true);
@@ -54,7 +54,7 @@ test("all 13 classes have source-backed secondary-stat profiles without pretendi
       assert.equal(piece.secondaryStats.length, 2);
       assert.ok(piece.secondaryStats.every(stat => ["Critical Strike", "Haste", "Mastery", "Versatility"].includes(stat)));
     }
-    if (!["Shaman", "Death Knight"].includes(set.class)) {
+    if (!["Shaman", "Death Knight", "Demon Hunter"].includes(set.class)) {
       assert.equal(set.itemIdsVerified, false, set.class + " variant mapping must remain unverified");
       assert.ok(records.every(piece => !("itemLevel" in piece) && !("stats" in piece)),
         set.class + " profile metadata must not invent numeric item stats");
@@ -62,6 +62,31 @@ test("all 13 classes have source-backed secondary-stat profiles without pretendi
   }
 });
 
+
+test("Demon Hunter has verified baseline PvE and exact Mythic 6/6 candidates for all five slots", () => {
+  const demonHunter = catalogue.sets.find(set => set.class === "Demon Hunter");
+  assert.equal(demonHunter.itemIdsVerified, true);
+  assert.equal(demonHunter.pieces.length, 25);
+  assert.equal(demonHunter.pieces.filter(piece => piece.candidate).length, 25);
+  const expected = {
+    Head: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
+    Shoulders: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
+    Chest: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
+    Hands: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
+    Legs: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]]
+  };
+  for (const [slot, expectedVariants] of Object.entries(expected)) {
+    const entries = demonHunter.pieces.filter(piece => piece.slot === slot);
+    assert.deepEqual(entries.map(piece => [piece.variant, piece.itemLevel]), expectedVariants);
+    assert.ok(entries.every(piece => piece.candidate === true && !("verificationScope" in piece)));
+    assert.ok(entries.every(piece => piece.stats.length >= 4 && piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0)));
+    assert.ok(entries.every(piece => typeof piece.sourceUrl === "string" && piece.sourceUrl.startsWith("https://")));
+  }
+  assert.equal(demonHunter.variantObservationsStatus, "partial",
+    "baseline candidates must not imply all intermediate upgrade ranks are complete");
+  assert.ok(demonHunter.verifiedVariantObservations.every(piece => piece.candidate === false),
+    "additional upgrade-rank observations remain evidence-only");
+});
 
 test("Warrior source-checked variant observations remain evidence-only and preserve same-level stat variants", () => {
   const warrior = catalogue.sets.find(set => set.class === "Warrior");
