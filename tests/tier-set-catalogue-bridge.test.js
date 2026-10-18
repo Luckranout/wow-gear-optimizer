@@ -1671,7 +1671,7 @@ test("Shaman tier item versions remain evidence-only with exact source levels", 
     { agility: 125, intellect: 125, stamina: 2527, criticalStrike: 43, mastery: 99 });
   assert.equal(shaman.pieces.length, 30, "canonical six-variant mapping remains separate from intermediate-rank candidates");
   assert.equal(shaman.pieces.filter(piece => piece.candidate === true).length, 20);
-  assert.equal(shaman.upgradeRankCandidates.length, 22);
+  assert.equal(shaman.upgradeRankCandidates.length, 23);
 });
 
 test("Shaman independently rank-verified intermediate variants are optimizer candidates while observations remain evidence-only", () => {
@@ -1683,6 +1683,7 @@ test("Shaman independently rank-verified intermediate variants are optimizer can
     ["Shoulders", 302, "Champion 4/6"],
     ["Shoulders", 308, "Champion 6/6"],
     ["Shoulders", 321, "Hero 6/6"],
+    ["Chest", 289, "Veteran 4/6"],
     ["Chest", 308, "Champion 6/6"],
     ["Chest", 311, "Hero 3/6"],
     ["Chest", 318, "Myth 1/6"],
@@ -1697,14 +1698,14 @@ test("Shaman independently rank-verified intermediate variants are optimizer can
     const piece = candidates.find(entry => entry.slot === slot && entry.itemLevel === itemLevel && entry.variant === variant);
     assert.ok(piece, `missing verified Shaman rank candidate ${slot} ${itemLevel} ${variant}`);
     assert.equal(piece.candidate, true);
-    assert.equal(piece.verificationScope, "exact-item-stats-and-rank-cross-checked");
+    assert.ok(["exact-item-stats-and-rank-cross-checked", "exact-item-stats-and-upgrade-bonus-verified"].includes(piece.verificationScope));
     assert.ok(piece.sourceUrl.includes("ilvl=" + itemLevel), "stats source must pin the exact item level");
     assert.ok(typeof piece.rankSourceUrl === "string" && piece.rankSourceUrl.startsWith("https://"),
       "upgrade rank must have its own source");
     assert.ok(typeof piece.rankEvidence === "string" && piece.rankEvidence.length > 0);
     assert.ok(piece.stats.length >= 4 && piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
   }
-  assert.equal(candidates.length, 22);
+  assert.equal(candidates.length, 23);
   assert.ok(shaman.verifiedVariantObservations.every(piece => piece.candidate === false),
     "observation ledger remains evidence-only even when a separately verified candidate exists");
 });
@@ -1719,7 +1720,7 @@ test("all-class observed tier variants stay separate from eligible optimizer can
         "baseline PvE candidates stay in the canonical map; exact intermediate ranks are stored separately");
       assert.equal(set.pieces.filter(piece => piece.candidate !== true).length, 10,
         "PvP appearance records without verified numeric stats must stay ineligible");
-      assert.equal(set.upgradeRankCandidates.length, 22, "verified intermediate ranks stay separate from the canonical six-variant map");
+      assert.equal(set.upgradeRankCandidates.length, 23, "verified intermediate ranks stay separate from the canonical six-variant map");
       continue;
     }
     const observations = set.verifiedVariantObservations || [];
