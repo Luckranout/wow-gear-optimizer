@@ -170,10 +170,11 @@ test("Paladin observed tier variants are source-backed and remain evidence-only"
 test("Demon Hunter source-checked tier versions remain evidence-only and preserve observed stats", () => {
   const demonHunter = catalogue.sets.find(set => set.class === "Demon Hunter");
   const observations = demonHunter.verifiedVariantObservations || [];
-  assert.equal(observations.length, 5);
+  assert.equal(observations.length, 8);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(demonHunter.variantObservationsStatus, "partial");
-  assert.match(demonHunter.variantObservationsNote, /not a verified upgraded variant/i);
+  assert.match(demonHunter.variantObservationsNote, /Hands at base item level 219 and Hero 1\/6 item level 305/i);
+  assert.match(demonHunter.variantObservationsNote, /Legs at item levels 295, 311, and 318/i);
   const manifestSet = manifest.sets.find(set => set.className === "Demon Hunter");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
   for (const piece of observations) {
@@ -203,6 +204,17 @@ test("Demon Hunter source-checked tier versions remain evidence-only and preserv
   const gloves = observations.find(piece => piece.itemId === 271538);
   assert.equal(gloves.itemLevel, 219,
     "the known base version must be explicitly recorded as base-only evidence");
+  const upgradedGloves = observations.find(piece => piece.itemId === 271538 && piece.itemLevel === 305);
+  assert.deepEqual(
+    Object.fromEntries(upgradedGloves.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 108, stamina: 2096, criticalStrike: 92, mastery: 42 }
+  );
+  const legs = observations.filter(piece => piece.itemId === 271536).sort((a, b) => a.itemLevel - b.itemLevel);
+  assert.deepEqual(legs.map(piece => piece.itemLevel), [295, 311, 318]);
+  assert.deepEqual(
+    Object.fromEntries(legs.find(piece => piece.itemLevel === 318).stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 162, stamina: 3254, criticalStrike: 58, mastery: 130 }
+  );
   assert.equal(demonHunter.itemIdsVerified, false,
     "partial observed versions must not promote the complete class variant map");
 });
