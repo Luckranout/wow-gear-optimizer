@@ -1263,7 +1263,7 @@ test("Monk source-backed tier item versions remain evidence-only and match sourc
 test("Shaman tier item versions remain evidence-only with exact source levels", () => {
   const shaman = catalogue.sets.find(set => set.class === "Shaman");
   const observations = shaman.verifiedVariantObservations || [];
-  assert.equal(observations.length, 11);
+  assert.equal(observations.length, 13);
   const level334 = observations.filter(piece => piece.itemLevel === 334);
   assert.equal(level334.length, 5);
   assert.deepEqual([...level334.map(piece => piece.slot)].sort(), [...EXPECTED_SLOTS].sort());
@@ -1311,6 +1311,12 @@ test("Shaman tier item versions remain evidence-only with exact source levels", 
     assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), Number(level));
     assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), stats);
   }
+  const legsByLevel = new Map(observations.filter(piece => piece.itemId === 271482).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...legsByLevel.keys()].sort((a, b) => a - b), [318, 321, 334]);
+  assert.deepEqual(Object.fromEntries(legsByLevel.get(318).stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 162, intellect: 162, stamina: 3254, haste: 66, versatility: 122 });
+  assert.deepEqual(Object.fromEntries(legsByLevel.get(321).stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 167, intellect: 167, stamina: 3369, haste: 67, versatility: 124 });
   assert.equal(shaman.pieces.length, 30, "separate observations must not change the existing 20 PvE candidate and 10 PvP appearance records");
   assert.equal(shaman.pieces.filter(piece => piece.candidate === true).length, 20);
 });
