@@ -1702,7 +1702,7 @@ test("Shaman independently rank-verified intermediate variants are optimizer can
     assert.ok(typeof piece.rankEvidence === "string" && piece.rankEvidence.length > 0);
     assert.ok(piece.stats.length >= 4 && piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
   }
-  assert.equal(candidates.length, 18);
+  assert.equal(candidates.length, 20);
   assert.ok(shaman.verifiedVariantObservations.every(piece => piece.candidate === false),
     "observation ledger remains evidence-only even when a separately verified candidate exists");
 });
