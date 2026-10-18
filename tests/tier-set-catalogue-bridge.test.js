@@ -24,8 +24,8 @@ test("all 13 classes have five manifest-matched base tier IDs and source-backed 
     const baseActual = baseRecords.map(piece => Number(piece.itemId)).filter(Number.isFinite).sort((a, b) => a - b);
     assert.equal(catalogueSet.baseItemIdsVerified, true, `${manifestSet.className} base mapping not marked verified`);
     assert.deepEqual([...new Set(baseActual)], expected, `${manifestSet.className} base item IDs differ from the manifest`);
-    assert.equal(catalogueSet.itemIdsVerified, false,
-      `${manifestSet.className} must not claim its complete upgrade-rank map is verified`);
+    assert.equal(catalogueSet.itemIdsVerified, manifestSet.className === "Shaman",
+      `${manifestSet.className} canonical mapping status must be distinguished from complete upgrade-rank coverage`);
     const candidates = [...(catalogueSet.pieces || []), ...(catalogueSet.upgradeRankCandidates || [])].filter(piece => piece.candidate === true);
     assert.equal(catalogueSet.candidateVariantsAvailable, candidates.length > 0);
     const baseBySlot = new Map(baseRecords.map(piece => [piece.slot, piece]));
@@ -1069,8 +1069,8 @@ test("optimizer coverage distinguishes verified base-piece IDs from unverified v
     "Head", "Shoulders", "Chest", "Hands", "Legs"
   ]);
   assert.ok(deathKnight.slotVariantCoverage.every(slot => Array.isArray(slot.observedOnlyItemLevels)));
-  assert.equal(deathKnight.verifiedClassCount, 0,
-    "no class has a complete upgrade-rank map yet");
+  assert.equal(deathKnight.verifiedClassCount, 1,
+    "Shaman has a complete canonical six-variant mapping; upgrade-rank coverage remains partial");
   assert.equal(deathKnight.baseMappingVerifiedClassCount, 13);
   assert.equal(deathKnight.numericScoringAvailable, false);
   assert.ok(deathKnight.limitations.some(note => /base tier-piece IDs are verified/i.test(note)));
@@ -1682,6 +1682,7 @@ test("all-class observed tier variants stay separate from eligible optimizer can
         "baseline PvE and exact source-verified intermediate-rank variants are eligible");
       assert.equal(set.pieces.filter(piece => piece.candidate !== true).length, 10,
         "PvP appearance records without verified numeric stats must stay ineligible");
+      assert.equal(set.upgradeRankCandidates.length, 8, "verified intermediate ranks stay separate from the canonical six-variant map");
       continue;
     }
     const observations = set.verifiedVariantObservations || [];
