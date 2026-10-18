@@ -1428,7 +1428,9 @@ function getTierSetCoverageStatus(tierSetCatalogue = null, className = "", speci
   const unverifiedClasses = sets.filter(set => !isVariantMappingVerified(set));
   const baseMappingVerifiedClassCount = sets.filter(isBaseMappingVerified).length;
   const pieceRecords = classSet
-    ? (hasVerifiedCandidates(classSet) ? candidatePieces(classSet) : (classSet.basePieces || []))
+    ? (hasVerifiedCandidates(classSet)
+      ? candidatePieces(classSet)
+      : (isVariantMappingVerified(classSet) ? (classSet.pieces || []) : (classSet.basePieces || [])))
     : [];
   const uniqueVerifiedPieceIds = classSet && isBaseMappingVerified(classSet)
     ? new Set(pieceRecords.map(piece => {
@@ -1438,12 +1440,16 @@ function getTierSetCoverageStatus(tierSetCatalogue = null, className = "", speci
     }).filter(Boolean)).size
     : 0;
   const expectedTierSlots = ["Head", "Shoulders", "Chest", "Hands", "Legs"];
-  const verifiedVariantRecords = classSet && hasVerifiedCandidates(classSet)
-    ? candidatePieces(classSet).filter(piece =>
-      piece?.candidate === true &&
-      Number.isInteger(piece.itemLevel) &&
-      Array.isArray(piece.stats) && piece.stats.length > 0
-    )
+  const verifiedVariantRecords = classSet
+    ? (hasVerifiedCandidates(classSet)
+      ? candidatePieces(classSet).filter(piece =>
+        piece?.candidate === true &&
+        Number.isInteger(piece.itemLevel) &&
+        Array.isArray(piece.stats) && piece.stats.length > 0
+      )
+      : (isVariantMappingVerified(classSet) ? (classSet.pieces || []).filter(piece =>
+        Number.isInteger(piece.itemLevel) && Array.isArray(piece.stats) && piece.stats.length > 0
+      ) : []))
     : [];
   const observedVariantRecords = (classSet?.verifiedVariantObservations || []).filter(piece =>
     Number.isInteger(piece?.itemLevel) &&
