@@ -13172,6 +13172,47 @@
       "verifiedVariantObservations": [
         {
           "itemId": 271549,
+          "setId": "damned-necrolyte",
+          "name": "Damned Necrolyte's Rattling Robes",
+          "slot": "Chest",
+          "variant": "Hero 6/6 observed",
+          "itemLevel": 321,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271549/damned-necrolytes-rattling-robes?bonus=41%3A13440%3A13690%3A13698%3A12846&class=9&ilvl=321&spec=265",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 167,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3369,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 134,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 57,
+              "source": "Wowhead tooltip, item level 321"
+            }
+          ]
+        },
+        {
+          "itemId": 271549,
           "setId": "damned-necrolyte-s-shattered-restraints",
           "name": "Damned Necrolyte's Rattling Robes",
           "slot": "Chest",
@@ -13253,6 +13294,47 @@
           ]
         },
         {
+          "itemId": 271547,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Charred Grasps",
+          "slot": "Hands",
+          "variant": "Mythic 6/6 observed",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271547/damned-necrolytes-charred-grasps?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 141,
+              "source": "Azeroth Codex equipped profile and Wowhead item tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Azeroth Codex equipped profile and Wowhead item tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 45,
+              "source": "Azeroth Codex equipped profile and Wowhead item tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 106,
+              "source": "Azeroth Codex equipped profile and Wowhead item tooltip, item level 334"
+            }
+          ]
+        },
+        {
           "itemId": 271546,
           "setId": "damned-necrolyte-s-shattered-restraints",
           "name": "Skull of the Damned Necrolyte",
@@ -13298,6 +13380,88 @@
           "setId": "damned-necrolyte-s-shattered-restraints",
           "name": "Skull of the Damned Necrolyte",
           "slot": "Head",
+          "variant": "Veteran 3/6 observed",
+          "itemLevel": 285,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Skull_of_the_Damned_Necrolyte",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 52,
+              "source": "Warcraft Wiki item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 109,
+              "source": "Warcraft Wiki item page, item level 285"
+            }
+          ]
+        },
+        {
+          "itemId": 271546,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Skull of the Damned Necrolyte",
+          "slot": "Head",
+          "variant": "Champion 3/6 observed",
+          "itemLevel": 298,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Skull_of_the_Damned_Necrolyte",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 55,
+              "source": "Warcraft Wiki item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 116,
+              "source": "Warcraft Wiki item page, item level 298"
+            }
+          ]
+        },
+        {
+          "itemId": 271546,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Skull of the Damned Necrolyte",
+          "slot": "Head",
           "variant": "Item level 305 observed",
           "itemLevel": 305,
           "candidate": false,
@@ -13331,6 +13495,88 @@
               },
               "value": 120,
               "source": "Wowhead tooltip, item level 305"
+            }
+          ]
+        },
+        {
+          "itemId": 271546,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Skull of the Damned Necrolyte",
+          "slot": "Head",
+          "variant": "Hero 2/6 observed",
+          "itemLevel": 308,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271546/skull-of-the-damned-necrolyte?bonus=13333%3A13692%3A41%3A13696%3A13698%3A12838&class=9&ilvl=308&spec=266",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 148,
+              "source": "Wowhead tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2896,
+              "source": "Wowhead tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 58,
+              "source": "Wowhead tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 122,
+              "source": "Wowhead tooltip, item level 308"
+            }
+          ]
+        },
+        {
+          "itemId": 271546,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Skull of the Damned Necrolyte",
+          "slot": "Head",
+          "variant": "Hero 3/6 observed",
+          "itemLevel": 311,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Skull_of_the_Damned_Necrolyte",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki item page, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Warcraft Wiki item page, item level 311"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 59,
+              "source": "Warcraft Wiki item page, item level 311"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 124,
+              "source": "Warcraft Wiki item page, item level 311"
             }
           ]
         },
@@ -13458,6 +13704,88 @@
           ]
         },
         {
+          "itemId": 271546,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Skull of the Damned Necrolyte",
+          "slot": "Head",
+          "variant": "Myth 3/6 observed",
+          "itemLevel": 324,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Skull_of_the_Damned_Necrolyte",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 62,
+              "source": "Warcraft Wiki item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 131,
+              "source": "Warcraft Wiki item page, item level 324"
+            }
+          ]
+        },
+        {
+          "itemId": 271546,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Skull of the Damned Necrolyte",
+          "slot": "Head",
+          "variant": "Mythic 6/6 observed",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271546/skull-of-the-damned-necrolyte?ilvl=334&spec=266",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, Mythic 6/6 item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip, Mythic 6/6 item level 334"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 65,
+              "source": "Wowhead tooltip, Mythic 6/6 item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 136,
+              "source": "Wowhead tooltip, Mythic 6/6 item level 334"
+            }
+          ]
+        },
+        {
           "itemId": 271545,
           "setId": "damned-necrolyte-s-shattered-restraints",
           "name": "Damned Necrolyte's Leg Bindings",
@@ -13536,293 +13864,6 @@
               },
               "value": 101,
               "source": "Wowhead tooltip, item level 334"
-            }
-          ]
-        },
-        {
-          "itemId": 271546,
-          "setId": "damned-necrolyte-s-shattered-restraints",
-          "name": "Skull of the Damned Necrolyte",
-          "slot": "Head",
-          "variant": "Veteran 3/6 observed",
-          "itemLevel": 285,
-          "candidate": false,
-          "verificationScope": "observed-version-only",
-          "sourceUrl": "https://warcraft.wiki.gg/wiki/Skull_of_the_Damned_Necrolyte",
-          "stats": [
-            {
-              "type": {
-                "name": "intellect"
-              },
-              "value": 119,
-              "source": "Warcraft Wiki item page, item level 285"
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 2219,
-              "source": "Warcraft Wiki item page, item level 285"
-            },
-            {
-              "type": {
-                "name": "versatility"
-              },
-              "value": 52,
-              "source": "Warcraft Wiki item page, item level 285"
-            },
-            {
-              "type": {
-                "name": "mastery"
-              },
-              "value": 109,
-              "source": "Warcraft Wiki item page, item level 285"
-            }
-          ]
-        },
-        {
-          "itemId": 271546,
-          "setId": "damned-necrolyte-s-shattered-restraints",
-          "name": "Skull of the Damned Necrolyte",
-          "slot": "Head",
-          "variant": "Champion 3/6 observed",
-          "itemLevel": 298,
-          "candidate": false,
-          "verificationScope": "observed-version-only",
-          "sourceUrl": "https://warcraft.wiki.gg/wiki/Skull_of_the_Damned_Necrolyte",
-          "stats": [
-            {
-              "type": {
-                "name": "intellect"
-              },
-              "value": 135,
-              "source": "Warcraft Wiki item page, item level 298"
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 2579,
-              "source": "Warcraft Wiki item page, item level 298"
-            },
-            {
-              "type": {
-                "name": "versatility"
-              },
-              "value": 55,
-              "source": "Warcraft Wiki item page, item level 298"
-            },
-            {
-              "type": {
-                "name": "mastery"
-              },
-              "value": 116,
-              "source": "Warcraft Wiki item page, item level 298"
-            }
-          ]
-        },
-        {
-          "itemId": 271546,
-          "setId": "damned-necrolyte-s-shattered-restraints",
-          "name": "Skull of the Damned Necrolyte",
-          "slot": "Head",
-          "variant": "Hero 3/6 observed",
-          "itemLevel": 311,
-          "candidate": false,
-          "verificationScope": "observed-version-only",
-          "sourceUrl": "https://warcraft.wiki.gg/wiki/Skull_of_the_Damned_Necrolyte",
-          "stats": [
-            {
-              "type": {
-                "name": "intellect"
-              },
-              "value": 152,
-              "source": "Warcraft Wiki item page, item level 311"
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 3002,
-              "source": "Warcraft Wiki item page, item level 311"
-            },
-            {
-              "type": {
-                "name": "versatility"
-              },
-              "value": 59,
-              "source": "Warcraft Wiki item page, item level 311"
-            },
-            {
-              "type": {
-                "name": "mastery"
-              },
-              "value": 124,
-              "source": "Warcraft Wiki item page, item level 311"
-            }
-          ]
-        },
-        {
-          "itemId": 271546,
-          "setId": "damned-necrolyte-s-shattered-restraints",
-          "name": "Skull of the Damned Necrolyte",
-          "slot": "Head",
-          "variant": "Myth 3/6 observed",
-          "itemLevel": 324,
-          "candidate": false,
-          "verificationScope": "observed-version-only",
-          "sourceUrl": "https://warcraft.wiki.gg/wiki/Skull_of_the_Damned_Necrolyte",
-          "stats": [
-            {
-              "type": {
-                "name": "intellect"
-              },
-              "value": 172,
-              "source": "Warcraft Wiki item page, item level 324"
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 3487,
-              "source": "Warcraft Wiki item page, item level 324"
-            },
-            {
-              "type": {
-                "name": "versatility"
-              },
-              "value": 62,
-              "source": "Warcraft Wiki item page, item level 324"
-            },
-            {
-              "type": {
-                "name": "mastery"
-              },
-              "value": 131,
-              "source": "Warcraft Wiki item page, item level 324"
-            }
-          ]
-        },
-        {
-          "itemId": 271546,
-          "setId": "damned-necrolyte-s-shattered-restraints",
-          "name": "Skull of the Damned Necrolyte",
-          "slot": "Head",
-          "variant": "Hero 2/6 observed",
-          "itemLevel": 308,
-          "candidate": false,
-          "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271546/skull-of-the-damned-necrolyte?bonus=13333%3A13692%3A41%3A13696%3A13698%3A12838&class=9&ilvl=308&spec=266",
-          "stats": [
-            {
-              "type": {
-                "name": "intellect"
-              },
-              "value": 148,
-              "source": "Wowhead tooltip, item level 308"
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 2896,
-              "source": "Wowhead tooltip, item level 308"
-            },
-            {
-              "type": {
-                "name": "versatility"
-              },
-              "value": 58,
-              "source": "Wowhead tooltip, item level 308"
-            },
-            {
-              "type": {
-                "name": "mastery"
-              },
-              "value": 122,
-              "source": "Wowhead tooltip, item level 308"
-            }
-          ]
-        },
-        {
-          "itemId": 271547,
-          "setId": "damned-necrolyte-s-shattered-restraints",
-          "name": "Damned Necrolyte's Charred Grasps",
-          "slot": "Hands",
-          "variant": "Mythic 6/6 observed",
-          "itemLevel": 334,
-          "candidate": false,
-          "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/item=271547/damned-necrolytes-charred-grasps?ilvl=334",
-          "stats": [
-            {
-              "type": {
-                "name": "intellect"
-              },
-              "value": 141,
-              "source": "Azeroth Codex equipped profile and Wowhead item tooltip, item level 334"
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 2932,
-              "source": "Azeroth Codex equipped profile and Wowhead item tooltip, item level 334"
-            },
-            {
-              "type": {
-                "name": "criticalStrike"
-              },
-              "value": 45,
-              "source": "Azeroth Codex equipped profile and Wowhead item tooltip, item level 334"
-            },
-            {
-              "type": {
-                "name": "haste"
-              },
-              "value": 106,
-              "source": "Azeroth Codex equipped profile and Wowhead item tooltip, item level 334"
-            }
-          ]
-        },
-        {
-          "itemId": 271546,
-          "setId": "damned-necrolyte-s-shattered-restraints",
-          "name": "Skull of the Damned Necrolyte",
-          "slot": "Head",
-          "variant": "Mythic 6/6 observed",
-          "itemLevel": 334,
-          "candidate": false,
-          "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/item=271546/skull-of-the-damned-necrolyte?ilvl=334&spec=266",
-          "stats": [
-            {
-              "type": {
-                "name": "intellect"
-              },
-              "value": 189,
-              "source": "Wowhead tooltip, Mythic 6/6 item level 334"
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 3910,
-              "source": "Wowhead tooltip, Mythic 6/6 item level 334"
-            },
-            {
-              "type": {
-                "name": "versatility"
-              },
-              "value": 65,
-              "source": "Wowhead tooltip, Mythic 6/6 item level 334"
-            },
-            {
-              "type": {
-                "name": "mastery"
-              },
-              "value": 136,
-              "source": "Wowhead tooltip, Mythic 6/6 item level 334"
             }
           ]
         }
