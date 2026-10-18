@@ -9171,6 +9171,47 @@
               "source": "Wowhead tooltip, item level 334"
             }
           ]
+        },
+        {
+          "itemId": 271464,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Greaves of the Consecrated Flame",
+          "slot": "Legs",
+          "variant": "Mythic 1/6 observed",
+          "itemLevel": 318,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271464/greaves-of-the-consecrated-flame?class=2&ilvl=318",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 162,
+              "source": "Wowhead tooltip, item level 318"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3254,
+              "source": "Wowhead tooltip, item level 318"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 63,
+              "source": "Wowhead tooltip, item level 318"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 125,
+              "source": "Wowhead tooltip, item level 318"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
