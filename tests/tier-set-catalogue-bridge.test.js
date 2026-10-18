@@ -36,7 +36,7 @@ test("catalogue reports ID mapping separately from variant stats and numeric bon
   assert.equal(catalogue.itemMatching.status, "partial");
   assert.deepEqual(catalogue.itemMatching.verifiedClasses, ["Death Knight", "Demon Hunter", "Druid", "Evoker", "Mage", "Monk", "Paladin", "Priest", "Shaman"]);
   assert.equal(catalogue.itemMatching.baseItemIdsVerifiedClasses.length, 13);
-  assert.deepEqual(catalogue.itemMatching.statsVerifiedClasses, ["Death Knight", "Demon Hunter", "Druid", "Evoker", "Mage", "Monk", "Priest", "Shaman"]);
+  assert.deepEqual(catalogue.itemMatching.statsVerifiedClasses, ["Death Knight", "Demon Hunter", "Druid", "Evoker", "Mage", "Monk", "Paladin", "Priest", "Shaman"]);
   assert.equal(catalogue.sets.every(set => set.numericScoringAvailable !== true), true);
   assert.match(catalogue.scoringPolicy, /Do not assign numeric optimization weights/i);
 });
