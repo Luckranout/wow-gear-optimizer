@@ -726,165 +726,42 @@
       "baseItemIdsVerified": true,
       "verifiedVariantObservations": [
         {
-          "itemId": 271540,
+          "itemId": 271535,
           "setId": "abyssal-doomhound-s-pursuit",
-          "name": "Abyssal Doomhound's Coreguard",
-          "slot": "Chest",
-          "variant": "Hero 6/6 observed",
-          "itemLevel": 321,
+          "name": "Abyssal Doomhound's Jaws",
+          "slot": "Shoulders",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
           "candidate": false,
           "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271540/abyssal-doomhounds-coreguard?bonus=6652%3A13440%3A13690%3A13698%3A12846&class=12&ilvl=321&spec=581",
+          "sourceUrl": "https://www.wowhead.com/item=271535/abyssal-doomhounds-jaws?ilvl=334",
           "stats": [
             {
               "type": {
                 "name": "agility"
               },
-              "value": 167,
-              "source": "Wowhead tooltip, item level 321"
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334"
             },
             {
               "type": {
                 "name": "stamina"
               },
-              "value": 3369,
-              "source": "Wowhead tooltip, item level 321"
+              "value": 2932,
+              "source": "Wowhead tooltip, item level 334"
             },
             {
               "type": {
-                "name": "haste"
+                "name": "criticalStrike"
               },
-              "value": 130,
-              "source": "Wowhead tooltip, item level 321"
+              "value": 53,
+              "source": "Wowhead tooltip, item level 334"
             },
             {
               "type": {
                 "name": "versatility"
               },
-              "value": 60,
-              "source": "Wowhead tooltip, item level 321"
-            }
-          ]
-        },
-        {
-          "itemId": 271538,
-          "setId": "abyssal-doomhound-s-pursuit",
-          "name": "Abyssal Doomhound's Studded Gauntlets",
-          "slot": "Hands",
-          "variant": "Base item level observed",
-          "itemLevel": 219,
-          "candidate": false,
-          "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/item=271538/abyssal-doomhounds-studded-gauntlets?ilvl=219",
-          "stats": [
-            {
-              "type": {
-                "name": "agility"
-              },
-              "value": 48,
-              "source": "Wowhead tooltip, item level 219"
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 754,
-              "source": "Wowhead tooltip, item level 219"
-            },
-            {
-              "type": {
-                "name": "criticalStrike"
-              },
-              "value": 55,
-              "source": "Wowhead tooltip, item level 219"
-            },
-            {
-              "type": {
-                "name": "mastery"
-              },
-              "value": 25,
-              "source": "Wowhead tooltip, item level 219"
-            }
-          ]
-        },
-        {
-          "itemId": 271538,
-          "setId": "abyssal-doomhound-s-pursuit",
-          "name": "Abyssal Doomhound's Studded Gauntlets",
-          "slot": "Hands",
-          "variant": "Hero 1/6 observed",
-          "itemLevel": 305,
-          "candidate": false,
-          "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/item=271538/abyssal-doomhounds-studded-gauntlets?bonus=12841&ilvl=305",
-          "stats": [
-            {
-              "type": {
-                "name": "agility"
-              },
-              "value": 108,
-              "source": "Wowhead tooltip, Hero 1/6 item level 305"
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 2096,
-              "source": "Wowhead tooltip, Hero 1/6 item level 305"
-            },
-            {
-              "type": {
-                "name": "criticalStrike"
-              },
-              "value": 92,
-              "source": "Wowhead tooltip, Hero 1/6 item level 305"
-            },
-            {
-              "type": {
-                "name": "mastery"
-              },
-              "value": 42,
-              "source": "Wowhead tooltip, Hero 1/6 item level 305"
-            }
-          ]
-        },
-        {
-          "itemId": 271537,
-          "setId": "abyssal-doomhound-s-pursuit",
-          "name": "Abyssal Doomhound's Relentless Stare",
-          "slot": "Head",
-          "variant": "Mythic 6/6",
-          "itemLevel": 334,
-          "candidate": false,
-          "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/item=271537/abyssal-doomhounds-relentless-stare?bonus=13334%3A6652%3A13847%3A13695%3A13692%3A13698%3A12854&ilvl=334",
-          "stats": [
-            {
-              "type": {
-                "name": "agility"
-              },
-              "value": 189,
-              "source": "Wowhead tooltip, item level 334"
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 3910,
-              "source": "Wowhead tooltip, item level 334"
-            },
-            {
-              "type": {
-                "name": "criticalStrike"
-              },
-              "value": 135,
-              "source": "Wowhead tooltip, item level 334"
-            },
-            {
-              "type": {
-                "name": "mastery"
-              },
-              "value": 66,
+              "value": 97,
               "source": "Wowhead tooltip, item level 334"
             }
           ]
@@ -1013,49 +890,254 @@
           ]
         },
         {
-          "itemId": 271535,
+          "itemId": 271537,
           "setId": "abyssal-doomhound-s-pursuit",
-          "name": "Abyssal Doomhound's Jaws",
-          "slot": "Shoulders",
+          "name": "Abyssal Doomhound's Relentless Stare",
+          "slot": "Head",
           "variant": "Mythic 6/6",
           "itemLevel": 334,
           "candidate": false,
           "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/item=271535/abyssal-doomhounds-jaws?ilvl=334",
+          "sourceUrl": "https://www.wowhead.com/item=271537/abyssal-doomhounds-relentless-stare?bonus=13334%3A6652%3A13847%3A13695%3A13692%3A13698%3A12854&ilvl=334",
           "stats": [
             {
               "type": {
                 "name": "agility"
               },
-              "value": 141,
+              "value": 189,
               "source": "Wowhead tooltip, item level 334"
             },
             {
               "type": {
                 "name": "stamina"
               },
-              "value": 2932,
+              "value": 3910,
               "source": "Wowhead tooltip, item level 334"
             },
             {
               "type": {
                 "name": "criticalStrike"
               },
-              "value": 53,
+              "value": 135,
               "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 66,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ]
+        },
+        {
+          "itemId": 271538,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Studded Gauntlets",
+          "slot": "Hands",
+          "variant": "Base item level observed",
+          "itemLevel": 219,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271538/abyssal-doomhounds-studded-gauntlets?ilvl=219",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 48,
+              "source": "Wowhead tooltip, item level 219"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 754,
+              "source": "Wowhead tooltip, item level 219"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 55,
+              "source": "Wowhead tooltip, item level 219"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 25,
+              "source": "Wowhead tooltip, item level 219"
+            }
+          ]
+        },
+        {
+          "itemId": 271538,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Studded Gauntlets",
+          "slot": "Hands",
+          "variant": "Hero 1/6 observed",
+          "itemLevel": 305,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271538/abyssal-doomhounds-studded-gauntlets?bonus=12841&ilvl=305",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 108,
+              "source": "Wowhead tooltip, Hero 1/6 item level 305"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2096,
+              "source": "Wowhead tooltip, Hero 1/6 item level 305"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 92,
+              "source": "Wowhead tooltip, Hero 1/6 item level 305"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 42,
+              "source": "Wowhead tooltip, Hero 1/6 item level 305"
+            }
+          ]
+        },
+        {
+          "itemId": 271538,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Studded Gauntlets",
+          "slot": "Hands",
+          "variant": "Hero 2/6 observed",
+          "itemLevel": 308,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Abyssal_Doomhound%27s_Studded_Gauntlets",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Warcraft Wiki item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 93,
+              "source": "Warcraft Wiki item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 42,
+              "source": "Warcraft Wiki item page, item level 308"
+            }
+          ]
+        },
+        {
+          "itemId": 271538,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Studded Gauntlets",
+          "slot": "Hands",
+          "variant": "Myth 2/6 observed",
+          "itemLevel": 321,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Abyssal_Doomhound%27s_Studded_Gauntlets",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 125,
+              "source": "Warcraft Wiki item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Warcraft Wiki item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 98,
+              "source": "Warcraft Wiki item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 45,
+              "source": "Warcraft Wiki item page, item level 321"
+            }
+          ]
+        },
+        {
+          "itemId": 271540,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Coreguard",
+          "slot": "Chest",
+          "variant": "Hero 6/6 observed",
+          "itemLevel": 321,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271540/abyssal-doomhounds-coreguard?bonus=6652%3A13440%3A13690%3A13698%3A12846&class=12&ilvl=321&spec=581",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 167,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3369,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 130,
+              "source": "Wowhead tooltip, item level 321"
             },
             {
               "type": {
                 "name": "versatility"
               },
-              "value": 97,
-              "source": "Wowhead tooltip, item level 334"
+              "value": 60,
+              "source": "Wowhead tooltip, item level 321"
             }
           ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Source-checked evidence now includes Hands at base item level 219 and Hero 1/6 item level 305, and Legs at item levels 295, 311, and 318. This does not establish complete slot/difficulty/upgrade coverage; all observations remain ineligible as optimizer candidates."
+      "variantObservationsNote": "Partial source-checked observations only. Hands at base item level 219 and Hero 1/6 item level 305, Hero 2/6 item level 308, and Myth 2/6 item level 321; Legs at item levels 295, 311, and 318. Other slots have only isolated observed versions. All observations remain evidence-only until complete slot/difficulty/upgrade maps are verified."
     },
     {
       "class": "Druid",
