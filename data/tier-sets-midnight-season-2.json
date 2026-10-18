@@ -5187,6 +5187,170 @@
               "source": "Warcraft Wiki item page, item level 324"
             }
           ]
+        },
+        {
+          "itemId": 271566,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Primal Leywarden's Tailored Legwraps",
+          "slot": "Legs",
+          "variant": "Veteran 3/6 observed",
+          "itemLevel": 285,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Primal_Leywarden%27s_Tailored_Legwraps",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 50,
+              "source": "Warcraft Wiki item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki item page, item level 285"
+            }
+          ]
+        },
+        {
+          "itemId": 271566,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Primal Leywarden's Tailored Legwraps",
+          "slot": "Legs",
+          "variant": "Champion 3/6 observed",
+          "itemLevel": 298,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Primal_Leywarden%27s_Tailored_Legwraps",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 53,
+              "source": "Warcraft Wiki item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki item page, item level 298"
+            }
+          ]
+        },
+        {
+          "itemId": 271566,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Primal Leywarden's Tailored Legwraps",
+          "slot": "Legs",
+          "variant": "Hero 3/6 observed",
+          "itemLevel": 311,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Primal_Leywarden%27s_Tailored_Legwraps",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki item page, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Warcraft Wiki item page, item level 311"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 56,
+              "source": "Warcraft Wiki item page, item level 311"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 126,
+              "source": "Warcraft Wiki item page, item level 311"
+            }
+          ]
+        },
+        {
+          "itemId": 271566,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Primal Leywarden's Tailored Legwraps",
+          "slot": "Legs",
+          "variant": "Myth 3/6 observed",
+          "itemLevel": 324,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Primal_Leywarden%27s_Tailored_Legwraps",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 60,
+              "source": "Warcraft Wiki item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 133,
+              "source": "Warcraft Wiki item page, item level 324"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
