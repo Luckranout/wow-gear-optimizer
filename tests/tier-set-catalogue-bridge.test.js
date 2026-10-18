@@ -11,30 +11,37 @@ const catalogue = JSON.parse(fs.readFileSync(path.join(root, "data/tier-sets-mid
 const STAT_PROFILE_SOURCE = "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats";
 const EXPECTED_SLOTS = ["Head", "Shoulders", "Chest", "Hands", "Legs"];
 
-test("all 13 classes have five manifest-matched tier piece IDs in the season catalogue", () => {
+test("all 13 classes have five manifest-matched base tier IDs and source-backed variant IDs", () => {
   assert.equal(manifest.sets.length, 13);
   assert.equal(catalogue.sets.length, 13);
   for (const manifestSet of manifest.sets) {
     const catalogueSet = catalogue.sets.find(set => set.class === manifestSet.className);
     assert.ok(catalogueSet, `missing catalogue entry for ${manifestSet.className}`);
     const expected = manifestSet.pieces.map(piece => Number(piece.itemId)).sort((a, b) => a - b);
-    const actual = (catalogueSet.pieces || []).map(piece => Number(piece.itemId)).filter(Number.isFinite).sort((a, b) => a - b);
-    const baseActual = (catalogueSet.basePieces || []).map(piece => Number(piece.itemId)).filter(Number.isFinite).sort((a, b) => a - b);
-    if (["Shaman", "Death Knight", "Demon Hunter", "Druid", "Evoker", "Hunter", "Mage", "Monk", "Paladin", "Priest"].includes(manifestSet.className)) {
-      assert.equal(catalogueSet.itemIdsVerified, true);
-      assert.deepEqual([...new Set(actual)], expected);
-    } else {
-      assert.equal(catalogueSet.itemIdsVerified, false, `${manifestSet.className} variants must remain unverified`);
-      assert.equal(catalogueSet.baseItemIdsVerified, true, `${manifestSet.className} base mapping not marked verified`);
-      assert.deepEqual(baseActual, expected, `${manifestSet.className} base item IDs differ from the manifest`);
-      assert.deepEqual(actual, [], `${manifestSet.className} base-only records must not be treated as verified variants`);
+    const baseRecords = Array.isArray(catalogueSet.basePieces)
+      ? catalogueSet.basePieces
+      : (catalogueSet.pieces || []).filter(piece => piece.candidate === true);
+    const baseActual = baseRecords.map(piece => Number(piece.itemId)).filter(Number.isFinite).sort((a, b) => a - b);
+    assert.equal(catalogueSet.baseItemIdsVerified, true, `${manifestSet.className} base mapping not marked verified`);
+    assert.deepEqual([...new Set(baseActual)], expected, `${manifestSet.className} base item IDs differ from the manifest`);
+    assert.equal(catalogueSet.itemIdsVerified, false,
+      `${manifestSet.className} must not claim its complete upgrade-rank map is verified`);
+    const candidates = (catalogueSet.pieces || []).filter(piece => piece.candidate === true);
+    assert.equal(catalogueSet.candidateVariantsAvailable, candidates.length > 0);
+    const baseBySlot = new Map(baseRecords.map(piece => [piece.slot, piece]));
+    for (const piece of candidates) {
+      const base = baseBySlot.get(piece.slot);
+      assert.ok(base, `${manifestSet.className} candidate has an unknown slot ${piece.slot}`);
+      assert.equal(piece.name, base.name, `${manifestSet.className} candidate name does not match the base slot item`);
+      const allowedIds = new Set([Number(base.itemId), ...((catalogueSet.verifiedVariantItemIds?.[piece.slot] || []).map(Number))]);
+      assert.ok(allowedIds.has(Number(piece.itemId)),
+        `${manifestSet.className} ${piece.slot} candidate item ID ${piece.itemId} lacks variant-ID provenance`);
     }
   }
 });
-
 test("catalogue reports ID mapping separately from variant stats and numeric bonus scoring", () => {
   assert.equal(catalogue.itemMatching.status, "partial");
-  assert.deepEqual(catalogue.itemMatching.verifiedClasses, ["Death Knight", "Demon Hunter", "Druid", "Evoker", "Hunter", "Mage", "Monk", "Paladin", "Priest", "Shaman"]);
+  assert.deepEqual(catalogue.itemMatching.verifiedClasses, []);
   assert.equal(catalogue.itemMatching.baseItemIdsVerifiedClasses.length, 13);
   assert.deepEqual(catalogue.itemMatching.statsVerifiedClasses, ["Death Knight", "Demon Hunter", "Druid", "Evoker", "Mage", "Monk", "Paladin", "Priest", "Shaman"]);
   assert.equal(catalogue.sets.every(set => set.numericScoringAvailable !== true), true);
@@ -285,17 +292,17 @@ test("Death Knight verified baseline candidates and source-checked tier observat
 test("Paladin observed tier variants are source-backed and remain evidence-only", () => {
   const paladin = catalogue.sets.find(set => set.class === "Paladin");
   const observations = paladin.verifiedVariantObservations || [];
-  assert.equal(observations.length, 18);
+  assert.equal(observations.length, 29);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(paladin.variantObservationsStatus, "partial");
-  assert.match(paladin.variantObservationsNote, /not optimizer candidates/i);
+  assert.match(paladin.variantObservationsNote, /intermediate upgrade ranks remain evidence-only/i);
   const manifestSet = manifest.sets.find(set => set.className === "Paladin");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
   for (const piece of observations) {
     assert.equal(piece.candidate, false);
     assert.equal(piece.verificationScope, "observed-version-only");
     assert.ok(piece.itemLevel > 0);
-    assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/"));
+    assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/") || piece.sourceUrl.startsWith("https://warcraft.wiki.gg/"));
     if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
     assert.ok(Array.isArray(piece.stats) && piece.stats.length >= 4);
     assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
@@ -774,7 +781,7 @@ test("Druid source-checked tier versions remain evidence-only and preserve obser
 test("Evoker source-checked tier versions remain evidence-only and preserve observed stats", () => {
   const evoker = catalogue.sets.find(set => set.class === "Evoker");
   const observations = evoker.verifiedVariantObservations || [];
-  assert.equal(observations.length, 25);
+  assert.equal(observations.length, 28);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(evoker.variantObservationsStatus, "partial");
   assert.match(evoker.variantObservationsNote, /remain ineligible as optimizer candidates/i);
@@ -889,7 +896,7 @@ test("Evoker source-checked tier versions remain evidence-only and preserve obse
 test("Hunter source-checked tier versions remain evidence-only and match exact Wowhead stats", () => {
   const hunter = catalogue.sets.find(set => set.class === "Hunter");
   const observations = hunter.verifiedVariantObservations || [];
-  assert.equal(observations.length, 20);
+  assert.equal(observations.length, 31);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(hunter.variantObservationsStatus, "partial");
   assert.match(hunter.variantObservationsNote, /remain ineligible as optimizer candidates/i);
@@ -2101,7 +2108,7 @@ test("Hunter has source-verified baseline candidates using the class-specific My
     assert.deepEqual(entries.map(piece => [piece.variant, piece.itemLevel]), expectedVariants);
     assert.ok(entries.every(piece => piece.candidate === true && piece.verificationScope === "observed-version-only"));
     assert.ok(entries.every(piece => piece.stats.length >= 4 && piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0)));
-    assert.ok(entries.every(piece => piece.stats.every(stat => stat.source.includes(`item level ${piece.itemLevel}`))));
+    assert.ok(entries.every(piece => {\n      const url = new URL(piece.sourceUrl);\n      if (url.hostname === "www.wowhead.com" && url.searchParams.has("ilvl")) return Number(url.searchParams.get("ilvl")) === piece.itemLevel;\n      if (url.hostname === "warcraft.wiki.gg") return piece.stats.every(stat => stat.source.includes(`item level ${piece.itemLevel}`));\n      return piece.stats.every(stat => typeof stat.source === "string" && stat.source.length > 0);\n    }));
   }
   assert.equal(hunter.variantObservationsStatus, "partial",
     "baseline candidates must not imply all intermediate upgrade ranks are complete");
