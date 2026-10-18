@@ -535,7 +535,12 @@ test("Druid source-checked tier versions remain evidence-only and preserve obser
     const piece = shouldersByLevel.get(level);
     assert.equal(piece.candidate, false);
     assert.equal(piece.verificationScope, "observed-version-only");
-    assert.match(piece.sourceUrl, /warcraft\.wiki\.gg/);
+    if (level === 334) {
+      assert.equal(new URL(piece.sourceUrl).hostname, "www.wowhead.com");
+      assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), 334);
+    } else {
+      assert.match(piece.sourceUrl, /warcraft\.wiki\.gg/);
+    }
     assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
   }
   const manifestSet = manifest.sets.find(set => set.className === "Druid");
