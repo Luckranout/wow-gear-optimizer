@@ -1677,8 +1677,8 @@ test("all-class observed tier variants stay separate from eligible optimizer can
       assert.equal(set.itemIdsVerified, false);
       assert.equal(set.candidateVariantsAvailable, true);
       assert.equal(set.pieces.length, 38);
-      assert.equal(set.pieces.filter(piece => piece.candidate === true).length, 20,
-        "only the four PvE difficulty variants per slot have verified numeric stats");
+      assert.equal(set.pieces.filter(piece => piece.candidate === true).length, 28,
+        "baseline PvE and exact source-verified intermediate-rank variants are eligible");
       assert.equal(set.pieces.filter(piece => piece.candidate !== true).length, 10,
         "PvP appearance records without verified numeric stats must stay ineligible");
       continue;
