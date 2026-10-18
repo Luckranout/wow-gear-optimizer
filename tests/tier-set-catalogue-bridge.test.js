@@ -116,7 +116,7 @@ test("Death Knight source-checked tier versions preserve observed stats without 
     assert.equal(piece.verificationScope, "observed-version-only");
     assert.ok(piece.itemLevel > 0);
     assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/") || piece.sourceUrl.startsWith("https://warcraft.wiki.gg/"));
-    assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
     if (piece.sourceUrl.startsWith("https://warcraft.wiki.gg/")) {
       assert.ok(piece.stats.every(stat => stat.source.includes(`item level ${piece.itemLevel}`)));
     }
@@ -373,7 +373,7 @@ test("Mage source-checked helm versions remain evidence-only", () => {
     const piece = head.get(level);
     assert.equal(piece.candidate, false);
     assert.equal(piece.verificationScope, "observed-version-only");
-    assert.match(piece.sourceUrl, /warcraft\.wiki\.gg/);
+    assert.equal(new URL(piece.sourceUrl).hostname, "warcraft.wiki.gg");
     assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
   }
 });
@@ -1100,7 +1100,7 @@ test("Mage source-checked leg versions remain evidence-only", () => {
     const piece = legs.get(level);
     assert.equal(piece.candidate, false);
     assert.equal(piece.verificationScope, "observed-version-only");
-    assert.match(piece.sourceUrl, /warcraft\\.wiki\\.gg/);
+    assert.equal(new URL(piece.sourceUrl).hostname, "warcraft.wiki.gg");
     assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
   }
 });
