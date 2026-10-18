@@ -826,7 +826,7 @@ test("Hunter source-checked tier versions remain evidence-only and match exact W
   );
   assert.ok(heroGloves.stats.every(stat => stat.source.includes("308")),
     "Warcraft Wiki stats must identify the exact observed item level");
-  const gloves = observations.find(piece => piece.itemId === 271493 && piece.itemLevel === 334);
+  const gloves = observations.find(piece => piece.itemId === 271493 && piece.itemLevel === 321);
   assert.deepEqual(
     Object.fromEntries(gloves.stats.map(stat => [stat.type.name, stat.value])),
     { agility: 125, stamina: 2527, haste: 94, versatility: 49 }
