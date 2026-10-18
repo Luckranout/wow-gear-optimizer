@@ -1209,6 +1209,211 @@
               "source": "Wowhead tooltip, item level 298"
             }
           ]
+        },
+        {
+          "itemId": 271477,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Breastplate",
+          "slot": "Chest",
+          "variant": "Raid Finder (Veteran 3/6)",
+          "itemLevel": 285,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Baleful_Grave-Knight%27s_Crucible",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki tier set item listing, item level 285"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki tier set item listing, item level 285"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 47,
+              "source": "Warcraft Wiki tier set item listing, item level 285"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 114,
+              "source": "Warcraft Wiki tier set item listing, item level 285"
+            }
+          ]
+        },
+        {
+          "itemId": 271477,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Breastplate",
+          "slot": "Chest",
+          "variant": "Mythic (Myth 3/6)",
+          "itemLevel": 324,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Baleful_Grave-Knight%27s_Crucible",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki tier set item listing, item level 324"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki tier set item listing, item level 324"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 56,
+              "source": "Warcraft Wiki tier set item listing, item level 324"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 137,
+              "source": "Warcraft Wiki tier set item listing, item level 324"
+            }
+          ]
+        },
+        {
+          "itemId": 271475,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Deathgrips",
+          "slot": "Hands",
+          "variant": "Raid Finder (Veteran 2/6)",
+          "itemLevel": 282,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Baleful_Grave-Knight%27s_Crucible",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki tier set item listing, item level 282"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "Warcraft Wiki tier set item listing, item level 282"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 41,
+              "source": "Warcraft Wiki tier set item listing, item level 282"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 78,
+              "source": "Warcraft Wiki tier set item listing, item level 282"
+            }
+          ]
+        },
+        {
+          "itemId": 271475,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Deathgrips",
+          "slot": "Hands",
+          "variant": "Normal (Champion 2/6)",
+          "itemLevel": 295,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Baleful_Grave-Knight%27s_Crucible",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 98,
+              "source": "Warcraft Wiki tier set item listing, item level 295"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Warcraft Wiki tier set item listing, item level 295"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 44,
+              "source": "Warcraft Wiki tier set item listing, item level 295"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 83,
+              "source": "Warcraft Wiki tier set item listing, item level 295"
+            }
+          ]
+        },
+        {
+          "itemId": 271475,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Deathgrips",
+          "slot": "Hands",
+          "variant": "Heroic (Hero 2/6)",
+          "itemLevel": 308,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Baleful_Grave-Knight%27s_Crucible",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki tier set item listing, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Warcraft Wiki tier set item listing, item level 308"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 46,
+              "source": "Warcraft Wiki tier set item listing, item level 308"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 89,
+              "source": "Warcraft Wiki tier set item listing, item level 308"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
