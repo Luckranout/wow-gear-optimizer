@@ -1076,11 +1076,12 @@ test("Priest source-backed tier item versions remain evidence-only and match Wow
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(priest.variantObservationsStatus, "partial");
   const handsByLevel = new Map(observations.filter(piece => piece.itemId === 271556).map(piece => [piece.itemLevel, piece]));
-  assert.deepEqual([...handsByLevel.keys()].sort((a, b) => a - b), [282, 295, 305, 308, 321]);
+  assert.deepEqual([...handsByLevel.keys()].sort((a, b) => a - b), [282, 295, 305, 308, 321, 334]);
   assert.equal(handsByLevel.get(282).variant, "Veteran 2/6 observed");
   assert.equal(handsByLevel.get(295).variant, "Champion 2/6 observed");
   assert.equal(handsByLevel.get(308).variant, "Hero 2/6 observed");
   assert.equal(handsByLevel.get(321).variant, "Myth 2/6 observed");
+  assert.equal(handsByLevel.get(334).variant, "Mythic 6/6");
   assert.match(priest.variantObservationsNote, /does not establish coverage/i);
   const manifestSet = manifest.sets.find(set => set.className === "Priest");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
@@ -1101,6 +1102,7 @@ test("Priest source-backed tier item versions remain evidence-only and match Wow
     "271556:295": { intellect: 98, stamina: 1869, criticalStrike: 44, mastery: 83 },
     "271556:308": { intellect: 111, stamina: 2172, criticalStrike: 47, mastery: 88 },
     "271556:321": { intellect: 125, stamina: 2527, criticalStrike: 50, mastery: 93 },
+    "271556:334": { intellect: 141, stamina: 2932, criticalStrike: 53, mastery: 98 },
     "271555:334": { intellect: 189, stamina: 3910, criticalStrike: 141, mastery: 60 },
     "271555:285": { intellect: 119, stamina: 2219, criticalStrike: 113, mastery: 48 },
     "271555:298": { intellect: 135, stamina: 2579, criticalStrike: 120, mastery: 51 },
@@ -1200,7 +1202,7 @@ test("Monk source-backed tier item versions remain evidence-only and match sourc
   assert.equal(observations.length, 14);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(monk.variantObservationsStatus, "partial");
-  assert.match(monk.variantObservationsNote, /legs are observed at Heroic 3\/6 item level 311/i);
+  assert.match(monk.variantObservationsNote, /legs have item-level-334 observations/i);
   const manifestSet = manifest.sets.find(set => set.className === "Monk");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
   for (const piece of observations) {
