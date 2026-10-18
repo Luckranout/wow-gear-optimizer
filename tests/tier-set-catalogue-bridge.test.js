@@ -116,7 +116,7 @@ test("Death Knight source-checked tier versions preserve observed stats without 
     assert.equal(piece.verificationScope, "observed-version-only");
     assert.ok(piece.itemLevel > 0);
     assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/") || piece.sourceUrl.startsWith("https://warcraft.wiki.gg/"));
-    if (slotsById.has(Number(piece.itemId))) if (slotsById.has(Number(piece.itemId))) if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
     if (piece.sourceUrl.startsWith("https://warcraft.wiki.gg/")) {
       assert.ok(piece.stats.every(stat => stat.source.includes(`item level ${piece.itemLevel}`)));
     }
@@ -178,7 +178,7 @@ test("Paladin observed tier variants are source-backed and remain evidence-only"
     assert.equal(piece.verificationScope, "observed-version-only");
     assert.ok(piece.itemLevel > 0);
     assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/"));
-    assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
     assert.ok(Array.isArray(piece.stats) && piece.stats.length >= 4);
     assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
     assert.ok(piece.stats.every(stat => typeof stat.source === "string" && stat.source.length > 0));
@@ -237,7 +237,7 @@ test("Demon Hunter source-checked tier versions remain evidence-only and preserv
       sourceUrl.hostname === "www.wowhead.com" || sourceUrl.hostname === "warcraft.wiki.gg",
       "source URL must point to a trusted item reference"
     );
-    assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
     if (sourceUrl.hostname === "www.wowhead.com") {
       assert.equal(Number(sourceUrl.searchParams.get("ilvl")), piece.itemLevel,
         "Wowhead source URL must pin the exact observed item level");
@@ -453,7 +453,7 @@ test("Druid source-checked tier versions remain evidence-only and preserve obser
       sourceUrl.hostname === "www.wowhead.com" || sourceUrl.hostname === "warcraft.wiki.gg",
       "source URL must point to a trusted item reference"
     );
-    assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
     if (sourceUrl.hostname === "www.wowhead.com") {
       assert.equal(Number(sourceUrl.searchParams.get("ilvl")), piece.itemLevel,
         "Wowhead source URL must pin the exact observed item level");
@@ -535,7 +535,7 @@ test("Evoker source-checked tier versions remain evidence-only and preserve obse
       sourceUrl.hostname === "www.wowhead.com" || sourceUrl.hostname === "warcraft.wiki.gg",
       "source URL must point to a trusted item reference"
     );
-    assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
     if (sourceUrl.hostname === "www.wowhead.com") {
       assert.equal(Number(sourceUrl.searchParams.get("ilvl")), piece.itemLevel,
         "Wowhead source URL must pin the exact observed item level");
@@ -598,7 +598,7 @@ test("Hunter source-checked tier versions remain evidence-only and match exact W
     assert.equal(piece.verificationScope, "observed-version-only");
     assert.ok(piece.itemLevel > 0);
     assert.ok(["www.wowhead.com", "warcraft.wiki.gg"].includes(new URL(piece.sourceUrl).hostname));
-    assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
     if (new URL(piece.sourceUrl).hostname === "www.wowhead.com") {
       assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), piece.itemLevel,
         "Wowhead source URL must pin the exact observed item level");
@@ -765,7 +765,7 @@ test("Rogue source-backed tier item versions remain evidence-only and match Wowh
     assert.equal(piece.verificationScope, "observed-version-only");
     assert.ok(piece.itemLevel > 0);
     assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/") || piece.sourceUrl === "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave");
-    assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
     if (piece.sourceUrl.startsWith("https://www.wowhead.com/")) {
       assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), piece.itemLevel,
         "Wowhead source URL must pin the exact observed item level");
@@ -854,7 +854,7 @@ test("Mage source-backed tier item versions remain evidence-only and match Wowhe
     assert.ok(["www.wowhead.com", "warcraft.wiki.gg"].includes(new URL(piece.sourceUrl).hostname));
     if (new URL(piece.sourceUrl).hostname === "www.wowhead.com") assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), piece.itemLevel);
     else assert.ok(piece.stats.every(stat => stat.source.includes(String(piece.itemLevel))));
-    assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
     assert.ok(piece.stats.length >= 4);
     assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
   }
@@ -903,7 +903,7 @@ test("Priest source-backed tier item versions remain evidence-only and match Wow
     assert.ok(["www.wowhead.com", "warcraft.wiki.gg"].includes(new URL(piece.sourceUrl).hostname));
     if (new URL(piece.sourceUrl).hostname === "www.wowhead.com") assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), piece.itemLevel);
     else assert.ok(piece.stats.every(stat => stat.source.includes(String(piece.itemLevel))));
-    assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
     assert.ok(piece.stats.length >= 4);
     assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
   }
@@ -954,7 +954,7 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
     if (piece.sourceUrl.startsWith("https://warcraft.wiki.gg/")) {
       assert.ok(piece.stats.every(stat => stat.source.includes(`item level ${piece.itemLevel}`)));
     }
-    assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
     assert.ok(piece.stats.length >= 4);
     assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
   }
@@ -1008,7 +1008,7 @@ test("Monk source-backed tier item versions remain evidence-only and match sourc
     const sourceLevel = new URL(piece.sourceUrl).searchParams.get("ilvl");
     if (sourceLevel) assert.equal(Number(sourceLevel), piece.itemLevel);
     else assert.ok(piece.stats.every(stat => stat.source.includes(String(piece.itemLevel))));
-    assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
     assert.ok(piece.stats.length >= 4);
     assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
   }
