@@ -103,7 +103,7 @@ test("Death Knight source-checked tier versions preserve observed stats without 
   assert.equal(observations.length, 16);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(deathKnight.variantObservationsStatus, "partial");
-  assert.match(deathKnight.variantObservationsNote, /not optimizer candidates/i);
+  assert.match(deathKnight.variantObservationsNote, /remain ineligible as optimizer candidates/i);
   const manifestSet = manifest.sets.find(set => set.className === "Death Knight");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
   for (const piece of observations) {
