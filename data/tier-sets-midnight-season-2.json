@@ -4663,10 +4663,174 @@
               "source": "Wowhead tooltip, item level 321"
             }
           ]
+        },
+        {
+          "itemId": 271509,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Reinforced Pants",
+          "slot": "Legs",
+          "variant": "Veteran 3/6 observed",
+          "itemLevel": 285,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 57,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 104,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            }
+          ]
+        },
+        {
+          "itemId": 271509,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Reinforced Pants",
+          "slot": "Legs",
+          "variant": "Champion 3/6 observed",
+          "itemLevel": 298,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 61,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            }
+          ]
+        },
+        {
+          "itemId": 271509,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Reinforced Pants",
+          "slot": "Legs",
+          "variant": "Hero 3/6 observed",
+          "itemLevel": 311,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki tier-set page, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Warcraft Wiki tier-set page, item level 311"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 64,
+              "source": "Warcraft Wiki tier-set page, item level 311"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 118,
+              "source": "Warcraft Wiki tier-set page, item level 311"
+            }
+          ]
+        },
+        {
+          "itemId": 271509,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Reinforced Pants",
+          "slot": "Legs",
+          "variant": "Myth 3/6 observed",
+          "itemLevel": 324,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki tier-set page, item level 324"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki tier-set page, item level 324"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 68,
+              "source": "Warcraft Wiki tier-set page, item level 324"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 125,
+              "source": "Warcraft Wiki tier-set page, item level 324"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Seven exact Wowhead item versions are recorded as evidence only. Legs are observed at item levels 219, 315, and 321; the remaining difficulty/upgrade variants and complete Rogue variant ID map remain unverified. Do not use these observations as optimizer candidates."
+      "variantObservationsNote": "Eleven source-checked item versions are recorded as evidence only. Legs are observed at item levels 219, 285 (Veteran 3/6), 298 (Champion 3/6), 311 (Hero 3/6), 315, 321, and 324 (Myth 3/6); Chest 305, Head 295, Hands 321, and Shoulders 334. Other difficulty and upgrade variants and the complete Rogue variant ID map remain unverified. All observations remain ineligible as optimizer candidates."
     },
     {
       "class": "Shaman",
