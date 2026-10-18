@@ -8006,6 +8006,54 @@
           "setId": "guile-of-the-monkey-king",
           "name": "Pantaloons of the Monkey King",
           "slot": "Legs",
+          "variant": "Mythic 3/6 observed",
+          "itemLevel": 324,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Guile_of_the_Monkey_King",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki Guile of the Monkey King tier listing, item level 324 (Mythic 3/6): 172 Agility"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki Guile of the Monkey King tier listing, item level 324 (Mythic 3/6): 172 Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki Guile of the Monkey King tier listing, item level 324 (Mythic 3/6): 3,487 Stamina"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 125,
+              "source": "Warcraft Wiki Guile of the Monkey King tier listing, item level 324 (Mythic 3/6): 125 Critical Strike"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 68,
+              "source": "Warcraft Wiki Guile of the Monkey King tier listing, item level 324 (Mythic 3/6): 68 Versatility"
+            }
+          ]
+        },
+        {
+          "itemId": 271518,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Pantaloons of the Monkey King",
+          "slot": "Legs",
           "variant": "Item level 334 observed; upgrade rank unverified",
           "itemLevel": 334,
           "candidate": false,
