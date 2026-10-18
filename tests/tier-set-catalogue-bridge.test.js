@@ -749,7 +749,7 @@ test("Evoker source-checked tier versions remain evidence-only and preserve obse
 test("Hunter source-checked tier versions remain evidence-only and match exact Wowhead stats", () => {
   const hunter = catalogue.sets.find(set => set.class === "Hunter");
   const observations = hunter.verifiedVariantObservations || [];
-  assert.equal(observations.length, 14);
+  assert.equal(observations.length, 15);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(hunter.variantObservationsStatus, "partial");
   assert.match(hunter.variantObservationsNote, /remain ineligible as optimizer candidates/i);
@@ -784,6 +784,17 @@ test("Hunter source-checked tier versions remain evidence-only and match exact W
     Object.fromEntries(championGloves.stats.map(stat => [stat.type.name, stat.value])),
     { agility: 98, intellect: 98, stamina: 1869, haste: 83, versatility: 44 }
   );
+  const heroGloves = observations.find(piece => piece.itemId === 271493 && piece.itemLevel === 308);
+  assert.equal(heroGloves.variant, "Hero 2/6 observed");
+  assert.equal(heroGloves.candidate, false);
+  assert.equal(heroGloves.verificationScope, "observed-version-only");
+  assert.equal(new URL(heroGloves.sourceUrl).hostname, "warcraft.wiki.gg");
+  assert.deepEqual(
+    Object.fromEntries(heroGloves.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 111, stamina: 2172, haste: 89, versatility: 46 }
+  );
+  assert.ok(heroGloves.stats.every(stat => stat.source.includes("308")),
+    "Warcraft Wiki stats must identify the exact observed item level");
   const gloves = observations.find(piece => piece.itemId === 271493);
   assert.deepEqual(
     Object.fromEntries(gloves.stats.map(stat => [stat.type.name, stat.value])),
