@@ -600,7 +600,7 @@ test("Rogue source-backed tier item versions remain evidence-only and match Wowh
     Object.fromEntries(hands.stats.map(stat => [stat.type.name, stat.value])),
     { agility: 125, intellect: 125, stamina: 2527, criticalStrike: 95, mastery: 48 }
   );
-  const veteranHands = observations.find(piece => piece.itemId === 271493 && piece.itemLevel === 282);
+  const veteranHands = observations.find(piece => piece.itemId === 271511 && piece.itemLevel === 282);
   assert.equal(veteranHands.variant, "Veteran 2/6 observed");
   assert.deepEqual(
     Object.fromEntries(veteranHands.stats.map(stat => [stat.type.name, stat.value])),
