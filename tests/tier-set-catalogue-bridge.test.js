@@ -20,7 +20,7 @@ test("all 13 classes have five manifest-matched tier piece IDs in the season cat
     const expected = manifestSet.pieces.map(piece => Number(piece.itemId)).sort((a, b) => a - b);
     const actual = (catalogueSet.pieces || []).map(piece => Number(piece.itemId)).filter(Number.isFinite).sort((a, b) => a - b);
     const baseActual = (catalogueSet.basePieces || []).map(piece => Number(piece.itemId)).filter(Number.isFinite).sort((a, b) => a - b);
-    if (manifestSet.className === "Shaman") {
+    if (["Shaman", "Death Knight"].includes(manifestSet.className)) {
       assert.equal(catalogueSet.itemIdsVerified, true);
       assert.deepEqual([...new Set(actual)], expected);
     } else {
@@ -34,9 +34,9 @@ test("all 13 classes have five manifest-matched tier piece IDs in the season cat
 
 test("catalogue reports ID mapping separately from variant stats and numeric bonus scoring", () => {
   assert.equal(catalogue.itemMatching.status, "partial");
-  assert.deepEqual(catalogue.itemMatching.verifiedClasses, ["Shaman"]);
+  assert.deepEqual(catalogue.itemMatching.verifiedClasses, ["Death Knight", "Shaman"]);
   assert.equal(catalogue.itemMatching.baseItemIdsVerifiedClasses.length, 13);
-  assert.deepEqual(catalogue.itemMatching.statsVerifiedClasses, ["Shaman"]);
+  assert.deepEqual(catalogue.itemMatching.statsVerifiedClasses, ["Death Knight", "Shaman"]);
   assert.equal(catalogue.sets.every(set => set.numericScoringAvailable !== true), true);
   assert.match(catalogue.scoringPolicy, /Do not assign numeric optimization weights/i);
 });
@@ -54,7 +54,7 @@ test("all 13 classes have source-backed secondary-stat profiles without pretendi
       assert.equal(piece.secondaryStats.length, 2);
       assert.ok(piece.secondaryStats.every(stat => ["Critical Strike", "Haste", "Mastery", "Versatility"].includes(stat)));
     }
-    if (set.class !== "Shaman") {
+    if (!["Shaman", "Death Knight"].includes(set.class)) {
       assert.equal(set.itemIdsVerified, false, set.class + " variant mapping must remain unverified");
       assert.ok(records.every(piece => !("itemLevel" in piece) && !("stats" in piece)),
         set.class + " profile metadata must not invent numeric item stats");
@@ -104,11 +104,25 @@ test("Warrior source-checked variant observations remain evidence-only and prese
 
 test("Death Knight source-checked tier versions preserve observed stats without becoming optimizer candidates", () => {
   const deathKnight = catalogue.sets.find(set => set.class === "Death Knight");
+  assert.equal(deathKnight.itemIdsVerified, true, "Death Knight baseline tier map must be verified");
+  assert.equal(deathKnight.pieces.length, 25, "Death Knight must expose 20 baseline candidates plus five exact Mythic 6/6 variants");
+  assert.equal(deathKnight.pieces.filter(piece => piece.candidate).length, 25);
+  for (const slot of EXPECTED_SLOTS) {
+    const slotCandidates = deathKnight.pieces.filter(piece => piece.slot === slot);
+    assert.deepEqual(slotCandidates.map(piece => [piece.variant, piece.itemLevel]), [
+      ["Raid Finder", slot === "Shoulders" || slot === "Hands" ? 282 : 285],
+      ["Normal", slot === "Shoulders" || slot === "Hands" ? 295 : 298],
+      ["Heroic", slot === "Shoulders" || slot === "Hands" ? 308 : 311],
+      ["Mythic", slot === "Shoulders" || slot === "Hands" ? 321 : 324],
+      ["Mythic 6/6", 334]
+    ]);
+    assert.ok(slotCandidates.every(piece => piece.candidate === true));
+  }
   const observations = deathKnight.verifiedVariantObservations || [];
   assert.equal(observations.length, 31);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(deathKnight.variantObservationsStatus, "partial");
-  assert.match(deathKnight.variantObservationsNote, /remain ineligible as optimizer candidates/i);
+  assert.match(deathKnight.variantObservationsNote, /remain evidence-only until their exact item level and numeric stats/i);
   const manifestSet = manifest.sets.find(set => set.className === "Death Knight");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
   for (const piece of observations) {
