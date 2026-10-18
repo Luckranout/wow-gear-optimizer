@@ -222,7 +222,7 @@ test("Demon Hunter source-checked tier versions remain evidence-only and preserv
 test("Druid source-checked tier versions remain evidence-only and preserve observed stats", () => {
   const druid = catalogue.sets.find(set => set.class === "Druid");
   const observations = druid.verifiedVariantObservations || [];
-  assert.equal(observations.length, 5);
+  assert.equal(observations.length, 6);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(druid.variantObservationsStatus, "partial");
   assert.match(druid.variantObservationsNote, /all observations remain ineligible as optimizer candidates/i);
@@ -240,6 +240,13 @@ test("Druid source-checked tier versions remain evidence-only and preserve obser
     assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
     assert.ok(piece.stats.every(stat => typeof stat.source === "string" && stat.source.length > 0));
   }
+  const championGloves = observations.find(piece => piece.itemId === 271529 && piece.itemLevel === 295);
+  assert.equal(championGloves.variant, "Champion 2/6");
+  assert.equal(Number(new URL(championGloves.sourceUrl).searchParams.get("ilvl")), 295);
+  assert.deepEqual(
+    Object.fromEntries(championGloves.stats.map(stat => [stat.type.name, stat.value])),
+    { intellect: 98, agility: 98, stamina: 1869, versatility: 90, mastery: 37 }
+  );
   const gloves = observations.find(piece => piece.itemId === 271529);
   assert.equal(gloves.itemLevel, 334);
   assert.deepEqual(
