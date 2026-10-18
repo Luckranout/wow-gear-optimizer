@@ -127,7 +127,7 @@ test("Warrior source-checked variant observations remain evidence-only and prese
   assert.equal(warrior.itemIdsVerified, false, "observations must not promote the full class variant map to verified");
 });
 
-test("Death Knight source-checked tier versions preserve observed stats without becoming optimizer candidates", () => {
+test("Death Knight verified baseline candidates and source-checked tier observations preserve exact stats", () => {
   const deathKnight = catalogue.sets.find(set => set.class === "Death Knight");
   assert.equal(deathKnight.itemIdsVerified, true, "Death Knight baseline tier map must be verified");
   assert.equal(deathKnight.pieces.length, 25, "Death Knight must expose 20 baseline candidates plus five exact Mythic 6/6 variants");
