@@ -1421,10 +1421,133 @@
               "source": "Warcraft Wiki item page, item level 282"
             }
           ]
+        },
+        {
+          "itemId": 271536,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Legwraps",
+          "slot": "Legs",
+          "variant": "Veteran 3/6",
+          "itemLevel": 285,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Abyssal_Doomhound%27s_Pursuit",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki tier set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki tier set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 50,
+              "source": "Warcraft Wiki tier set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki tier set page, item level 285"
+            }
+          ]
+        },
+        {
+          "itemId": 271536,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Legwraps",
+          "slot": "Legs",
+          "variant": "Champion 3/6",
+          "itemLevel": 298,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Abyssal_Doomhound%27s_Pursuit",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki tier set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki tier set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 53,
+              "source": "Warcraft Wiki tier set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki tier set page, item level 298"
+            }
+          ]
+        },
+        {
+          "itemId": 271536,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Legwraps",
+          "slot": "Legs",
+          "variant": "Myth 3/6",
+          "itemLevel": 324,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Abyssal_Doomhound%27s_Pursuit",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki tier set page, item level 324"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki tier set page, item level 324"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 60,
+              "source": "Warcraft Wiki tier set page, item level 324"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 133,
+              "source": "Warcraft Wiki tier set page, item level 324"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Partial source-checked observations only. Hands at base item level 219, Veteran 2/6 item level 282, Champion 2/6 item level 295, and Hero 1/6 item level 305, Hero 2/6 item level 308, and Myth 2/6 item level 321; Legs at item levels 295, 311, and 318. Other slots have only isolated observed versions. All observations remain evidence-only until complete slot/difficulty/upgrade maps are verified."
+      "variantObservationsNote": "Fifteen source-checked observations remain evidence-only. Hands at base item level 219, Veteran 2/6 item level 282, Champion 2/6 item level 295, Hero 1/6 item level 305, Hero 2/6 item level 308, and Myth 2/6 item level 321. Legs are observed at item levels 285, 295, 298, 311, 318, and 324. Other slots have isolated observed versions only; remaining difficulty and upgrade variants are unverified. All observations remain ineligible as optimizer candidates until complete slot/difficulty/upgrade maps are verified."
     },
     {
       "class": "Druid",
