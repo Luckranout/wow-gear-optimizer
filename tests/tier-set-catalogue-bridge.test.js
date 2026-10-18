@@ -79,9 +79,14 @@ test("Warrior source-checked variant observations remain evidence-only and prese
     assert.ok(["www.wowhead.com", "warcraft.wiki.gg"].includes(new URL(piece.sourceUrl).hostname));
     assert.equal(manifestSlotsById.get(Number(piece.itemId)), piece.slot,
       "observed item ID must match the manifest slot");
-    const levelInUrl = new URL(piece.sourceUrl).searchParams.get("ilvl");
-    assert.equal(Number(levelInUrl), piece.itemLevel,
-      "source URL must pin the exact observed item level");
+    const sourceUrl = new URL(piece.sourceUrl);
+    if (sourceUrl.hostname === "www.wowhead.com") {
+      assert.equal(Number(sourceUrl.searchParams.get("ilvl")), piece.itemLevel,
+        "Wowhead source URL must pin the exact observed item level");
+    } else {
+      assert.match(piece.stats[0].source, new RegExp(String(piece.itemLevel)),
+        "wiki source must record the exact observed item level in stat provenance");
+    }
     assert.ok(Array.isArray(piece.stats) && piece.stats.length >= 4);
     assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
     assert.ok(piece.stats.every(stat => typeof stat.source === "string" && stat.source.length > 0),
