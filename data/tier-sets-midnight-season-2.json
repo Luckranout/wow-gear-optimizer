@@ -5021,7 +5021,7 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Twenty-five source-checked item versions are recorded as evidence only. Head, Shoulders, Chest, and Legs have isolated Mythic 6/6 item-level 334 observations; Hands now also have a source-backed Mythic 6/6 item-level 334 observation. Other difficulty and upgrade variants remain unverified. All observations remain evidence-only and are not optimizer candidates."
+      "variantObservationsNote": "Twenty-five source-checked item versions are recorded as evidence only. Head, Shoulders, Chest, and Legs have isolated Mythic 6/6 item-level 334 observations; Hands now also have a source-backed Mythic 6/6 item-level 334 observation. Other difficulty and upgrade variants remain unverified. All observations remain ineligible as optimizer candidates until the full class variant map is verified."
     },
     {
       "class": "Hunter",
