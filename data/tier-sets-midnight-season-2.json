@@ -28706,7 +28706,7 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "The 20 baseline PvE records remain in pieces; 28 source-verified upgrade-rank candidates are stored separately, including all five Mythic 6/6 item-level-334 variants. Distinct Catalyst stat variants remain separate from dropped-item stat variants. Other observed versions and PvP appearance-only records remain ineligible; full rank-by-rank coverage is still partial.",
+      "variantObservationsNote": "The 20 baseline PvE records remain in pieces; 32 source-verified upgrade-rank candidates are stored separately, including all five Mythic 6/6 item-level-334 variants and Hero 1/6 item-level-305 variants across all five slots. Distinct Catalyst stat variants remain separate from dropped-item stat variants. Other observed versions and PvP appearance-only records remain ineligible; full rank-by-rank coverage is still partial.",
       "baseItemIdsVerified": true,
       "candidateVariantsAvailable": true,
       "upgradeRankCandidates": [
@@ -30260,6 +30260,234 @@
           "secondaryStats": [
             "Haste",
             "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats",
+          "verificationScope": "exact-item-stats-and-rank-cross-checked"
+        },
+        {
+          "itemId": 271481,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hissing Mantle of the Ophidian Oracle",
+          "slot": "Shoulders",
+          "variant": "Hero 1/6",
+          "itemLevel": 305,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271481/hissing-mantle-of-the-ophidian-oracle?ilvl=305",
+          "statsSourceUrl": "https://wowgeartracker.com/",
+          "rankSourceUrl": "https://guildsofwow.com/player/37944/battousai",
+          "rankEvidence": "Guilds of WoW profile identifies Hissing Mantle at item level 305 as Hero 1/6.",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 108,
+              "source": "WoW Gear Tracker's exact item-level 305 tier-item table."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 108,
+              "source": "WoW Gear Tracker's exact item-level 305 tier-item table."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2096,
+              "source": "WoW Gear Tracker's exact item-level 305 tier-item table."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 46,
+              "source": "WoW Gear Tracker's exact item-level 305 tier-item table."
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 87,
+              "source": "WoW Gear Tracker's exact item-level 305 tier-item table."
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats",
+          "verificationScope": "exact-item-stats-and-rank-cross-checked"
+        },
+        {
+          "itemId": 271486,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Fanged Raiment of the Ophidian Oracle",
+          "slot": "Chest",
+          "variant": "Hero 1/6",
+          "itemLevel": 305,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271486/fanged-raiment-of-the-ophidian-oracle?ilvl=305",
+          "statsSourceUrl": "https://wowgeartracker.com/",
+          "rankSourceUrl": "https://www.wowaudit.com/character/eu/blackhand/prelodern",
+          "rankEvidence": "WoWAudit profile identifies Fanged Raiment at item level 305 as Hero 1/6.",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 144,
+              "source": "WoW Gear Tracker's exact item-level 305 tier-item table."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 144,
+              "source": "WoW Gear Tracker's exact item-level 305 tier-item table."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2794,
+              "source": "WoW Gear Tracker's exact item-level 305 tier-item table."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 124,
+              "source": "WoW Gear Tracker's exact item-level 305 tier-item table."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 53,
+              "source": "WoW Gear Tracker's exact item-level 305 tier-item table."
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats",
+          "verificationScope": "exact-item-stats-and-rank-cross-checked"
+        },
+        {
+          "itemId": 271484,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hexing Grips of the Ophidian Oracle",
+          "slot": "Hands",
+          "variant": "Hero 1/6",
+          "itemLevel": 305,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle?ilvl=305",
+          "statsSourceUrl": "https://wowgeartracker.com/",
+          "rankSourceUrl": "https://guildsofwow.com/player/37944/battousai",
+          "rankEvidence": "Guilds of WoW profile identifies Hexing Grips at item level 305 as Hero 1/6.",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 108,
+              "source": "WoW Gear Tracker's exact item-level 305 tier-item table."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 108,
+              "source": "WoW Gear Tracker's exact item-level 305 tier-item table."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2096,
+              "source": "WoW Gear Tracker's exact item-level 305 tier-item table."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 40,
+              "source": "WoW Gear Tracker's exact item-level 305 tier-item table."
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 93,
+              "source": "WoW Gear Tracker's exact item-level 305 tier-item table."
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats",
+          "verificationScope": "exact-item-stats-and-rank-cross-checked"
+        },
+        {
+          "itemId": 271482,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Leggings of the Ophidian Oracle",
+          "slot": "Legs",
+          "variant": "Hero 1/6",
+          "itemLevel": 305,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271482/leggings-of-the-ophidian-oracle?ilvl=305",
+          "statsSourceUrl": "https://wowgeartracker.com/",
+          "rankSourceUrl": "https://guildsofwow.com/player/199467/karendar",
+          "rankEvidence": "Guilds of WoW profile identifies Leggings at item level 305 as Hero 1/6.",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 144,
+              "source": "WoW Gear Tracker's exact item-level 305 tier-item table."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 144,
+              "source": "WoW Gear Tracker's exact item-level 305 tier-item table."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2794,
+              "source": "WoW Gear Tracker's exact item-level 305 tier-item table."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 62,
+              "source": "WoW Gear Tracker's exact item-level 305 tier-item table."
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 115,
+              "source": "WoW Gear Tracker's exact item-level 305 tier-item table."
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Versatility"
           ],
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats",
