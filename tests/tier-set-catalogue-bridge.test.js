@@ -231,7 +231,7 @@ test("Paladin observed tier variants are source-backed and remain evidence-only"
 test("Demon Hunter source-checked tier versions remain evidence-only and preserve observed stats", () => {
   const demonHunter = catalogue.sets.find(set => set.class === "Demon Hunter");
   const observations = demonHunter.verifiedVariantObservations || [];
-  assert.equal(observations.length, 29);
+  assert.equal(observations.length, 30);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(demonHunter.variantObservationsStatus, "partial");
   assert.match(demonHunter.variantObservationsNote, /Hands at base item level 219, Veteran 2\/6 item level 282, Champion 2\/6 item level 295, Hero 1\/6 item level 305, Hero 2\/6 item level 308, and Myth 2\/6 item level 321/i);
@@ -265,6 +265,16 @@ test("Demon Hunter source-checked tier versions remain evidence-only and preserv
   assert.deepEqual(
     Object.fromEntries(raidFinderGloves.stats.map(stat => [stat.type.name, stat.value])),
     { agility: 87, stamina: 1606, criticalStrike: 82, mastery: 37 }
+  );
+  const mythicGloves = observations.find(piece => piece.itemId === 271538 && piece.itemLevel === 334);
+  assert.ok(mythicGloves, "missing Demon Hunter Mythic 6/6 gloves at item level 334");
+  assert.equal(mythicGloves.variant, "Mythic 6/6");
+  assert.equal(mythicGloves.candidate, false);
+  assert.equal(mythicGloves.verificationScope, "observed-version-only");
+  assert.equal(Number(new URL(mythicGloves.sourceUrl).searchParams.get("ilvl")), 334);
+  assert.deepEqual(
+    Object.fromEntries(mythicGloves.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 141, stamina: 2932, criticalStrike: 104, mastery: 47 }
   );
   for (const expected of [
     { level: 285, stats: { agility: 119, stamina: 2219, criticalStrike: 50, mastery: 111 } },
