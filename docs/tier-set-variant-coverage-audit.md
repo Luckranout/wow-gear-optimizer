@@ -7,7 +7,7 @@ Scope: source-verified numeric item variants needed before tier pieces can becom
 ## Summary
 
 - Base tier membership: **13/13 classes mapped**, with five base item IDs per class (65 total).
-- Complete baseline PvE candidate mapping: **7/13 classes** — Death Knight, Demon Hunter, Evoker, Mage, Paladin, Priest, and Shaman. Druid and Monk each still lack a source-verified Mythic 6/6 Legs record; five other classes still lack complete baseline candidate maps.
+- Complete baseline PvE candidate mapping: **7/13 classes** — Death Knight, Demon Hunter, Evoker, Mage, Paladin, Priest, and Shaman. Druid and Monk each still lack a source-verified Mythic 6/6 Legs record; four other classes still lack complete baseline candidate maps.
 - Verified Shaman PvE candidates: **20/20** (four PvE difficulty variants across five slots).
 - Verified Death Knight PvE candidates: **25/25** (four baseline PvE difficulty variants plus exact Mythic 6/6 item-level-334 variants across five slots).
 - Verified Demon Hunter PvE candidates: **25/25** (source-documented baseline PvE variants plus exact Mythic 6/6 item-level-334 variants across five slots).
