@@ -6437,60 +6437,6 @@
           ],
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
-        },
-        {
-          "itemId": 271527,
-          "setId": "bark-of-the-enigmatic-dreamwatcher",
-          "name": "Enigmatic Dreamwatcher's Leggings",
-          "slot": "Legs",
-          "variant": "Mythic 6/6",
-          "itemLevel": 334,
-          "candidate": true,
-          "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/item=271527/enigmatic-dreamwatchers-leggings?ilvl=334",
-          "stats": [
-            {
-              "type": {
-                "name": "agility"
-              },
-              "value": 189,
-              "source": "Item-level-334 observation for Enigmatic Dreamwatcher's Leggings (271527); MythicSim Guardian Druid tier listing reports 189 agility. Exact upgrade rank remains unverified."
-            },
-            {
-              "type": {
-                "name": "intellect"
-              },
-              "value": 189,
-              "source": "Item-level-334 observation for Enigmatic Dreamwatcher's Leggings (271527); Azeroth Codex equipped profile reports 189 intellect. Exact upgrade rank remains unverified."
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 3910,
-              "source": "Item-level-334 observation for Enigmatic Dreamwatcher's Leggings (271527); Azeroth Codex equipped profile reports 3910 stamina. Exact upgrade rank remains unverified."
-            },
-            {
-              "type": {
-                "name": "criticalStrike"
-              },
-              "value": 67,
-              "source": "Item-level-334 observation for Enigmatic Dreamwatcher's Leggings (271527); MythicSim Guardian Druid tier listing reports 67 criticalStrike. Exact upgrade rank remains unverified."
-            },
-            {
-              "type": {
-                "name": "haste"
-              },
-              "value": 134,
-              "source": "Item-level-334 observation for Enigmatic Dreamwatcher's Leggings (271527); MythicSim Guardian Druid tier listing reports 134 haste. Exact upgrade rank remains unverified."
-            }
-          ],
-          "secondaryStats": [
-            "Haste",
-            "Critical Strike"
-          ],
-          "secondaryStatsVerified": true,
-          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "itemIdsVerified": true,
@@ -14956,60 +14902,6 @@
               },
               "value": 68,
               "source": "Warcraft Wiki Guile of the Monkey King tier listing, item level 324 (Mythic 3/6): 68 Versatility"
-            }
-          ],
-          "secondaryStats": [
-            "Critical Strike",
-            "Versatility"
-          ],
-          "secondaryStatsVerified": true,
-          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
-        },
-        {
-          "itemId": 271518,
-          "setId": "guile-of-the-monkey-king",
-          "name": "Pantaloons of the Monkey King",
-          "slot": "Legs",
-          "variant": "Mythic 6/6",
-          "itemLevel": 334,
-          "candidate": true,
-          "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/item=271518/pantaloons-of-the-monkey-king?ilvl=334",
-          "stats": [
-            {
-              "type": {
-                "name": "agility"
-              },
-              "value": 189,
-              "source": "Item-level-334 observation for Pantaloons of the Monkey King (271518); Azeroth Codex equipped profile reports 189 agility. Exact upgrade rank remains unverified."
-            },
-            {
-              "type": {
-                "name": "intellect"
-              },
-              "value": 189,
-              "source": "Item-level-334 observation for Pantaloons of the Monkey King (271518); Azeroth Codex equipped profile reports 189 intellect. Exact upgrade rank remains unverified."
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 3910,
-              "source": "Item-level-334 observation for Pantaloons of the Monkey King (271518); Azeroth Codex equipped profile reports 3910 stamina. Exact upgrade rank remains unverified."
-            },
-            {
-              "type": {
-                "name": "criticalStrike"
-              },
-              "value": 130,
-              "source": "Item-level-334 observation for Pantaloons of the Monkey King (271518); Azeroth Codex equipped profile reports 130 criticalStrike. Exact upgrade rank remains unverified."
-            },
-            {
-              "type": {
-                "name": "versatility"
-              },
-              "value": 71,
-              "source": "Item-level-334 observation for Pantaloons of the Monkey King (271518); Azeroth Codex equipped profile reports 71 versatility. Exact upgrade rank remains unverified."
             }
           ],
           "secondaryStats": [
@@ -25069,7 +24961,7 @@
       "Gladiator",
       "Elite"
     ],
-    "note": "Source-verified baseline PvE candidate maps currently exist for Death Knight, Demon Hunter, Druid, Evoker, Mage, Monk, Priest, and Shaman. Candidate entries are exact observed item versions only; unverified intermediate upgrade ranks remain evidence-only, and overall variant coverage is still partial.",
+    "note": "Source-backed baseline PvE candidate maps exist for Death Knight, Demon Hunter, Evoker, Mage, Priest, and Shaman. Druid and Monk each have 24 verified candidate variants; their item-level-334 Legs observations remain evidence-only because the exact upgrade rank is not source-verified. Other classes still need baseline slot variants. Intermediate upgrade ranks remain evidence-only throughout.",
     "verifiedClasses": [
       "Death Knight",
       "Demon Hunter",
