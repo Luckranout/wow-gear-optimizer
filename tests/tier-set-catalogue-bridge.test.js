@@ -780,7 +780,7 @@ test("Evoker source-checked tier versions remain evidence-only and preserve obse
 test("Hunter source-checked tier versions remain evidence-only and match exact Wowhead stats", () => {
   const hunter = catalogue.sets.find(set => set.class === "Hunter");
   const observations = hunter.verifiedVariantObservations || [];
-  assert.equal(observations.length, 15);
+  assert.equal(observations.length, 18);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(hunter.variantObservationsStatus, "partial");
   assert.match(hunter.variantObservationsNote, /remain ineligible as optimizer candidates/i);
@@ -844,6 +844,27 @@ test("Hunter source-checked tier versions remain evidence-only and match exact W
   assert.deepEqual(
     Object.fromEntries(head.stats.map(stat => [stat.type.name, stat.value])),
     { agility: 189, stamina: 3910, haste: 143, mastery: 58 }
+  );
+  const head308 = observations.find(piece => piece.itemId === 271492 && piece.itemLevel === 308);
+  assert.ok(head308, "missing Hunter head item level 308 observation");
+  assert.equal(head308.candidate, false);
+  assert.deepEqual(
+    Object.fromEntries(head308.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 148, stamina: 2896, haste: 128, mastery: 52 }
+  );
+  const head311 = observations.find(piece => piece.itemId === 271492 && piece.itemLevel === 311);
+  assert.ok(head311, "missing Hunter head Hero 3/6 item level 311 observation");
+  assert.equal(head311.variant, "Hero 3/6 observed");
+  assert.deepEqual(
+    Object.fromEntries(head311.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 152, stamina: 3002, haste: 130, mastery: 52 }
+  );
+  const shoulders321 = observations.find(piece => piece.itemId === 271490 && piece.itemLevel === 321);
+  assert.ok(shoulders321, "missing Hunter shoulders item level 321 observation");
+  assert.equal(shoulders321.candidate, false);
+  assert.deepEqual(
+    Object.fromEntries(shoulders321.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 125, stamina: 2527, criticalStrike: 50, haste: 93 }
   );
   const lfrLegs = observations.find(piece => piece.itemId === 271491 && piece.itemLevel === 285);
   assert.equal(lfrLegs.variant, "Veteran 3/6 observed");
