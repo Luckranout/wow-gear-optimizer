@@ -22792,7 +22792,1218 @@
           "sourceType": "PvP"
         }
       ],
-      "pieces": [],
+      "pieces": [
+        {
+          "itemId": 271510,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Spirit Shroud",
+          "slot": "Head",
+          "variant": "Raid Finder",
+          "itemLevel": 285,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki tier-set listing, item level 285"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki tier-set listing, item level 285"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 54,
+              "source": "Warcraft Wiki tier-set listing, item level 285"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 108,
+              "source": "Warcraft Wiki tier-set listing, item level 285"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271510,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Spirit Shroud",
+          "slot": "Head",
+          "variant": "Normal",
+          "itemLevel": 298,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki tier-set listing, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki tier-set listing, item level 298"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 57,
+              "source": "Warcraft Wiki tier-set listing, item level 298"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 115,
+              "source": "Warcraft Wiki tier-set listing, item level 298"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271510,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Spirit Shroud",
+          "slot": "Head",
+          "variant": "Heroic",
+          "itemLevel": 311,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki tier-set listing, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Warcraft Wiki tier-set listing, item level 311"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 61,
+              "source": "Warcraft Wiki tier-set listing, item level 311"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 122,
+              "source": "Warcraft Wiki tier-set listing, item level 311"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271510,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Spirit Shroud",
+          "slot": "Head",
+          "variant": "Mythic",
+          "itemLevel": 324,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki tier-set listing, item level 324"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki tier-set listing, item level 324"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 64,
+              "source": "Warcraft Wiki tier-set listing, item level 324"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 129,
+              "source": "Warcraft Wiki tier-set listing, item level 324"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271510,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Spirit Shroud",
+          "slot": "Head",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271510/chosen-bloodslayers-spirit-shroud?bonus=13692%3A13440%3A6652%3A13696%3A13698%3A13695%3A12854&ilvl=334&spec=259",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 67,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 134,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271508,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Voodoo Guards",
+          "slot": "Shoulders",
+          "variant": "Raid Finder",
+          "itemLevel": 282,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Voodoo_Guards",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki tier item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "Warcraft Wiki tier item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 34,
+              "source": "Warcraft Wiki tier item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 85,
+              "source": "Warcraft Wiki tier item page, item level 282"
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271508,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Voodoo Guards",
+          "slot": "Shoulders",
+          "variant": "Normal",
+          "itemLevel": 295,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Voodoo_Guards",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 98,
+              "source": "Warcraft Wiki tier item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Warcraft Wiki tier item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 37,
+              "source": "Warcraft Wiki tier item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 90,
+              "source": "Warcraft Wiki tier item page, item level 295"
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271508,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Voodoo Guards",
+          "slot": "Shoulders",
+          "variant": "Heroic",
+          "itemLevel": 308,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Voodoo_Guards",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki tier item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Warcraft Wiki tier item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 39,
+              "source": "Warcraft Wiki tier item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 96,
+              "source": "Warcraft Wiki tier item page, item level 308"
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271508,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Voodoo Guards",
+          "slot": "Shoulders",
+          "variant": "Mythic",
+          "itemLevel": 321,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Voodoo_Guards",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 125,
+              "source": "Warcraft Wiki tier item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Warcraft Wiki tier item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 41,
+              "source": "Warcraft Wiki tier item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 102,
+              "source": "Warcraft Wiki tier item page, item level 321"
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271508,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Voodoo Guards",
+          "slot": "Shoulders",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271508/chosen-bloodslayers-voodoo-guards?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 43,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 107,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271513,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Banded Poncho",
+          "slot": "Chest",
+          "variant": "Raid Finder",
+          "itemLevel": 285,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki tier-set listing, item level 285"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki tier-set listing, item level 285"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 106,
+              "source": "Warcraft Wiki tier-set listing, item level 285"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 56,
+              "source": "Warcraft Wiki tier-set listing, item level 285"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271513,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Banded Poncho",
+          "slot": "Chest",
+          "variant": "Normal",
+          "itemLevel": 298,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki tier-set listing, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki tier-set listing, item level 298"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 113,
+              "source": "Warcraft Wiki tier-set listing, item level 298"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 59,
+              "source": "Warcraft Wiki tier-set listing, item level 298"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271513,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Banded Poncho",
+          "slot": "Chest",
+          "variant": "Heroic",
+          "itemLevel": 311,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki tier-set listing, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Warcraft Wiki tier-set listing, item level 311"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki tier-set listing, item level 311"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 63,
+              "source": "Warcraft Wiki tier-set listing, item level 311"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271513,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Banded Poncho",
+          "slot": "Chest",
+          "variant": "Mythic",
+          "itemLevel": 324,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki tier-set listing, item level 324"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki tier-set listing, item level 324"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 126,
+              "source": "Warcraft Wiki tier-set listing, item level 324"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 66,
+              "source": "Warcraft Wiki tier-set listing, item level 324"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271513,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Banded Poncho",
+          "slot": "Chest",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271513/chosen-bloodslayers-banded-poncho?bonus=12854&ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 132,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 69,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271511,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Fanged Grips",
+          "slot": "Hands",
+          "variant": "Raid Finder",
+          "itemLevel": 282,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki set item entry, Veteran 2/6 item level 282"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "Warcraft Wiki set item entry, Veteran 2/6 item level 282"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 79,
+              "source": "Warcraft Wiki set item entry, Veteran 2/6 item level 282"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 40,
+              "source": "Warcraft Wiki set item entry, Veteran 2/6 item level 282"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271511,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Fanged Grips",
+          "slot": "Hands",
+          "variant": "Normal",
+          "itemLevel": 295,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 98,
+              "source": "Warcraft Wiki tier-set listing, item level 295"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Warcraft Wiki tier-set listing, item level 295"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 84,
+              "source": "Warcraft Wiki tier-set listing, item level 295"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 43,
+              "source": "Warcraft Wiki tier-set listing, item level 295"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271511,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Fanged Grips",
+          "slot": "Hands",
+          "variant": "Heroic",
+          "itemLevel": 308,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki tier-set listing, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Warcraft Wiki tier-set listing, item level 308"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 90,
+              "source": "Warcraft Wiki tier-set listing, item level 308"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 45,
+              "source": "Warcraft Wiki tier-set listing, item level 308"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271511,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Fanged Grips",
+          "slot": "Hands",
+          "variant": "Mythic",
+          "itemLevel": 321,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271511/chosen-bloodslayers-fanged-grips?bonus=6652%3A13440%3A13691%3A13697%3A12846&ilvl=321&spec=261",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 125,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 125,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 95,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 48,
+              "source": "Wowhead tooltip, item level 321"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271511,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Fanged Grips",
+          "slot": "Hands",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271511/chosen-bloodslayers-fanged-grips?bonus=13335%3A12854&ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 100,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 51,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271509,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Reinforced Pants",
+          "slot": "Legs",
+          "variant": "Raid Finder",
+          "itemLevel": 285,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 57,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 104,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271509,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Reinforced Pants",
+          "slot": "Legs",
+          "variant": "Normal",
+          "itemLevel": 298,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 61,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271509,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Reinforced Pants",
+          "slot": "Legs",
+          "variant": "Heroic",
+          "itemLevel": 311,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki tier-set page, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Warcraft Wiki tier-set page, item level 311"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 64,
+              "source": "Warcraft Wiki tier-set page, item level 311"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 118,
+              "source": "Warcraft Wiki tier-set page, item level 311"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271509,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Reinforced Pants",
+          "slot": "Legs",
+          "variant": "Mythic",
+          "itemLevel": 324,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki tier-set page, item level 324"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki tier-set page, item level 324"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 68,
+              "source": "Warcraft Wiki tier-set page, item level 324"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 125,
+              "source": "Warcraft Wiki tier-set page, item level 324"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271509,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Reinforced Pants",
+          "slot": "Legs",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271509/chosen-bloodslayers-reinforced-pants?bonus=13334%3A13693%3A6652%3A13698%3A12854&ilvl=334&spec=259",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 71,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 130,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        }
+      ],
       "itemIdsVerified": false,
       "id": "chosen-bloodslayer-s-hexweave",
       "itemIdsSource": "https://www.wowhead.com/ptr/item-set=2064/chosen-bloodslayers-hexweave",
@@ -23747,11 +24958,421 @@
               "source": "Wowhead tooltip, item level 334"
             }
           ]
+        },
+        {
+          "itemId": 271510,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Spirit Shroud",
+          "slot": "Head",
+          "variant": "Raid Finder observed",
+          "itemLevel": 285,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki tier-set listing, item level 285"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki tier-set listing, item level 285"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 54,
+              "source": "Warcraft Wiki tier-set listing, item level 285"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 108,
+              "source": "Warcraft Wiki tier-set listing, item level 285"
+            }
+          ]
+        },
+        {
+          "itemId": 271510,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Spirit Shroud",
+          "slot": "Head",
+          "variant": "Normal observed",
+          "itemLevel": 298,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki tier-set listing, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki tier-set listing, item level 298"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 57,
+              "source": "Warcraft Wiki tier-set listing, item level 298"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 115,
+              "source": "Warcraft Wiki tier-set listing, item level 298"
+            }
+          ]
+        },
+        {
+          "itemId": 271510,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Spirit Shroud",
+          "slot": "Head",
+          "variant": "Heroic observed",
+          "itemLevel": 311,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki tier-set listing, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Warcraft Wiki tier-set listing, item level 311"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 61,
+              "source": "Warcraft Wiki tier-set listing, item level 311"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 122,
+              "source": "Warcraft Wiki tier-set listing, item level 311"
+            }
+          ]
+        },
+        {
+          "itemId": 271510,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Spirit Shroud",
+          "slot": "Head",
+          "variant": "Mythic observed",
+          "itemLevel": 324,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki tier-set listing, item level 324"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki tier-set listing, item level 324"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 64,
+              "source": "Warcraft Wiki tier-set listing, item level 324"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 129,
+              "source": "Warcraft Wiki tier-set listing, item level 324"
+            }
+          ]
+        },
+        {
+          "itemId": 271513,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Banded Poncho",
+          "slot": "Chest",
+          "variant": "Raid Finder observed",
+          "itemLevel": 285,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki tier-set listing, item level 285"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki tier-set listing, item level 285"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 106,
+              "source": "Warcraft Wiki tier-set listing, item level 285"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 56,
+              "source": "Warcraft Wiki tier-set listing, item level 285"
+            }
+          ]
+        },
+        {
+          "itemId": 271513,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Banded Poncho",
+          "slot": "Chest",
+          "variant": "Normal observed",
+          "itemLevel": 298,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki tier-set listing, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki tier-set listing, item level 298"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 113,
+              "source": "Warcraft Wiki tier-set listing, item level 298"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 59,
+              "source": "Warcraft Wiki tier-set listing, item level 298"
+            }
+          ]
+        },
+        {
+          "itemId": 271513,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Banded Poncho",
+          "slot": "Chest",
+          "variant": "Heroic observed",
+          "itemLevel": 311,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki tier-set listing, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Warcraft Wiki tier-set listing, item level 311"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki tier-set listing, item level 311"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 63,
+              "source": "Warcraft Wiki tier-set listing, item level 311"
+            }
+          ]
+        },
+        {
+          "itemId": 271513,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Banded Poncho",
+          "slot": "Chest",
+          "variant": "Mythic observed",
+          "itemLevel": 324,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki tier-set listing, item level 324"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki tier-set listing, item level 324"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 126,
+              "source": "Warcraft Wiki tier-set listing, item level 324"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 66,
+              "source": "Warcraft Wiki tier-set listing, item level 324"
+            }
+          ]
+        },
+        {
+          "itemId": 271511,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Fanged Grips",
+          "slot": "Hands",
+          "variant": "Normal observed",
+          "itemLevel": 295,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 98,
+              "source": "Warcraft Wiki tier-set listing, item level 295"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Warcraft Wiki tier-set listing, item level 295"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 84,
+              "source": "Warcraft Wiki tier-set listing, item level 295"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 43,
+              "source": "Warcraft Wiki tier-set listing, item level 295"
+            }
+          ]
+        },
+        {
+          "itemId": 271511,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Fanged Grips",
+          "slot": "Hands",
+          "variant": "Heroic observed",
+          "itemLevel": 308,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki tier-set listing, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Warcraft Wiki tier-set listing, item level 308"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 90,
+              "source": "Warcraft Wiki tier-set listing, item level 308"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 45,
+              "source": "Warcraft Wiki tier-set listing, item level 308"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
       "variantObservationsNote": "Twelve source-checked item versions are recorded as evidence only. Legs are observed at item levels 219, 285 (Veteran 3/6), 298 (Champion 3/6), 311 (Hero 3/6), 315, 321, and 324 (Myth 3/6); Hands at 282 (Veteran 2/6), 295 (Champion item level), and 321 (Myth 2/6). Chest 305, Head 295, and Shoulders 334. Other difficulty and upgrade variants and the complete Rogue variant ID map remain unverified. All observations remain ineligible as optimizer candidates.",
-      "candidateVariantsAvailable": false
+      "candidateVariantsAvailable": true
     },
     {
       "class": "Shaman",
@@ -28216,7 +29837,7 @@
       "Gladiator",
       "Elite"
     ],
-    "note": "Exact source-verified candidate versions are available for selected slots/difficulties, but no class is marked as having a complete variant map until all required upgrade-rank variants are verified. Base tier IDs remain separately verified. Mage Legs have two source-verified item IDs for the same named slot piece across observed versions (271566 at baseline levels; 271563 at item level 334).",
+    "note": "Source-backed baseline candidate versions exist for Death Knight, Demon Hunter, Druid, Evoker, Hunter, Mage, Monk, Paladin, Priest, Rogue, and Shaman. Druid and Monk have 24/25 candidates pending exact Legs 334 upgrade-rank proof. Warlock and Warrior still need candidate promotion. No class is marked as fully variant-verified until the complete upgrade-rank map is source-verified.",
     "verifiedClasses": [],
     "statsVerifiedClasses": [
       "Death Knight",
@@ -28228,6 +29849,7 @@
       "Monk",
       "Paladin",
       "Priest",
+      "Rogue",
       "Shaman"
     ],
     "baseItemIdsVerifiedClasses": [
@@ -28270,6 +29892,7 @@
       "Monk",
       "Paladin",
       "Priest",
+      "Rogue",
       "Shaman"
     ]
   }
