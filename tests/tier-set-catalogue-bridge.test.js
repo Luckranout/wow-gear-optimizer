@@ -733,7 +733,7 @@ test("Evoker source-checked tier versions remain evidence-only and preserve obse
 test("Hunter source-checked tier versions remain evidence-only and match exact Wowhead stats", () => {
   const hunter = catalogue.sets.find(set => set.class === "Hunter");
   const observations = hunter.verifiedVariantObservations || [];
-  assert.equal(observations.length, 13);
+  assert.equal(observations.length, 14);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(hunter.variantObservationsStatus, "partial");
   assert.match(hunter.variantObservationsNote, /remain ineligible as optimizer candidates/i);
@@ -772,6 +772,15 @@ test("Hunter source-checked tier versions remain evidence-only and match exact W
   assert.deepEqual(
     Object.fromEntries(gloves.stats.map(stat => [stat.type.name, stat.value])),
     { agility: 125, stamina: 2527, haste: 94, versatility: 49 }
+  );
+  const mythicGloves = observations.find(piece => piece.itemId === 271493 && piece.itemLevel === 334);
+  assert.equal(mythicGloves.variant, "Mythic 6/6 observed");
+  assert.equal(mythicGloves.candidate, false);
+  assert.equal(mythicGloves.verificationScope, "observed-version-only");
+  assert.equal(new URL(mythicGloves.sourceUrl).hostname, "www.wowhead.com");
+  assert.deepEqual(
+    Object.fromEntries(mythicGloves.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 141, intellect: 141, stamina: 2932, haste: 99, versatility: 52 }
   );
   const head = observations.find(piece => piece.itemId === 271492);
   assert.deepEqual(
