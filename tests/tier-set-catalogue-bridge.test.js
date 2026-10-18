@@ -1717,8 +1717,10 @@ test("Druid tier observations preserve the source-backed Hero 6/6 head at item l
   );
   assert.ok(head.stats.every(stat => stat.source.includes("item level 321")));
   const maxLegs = observations.find(piece => piece.itemId === 271527 && piece.itemLevel === 334);
-  assert.ok(maxLegs, "missing Druid Mythic 6/6 legs at item level 334");
-  assert.equal(maxLegs.variant, "Mythic 6/6 observed");
+  assert.ok(maxLegs, "missing Druid Legs observation at item level 334");
+  assert.equal(maxLegs.variant, "Item level 334 observed; upgrade rank unverified");
+  assert.equal(new URL(maxLegs.sourceUrl).hostname, "www.wowhead.com");
+  assert.equal(Number(new URL(maxLegs.sourceUrl).searchParams.get("ilvl")), 334);
   assert.equal(maxLegs.candidate, false);
   assert.equal(maxLegs.verificationScope, "observed-version-only");
   assert.deepEqual(Object.fromEntries(maxLegs.stats.map(stat => [stat.type.name, stat.value])),
