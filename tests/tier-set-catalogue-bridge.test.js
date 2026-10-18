@@ -1038,7 +1038,7 @@ test("tier thresholds can be reported descriptively without inventing numeric bo
 test("Rogue source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
   const rogue = catalogue.sets.find(set => set.class === "Rogue");
   const observations = rogue.verifiedVariantObservations || [];
-  assert.equal(observations.length, 16);
+  assert.equal(observations.length, 20);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(rogue.variantObservationsStatus, "partial");
   assert.match(rogue.variantObservationsNote, /remain unverified/i);
@@ -1048,7 +1048,7 @@ test("Rogue source-backed tier item versions remain evidence-only and match Wowh
     assert.equal(piece.candidate, false);
     assert.equal(piece.verificationScope, "observed-version-only");
     assert.ok(piece.itemLevel > 0);
-    assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/") || piece.sourceUrl === "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave");
+    assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/") || piece.sourceUrl === "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave" || piece.sourceUrl === "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Voodoo_Guards");
     if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
     if (piece.sourceUrl.startsWith("https://www.wowhead.com/")) {
       assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), piece.itemLevel,
@@ -1127,7 +1127,22 @@ test("Rogue source-backed tier item versions remain evidence-only and match Wowh
     Object.fromEntries(legs.stats.map(stat => [stat.type.name, stat.value])),
     { agility: 65, stamina: 1005, criticalStrike: 38, haste: 69 }
   );
-  const shoulders = observations.find(piece => piece.itemId === 271508);
+  const shoulderVariants = new Map(observations.filter(piece => piece.itemId === 271508 && piece.slot === "Shoulders").map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...shoulderVariants.keys()].sort((a, b) => a - b), [282, 295, 308, 321, 334]);
+  for (const [level, expected] of [
+    [282, { agility: 87, stamina: 1606, haste: 34, versatility: 85 }],
+    [295, { agility: 98, stamina: 1869, haste: 37, versatility: 90 }],
+    [308, { agility: 111, stamina: 2172, haste: 39, versatility: 96 }],
+    [321, { agility: 125, stamina: 2527, haste: 41, versatility: 102 }]
+  ]) {
+    const piece = shoulderVariants.get(level);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.equal(piece.sourceUrl, "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Voodoo_Guards");
+    assert.ok(piece.stats.every(stat => stat.source.includes(`item level ${level}`)));
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+  const shoulders = observations.find(piece => piece.itemId === 271508 && piece.itemLevel === 334);
   assert.equal(shoulders.itemLevel, 334);
   assert.deepEqual(
     Object.fromEntries(shoulders.stats.map(stat => [stat.type.name, stat.value])),
