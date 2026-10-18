@@ -2527,6 +2527,88 @@
               "source": "Wowhead tooltip, item level 321"
             }
           ]
+        },
+        {
+          "itemId": 271529,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Gauntlets",
+          "slot": "Hands",
+          "variant": "Veteran 2/6 observed",
+          "itemLevel": 282,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Bark_of_the_Enigmatic_Dreamwatcher",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki tier-set page, item level 282; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "Warcraft Wiki tier-set page, item level 282"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 84,
+              "source": "Warcraft Wiki tier-set page, item level 282"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 35,
+              "source": "Warcraft Wiki tier-set page, item level 282"
+            }
+          ]
+        },
+        {
+          "itemId": 271529,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Gauntlets",
+          "slot": "Hands",
+          "variant": "Hero 2/6 observed",
+          "itemLevel": 308,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Bark_of_the_Enigmatic_Dreamwatcher",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki tier-set page, item level 308; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Warcraft Wiki tier-set page, item level 308"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 95,
+              "source": "Warcraft Wiki tier-set page, item level 308"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 40,
+              "source": "Warcraft Wiki tier-set page, item level 308"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
