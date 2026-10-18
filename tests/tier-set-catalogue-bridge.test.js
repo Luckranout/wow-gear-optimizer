@@ -369,6 +369,13 @@ test("Druid source-checked tier versions remain evidence-only and preserve obser
     Object.fromEntries(championGloves.stats.map(stat => [stat.type.name, stat.value])),
     { intellect: 98, agility: 98, stamina: 1869, versatility: 90, mastery: 37 }
   );
+  const heroGloves = observations.find(piece => piece.itemId === 271529 && piece.itemLevel === 321);
+  assert.equal(heroGloves.variant, "Hero 6/6");
+  assert.equal(Number(new URL(heroGloves.sourceUrl).searchParams.get("ilvl")), 321);
+  assert.deepEqual(
+    Object.fromEntries(heroGloves.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 125, intellect: 125, stamina: 2527, versatility: 101, mastery: 42 }
+  );
   const gloves = observations.find(piece => piece.itemId === 271529);
   assert.equal(gloves.itemLevel, 334);
   assert.deepEqual(
