@@ -2719,6 +2719,129 @@
               "source": "Wowhead tooltip, item level 334"
             }
           ]
+        },
+        {
+          "itemId": 271502,
+          "setId": "echo-of-calamity",
+          "name": "Calamitous Echo's Ebon Greathorns",
+          "slot": "Hands",
+          "variant": "Veteran 2/6 observed",
+          "itemLevel": 282,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271502/calamitous-echos-ebon-greathorns?ilvl=282",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 77,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 42,
+              "source": "Warcraft Wiki item page, item level 282"
+            }
+          ]
+        },
+        {
+          "itemId": 271502,
+          "setId": "echo-of-calamity",
+          "name": "Calamitous Echo's Ebon Greathorns",
+          "slot": "Hands",
+          "variant": "Champion 2/6 observed",
+          "itemLevel": 295,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271502/calamitous-echos-ebon-greathorns?ilvl=295",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 98,
+              "source": "Warcraft Wiki item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Warcraft Wiki item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 82,
+              "source": "Warcraft Wiki item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 45,
+              "source": "Warcraft Wiki item page, item level 295"
+            }
+          ]
+        },
+        {
+          "itemId": 271502,
+          "setId": "echo-of-calamity",
+          "name": "Calamitous Echo's Ebon Greathorns",
+          "slot": "Hands",
+          "variant": "Hero 2/6 observed",
+          "itemLevel": 308,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271502/calamitous-echos-ebon-greathorns?ilvl=308",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Warcraft Wiki item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 48,
+              "source": "Warcraft Wiki item page, item level 308"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
