@@ -551,10 +551,11 @@ test("Priest source-backed tier item versions remain evidence-only and match Wow
 test("Warlock source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
   const warlock = catalogue.sets.find(set => set.class === "Warlock");
   const observations = warlock.verifiedVariantObservations || [];
-  assert.equal(observations.length, 6);
+  assert.equal(observations.length, 9);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(warlock.variantObservationsStatus, "partial");
-  assert.match(warlock.variantObservationsNote, /head is source-verified at base item level 219 and at Myth 1\/6 item level 318/i);
+  assert.match(warlock.variantObservationsNote, /head is source-verified at item levels 219, 305, 315, 318, and 321/i);
+  assert.match(warlock.variantObservationsNote, /does not establish the complete upgrade path/i);
   const manifestSet = manifest.sets.find(set => set.className === "Warlock");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
   for (const piece of observations) {
@@ -571,7 +572,10 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
     271549: { intellect: 189, stamina: 3910, haste: 141, mastery: 60 },
     271547: { intellect: 138, stamina: 2832, criticalStrike: 44, haste: 105 },
     "271546:219": { intellect: 65, stamina: 1005, versatility: 34, mastery: 73 },
+    "271546:305": { intellect: 144, stamina: 2794, versatility: 57, mastery: 120 },
+    "271546:315": { intellect: 158, stamina: 3143, versatility: 60, mastery: 126 },
     "271546:318": { intellect: 162, stamina: 3254, versatility: 61, mastery: 127 },
+    "271546:321": { intellect: 167, stamina: 3369, versatility: 61, mastery: 129 },
     271545: { intellect: 189, stamina: 3910, haste: 141, mastery: 60 },
     271544: { intellect: 141, stamina: 2932, haste: 50, versatility: 101 }
   };
@@ -581,8 +585,12 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
       expected[piece.itemId === 271546 ? `271546:${piece.itemLevel}` : piece.itemId]
     );
   }
-  assert.equal(observations.find(piece => piece.itemId === 271546 && piece.itemLevel === 219).itemLevel, 219);
+  assert.deepEqual(
+    observations.filter(piece => piece.itemId === 271546).map(piece => piece.itemLevel).sort((a, b) => a - b),
+    [219, 305, 315, 318, 321]
+  );
   assert.equal(observations.find(piece => piece.itemId === 271546 && piece.itemLevel === 318).variant, "Myth 1/6 observed");
+  assert.equal(observations.find(piece => piece.itemId === 271546 && piece.itemLevel === 321).variant, "Item level 321 observed");
   assert.equal(warlock.itemIdsVerified, false,
     "partial observed versions must not promote the complete class variant map");
 });
