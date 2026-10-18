@@ -209,7 +209,7 @@ test("Death Knight source-checked tier versions preserve observed stats without 
 test("Paladin observed tier variants are source-backed and remain evidence-only", () => {
   const paladin = catalogue.sets.find(set => set.class === "Paladin");
   const observations = paladin.verifiedVariantObservations || [];
-  assert.equal(observations.length, 17);
+  assert.equal(observations.length, 18);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(paladin.variantObservationsStatus, "partial");
   assert.match(paladin.variantObservationsNote, /not optimizer candidates/i);
@@ -271,6 +271,14 @@ test("Paladin observed tier variants are source-backed and remain evidence-only"
     assert.equal(piece.candidate, false);
     assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expectedShoulders[level]);
   }
+  const legs318 = observations.find(piece => piece.itemId === 271464 && piece.itemLevel === 318);
+  assert.ok(legs318);
+  assert.equal(legs318.variant, "Mythic 1/6 observed");
+  assert.equal(legs318.candidate, false);
+  assert.equal(legs318.verificationScope, "observed-version-only");
+  assert.equal(Number(new URL(legs318.sourceUrl).searchParams.get("ilvl")), 318);
+  assert.deepEqual(Object.fromEntries(legs318.stats.map(stat => [stat.type.name, stat.value])),
+    { strength: 162, stamina: 3254, criticalStrike: 63, haste: 125 });
   assert.equal(paladin.itemIdsVerified, false,
     "partial observed versions must not promote the complete class variant map");
   const head321 = observations.find(piece => piece.itemId === 271465 && piece.itemLevel === 321);
