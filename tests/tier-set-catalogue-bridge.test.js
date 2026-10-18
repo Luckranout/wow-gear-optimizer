@@ -113,7 +113,7 @@ test("Warrior source-checked variant observations remain evidence-only and prese
   assert.equal(observations.length, 28);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(warrior.variantObservationsStatus, "partial");
-  assert.match(warrior.variantObservationsNote, /Hands have exact source-backed item versions at 295, 308, 318, 321.*334/i);
+  assert.match(warrior.variantObservationsNote, /Hands have exact source-backed versions at 295, 305, 308, 315, 318, 321, and 334/i);
   const manifestWarrior = manifest.sets.find(set => set.className === "Warrior");
   const manifestSlotsById = new Map(manifestWarrior.pieces.map(piece => [Number(piece.itemId), piece.slot]));
   for (const piece of observations) {
@@ -1404,10 +1404,10 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
     "271547:295": { intellect: 98, stamina: 1869, criticalStrike: 38, haste: 89 },
     "271547:308": { intellect: 111, stamina: 2172, criticalStrike: 40, haste: 95 },
     "271547:321": { intellect: 125, stamina: 2527, criticalStrike: 42, haste: 100 },
-    "271545:285": { intellect: 119, stamina: 2219, versatility: 52, mastery: 109 },
-    "271545:298": { intellect: 135, stamina: 2579, versatility: 55, mastery: 116 },
-    "271545:311": { intellect: 152, stamina: 3002, versatility: 59, mastery: 124 },
-    "271545:324": { intellect: 172, stamina: 3487, versatility: 62, mastery: 131 }
+    "271545:285": { intellect: 119, stamina: 2219, haste: 113, mastery: 48 },
+    "271545:298": { intellect: 135, stamina: 2579, haste: 121, mastery: 51 },
+    "271545:311": { intellect: 152, stamina: 3002, haste: 128, mastery: 54 },
+    "271545:324": { intellect: 172, stamina: 3487, haste: 135, mastery: 57 }
   };
   for (const piece of observations) {
     assert.deepEqual(
@@ -1745,7 +1745,7 @@ test("Mage source-checked shoulder versions remain evidence-only", () => {
 test("Warrior source-checked shoulder variants preserve exact stats and remain evidence-only", () => {
   const warrior = catalogue.sets.find(set => set.class === "Warrior");
   const observations = warrior.verifiedVariantObservations || [];
-  assert.equal(observations.length, 24);
+  assert.equal(observations.length, 26);
   const shoulders = new Map(observations.filter(piece => piece.itemId === 271454 && piece.slot === "Shoulders").map(piece => [piece.itemLevel, piece]));
   assert.deepEqual([...shoulders.keys()].sort((a, b) => a - b), [282, 295, 308, 321, 334]);
   for (const [level, expected] of [
