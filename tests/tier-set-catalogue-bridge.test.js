@@ -187,7 +187,7 @@ test("Death Knight source-checked tier versions preserve observed stats without 
 test("Paladin observed tier variants are source-backed and remain evidence-only", () => {
   const paladin = catalogue.sets.find(set => set.class === "Paladin");
   const observations = paladin.verifiedVariantObservations || [];
-  assert.equal(observations.length, 13);
+  assert.equal(observations.length, 17);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(paladin.variantObservationsStatus, "partial");
   assert.match(paladin.variantObservationsNote, /not optimizer candidates/i);
@@ -1317,6 +1317,18 @@ test("Shaman tier item versions remain evidence-only with exact source levels", 
     { agility: 162, intellect: 162, stamina: 3254, haste: 66, versatility: 122 });
   assert.deepEqual(Object.fromEntries(legsByLevel.get(321).stats.map(stat => [stat.type.name, stat.value])),
     { agility: 167, intellect: 167, stamina: 3369, haste: 67, versatility: 124 });
+  const shouldersByLevel = new Map(observations.filter(piece => piece.itemId === 271481).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...shouldersByLevel.keys()].sort((a, b) => a - b), [302, 321, 334]);
+  assert.deepEqual(Object.fromEntries(shouldersByLevel.get(302).stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 105, intellect: 105, stamina: 2024, criticalStrike: 45, mastery: 86 });
+  assert.deepEqual(Object.fromEntries(shouldersByLevel.get(321).stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 125, intellect: 125, stamina: 2527, criticalStrike: 49, mastery: 94 });
+  const handsByLevel = new Map(observations.filter(piece => piece.itemId === 271484).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...handsByLevel.keys()].sort((a, b) => a - b), [311, 321, 334]);
+  assert.deepEqual(Object.fromEntries(handsByLevel.get(311).stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 114, intellect: 114, stamina: 2252, criticalStrike: 41, mastery: 95 });
+  assert.deepEqual(Object.fromEntries(handsByLevel.get(321).stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 125, intellect: 125, stamina: 2527, criticalStrike: 43, mastery: 99 });
   assert.equal(shaman.pieces.length, 30, "separate observations must not change the existing 20 PvE candidate and 10 PvP appearance records");
   assert.equal(shaman.pieces.filter(piece => piece.candidate === true).length, 20);
 });
