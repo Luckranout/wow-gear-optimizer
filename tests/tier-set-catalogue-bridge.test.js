@@ -1277,7 +1277,7 @@ test("Warrior source-checked chest versions remain evidence-only", () => {
     const piece = chest.get(level);
     assert.equal(piece.candidate, false);
     assert.equal(piece.verificationScope, "observed-version-only");
-    assert.equal(new URL(piece.sourceUrl).hostname, "warcraft.wiki.gg");
+    assert.equal(new URL(piece.sourceUrl).hostname, level === 334 ? "www.wowhead.com" : "warcraft.wiki.gg");
     assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
   }
 });
