@@ -76,7 +76,7 @@ test("Warrior source-checked variant observations remain evidence-only and prese
     assert.equal(piece.candidate, false);
     assert.equal(piece.verificationScope, "observed-version-only");
     assert.ok(piece.itemLevel > 0);
-    assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/"));
+    assert.ok(["www.wowhead.com", "warcraft.wiki.gg"].includes(new URL(piece.sourceUrl).hostname));
     assert.equal(manifestSlotsById.get(Number(piece.itemId)), piece.slot,
       "observed item ID must match the manifest slot");
     const levelInUrl = new URL(piece.sourceUrl).searchParams.get("ilvl");
@@ -341,8 +341,13 @@ test("Hunter source-checked tier versions remain evidence-only and match exact W
     assert.ok(piece.itemLevel > 0);
     assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/"));
     assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
-    assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), piece.itemLevel,
-      "source URL must pin the exact observed item level");
+    if (new URL(piece.sourceUrl).hostname === "www.wowhead.com") {
+      assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), piece.itemLevel,
+        "Wowhead source URL must pin the exact observed item level");
+    } else {
+      assert.ok(piece.stats.every(stat => stat.source.includes(String(piece.itemLevel))),
+        "Warcraft Wiki observations must label the exact observed item level in every stat source");
+    }
     assert.ok(Array.isArray(piece.stats) && piece.stats.length >= 4);
     assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
     assert.ok(piece.stats.every(stat => typeof stat.source === "string" && stat.source.length > 0));
