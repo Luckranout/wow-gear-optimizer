@@ -1260,14 +1260,16 @@ test("Monk source-backed tier item versions remain evidence-only and match sourc
 });
 
 
-test("Shaman Mythic 6/6 item-level-334 tier versions remain evidence-only", () => {
+test("Shaman tier item versions remain evidence-only with exact source levels", () => {
   const shaman = catalogue.sets.find(set => set.class === "Shaman");
   const observations = shaman.verifiedVariantObservations || [];
-  assert.equal(observations.length, 5);
-  assert.deepEqual([...observations.map(piece => piece.slot)].sort(), [...EXPECTED_SLOTS].sort());
+  assert.equal(observations.length, 7);
+  const level334 = observations.filter(piece => piece.itemLevel === 334);
+  assert.equal(level334.length, 5);
+  assert.deepEqual([...level334.map(piece => piece.slot)].sort(), [...EXPECTED_SLOTS].sort());
   const manifestSet = manifest.sets.find(set => set.className === "Shaman");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
-  const expected = {
+  const expected334 = {
     "271483": { agility: 189, intellect: 189, stamina: 3910, criticalStrike: 61, haste: 140, leech: 86 },
     "271481": { agility: 141, intellect: 141, stamina: 2932, criticalStrike: 52, mastery: 99 },
     "271486": { agility: 189, intellect: 189, stamina: 3910, criticalStrike: 141, haste: 60 },
@@ -1275,17 +1277,26 @@ test("Shaman Mythic 6/6 item-level-334 tier versions remain evidence-only", () =
     "271482": { agility: 189, intellect: 189, stamina: 3910, haste: 70, versatility: 131 }
   };
   for (const piece of observations) {
-    assert.equal(piece.itemLevel, 334);
-    assert.equal(piece.variant, "Mythic 6/6");
     assert.equal(piece.candidate, false);
     assert.equal(piece.verificationScope, "observed-version-only");
     assert.equal(new URL(piece.sourceUrl).hostname, "www.wowhead.com");
-    assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), 334,
+    assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), piece.itemLevel,
       "Wowhead evidence URL must pin the exact item level");
     if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
-    assert.ok(piece.stats.every(stat => stat.source.includes("334")));
-    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected[String(piece.itemId)]);
+    assert.ok(piece.stats.every(stat => stat.source.includes(String(piece.itemLevel))));
+    if (piece.itemLevel === 334) {
+      assert.equal(piece.variant, "Mythic 6/6");
+      assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected334[String(piece.itemId)]);
+    }
   }
+  const headByLevel = new Map(observations.filter(piece => piece.itemId === 271483).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...headByLevel.keys()].sort((a, b) => a - b), [295, 321, 334]);
+  assert.equal(headByLevel.get(295).variant, "Item level 295 observed");
+  assert.deepEqual(Object.fromEntries(headByLevel.get(295).stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 131, intellect: 131, stamina: 2492, criticalStrike: 51, haste: 118 });
+  assert.equal(headByLevel.get(321).variant, "Hero 6/6");
+  assert.deepEqual(Object.fromEntries(headByLevel.get(321).stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 167, intellect: 167, stamina: 3369, criticalStrike: 58, haste: 133 });
   assert.equal(shaman.pieces.length, 30, "separate observations must not change the existing 20 PvE candidate and 10 PvP appearance records");
   assert.equal(shaman.pieces.filter(piece => piece.candidate === true).length, 20);
 });
