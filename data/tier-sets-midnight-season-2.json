@@ -29650,12 +29650,12 @@
           "setId": "ophidian-oracle-prophecy",
           "name": "Leggings of the Ophidian Oracle",
           "slot": "Legs",
-          "variant": "Hero 5/6",
+          "variant": "Myth 1/6",
           "itemLevel": 318,
           "candidate": true,
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271482/leggings-of-the-ophidian-oracle?bonus=13693%3A12849%3A13440%3A6652%3A13698&ilvl=318",
-          "rankSourceUrl": "https://www.wowhead.com/ptr-2/item=271482/leggings-of-the-ophidian-oracle?bonus=13334%3A13693%3A6652%3A13698%3A12845&class=7&ilvl=318&spec=262&spellModifier=1296625%3A1296627%3A1296629%3A1296626%3A1296628%3A1296630%3A137040",
-          "rankEvidence": "Wowhead exact item-version tooltip identifies item level 318 as Hero 5/6.",
+          "sourceUrl": "https://www.wowhead.com/ptr-2/item=271482/leggings-of-the-ophidian-oracle?bonus=13334%3A13693%3A6652%3A13698%3A12845&class=7&ilvl=318&spec=262&spellModifier=1296625%3A1296627%3A1296629%3A1296626%3A1296628%3A1296630%3A137040",
+          "rankSourceUrl": "https://guildsofwow.com/player/195950/reaper",
+          "rankEvidence": "Guilds of WoW public equipped profile identifies Leggings of the Ophidian Oracle at item level 318 as Myth 1/6; Wowhead item-version source pins the matching item ID and item level.",
           "stats": [
             {
               "type": {
