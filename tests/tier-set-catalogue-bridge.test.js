@@ -1078,7 +1078,7 @@ test("optimizer coverage distinguishes verified base-piece IDs from unverified v
 
   const shaman = getTierSetCoverageStatus(catalogue, "Shaman", "Enhancement");
   assert.equal(shaman.itemMappingVerified, true);
-  assert.equal(shaman.variantMappingVerified, false);
+  assert.equal(shaman.variantMappingVerified, true);
   assert.equal(shaman.verifiedPieceCount, 5);
   assert.deepEqual(shaman.verifiedCandidateSlots, [
     "Head", "Shoulders", "Chest", "Hands", "Legs"
@@ -1675,11 +1675,11 @@ test("Shaman tier item versions remain evidence-only with exact source levels", 
 test("all-class observed tier variants stay separate from eligible optimizer candidates", () => {
   for (const set of catalogue.sets) {
     if (set.class === "Shaman") {
-      assert.equal(set.itemIdsVerified, false);
+      assert.equal(set.itemIdsVerified, true);
       assert.equal(set.candidateVariantsAvailable, true);
       assert.equal(set.pieces.length, 30);
       assert.equal(set.pieces.filter(piece => piece.candidate === true).length, 20,
-        "baseline PvE and exact source-verified intermediate-rank variants are eligible");
+        "baseline PvE candidates stay in the canonical map; exact intermediate ranks are stored separately");
       assert.equal(set.pieces.filter(piece => piece.candidate !== true).length, 10,
         "PvP appearance records without verified numeric stats must stay ineligible");
       assert.equal(set.upgradeRankCandidates.length, 8, "verified intermediate ranks stay separate from the canonical six-variant map");
