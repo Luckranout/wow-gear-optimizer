@@ -184,11 +184,11 @@ test("Paladin observed tier variants are source-backed and remain evidence-only"
 test("Demon Hunter source-checked tier versions remain evidence-only and preserve observed stats", () => {
   const demonHunter = catalogue.sets.find(set => set.class === "Demon Hunter");
   const observations = demonHunter.verifiedVariantObservations || [];
-  assert.equal(observations.length, 15);
+  assert.equal(observations.length, 16);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(demonHunter.variantObservationsStatus, "partial");
   assert.match(demonHunter.variantObservationsNote, /Hands at base item level 219, Veteran 2\/6 item level 282, Champion 2\/6 item level 295, Hero 1\/6 item level 305, Hero 2\/6 item level 308, and Myth 2\/6 item level 321/i);
-  assert.match(demonHunter.variantObservationsNote, /Legs are observed at item levels 285, 295, 298, 311, 318, and 324/i);
+  assert.match(demonHunter.variantObservationsNote, /Legs are observed at item levels 285, 295, 298, 311, 318, 324, and 334/i);
   const manifestSet = manifest.sets.find(set => set.className === "Demon Hunter");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
   for (const piece of observations) {
@@ -270,10 +270,19 @@ test("Demon Hunter source-checked tier versions remain evidence-only and preserv
   assert.deepEqual(Object.fromEntries(championGloves.stats.map(stat => [stat.type.name, stat.value])),
     { agility: 98, stamina: 1869, criticalStrike: 87, mastery: 40 });
   const legs = observations.filter(piece => piece.itemId === 271536).sort((a, b) => a.itemLevel - b.itemLevel);
-  assert.deepEqual(legs.map(piece => piece.itemLevel), [285, 295, 298, 311, 318, 324]);
+  assert.deepEqual(legs.map(piece => piece.itemLevel), [285, 295, 298, 311, 318, 324, 334]);
   assert.deepEqual(
     Object.fromEntries(legs.find(piece => piece.itemLevel === 318).stats.map(stat => [stat.type.name, stat.value])),
     { agility: 162, stamina: 3254, criticalStrike: 58, mastery: 130 }
+  );
+  const mythicLegs = observations.find(piece => piece.itemId === 271536 && piece.itemLevel === 334);
+  assert.ok(mythicLegs);
+  assert.equal(mythicLegs.variant, "Myth 6/6 observed");
+  assert.equal(mythicLegs.candidate, false);
+  assert.match(mythicLegs.sourceUrl, /warcraft\.wiki\.gg/);
+  assert.deepEqual(
+    Object.fromEntries(mythicLegs.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 189, stamina: 3910, criticalStrike: 62, mastery: 139 }
   );
   assert.equal(demonHunter.itemIdsVerified, false,
     "partial observed versions must not promote the complete class variant map");
