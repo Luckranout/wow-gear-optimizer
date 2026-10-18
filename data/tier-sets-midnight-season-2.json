@@ -1045,10 +1045,92 @@
               "source": "MythicSim Blood Death Knight gear listing; cross-checked against a level-334 equipped profile"
             }
           ]
+        },
+        {
+          "itemId": 271477,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Breastplate",
+          "slot": "Chest",
+          "variant": "Hero 3/6 observed",
+          "itemLevel": 311,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271477/baleful-grave-knights-breastplate?bonus=12843%3A42%3A13440%3A13690%3A13698%3A1564&ilvl=311&spec=252",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 152,
+              "source": "Wowhead tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Wowhead tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 53,
+              "source": "Wowhead tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 129,
+              "source": "Wowhead tooltip, item level 311"
+            }
+          ]
+        },
+        {
+          "itemId": 271477,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Breastplate",
+          "slot": "Chest",
+          "variant": "Hero 6/6 observed",
+          "itemLevel": 321,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271477/baleful-grave-knights-breastplate?bonus=42%3A13440%3A13690%3A13698%3A12846&ilvl=321&spec=252",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 167,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3369,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 56,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 135,
+              "source": "Wowhead tooltip, item level 321"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Seventeen source-checked item versions are recorded as evidence only. Head is observed at item levels 285, 298, 305, 308, 311, 321, 324, and 334; Shoulders at 282, 295, 308, 318, and 321; Legs at 324 and 334. Chest and Hands have isolated observed versions only. Other difficulty and upgrade variants remain unverified; all observations remain ineligible as optimizer candidates."
+      "variantObservationsNote": "Twenty-four source-checked item versions are recorded for evidence only. Head levels 285/298/305/308/311/321/324/334; Shoulders 282/295/308/318/321/334; Chest 311/321/334; Hands 321/334; Legs 285/298/311/324/334. Complete all missing difficulty and upgrade variants across all slots before eligibility."
     },
     {
       "class": "Demon Hunter",
