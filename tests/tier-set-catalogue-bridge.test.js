@@ -241,11 +241,11 @@ test("Paladin observed tier variants are source-backed and remain evidence-only"
 test("Demon Hunter source-checked tier versions remain evidence-only and preserve observed stats", () => {
   const demonHunter = catalogue.sets.find(set => set.class === "Demon Hunter");
   const observations = demonHunter.verifiedVariantObservations || [];
-  assert.equal(observations.length, 31);
+  assert.equal(observations.length, 32);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(demonHunter.variantObservationsStatus, "partial");
   assert.match(demonHunter.variantObservationsNote, /Hands at base item level 219, Veteran 2\/6 item level 282, Champion 2\/6 item level 295, Hero 1\/6 item level 305, Hero 2\/6 item level 308, and Myth 2\/6 item level 321/i);
-  assert.match(demonHunter.variantObservationsNote, /Legs are observed at item levels 285, 295, 298, 311, 318, and 324/i);
+  assert.match(demonHunter.variantObservationsNote, /Legs are observed at item levels 285, 295, 298, 311, 318, 324, and 334/i);
   const manifestSet = manifest.sets.find(set => set.className === "Demon Hunter");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
   for (const piece of observations) {
@@ -275,6 +275,16 @@ test("Demon Hunter source-checked tier versions remain evidence-only and preserv
   assert.deepEqual(
     Object.fromEntries(raidFinderGloves.stats.map(stat => [stat.type.name, stat.value])),
     { agility: 87, stamina: 1606, criticalStrike: 82, mastery: 37 }
+  );
+  const mythicLegs = observations.find(piece => piece.itemId === 271536 && piece.itemLevel === 334);
+  assert.ok(mythicLegs, "missing Demon Hunter Mythic 6/6 legs at item level 334");
+  assert.equal(mythicLegs.variant, "Mythic 6/6");
+  assert.equal(mythicLegs.candidate, false);
+  assert.equal(mythicLegs.verificationScope, "observed-version-only");
+  assert.equal(Number(new URL(mythicLegs.sourceUrl).searchParams.get("ilvl")), 334);
+  assert.deepEqual(
+    Object.fromEntries(mythicLegs.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 189, intellect: 189, stamina: 3910, haste: 63, mastery: 138 }
   );
   const mythicChest = observations.find(piece => piece.itemId === 271540 && piece.itemLevel === 334);
   assert.ok(mythicChest, "missing Demon Hunter Mythic 6/6 chest at item level 334");
