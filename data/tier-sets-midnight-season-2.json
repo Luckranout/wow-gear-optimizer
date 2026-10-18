@@ -3696,6 +3696,54 @@
               "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Plumage at item level 334."
             }
           ]
+        },
+        {
+          "itemId": 271531,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Lunar Raiment",
+          "slot": "Chest",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271531/enigmatic-dreamwatchers-lunar-raiment?ilvl=334&spec=105",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 189,
+              "source": "Wowhead exact item-level URL; cross-checked against Azeroth Codex level-334 equipped profile."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead exact item-level URL; cross-checked against Azeroth Codex level-334 equipped profile."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead exact item-level URL; cross-checked against Azeroth Codex level-334 equipped profile."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 139,
+              "source": "Azeroth Codex level-334 equipped profile; secondary stats vary by observed version, so this is one exact observed variant."
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 62,
+              "source": "Azeroth Codex level-334 equipped profile; secondary stats vary by observed version, so this is one exact observed variant."
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
