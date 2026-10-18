@@ -14467,6 +14467,47 @@
           "setId": "damned-necrolyte-s-shattered-restraints",
           "name": "Damned Necrolyte's Leg Bindings",
           "slot": "Legs",
+          "variant": "Champion 5/6 observed",
+          "itemLevel": 305,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271545/damned-necrolytes-leg-bindings?bonus=13333%3A13693%3A6652%3A13698%3A12837&ilvl=305&spec=267",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 144,
+              "source": "Wowhead item tooltip, Champion 5/6, item level 305"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2794,
+              "source": "Wowhead item tooltip, Champion 5/6, item level 305"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 125,
+              "source": "Wowhead item tooltip, Champion 5/6, item level 305"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 53,
+              "source": "Wowhead item tooltip, Champion 5/6, item level 305"
+            }
+          ]
+        },
+        {
+          "itemId": 271545,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Leg Bindings",
+          "slot": "Legs",
           "variant": "Mythic 6/6 observed",
           "itemLevel": 334,
           "candidate": false,
