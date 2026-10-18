@@ -1251,7 +1251,7 @@ test("Rogue source-backed tier item versions remain evidence-only and match Wowh
 test("Mage source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
   const mage = catalogue.sets.find(set => set.class === "Mage");
   const observations = mage.verifiedVariantObservations || [];
-  assert.equal(observations.length, 26);
+  assert.equal(observations.length, 28);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(mage.variantObservationsStatus, "partial");
   assert.match(mage.variantObservationsNote, /full class variant map remains partial/i);
@@ -1424,7 +1424,7 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
   assert.deepEqual(Object.fromEntries(legs305.stats.map(stat => [stat.type.name, stat.value])),
     { intellect: 144, stamina: 2794, haste: 125, mastery: 53 });
   const legLevels = observations.filter(piece => piece.itemId === 271545).map(piece => piece.itemLevel).sort((a, b) => a - b);
-  assert.deepEqual(legLevels, [305, 334]);
+  assert.deepEqual(legLevels, [285, 298, 305, 311, 324, 334]);
   const shoulders321 = observations.find(piece => piece.itemId === 271544 && piece.itemLevel === 321);
   assert.ok(shoulders321, "missing Warlock shoulders item level 321 observation");
   assert.equal(shoulders321.candidate, false);
