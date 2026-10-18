@@ -520,7 +520,7 @@ test("Druid source-checked tier versions remain evidence-only and preserve obser
 test("Evoker source-checked tier versions remain evidence-only and preserve observed stats", () => {
   const evoker = catalogue.sets.find(set => set.class === "Evoker");
   const observations = evoker.verifiedVariantObservations || [];
-  assert.equal(observations.length, 16);
+  assert.equal(observations.length, 20);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(evoker.variantObservationsStatus, "partial");
   assert.match(evoker.variantObservationsNote, /remain ineligible as optimizer candidates/i);
@@ -561,6 +561,21 @@ test("Evoker source-checked tier versions remain evidence-only and preserve obse
     assert.equal(head.candidate, false);
     assert.equal(head.verificationScope, "observed-version-only");
     assert.deepEqual(Object.fromEntries(head.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+  const chestsByLevel = new Map(observations.filter(piece => piece.itemId === 271504).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...chestsByLevel.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334]);
+  const expectedChests = {
+    285: { agility: 119, intellect: 119, stamina: 2219, criticalStrike: 112, mastery: 49 },
+    298: { agility: 135, intellect: 135, stamina: 2579, criticalStrike: 119, mastery: 52 },
+    311: { agility: 152, intellect: 152, stamina: 3002, criticalStrike: 127, mastery: 56 },
+    324: { agility: 172, intellect: 172, stamina: 3487, criticalStrike: 134, mastery: 59 }
+  };
+  for (const [level, expected] of Object.entries(expectedChests)) {
+    const chest = chestsByLevel.get(Number(level));
+    assert.equal(chest.candidate, false);
+    assert.equal(chest.verificationScope, "observed-version-only");
+    assert.equal(new URL(chest.sourceUrl).hostname, "warcraft.wiki.gg");
+    assert.deepEqual(Object.fromEntries(chest.stats.map(stat => [stat.type.name, stat.value])), expected);
   }
   const gloves = observations.find(piece => piece.itemId === 271502);
   assert.equal(gloves.itemLevel, 321);
