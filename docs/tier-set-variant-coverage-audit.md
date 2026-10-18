@@ -9,7 +9,7 @@ Scope: source-verified numeric item variants needed before tier pieces can becom
 - Base tier membership: **13/13 classes mapped**, with five base item IDs per class (65 total).
 - Complete variant mapping: **1/13 classes** — Shaman.
 - Verified Shaman PvE candidates: **20/20** (four PvE difficulty variants across five slots).
-- Non-Shaman evidence-only observations: **242 records across 12 classes**. These are useful evidence, not complete variant maps.
+- Non-Shaman evidence-only observations: **243 records across 12 classes**. These are useful evidence, not complete variant maps.
 - Remaining baseline: **12 classes × 5 slots = 60 incomplete slot maps**, with up to **240 baseline PvE slot/difficulty records** to verify (four PvE difficulty variants per slot). Additional upgrade-track variants must be recorded when the source exposes distinct upgraded item levels/stats.
 - PvP appearances are not optimizer candidates unless their numeric item level and stats are independently verified.
 - Do not enable numeric tier-bonus scoring without a separate trustworthy, simulation-backed scoring source.
@@ -20,7 +20,7 @@ For every class marked incomplete below, all five slots still need a complete, s
 
 | Class | Current evidence | Highest-priority gaps | Required before eligibility |
 |---|---:|---|---|
-| Death Knight | 24 observations | Head levels 285/298/305/308/311/321/324/334; Shoulders 282/295/308/318/321/334; Chest 311/321/334; Hands 321/334; Legs 285/298/311/324/334. Hands and shoulders include source-checked Mythic 6/6 item-level-334 observations. | Added source-checked Hero 3/6 chest at level 311 (Strength 152, Stamina 3,002, Critical Strike 53, Mastery 129) and Hero 6/6 chest at level 321 (Strength 167, Stamina 3,369, Critical Strike 56, Mastery 135). All observations remain evidence-only; complete missing difficulty and upgrade variants across all slots. |
+| Death Knight | 25 observations | Head levels 285/298/305/308/311/321/324/334; Shoulders 282/295/308/318/321/334; Chest 298/311/321/334; Hands 321/334; Legs 285/298/311/324/334. | Added the source-checked Champion 3/6 chest at level 298 (Strength 135, Stamina 2,579, Critical Strike 50, Mastery 122), alongside Hero 3/6 level 311 and Hero 6/6 level 321. All observations remain evidence-only; complete missing difficulty and upgrade variants across all slots. |
 | Demon Hunter | 32 observations | All five slots now have source-backed level-334 observations. | Added Legwraps (271536) at level 334 Mythic 6/6 with Agility/Intellect 189, Stamina 3910, Haste 63, and Mastery 138; stats cross-checked against a level-334 equipped profile and item-specific Wowhead tooltip. All observations remain evidence-only; full difficulty/upgrade variant map is still incomplete. |
 | Druid | 27 observations | Head 285, 298, 311, 324, 334; Legs 219, 285, 298, 311, 324, 334; Hands 282, 295, 308, 321, 334; Chest 285, 292, 298, 311, 324, 334; Shoulders 282, 295, 308, 321, 334. | Added Leggings (271527) at item level 334 with Agility/Intellect 189, Stamina 3,910, Haste 63, and Mastery 138, from an equipped-profile observation; kept evidence-only. Druid now has level-334 observations for all five slots. Validate exact version provenance and complete remaining difficulty/upgrade variants before eligibility. |
 | Evoker | 25 observations | Head, Shoulders, Chest, Legs, and Hands now have level-334 observations. Hands 334: Agility/Intellect 141, Stamina 2,932, Haste 97, Mastery 53. | Validate exact source/stats and complete all other upgrade variants; evidence-only. |
@@ -55,7 +55,7 @@ This is a working inventory of current observations, not a certification that th
 
 | Class | Recorded at 334 | Slots still needing a verified 334 version |
 |---|---|---|
-| Death Knight | 24 observations | Head levels 285/298/305/308/311/321/324/334; Shoulders 282/295/308/318/321/334; Chest 311/321/334; Hands 321/334; Legs 285/298/311/324/334. Hands and shoulders include source-checked Mythic 6/6 item-level-334 observations. | Added source-checked Hero 3/6 chest at level 311 (Strength 152, Stamina 3,002, Critical Strike 53, Mastery 129) and Hero 6/6 chest at level 321 (Strength 167, Stamina 3,369, Critical Strike 56, Mastery 135). All observations remain evidence-only; complete missing difficulty and upgrade variants across all slots. |
+| Death Knight | 25 observations | Head levels 285/298/305/308/311/321/324/334; Shoulders 282/295/308/318/321/334; Chest 298/311/321/334; Hands 321/334; Legs 285/298/311/324/334. | Added the source-checked Champion 3/6 chest at level 298 (Strength 135, Stamina 2,579, Critical Strike 50, Mastery 122), alongside Hero 3/6 level 311 and Hero 6/6 level 321. All observations remain evidence-only; complete missing difficulty and upgrade variants across all slots. |
 | Demon Hunter | Head, Shoulders, Hands, Chest, Legs | None for level-334 observations; complete variant mapping still missing |
 | Druid | Head, Shoulders, Chest, Hands, Legs | None missing from current 334 observations; validate exact version provenance for Legs |
 | Evoker | Head, Shoulders, Chest, Legs, Hands | None missing from current 334 observations; validate exact source/stats and complete all other variants |
