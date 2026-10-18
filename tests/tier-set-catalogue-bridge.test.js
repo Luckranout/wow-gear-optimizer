@@ -298,7 +298,7 @@ test("Demon Hunter source-checked tier versions remain evidence-only and preserv
 test("Druid source-checked tier versions remain evidence-only and preserve observed stats", () => {
   const druid = catalogue.sets.find(set => set.class === "Druid");
   const observations = druid.verifiedVariantObservations || [];
-  assert.equal(observations.length, 10);
+  assert.equal(observations.length, 14);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(druid.variantObservationsStatus, "partial");
   assert.match(druid.variantObservationsNote, /all observations remain ineligible as optimizer candidates/i);
@@ -350,12 +350,20 @@ test("Druid source-checked tier versions remain evidence-only and preserve obser
     Object.fromEntries(gloves.stats.map(stat => [stat.type.name, stat.value])),
     { agility: 141, stamina: 2932, versatility: 106, mastery: 44 }
   );
-  const head = observations.find(piece => piece.itemId === 271528);
-  assert.equal(head.itemLevel, 334);
-  assert.deepEqual(
-    Object.fromEntries(head.stats.map(stat => [stat.type.name, stat.value])),
-    { agility: 189, stamina: 3910, haste: 142, versatility: 59 }
-  );
+  const headVariants = new Map(observations.filter(piece => piece.itemId === 271528).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...headVariants.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334]);
+  for (const [level, expected] of [
+    [285, { agility: 119, stamina: 2219, haste: 114, versatility: 47 }],
+    [298, { agility: 135, stamina: 2579, haste: 121, versatility: 51 }],
+    [311, { agility: 152, stamina: 3002, haste: 129, versatility: 54 }],
+    [324, { agility: 172, stamina: 3487, haste: 136, versatility: 57 }],
+    [334, { agility: 189, stamina: 3910, haste: 142, versatility: 59 }]
+  ]) {
+    const piece = headVariants.get(level);
+    assert.ok(piece, `missing Druid head observation at item level ${level}`);
+    assert.equal(piece.candidate, false);
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
   const legs = observations.find(piece => piece.itemId === 271527);
   assert.equal(legs.itemLevel, 219,
     "the known base version must be explicitly recorded as base-only evidence");
