@@ -30547,7 +30547,195 @@
           "setId": "jade-warlord-s-dominion",
           "name": "Tempered Horns of the Jade Warlord",
           "slot": "Head",
-          "variant": "Mythic 6/6",
+          "variant": "Veteran 3/6 observed",
+          "itemLevel": 285,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Tempered_Horns_of_the_Jade_Warlord",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki tier item page, Veteran 3/6, item level 285"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki tier item page, Veteran 3/6, item level 285"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 112,
+              "source": "Warcraft Wiki tier item page, Veteran 3/6, item level 285"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 49,
+              "source": "Warcraft Wiki tier item page, Veteran 3/6, item level 285"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271456,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Tempered Horns of the Jade Warlord",
+          "slot": "Head",
+          "variant": "Champion 3/6 observed",
+          "itemLevel": 298,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Tempered_Horns_of_the_Jade_Warlord",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki tier item page, Champion 3/6, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki tier item page, Champion 3/6, item level 298"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 120,
+              "source": "Warcraft Wiki tier item page, Champion 3/6, item level 298"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 52,
+              "source": "Warcraft Wiki tier item page, Champion 3/6, item level 298"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271456,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Tempered Horns of the Jade Warlord",
+          "slot": "Head",
+          "variant": "Hero 3/6 observed",
+          "itemLevel": 311,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Tempered_Horns_of_the_Jade_Warlord",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki tier item page, Hero 3/6, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Warcraft Wiki tier item page, Hero 3/6, item level 311"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 127,
+              "source": "Warcraft Wiki tier item page, Hero 3/6, item level 311"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 55,
+              "source": "Warcraft Wiki tier item page, Hero 3/6, item level 311"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271456,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Tempered Horns of the Jade Warlord",
+          "slot": "Head",
+          "variant": "Myth 3/6 observed",
+          "itemLevel": 324,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Tempered_Horns_of_the_Jade_Warlord",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki tier item page, Mythic 3/6, item level 324"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki tier item page, Mythic 3/6, item level 324"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 134,
+              "source": "Warcraft Wiki tier item page, Mythic 3/6, item level 324"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 58,
+              "source": "Warcraft Wiki tier item page, Mythic 3/6, item level 324"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271456,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Tempered Horns of the Jade Warlord",
+          "slot": "Head",
+          "variant": "Mythic 6/6 observed",
           "itemLevel": 334,
           "candidate": true,
           "verificationScope": "observed-version-only",
@@ -30594,7 +30782,195 @@
           "setId": "jade-warlord-s-dominion",
           "name": "Raging Pauldrons of the Jade Warlord",
           "slot": "Shoulders",
-          "variant": "Mythic 6/6",
+          "variant": "Veteran 2/6 observed",
+          "itemLevel": 282,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271454/raging-pauldrons-of-the-jade-warlord?ilvl=282",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 36,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 83,
+              "source": "Warcraft Wiki item page, item level 282"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271454,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Raging Pauldrons of the Jade Warlord",
+          "slot": "Shoulders",
+          "variant": "Champion 2/6 observed",
+          "itemLevel": 295,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271454/raging-pauldrons-of-the-jade-warlord?ilvl=295",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 98,
+              "source": "Warcraft Wiki item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Warcraft Wiki item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 39,
+              "source": "Warcraft Wiki item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 88,
+              "source": "Warcraft Wiki item page, item level 295"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271454,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Raging Pauldrons of the Jade Warlord",
+          "slot": "Shoulders",
+          "variant": "Hero 2/6 observed",
+          "itemLevel": 308,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271454/raging-pauldrons-of-the-jade-warlord?ilvl=308",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Warcraft Wiki item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 41,
+              "source": "Warcraft Wiki item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 94,
+              "source": "Warcraft Wiki item page, item level 308"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271454,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Raging Pauldrons of the Jade Warlord",
+          "slot": "Shoulders",
+          "variant": "Hero 6/6 observed",
+          "itemLevel": 321,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271454/raging-pauldrons-of-the-jade-warlord?bonus=13334%3A6652%3A13694%3A13697%3A12846&ilvl=321&spec=71",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 125,
+              "source": "Wowhead item version"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Wowhead item version"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 44,
+              "source": "Wowhead item version"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 99,
+              "source": "Wowhead item version"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271454,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Raging Pauldrons of the Jade Warlord",
+          "slot": "Shoulders",
+          "variant": "Mythic 6/6 observed",
           "itemLevel": 334,
           "candidate": true,
           "verificationScope": "observed-version-only",
@@ -30627,6 +31003,194 @@
               },
               "value": 105,
               "source": "Wowhead item version"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271459,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Cuirass of the Jade Warlord",
+          "slot": "Chest",
+          "variant": "Veteran 3/6 observed",
+          "itemLevel": 285,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Cuirass_of_the_Jade_Warlord",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 47,
+              "source": "Warcraft Wiki item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 114,
+              "source": "Warcraft Wiki item page, item level 285"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271459,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Cuirass of the Jade Warlord",
+          "slot": "Chest",
+          "variant": "Champion 3/6 observed",
+          "itemLevel": 298,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Cuirass_of_the_Jade_Warlord",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 51,
+              "source": "Warcraft Wiki item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 121,
+              "source": "Warcraft Wiki item page, item level 298"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271459,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Cuirass of the Jade Warlord",
+          "slot": "Chest",
+          "variant": "Hero 3/6 observed",
+          "itemLevel": 311,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Cuirass_of_the_Jade_Warlord",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki item page, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Warcraft Wiki item page, item level 311"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 54,
+              "source": "Warcraft Wiki item page, item level 311"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 129,
+              "source": "Warcraft Wiki item page, item level 311"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271459,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Cuirass of the Jade Warlord",
+          "slot": "Chest",
+          "variant": "Myth 3/6 observed",
+          "itemLevel": 324,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Cuirass_of_the_Jade_Warlord",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 57,
+              "source": "Warcraft Wiki item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 136,
+              "source": "Warcraft Wiki item page, item level 324"
             }
           ],
           "secondaryStats": [
@@ -30688,7 +31252,216 @@
           "setId": "jade-warlord-s-dominion",
           "name": "Jeweled Gauntlets of the Jade Warlord",
           "slot": "Hands",
-          "variant": "Mythic 6/6",
+          "variant": "Champion 2/6 observed",
+          "itemLevel": 295,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271457/jeweled-gauntlets-of-the-jade-warlord?bonus=41%3A12834%3A13691%3A13697%3A1548&ilvl=295&spec=71",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 98,
+              "source": "Wowhead item tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Wowhead item tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 85,
+              "source": "Wowhead item tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 42,
+              "source": "Wowhead item tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 98,
+              "source": "Wowhead item tooltip, item level 295"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271457,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Jeweled Gauntlets of the Jade Warlord",
+          "slot": "Hands",
+          "variant": "Hero 2/6 observed",
+          "itemLevel": 308,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271457/jeweled-gauntlets-of-the-jade-warlord?bonus=6652%3A12842%3A13440%3A13691%3A13697%3A1561&ilvl=308&spec=72",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 111,
+              "source": "Wowhead item tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Wowhead item tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 90,
+              "source": "Wowhead item tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 45,
+              "source": "Wowhead item tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 111,
+              "source": "Wowhead item tooltip, item level 308"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271457,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Jeweled Gauntlets of the Jade Warlord",
+          "slot": "Hands",
+          "variant": "Mythic 1/6 observed",
+          "itemLevel": 318,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271457/jeweled-gauntlets-of-the-jade-warlord?bonus=13334%3A6652%3A13691%3A13697%3A12845&ilvl=318&spec=73",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 122,
+              "source": "Wowhead item tooltip, item level 318"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2440,
+              "source": "Wowhead item tooltip, item level 318"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 94,
+              "source": "Wowhead item tooltip, item level 318"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 47,
+              "source": "Wowhead item tooltip, item level 318"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 122,
+              "source": "Wowhead item tooltip, item level 318"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271457,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Jeweled Gauntlets of the Jade Warlord",
+          "slot": "Hands",
+          "variant": "Hero 6/6 observed; dropped-item stat variant",
+          "itemLevel": 321,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271457/jeweled-gauntlets-of-the-jade-warlord?bonus=41%3A13691%3A13697%3A12846&ilvl=321&spec=72",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 125,
+              "source": "Wowhead item version"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Wowhead item version"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 96,
+              "source": "Wowhead item version"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 47,
+              "source": "Wowhead item version"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271457,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Jeweled Gauntlets of the Jade Warlord",
+          "slot": "Hands",
+          "variant": "Mythic 6/6 observed; dropped-item stat variant",
           "itemLevel": 334,
           "candidate": true,
           "verificationScope": "observed-version-only",
@@ -30735,7 +31508,54 @@
           "setId": "jade-warlord-s-dominion",
           "name": "Greaves of the Jade Warlord",
           "slot": "Legs",
-          "variant": "Mythic 6/6",
+          "variant": "Hero 6/6 observed",
+          "itemLevel": 321,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271455/greaves-of-the-jade-warlord?bonus=12846%3A6652%3A13440%3A13693%3A13698%3A1574&ilvl=321",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 167,
+              "source": "Wowhead item version"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3369,
+              "source": "Wowhead item version"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 128,
+              "source": "Wowhead item version"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 62,
+              "source": "Wowhead item version"
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271455,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Greaves of the Jade Warlord",
+          "slot": "Legs",
+          "variant": "Mythic 6/6 observed",
           "itemLevel": 334,
           "candidate": true,
           "verificationScope": "observed-version-only",
@@ -31710,10 +32530,154 @@
               "source": "MythicSim item listing and Wowhead item page, item level 334"
             }
           ]
+        },
+        {
+          "itemId": 271457,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Jeweled Gauntlets of the Jade Warlord",
+          "slot": "Hands",
+          "variant": "Champion 2/6 observed",
+          "itemLevel": 295,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271457/jeweled-gauntlets-of-the-jade-warlord?bonus=41%3A12834%3A13691%3A13697%3A1548&ilvl=295&spec=71",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 98,
+              "source": "Wowhead item tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Wowhead item tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 85,
+              "source": "Wowhead item tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 42,
+              "source": "Wowhead item tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 98,
+              "source": "Wowhead item tooltip, item level 295"
+            }
+          ]
+        },
+        {
+          "itemId": 271457,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Jeweled Gauntlets of the Jade Warlord",
+          "slot": "Hands",
+          "variant": "Hero 2/6 observed",
+          "itemLevel": 308,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271457/jeweled-gauntlets-of-the-jade-warlord?bonus=6652%3A12842%3A13440%3A13691%3A13697%3A1561&ilvl=308&spec=72",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 111,
+              "source": "Wowhead item tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Wowhead item tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 90,
+              "source": "Wowhead item tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 45,
+              "source": "Wowhead item tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 111,
+              "source": "Wowhead item tooltip, item level 308"
+            }
+          ]
+        },
+        {
+          "itemId": 271457,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Jeweled Gauntlets of the Jade Warlord",
+          "slot": "Hands",
+          "variant": "Mythic 1/6 observed",
+          "itemLevel": 318,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271457/jeweled-gauntlets-of-the-jade-warlord?bonus=13334%3A6652%3A13691%3A13697%3A12845&ilvl=318&spec=73",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 122,
+              "source": "Wowhead item tooltip, item level 318"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2440,
+              "source": "Wowhead item tooltip, item level 318"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 94,
+              "source": "Wowhead item tooltip, item level 318"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 47,
+              "source": "Wowhead item tooltip, item level 318"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 122,
+              "source": "Wowhead item tooltip, item level 318"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Five exact item-level-334 Mythic 6/6 versions are candidates, one for each tier slot. Baseline Raid Finder/Normal/Heroic/Mythic variants for Hands and Legs are not fully source-verified, so the class map remains partial; the 344 item-level-344 variant is a separate special item version and is not treated as a 334 Mythic 6/6 variant.",
+      "variantObservationsNote": "Source-verified candidates include baseline Raid Finder/Normal/Heroic/Mythic plus Mythic 6/6 for Head, Shoulders, and Chest. Hands have exact source-backed item versions at 295, 308, 318, 321 (dropped-item stat variant), and 334; Legs have exact versions at 321 and 334. Baseline Hands 282 and Legs 285/298/311/324 remain missing from verified candidate coverage. The 344 chest item remains a separate special version, not Mythic 6/6 at 334.",
       "candidateVariantsAvailable": true
     }
   ],
@@ -31741,7 +32705,7 @@
       "Gladiator",
       "Elite"
     ],
-    "note": "Source-backed baseline candidate versions exist for Death Knight, Demon Hunter, Druid, Evoker, Hunter, Mage, Monk, Paladin, Priest, Rogue, and Shaman. Warlock has source-backed baseline candidates for all five slots; Warrior currently has exact Mythic 6/6 candidates for all five slots but still lacks source-verified baseline variants for Hands and Legs. Druid and Monk each have 24/25 candidates pending exact Legs 334 upgrade-rank proof. No class is marked fully variant-verified until every required upgrade rank is source-verified.",
+    "note": "Source-backed baseline candidate versions exist for Death Knight, Demon Hunter, Druid, Evoker, Hunter, Mage, Monk, Paladin, Priest, Rogue, and Shaman. Warlock has source-backed baseline candidates for all five slots. Warrior now has exact candidates including baseline difficulty maps for Head, Shoulders, and Chest, Hands at 295/308/318/321/334, and Legs at 321/334; baseline Hands 282 and Legs 285/298/311/324 remain incomplete. Druid and Monk each have 24/25 candidates pending exact Legs 334 upgrade-rank proof. No class is marked fully variant-verified until every required upgrade rank is source-verified.",
     "verifiedClasses": [],
     "statsVerifiedClasses": [
       "Death Knight",
