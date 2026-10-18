@@ -4806,6 +4806,129 @@
               "source": "Wowhead tooltip, item level 334"
             }
           ]
+        },
+        {
+          "itemId": 271466,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Gauntlets of the Consecrated Flame",
+          "slot": "Hands",
+          "variant": "Veteran 2/6 observed",
+          "itemLevel": 282,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271466/gauntlets-of-the-consecrated-flame?ilvl=282",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 39,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 80,
+              "source": "Warcraft Wiki item page, item level 282"
+            }
+          ]
+        },
+        {
+          "itemId": 271466,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Gauntlets of the Consecrated Flame",
+          "slot": "Hands",
+          "variant": "Champion 2/6 observed",
+          "itemLevel": 295,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271466/gauntlets-of-the-consecrated-flame?ilvl=295",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 98,
+              "source": "Warcraft Wiki item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Warcraft Wiki item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 42,
+              "source": "Warcraft Wiki item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 86,
+              "source": "Warcraft Wiki item page, item level 295"
+            }
+          ]
+        },
+        {
+          "itemId": 271466,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Gauntlets of the Consecrated Flame",
+          "slot": "Hands",
+          "variant": "Hero 2/6 observed",
+          "itemLevel": 308,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271466/gauntlets-of-the-consecrated-flame?ilvl=308",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Warcraft Wiki item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 44,
+              "source": "Warcraft Wiki item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 91,
+              "source": "Warcraft Wiki item page, item level 308"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
