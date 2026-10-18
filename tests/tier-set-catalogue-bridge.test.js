@@ -81,6 +81,16 @@ test("Demon Hunter has verified baseline PvE and exact Mythic 6/6 candidates for
     assert.ok(entries.every(piece => piece.candidate === true && !("verificationScope" in piece)));
     assert.ok(entries.every(piece => piece.stats.length >= 4 && piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0)));
     assert.ok(entries.every(piece => typeof piece.sourceUrl === "string" && piece.sourceUrl.startsWith("https://")));
+    for (const piece of entries) {
+      const sourceUrl = new URL(piece.sourceUrl);
+      if (sourceUrl.hostname === "www.wowhead.com") {
+        assert.equal(Number(sourceUrl.searchParams.get("ilvl")), piece.itemLevel,
+          "Wowhead candidate source must pin the exact item level");
+      } else {
+        assert.ok(piece.stats.every(stat => stat.source.includes(`item level ${piece.itemLevel}`)),
+          "wiki candidate stat provenance must pin the exact item level");
+      }
+    }
   }
   assert.equal(demonHunter.variantObservationsStatus, "partial",
     "baseline candidates must not imply all intermediate upgrade ranks are complete");
