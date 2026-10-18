@@ -335,6 +335,24 @@ test("Demon Hunter source-checked tier versions remain evidence-only and preserv
     "partial observed versions must not promote the complete class variant map");
 });
 
+test("Death Knight source-checked leg versions remain evidence-only", () => {
+  const dk = catalogue.sets.find(set => set.class === "Death Knight");
+  const observations = dk.verifiedVariantObservations || [];
+  const legs = new Map(observations.filter(piece => piece.itemId === 271473 && piece.slot === "Legs").map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...legs.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334]);
+  for (const [level, expected] of [
+    [285, { strength: 119, stamina: 2219, criticalStrike: 47, mastery: 114 }],
+    [298, { strength: 135, stamina: 2579, criticalStrike: 50, mastery: 121 }],
+    [311, { strength: 152, stamina: 3002, criticalStrike: 54, mastery: 129 }]
+  ]) {
+    const piece = legs.get(level);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.match(piece.sourceUrl, /warcraft\.wiki\.gg/);
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+});
+
 test("Druid source-checked tier versions remain evidence-only and preserve observed stats", () => {
   const druid = catalogue.sets.find(set => set.class === "Druid");
   const observations = druid.verifiedVariantObservations || [];
