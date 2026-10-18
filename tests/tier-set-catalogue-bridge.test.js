@@ -353,6 +353,8 @@ test("Demon Hunter source-checked tier versions remain evidence-only and preserv
     assert.match(piece.sourceUrl, /warcraft\.wiki\.gg/);
     assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
   }
+  assert.deepEqual(Object.fromEntries(chestByLevel.get(311).stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 152, intellect: 152, stamina: 3002, criticalStrike: 128, haste: 55 });
   const expectedChest = {
     285: { agility: 119, stamina: 2219, haste: 110, versatility: 51 },
     298: { agility: 135, stamina: 2579, haste: 118, versatility: 54 },
@@ -1290,15 +1292,17 @@ test("Shaman tier item versions remain evidence-only with exact source levels", 
     }
   }
   const headByLevel = new Map(observations.filter(piece => piece.itemId === 271483).map(piece => [piece.itemLevel, piece]));
-  assert.deepEqual([...headByLevel.keys()].sort((a, b) => a - b), [295, 321, 334]);
+  assert.deepEqual([...headByLevel.keys()].sort((a, b) => a - b), [295, 311, 321, 334]);
   assert.equal(headByLevel.get(295).variant, "Item level 295 observed");
   assert.deepEqual(Object.fromEntries(headByLevel.get(295).stats.map(stat => [stat.type.name, stat.value])),
     { agility: 131, intellect: 131, stamina: 2492, criticalStrike: 51, haste: 118 });
+  assert.deepEqual(Object.fromEntries(headByLevel.get(311).stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 152, intellect: 152, stamina: 3002, criticalStrike: 55, haste: 127 });
   assert.equal(headByLevel.get(321).variant, "Hero 6/6");
   assert.deepEqual(Object.fromEntries(headByLevel.get(321).stats.map(stat => [stat.type.name, stat.value])),
     { agility: 167, intellect: 167, stamina: 3369, criticalStrike: 58, haste: 133 });
   const chestByLevel = new Map(observations.filter(piece => piece.itemId === 271486).map(piece => [piece.itemLevel, piece]));
-  assert.deepEqual([...chestByLevel.keys()].sort((a, b) => a - b), [289, 308, 318, 328, 334]);
+  assert.deepEqual([...chestByLevel.keys()].sort((a, b) => a - b), [289, 308, 311, 318, 328, 334]);
   const expectedChest = {
     289: { agility: 124, intellect: 124, stamina: 2326, criticalStrike: 115, haste: 49 },
     308: { agility: 148, intellect: 148, stamina: 2896, criticalStrike: 126, haste: 54 },
@@ -1312,7 +1316,9 @@ test("Shaman tier item versions remain evidence-only with exact source levels", 
     assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), stats);
   }
   const legsByLevel = new Map(observations.filter(piece => piece.itemId === 271482).map(piece => [piece.itemLevel, piece]));
-  assert.deepEqual([...legsByLevel.keys()].sort((a, b) => a - b), [318, 321, 334]);
+  assert.deepEqual([...legsByLevel.keys()].sort((a, b) => a - b), [295, 318, 321, 334]);
+  assert.deepEqual(Object.fromEntries(legsByLevel.get(295).stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 131, intellect: 131, stamina: 2492, haste: 59, versatility: 110 });
   assert.deepEqual(Object.fromEntries(legsByLevel.get(318).stats.map(stat => [stat.type.name, stat.value])),
     { agility: 162, intellect: 162, stamina: 3254, haste: 66, versatility: 122 });
   assert.deepEqual(Object.fromEntries(legsByLevel.get(321).stats.map(stat => [stat.type.name, stat.value])),
@@ -1333,18 +1339,6 @@ test("Shaman tier item versions remain evidence-only with exact source levels", 
     { agility: 114, intellect: 114, stamina: 2252, criticalStrike: 41, mastery: 95 });
   assert.deepEqual(Object.fromEntries(handsByLevel.get(321).stats.map(stat => [stat.type.name, stat.value])),
     { agility: 125, intellect: 125, stamina: 2527, criticalStrike: 43, mastery: 99 });
-  const headByLevel = new Map(observations.filter(piece => piece.itemId === 271483).map(piece => [piece.itemLevel, piece]));
-  assert.deepEqual([...headByLevel.keys()].sort((a, b) => a - b), [295, 311, 321, 334]);
-  assert.deepEqual(Object.fromEntries(headByLevel.get(311).stats.map(stat => [stat.type.name, stat.value])),
-    { agility: 152, intellect: 152, stamina: 3002, criticalStrike: 55, haste: 127 });
-  const chestByLevel = new Map(observations.filter(piece => piece.itemId === 271486).map(piece => [piece.itemLevel, piece]));
-  assert.deepEqual([...chestByLevel.keys()].sort((a, b) => a - b), [289, 308, 311, 318, 328, 334]);
-  assert.deepEqual(Object.fromEntries(chestByLevel.get(311).stats.map(stat => [stat.type.name, stat.value])),
-    { agility: 152, intellect: 152, stamina: 3002, criticalStrike: 128, haste: 55 });
-  const legsByLevel = new Map(observations.filter(piece => piece.itemId === 271482).map(piece => [piece.itemLevel, piece]));
-  assert.deepEqual([...legsByLevel.keys()].sort((a, b) => a - b), [295, 318, 321, 334]);
-  assert.deepEqual(Object.fromEntries(legsByLevel.get(295).stats.map(stat => [stat.type.name, stat.value])),
-    { agility: 131, intellect: 131, stamina: 2492, haste: 59, versatility: 110 });
   assert.equal(shaman.pieces.length, 30, "separate observations must not change the existing 20 PvE candidate and 10 PvP appearance records");
   assert.equal(shaman.pieces.filter(piece => piece.candidate === true).length, 20);
 });
