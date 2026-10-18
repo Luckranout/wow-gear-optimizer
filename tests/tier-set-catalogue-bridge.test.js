@@ -36,7 +36,7 @@ test("catalogue reports ID mapping separately from variant stats and numeric bon
   assert.equal(catalogue.itemMatching.status, "partial");
   assert.deepEqual(catalogue.itemMatching.verifiedClasses, ["Death Knight", "Demon Hunter", "Druid", "Evoker", "Mage", "Monk", "Priest", "Shaman"]);
   assert.equal(catalogue.itemMatching.baseItemIdsVerifiedClasses.length, 13);
-  assert.deepEqual(catalogue.itemMatching.statsVerifiedClasses, ["Death Knight", "Demon Hunter", "Druid", "Shaman"]);
+  assert.deepEqual(catalogue.itemMatching.statsVerifiedClasses, ["Death Knight", "Demon Hunter", "Druid", "Evoker", "Mage", "Monk", "Priest", "Shaman"]);
   assert.equal(catalogue.sets.every(set => set.numericScoringAvailable !== true), true);
   assert.match(catalogue.scoringPolicy, /Do not assign numeric optimization weights/i);
 });
@@ -73,7 +73,7 @@ test("Demon Hunter has verified baseline PvE and exact Mythic 6/6 candidates for
     Shoulders: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
     Chest: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
     Hands: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
-    Legs: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324]]
+    Legs: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]]
   };
   for (const [slot, expectedVariants] of Object.entries(expected)) {
     const entries = demonHunter.pieces.filter(piece => piece.slot === slot);
@@ -1871,7 +1871,7 @@ test("Druid tier observations preserve the source-backed Hero 6/6 head at item l
 });
 
 
-test("Druid has source-verified baseline PvE and exact Mythic 6/6 candidates for all five slots", () => {
+test("Druid has baseline candidates and excludes unranked item-level-334 Legs", () => {
   const druid = catalogue.sets.find(set => set.class === "Druid");
   assert.equal(druid.itemIdsVerified, true);
   assert.equal(druid.baseItemIdsVerified, true);
@@ -1882,7 +1882,7 @@ test("Druid has source-verified baseline PvE and exact Mythic 6/6 candidates for
     Shoulders: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
     Chest: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
     Hands: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
-    Legs: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]]
+    Legs: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324]]
   };
   for (const [slot, expectedVariants] of Object.entries(expected)) {
     const entries = druid.pieces.filter(piece => piece.slot === slot);
@@ -1903,7 +1903,7 @@ test("Druid has source-verified baseline PvE and exact Mythic 6/6 candidates for
   }
   assert.equal(druid.variantObservationsStatus, "partial",
     "baseline candidates must not imply all intermediate upgrade ranks are complete");
-  assert.ok(druid.verifiedVariantObservations.every(piece => piece.candidate === false),
+  const unrankedLegs = druid.verifiedVariantObservations.find(piece => piece.slot === "Legs" && piece.itemLevel === 334);\n  assert.ok(unrankedLegs);\n  assert.equal(unrankedLegs.candidate, false);\n  assert.match(unrankedLegs.variant, /upgrade rank unverified/i);\n  assert.ok(druid.verifiedVariantObservations.every(piece => piece.candidate === false),
     "additional upgrade-rank observations remain evidence-only");
 });
 
