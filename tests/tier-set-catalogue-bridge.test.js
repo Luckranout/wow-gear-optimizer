@@ -736,10 +736,10 @@ test("Priest source-backed tier item versions remain evidence-only and match Wow
 test("Warlock source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
   const warlock = catalogue.sets.find(set => set.class === "Warlock");
   const observations = warlock.verifiedVariantObservations || [];
-  assert.equal(observations.length, 13);
+  assert.equal(observations.length, 14);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(warlock.variantObservationsStatus, "partial");
-  assert.match(warlock.variantObservationsNote, /Head is observed at item levels 219, 285 .* 298 .* 305, 311 .* 315, 318, 321, and 324/i);
+  assert.match(warlock.variantObservationsNote, /Head is observed at item levels 219, 285 .* 298 .* 305, 308 .* 311 .* 315, 318, 321, and 324/i);
   assert.match(warlock.variantObservationsNote, /other difficulty and upgrade variants remain unverified/i);
   const manifestSet = manifest.sets.find(set => set.className === "Warlock");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
@@ -761,6 +761,7 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
     271547: { intellect: 138, stamina: 2832, criticalStrike: 44, haste: 105 },
     "271546:219": { intellect: 65, stamina: 1005, versatility: 34, mastery: 73 },
     "271546:305": { intellect: 144, stamina: 2794, versatility: 57, mastery: 120 },
+    "271546:308": { intellect: 148, stamina: 2896, versatility: 58, mastery: 122 },
     "271546:315": { intellect: 158, stamina: 3143, versatility: 60, mastery: 126 },
     "271546:318": { intellect: 162, stamina: 3254, versatility: 61, mastery: 127 },
     "271546:285": { intellect: 119, stamina: 2219, versatility: 52, mastery: 109 },
@@ -779,8 +780,9 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
   }
   assert.deepEqual(
     observations.filter(piece => piece.itemId === 271546).map(piece => piece.itemLevel).sort((a, b) => a - b),
-    [219, 285, 298, 305, 311, 315, 318, 321, 324]
+    [219, 285, 298, 305, 308, 311, 315, 318, 321, 324]
   );
+  assert.equal(observations.find(piece => piece.itemId === 271546 && piece.itemLevel === 308).variant, "Hero 2/6 observed");
   assert.equal(observations.find(piece => piece.itemId === 271546 && piece.itemLevel === 318).variant, "Myth 1/6 observed");
   assert.equal(observations.find(piece => piece.itemId === 271546 && piece.itemLevel === 321).variant, "Item level 321 observed");
   assert.equal(warlock.itemIdsVerified, false,
