@@ -1280,6 +1280,8 @@ test("Shaman Mythic 6/6 item-level-334 tier versions remain evidence-only", () =
     assert.equal(piece.candidate, false);
     assert.equal(piece.verificationScope, "observed-version-only");
     assert.equal(new URL(piece.sourceUrl).hostname, "www.wowhead.com");
+    assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), 334,
+      "Wowhead evidence URL must pin the exact item level");
     if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
     assert.ok(piece.stats.every(stat => stat.source.includes("334")));
     assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected[String(piece.itemId)]);
