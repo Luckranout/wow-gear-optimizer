@@ -173,7 +173,7 @@ test("Demon Hunter source-checked tier versions remain evidence-only and preserv
   assert.equal(observations.length, 11);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(demonHunter.variantObservationsStatus, "partial");
-  assert.match(demonHunter.variantObservationsNote, /Hands at base item level 219, Champion 2\/6 item level 295, Hero 1\/6 item level 305, Hero 2\/6 item level 308, and Myth 2\/6 item level 321/i);
+  assert.match(demonHunter.variantObservationsNote, /Hands at base item level 219, Champion 2\/6 item level 295, and Hero 1\/6 item level 305, Hero 2\/6 item level 308, and Myth 2\/6 item level 321/i);
   assert.match(demonHunter.variantObservationsNote, /Legs at item levels 295, 311, and 318/i);
   const manifestSet = manifest.sets.find(set => set.className === "Demon Hunter");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
