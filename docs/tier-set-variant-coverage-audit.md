@@ -9,7 +9,7 @@ Scope: source-verified numeric item variants needed before tier pieces can becom
 - Base tier membership: **13/13 classes mapped**, with five base item IDs per class (65 total).
 - Complete variant mapping: **1/13 classes** — Shaman.
 - Verified Shaman PvE candidates: **20/20** (four PvE difficulty variants across five slots).
-- Non-Shaman evidence-only observations: **239 records across 12 classes**. These are useful evidence, not complete variant maps.
+- Non-Shaman evidence-only observations: **240 records across 12 classes**. These are useful evidence, not complete variant maps.
 - Remaining baseline: **12 classes × 5 slots = 60 incomplete slot maps**, with up to **240 baseline PvE slot/difficulty records** to verify (four PvE difficulty variants per slot). Additional upgrade-track variants must be recorded when the source exposes distinct upgraded item levels/stats.
 - PvP appearances are not optimizer candidates unless their numeric item level and stats are independently verified.
 - Do not enable numeric tier-bonus scoring without a separate trustworthy, simulation-backed scoring source.
@@ -59,7 +59,7 @@ This is a working inventory of current observations, not a certification that th
 | Demon Hunter | Head, Shoulders, Hands, Chest, Legs | None for level-334 observations; complete variant mapping still missing |
 | Druid | Head, Shoulders, Chest, Hands, Legs | None missing from current 334 observations; validate exact version provenance for Legs |
 | Evoker | Head, Shoulders, Chest, Legs, Hands | None missing from current 334 observations; validate exact source/stats and complete all other variants |
-| Hunter | Head, Shoulders, Chest, Legs | Hands |
+| Hunter | Head, Shoulders, Chest, Hands, Legs | None missing from current 334 observations; hands now include the Hero 2/6 level-308 rank as well. |
 | Mage | Head, Shoulders, Chest, Hands, Legs | None recorded as missing; validate exact source/stats for all five |
 | Monk | Head, Shoulders, Chest, Hands, Legs | None missing from current 334 observations; validate exact version provenance for Legs |
 | Paladin | Head, Shoulders, Chest, Hands, Legs | None missing from current 334 observations; all five still need complete variant maps |
