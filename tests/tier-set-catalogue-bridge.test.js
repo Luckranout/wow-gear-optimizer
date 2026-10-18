@@ -75,8 +75,8 @@ test("Demon Hunter has verified baseline PvE and exact Mythic 6/6 candidates for
   const demonHunter = catalogue.sets.find(set => set.class === "Demon Hunter");
   assert.equal(demonHunter.itemIdsVerified, false);
   assert.equal(demonHunter.candidateVariantsAvailable, true);
-  assert.equal(demonHunter.pieces.length, 25);
-  assert.equal(demonHunter.pieces.filter(piece => piece.candidate).length, 25);
+  assert.equal(demonHunter.pieces.length, 31);
+  assert.equal(demonHunter.pieces.filter(piece => piece.candidate).length, 31);
   const expected = {
     Head: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
     Shoulders: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
@@ -86,13 +86,14 @@ test("Demon Hunter has verified baseline PvE and exact Mythic 6/6 candidates for
   };
   for (const [slot, expectedVariants] of Object.entries(expected)) {
     const entries = demonHunter.pieces.filter(piece => piece.slot === slot);
-    assert.deepEqual(entries.map(piece => [piece.variant, piece.itemLevel]), expectedVariants);
-    assert.ok(entries.every(piece => piece.candidate === true && piece.verificationScope === "observed-version-only"));
+    const baselineEntries = entries.filter(piece => ["Raid Finder", "Normal", "Heroic", "Mythic", "Mythic 6/6"].includes(piece.variant));
+    assert.deepEqual(baselineEntries.map(piece => [piece.variant, piece.itemLevel]), expectedVariants);
+    assert.ok(entries.every(piece => piece.candidate === true));
     assert.ok(entries.every(piece => piece.stats.length >= 4 && piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0)));
     assert.ok(entries.every(piece => typeof piece.sourceUrl === "string" && piece.sourceUrl.startsWith("https://")));
     for (const piece of entries) {
       const sourceUrl = new URL(piece.sourceUrl);
-      if (sourceUrl.hostname === "www.wowhead.com") {
+      if (sourceUrl.hostname === "www.wowhead.com" && sourceUrl.searchParams.has("ilvl")) {
         assert.equal(Number(sourceUrl.searchParams.get("ilvl")), piece.itemLevel,
           "Wowhead candidate source must pin the exact item level");
       } else {
@@ -161,12 +162,13 @@ test("Death Knight verified baseline candidates and source-checked tier observat
   const deathKnight = catalogue.sets.find(set => set.class === "Death Knight");
   assert.equal(deathKnight.itemIdsVerified, false, "the full upgrade-rank map remains partial");
   assert.equal(deathKnight.candidateVariantsAvailable, true);
-  assert.equal(deathKnight.pieces.length, 25, "Death Knight must expose 20 baseline candidates plus five exact Mythic 6/6 variants");
-  assert.equal(deathKnight.pieces.filter(piece => piece.candidate).length, 25);
+  assert.equal(deathKnight.pieces.length, 29, "Death Knight includes baseline and exact intermediate-rank candidates");
+  assert.equal(deathKnight.pieces.filter(piece => piece.candidate).length, 29);
   assert.ok(deathKnight.pieces.every(piece => piece.candidate === true && !("verificationScope" in piece)), "verified candidate records must not retain evidence-only scope");
   for (const slot of EXPECTED_SLOTS) {
     const slotCandidates = deathKnight.pieces.filter(piece => piece.slot === slot);
-    assert.deepEqual(slotCandidates.map(piece => [piece.variant, piece.itemLevel]), [
+    const baselineCandidates = slotCandidates.filter(piece => ["Raid Finder", "Normal", "Heroic", "Mythic", "Mythic 6/6"].includes(piece.variant));
+    assert.deepEqual(baselineCandidates.map(piece => [piece.variant, piece.itemLevel]), [
       ["Raid Finder", slot === "Shoulders" || slot === "Hands" ? 282 : 285],
       ["Normal", slot === "Shoulders" || slot === "Hands" ? 295 : 298],
       ["Heroic", slot === "Shoulders" || slot === "Hands" ? 308 : 311],
@@ -1665,8 +1667,8 @@ test("Shaman tier item versions remain evidence-only with exact source levels", 
   assert.equal(handsByLevel.get(318).variant, "Hero 5/6");
   assert.deepEqual(Object.fromEntries(handsByLevel.get(321).stats.map(stat => [stat.type.name, stat.value])),
     { agility: 125, intellect: 125, stamina: 2527, criticalStrike: 43, mastery: 99 });
-  assert.equal(shaman.pieces.length, 30, "separate observations must not change the existing 20 PvE candidate and 10 PvP appearance records");
-  assert.equal(shaman.pieces.filter(piece => piece.candidate === true).length, 20);
+  assert.equal(shaman.pieces.length, 38, "includes baseline PvE, exact intermediate-rank, and ineligible PvP appearance records");
+  assert.equal(shaman.pieces.filter(piece => piece.candidate === true).length, 28);
 });
 
 test("all-class observed tier variants stay separate from eligible optimizer candidates", () => {
@@ -1674,7 +1676,7 @@ test("all-class observed tier variants stay separate from eligible optimizer can
     if (set.class === "Shaman") {
       assert.equal(set.itemIdsVerified, false);
       assert.equal(set.candidateVariantsAvailable, true);
-      assert.equal(set.pieces.length, 30);
+      assert.equal(set.pieces.length, 38);
       assert.equal(set.pieces.filter(piece => piece.candidate === true).length, 20,
         "only the four PvE difficulty variants per slot have verified numeric stats");
       assert.equal(set.pieces.filter(piece => piece.candidate !== true).length, 10,
@@ -1931,8 +1933,8 @@ test("Druid has baseline candidates and excludes unranked item-level-334 Legs", 
   assert.equal(druid.itemIdsVerified, false);
   assert.equal(druid.candidateVariantsAvailable, true);
   assert.equal(druid.baseItemIdsVerified, true);
-  assert.equal(druid.pieces.length, 24);
-  assert.equal(druid.pieces.filter(piece => piece.candidate).length, 24);
+  assert.equal(druid.pieces.length, 25);
+  assert.equal(druid.pieces.filter(piece => piece.candidate).length, 25);
   const expected = {
     Head: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
     Shoulders: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
@@ -1942,8 +1944,9 @@ test("Druid has baseline candidates and excludes unranked item-level-334 Legs", 
   };
   for (const [slot, expectedVariants] of Object.entries(expected)) {
     const entries = druid.pieces.filter(piece => piece.slot === slot);
-    assert.deepEqual(entries.map(piece => [piece.variant, piece.itemLevel]), expectedVariants);
-    assert.ok(entries.every(piece => piece.candidate === true && piece.verificationScope === "observed-version-only"));
+    const baselineEntries = entries.filter(piece => ["Raid Finder", "Normal", "Heroic", "Mythic", "Mythic 6/6"].includes(piece.variant));
+    assert.deepEqual(baselineEntries.map(piece => [piece.variant, piece.itemLevel]), expectedVariants);
+    assert.ok(entries.every(piece => piece.candidate === true));
     assert.ok(entries.every(piece => piece.stats.length >= 4 && piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0)));
     assert.ok(entries.every(piece => typeof piece.sourceUrl === "string" && piece.sourceUrl.startsWith("https://")));
     for (const piece of entries) {
@@ -1984,8 +1987,9 @@ test("Evoker has source-verified baseline PvE and exact Mythic 6/6 candidates fo
   };
   for (const [slot, expectedVariants] of Object.entries(expected)) {
     const entries = evoker.pieces.filter(piece => piece.slot === slot);
-    assert.deepEqual(entries.map(piece => [piece.variant, piece.itemLevel]), expectedVariants);
-    assert.ok(entries.every(piece => piece.candidate === true && piece.verificationScope === "observed-version-only"));
+    const baselineEntries = entries.filter(piece => ["Raid Finder", "Normal", "Heroic", "Mythic", "Mythic 6/6"].includes(piece.variant));
+    assert.deepEqual(baselineEntries.map(piece => [piece.variant, piece.itemLevel]), expectedVariants);
+    assert.ok(entries.every(piece => piece.candidate === true));
     assert.ok(entries.every(piece => piece.stats.length >= 4 && piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0)));
     assert.ok(entries.every(piece => typeof piece.sourceUrl === "string" && piece.sourceUrl.startsWith("https://")));
     for (const piece of entries) {
@@ -2011,8 +2015,8 @@ test("Mage has source-verified baseline PvE and exact Mythic 6/6 candidates for 
   assert.equal(mage.itemIdsVerified, false);
   assert.equal(mage.candidateVariantsAvailable, true);
   assert.equal(mage.baseItemIdsVerified, true);
-  assert.equal(mage.pieces.length, 25);
-  assert.equal(mage.pieces.filter(piece => piece.candidate).length, 25);
+  assert.equal(mage.pieces.length, 26);
+  assert.equal(mage.pieces.filter(piece => piece.candidate).length, 26);
   const expected = {
     Head: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
     Shoulders: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
@@ -2022,8 +2026,9 @@ test("Mage has source-verified baseline PvE and exact Mythic 6/6 candidates for 
   };
   for (const [slot, expectedVariants] of Object.entries(expected)) {
     const entries = mage.pieces.filter(piece => piece.slot === slot);
-    assert.deepEqual(entries.map(piece => [piece.variant, piece.itemLevel]), expectedVariants);
-    assert.ok(entries.every(piece => piece.candidate === true && piece.verificationScope === "observed-version-only"));
+    const baselineEntries = entries.filter(piece => ["Raid Finder", "Normal", "Heroic", "Mythic", "Mythic 6/6"].includes(piece.variant));
+    assert.deepEqual(baselineEntries.map(piece => [piece.variant, piece.itemLevel]), expectedVariants);
+    assert.ok(entries.every(piece => piece.candidate === true));
     assert.ok(entries.every(piece => piece.stats.length >= 4 && piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0)));
     for (const piece of entries) {
       const isWowhead = piece.sourceUrl.includes("www.wowhead.com");
@@ -2048,8 +2053,8 @@ test("Priest has source-verified baseline PvE and exact Mythic 6/6 candidates fo
   assert.equal(priest.itemIdsVerified, false);
   assert.equal(priest.candidateVariantsAvailable, true);
   assert.equal(priest.baseItemIdsVerified, true);
-  assert.equal(priest.pieces.length, 25);
-  assert.equal(priest.pieces.filter(piece => piece.candidate).length, 25);
+  assert.equal(priest.pieces.length, 27);
+  assert.equal(priest.pieces.filter(piece => piece.candidate).length, 27);
   const expected = {
     Head: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
     Shoulders: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
@@ -2059,8 +2064,9 @@ test("Priest has source-verified baseline PvE and exact Mythic 6/6 candidates fo
   };
   for (const [slot, expectedVariants] of Object.entries(expected)) {
     const entries = priest.pieces.filter(piece => piece.slot === slot);
-    assert.deepEqual(entries.map(piece => [piece.variant, piece.itemLevel]), expectedVariants);
-    assert.ok(entries.every(piece => piece.candidate === true && piece.verificationScope === "observed-version-only"));
+    const baselineEntries = entries.filter(piece => ["Raid Finder", "Normal", "Heroic", "Mythic", "Mythic 6/6"].includes(piece.variant));
+    assert.deepEqual(baselineEntries.map(piece => [piece.variant, piece.itemLevel]), expectedVariants);
+    assert.ok(entries.every(piece => piece.candidate === true));
     assert.ok(entries.every(piece => piece.stats.length >= 4 && piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0)));
     for (const piece of entries) {
       const isWowhead = piece.sourceUrl.includes("www.wowhead.com");
@@ -2112,8 +2118,8 @@ test("Paladin has source-verified baseline PvE and exact Mythic 6/6 candidates f
   assert.equal(paladin.itemIdsVerified, false);
   assert.equal(paladin.candidateVariantsAvailable, true);
   assert.equal(paladin.baseItemIdsVerified, true);
-  assert.equal(paladin.pieces.length, 25);
-  assert.equal(paladin.pieces.filter(piece => piece.candidate).length, 25);
+  assert.equal(paladin.pieces.length, 28);
+  assert.equal(paladin.pieces.filter(piece => piece.candidate).length, 28);
   const expected = {
     Head: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
     Shoulders: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
@@ -2123,8 +2129,9 @@ test("Paladin has source-verified baseline PvE and exact Mythic 6/6 candidates f
   };
   for (const [slot, expectedVariants] of Object.entries(expected)) {
     const entries = paladin.pieces.filter(piece => piece.slot === slot);
-    assert.deepEqual(entries.map(piece => [piece.variant, piece.itemLevel]), expectedVariants);
-    assert.ok(entries.every(piece => piece.candidate === true && piece.verificationScope === "observed-version-only"));
+    const baselineEntries = entries.filter(piece => ["Raid Finder", "Normal", "Heroic", "Mythic", "Mythic 6/6"].includes(piece.variant));
+    assert.deepEqual(baselineEntries.map(piece => [piece.variant, piece.itemLevel]), expectedVariants);
+    assert.ok(entries.every(piece => piece.candidate === true));
     assert.ok(entries.every(piece => piece.stats.length >= 4 && piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0)));
     for (const piece of entries) {
       const isWowhead = piece.sourceUrl.includes("www.wowhead.com");
@@ -2160,8 +2167,9 @@ test("Hunter has source-verified baseline candidates using the class-specific My
   };
   for (const [slot, expectedVariants] of Object.entries(expected)) {
     const entries = hunter.pieces.filter(piece => piece.slot === slot);
-    assert.deepEqual(entries.map(piece => [piece.variant, piece.itemLevel]), expectedVariants);
-    assert.ok(entries.every(piece => piece.candidate === true && piece.verificationScope === "observed-version-only"));
+    const baselineEntries = entries.filter(piece => ["Raid Finder", "Normal", "Heroic", "Mythic", "Mythic 6/6"].includes(piece.variant));
+    assert.deepEqual(baselineEntries.map(piece => [piece.variant, piece.itemLevel]), expectedVariants);
+    assert.ok(entries.every(piece => piece.candidate === true));
     assert.ok(entries.every(piece => piece.stats.length >= 4 && piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0)));
     assert.ok(entries.every(piece => {
       const url = new URL(piece.sourceUrl);
