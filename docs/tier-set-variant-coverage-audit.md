@@ -9,7 +9,7 @@ Scope: source-verified numeric item variants needed before tier pieces can becom
 - Base tier membership: **13/13 classes mapped**, with five base item IDs per class (65 total).
 - Complete variant mapping: **1/13 classes** — Shaman.
 - Verified Shaman PvE candidates: **20/20** (four PvE difficulty variants across five slots).
-- Non-Shaman evidence-only observations: **73 records across 12 classes**. These are useful evidence, not complete variant maps.
+- Non-Shaman evidence-only observations: **74 records across 12 classes**. These are useful evidence, not complete variant maps.
 - Remaining baseline: **12 classes × 5 slots = 60 incomplete slot maps**, with up to **240 baseline PvE slot/difficulty records** to verify (four PvE difficulty variants per slot). Additional upgrade-track variants must be recorded when the source exposes distinct upgraded item levels/stats.
 - PvP appearances are not optimizer candidates unless their numeric item level and stats are independently verified.
 - Do not enable numeric tier-bonus scoring without a separate trustworthy, simulation-backed scoring source.
@@ -22,7 +22,7 @@ For every class marked incomplete below, all five slots still need a complete, s
 |---|---:|---|---|
 | Death Knight | 11 observations | Head has observed levels 305/308/311/321/334; Shoulders 295/308/318. Chest, Hands, Legs only have one observed version each. | Complete all five slot maps; verify every difficulty/upgrade variant and preserve source-backed stat variants. |
 | Demon Hunter | 8 observations | Hands levels 219 and 305; Legs levels 295, 311, and 318; Chest level 321; Head and Shoulders level 334. | Verify remaining Hands/Legs difficulty and upgrade variants, then complete all five slot maps. |
-| Druid | 5 observations | Legs only base level 219; Chest level 292; Shoulders level 308. Hands and Head have level 334 observations only. | Verify upgraded Legs, Chest/Shoulders variants, and all missing difficulty variants for all five slots. |
+| Druid | 6 observations | Hands levels 295 and 334; Legs only base level 219; Chest level 292; Shoulders level 308; Head level 334. | Verify upgraded Legs, Chest/Shoulders variants, and all missing difficulty variants for all five slots. |
 | Evoker | 5 observations | Hands level 321; remaining four slots level 334 only. Agility/Intellect representation needs spec-aware verification. | Verify all difficulty/upgrade variants and validate primary-stat handling for each Evoker specialization. |
 | Hunter | 5 observations | Legs only base level 219; Hands level 321; other three slots level 334 only. | Verify upgraded Legs and all missing difficulty/upgrade variants across all slots. |
 | Mage | 5 observations | All five slots have a level 334 Mythic 6/6 observation only. | Add source-backed lower-difficulty and relevant upgrade-track variants for every slot; validate full variant IDs. |
