@@ -1131,7 +1131,7 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
   }
   const expected = {
     271549: { intellect: 189, stamina: 3910, haste: 141, mastery: 60 },
-    "271547:321": { intellect: 138, stamina: 2832, criticalStrike: 44, haste: 105 },
+    "271547:331": { intellect: 138, stamina: 2832, criticalStrike: 44, haste: 105 },
     "271546:219": { intellect: 65, stamina: 1005, versatility: 34, mastery: 73 },
     "271546:305": { intellect: 144, stamina: 2794, versatility: 57, mastery: 120 },
     "271546:308": { intellect: 148, stamina: 2896, versatility: 58, mastery: 122 },
