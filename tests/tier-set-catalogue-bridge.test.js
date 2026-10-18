@@ -833,7 +833,7 @@ test("tier thresholds can be reported descriptively without inventing numeric bo
 test("Rogue source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
   const rogue = catalogue.sets.find(set => set.class === "Rogue");
   const observations = rogue.verifiedVariantObservations || [];
-  assert.equal(observations.length, 14);
+  assert.equal(observations.length, 16);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(rogue.variantObservationsStatus, "partial");
   assert.match(rogue.variantObservationsNote, /remain unverified/i);
@@ -856,6 +856,22 @@ test("Rogue source-backed tier item versions remain evidence-only and match Wowh
     assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
     assert.ok(piece.stats.every(stat => typeof stat.source === "string" && stat.source.length > 0));
   }
+  const mythicChest = observations.find(piece => piece.itemId === 271513 && piece.itemLevel === 334);
+  assert.equal(mythicChest.variant, "Mythic 6/6");
+  assert.equal(new URL(mythicChest.sourceUrl).searchParams.get("ilvl"), "334");
+  assert.deepEqual(
+    Object.fromEntries(mythicChest.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 189, intellect: 189, stamina: 3910, haste: 132, versatility: 69 }
+  );
+  const mythicHands = observations.find(piece => piece.itemId === 271511 && piece.itemLevel === 334);
+  assert.equal(mythicHands.variant, "Mythic 6/6");
+  assert.equal(new URL(mythicHands.sourceUrl).searchParams.get("ilvl"), "334");
+  assert.deepEqual(
+    Object.fromEntries(mythicHands.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 141, intellect: 141, stamina: 2932, criticalStrike: 100, mastery: 51 }
+  );
+  assert.equal(mythicChest.candidate, false);
+  assert.equal(mythicHands.candidate, false);
   const chest = observations.find(piece => piece.itemId === 271513);
   assert.equal(chest.itemLevel, 305);
   assert.deepEqual(
