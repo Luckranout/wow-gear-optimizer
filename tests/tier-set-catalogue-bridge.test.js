@@ -2101,7 +2101,7 @@ test("Hunter has source-verified baseline candidates using the class-specific My
     assert.deepEqual(entries.map(piece => [piece.variant, piece.itemLevel]), expectedVariants);
     assert.ok(entries.every(piece => piece.candidate === true && piece.verificationScope === "observed-version-only"));
     assert.ok(entries.every(piece => piece.stats.length >= 4 && piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0)));
-    assert.ok(entries.every(piece => piece.stats.every(stat => stat.source.includes(`item level ${piece.itemLevel}`)));
+    assert.ok(entries.every(piece => piece.stats.every(stat => stat.source.includes(`item level ${piece.itemLevel}`))));
   }
   assert.equal(hunter.variantObservationsStatus, "partial",
     "baseline candidates must not imply all intermediate upgrade ranks are complete");
