@@ -332,7 +332,12 @@ test("Demon Hunter source-checked tier versions remain evidence-only and preserv
     assert.ok(piece, `missing Demon Hunter shoulder observation at item level ${level}`);
     assert.equal(piece.candidate, false);
     assert.equal(piece.verificationScope, "observed-version-only");
-    assert.match(piece.sourceUrl, /warcraft\.wiki\.gg/);
+    if (level === 334) {
+      assert.equal(new URL(piece.sourceUrl).hostname, "www.wowhead.com");
+      assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), 334);
+    } else {
+      assert.match(piece.sourceUrl, /warcraft\.wiki\.gg/);
+    }
     assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
   }
   const expectedHandUpgrades = {
