@@ -1679,6 +1679,7 @@ test("Shaman independently rank-verified intermediate variants are optimizer can
   const candidates = shaman.upgradeRankCandidates || [];
   const expected = [
     ["Head", 295, "Champion 2/6"],
+    ["Head", 302, "Champion 4/6"],
     ["Head", 311, "Hero 3/6"],
     ["Shoulders", 302, "Champion 4/6"],
     ["Shoulders", 308, "Champion 6/6"],
@@ -1705,7 +1706,7 @@ test("Shaman independently rank-verified intermediate variants are optimizer can
     assert.ok(typeof piece.rankEvidence === "string" && piece.rankEvidence.length > 0);
     assert.ok(piece.stats.length >= 4 && piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
   }
-  assert.equal(candidates.length, 23);
+  assert.equal(candidates.length, 24);
   assert.ok(shaman.verifiedVariantObservations.every(piece => piece.candidate === false),
     "observation ledger remains evidence-only even when a separately verified candidate exists");
 });

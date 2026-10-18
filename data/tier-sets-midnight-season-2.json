@@ -28706,7 +28706,7 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "The 20 baseline PvE records remain in pieces; 23 source-verified upgrade-rank candidates are stored separately, including all five Mythic 6/6 item-level-334 variants. Intermediate candidates require exact item-version stats plus independent rank evidence or an exact upgrade-bonus identifier. Other observed versions and PvP appearance-only records remain ineligible; full rank-by-rank coverage is still partial.",
+      "variantObservationsNote": "The 20 baseline PvE records remain in pieces; 24 source-verified upgrade-rank candidates are stored separately, including all five Mythic 6/6 item-level-334 variants. Intermediate candidates require exact item-version stats plus independent rank evidence or an exact upgrade-bonus identifier. Other observed versions and PvP appearance-only records remain ineligible; full rank-by-rank coverage is still partial.",
       "baseItemIdsVerified": true,
       "candidateVariantsAvailable": true,
       "upgradeRankCandidates": [
@@ -29976,6 +29976,62 @@
           "secondaryStats": [
             "Critical Strike",
             "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats",
+          "verificationScope": "exact-item-stats-and-upgrade-bonus-verified"
+        },
+        {
+          "itemId": 271483,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Serpent Crown of the Ophidian Oracle",
+          "slot": "Head",
+          "variant": "Champion 4/6",
+          "itemLevel": 302,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle?bonus=13333%3A13692%3A42%3A13696%3A13698%3A12836&ilvl=302&spec=262",
+          "rankSourceUrl": "https://www.method.gg/guides/all-midnight-season-2-upgrade-tracks-and-item-levels",
+          "rankEvidence": "The exact Wowhead item version includes upgrade bonus ID 12836 and reports item level 302; the Season 2 upgrade table maps item level 302 to Champion 4/6.",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 140,
+              "source": "Wowhead exact item tooltip at item level 302."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 140,
+              "source": "Wowhead exact item tooltip at item level 302."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2699,
+              "source": "Wowhead exact item tooltip at item level 302."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 53,
+              "source": "Wowhead exact item tooltip at item level 302."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 122,
+              "source": "Wowhead exact item tooltip at item level 302."
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Critical Strike"
           ],
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats",
