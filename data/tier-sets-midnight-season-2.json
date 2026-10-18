@@ -808,6 +808,47 @@
           ]
         },
         {
+          "itemId": 271538,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Studded Gauntlets",
+          "slot": "Hands",
+          "variant": "Hero 1/6 observed",
+          "itemLevel": 305,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271538/abyssal-doomhounds-studded-gauntlets?bonus=12841&ilvl=305",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 108,
+              "source": "Wowhead tooltip, Hero 1/6 item level 305"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2096,
+              "source": "Wowhead tooltip, Hero 1/6 item level 305"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 92,
+              "source": "Wowhead tooltip, Hero 1/6 item level 305"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 42,
+              "source": "Wowhead tooltip, Hero 1/6 item level 305"
+            }
+          ]
+        },
+        {
           "itemId": 271537,
           "setId": "abyssal-doomhound-s-pursuit",
           "name": "Abyssal Doomhound's Relentless Stare",
@@ -853,6 +894,47 @@
           "setId": "abyssal-doomhound-s-pursuit",
           "name": "Abyssal Doomhound's Legwraps",
           "slot": "Legs",
+          "variant": "Champion 4/6 observed",
+          "itemLevel": 295,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271536/abyssal-doomhounds-legwraps?bonus=6652%3A13693%3A13698%3A12830&ilvl=295&spec=1480",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 131,
+              "source": "Wowhead tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2492,
+              "source": "Wowhead tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 52,
+              "source": "Wowhead tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 117,
+              "source": "Wowhead tooltip, item level 295"
+            }
+          ]
+        },
+        {
+          "itemId": 271536,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Legwraps",
+          "slot": "Legs",
           "variant": "Hero 3/6",
           "itemLevel": 311,
           "candidate": false,
@@ -886,6 +968,47 @@
               },
               "value": 126,
               "source": "Wowhead tooltip, item level 311"
+            }
+          ]
+        },
+        {
+          "itemId": 271536,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Legwraps",
+          "slot": "Legs",
+          "variant": "Myth 1/6 observed",
+          "itemLevel": 318,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271536/abyssal-doomhounds-legwraps?bonus=13334%3A13693%3A6652%3A13698%3A12845&ilvl=318&spec=577",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 162,
+              "source": "Wowhead tooltip, item level 318"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3254,
+              "source": "Wowhead tooltip, item level 318"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 58,
+              "source": "Wowhead tooltip, item level 318"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 130,
+              "source": "Wowhead tooltip, item level 318"
             }
           ]
         },
@@ -932,7 +1055,7 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Five source-checked item versions are recorded for evidence only. The Hands record currently documents the 219 base version, not a verified upgraded variant; all observations remain ineligible as optimizer candidates until complete variant coverage is verified."
+      "variantObservationsNote": "Source-checked evidence now includes Hands at base item level 219 and Hero 1/6 item level 305, and Legs at item levels 295, 311, and 318. This does not establish complete slot/difficulty/upgrade coverage; all observations remain ineligible as optimizer candidates."
     },
     {
       "class": "Druid",
