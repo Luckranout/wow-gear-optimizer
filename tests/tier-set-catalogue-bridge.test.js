@@ -816,7 +816,7 @@ test("Hunter source-checked tier versions remain evidence-only and match exact W
     assert.equal(piece.candidate, false);
     assert.equal(piece.verificationScope, "observed-version-only");
     assert.ok(piece.itemLevel > 0);
-    assert.ok(["www.wowhead.com", "warcraft.wiki.gg"].includes(new URL(piece.sourceUrl).hostname));
+    assert.ok(["www.wowhead.com", "warcraft.wiki.gg", "mythicsim.com", "azerothcodex.up.railway.app"].includes(new URL(piece.sourceUrl).hostname));
     if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
     if (new URL(piece.sourceUrl).hostname === "www.wowhead.com") {
       assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), piece.itemLevel,
@@ -1135,7 +1135,7 @@ test("Mage source-backed tier item versions remain evidence-only and match Wowhe
     assert.equal(piece.candidate, false);
     assert.equal(piece.verificationScope, "observed-version-only");
     assert.ok(piece.itemLevel > 0);
-    assert.ok(["www.wowhead.com", "warcraft.wiki.gg"].includes(new URL(piece.sourceUrl).hostname));
+    assert.ok(["www.wowhead.com", "warcraft.wiki.gg", "mythicsim.com", "azerothcodex.up.railway.app"].includes(new URL(piece.sourceUrl).hostname));
     if (new URL(piece.sourceUrl).hostname === "www.wowhead.com") assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), piece.itemLevel);
     else assert.ok(piece.stats.every(stat => stat.source.includes(String(piece.itemLevel))));
     if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
@@ -1185,7 +1185,7 @@ test("Priest source-backed tier item versions remain evidence-only and match Wow
   for (const piece of observations) {
     assert.equal(piece.candidate, false);
     assert.equal(piece.verificationScope, "observed-version-only");
-    assert.ok(["www.wowhead.com", "warcraft.wiki.gg"].includes(new URL(piece.sourceUrl).hostname));
+    assert.ok(["www.wowhead.com", "warcraft.wiki.gg", "mythicsim.com", "azerothcodex.up.railway.app"].includes(new URL(piece.sourceUrl).hostname));
     if (new URL(piece.sourceUrl).hostname === "www.wowhead.com") assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), piece.itemLevel);
     else assert.ok(piece.stats.every(stat => stat.source.includes(String(piece.itemLevel))));
     if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
@@ -1339,7 +1339,7 @@ test("Monk source-backed tier item versions remain evidence-only and match sourc
   for (const piece of observations) {
     assert.equal(piece.candidate, false);
     assert.equal(piece.verificationScope, "observed-version-only");
-    assert.ok(["www.wowhead.com", "warcraft.wiki.gg"].includes(new URL(piece.sourceUrl).hostname));
+    assert.ok(["www.wowhead.com", "warcraft.wiki.gg", "mythicsim.com", "azerothcodex.up.railway.app"].includes(new URL(piece.sourceUrl).hostname));
     const sourceLevel = new URL(piece.sourceUrl).searchParams.get("ilvl");
     if (sourceLevel) assert.equal(Number(sourceLevel), piece.itemLevel);
     else assert.ok(piece.stats.every(stat => stat.source.includes(String(piece.itemLevel))));
@@ -1524,7 +1524,7 @@ test("all-class observed tier variants stay separate from eligible optimizer can
       assert.ok(Number.isInteger(piece.itemLevel) && piece.itemLevel > 0);
       const sourceHost = new URL(piece.sourceUrl).hostname;
       assert.ok(
-        sourceHost === "www.wowhead.com" || sourceHost === "warcraft.wiki.gg",
+        sourceHost === "www.wowhead.com" || sourceHost === "warcraft.wiki.gg" || sourceHost === "mythicsim.com" || sourceHost === "azerothcodex.up.railway.app",
         set.class + " source URL must point to a trusted item reference"
       );
       assert.ok(Array.isArray(piece.stats) && piece.stats.length >= 4);
