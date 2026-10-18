@@ -105,7 +105,7 @@ test("Warrior source-checked variant observations remain evidence-only and prese
 test("Death Knight source-checked tier versions preserve observed stats without becoming optimizer candidates", () => {
   const deathKnight = catalogue.sets.find(set => set.class === "Death Knight");
   const observations = deathKnight.verifiedVariantObservations || [];
-  assert.equal(observations.length, 22);
+  assert.equal(observations.length, 24);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(deathKnight.variantObservationsStatus, "partial");
   assert.match(deathKnight.variantObservationsNote, /remain ineligible as optimizer candidates/i);
@@ -156,6 +156,21 @@ test("Death Knight source-checked tier versions preserve observed stats without 
     Object.fromEntries(mythicHands.stats.map(stat => [stat.type.name, stat.value])),
     { strength: 141, stamina: 2932, criticalStrike: 52, mastery: 99 }
   );
+  const chestLevels = observations.filter(piece => piece.itemId === 271477).map(piece => piece.itemLevel).sort((a, b) => a - b);
+  assert.deepEqual(chestLevels, [311, 321, 334],
+    "Chest must retain each independently sourced item-level observation");
+  for (const [level, expected, variant] of [
+    [311, { strength: 152, stamina: 3002, criticalStrike: 53, mastery: 129 }, "Hero 3/6 observed"],
+    [321, { strength: 167, stamina: 3369, criticalStrike: 56, mastery: 135 }, "Hero 6/6 observed"]
+  ]) {
+    const piece = observations.find(entry => entry.itemId === 271477 && entry.itemLevel === level);
+    assert.ok(piece, `expected Death Knight chest observation at item level ${level}`);
+    assert.equal(piece.variant, variant);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), level);
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
   const headLevels = observations.filter(piece => piece.itemId === 271474).map(piece => piece.itemLevel).sort((a, b) => a - b);
   assert.deepEqual(headLevels, [285, 298, 305, 308, 311, 321, 324, 334],
     "Head must retain each independently sourced item-level observation");
