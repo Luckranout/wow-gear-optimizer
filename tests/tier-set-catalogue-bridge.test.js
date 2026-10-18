@@ -302,7 +302,7 @@ test("Evoker source-checked tier versions remain evidence-only and preserve obse
 test("Hunter source-checked tier versions remain evidence-only and match exact Wowhead stats", () => {
   const hunter = catalogue.sets.find(set => set.class === "Hunter");
   const observations = hunter.verifiedVariantObservations || [];
-  assert.equal(observations.length, 6);
+  assert.equal(observations.length, 7);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(hunter.variantObservationsStatus, "partial");
   assert.match(hunter.variantObservationsNote, /remain ineligible as optimizer candidates/i);
@@ -342,7 +342,13 @@ test("Hunter source-checked tier versions remain evidence-only and match exact W
     Object.fromEntries(head.stats.map(stat => [stat.type.name, stat.value])),
     { agility: 189, stamina: 3910, haste: 143, mastery: 58 }
   );
-  const legs = observations.find(piece => piece.itemId === 271491);
+  const upgradedLegs = observations.find(piece => piece.itemId === 271491 && piece.itemLevel === 308);
+  assert.equal(upgradedLegs.variant, "Heroic item level observed");
+  assert.deepEqual(
+    Object.fromEntries(upgradedLegs.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 148, intellect: 148, stamina: 2896, haste: 63, mastery: 117 }
+  );
+  const legs = observations.find(piece => piece.itemId === 271491 && piece.itemLevel === 219);
   assert.equal(legs.itemLevel, 219,
     "the known base version must be explicitly recorded as base-only evidence");
   assert.deepEqual(
