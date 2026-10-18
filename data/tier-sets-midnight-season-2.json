@@ -24002,6 +24002,112 @@
           ],
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271513,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Banded Poncho",
+          "slot": "Chest",
+          "variant": "Hero 2/6 observed",
+          "itemLevel": 305,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271513/chosen-bloodslayers-banded-poncho?bonus=12841%3A13690%3A13698%3A1558&class=4&ilvl=305&spec=259",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 144,
+              "source": "Wowhead tooltip, item level 305"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 144,
+              "source": "Wowhead tooltip, item level 305"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2794,
+              "source": "Wowhead tooltip, item level 305"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 116,
+              "source": "Wowhead tooltip, item level 305"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 61,
+              "source": "Wowhead tooltip, item level 305"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271510,
+          "setId": "chosen-bloodslayer-s-hexweave",
+          "name": "Chosen Bloodslayer's Spirit Shroud",
+          "slot": "Head",
+          "variant": "Champion 4/6 observed",
+          "itemLevel": 295,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271510/chosen-bloodslayers-spirit-shroud?bonus=41%3A13332%3A13696%3A13692%3A13698%3A12830&ilvl=295&spec=260",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 131,
+              "source": "Wowhead tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 131,
+              "source": "Wowhead tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2492,
+              "source": "Wowhead tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 56,
+              "source": "Wowhead tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 113,
+              "source": "Wowhead tooltip, item level 295"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "itemIdsVerified": false,
@@ -25371,7 +25477,7 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Twelve source-checked item versions are recorded as evidence only. Legs are observed at item levels 219, 285 (Veteran 3/6), 298 (Champion 3/6), 311 (Hero 3/6), 315, 321, and 324 (Myth 3/6); Hands at 282 (Veteran 2/6), 295 (Champion item level), and 321 (Myth 2/6). Chest 305, Head 295, and Shoulders 334. Other difficulty and upgrade variants and the complete Rogue variant ID map remain unverified. All observations remain ineligible as optimizer candidates.",
+      "variantObservationsNote": "Baseline candidates cover all available source-verified baseline slots plus exact item-level-334 Mythic 6/6 where verified. Additional explicit source-verified intermediate upgrade-rank records are optimizer candidates. Ranks not independently source-verified remain evidence-only; full rank-by-rank coverage is still partial.",
       "candidateVariantsAvailable": true
     },
     {
@@ -32074,6 +32180,98 @@
           ],
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271459,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Cuirass of the Jade Warlord",
+          "slot": "Chest",
+          "variant": "Mythic 6/6 observed",
+          "itemLevel": 344,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271459/cuirass-of-the-jade-warlord?ilvl=344",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 207,
+              "source": "Wowhead item version"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 4385,
+              "source": "Wowhead item version"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 61,
+              "source": "Wowhead item version"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 148,
+              "source": "Wowhead item version"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271457,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Jeweled Gauntlets of the Jade Warlord",
+          "slot": "Hands",
+          "variant": "Hero 6/6 observed; Catalyst stat variant",
+          "itemLevel": 321,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271457/jeweled-gauntlets-of-the-jade-warlord?bonus=13334%3A13691%3A6652%3A13697%3A12844&ilvl=321&spec=72",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 125,
+              "source": "Wowhead user-submitted item-version comment"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Wowhead user-submitted item-version comment"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 92,
+              "source": "Wowhead user-submitted item-version comment"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 51,
+              "source": "Wowhead user-submitted item-version comment"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "itemIdsVerified": false,
@@ -33333,7 +33531,7 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Source-verified candidates include baseline Raid Finder/Normal/Heroic/Mythic plus Mythic 6/6 for Head, Shoulders, and Chest. Hands have exact source-backed versions at 295, 305, 308, 315, 318, 321, and 334. Legs have exact source-backed versions at 282, 289, 321, and 334. Baseline Hands 282 and Legs 285/298/311/324 remain missing from verified candidate coverage. The 344 chest item remains a separate special version, not Mythic 6/6 at 334.",
+      "variantObservationsNote": "Baseline candidates cover all available source-verified baseline slots plus exact item-level-334 Mythic 6/6 where verified. Additional explicit source-verified intermediate upgrade-rank records are optimizer candidates. Ranks not independently source-verified remain evidence-only; full rank-by-rank coverage is still partial.",
       "candidateVariantsAvailable": true
     }
   ],
@@ -33361,7 +33559,7 @@
       "Gladiator",
       "Elite"
     ],
-    "note": "Warlock now includes baseline and max-rank candidates for all five slots plus additional source-verified intermediate upgrade-rank candidates. Other classes have baseline/max candidates or exact isolated variants; missing ranks remain evidence-only. Druid and Monk each have 24/25 candidates pending exact Legs 334 rank evidence. Warrior still lacks baseline Hands 282 and Legs 285/298/311/324. No class is marked fully variant-verified until every required upgrade rank is source-verified.",
+    "note": "Source-verified intermediate upgrade-rank candidates have been added for Rogue, Warlock, and Warrior in addition to baseline and maximum-rank candidates. Druid and Monk each have 24/25 candidates pending exact Legs 334 rank evidence. Warrior still lacks baseline Hands 282 and Legs 285/298/311/324. No class is marked fully variant-verified until every required upgrade rank is source-verified.",
     "verifiedClasses": [],
     "statsVerifiedClasses": [
       "Death Knight",
