@@ -1668,21 +1668,26 @@ test("Warrior source-checked chest versions remain evidence-only", () => {
 });
 
 
-test("Warrior Mythic 3/6 helm variant preserves exact stats and remains evidence-only", () => {
+test("Warrior helm lower-rank variants preserve exact stats and remain evidence-only", () => {
   const warrior = catalogue.sets.find(set => set.class === "Warrior");
   const observations = warrior.verifiedVariantObservations || [];
   const heads = new Map(observations.filter(piece => piece.itemId === 271456 && piece.slot === "Head").map(piece => [piece.itemLevel, piece]));
-  assert.deepEqual([...heads.keys()].sort((a, b) => a - b), [324, 334]);
-  const piece = heads.get(324);
-  assert.equal(piece.variant, "Myth 3/6 observed");
-  assert.equal(piece.candidate, false);
-  assert.equal(piece.verificationScope, "observed-version-only");
-  assert.equal(piece.sourceUrl, "https://warcraft.wiki.gg/wiki/Tempered_Horns_of_the_Jade_Warlord");
-  assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])),
-    { strength: 172, stamina: 3487, criticalStrike: 134, haste: 58 });
-  assert.ok(piece.stats.every(stat => /Mythic 3\/6, item level 324/.test(stat.source)));
+  assert.deepEqual([...heads.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334]);
+  for (const [level, variant, expected] of [
+    [285, "Veteran 3/6 observed", { strength: 119, stamina: 2219, criticalStrike: 112, haste: 49 }],
+    [298, "Champion 3/6 observed", { strength: 135, stamina: 2579, criticalStrike: 120, haste: 52 }],
+    [311, "Hero 3/6 observed", { strength: 152, stamina: 3002, criticalStrike: 127, haste: 55 }],
+    [324, "Myth 3/6 observed", { strength: 172, stamina: 3487, criticalStrike: 134, haste: 58 }]
+  ]) {
+    const piece = heads.get(level);
+    assert.equal(piece.variant, variant);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.equal(piece.sourceUrl, "https://warcraft.wiki.gg/wiki/Tempered_Horns_of_the_Jade_Warlord");
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+    assert.ok(piece.stats.every(stat => stat.source.includes("item level " + level)));
+  }
 });
-
 test("Warrior Mythic 6/6 legs observation remains evidence-only", () => {
   const warrior = catalogue.sets.find(set => set.class === "Warrior");
   const piece = (warrior.verifiedVariantObservations || []).find(item => item.itemId === 271455 && item.itemLevel === 334);
