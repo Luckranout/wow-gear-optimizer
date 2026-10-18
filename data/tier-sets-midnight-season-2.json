@@ -8684,6 +8684,47 @@
           "setId": "radiance-of-the-consecrated-flame",
           "name": "Warhelm of the Consecrated Flame",
           "slot": "Head",
+          "variant": "Hero 6/6 observed",
+          "itemLevel": 321,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271465/warhelm-of-the-consecrated-flame?bonus=12846%3A6652%3A13440%3A13695%3A13692%3A13698%3A1574&ilvl=321&spec=70",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 167,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3369,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 134,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 57,
+              "source": "Wowhead tooltip, item level 321"
+            }
+          ]
+        },
+        {
+          "itemId": 271465,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Warhelm of the Consecrated Flame",
+          "slot": "Head",
           "variant": "Mythic 6/6 observed",
           "itemLevel": 334,
           "candidate": false,
