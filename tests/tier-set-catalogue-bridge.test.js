@@ -1260,6 +1260,34 @@ test("Monk source-backed tier item versions remain evidence-only and match sourc
 });
 
 
+test("Shaman Mythic 6/6 item-level-334 tier versions remain evidence-only", () => {
+  const shaman = catalogue.sets.find(set => set.class === "Shaman");
+  const observations = shaman.verifiedVariantObservations || [];
+  assert.equal(observations.length, 5);
+  assert.deepEqual([...observations.map(piece => piece.slot)].sort(), [...EXPECTED_SLOTS].sort());
+  const manifestSet = manifest.sets.find(set => set.className === "Shaman");
+  const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
+  const expected = {
+    "271483": { agility: 189, intellect: 189, stamina: 3910, criticalStrike: 61, haste: 140, leech: 86 },
+    "271481": { agility: 141, intellect: 141, stamina: 2932, criticalStrike: 52, mastery: 99 },
+    "271486": { agility: 189, intellect: 189, stamina: 3910, criticalStrike: 141, haste: 60 },
+    "271484": { agility: 141, intellect: 141, stamina: 2932, criticalStrike: 46, mastery: 105 },
+    "271482": { agility: 189, intellect: 189, stamina: 3910, haste: 70, versatility: 131 }
+  };
+  for (const piece of observations) {
+    assert.equal(piece.itemLevel, 334);
+    assert.equal(piece.variant, "Mythic 6/6");
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.equal(new URL(piece.sourceUrl).hostname, "www.wowhead.com");
+    if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    assert.ok(piece.stats.every(stat => stat.source.includes("334")));
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected[String(piece.itemId)]);
+  }
+  assert.equal(shaman.pieces.length, 30, "separate observations must not change the existing 20 PvE candidate and 10 PvP appearance records");
+  assert.equal(shaman.pieces.filter(piece => piece.candidate === true).length, 20);
+});
+
 test("all-class observed tier variants stay separate from eligible optimizer candidates", () => {
   for (const set of catalogue.sets) {
     if (set.class === "Shaman") {
