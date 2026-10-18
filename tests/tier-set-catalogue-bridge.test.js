@@ -100,7 +100,7 @@ test("Warrior source-checked variant observations remain evidence-only and prese
 test("Death Knight source-checked tier versions preserve observed stats without becoming optimizer candidates", () => {
   const deathKnight = catalogue.sets.find(set => set.class === "Death Knight");
   const observations = deathKnight.verifiedVariantObservations || [];
-  assert.equal(observations.length, 17);
+  assert.equal(observations.length, 20);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(deathKnight.variantObservationsStatus, "partial");
   assert.match(deathKnight.variantObservationsNote, /remain ineligible as optimizer candidates/i);
@@ -352,6 +352,19 @@ test("Druid source-checked tier versions remain evidence-only and preserve obser
   ]) {
     const piece = legsByLevel.get(level);
     assert.equal(piece.candidate, false);
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+  const chestByLevel = new Map(observations.filter(piece => piece.slot === "Chest").map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...chestByLevel.keys()].sort((a, b) => a - b), [285, 292, 298, 311, 324]);
+  for (const [level, expected] of [
+    [285, { agility: 119, stamina: 2219, criticalStrike: 105, haste: 56 }],
+    [311, { agility: 152, stamina: 3002, criticalStrike: 119, haste: 63 }],
+    [324, { agility: 172, stamina: 3487, criticalStrike: 126, haste: 67 }]
+  ]) {
+    const piece = chestByLevel.get(level);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.match(piece.sourceUrl, /warcraft\.wiki\.gg/);
     assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
   }
   const manifestSet = manifest.sets.find(set => set.className === "Druid");
