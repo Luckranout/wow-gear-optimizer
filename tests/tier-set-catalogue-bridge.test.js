@@ -191,7 +191,7 @@ test("Paladin observed tier variants are source-backed and remain evidence-only"
 test("Demon Hunter source-checked tier versions remain evidence-only and preserve observed stats", () => {
   const demonHunter = catalogue.sets.find(set => set.class === "Demon Hunter");
   const observations = demonHunter.verifiedVariantObservations || [];
-  assert.equal(observations.length, 15);
+  assert.equal(observations.length, 16);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(demonHunter.variantObservationsStatus, "partial");
   assert.match(demonHunter.variantObservationsNote, /Hands at base item level 219, Veteran 2\/6 item level 282, Champion 2\/6 item level 295, Hero 1\/6 item level 305, Hero 2\/6 item level 308, and Myth 2\/6 item level 321/i);
@@ -252,6 +252,15 @@ test("Demon Hunter source-checked tier versions remain evidence-only and preserv
   assert.deepEqual(
     Object.fromEntries(head.stats.map(stat => [stat.type.name, stat.value])),
     { agility: 189, stamina: 3910, criticalStrike: 135, mastery: 66 }
+  );
+  const veteranHead = observations.find(piece => piece.itemId === 271537 && piece.itemLevel === 285);
+  assert.equal(veteranHead.variant, "Veteran 3/6 observed");
+  assert.equal(veteranHead.candidate, false);
+  assert.equal(veteranHead.verificationScope, "observed-version-only");
+  assert.match(veteranHead.sourceUrl, /warcraft\.wiki\.gg/);
+  assert.deepEqual(
+    Object.fromEntries(veteranHead.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 119, stamina: 2219, criticalStrike: 108, mastery: 53 }
   );
   const gloves = observations.find(piece => piece.itemId === 271538);
   assert.equal(gloves.itemLevel, 219,
