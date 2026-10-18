@@ -21,7 +21,7 @@ For every class marked incomplete below, all five slots still need a complete, s
 | Class | Current evidence | Highest-priority gaps | Required before eligibility |
 |---|---:|---|---|
 | Death Knight | 20 observations | Head levels 285/298/305/308/311/321/324/334; Shoulders 282/295/308/318/321; Legs 285/298/311/324/334. Chest and Hands have isolated versions only. | Legs now include source-checked Veteran 3/6, Champion 3/6, and Hero 3/6 versions at 285/298/311 alongside Mythic 3/6 and 6/6; complete all missing difficulty/upgrade variants across all slots. |
-| Demon Hunter | 30 observations | Legs now include a source-checked Mythic 6/6 level-334 version; Head and Shoulders also have 334 observations. Hands and Chest retain lower-rank observations. | Added exact level-334 stats for Abyssal Doomhound’s Legwraps from the Wowhead item page. Verify remaining Chest and Hands 334 versions, then complete all difficulty/upgrade variants for all five slots. All observations remain evidence-only. |
+| Demon Hunter | 29 observations | Head and Shoulders have 334 observations; Legs have lower-rank observations through item level 324. Hands and Chest retain lower-rank observations. | The exact level-334 leg stats have not yet been independently confirmed, so that version is not recorded as verified. Verify Chest, Hands, and Legs 334 versions from exact item-specific sources before closing the class’s 334 gaps. All observations remain evidence-only. |
 | Druid | 24 observations | Head levels 285, 298, 311, 324, and 334; Legs 219, 285, 298, 311, and 324; Hands 282, 295, 308, 321, and 334; Chest 285, 292, 298, 311, and 324; Shoulders 282, 295, 308, and 321. | Hands now has source-checked versions at 282 and 308, chest has versions at 285, 298, 311, and 324 alongside 292, and shoulders have versions at 282, 295, 308, and 321. Head and Legs still need remaining upgrade/difficulty variants; complete missing variants for Chest and Shoulders. |
 | Evoker | 24 observations | Head, Chest, and Legs now have source-checked levels 285, 298, 311, and 324 alongside 334. Hands and Shoulders have source-checked difficulty versions. Agility/Intellect representation needs spec-aware verification. | Head, Chest, and Legs difficulty observations added from the Echo of Calamity item table. Verify remaining upgrade ranks and validate primary-stat handling for each Evoker specialization. |
 | Hunter | 13 observations | Hands levels 295 and 321; Legs levels 219, 285, 298, 308, 311, 318, 321, and 334; Chest, Head, and Shoulders level 334 only. All observations remain evidence-only. | Verify remaining leg upgrade variants and all missing difficulty/upgrade variants across all slots; keep unverified observations ineligible. |
@@ -56,7 +56,7 @@ This is a working inventory of current observations, not a certification that th
 | Class | Recorded at 334 | Slots still needing a verified 334 version |
 |---|---|---|
 | Death Knight | Head, Chest, Legs | Shoulders, Hands |
-| Demon Hunter | Head, Shoulders, Legs | Chest, Hands |
+| Demon Hunter | Head, Shoulders | Chest, Hands, Legs |
 | Druid | Head, Hands | Shoulders, Chest, Legs |
 | Evoker | Head, Shoulders, Chest, Legs | Hands |
 | Hunter | Head, Shoulders, Chest, Legs | Hands |
