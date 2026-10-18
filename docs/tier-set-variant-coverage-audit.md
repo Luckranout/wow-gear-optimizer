@@ -9,7 +9,7 @@ Scope: source-verified numeric item variants needed before tier pieces can becom
 - Base tier membership: **13/13 classes mapped**, with five base item IDs per class (65 total).
 - Complete variant mapping: **1/13 classes** — Shaman.
 - Verified Shaman PvE candidates: **20/20** (four PvE difficulty variants across five slots).
-- Non-Shaman evidence-only observations: **226 records across 12 classes**. These are useful evidence, not complete variant maps.
+- Non-Shaman evidence-only observations: **227 records across 12 classes**. These are useful evidence, not complete variant maps.
 - Remaining baseline: **12 classes × 5 slots = 60 incomplete slot maps**, with up to **240 baseline PvE slot/difficulty records** to verify (four PvE difficulty variants per slot). Additional upgrade-track variants must be recorded when the source exposes distinct upgraded item levels/stats.
 - PvP appearances are not optimizer candidates unless their numeric item level and stats are independently verified.
 - Do not enable numeric tier-bonus scoring without a separate trustworthy, simulation-backed scoring source.
@@ -31,7 +31,7 @@ For every class marked incomplete below, all five slots still need a complete, s
 | Priest | 17 observations | Head levels 285, 298, 311, 324, 334; Shoulders now 282, 295, 308, 321, 334; Hands levels 282, 295, 305, 308, 321; Chest and Legs 334 only. | Head and Shoulders have source-checked raid-difficulty variants. Complete remaining difficulty and upgrade-track variants across all five slots; observations remain ineligible candidates. |
 | Rogue | 16 observations | Head, Shoulders, Chest, Hands, and Legs now each have a source-checked Mythic 6/6 version at item level 334; lower-rank observations are also recorded for Chest, Hands, Head, and Legs. | Chest (271513) and Hands (271511) now include exact Wowhead Mythic 6/6 level-334 stats. Continue checking source/version consistency for all five slots and complete the remaining difficulty and upgrade-track variants; all observations remain evidence-only. |
 | Shaman | 30 records | Four PvE variants per slot are numeric and candidate-eligible. Ten PvP appearance records lack verified numeric stats. | PvE baseline complete. Keep PvP records appearance-only until their numeric item levels/stats are verified. |
-| Warlock | 15 observations | Head levels 219, 285, 298, 305, 308, 311, 315, 318, 321, and 324; Hands 331 and 334; Chest/Legs/Shoulders level 334. The 334 hands record is Intellect 141, Stamina 2,932, Critical Strike 45, Haste 106. | Verify remaining head upgrades and all missing variants across the five slots; all observations remain evidence-only. |
+| Warlock | 16 observations | Head levels 219, 285, 298, 305, 308, 311, 315, 318, 321, 324, and 334; Hands 331 and 334; Chest/Legs/Shoulders level 334. Head 334: Intellect 189, Stamina 3,910, Versatility 65, Mastery 136. Hands 334: Intellect 141, Stamina 2,932, Critical Strike 45, Haste 106. | Verify remaining head upgrades and all missing variants across the five slots; all observations remain evidence-only. |
 | Warrior | 17 observations | Head, Shoulders, Chest, Hands, and Legs each have a Mythic 6/6 item-level 334 observation. Legs (271455) are recorded with Strength 189, Stamina 3,910, Versatility 135, and Mastery 66; lower-rank observations also exist. | Continue filling remaining difficulty and upgrade-track variants; all observations remain evidence-only and ineligible as optimizer candidates. |
 
 ## Acceptance criteria
@@ -66,12 +66,12 @@ This is a working inventory of current observations, not a certification that th
 | Priest | Head, Shoulders, Chest, Legs | Hands |
 | Rogue | Head, Shoulders, Chest, Hands, Legs | None missing from current 334 observations; validate exact source/stats for all five slots |
 | Shaman | Five PvE slots exist in the separate numeric pieces schema; verify which records are exactly standard Mythic 6/6 at 334 | Validate exact 334 version and stats per slot |
-| Warlock | Shoulders, Chest, Legs | Head, Hands |
+| Warlock | Head, Shoulders, Chest, Legs, Hands | None missing from current 334 observations; validate exact source/stats and complete all other variants |
 | Warrior | Head, Shoulders, Hands, Chest | Legs |
 
 ### Work sequence
 
-1. Verify missing standard Mythic 6/6 pieces from exact item-specific sources, recording item ID, slot, item level, numeric stats, source URL, and any variant/bonus identifiers. Prioritize Rogue (four gaps), then Demon Hunter, Druid, Death Knight, Warlock, and the remaining one-slot gaps.
+1. Verify missing standard Mythic 6/6 pieces from exact item-specific sources, recording item ID, slot, item level, numeric stats, source URL, and any variant/bonus identifiers. Prioritize remaining gaps for Druid, Evoker, Monk, Paladin, and Priest; then validate exact source/stats for classes with all five observations.
 2. Re-check the five Mage observations and Shaman's separate schema against exact source versions; “recorded” is not the same as fully validated.
 3. Keep item-level 344 special rewards separate from standard Mythic 6/6 334 variants.
 4. Add regression tests for each confirmed item/version and explicit tests that a missing or unverified slot cannot be marked complete or candidate-eligible.
