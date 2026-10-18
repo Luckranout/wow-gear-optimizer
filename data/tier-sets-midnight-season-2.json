@@ -5366,6 +5366,47 @@
           "setId": "skulking-viper-s-ambush",
           "name": "Skulking Viper's Scuteplate",
           "slot": "Chest",
+          "variant": "Hero 3/6 observed",
+          "itemLevel": 311,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Skulking_Viper%27s_Ambush",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki item-level 311 Hero 3/6 entry"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Warcraft Wiki item-level 311 Hero 3/6 entry"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 58,
+              "source": "Warcraft Wiki item-level 311 Hero 3/6 entry"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 125,
+              "source": "Warcraft Wiki item-level 311 Hero 3/6 entry"
+            }
+          ]
+        },
+        {
+          "itemId": 271495,
+          "setId": "skulking-viper-s-ambush",
+          "name": "Skulking Viper's Scuteplate",
+          "slot": "Chest",
           "variant": "Mythic 6/6 observed",
           "itemLevel": 334,
           "candidate": false,
