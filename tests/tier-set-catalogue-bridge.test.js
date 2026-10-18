@@ -386,7 +386,7 @@ test("Druid source-checked tier versions remain evidence-only and preserve obser
 test("Evoker source-checked tier versions remain evidence-only and preserve observed stats", () => {
   const evoker = catalogue.sets.find(set => set.class === "Evoker");
   const observations = evoker.verifiedVariantObservations || [];
-  assert.equal(observations.length, 5);
+  assert.equal(observations.length, 8);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(evoker.variantObservationsStatus, "partial");
   assert.match(evoker.variantObservationsNote, /remain ineligible as optimizer candidates/i);
@@ -421,6 +421,18 @@ test("Evoker source-checked tier versions remain evidence-only and preserve obse
   );
   const gloves = observations.find(piece => piece.itemId === 271502);
   assert.equal(gloves.itemLevel, 321);
+  const glovesByLevel = new Map(observations.filter(piece => piece.itemId === 271502).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...glovesByLevel.keys()].sort((a, b) => a - b), [282, 295, 308, 321]);
+  const expectedGloves = {
+    282: { intellect: 87, stamina: 1606, haste: 77, mastery: 42 },
+    295: { intellect: 98, stamina: 1869, haste: 82, mastery: 45 },
+    308: { intellect: 111, stamina: 2172, haste: 87, mastery: 48 },
+    321: { agility: 125, intellect: 125, stamina: 2527, haste: 92, mastery: 51 }
+  };
+  for (const [level, piece] of glovesByLevel) {
+    assert.equal(piece.candidate, false);
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expectedGloves[level]);
+  }
   assert.equal(evoker.itemIdsVerified, false,
     "partial observed versions must not promote the complete class variant map");
 });
