@@ -416,7 +416,7 @@ function validateTierSetCatalogue(catalogue) {
     } else if (set.candidateVariantsAvailable === true) {
       errors.push(`Tier set ${set.setName} advertises candidates but contains no candidate records.`);
     }
-  }
+    }
     for (const piece of rankCandidates) {
       if (set.baseItemIdsVerified !== true || piece?.candidate !== true ||
           !Number.isInteger(Number(piece?.itemId)) || !piece?.setId || !piece?.slot || !piece?.sourceUrl ||
@@ -426,6 +426,7 @@ function validateTierSetCatalogue(catalogue) {
         break;
       }
     }
+  }
   const verifiedSets = (catalogue.sets || []).filter(set => set.itemIdsVerified).length;
   const candidateSets = (catalogue.sets || []).filter(set =>
     set.candidateVariantsAvailable === true && ((Array.isArray(set.pieces) && set.pieces.some(piece => piece?.candidate === true)) || (Array.isArray(set.upgradeRankCandidates) && set.upgradeRankCandidates.some(piece => piece?.candidate === true)))
