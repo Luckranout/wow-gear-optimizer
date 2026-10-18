@@ -42,7 +42,7 @@ test("all 13 classes have five manifest-matched base tier IDs and source-backed 
 test("catalogue reports ID mapping separately from variant stats and numeric bonus scoring", () => {
   assert.equal(catalogue.itemMatching.status, "partial");
   assert.deepEqual(catalogue.itemMatching.verifiedClasses, []);
-  assert.deepEqual(catalogue.itemMatching.candidateVariantClasses, ["Death Knight", "Demon Hunter", "Druid", "Evoker", "Hunter", "Mage", "Monk", "Paladin", "Priest", "Shaman"]);
+  assert.deepEqual(catalogue.itemMatching.candidateVariantClasses, ["Death Knight", "Demon Hunter", "Druid", "Evoker", "Hunter", "Mage", "Monk", "Paladin", "Priest", "Rogue", "Shaman", "Warlock"]);
   assert.equal(catalogue.itemMatching.baseItemIdsVerifiedClasses.length, 13);
   assert.deepEqual(catalogue.itemMatching.statsVerifiedClasses, ["Death Knight", "Demon Hunter", "Druid", "Evoker", "Hunter", "Mage", "Monk", "Paladin", "Priest", "Shaman"]);
   assert.equal(catalogue.sets.every(set => set.numericScoringAvailable !== true), true);
@@ -165,10 +165,10 @@ test("Death Knight verified baseline candidates and source-checked tier observat
     assert.ok(slotCandidates.every(piece => piece.candidate === true));
   }
   const observations = deathKnight.verifiedVariantObservations || [];
-  assert.equal(observations.length, 31);
+  assert.equal(observations.length, 29);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(deathKnight.variantObservationsStatus, "partial");
-  assert.match(deathKnight.variantObservationsNote, /remain evidence-only until their exact item level and numeric stats/i);
+  assert.match(deathKnight.variantObservationsNote, /intermediate upgrade ranks are not all verified/i);
   const manifestSet = manifest.sets.find(set => set.className === "Death Knight");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
   for (const piece of observations) {
@@ -318,7 +318,7 @@ test("Paladin observed tier variants are source-backed and remain evidence-only"
     { strength: 189, stamina: 3910, haste: 64, mastery: 137 }
   );
   const chestByLevel = new Map(observations.filter(piece => piece.itemId === 271468).map(piece => [piece.itemLevel, piece]));
-  assert.deepEqual([...chestByLevel.keys()].sort((a, b) => a - b), [308, 311, 321, 334]);
+  assert.deepEqual([...chestByLevel.keys()].sort((a, b) => a - b), [285, 298, 308, 311, 321, 324, 334]);
   assert.deepEqual(Object.fromEntries(chestByLevel.get(308).stats.map(stat => [stat.type.name, stat.value])),
     { strength: 148, intellect: 148, stamina: 2896, haste: 57, mastery: 123 });
   assert.deepEqual(Object.fromEntries(chestByLevel.get(311).stats.map(stat => [stat.type.name, stat.value])),
@@ -1122,7 +1122,7 @@ test("tier thresholds can be reported descriptively without inventing numeric bo
 test("Rogue source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
   const rogue = catalogue.sets.find(set => set.class === "Rogue");
   const observations = rogue.verifiedVariantObservations || [];
-  assert.equal(observations.length, 20);
+  assert.equal(observations.length, 30);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(rogue.variantObservationsStatus, "partial");
   assert.match(rogue.variantObservationsNote, /remain unverified/i);
@@ -1339,7 +1339,7 @@ test("Priest source-backed tier item versions remain evidence-only and match Wow
 test("Warlock source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
   const warlock = catalogue.sets.find(set => set.class === "Warlock");
   const observations = warlock.verifiedVariantObservations || [];
-  assert.equal(observations.length, 24);
+  assert.equal(observations.length, 36);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(warlock.variantObservationsStatus, "partial");
   assert.match(warlock.variantObservationsNote, /Head is observed at item levels 219, 285 .* 298 .* 305, 308 .* 311 .* 315, 318, 321, 324 .* and 334/i);
@@ -1474,7 +1474,7 @@ test("Monk source-backed tier item versions remain evidence-only and match sourc
     assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
   }
   const chestByLevel = new Map(observations.filter(piece => piece.itemId === 271522).map(piece => [piece.itemLevel, piece]));
-  assert.deepEqual([...chestByLevel.keys()].sort((a, b) => a - b), [311, 324, 334]);
+  assert.deepEqual([...chestByLevel.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334]);
   const legsByLevel = new Map(observations.filter(piece => piece.itemId === 271518).map(piece => [piece.itemLevel, piece]));
   assert.deepEqual([...legsByLevel.keys()].sort((a, b) => a - b), [311, 324, 334]);
   const mythicThreeLegs = legsByLevel.get(324);
@@ -1818,11 +1818,14 @@ test("Priest source-checked helm variants retain their exact source stats and re
     assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
   }
   const chest = new Map(observations.filter(piece => piece.itemId === 271558 && piece.slot === "Chest").map(piece => [piece.itemLevel, piece]));
-  assert.deepEqual([...chest.keys()].sort((a, b) => a - b), [308, 311, 321, 334]);
+  assert.deepEqual([...chest.keys()].sort((a, b) => a - b), [285, 298, 308, 311, 321, 324, 334]);
   for (const [level, expected] of [
+    [285, { intellect: 119, stamina: 2219, criticalStrike: 50, mastery: 111 }],
+    [298, { intellect: 135, stamina: 2579, criticalStrike: 53, mastery: 119 }],
     [308, { intellect: 148, stamina: 2896, criticalStrike: 56, mastery: 124 }],
     [311, { intellect: 152, stamina: 3002, criticalStrike: 56, mastery: 126 }],
-    [321, { intellect: 167, stamina: 3369, criticalStrike: 59, mastery: 131 }]
+    [321, { intellect: 167, stamina: 3369, criticalStrike: 59, mastery: 131 }],
+    [324, { intellect: 172, stamina: 3487, criticalStrike: 60, mastery: 133 }]
   ]) {
     const piece = chest.get(level);
     assert.equal(piece.candidate, false);
