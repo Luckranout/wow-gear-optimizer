@@ -13745,8 +13745,1282 @@
           "sourceType": "PvP"
         }
       ],
-      "pieces": [],
-      "itemIdsVerified": false,
+      "pieces": [
+        {
+          "itemId": 271519,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Monkey King's Unyielding Visage",
+          "slot": "Head",
+          "variant": "Raid Finder",
+          "itemLevel": 285,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Monkey_King%27s_Unyielding_Visage",
+          "stats": [
+            {
+              "type": {
+                "name": "agilityOrIntellect"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki item page, item level 285; primary stat is specialization-dependent"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki item page, item level 285; primary stat is specialization-dependent"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 47,
+              "source": "Warcraft Wiki item page, item level 285; primary stat is specialization-dependent"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 114,
+              "source": "Warcraft Wiki item page, item level 285; primary stat is specialization-dependent"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271519,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Monkey King's Unyielding Visage",
+          "slot": "Head",
+          "variant": "Normal",
+          "itemLevel": 298,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Monkey_King%27s_Unyielding_Visage",
+          "stats": [
+            {
+              "type": {
+                "name": "agilityOrIntellect"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki item page, item level 298; primary stat is specialization-dependent"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki item page, item level 298; primary stat is specialization-dependent"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 50,
+              "source": "Warcraft Wiki item page, item level 298; primary stat is specialization-dependent"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 122,
+              "source": "Warcraft Wiki item page, item level 298; primary stat is specialization-dependent"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271519,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Monkey King's Unyielding Visage",
+          "slot": "Head",
+          "variant": "Heroic",
+          "itemLevel": 311,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Monkey_King%27s_Unyielding_Visage",
+          "stats": [
+            {
+              "type": {
+                "name": "agilityOrIntellect"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki item page, item level 311; primary stat is specialization-dependent"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Warcraft Wiki item page, item level 311; primary stat is specialization-dependent"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 53,
+              "source": "Warcraft Wiki item page, item level 311; primary stat is specialization-dependent"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 129,
+              "source": "Warcraft Wiki item page, item level 311; primary stat is specialization-dependent"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271519,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Monkey King's Unyielding Visage",
+          "slot": "Head",
+          "variant": "Mythic",
+          "itemLevel": 324,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Monkey_King%27s_Unyielding_Visage",
+          "stats": [
+            {
+              "type": {
+                "name": "agilityOrIntellect"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki item page, item level 324; primary stat is specialization-dependent"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki item page, item level 324; primary stat is specialization-dependent"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 56,
+              "source": "Warcraft Wiki item page, item level 324; primary stat is specialization-dependent"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 137,
+              "source": "Warcraft Wiki item page, item level 324; primary stat is specialization-dependent"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271519,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Monkey King's Unyielding Visage",
+          "slot": "Head",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271519/monkey-kings-unyielding-visage?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 189,
+              "source": "Wowhead Mythic 6/6 tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead Mythic 6/6 tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead Mythic 6/6 tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 58,
+              "source": "Wowhead Mythic 6/6 tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 142,
+              "source": "Wowhead Mythic 6/6 tooltip, item level 334"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271517,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Tassels of the Monkey King",
+          "slot": "Shoulders",
+          "variant": "Raid Finder",
+          "itemLevel": 282,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271517/tassels-of-the-monkey-king?ilvl=282",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 82,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 37,
+              "source": "Warcraft Wiki item page, item level 282"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271517,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Tassels of the Monkey King",
+          "slot": "Shoulders",
+          "variant": "Normal",
+          "itemLevel": 295,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271517/tassels-of-the-monkey-king?ilvl=295",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 98,
+              "source": "Warcraft Wiki item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 98,
+              "source": "Warcraft Wiki item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Warcraft Wiki item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 40,
+              "source": "Warcraft Wiki item page, item level 295"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271517,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Tassels of the Monkey King",
+          "slot": "Shoulders",
+          "variant": "Heroic",
+          "itemLevel": 308,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271517/tassels-of-the-monkey-king?ilvl=308",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Warcraft Wiki item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 93,
+              "source": "Warcraft Wiki item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 42,
+              "source": "Warcraft Wiki item page, item level 308"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271517,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Tassels of the Monkey King",
+          "slot": "Shoulders",
+          "variant": "Mythic",
+          "itemLevel": 321,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271517/tassels-of-the-monkey-king?ilvl=321",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 125,
+              "source": "Warcraft Wiki item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 125,
+              "source": "Warcraft Wiki item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Warcraft Wiki item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 98,
+              "source": "Warcraft Wiki item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 45,
+              "source": "Warcraft Wiki item page, item level 321"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271517,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Tassels of the Monkey King",
+          "slot": "Shoulders",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271517/tassels-of-the-monkey-king?bonus=6652%3A13335%3A12854%3A13694%3A13697%3A1587&ilvl=334&spec=269",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 103,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 47,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271522,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Battle Gi of the Monkey King",
+          "slot": "Chest",
+          "variant": "Raid Finder",
+          "itemLevel": 285,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Guile_of_the_Monkey_King",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 50,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 112,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271522,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Battle Gi of the Monkey King",
+          "slot": "Chest",
+          "variant": "Normal",
+          "itemLevel": 298,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Guile_of_the_Monkey_King",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 53,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271522,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Battle Gi of the Monkey King",
+          "slot": "Chest",
+          "variant": "Heroic",
+          "itemLevel": 311,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Guile_of_the_Monkey_King",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki tier item listing, item level 311"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki tier item listing, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Warcraft Wiki tier item listing, item level 311"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 56,
+              "source": "Warcraft Wiki tier item listing, item level 311"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 126,
+              "source": "Warcraft Wiki tier item listing, item level 311"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271522,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Battle Gi of the Monkey King",
+          "slot": "Chest",
+          "variant": "Mythic",
+          "itemLevel": 324,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Guile_of_the_Monkey_King",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki tier item listing, item level 324"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki tier item listing, item level 324"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki tier item listing, item level 324"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 59,
+              "source": "Warcraft Wiki tier item listing, item level 324"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 134,
+              "source": "Warcraft Wiki tier item listing, item level 324"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271522,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Battle Gi of the Monkey King",
+          "slot": "Chest",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271522/battle-gi-of-the-monkey-king?bonus=13335%3A13690%3A6652%3A13698%3A12854&ilvl=334&spec=269",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 62,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 139,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271520,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Monkey King's Fighting Fists",
+          "slot": "Hands",
+          "variant": "Raid Finder",
+          "itemLevel": 282,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Guile_of_the_Monkey_King",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki tier-set page, item level 282"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "Warcraft Wiki tier-set page, item level 282"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 84,
+              "source": "Warcraft Wiki tier-set page, item level 282"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 35,
+              "source": "Warcraft Wiki tier-set page, item level 282"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271520,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Monkey King's Fighting Fists",
+          "slot": "Hands",
+          "variant": "Normal",
+          "itemLevel": 295,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Guile_of_the_Monkey_King",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 98,
+              "source": "Warcraft Wiki tier-set page, item level 295"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Warcraft Wiki tier-set page, item level 295"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 89,
+              "source": "Warcraft Wiki tier-set page, item level 295"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 38,
+              "source": "Warcraft Wiki tier-set page, item level 295"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271520,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Monkey King's Fighting Fists",
+          "slot": "Hands",
+          "variant": "Heroic",
+          "itemLevel": 308,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Guile_of_the_Monkey_King",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki tier-set page, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Warcraft Wiki tier-set page, item level 308"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 95,
+              "source": "Warcraft Wiki tier-set page, item level 308"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 40,
+              "source": "Warcraft Wiki tier-set page, item level 308"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271520,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Monkey King's Fighting Fists",
+          "slot": "Hands",
+          "variant": "Mythic",
+          "itemLevel": 321,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271520/monkey-kings-fighting-fists?ilvl=321",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 125,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 125,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 100,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 42,
+              "source": "Wowhead tooltip, item level 321"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271520,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Monkey King's Fighting Fists",
+          "slot": "Hands",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271520/monkey-kings-fighting-fists?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 106,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 45,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271518,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Pantaloons of the Monkey King",
+          "slot": "Legs",
+          "variant": "Raid Finder",
+          "itemLevel": 285,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Guile_of_the_Monkey_King",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 104,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 57,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271518,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Pantaloons of the Monkey King",
+          "slot": "Legs",
+          "variant": "Normal",
+          "itemLevel": 298,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Guile_of_the_Monkey_King",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 61,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271518,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Pantaloons of the Monkey King",
+          "slot": "Legs",
+          "variant": "Heroic",
+          "itemLevel": 311,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271518/pantaloons-of-the-monkey-king?bonus=12843%3A13334%3A13693%3A43%3A13698&ilvl=311&spec=270",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 152,
+              "source": "Wowhead tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 152,
+              "source": "Wowhead tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Wowhead tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 118,
+              "source": "Wowhead tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 65,
+              "source": "Wowhead tooltip, item level 311"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271518,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Pantaloons of the Monkey King",
+          "slot": "Legs",
+          "variant": "Mythic",
+          "itemLevel": 324,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Guile_of_the_Monkey_King",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki Guile of the Monkey King tier listing, item level 324 (Mythic 3/6): 172 Agility"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki Guile of the Monkey King tier listing, item level 324 (Mythic 3/6): 172 Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki Guile of the Monkey King tier listing, item level 324 (Mythic 3/6): 3,487 Stamina"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 125,
+              "source": "Warcraft Wiki Guile of the Monkey King tier listing, item level 324 (Mythic 3/6): 125 Critical Strike"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 68,
+              "source": "Warcraft Wiki Guile of the Monkey King tier listing, item level 324 (Mythic 3/6): 68 Versatility"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271518,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Pantaloons of the Monkey King",
+          "slot": "Legs",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271518/pantaloons-of-the-monkey-king?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 189,
+              "source": "Item-level-334 observation for Pantaloons of the Monkey King (271518); Azeroth Codex equipped profile reports 189 agility. Exact upgrade rank remains unverified."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Item-level-334 observation for Pantaloons of the Monkey King (271518); Azeroth Codex equipped profile reports 189 intellect. Exact upgrade rank remains unverified."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Item-level-334 observation for Pantaloons of the Monkey King (271518); Azeroth Codex equipped profile reports 3910 stamina. Exact upgrade rank remains unverified."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 130,
+              "source": "Item-level-334 observation for Pantaloons of the Monkey King (271518); Azeroth Codex equipped profile reports 130 criticalStrike. Exact upgrade rank remains unverified."
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 71,
+              "source": "Item-level-334 observation for Pantaloons of the Monkey King (271518); Azeroth Codex equipped profile reports 71 versatility. Exact upgrade rank remains unverified."
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Versatility"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        }
+      ],
+      "itemIdsVerified": true,
       "id": "guile-of-the-monkey-king",
       "itemIdsSource": "https://www.wowhead.com/ptr/item-set=2061/guile-of-the-monkey-king",
       "basePieces": [
@@ -14651,6 +15925,293 @@
               },
               "value": 47,
               "source": "Wowhead tooltip, item level 334"
+            }
+          ]
+        },
+        {
+          "itemId": 271522,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Battle Gi of the Monkey King",
+          "slot": "Chest",
+          "variant": "Raid Finder observed",
+          "itemLevel": 285,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Guile_of_the_Monkey_King",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 50,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 112,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            }
+          ]
+        },
+        {
+          "itemId": 271522,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Battle Gi of the Monkey King",
+          "slot": "Chest",
+          "variant": "Normal observed",
+          "itemLevel": 298,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Guile_of_the_Monkey_King",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 53,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            }
+          ]
+        },
+        {
+          "itemId": 271520,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Monkey King's Fighting Fists",
+          "slot": "Hands",
+          "variant": "Raid Finder observed",
+          "itemLevel": 282,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Guile_of_the_Monkey_King",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki tier-set page, item level 282"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "Warcraft Wiki tier-set page, item level 282"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 84,
+              "source": "Warcraft Wiki tier-set page, item level 282"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 35,
+              "source": "Warcraft Wiki tier-set page, item level 282"
+            }
+          ]
+        },
+        {
+          "itemId": 271520,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Monkey King's Fighting Fists",
+          "slot": "Hands",
+          "variant": "Normal observed",
+          "itemLevel": 295,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Guile_of_the_Monkey_King",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 98,
+              "source": "Warcraft Wiki tier-set page, item level 295"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Warcraft Wiki tier-set page, item level 295"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 89,
+              "source": "Warcraft Wiki tier-set page, item level 295"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 38,
+              "source": "Warcraft Wiki tier-set page, item level 295"
+            }
+          ]
+        },
+        {
+          "itemId": 271520,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Monkey King's Fighting Fists",
+          "slot": "Hands",
+          "variant": "Heroic observed",
+          "itemLevel": 308,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Guile_of_the_Monkey_King",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki tier-set page, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Warcraft Wiki tier-set page, item level 308"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 95,
+              "source": "Warcraft Wiki tier-set page, item level 308"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 40,
+              "source": "Warcraft Wiki tier-set page, item level 308"
+            }
+          ]
+        },
+        {
+          "itemId": 271518,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Pantaloons of the Monkey King",
+          "slot": "Legs",
+          "variant": "Raid Finder observed",
+          "itemLevel": 285,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Guile_of_the_Monkey_King",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 104,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 57,
+              "source": "Warcraft Wiki tier-set page, item level 285"
+            }
+          ]
+        },
+        {
+          "itemId": 271518,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Pantaloons of the Monkey King",
+          "slot": "Legs",
+          "variant": "Normal observed",
+          "itemLevel": 298,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Guile_of_the_Monkey_King",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 61,
+              "source": "Warcraft Wiki tier-set page, item level 298"
             }
           ]
         }
@@ -23508,13 +25069,14 @@
       "Gladiator",
       "Elite"
     ],
-    "note": "Source-verified baseline PvE candidate maps currently exist for Death Knight, Demon Hunter, Druid, Evoker, Mage, Priest, and Shaman. Candidate entries are exact observed item versions only; unverified intermediate upgrade ranks remain evidence-only, and overall variant coverage is still partial.",
+    "note": "Source-verified baseline PvE candidate maps currently exist for Death Knight, Demon Hunter, Druid, Evoker, Mage, Monk, Priest, and Shaman. Candidate entries are exact observed item versions only; unverified intermediate upgrade ranks remain evidence-only, and overall variant coverage is still partial.",
     "verifiedClasses": [
       "Death Knight",
       "Demon Hunter",
       "Druid",
       "Evoker",
       "Mage",
+      "Monk",
       "Priest",
       "Shaman"
     ],
@@ -23524,6 +25086,7 @@
       "Druid",
       "Evoker",
       "Mage",
+      "Monk",
       "Priest",
       "Shaman"
     ],
