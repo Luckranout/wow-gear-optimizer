@@ -69,7 +69,7 @@ if (validation.length) throw new Error("Normalized test dataset failed validatio
   if (real.catalogSections?.status !== "complete" || real.catalogSections.loadedSections.length !== dataLayer.equipmentSectionFiles.length) throw new Error("All sectioned equipment catalog files must load");
   if (!real.items.some(item => item.catalogSection === "head")) throw new Error("Sectioned equipment must be included in the candidate pool");
   const shamanTierCandidates = real.items.filter(item => [271483,271481,271486,271484,271482].includes(Number(item.id)) && item.seasonScope === "Midnight Season 2");
-  if (shamanTierCandidates.length !== 40) throw new Error("Expected 40 source-verified Shaman tier candidates including exact intermediate upgrade ranks, got " + shamanTierCandidates.length);
+  if (shamanTierCandidates.length !== 43) throw new Error("Expected 43 source-verified Shaman tier candidates including exact intermediate upgrade ranks, got " + shamanTierCandidates.length);
   for (const slot of ["Head","Shoulders","Chest","Hands","Legs"]) {
     if (!shamanTierCandidates.some(item => item.slot === slot && Number(item.itemLevel) > 0 && item.stats?.length)) {
       throw new Error("Missing source-backed Shaman tier candidate for " + slot);
