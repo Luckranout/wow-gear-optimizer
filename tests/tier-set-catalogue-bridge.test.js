@@ -203,18 +203,6 @@ test("Paladin observed tier variants are source-backed and remain evidence-only"
   }
   const shouldersByLevel = new Map(observations.filter(piece => piece.itemId === 271463).map(piece => [piece.itemLevel, piece]));
   assert.deepEqual([...shouldersByLevel.keys()].sort((a, b) => a - b), [282, 295, 308, 321, 334]);
-  const mythicLegs = observations.find(piece => piece.itemId === 271536 && piece.itemLevel === 334);
-  assert.ok(mythicLegs, "missing Demon Hunter Mythic 6/6 legs at item level 334");
-  assert.equal(mythicLegs.variant, "Mythic 6/6");
-  assert.equal(mythicLegs.candidate, false);
-  assert.equal(mythicLegs.verificationScope, "observed-version-only");
-  assert.equal(Number(new URL(mythicLegs.sourceUrl).searchParams.get("ilvl")), 334);
-  assert.deepEqual(
-    Object.fromEntries(mythicLegs.stats.map(stat => [stat.type.name, stat.value])),
-    { agility: 189, stamina: 3910, criticalStrike: 62, mastery: 139 }
-  );
-  assert.ok(mythicLegs.stats.every(stat => stat.source === "Wowhead tooltip, item level 334"));
-
   const expectedShoulders = {
     282: { strength: 87, intellect: 87, stamina: 1606, criticalStrike: 83, mastery: 36 },
     295: { strength: 98, intellect: 98, stamina: 1869, criticalStrike: 89, mastery: 38 },
@@ -382,8 +370,20 @@ test("Demon Hunter source-checked tier versions remain evidence-only and preserv
   assert.equal(championGloves.candidate, false);
   assert.deepEqual(Object.fromEntries(championGloves.stats.map(stat => [stat.type.name, stat.value])),
     { agility: 98, stamina: 1869, criticalStrike: 87, mastery: 40 });
+  const mythicLegs = observations.find(piece => piece.itemId === 271536 && piece.itemLevel === 334);
+  assert.ok(mythicLegs, "missing Demon Hunter Mythic 6/6 legs at item level 334");
+  assert.equal(mythicLegs.variant, "Mythic 6/6");
+  assert.equal(mythicLegs.candidate, false);
+  assert.equal(mythicLegs.verificationScope, "observed-version-only");
+  assert.equal(Number(new URL(mythicLegs.sourceUrl).searchParams.get("ilvl")), 334);
+  assert.deepEqual(
+    Object.fromEntries(mythicLegs.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 189, stamina: 3910, criticalStrike: 62, mastery: 139 }
+  );
+  assert.ok(mythicLegs.stats.every(stat => stat.source === "Wowhead tooltip, item level 334"));
+
   const legs = observations.filter(piece => piece.itemId === 271536).sort((a, b) => a.itemLevel - b.itemLevel);
-  assert.deepEqual(legs.map(piece => piece.itemLevel), [285, 295, 298, 311, 318, 324]);
+  assert.deepEqual(legs.map(piece => piece.itemLevel), [285, 295, 298, 311, 318, 324, 334]);
   assert.deepEqual(
     Object.fromEntries(legs.find(piece => piece.itemLevel === 318).stats.map(stat => [stat.type.name, stat.value])),
     { agility: 162, stamina: 3254, criticalStrike: 58, mastery: 130 }
