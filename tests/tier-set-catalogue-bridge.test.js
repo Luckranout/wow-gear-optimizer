@@ -210,7 +210,7 @@ test("Paladin observed tier variants are source-backed and remain evidence-only"
     { strength: 189, stamina: 3910, haste: 64, mastery: 137 }
   );
   const handsByLevel = new Map(observations.filter(piece => piece.itemId === 271466).map(piece => [piece.itemLevel, piece]));
-  assert.deepEqual([...handsByLevel.keys()].sort((a, b) => a - b), [282, 295, 308, 321, 334]);
+  assert.deepEqual([...handsByLevel.keys()].sort((a, b) => a - b), [282, 295, 308, 321]);
   const expectedHands = {
     282: { strength: 87, stamina: 1606, criticalStrike: 39, mastery: 80 },
     295: { strength: 98, stamina: 1869, criticalStrike: 42, mastery: 86 },
@@ -710,7 +710,7 @@ test("Evoker source-checked tier versions remain evidence-only and preserve obse
   const gloves = observations.find(piece => piece.itemId === 271502);
   assert.equal(gloves.itemLevel, 321);
   const glovesByLevel = new Map(observations.filter(piece => piece.itemId === 271502).map(piece => [piece.itemLevel, piece]));
-  assert.deepEqual([...glovesByLevel.keys()].sort((a, b) => a - b), [282, 295, 308, 321]);
+  assert.deepEqual([...glovesByLevel.keys()].sort((a, b) => a - b), [282, 295, 308, 321, 334]);
   const expectedGloves = {
     282: { intellect: 87, stamina: 1606, haste: 77, mastery: 42 },
     295: { intellect: 98, stamina: 1869, haste: 82, mastery: 45 },
