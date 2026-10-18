@@ -2504,7 +2504,7 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Thirty-one source-checked observations remain evidence-only. Hands at base item level 219, Veteran 2/6 item level 282, Champion 2/6 item level 295, Hero 1/6 item level 305, Hero 2/6 item level 308, and Myth 2/6 item level 321. Head at Veteran 3/6 item level 285 and Mythic 6/6 item level 334. Legs are observed at item levels 285, 295, 298, 311, 318, and 324. Hands and Shoulders now have exact Mythic 6/6 item-level 334 observations; Chest now has a source-cross-checked Mythic 6/6 item-level 334 observation (Agility 189, Stamina 3,910, Haste 139, Mastery 62); remaining difficulty and upgrade variants are unverified. All observations remain ineligible as optimizer candidates until complete slot/difficulty/upgrade maps are verified."
+      "variantObservationsNote": "Thirty-two source-checked observations remain evidence-only. Hands at base item level 219, Veteran 2/6 item level 282, Champion 2/6 item level 295, Hero 1/6 item level 305, Hero 2/6 item level 308, and Myth 2/6 item level 321. Head at Veteran 3/6 item level 285 and Mythic 6/6 item level 334. Legs are observed at item levels 285, 295, 298, 311, 318, 324, and 334; the 334 version is Mythic 6/6 with Agility/Intellect 189, Stamina 3,910, Haste 63, and Mastery 138. Hands and Shoulders now have exact Mythic 6/6 item-level 334 observations; Chest and Legs now have source-cross-checked Mythic 6/6 item-level 334 observations; remaining difficulty and upgrade variants are unverified. All observations remain ineligible as optimizer candidates until complete slot/difficulty/upgrade maps are verified."
     },
     {
       "class": "Druid",
