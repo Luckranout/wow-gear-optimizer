@@ -1621,7 +1621,7 @@ test("Warrior Mythic 6/6 legs observation remains evidence-only", () => {
 test("Priest source-checked helm variants retain their exact source stats and remain evidence-only", () => {
   const priest = catalogue.sets.find(set => set.class === "Priest");
   const observations = priest.verifiedVariantObservations || [];
-  assert.equal(observations.length, 21);
+  assert.equal(observations.length, 25);
   const heads = new Map(observations.filter(piece => piece.itemId === 271555 && piece.slot === "Head").map(piece => [piece.itemLevel, piece]));
   assert.deepEqual([...heads.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334]);
   const shoulders = new Map(observations.filter(piece => piece.itemId === 271553 && piece.slot === "Shoulders").map(piece => [piece.itemLevel, piece]));
@@ -1661,6 +1661,22 @@ test("Priest source-checked helm variants retain their exact source stats and re
     assert.equal(piece.candidate, false);
     assert.equal(piece.verificationScope, "observed-version-only");
     assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), level);
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+
+  const legs = new Map(observations.filter(piece => piece.itemId === 271554 && piece.slot === "Legs").map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...legs.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334]);
+  for (const [level, expected] of [
+    [285, { intellect: 119, stamina: 2219, haste: 47, versatility: 114 }],
+    [298, { intellect: 135, stamina: 2579, haste: 50, versatility: 122 }],
+    [311, { intellect: 152, stamina: 3002, haste: 53, versatility: 129 }],
+    [324, { intellect: 172, stamina: 3487, haste: 56, versatility: 137 }]
+  ]) {
+    const piece = legs.get(level);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.equal(piece.sourceUrl, "https://warcraft.wiki.gg/wiki/Enveloping_Legwraps_of_the_Cosmic_Penitent");
+    assert.ok(piece.stats.every(stat => stat.source.includes(`item level ${level}`)));
     assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
   }
 
