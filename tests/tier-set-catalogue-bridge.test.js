@@ -684,19 +684,22 @@ test("Priest source-backed tier item versions remain evidence-only and match Wow
 test("Warlock source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
   const warlock = catalogue.sets.find(set => set.class === "Warlock");
   const observations = warlock.verifiedVariantObservations || [];
-  assert.equal(observations.length, 9);
+  assert.equal(observations.length, 13);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(warlock.variantObservationsStatus, "partial");
-  assert.match(warlock.variantObservationsNote, /head is source-verified at item levels 219, 305, 315, 318, and 321/i);
+  assert.match(warlock.variantObservationsNote, /Head is observed at item levels 219, 285 .* 298 .* 305, 311 .* 315, 318, 321, and 324/i);
   assert.match(warlock.variantObservationsNote, /does not establish the complete upgrade path/i);
   const manifestSet = manifest.sets.find(set => set.className === "Warlock");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
   for (const piece of observations) {
     assert.equal(piece.candidate, false);
     assert.equal(piece.verificationScope, "observed-version-only");
-    assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/"));
+    assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/") || piece.sourceUrl === "https://warcraft.wiki.gg/wiki/Skull_of_the_Damned_Necrolyte");
     const sourceLevel = new URL(piece.sourceUrl).searchParams.get("ilvl");
     if (sourceLevel) assert.equal(Number(sourceLevel), piece.itemLevel);
+    if (piece.sourceUrl.startsWith("https://warcraft.wiki.gg/")) {
+      assert.ok(piece.stats.every(stat => stat.source.includes(`item level ${piece.itemLevel}`)));
+    }
     assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
     assert.ok(piece.stats.length >= 4);
     assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
@@ -708,7 +711,11 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
     "271546:305": { intellect: 144, stamina: 2794, versatility: 57, mastery: 120 },
     "271546:315": { intellect: 158, stamina: 3143, versatility: 60, mastery: 126 },
     "271546:318": { intellect: 162, stamina: 3254, versatility: 61, mastery: 127 },
+    "271546:285": { intellect: 119, stamina: 2219, versatility: 52, mastery: 109 },
+    "271546:298": { intellect: 135, stamina: 2579, versatility: 55, mastery: 116 },
+    "271546:311": { intellect: 152, stamina: 3002, versatility: 59, mastery: 124 },
     "271546:321": { intellect: 167, stamina: 3369, versatility: 61, mastery: 129 },
+    "271546:324": { intellect: 172, stamina: 3487, versatility: 62, mastery: 131 },
     271545: { intellect: 189, stamina: 3910, haste: 141, mastery: 60 },
     271544: { intellect: 141, stamina: 2932, haste: 50, versatility: 101 }
   };
@@ -720,7 +727,7 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
   }
   assert.deepEqual(
     observations.filter(piece => piece.itemId === 271546).map(piece => piece.itemLevel).sort((a, b) => a - b),
-    [219, 305, 315, 318, 321]
+    [219, 285, 298, 305, 311, 315, 318, 321, 324]
   );
   assert.equal(observations.find(piece => piece.itemId === 271546 && piece.itemLevel === 318).variant, "Myth 1/6 observed");
   assert.equal(observations.find(piece => piece.itemId === 271546 && piece.itemLevel === 321).variant, "Item level 321 observed");
