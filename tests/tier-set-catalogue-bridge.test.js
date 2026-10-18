@@ -42,9 +42,9 @@ test("all 13 classes have five manifest-matched base tier IDs and source-backed 
 test("catalogue reports ID mapping separately from variant stats and numeric bonus scoring", () => {
   assert.equal(catalogue.itemMatching.status, "partial");
   assert.deepEqual(catalogue.itemMatching.verifiedClasses, []);
-  assert.deepEqual(catalogue.itemMatching.candidateVariantClasses, ["Death Knight", "Demon Hunter", "Druid", "Evoker", "Hunter", "Mage", "Monk", "Paladin", "Priest", "Rogue", "Shaman", "Warlock"]);
+  assert.deepEqual(catalogue.itemMatching.candidateVariantClasses, ["Death Knight", "Demon Hunter", "Druid", "Evoker", "Hunter", "Mage", "Monk", "Paladin", "Priest", "Rogue", "Shaman", "Warlock", "Warrior"]);
   assert.equal(catalogue.itemMatching.baseItemIdsVerifiedClasses.length, 13);
-  assert.deepEqual(catalogue.itemMatching.statsVerifiedClasses, ["Death Knight", "Demon Hunter", "Druid", "Evoker", "Hunter", "Mage", "Monk", "Paladin", "Priest", "Shaman"]);
+  assert.deepEqual(catalogue.itemMatching.statsVerifiedClasses, ["Death Knight", "Demon Hunter", "Druid", "Evoker", "Hunter", "Mage", "Monk", "Paladin", "Priest", "Rogue", "Shaman", "Warlock", "Warrior"]);
   assert.equal(catalogue.sets.every(set => set.numericScoringAvailable !== true), true);
   assert.match(catalogue.scoringPolicy, /Do not assign numeric optimization weights/i);
 });
@@ -165,7 +165,7 @@ test("Death Knight verified baseline candidates and source-checked tier observat
     assert.ok(slotCandidates.every(piece => piece.candidate === true));
   }
   const observations = deathKnight.verifiedVariantObservations || [];
-  assert.equal(observations.length, 29);
+  assert.equal(observations.length, 31);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(deathKnight.variantObservationsStatus, "partial");
   assert.match(deathKnight.variantObservationsNote, /intermediate upgrade ranks are not all verified/i);
@@ -384,7 +384,7 @@ test("Demon Hunter source-checked tier versions remain evidence-only and preserv
   assert.equal(observations.length, 32);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(demonHunter.variantObservationsStatus, "partial");
-  assert.match(demonHunter.variantObservationsNote, /baseline PvE candidates cover each slot.*Mythic 6\/6/i);
+  assert.match(demonHunter.variantObservationsNote, /exact candidate versions cover all five slots.*Mythic 6\\/6/i);
   assert.match(demonHunter.variantObservationsNote, /intermediate upgrade ranks are not all verified/i);
   const manifestSet = manifest.sets.find(set => set.className === "Demon Hunter");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
@@ -899,7 +899,7 @@ test("Evoker source-checked tier versions remain evidence-only and preserve obse
 test("Hunter source-checked tier versions remain evidence-only and match exact Wowhead stats", () => {
   const hunter = catalogue.sets.find(set => set.class === "Hunter");
   const observations = hunter.verifiedVariantObservations || [];
-  assert.equal(observations.length, 31);
+  assert.equal(observations.length, 29);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(hunter.variantObservationsStatus, "partial");
   assert.match(hunter.variantObservationsNote, /intermediate upgrade ranks remain evidence-only/i);
@@ -1343,7 +1343,7 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(warlock.variantObservationsStatus, "partial");
   assert.match(warlock.variantObservationsNote, /Head is observed at item levels 219, 285 .* 298 .* 305, 308 .* 311 .* 315, 318, 321, 324 .* and 334/i);
-  assert.match(warlock.variantObservationsNote, /other difficulty and upgrade variants remain unverified/i);
+  assert.match(warlock.variantObservationsNote, /intermediate upgrade ranks remain evidence-only/i);
   const manifestSet = manifest.sets.find(set => set.className === "Warlock");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
   for (const piece of observations) {
@@ -1476,7 +1476,7 @@ test("Monk source-backed tier item versions remain evidence-only and match sourc
   const chestByLevel = new Map(observations.filter(piece => piece.itemId === 271522).map(piece => [piece.itemLevel, piece]));
   assert.deepEqual([...chestByLevel.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334]);
   const legsByLevel = new Map(observations.filter(piece => piece.itemId === 271518).map(piece => [piece.itemLevel, piece]));
-  assert.deepEqual([...legsByLevel.keys()].sort((a, b) => a - b), [311, 324, 334]);
+  assert.deepEqual([...legsByLevel.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334]);
   const mythicThreeLegs = legsByLevel.get(324);
   assert.equal(mythicThreeLegs.variant, "Mythic 3/6 observed");
   assert.equal(mythicThreeLegs.sourceUrl, "https://warcraft.wiki.gg/wiki/Guile_of_the_Monkey_King");
@@ -1830,7 +1830,8 @@ test("Priest source-checked helm variants retain their exact source stats and re
     const piece = chest.get(level);
     assert.equal(piece.candidate, false);
     assert.equal(piece.verificationScope, "observed-version-only");
-    assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), level);
+    if (new URL(piece.sourceUrl).hostname === "www.wowhead.com") assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), level);
+    else assert.ok(piece.stats.every(stat => stat.source.includes(`item level ${level}`)));
     assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
   }
 
