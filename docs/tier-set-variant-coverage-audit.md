@@ -9,7 +9,7 @@ Scope: source-verified numeric item variants needed before tier pieces can becom
 - Base tier membership: **13/13 classes mapped**, with five base item IDs per class (65 total).
 - Complete variant mapping: **1/13 classes** — Shaman.
 - Verified Shaman PvE candidates: **20/20** (four PvE difficulty variants across five slots).
-- Non-Shaman evidence-only observations: **180 records across 12 classes**. These are useful evidence, not complete variant maps.
+- Non-Shaman evidence-only observations: **184 records across 12 classes**. These are useful evidence, not complete variant maps.
 - Remaining baseline: **12 classes × 5 slots = 60 incomplete slot maps**, with up to **240 baseline PvE slot/difficulty records** to verify (four PvE difficulty variants per slot). Additional upgrade-track variants must be recorded when the source exposes distinct upgraded item levels/stats.
 - PvP appearances are not optimizer candidates unless their numeric item level and stats are independently verified.
 - Do not enable numeric tier-bonus scoring without a separate trustworthy, simulation-backed scoring source.
@@ -32,7 +32,7 @@ For every class marked incomplete below, all five slots still need a complete, s
 | Rogue | 12 observations | Legs levels 219, 285, 298, 311, 315, 321, and 324; Hands levels 282, 295, and 321; Chest 305; Head 295; Shoulders 334. | Four additional item-specific leg versions and a Veteran 2/6 hands version are source-checked; verify remaining difficulties/upgrades and all other slot variants. |
 | Shaman | 30 records | Four PvE variants per slot are numeric and candidate-eligible. Ten PvP appearance records lack verified numeric stats. | PvE baseline complete. Keep PvP records appearance-only until their numeric item levels/stats are verified. |
 | Warlock | 14 observations | Head levels 219, 285, 298, 305, 308, 311, 315, 318, 321, and 324; Hands 331; Chest/Legs/Shoulders level 334 only. | Five additional item-specific helm versions are source-checked; verify remaining head upgrades and all missing variants across the five slots. |
-| Warrior | 15 observations | Chest has levels 285, 298, 311, 324, and 344; Shoulders have levels 282, 295, 308, 321, and 334; Hands retain distinct same-level stat variants at 321 and a 334 observation; Legs 321; Head 334. | Chest now has source-checked Veteran 3/6, Champion 3/6, Hero 3/6, and Myth 3/6 observations at 285/298/311/324 alongside 344. Continue filling the large gaps in Head, Hands, and Legs; preserve distinct same-ID/stat variants. |
+| Warrior | 15 observations | Chest levels 285, 298, 311, 324, and 344; Shoulders have levels 282, 295, 308, 321, and 334; Hands have distinct same-level stat variants at 321 and a 334 observation; Legs 321; Head 334. | Shoulders now include source-checked 282/295/308 variants, and Chest has source-checked 285/298/311/324 variants. Preserve distinct same-ID/stat variants and continue filling the remaining gaps in Head, Hands, and Legs. |
 
 ## Acceptance criteria
 
