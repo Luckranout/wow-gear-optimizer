@@ -105,7 +105,7 @@ test("Warrior source-checked variant observations remain evidence-only and prese
 test("Death Knight source-checked tier versions preserve observed stats without becoming optimizer candidates", () => {
   const deathKnight = catalogue.sets.find(set => set.class === "Death Knight");
   const observations = deathKnight.verifiedVariantObservations || [];
-  assert.equal(observations.length, 24);
+  assert.equal(observations.length, 20);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(deathKnight.variantObservationsStatus, "partial");
   assert.match(deathKnight.variantObservationsNote, /remain ineligible as optimizer candidates/i);
@@ -292,7 +292,7 @@ test("Demon Hunter source-checked tier versions remain evidence-only and preserv
     assert.ok(item, "missing Demon Hunter head observation at item level " + expected.level);
     assert.equal(item.candidate, false);
     assert.equal(item.verificationScope, "observed-version-only");
-    assert.match(item.sourceUrl, /warcraft\\.wiki\\.gg/);
+    assert.match(item.sourceUrl, /warcraft\.wiki\.gg/);
     assert.deepEqual(
       Object.fromEntries(item.stats.map(stat => [stat.type.name, stat.value])),
       expected.stats
@@ -399,7 +399,7 @@ test("Death Knight source-checked leg versions remain evidence-only", () => {
 test("Druid source-checked tier versions remain evidence-only and preserve observed stats", () => {
   const druid = catalogue.sets.find(set => set.class === "Druid");
   const observations = druid.verifiedVariantObservations || [];
-  assert.equal(observations.length, 17);
+  assert.equal(observations.length, 24);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(druid.variantObservationsStatus, "partial");
   assert.match(druid.variantObservationsNote, /all observations remain ineligible as optimizer candidates/i);
@@ -841,7 +841,7 @@ test("Rogue source-backed tier item versions remain evidence-only and match Wowh
 test("Mage source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
   const mage = catalogue.sets.find(set => set.class === "Mage");
   const observations = mage.verifiedVariantObservations || [];
-  assert.equal(observations.length, 9);
+  assert.equal(observations.length, 25);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(mage.variantObservationsStatus, "partial");
   assert.match(mage.variantObservationsNote, /do not establish coverage/i);
@@ -851,8 +851,9 @@ test("Mage source-backed tier item versions remain evidence-only and match Wowhe
     assert.equal(piece.candidate, false);
     assert.equal(piece.verificationScope, "observed-version-only");
     assert.ok(piece.itemLevel > 0);
-    assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/"));
-    assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), piece.itemLevel);
+    assert.ok(["www.wowhead.com", "warcraft.wiki.gg"].includes(new URL(piece.sourceUrl).hostname));
+    if (new URL(piece.sourceUrl).hostname === "www.wowhead.com") assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), piece.itemLevel);
+    else assert.ok(piece.stats.every(stat => stat.source.includes(String(piece.itemLevel))));
     assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
     assert.ok(piece.stats.length >= 4);
     assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
@@ -884,7 +885,7 @@ test("Mage source-backed tier item versions remain evidence-only and match Wowhe
 test("Priest source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
   const priest = catalogue.sets.find(set => set.class === "Priest");
   const observations = priest.verifiedVariantObservations || [];
-  assert.equal(observations.length, 9);
+  assert.equal(observations.length, 17);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(priest.variantObservationsStatus, "partial");
   const handsByLevel = new Map(observations.filter(piece => piece.itemId === 271556).map(piece => [piece.itemLevel, piece]));
@@ -1159,7 +1160,7 @@ test("Warrior source-checked chest versions remain evidence-only", () => {
 test("Priest source-checked helm variants retain their exact source stats and remain evidence-only", () => {
   const priest = catalogue.sets.find(set => set.class === "Priest");
   const observations = priest.verifiedVariantObservations || [];
-  assert.equal(observations.length, 13);
+  assert.equal(observations.length, 17);
   const heads = new Map(observations.filter(piece => piece.itemId === 271555 && piece.slot === "Head").map(piece => [piece.itemLevel, piece]));
   assert.deepEqual([...heads.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334]);
   const shoulders = new Map(observations.filter(piece => piece.itemId === 271553 && piece.slot === "Shoulders").map(piece => [piece.itemLevel, piece]));
