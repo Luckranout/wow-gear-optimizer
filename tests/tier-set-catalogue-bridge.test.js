@@ -76,7 +76,7 @@ test("Warrior source-checked variant observations remain evidence-only and prese
     assert.equal(piece.candidate, false);
     assert.equal(piece.verificationScope, "observed-version-only");
     assert.ok(piece.itemLevel > 0);
-    assert.ok(["www.wowhead.com", "warcraft.wiki.gg"].includes(new URL(piece.sourceUrl).hostname));
+    assert.ok(["www.wowhead.com", "warcraft.wiki.gg", "mythicsim.com", "azerothcodex.up.railway.app"].includes(new URL(piece.sourceUrl).hostname));
     assert.equal(manifestSlotsById.get(Number(piece.itemId)), piece.slot,
       "observed item ID must match the manifest slot");
     const sourceUrl = new URL(piece.sourceUrl);
@@ -1348,6 +1348,11 @@ test("Monk source-backed tier item versions remain evidence-only and match sourc
   }
   const chestByLevel = new Map(observations.filter(piece => piece.itemId === 271522).map(piece => [piece.itemLevel, piece]));
   assert.deepEqual([...chestByLevel.keys()].sort((a, b) => a - b), [311, 324, 334]);
+  const maxLegs = observations.find(piece => piece.itemId === 271518 && piece.itemLevel === 334);
+  assert.ok(maxLegs, "missing Monk Mythic 6/6 legs at item level 334");
+  assert.equal(maxLegs.variant, "Mythic 6/6 observed");
+  assert.equal(maxLegs.candidate, false);
+  assert.equal(maxLegs.verificationScope, "observed-version-only");
   for (const level of [311, 324]) {
     const piece = chestByLevel.get(level);
     assert.equal(piece.candidate, false);
