@@ -47,7 +47,34 @@ For every class marked incomplete below, all five slots still need a complete, s
 
 ## Recommended execution order
 
-1. Complete and test the weakest current slot gaps first: Demon Hunter Hands; Druid Legs; Hunter Legs; Rogue Legs; Warlock Head path; then Death Knight Head/Shoulders and Warrior's same-ID stat variants.
-2. For each class, fill the remaining missing difficulty/upgrade variants slot-by-slot from exact Wowhead item versions and add regression tests in the same change.
-3. Only after a class's complete mapping passes validation, mark its variants eligible; leave other classes safely evidence-only.
-4. Finish full-class cross-checks and run both catalogue and optimizer workflows before considering release.
+The immediate priority is **standard Mythic 6/6 tier gear at item level 334 for all 13 classes and all five tier slots**. Do not count a special item-level 344 reward as the standard Mythic 6/6 variant. Record special 344 variants separately with their own exact source and stats. Do not infer 334 stats from another rank.
+
+### Standard Mythic 6/6 (334) gap checklist
+
+This is a working inventory of current observations, not a certification that the recorded entries have complete stats/provenance. A slot counts as covered here only when its exact 334 item version is source-verified; candidate eligibility remains off until the full class map is verified.
+
+| Class | Recorded at 334 | Slots still needing a verified 334 version |
+|---|---|---|
+| Death Knight | Head, Chest, Legs | Shoulders, Hands |
+| Demon Hunter | Head, Shoulders | Chest, Hands, Legs |
+| Druid | Head, Hands | Shoulders, Chest, Legs |
+| Evoker | Head, Shoulders, Chest, Legs | Hands |
+| Hunter | Head, Shoulders, Chest, Legs | Hands |
+| Mage | Head, Shoulders, Chest, Hands, Legs | None recorded as missing; validate exact source/stats for all five |
+| Monk | Head, Shoulders, Chest, Hands | Legs |
+| Paladin | Head, Shoulders, Chest, Legs | Hands |
+| Priest | Head, Shoulders, Chest, Legs | Hands |
+| Rogue | Shoulders | Head, Chest, Hands, Legs |
+| Shaman | Five PvE slots exist in the separate numeric pieces schema; verify which records are exactly standard Mythic 6/6 at 334 | Validate exact 334 version and stats per slot |
+| Warlock | Shoulders, Chest, Legs | Head, Hands |
+| Warrior | Head, Shoulders, Hands | Chest, Legs; current Chest record at 344 is a special variant, not standard 334 |
+
+### Work sequence
+
+1. Verify missing standard Mythic 6/6 pieces from exact item-specific sources, recording item ID, slot, item level, numeric stats, source URL, and any variant/bonus identifiers. Prioritize Rogue (four gaps), then Demon Hunter, Druid, Death Knight, Warlock, and the remaining one-slot gaps.
+2. Re-check the five Mage observations and Shaman's separate schema against exact source versions; “recorded” is not the same as fully validated.
+3. Keep item-level 344 special rewards separate from standard Mythic 6/6 334 variants.
+4. Add regression tests for each confirmed item/version and explicit tests that a missing or unverified slot cannot be marked complete or candidate-eligible.
+5. After the 334 pass, fill Raid Finder/Normal/Heroic/Mythic base versions and intermediate upgrade ranks, then audit all 16 equipment slots and non-tier gear.
+6. Keep partial evidence ineligible and numeric tier-bonus scoring disabled until separately verified.
+7. Run catalogue and optimizer CI on the draft branch. Do not merge or deploy without explicit authorization.
