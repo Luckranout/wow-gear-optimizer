@@ -655,7 +655,7 @@ test("Druid source-checked tier versions remain evidence-only and preserve obser
   assert.equal(observations.length, 28);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(druid.variantObservationsStatus, "partial");
-  assert.match(druid.variantObservationsNote, /Legs 334 observation lacks source-verified upgrade-rank evidence/i);
+  assert.match(druid.variantObservationsNote, /Legs 334 item version is verified as Mythic 6\/6/i);
   const legsByLevel = new Map(observations.filter(piece => piece.slot === "Legs").map(piece => [piece.itemLevel, piece]));
   assert.deepEqual([...legsByLevel.keys()].sort((a, b) => a - b), [219, 285, 298, 311, 324, 334]);
   for (const [level, expected] of [
@@ -784,7 +784,8 @@ test("Druid source-checked tier versions remain evidence-only and preserve obser
   const mythicLegs = observations.find(piece => piece.itemId === 271527 && piece.itemLevel === 334);
   assert.ok(mythicLegs, "missing Druid Legs item-level-334 observation");
   assert.equal(mythicLegs.candidate, false);
-  assert.equal(mythicLegs.variant, "Item level 334 observed; upgrade rank unverified");
+  assert.match(mythicLegs.variant, /Mythic 6\/6 observed/i);
+  assert.match(mythicLegs.rankSourceUrl, /guildsofwow\.com/);
   assert.equal(new URL(mythicLegs.sourceUrl).hostname, "www.wowhead.com");
   assert.equal(Number(new URL(mythicLegs.sourceUrl).searchParams.get("ilvl")), 334);
   assert.deepEqual(Object.fromEntries(mythicLegs.stats.map(stat => [stat.type.name, stat.value])),
@@ -1930,19 +1931,19 @@ test("Druid tier observations preserve the source-backed Hero 6/6 head at item l
 });
 
 
-test("Druid has baseline candidates and excludes unranked item-level-334 Legs", () => {
+test("Druid has baseline and source-verified Mythic 6/6 candidates for all five slots", () => {
   const druid = catalogue.sets.find(set => set.class === "Druid");
   assert.equal(druid.itemIdsVerified, false);
   assert.equal(druid.candidateVariantsAvailable, true);
   assert.equal(druid.baseItemIdsVerified, true);
-  assert.equal(druid.pieces.length, 25);
-  assert.equal(druid.pieces.filter(piece => piece.candidate).length, 25);
+  assert.equal(druid.pieces.length, 26);
+  assert.equal(druid.pieces.filter(piece => piece.candidate).length, 26);
   const expected = {
     Head: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
     Shoulders: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
     Chest: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
     Hands: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
-    Legs: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324]]
+    Legs: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]]
   };
   for (const [slot, expectedVariants] of Object.entries(expected)) {
     const entries = druid.pieces.filter(piece => piece.slot === slot);
@@ -1966,8 +1967,12 @@ test("Druid has baseline candidates and excludes unranked item-level-334 Legs", 
     "baseline candidates must not imply all intermediate upgrade ranks are complete");
   const unrankedLegs = druid.verifiedVariantObservations.find(piece => piece.slot === "Legs" && piece.itemLevel === 334);
   assert.ok(unrankedLegs);
-  assert.equal(unrankedLegs.candidate, false);
-  assert.match(unrankedLegs.variant, /upgrade rank unverified/i);
+  assert.equal(unrankedLegs.candidate, false, "observations remain separate from optimizer candidates");
+  assert.match(unrankedLegs.variant, /Mythic 6\/6 observed/i);
+  assert.match(unrankedLegs.rankSourceUrl, /guildsofwow\.com/);
+  const verifiedLegs = druid.pieces.find(piece => piece.slot === "Legs" && piece.itemLevel === 334);
+  assert.ok(verifiedLegs && verifiedLegs.candidate);
+  assert.match(verifiedLegs.rankSourceUrl, /guildsofwow\.com/);
   assert.ok(druid.verifiedVariantObservations.every(piece => piece.candidate === false),
     "additional upgrade-rank observations remain evidence-only");
 });
@@ -2088,13 +2093,13 @@ test("Priest has source-verified baseline PvE and exact Mythic 6/6 candidates fo
 });
 
 
-test("Monk keeps unranked item-level-334 Legs evidence-only while other baseline variants remain candidates", () => {
+test("Monk has baseline and source-verified Mythic 6/6 candidates for all five slots", () => {
   const monk = catalogue.sets.find(set => set.class === "Monk");
   assert.equal(monk.itemIdsVerified, false);
   assert.equal(monk.candidateVariantsAvailable, true);
   assert.equal(monk.baseItemIdsVerified, true);
-  assert.equal(monk.pieces.length, 24);
-  assert.equal(monk.pieces.filter(piece => piece.candidate).length, 24);
+  assert.equal(monk.pieces.length, 25);
+  assert.equal(monk.pieces.filter(piece => piece.candidate).length, 25);
   const expected = {
     Head: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
     Shoulders: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
@@ -2109,8 +2114,12 @@ test("Monk keeps unranked item-level-334 Legs evidence-only while other baseline
   }
   const unrankedLegs = monk.verifiedVariantObservations.find(piece => piece.slot === "Legs" && piece.itemLevel === 334);
   assert.ok(unrankedLegs);
-  assert.equal(unrankedLegs.candidate, false);
-  assert.match(unrankedLegs.variant, /upgrade rank unverified/i);
+  assert.equal(unrankedLegs.candidate, false, "observations remain separate from optimizer candidates");
+  assert.match(unrankedLegs.variant, /Mythic 6\/6 observed/i);
+  assert.match(unrankedLegs.rankSourceUrl, /guildsofwow\.com/);
+  const verifiedLegs = monk.pieces.find(piece => piece.slot === "Legs" && piece.itemLevel === 334);
+  assert.ok(verifiedLegs && verifiedLegs.candidate);
+  assert.match(verifiedLegs.rankSourceUrl, /guildsofwow\.com/);
   assert.equal(monk.variantObservationsStatus, "partial");
 });
 
