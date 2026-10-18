@@ -1303,7 +1303,7 @@ test("Monk source-backed tier item versions remain evidence-only and match sourc
 test("Shaman tier item versions remain evidence-only with exact source levels", () => {
   const shaman = catalogue.sets.find(set => set.class === "Shaman");
   const observations = shaman.verifiedVariantObservations || [];
-  assert.equal(observations.length, 24);
+  assert.equal(observations.length, 25);
   const level334 = observations.filter(piece => piece.itemLevel === 334);
   assert.equal(level334.length, 5);
   assert.deepEqual([...level334.map(piece => piece.slot)].sort(), [...EXPECTED_SLOTS].sort());
@@ -1319,9 +1319,14 @@ test("Shaman tier item versions remain evidence-only with exact source levels", 
   for (const piece of observations) {
     assert.equal(piece.candidate, false);
     assert.equal(piece.verificationScope, "observed-version-only");
-    assert.equal(new URL(piece.sourceUrl).hostname, "www.wowhead.com");
-    assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), piece.itemLevel,
-      "Wowhead evidence URL must pin the exact item level");
+    if (piece.itemLevel === 315 && piece.itemId === 271484) {
+      assert.equal(new URL(piece.sourceUrl).hostname, "azerothcodex.up.railway.app");
+      assert.ok(piece.stats.every(stat => stat.source.includes("item level 315")));
+    } else {
+      assert.equal(new URL(piece.sourceUrl).hostname, "www.wowhead.com");
+      assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), piece.itemLevel,
+        "Wowhead evidence URL must pin the exact item level");
+    }
     if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
     assert.ok(piece.stats.every(stat => stat.source.includes(String(piece.itemLevel))));
     if (piece.itemLevel === 334) {
@@ -1372,13 +1377,16 @@ test("Shaman tier item versions remain evidence-only with exact source levels", 
   assert.deepEqual(Object.fromEntries(shouldersByLevel.get(321).stats.map(stat => [stat.type.name, stat.value])),
     { agility: 125, intellect: 125, stamina: 2527, criticalStrike: 49, mastery: 94 });
   const handsByLevel = new Map(observations.filter(piece => piece.itemId === 271484).map(piece => [piece.itemLevel, piece]));
-  assert.deepEqual([...handsByLevel.keys()].sort((a, b) => a - b), [295, 308, 311, 318, 321, 334]);
+  assert.deepEqual([...handsByLevel.keys()].sort((a, b) => a - b), [295, 308, 311, 315, 318, 321, 334]);
   assert.deepEqual(Object.fromEntries(handsByLevel.get(295).stats.map(stat => [stat.type.name, stat.value])),
     { agility: 98, intellect: 98, stamina: 1869, criticalStrike: 39, mastery: 88 });
   assert.deepEqual(Object.fromEntries(handsByLevel.get(308).stats.map(stat => [stat.type.name, stat.value])),
     { agility: 111, intellect: 111, stamina: 2172, criticalStrike: 41, mastery: 94 });
   assert.deepEqual(Object.fromEntries(handsByLevel.get(311).stats.map(stat => [stat.type.name, stat.value])),
     { agility: 114, intellect: 114, stamina: 2252, criticalStrike: 41, mastery: 95 });
+  assert.deepEqual(Object.fromEntries(handsByLevel.get(315).stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 118, intellect: 118, stamina: 2358, criticalStrike: 88, haste: 51 });
+  assert.equal(handsByLevel.get(315).variant, "Hero 4/6");
   assert.deepEqual(Object.fromEntries(handsByLevel.get(318).stats.map(stat => [stat.type.name, stat.value])),
     { agility: 122, intellect: 122, stamina: 2440, criticalStrike: 43, mastery: 98 });
   assert.equal(handsByLevel.get(318).variant, "Hero 5/6");
