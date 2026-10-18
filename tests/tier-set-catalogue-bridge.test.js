@@ -688,7 +688,7 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(warlock.variantObservationsStatus, "partial");
   assert.match(warlock.variantObservationsNote, /Head is observed at item levels 219, 285 .* 298 .* 305, 311 .* 315, 318, 321, and 324/i);
-  assert.match(warlock.variantObservationsNote, /does not establish the complete upgrade path/i);
+  assert.match(warlock.variantObservationsNote, /other difficulty and upgrade variants remain unverified/i);
   const manifestSet = manifest.sets.find(set => set.className === "Warlock");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
   for (const piece of observations) {
