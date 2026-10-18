@@ -1000,7 +1000,8 @@ test("Monk source-backed tier item versions remain evidence-only and match sourc
     assert.equal(piece.verificationScope, "observed-version-only");
     assert.ok(["www.wowhead.com", "warcraft.wiki.gg"].includes(new URL(piece.sourceUrl).hostname));
     const sourceLevel = new URL(piece.sourceUrl).searchParams.get("ilvl");
-    if (sourceLevel) assert.equal(Number(sourceLevel), piece.itemLevel);\n    else assert.ok(piece.stats.every(stat => stat.source.includes(String(piece.itemLevel))));
+    if (sourceLevel) assert.equal(Number(sourceLevel), piece.itemLevel);
+    else assert.ok(piece.stats.every(stat => stat.source.includes(String(piece.itemLevel))));
     assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
     assert.ok(piece.stats.length >= 4);
     assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
