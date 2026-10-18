@@ -8132,7 +8132,7 @@
           "setId": "bark-of-the-enigmatic-dreamwatcher",
           "name": "Enigmatic Dreamwatcher's Leggings",
           "slot": "Legs",
-          "variant": "Item level 334 observed; upgrade rank unverified",
+          "variant": "Mythic 6/6 observed; rank corroborated by equipped profile",
           "itemLevel": 334,
           "candidate": false,
           "verificationScope": "observed-version-only",
@@ -8143,37 +8143,38 @@
                 "name": "agility"
               },
               "value": 189,
-              "source": "Item-level-334 observation for Enigmatic Dreamwatcher's Leggings (271527); MythicSim Guardian Druid tier listing reports 189 agility. Exact upgrade rank remains unverified."
+              "source": "Item-level-334 observation for Enigmatic Dreamwatcher's Leggings (271527); MythicSim Guardian Druid tier listing reports 189 agility. Exact item-level-334 stats are retained in the observation ledger; Mythic 6/6 rank is independently corroborated by the linked equipped profile."
             },
             {
               "type": {
                 "name": "intellect"
               },
               "value": 189,
-              "source": "Item-level-334 observation for Enigmatic Dreamwatcher's Leggings (271527); Azeroth Codex equipped profile reports 189 intellect. Exact upgrade rank remains unverified."
+              "source": "Item-level-334 observation for Enigmatic Dreamwatcher's Leggings (271527); Azeroth Codex equipped profile reports 189 intellect. Exact item-level-334 stats are retained in the observation ledger; Mythic 6/6 rank is independently corroborated by the linked equipped profile."
             },
             {
               "type": {
                 "name": "stamina"
               },
               "value": 3910,
-              "source": "Item-level-334 observation for Enigmatic Dreamwatcher's Leggings (271527); Azeroth Codex equipped profile reports 3910 stamina. Exact upgrade rank remains unverified."
+              "source": "Item-level-334 observation for Enigmatic Dreamwatcher's Leggings (271527); Azeroth Codex equipped profile reports 3910 stamina. Exact item-level-334 stats are retained in the observation ledger; Mythic 6/6 rank is independently corroborated by the linked equipped profile."
             },
             {
               "type": {
                 "name": "criticalStrike"
               },
               "value": 67,
-              "source": "Item-level-334 observation for Enigmatic Dreamwatcher's Leggings (271527); MythicSim Guardian Druid tier listing reports 67 criticalStrike. Exact upgrade rank remains unverified."
+              "source": "Item-level-334 observation for Enigmatic Dreamwatcher's Leggings (271527); MythicSim Guardian Druid tier listing reports 67 criticalStrike. Exact item-level-334 stats are retained in the observation ledger; Mythic 6/6 rank is independently corroborated by the linked equipped profile."
             },
             {
               "type": {
                 "name": "haste"
               },
               "value": 134,
-              "source": "Item-level-334 observation for Enigmatic Dreamwatcher's Leggings (271527); MythicSim Guardian Druid tier listing reports 134 haste. Exact upgrade rank remains unverified."
+              "source": "Item-level-334 observation for Enigmatic Dreamwatcher's Leggings (271527); MythicSim Guardian Druid tier listing reports 134 haste. Exact item-level-334 stats are retained in the observation ledger; Mythic 6/6 rank is independently corroborated by the linked equipped profile."
             }
-          ]
+          ],
+          "rankSourceUrl": "https://guildsofwow.com/player/202222/vikke"
         },
         {
           "itemId": 271528,
@@ -17667,7 +17668,7 @@
           "setId": "guile-of-the-monkey-king",
           "name": "Pantaloons of the Monkey King",
           "slot": "Legs",
-          "variant": "Item level 334 observed; upgrade rank unverified",
+          "variant": "Mythic 6/6 observed; rank corroborated by equipped profile",
           "itemLevel": 334,
           "candidate": false,
           "verificationScope": "observed-version-only",
@@ -17678,37 +17679,38 @@
                 "name": "agility"
               },
               "value": 189,
-              "source": "Item-level-334 observation for Pantaloons of the Monkey King (271518); Azeroth Codex equipped profile reports 189 agility. Exact upgrade rank remains unverified."
+              "source": "Item-level-334 observation for Pantaloons of the Monkey King (271518); Azeroth Codex equipped profile reports 189 agility. Exact item-level-334 stats are retained in the observation ledger; Mythic 6/6 rank is independently corroborated by the linked equipped profile."
             },
             {
               "type": {
                 "name": "intellect"
               },
               "value": 189,
-              "source": "Item-level-334 observation for Pantaloons of the Monkey King (271518); Azeroth Codex equipped profile reports 189 intellect. Exact upgrade rank remains unverified."
+              "source": "Item-level-334 observation for Pantaloons of the Monkey King (271518); Azeroth Codex equipped profile reports 189 intellect. Exact item-level-334 stats are retained in the observation ledger; Mythic 6/6 rank is independently corroborated by the linked equipped profile."
             },
             {
               "type": {
                 "name": "stamina"
               },
               "value": 3910,
-              "source": "Item-level-334 observation for Pantaloons of the Monkey King (271518); Azeroth Codex equipped profile reports 3910 stamina. Exact upgrade rank remains unverified."
+              "source": "Item-level-334 observation for Pantaloons of the Monkey King (271518); Azeroth Codex equipped profile reports 3910 stamina. Exact item-level-334 stats are retained in the observation ledger; Mythic 6/6 rank is independently corroborated by the linked equipped profile."
             },
             {
               "type": {
                 "name": "criticalStrike"
               },
               "value": 130,
-              "source": "Item-level-334 observation for Pantaloons of the Monkey King (271518); Azeroth Codex equipped profile reports 130 criticalStrike. Exact upgrade rank remains unverified."
+              "source": "Item-level-334 observation for Pantaloons of the Monkey King (271518); Azeroth Codex equipped profile reports 130 criticalStrike. Exact item-level-334 stats are retained in the observation ledger; Mythic 6/6 rank is independently corroborated by the linked equipped profile."
             },
             {
               "type": {
                 "name": "versatility"
               },
               "value": 71,
-              "source": "Item-level-334 observation for Pantaloons of the Monkey King (271518); Azeroth Codex equipped profile reports 71 versatility. Exact upgrade rank remains unverified."
+              "source": "Item-level-334 observation for Pantaloons of the Monkey King (271518); Azeroth Codex equipped profile reports 71 versatility. Exact item-level-334 stats are retained in the observation ledger; Mythic 6/6 rank is independently corroborated by the linked equipped profile."
             }
-          ]
+          ],
+          "rankSourceUrl": "https://guildsofwow.com/player/90713/minocow"
         },
         {
           "itemId": 271517,
