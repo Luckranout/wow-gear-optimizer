@@ -11373,8 +11373,1184 @@
           "sourceType": "PvP"
         }
       ],
-      "pieces": [],
-      "itemIdsVerified": false,
+      "pieces": [
+        {
+          "itemId": 271564,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Crown of the Primal Leywarden",
+          "slot": "Head",
+          "variant": "Raid Finder",
+          "itemLevel": 285,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Crown_of_the_Primal_Leywarden",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 110,
+              "source": "Warcraft Wiki item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 51,
+              "source": "Warcraft Wiki item page, item level 285"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271564,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Crown of the Primal Leywarden",
+          "slot": "Head",
+          "variant": "Normal",
+          "itemLevel": 298,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Crown_of_the_Primal_Leywarden",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 118,
+              "source": "Warcraft Wiki item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 54,
+              "source": "Warcraft Wiki item page, item level 298"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271564,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Crown of the Primal Leywarden",
+          "slot": "Head",
+          "variant": "Heroic",
+          "itemLevel": 311,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Crown_of_the_Primal_Leywarden",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki item page, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Warcraft Wiki item page, item level 311"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 125,
+              "source": "Warcraft Wiki item page, item level 311"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 58,
+              "source": "Warcraft Wiki item page, item level 311"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271564,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Crown of the Primal Leywarden",
+          "slot": "Head",
+          "variant": "Mythic",
+          "itemLevel": 324,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Crown_of_the_Primal_Leywarden",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 132,
+              "source": "Warcraft Wiki item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 61,
+              "source": "Warcraft Wiki item page, item level 324"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271564,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Crown of the Primal Leywarden",
+          "slot": "Head",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271564/crown-of-the-primal-leywarden?bonus=13334%3A6652%3A13846%3A12854%3A13696%3A13692%3A13698%3A1587&ilvl=334&spec=62",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 137,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 63,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ],
+          "secondaryStats": [
+            "Haste",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271562,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Primal Leywarden's Manaflux",
+          "slot": "Shoulders",
+          "variant": "Raid Finder",
+          "itemLevel": 282,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Primal_Leywarden%27s_Attire",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 81,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 38,
+              "source": "Warcraft Wiki item page, item level 282"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271562,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Primal Leywarden's Manaflux",
+          "slot": "Shoulders",
+          "variant": "Normal",
+          "itemLevel": 295,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Primal_Leywarden%27s_Attire",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 98,
+              "source": "Warcraft Wiki item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Warcraft Wiki item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 86,
+              "source": "Warcraft Wiki item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 41,
+              "source": "Warcraft Wiki item page, item level 295"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271562,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Primal Leywarden's Manaflux",
+          "slot": "Shoulders",
+          "variant": "Heroic",
+          "itemLevel": 308,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Primal_Leywarden%27s_Attire",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Warcraft Wiki item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 92,
+              "source": "Warcraft Wiki item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 43,
+              "source": "Warcraft Wiki item page, item level 308"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271562,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Primal Leywarden's Manaflux",
+          "slot": "Shoulders",
+          "variant": "Mythic",
+          "itemLevel": 321,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Primal_Leywarden%27s_Attire",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 125,
+              "source": "Warcraft Wiki item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Warcraft Wiki item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 97,
+              "source": "Warcraft Wiki item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 46,
+              "source": "Warcraft Wiki item page, item level 321"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271562,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Primal Leywarden's Manaflux",
+          "slot": "Shoulders",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271562/primal-leywardens-manaflux?bonus=12854%3A13335&ilvl=334&original-item=268241",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 107,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 44,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271567,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Crest of the Primal Leywarden",
+          "slot": "Chest",
+          "variant": "Raid Finder",
+          "itemLevel": 285,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Crest_of_the_Primal_Leywarden",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 105,
+              "source": "Warcraft Wiki item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 57,
+              "source": "Warcraft Wiki item page, item level 285"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271567,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Crest of the Primal Leywarden",
+          "slot": "Chest",
+          "variant": "Normal",
+          "itemLevel": 298,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Crest_of_the_Primal_Leywarden",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 60,
+              "source": "Warcraft Wiki item page, item level 298"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271567,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Crest of the Primal Leywarden",
+          "slot": "Chest",
+          "variant": "Heroic",
+          "itemLevel": 311,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Crest_of_the_Primal_Leywarden",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki item page, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Warcraft Wiki item page, item level 311"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 118,
+              "source": "Warcraft Wiki item page, item level 311"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 64,
+              "source": "Warcraft Wiki item page, item level 311"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271567,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Crest of the Primal Leywarden",
+          "slot": "Chest",
+          "variant": "Mythic",
+          "itemLevel": 324,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Crest_of_the_Primal_Leywarden",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 125,
+              "source": "Warcraft Wiki item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 68,
+              "source": "Warcraft Wiki item page, item level 324"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271567,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Crest of the Primal Leywarden",
+          "slot": "Chest",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271567/crest-of-the-primal-leywarden?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 130,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 71,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271565,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Primal Leywarden's Manashapers",
+          "slot": "Hands",
+          "variant": "Raid Finder",
+          "itemLevel": 282,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271565/primal-leywardens-manashapers?ilvl=282",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 39,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 80,
+              "source": "Warcraft Wiki item page, item level 282"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271565,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Primal Leywarden's Manashapers",
+          "slot": "Hands",
+          "variant": "Normal",
+          "itemLevel": 295,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271565/primal-leywardens-manashapers?ilvl=295",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 98,
+              "source": "Warcraft Wiki item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Warcraft Wiki item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 42,
+              "source": "Warcraft Wiki item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 85,
+              "source": "Warcraft Wiki item page, item level 295"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271565,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Primal Leywarden's Manashapers",
+          "slot": "Hands",
+          "variant": "Heroic",
+          "itemLevel": 308,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271565/primal-leywardens-manashapers?ilvl=308",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Warcraft Wiki item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 45,
+              "source": "Warcraft Wiki item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 90,
+              "source": "Warcraft Wiki item page, item level 308"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271565,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Primal Leywarden's Manashapers",
+          "slot": "Hands",
+          "variant": "Mythic",
+          "itemLevel": 321,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271565/primal-leywardens-manashapers?ilvl=321",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 125,
+              "source": "Warcraft Wiki item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Warcraft Wiki item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 47,
+              "source": "Warcraft Wiki item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 96,
+              "source": "Warcraft Wiki item page, item level 321"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271565,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Primal Leywarden's Manashapers",
+          "slot": "Hands",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271565/primal-leywardens-manashapers?bonus=13691%3A13440%3A6652%3A13697%3A12854&ilvl=334&spec=62",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 50,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 101,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271566,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Primal Leywarden's Tailored Legwraps",
+          "slot": "Legs",
+          "variant": "Raid Finder",
+          "itemLevel": 285,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Primal_Leywarden%27s_Tailored_Legwraps",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 50,
+              "source": "Warcraft Wiki item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki item page, item level 285"
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271566,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Primal Leywarden's Tailored Legwraps",
+          "slot": "Legs",
+          "variant": "Normal",
+          "itemLevel": 298,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Primal_Leywarden%27s_Tailored_Legwraps",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 53,
+              "source": "Warcraft Wiki item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki item page, item level 298"
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271566,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Primal Leywarden's Tailored Legwraps",
+          "slot": "Legs",
+          "variant": "Heroic",
+          "itemLevel": 311,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Primal_Leywarden%27s_Tailored_Legwraps",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki item page, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Warcraft Wiki item page, item level 311"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 56,
+              "source": "Warcraft Wiki item page, item level 311"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 126,
+              "source": "Warcraft Wiki item page, item level 311"
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271566,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Primal Leywarden's Tailored Legwraps",
+          "slot": "Legs",
+          "variant": "Mythic",
+          "itemLevel": 324,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Primal_Leywarden%27s_Tailored_Legwraps",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 60,
+              "source": "Warcraft Wiki item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 133,
+              "source": "Warcraft Wiki item page, item level 324"
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271563,
+          "setId": "primal-leywarden-s-attire",
+          "name": "Primal Leywarden's Tailored Legwraps",
+          "slot": "Legs",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271563/primal-leywardens-tailored-legwraps?bonus=13335%3A40%3A12854%3A13693%3A13698%3A1587&ilvl=334&spec=64",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 62,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 139,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        }
+      ],
+      "itemIdsVerified": true,
       "id": "primal-leywarden-s-attire",
       "itemIdsSource": "https://www.wowhead.com/ptr/item-set=2060/primal-leywardens-attire",
       "basePieces": [
@@ -21033,12 +22209,13 @@
       "Gladiator",
       "Elite"
     ],
-    "note": "Source-verified baseline PvE candidate maps currently exist for Death Knight, Demon Hunter, Druid, Evoker, and Shaman. Candidate entries are exact observed item versions only; unverified intermediate upgrade ranks remain evidence-only, and overall variant coverage is still partial.",
+    "note": "Source-verified baseline PvE candidate maps currently exist for Death Knight, Demon Hunter, Druid, Evoker, Mage, and Shaman. Candidate entries are exact observed item versions only; unverified intermediate upgrade ranks remain evidence-only, and overall variant coverage is still partial.",
     "verifiedClasses": [
       "Death Knight",
       "Demon Hunter",
       "Druid",
       "Evoker",
+      "Mage",
       "Shaman"
     ],
     "statsVerifiedClasses": [
@@ -21046,6 +22223,7 @@
       "Demon Hunter",
       "Druid",
       "Evoker",
+      "Mage",
       "Shaman"
     ],
     "baseItemIdsVerifiedClasses": [
