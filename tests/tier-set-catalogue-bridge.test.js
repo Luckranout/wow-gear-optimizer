@@ -187,7 +187,7 @@ test("Death Knight source-checked tier versions preserve observed stats without 
 test("Paladin observed tier variants are source-backed and remain evidence-only", () => {
   const paladin = catalogue.sets.find(set => set.class === "Paladin");
   const observations = paladin.verifiedVariantObservations || [];
-  assert.equal(observations.length, 17);
+  assert.equal(observations.length, 13);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(paladin.variantObservationsStatus, "partial");
   assert.match(paladin.variantObservationsNote, /not optimizer candidates/i);
@@ -1263,7 +1263,7 @@ test("Monk source-backed tier item versions remain evidence-only and match sourc
 test("Shaman tier item versions remain evidence-only with exact source levels", () => {
   const shaman = catalogue.sets.find(set => set.class === "Shaman");
   const observations = shaman.verifiedVariantObservations || [];
-  assert.equal(observations.length, 13);
+  assert.equal(observations.length, 17);
   const level334 = observations.filter(piece => piece.itemLevel === 334);
   assert.equal(level334.length, 5);
   assert.deepEqual([...level334.map(piece => piece.slot)].sort(), [...EXPECTED_SLOTS].sort());
