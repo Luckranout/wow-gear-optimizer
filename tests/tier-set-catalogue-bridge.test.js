@@ -110,10 +110,10 @@ test("Demon Hunter has verified baseline PvE and exact Mythic 6/6 candidates for
 test("Warrior source-checked variant observations remain evidence-only and preserve same-level stat variants", () => {
   const warrior = catalogue.sets.find(set => set.class === "Warrior");
   const observations = warrior.verifiedVariantObservations || [];
-  assert.equal(observations.length, 21);
+  assert.equal(observations.length, 24);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(warrior.variantObservationsStatus, "partial");
-  assert.match(warrior.variantObservationsNote, /Five exact item-level-334 Mythic 6\/6 versions are candidates/i);
+  assert.match(warrior.variantObservationsNote, /Hands have exact source-backed item versions at 295, 308, 318, 321.*334/i);
   const manifestWarrior = manifest.sets.find(set => set.className === "Warrior");
   const manifestSlotsById = new Map(manifestWarrior.pieces.map(piece => [Number(piece.itemId), piece.slot]));
   for (const piece of observations) {
