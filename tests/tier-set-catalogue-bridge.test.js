@@ -167,7 +167,7 @@ test("Death Knight source-checked tier versions preserve observed stats without 
 test("Paladin observed tier variants are source-backed and remain evidence-only", () => {
   const paladin = catalogue.sets.find(set => set.class === "Paladin");
   const observations = paladin.verifiedVariantObservations || [];
-  assert.equal(observations.length, 12);
+  assert.equal(observations.length, 14);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(paladin.variantObservationsStatus, "partial");
   assert.match(paladin.variantObservationsNote, /not optimizer candidates/i);
