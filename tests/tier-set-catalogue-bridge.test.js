@@ -1058,3 +1058,22 @@ test("all-class observed tier variants stay separate from eligible optimizer can
     }
   }
 });
+
+test("Mage source-checked leg versions remain evidence-only", () => {
+  const mage = catalogue.sets.find(set => set.class === "Mage");
+  const observations = mage.verifiedVariantObservations || [];
+  const legs = new Map(observations.filter(piece => piece.itemId === 271566 && piece.slot === "Legs").map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...legs.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334]);
+  for (const [level, expected] of [
+    [285, { intellect: 119, stamina: 2219, criticalStrike: 50, versatility: 111 }],
+    [298, { intellect: 135, stamina: 2579, criticalStrike: 53, versatility: 119 }],
+    [311, { intellect: 152, stamina: 3002, criticalStrike: 56, versatility: 126 }],
+    [324, { intellect: 172, stamina: 3487, criticalStrike: 60, versatility: 133 }]
+  ]) {
+    const piece = legs.get(level);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.match(piece.sourceUrl, /warcraft\\.wiki\\.gg/);
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+});
