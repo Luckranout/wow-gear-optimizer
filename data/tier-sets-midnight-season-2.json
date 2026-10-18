@@ -10163,6 +10163,129 @@
               "source": "Wowhead item version"
             }
           ]
+        },
+        {
+          "itemId": 271454,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Raging Pauldrons of the Jade Warlord",
+          "slot": "Shoulders",
+          "variant": "Veteran 2/6 observed",
+          "itemLevel": 282,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Raging_Pauldrons_of_the_Jade_Warlord",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 36,
+              "source": "Warcraft Wiki item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 83,
+              "source": "Warcraft Wiki item page, item level 282"
+            }
+          ]
+        },
+        {
+          "itemId": 271454,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Raging Pauldrons of the Jade Warlord",
+          "slot": "Shoulders",
+          "variant": "Champion 2/6 observed",
+          "itemLevel": 295,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Raging_Pauldrons_of_the_Jade_Warlord",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 98,
+              "source": "Warcraft Wiki item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Warcraft Wiki item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 39,
+              "source": "Warcraft Wiki item page, item level 295"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 88,
+              "source": "Warcraft Wiki item page, item level 295"
+            }
+          ]
+        },
+        {
+          "itemId": 271454,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Raging Pauldrons of the Jade Warlord",
+          "slot": "Shoulders",
+          "variant": "Hero 2/6 observed",
+          "itemLevel": 308,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Raging_Pauldrons_of_the_Jade_Warlord",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Warcraft Wiki item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 41,
+              "source": "Warcraft Wiki item page, item level 308"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 94,
+              "source": "Warcraft Wiki item page, item level 308"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
