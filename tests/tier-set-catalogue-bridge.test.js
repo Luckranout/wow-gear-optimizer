@@ -66,7 +66,7 @@ test("all 13 classes have source-backed secondary-stat profiles without pretendi
 test("Warrior source-checked variant observations remain evidence-only and preserve same-level stat variants", () => {
   const warrior = catalogue.sets.find(set => set.class === "Warrior");
   const observations = warrior.verifiedVariantObservations || [];
-  assert.equal(observations.length, 15);
+  assert.equal(observations.length, 16);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(warrior.variantObservationsStatus, "partial");
   assert.match(warrior.variantObservationsNote, /not eligible optimizer candidates/i);
@@ -1266,12 +1266,13 @@ test("Warrior source-checked chest versions remain evidence-only", () => {
   const warrior = catalogue.sets.find(set => set.class === "Warrior");
   const observations = warrior.verifiedVariantObservations || [];
   const chest = new Map(observations.filter(piece => piece.itemId === 271459 && piece.slot === "Chest").map(piece => [piece.itemLevel, piece]));
-  assert.deepEqual([...chest.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 344]);
+  assert.deepEqual([...chest.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334, 344]);
   for (const [level, expected] of [
     [285, { strength: 119, stamina: 2219, criticalStrike: 47, mastery: 114 }],
     [298, { strength: 135, stamina: 2579, criticalStrike: 51, mastery: 121 }],
     [311, { strength: 152, stamina: 3002, criticalStrike: 54, mastery: 129 }],
-    [324, { strength: 172, stamina: 3487, criticalStrike: 57, mastery: 136 }]
+    [324, { strength: 172, stamina: 3487, criticalStrike: 57, mastery: 136 }],
+    [334, { strength: 189, stamina: 3910, criticalStrike: 59, mastery: 142 }]
   ]) {
     const piece = chest.get(level);
     assert.equal(piece.candidate, false);
