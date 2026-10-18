@@ -100,7 +100,7 @@ test("Warrior source-checked variant observations remain evidence-only and prese
 test("Death Knight source-checked tier versions preserve observed stats without becoming optimizer candidates", () => {
   const deathKnight = catalogue.sets.find(set => set.class === "Death Knight");
   const observations = deathKnight.verifiedVariantObservations || [];
-  assert.equal(observations.length, 16);
+  assert.equal(observations.length, 17);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(deathKnight.variantObservationsStatus, "partial");
   assert.match(deathKnight.variantObservationsNote, /remain ineligible as optimizer candidates/i);
@@ -148,6 +148,13 @@ test("Death Knight source-checked tier versions preserve observed stats without 
     assert.ok(piece, `expected source-checked Death Knight tier variant at item level ${itemLevel}`);
     assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
   }
+  const legs = observations.find(piece => piece.itemId === 271473 && piece.itemLevel === 324);
+  assert.equal(legs.variant, "Mythic 3/6 observed");
+  assert.deepEqual(
+    Object.fromEntries(legs.stats.map(stat => [stat.type.name, stat.value])),
+    { strength: 172, stamina: 3487, criticalStrike: 57, mastery: 136 }
+  );
+  assert.equal(legs.candidate, false);
   assert.equal(deathKnight.itemIdsVerified, false,
     "partial observed versions must not promote the complete class variant map");
 });
