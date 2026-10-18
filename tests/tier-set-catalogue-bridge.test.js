@@ -440,7 +440,7 @@ test("Evoker source-checked tier versions remain evidence-only and preserve obse
     295: { intellect: 98, stamina: 1869, criticalStrike: 88, versatility: 39 },
     308: { intellect: 111, stamina: 2172, criticalStrike: 93, versatility: 42 },
     321: { intellect: 125, stamina: 2527, criticalStrike: 99, versatility: 44 },
-    334: { intellect: 141, stamina: 2932, criticalStrike: 104, versatility: 46 }
+    334: { agility: 141, intellect: 141, stamina: 2932, criticalStrike: 104, versatility: 46 }
   };
   for (const [level, piece] of shouldersByLevel) {
     assert.equal(piece.candidate, false);
