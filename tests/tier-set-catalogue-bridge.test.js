@@ -1303,7 +1303,7 @@ test("Monk source-backed tier item versions remain evidence-only and match sourc
 test("Shaman tier item versions remain evidence-only with exact source levels", () => {
   const shaman = catalogue.sets.find(set => set.class === "Shaman");
   const observations = shaman.verifiedVariantObservations || [];
-  assert.equal(observations.length, 24);
+  assert.equal(observations.length, 25);
   const level334 = observations.filter(piece => piece.itemLevel === 334);
   assert.equal(level334.length, 5);
   assert.deepEqual([...level334.map(piece => piece.slot)].sort(), [...EXPECTED_SLOTS].sort());
@@ -1330,12 +1330,15 @@ test("Shaman tier item versions remain evidence-only with exact source levels", 
     }
   }
   const headByLevel = new Map(observations.filter(piece => piece.itemId === 271483).map(piece => [piece.itemLevel, piece]));
-  assert.deepEqual([...headByLevel.keys()].sort((a, b) => a - b), [295, 311, 321, 334]);
+  assert.deepEqual([...headByLevel.keys()].sort((a, b) => a - b), [295, 311, 315, 321, 334]);
   assert.equal(headByLevel.get(295).variant, "Item level 295 observed");
   assert.deepEqual(Object.fromEntries(headByLevel.get(295).stats.map(stat => [stat.type.name, stat.value])),
     { agility: 131, intellect: 131, stamina: 2492, criticalStrike: 51, haste: 118 });
   assert.deepEqual(Object.fromEntries(headByLevel.get(311).stats.map(stat => [stat.type.name, stat.value])),
     { agility: 152, intellect: 152, stamina: 3002, criticalStrike: 55, haste: 127 });
+  assert.equal(headByLevel.get(315).variant, "Hero 4/6");
+  assert.deepEqual(Object.fromEntries(headByLevel.get(315).stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 158, intellect: 158, stamina: 3143, criticalStrike: 56, haste: 129 });
   assert.equal(headByLevel.get(321).variant, "Hero 6/6");
   assert.deepEqual(Object.fromEntries(headByLevel.get(321).stats.map(stat => [stat.type.name, stat.value])),
     { agility: 167, intellect: 167, stamina: 3369, criticalStrike: 58, haste: 133 });
