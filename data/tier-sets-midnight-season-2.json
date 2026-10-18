@@ -1004,6 +1004,47 @@
               "source": "Wowhead tooltip, item level 334"
             }
           ]
+        },
+        {
+          "itemId": 271475,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Deathgrips",
+          "slot": "Hands",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271475/baleful-grave-knights-deathgrips?ilvl=334&spec=250",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 141,
+              "source": "MythicSim Blood Death Knight gear listing; cross-checked against a level-334 equipped profile"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "WowCore level-334 equipped profile"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 52,
+              "source": "MythicSim Blood Death Knight gear listing; cross-checked against a level-334 equipped profile"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 99,
+              "source": "MythicSim Blood Death Knight gear listing; cross-checked against a level-334 equipped profile"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
