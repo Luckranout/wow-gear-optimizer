@@ -105,7 +105,7 @@ test("Warrior source-checked variant observations remain evidence-only and prese
 test("Death Knight source-checked tier versions preserve observed stats without becoming optimizer candidates", () => {
   const deathKnight = catalogue.sets.find(set => set.class === "Death Knight");
   const observations = deathKnight.verifiedVariantObservations || [];
-  assert.equal(observations.length, 26);
+  assert.equal(observations.length, 31);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(deathKnight.variantObservationsStatus, "partial");
   assert.match(deathKnight.variantObservationsNote, /remain ineligible as optimizer candidates/i);
@@ -123,6 +123,22 @@ test("Death Knight source-checked tier versions preserve observed stats without 
     assert.ok(Array.isArray(piece.stats) && piece.stats.length >= 4);
     assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
     assert.ok(piece.stats.every(stat => typeof stat.source === "string" && stat.source.length > 0));
+  }
+  const expectedBaselineLevels = {
+    Head: [285, 298, 311, 324],
+    Shoulders: [282, 295, 308, 321],
+    Chest: [285, 298, 311, 324],
+    Hands: [282, 295, 308, 321],
+    Legs: [285, 298, 311, 324]
+  };
+  for (const [slot, levels] of Object.entries(expectedBaselineLevels)) {
+    const itemId = manifestSet.pieces.find(piece => piece.slot === slot).itemId;
+    const observedLevels = [...new Set(observations
+      .filter(piece => piece.itemId === itemId && levels.includes(piece.itemLevel))
+      .map(piece => piece.itemLevel))].sort((a, b) => a - b);
+    assert.deepEqual(observedLevels, levels, `Death Knight ${slot} must cover all four baseline PvE raid difficulties`);
+    const mythicSix = observations.find(piece => piece.itemId === itemId && piece.itemLevel === 334 && piece.variant === "Mythic 6/6");
+    assert.ok(mythicSix, `Death Knight ${slot} missing exact Mythic 6/6 at item level 334`);
   }
   const chest = observations.find(piece => piece.itemId === 271477);
   assert.equal(chest.itemLevel, 334);
@@ -167,7 +183,7 @@ test("Death Knight source-checked tier versions preserve observed stats without 
     { strength: 101, stamina: 1935, criticalStrike: 44, mastery: 85 }
   );
   const chestLevels = observations.filter(piece => piece.itemId === 271477).map(piece => piece.itemLevel).sort((a, b) => a - b);
-  assert.deepEqual(chestLevels, [298, 311, 321, 334],
+  assert.deepEqual(chestLevels, [285, 298, 311, 321, 324, 334],
     "Chest must retain each independently sourced item-level observation");
   for (const [level, expected, variant] of [
     [298, { strength: 135, stamina: 2579, criticalStrike: 50, mastery: 122 }, "Champion 3/6 observed"],
