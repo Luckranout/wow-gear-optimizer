@@ -17355,7 +17355,7 @@
       "Gladiator",
       "Elite"
     ],
-    "note": "Shaman has verified variant mappings and numeric item stats. All 13 classes have manifest-matched base item IDs/slots and Method-sourced secondary-stat pair profiles in basePieces (or Shaman variant records). Non-Shaman variant item-level mappings and numeric stats remain unverified; base-only records are metadata and never optimizer candidates.",
+    "note": "Death Knight and Shaman have source-verified baseline PvE candidate maps across all five tier slots; Death Knight additionally includes exact Mythic 6/6 item-level-334 candidates in all five slots. Other classes have manifest-matched base item IDs and source-backed secondary-stat profiles, but their variant item levels and numeric stats remain unverified. Base-only records are never optimizer candidates.",
     "verifiedClasses": [
       "Death Knight",
       "Shaman"
