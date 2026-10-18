@@ -100,7 +100,7 @@ test("Warrior source-checked variant observations remain evidence-only and prese
 test("Death Knight source-checked tier versions preserve observed stats without becoming optimizer candidates", () => {
   const deathKnight = catalogue.sets.find(set => set.class === "Death Knight");
   const observations = deathKnight.verifiedVariantObservations || [];
-  assert.equal(observations.length, 11);
+  assert.equal(observations.length, 16);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(deathKnight.variantObservationsStatus, "partial");
   assert.match(deathKnight.variantObservationsNote, /not optimizer candidates/i);
@@ -110,8 +110,11 @@ test("Death Knight source-checked tier versions preserve observed stats without 
     assert.equal(piece.candidate, false);
     assert.equal(piece.verificationScope, "observed-version-only");
     assert.ok(piece.itemLevel > 0);
-    assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/"));
+    assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/") || piece.sourceUrl.startsWith("https://warcraft.wiki.gg/"));
     assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    if (piece.sourceUrl.startsWith("https://warcraft.wiki.gg/")) {
+      assert.ok(piece.stats.every(stat => stat.source.includes(`item level ${piece.itemLevel}`)));
+    }
     assert.ok(Array.isArray(piece.stats) && piece.stats.length >= 4);
     assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
     assert.ok(piece.stats.every(stat => typeof stat.source === "string" && stat.source.length > 0));
@@ -129,11 +132,22 @@ test("Death Knight source-checked tier versions preserve observed stats without 
     { strength: 111, stamina: 2172, haste: 44, versatility: 90 }
   );
   const headLevels = observations.filter(piece => piece.itemId === 271474).map(piece => piece.itemLevel).sort((a, b) => a - b);
-  assert.deepEqual(headLevels, [305, 308, 311, 321, 334],
+  assert.deepEqual(headLevels, [285, 298, 305, 308, 311, 321, 324, 334],
     "Head must retain each independently sourced item-level observation");
   const shoulderLevels = observations.filter(piece => piece.itemId === 271472).map(piece => piece.itemLevel).sort((a, b) => a - b);
-  assert.deepEqual(shoulderLevels, [295, 308, 318],
+  assert.deepEqual(shoulderLevels, [282, 295, 308, 318, 321],
     "Shoulders must retain each independently sourced item-level observation");
+  for (const [itemId, itemLevel, expected] of [
+    [271474, 285, { strength: 119, stamina: 2219, criticalStrike: 112, mastery: 49 }],
+    [271474, 298, { strength: 135, stamina: 2579, criticalStrike: 119, mastery: 53 }],
+    [271474, 324, { strength: 172, stamina: 3487, criticalStrike: 134, mastery: 59 }],
+    [271472, 282, { strength: 87, stamina: 1606, haste: 39, versatility: 80 }],
+    [271472, 321, { strength: 125, stamina: 2527, haste: 47, versatility: 96 }]
+  ]) {
+    const piece = observations.find(entry => entry.itemId === itemId && entry.itemLevel === itemLevel);
+    assert.ok(piece, `expected source-checked Death Knight tier variant at item level ${itemLevel}`);
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
   assert.equal(deathKnight.itemIdsVerified, false,
     "partial observed versions must not promote the complete class variant map");
 });
