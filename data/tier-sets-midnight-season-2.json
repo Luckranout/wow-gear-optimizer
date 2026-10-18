@@ -2152,10 +2152,58 @@
               "source": "Wowhead tooltip, item level 334"
             }
           ]
+        },
+        {
+          "itemId": 271493,
+          "setId": "skulking-viper-s-ambush",
+          "name": "Skulking Viper's Hidepiercers",
+          "slot": "Hands",
+          "variant": "Champion item level observed",
+          "itemLevel": 295,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271493/skulking-vipers-hidepiercers?ilvl=295",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 98,
+              "source": "Wowhead tooltip, item level 295 (Agility or Intellect shown)"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 98,
+              "source": "Wowhead tooltip, item level 295 (Agility or Intellect shown)"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Wowhead tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 83,
+              "source": "Wowhead tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 44,
+              "source": "Wowhead tooltip, item level 295"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Five source-checked item versions are recorded for evidence only. The Legs record is the base item level 219 version, not an upgraded variant. Stats were cross-checked against the exact item-level Wowhead tooltips; all observations remain ineligible as optimizer candidates until complete upgrade/difficulty variant coverage is verified."
+      "variantObservationsNote": "Six source-checked item versions are recorded for evidence only. Hands are observed at item levels 295 and 321; Legs remain at base item level 219; Chest, Head, and Shoulders have Mythic 6/6 observations at 334. Upgraded Legs and remaining difficulty/upgrade variants remain unverified. All observations remain ineligible as optimizer candidates until complete variant coverage is verified."
     },
     {
       "class": "Mage",
