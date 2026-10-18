@@ -2356,10 +2356,58 @@
               "source": "Warcraft Wiki tier set page, item level 324"
             }
           ]
+        },
+        {
+          "itemId": 271529,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Gauntlets",
+          "slot": "Hands",
+          "variant": "Hero 6/6",
+          "itemLevel": 321,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271529/enigmatic-dreamwatchers-gauntlets?bonus=6652%3A13691%3A13697%3A12846&ilvl=321&spec=104",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 125,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 125,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 101,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 42,
+              "source": "Wowhead tooltip, item level 321"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Ten source-checked item versions are recorded for evidence only. Hands are observed at item levels 295 (Champion 2/6) and 334 (Mythic 6/6); Chest is 292, Shoulders 308, Head 334, and Legs at item levels 219, 285 (Veteran 3/6), 298 (Champion 3/6), 311 (Hero 3/6), and 324 (Myth 3/6). Other difficulty and upgrade variants remain unverified. All observations remain ineligible as optimizer candidates until complete variant coverage is verified."
+      "variantObservationsNote": "Seven source-checked item versions are recorded for evidence only. Hands are observed at item levels 295 (Champion 2/6), 321 (Hero 6/6), and 334 (Mythic 6/6); Chest is 292, Shoulders 308, Head 334, and Legs remain base item level 219. Upgraded variants remain unverified. All observations remain ineligible as optimizer candidates until complete variant coverage is verified."
     },
     {
       "class": "Evoker",
