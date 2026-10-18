@@ -66,7 +66,7 @@ test("all 13 classes have source-backed secondary-stat profiles without pretendi
 test("Warrior source-checked variant observations remain evidence-only and preserve same-level stat variants", () => {
   const warrior = catalogue.sets.find(set => set.class === "Warrior");
   const observations = warrior.verifiedVariantObservations || [];
-  assert.equal(observations.length, 18);
+  assert.equal(observations.length, 17);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(warrior.variantObservationsStatus, "partial");
   assert.match(warrior.variantObservationsNote, /not eligible optimizer candidates/i);
@@ -1337,7 +1337,7 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
 test("Monk source-backed tier item versions remain evidence-only and match source stats", () => {
   const monk = catalogue.sets.find(set => set.class === "Monk");
   const observations = monk.verifiedVariantObservations || [];
-  assert.equal(observations.length, 17);
+  assert.equal(observations.length, 18);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(monk.variantObservationsStatus, "partial");
   assert.match(monk.variantObservationsNote, /legs have item-level-334 observations/i);
