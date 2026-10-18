@@ -184,11 +184,11 @@ test("Paladin observed tier variants are source-backed and remain evidence-only"
 test("Demon Hunter source-checked tier versions remain evidence-only and preserve observed stats", () => {
   const demonHunter = catalogue.sets.find(set => set.class === "Demon Hunter");
   const observations = demonHunter.verifiedVariantObservations || [];
-  assert.equal(observations.length, 12);
+  assert.equal(observations.length, 15);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(demonHunter.variantObservationsStatus, "partial");
   assert.match(demonHunter.variantObservationsNote, /Hands at base item level 219, Veteran 2\/6 item level 282, Champion 2\/6 item level 295, and Hero 1\/6 item level 305, Hero 2\/6 item level 308, and Myth 2\/6 item level 321/i);
-  assert.match(demonHunter.variantObservationsNote, /Legs at item levels 295, 311, and 318/i);
+  assert.match(demonHunter.variantObservationsNote, /Legs are observed at item levels 285, 295, 298, 311, 318, and 324/i);
   const manifestSet = manifest.sets.find(set => set.className === "Demon Hunter");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
   for (const piece of observations) {
@@ -219,6 +219,21 @@ test("Demon Hunter source-checked tier versions remain evidence-only and preserv
     Object.fromEntries(raidFinderGloves.stats.map(stat => [stat.type.name, stat.value])),
     { agility: 87, stamina: 1606, criticalStrike: 82, mastery: 37 }
   );
+  for (const expected of [
+    { level: 285, stats: { agility: 119, stamina: 2219, criticalStrike: 50, mastery: 111 } },
+    { level: 298, stats: { agility: 135, stamina: 2579, criticalStrike: 53, mastery: 119 } },
+    { level: 324, stats: { agility: 172, stamina: 3487, criticalStrike: 60, mastery: 133 } },
+  ]) {
+    const item = observations.find(piece => piece.slot === "Legs" && piece.itemLevel === expected.level);
+    assert.ok(item, `missing Demon Hunter leg observation at item level ${expected.level}`);
+    assert.equal(item.candidate, false);
+    assert.equal(item.verificationScope, "observed-version-only");
+    assert.match(item.sourceUrl, /warcraft\.wiki\.gg/);
+    assert.deepEqual(
+      Object.fromEntries(item.stats.map(stat => [stat.type.name, stat.value])),
+      expected.stats
+    );
+  }
   const chest = observations.find(piece => piece.itemId === 271540);
   assert.equal(chest.itemLevel, 321);
   assert.deepEqual(
