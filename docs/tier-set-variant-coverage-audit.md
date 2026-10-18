@@ -9,7 +9,7 @@ Scope: source-verified numeric item variants needed before tier pieces can becom
 - Base tier membership: **13/13 classes mapped**, with five base item IDs per class (65 total).
 - Complete variant mapping: **1/13 classes** — Shaman.
 - Verified Shaman PvE candidates: **20/20** (four PvE difficulty variants across five slots).
-- Non-Shaman evidence-only observations: **272 records across 12 classes**. These are useful evidence, not complete variant maps.
+- Non-Shaman evidence-only observations: **275 records across 12 classes**. These are useful evidence, not complete variant maps.
 - Remaining baseline: **12 classes × 5 slots = 60 incomplete slot maps**, with up to **240 baseline PvE slot/difficulty records** to verify (four PvE difficulty variants per slot). Additional upgrade-track variants must be recorded when the source exposes distinct upgraded item levels/stats.
 - PvP appearances are not optimizer candidates unless their numeric item level and stats are independently verified.
 - Do not enable numeric tier-bonus scoring without a separate trustworthy, simulation-backed scoring source.
@@ -32,7 +32,7 @@ For every class marked incomplete below, all five slots still need a complete, s
 | Rogue | 20 observations | Head, Shoulders, Chest, Hands, and Legs each have a level-334 observation. Shoulders (271508) now also have source-backed levels 282, 295, 308, and 321; lower-rank observations are recorded for Chest, Hands, Head, and Legs. | Added Veteran 2/6, Champion 2/6, Hero 2/6, and Myth 2/6 shoulder versions from the Warcraft Wiki tier item page, preserving exact stats and evidence-only status. Continue checking source/version consistency and filling remaining difficulty and upgrade-track variants. |
 | Shaman | 30 baseline records + 25 evidence-only observations | Four PvE raid-difficulty variants per slot remain numeric and candidate-eligible; ten PvP appearance records lack verified numeric stats. Exact item-level-334 Mythic 6/6 observations exist for all five slots; Head 295/311/315/321, Shoulders 302/308/321, Chest 289/308/311/318/328, Hands 295/308/311/318/321, Legs 295/318/321. | The twenty-five observations are separate evidence-only records, not added to candidate-eligible baseline pieces. Keep PvP records appearance-only and continue filling the other intermediate upgrade ranks. |
 | Warlock | 24 observations | Head levels 219, 285, 298, 305, 308, 311, 315, 318, 321, 324, and 334; Hands 331 and 334; Chest levels 311, 321, 324, 328, and 334; Shoulders 308, 311, 321, and 334; Legs 305 and 334. Legs 305 (Champion 5/6): Intellect 144, Stamina 2,794, Haste 125, Mastery 53, sourced from the exact item-level Wowhead tooltip. All remain evidence-only. | Verify remaining head upgrades and missing variants across all five slots; continue source-checking lower difficulty and upgrade ranks. |
-| Warrior | 18 observations | Head has Mythic 3/6 at item level 324 (Strength 172, Stamina 3,487, Critical Strike 134, Haste 58) and Mythic 6/6 at 334; Shoulders, Chest, Hands, and Legs also have level-334 observations. Legs (271455) are recorded with Strength 189, Stamina 3,910, Versatility 135, and Mastery 66; lower-rank observations exist for Shoulders, Chest, Hands, and Legs. | Added Tempered Horns (271456) Mythic 3/6 from the Warcraft Wiki tier item page; evidence-only. Continue filling missing difficulty and upgrade-track variants; all observations remain ineligible as optimizer candidates. |
+| Warrior | 21 observations | Head (271456) now has source-backed item levels 285, 298, 311, 324, and 334, covering Veteran 3/6, Champion 3/6, Hero 3/6, Myth 3/6, and Mythic 6/6 observations. Shoulders, Chest, Hands, and Legs also have level-334 observations. Legs (271455) have Strength 189, Stamina 3,910, Versatility 135, and Mastery 66; lower-rank observations exist for Shoulders, Chest, Hands, and Legs. | Added Tempered Horns (271456) levels 285, 298, and 311 from the Warcraft Wiki tier item page with exact stats; all four lower/base observations remain evidence-only. Continue filling missing difficulty and upgrade-track variants; no observation becomes an optimizer candidate from this change. |
 
 ## Acceptance criteria
 
@@ -67,7 +67,7 @@ The current catalogue records at least one item-level-334 observation for all fi
 | Rogue | Head, Shoulders, Chest, Hands, Legs | Shoulders now have levels 282, 295, 308, 321, and 334; other slots still need complete difficulty and upgrade-rank maps. |
 | Shaman | Head, Shoulders, Chest, Hands, Legs | Keep the 20 verified PvE candidate records separate from the 25 evidence-only observations; complete intermediate upgrade-rank mapping. |
 | Warlock | Head, Shoulders, Chest, Hands, Legs | Legs have only a 334 observation; Shoulders have 308, 311, 321, and 334; Chest has 311, 321, 324, 328, and 334; Hands has 331 and 334. Fill missing difficulty and upgrade ranks. |
-| Warrior | Head, Shoulders, Chest, Hands, Legs | Head now has levels 324 and 334; Hands and Legs have sparse lower-rank evidence. Keep the special 344 chest reward separate from standard Mythic 6/6 at 334. |
+| Warrior | Head, Shoulders, Chest, Hands, Legs | Head now has levels 285, 298, 311, 324, and 334; Hands and Legs have sparse lower-rank evidence. Keep the special 344 chest reward separate from standard Mythic 6/6 at 334. |
 
 ### Work sequence
 
