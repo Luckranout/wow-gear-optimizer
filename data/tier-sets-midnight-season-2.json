@@ -12690,10 +12690,58 @@
               "source": "Wowhead item tooltip explicitly lists Hero 5/6 at item level 318."
             }
           ]
+        },
+        {
+          "itemId": 271483,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Serpent Crown of the Ophidian Oracle",
+          "slot": "Head",
+          "variant": "Hero 4/6",
+          "itemLevel": 315,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271483/serpent-crown-of-the-ophidian-oracle?bonus=6652%3A12844%3A13696%3A13440%3A13692%3A13698%3A1568&ilvl=315&spec=263",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 158,
+              "source": "Wowhead item tooltip explicitly lists Hero 4/6 at item level 315."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 158,
+              "source": "Wowhead item tooltip explicitly lists Hero 4/6 at item level 315."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3143,
+              "source": "Wowhead item tooltip explicitly lists Hero 4/6 at item level 315."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 56,
+              "source": "Wowhead item tooltip explicitly lists Hero 4/6 at item level 315."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 129,
+              "source": "Wowhead item tooltip explicitly lists Hero 4/6 at item level 315."
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Twenty-four exact Shaman tier item versions are recorded as evidence only: Mythic 6/6 item level 334 for all five slots; Head 295/311/321; Shoulders 302/308/321; Chest 289/308/311/318/328; Hands 295/308/311/318/321; Legs 295/318/321. These records are separate from baseline raid-difficulty candidates. Remaining intermediate upgrade ranks and complete upgrade-track coverage are unfinished; no observation here is optimizer-eligible."
+      "variantObservationsNote": "Twenty-five exact Shaman tier item versions are recorded as evidence only: Mythic 6/6 item level 334 for all five slots; Head 295/311/315/321; Shoulders 302/308/321; Chest 289/308/311/318/328; Hands 295/308/311/318/321; Legs 295/318/321. These records are separate from baseline raid-difficulty candidates. Remaining intermediate upgrade ranks and complete upgrade-track coverage are unfinished; no observation here is optimizer-eligible."
     },
     {
       "class": "Warlock",
