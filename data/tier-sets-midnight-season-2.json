@@ -11902,10 +11902,202 @@
               "source": "Wowhead item tooltip explicitly lists item level 321."
             }
           ]
+        },
+        {
+          "itemId": 271481,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hissing Mantle of the Ophidian Oracle",
+          "slot": "Shoulders",
+          "variant": "Item level 302 observed",
+          "itemLevel": 302,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271481/hissing-mantle-of-the-ophidian-oracle?bonus=13452%3A13658%3A13694%3A13697%3A12836&ilvl=302",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 105,
+              "source": "Wowhead item tooltip explicitly lists item level 302."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 105,
+              "source": "Wowhead item tooltip explicitly lists item level 302."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2024,
+              "source": "Wowhead item tooltip explicitly lists item level 302."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 45,
+              "source": "Wowhead item tooltip explicitly lists item level 302."
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 86,
+              "source": "Wowhead item tooltip explicitly lists item level 302."
+            }
+          ]
+        },
+        {
+          "itemId": 271481,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hissing Mantle of the Ophidian Oracle",
+          "slot": "Shoulders",
+          "variant": "Item level 321 observed",
+          "itemLevel": 321,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr-2/item=271481/hissing-mantle-of-the-ophidian-oracle?bonus=6652%3A13440%3A13694%3A13697%3A12846&class=7&ilvl=321&spec=262",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 125,
+              "source": "Wowhead item tooltip explicitly lists item level 321."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 125,
+              "source": "Wowhead item tooltip explicitly lists item level 321."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Wowhead item tooltip explicitly lists item level 321."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 49,
+              "source": "Wowhead item tooltip explicitly lists item level 321."
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 94,
+              "source": "Wowhead item tooltip explicitly lists item level 321."
+            }
+          ]
+        },
+        {
+          "itemId": 271484,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hexing Grips of the Ophidian Oracle",
+          "slot": "Hands",
+          "variant": "Item level 311 observed",
+          "itemLevel": 311,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271484/hexing-grips-of-the-ophidian-oracle?bonus=13334%3A42%3A13691%3A13697%3A12843&ilvl=311&spec=262",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 114,
+              "source": "Wowhead item tooltip explicitly lists item level 311."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 114,
+              "source": "Wowhead item tooltip explicitly lists item level 311."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2252,
+              "source": "Wowhead item tooltip explicitly lists item level 311."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 41,
+              "source": "Wowhead item tooltip explicitly lists item level 311."
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 95,
+              "source": "Wowhead item tooltip explicitly lists item level 311."
+            }
+          ]
+        },
+        {
+          "itemId": 271484,
+          "setId": "ophidian-oracle-prophecy",
+          "name": "Hexing Grips of the Ophidian Oracle",
+          "slot": "Hands",
+          "variant": "Item level 321 observed",
+          "itemLevel": 321,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271484/hexing-grips-of-the-ophidian-oracle?bonus=12846%3A6652%3A13440%3A13691%3A13697%3A1574&ilvl=321&spec=262",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 125,
+              "source": "Wowhead item tooltip explicitly lists item level 321."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 125,
+              "source": "Wowhead item tooltip explicitly lists item level 321."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Wowhead item tooltip explicitly lists item level 321."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 43,
+              "source": "Wowhead item tooltip explicitly lists item level 321."
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 99,
+              "source": "Wowhead item tooltip explicitly lists item level 321."
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Thirteen exact Shaman tier item versions are recorded as evidence only: Mythic 6/6 item level 334 for all five slots; Head item levels 295 and 321; Chest item levels 289, 308, 318, and 328; Legs item levels 318 and 321. These records are separate from baseline raid-difficulty candidates. Other intermediate upgrade ranks and complete upgrade-track coverage remain unfinished; no observation here is optimizer-eligible."
+      "variantObservationsNote": "Seventeen exact Shaman tier item versions are recorded as evidence only: Mythic 6/6 item level 334 for all five slots; Head 295/321; Shoulders 302/321; Chest 289/308/318/328; Hands 311/321; Legs 318/321. These records are separate from baseline raid-difficulty candidates. Remaining intermediate upgrade ranks and complete upgrade-track coverage are unfinished; no observation here is optimizer-eligible."
     },
     {
       "class": "Warlock",
