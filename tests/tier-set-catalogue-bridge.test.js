@@ -53,7 +53,7 @@ test("all 13 classes have source-backed secondary-stat profiles without pretendi
   assert.deepEqual(catalogue.itemMatching.secondaryStatsProfileVerifiedClasses, manifest.sets.map(set => set.className));
   for (const set of catalogue.sets) {
     const records = set.class === "Shaman" ? set.pieces : set.basePieces;
-    assert.equal(records.length, set.class === "Shaman" ? 30 : 5, set.class + " profile record count");
+    assert.equal(records.length, set.class === "Shaman" ? 38 : 5, set.class + " profile record count");
     for (const slot of EXPECTED_SLOTS) {
       const piece = records.find(record => record.slot === slot);
       assert.ok(piece, set.class + " missing " + slot + " stat profile");
