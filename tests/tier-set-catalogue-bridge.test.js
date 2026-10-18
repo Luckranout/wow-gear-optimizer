@@ -1384,7 +1384,19 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
     271545: { intellect: 189, stamina: 3910, haste: 141, mastery: 60 },
     "271547:334": { intellect: 141, stamina: 2932, criticalStrike: 45, haste: 106 },
     "271546:334": { intellect: 189, stamina: 3910, versatility: 65, mastery: 136 },
-    271544: { intellect: 141, stamina: 2932, haste: 50, versatility: 101 }
+    271544: { intellect: 141, stamina: 2932, haste: 50, versatility: 101 },
+    "271544:282": { intellect: 87, stamina: 1606, haste: 39, versatility: 80 },
+    "271544:295": { intellect: 98, stamina: 1869, haste: 42, versatility: 85 },
+    "271549:285": { intellect: 119, stamina: 2219, haste: 113, mastery: 48 },
+    "271549:298": { intellect: 135, stamina: 2579, haste: 121, mastery: 51 },
+    "271547:282": { intellect: 87, stamina: 1606, criticalStrike: 35, haste: 84 },
+    "271547:295": { intellect: 98, stamina: 1869, criticalStrike: 38, haste: 89 },
+    "271547:308": { intellect: 111, stamina: 2172, criticalStrike: 40, haste: 95 },
+    "271547:321": { intellect: 125, stamina: 2527, criticalStrike: 42, haste: 100 },
+    "271546:285": { intellect: 119, stamina: 2219, haste: 113, mastery: 48 },
+    "271546:298": { intellect: 135, stamina: 2579, haste: 121, mastery: 51 },
+    "271546:311": { intellect: 152, stamina: 3002, haste: 128, mastery: 54 },
+    "271546:324": { intellect: 172, stamina: 3487, haste: 135, mastery: 57 }
   };
   for (const piece of observations) {
     assert.deepEqual(
@@ -1505,6 +1517,9 @@ test("Monk source-backed tier item versions remain evidence-only and match sourc
     "271522:311": { agility: 152, intellect: 152, stamina: 3002, haste: 56, mastery: 126 },
     "271522:324": { agility: 172, intellect: 172, stamina: 3487, haste: 59, mastery: 134 },
     "271522:334": { agility: 189, intellect: 189, stamina: 3910, haste: 62, mastery: 139 },
+    "271520:282": { agility: 87, stamina: 1606, haste: 84, versatility: 35 },
+    "271520:295": { agility: 98, stamina: 1869, haste: 89, versatility: 38 },
+    "271520:308": { agility: 111, stamina: 2172, haste: 95, versatility: 40 },
     "271520:321": { agility: 125, intellect: 125, stamina: 2527, haste: 100, versatility: 42 },
     "271520:334": { agility: 141, intellect: 141, stamina: 2932, haste: 106, versatility: 45 },
     "271519:334": { agility: 189, intellect: 189, stamina: 3910, criticalStrike: 58, mastery: 142 },
@@ -2128,7 +2143,7 @@ test("Hunter has source-verified baseline candidates using the class-specific My
     assert.ok(entries.every(piece => {
       const url = new URL(piece.sourceUrl);
       if (url.hostname === "www.wowhead.com" && url.searchParams.has("ilvl")) return Number(url.searchParams.get("ilvl")) === piece.itemLevel;
-      if (url.hostname === "warcraft.wiki.gg") return piece.stats.every(stat => stat.source.includes(`item level ${piece.itemLevel}`));
+      if (url.hostname === "warcraft.wiki.gg") return piece.stats.every(stat => new RegExp(`item[- ]level ${piece.itemLevel}`, "i").test(stat.source));
       return piece.stats.every(stat => typeof stat.source === "string" && stat.source.length > 0);
     }));
   }
