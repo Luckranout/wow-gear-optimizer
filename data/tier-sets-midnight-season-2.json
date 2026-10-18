@@ -3795,7 +3795,7 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Twenty-six source-checked item-version observations are recorded for evidence only. Level-334 Mythic 6/6 observations now exist for Head, Hands, Shoulders, and Chest. Legs have observed versions at 219, 285, 298, 311, and 324; exact level-334 legs remain unverified. Lower-rank variants are recorded for multiple slots, but the full difficulty/upgrade map is incomplete. All observations remain ineligible as optimizer candidates until complete variant coverage is verified."
+      "variantObservationsNote": "Twenty-seven source-checked item-version observations are recorded as evidence only. Level-334 observations now exist for all five tier slots. The Legs level-334 stats come from an equipped-profile observation and are kept evidence-only; validate exact version provenance and complete the full difficulty/upgrade map before eligibility. All observations remain ineligible as optimizer candidates until complete variant coverage is verified."
     },
     {
       "class": "Evoker",
@@ -7737,7 +7737,7 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Five exact Wowhead item versions are recorded as evidence only. Chest, hands, head, and shoulders are observed at Mythic 6/6 item level 334; legs are observed at Heroic 3/6 item level 311. This does not establish coverage for all difficulty/upgrade tracks or the complete Monk variant ID map. Do not use these observations as optimizer candidates."
+      "variantObservationsNote": "Fourteen source-checked item-version observations are recorded as evidence only. Chest, hands, head, shoulders, and legs have item-level-334 observations; the Legs stats are from an equipped-profile observation and remain evidence-only. This does not establish coverage for all difficulty/upgrade tracks or the complete Monk variant ID map. Do not use these observations as optimizer candidates."
     },
     {
       "class": "Paladin",
@@ -8435,7 +8435,7 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Five source-checked Paladin tier versions preserve observed item-level-specific stats as evidence only. They are not optimizer candidates, and the full class/difficulty/upgrade variant map remains incomplete."
+      "variantObservationsNote": "Thirteen source-checked Paladin tier-version observations preserve observed item-level-specific stats as evidence only. Hands now include an exact Wowhead Mythic 6/6 item-level-334 record. They are not optimizer candidates, and the full class/difficulty/upgrade variant map remains incomplete."
     },
     {
       "class": "Priest",
@@ -9303,7 +9303,7 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Five exact Wowhead item versions are recorded as evidence only. Four are Mythic 6/6; the hands are observed at item level 305. This does not establish coverage for all difficulty/upgrade tracks or the complete Priest variant ID map. Do not use these observations as optimizer candidates."
+      "variantObservationsNote": "Eighteen source-checked Priest tier-version observations are recorded as evidence only. Hands now include an exact Wowhead Mythic 6/6 item-level-334 record; the remaining slots also have observed item versions. This does not establish coverage for all difficulty/upgrade tracks or the complete Priest variant ID map. Do not use these observations as optimizer candidates."
     },
     {
       "class": "Rogue",
