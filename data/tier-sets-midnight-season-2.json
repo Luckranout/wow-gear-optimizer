@@ -1223,7 +1223,7 @@
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
-      "itemIdsVerified": true,
+      "itemIdsVerified": false,
       "id": "baleful-grave-knight-s-crucible",
       "itemIdsSource": "https://www.wowhead.com/ptr/item-set=2055/baleful-grave-knights-crucible",
       "basePieces": [
@@ -2568,7 +2568,8 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "The 25 candidate records cover all five slots at all four baseline PvE raid difficulties and the exact item-level-334 Mythic 6/6 version. Additional observed intermediate upgrade ranks remain evidence-only until their exact item level and numeric stats are independently verified."
+      "variantObservationsNote": "The 25 candidate records cover all five slots at all four baseline PvE raid difficulties and the exact item-level-334 Mythic 6/6 version. Additional observed intermediate upgrade ranks remain evidence-only until their exact item level and numeric stats are independently verified.",
+      "candidateVariantsAvailable": true
     },
     {
       "class": "Demon Hunter",
@@ -3814,7 +3815,7 @@
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
-      "itemIdsVerified": true,
+      "itemIdsVerified": false,
       "id": "abyssal-doomhound-s-pursuit",
       "itemIdsSource": "https://www.wowhead.com/ptr/item-set=2056/abyssal-doomhounds-pursuit",
       "basePieces": [
@@ -5214,7 +5215,8 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Verified baseline PvE candidates cover each slot's source-documented Raid Finder, Normal, Heroic, and Mythic version plus exact item-level-334 Mythic 6/6. Other observed intermediate upgrade ranks remain evidence-only until exact item-level stats are source-verified."
+      "variantObservationsNote": "Verified baseline PvE candidates cover each slot's source-documented Raid Finder, Normal, Heroic, and Mythic version plus exact item-level-334 Mythic 6/6. Other observed intermediate upgrade ranks remain evidence-only until exact item-level stats are source-verified.",
+      "candidateVariantsAvailable": true
     },
     {
       "class": "Druid",
@@ -6439,7 +6441,7 @@
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
-      "itemIdsVerified": true,
+      "itemIdsVerified": false,
       "id": "bark-of-the-enigmatic-dreamwatcher",
       "itemIdsSource": "https://www.wowhead.com/ptr/item-set=2057/bark-of-the-enigmatic-dreamwatcher",
       "basePieces": [
@@ -7710,7 +7712,8 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Twenty-seven source-checked item-version observations are recorded as evidence only. Level-334 observations now exist for all five tier slots. The Legs level-334 stats come from an equipped-profile observation and are kept evidence-only; validate exact version provenance and complete the full difficulty/upgrade map before eligibility. All observations remain ineligible as optimizer candidates until complete variant coverage is verified."
+      "variantObservationsNote": "Twenty-seven source-checked item-version observations are recorded as evidence only. Level-334 observations now exist for all five tier slots. The Legs level-334 stats come from an equipped-profile observation and are kept evidence-only; validate exact version provenance and complete the full difficulty/upgrade map before eligibility. All observations remain ineligible as optimizer candidates until complete variant coverage is verified.",
+      "candidateVariantsAvailable": true
     },
     {
       "class": "Evoker",
@@ -9061,7 +9064,7 @@
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
-      "itemIdsVerified": true,
+      "itemIdsVerified": false,
       "id": "echo-of-calamity",
       "itemIdsSource": "https://www.wowhead.com/ptr/item-set=2058/echo-of-calamity",
       "basePieces": [
@@ -10279,7 +10282,8 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Twenty-five source-checked item versions are recorded as evidence only. Head, Shoulders, Chest, and Legs have isolated Mythic 6/6 item-level 334 observations; Hands now also have a source-backed Mythic 6/6 item-level 334 observation. Other difficulty and upgrade variants remain unverified. All observations remain ineligible as optimizer candidates until the full class variant map is verified."
+      "variantObservationsNote": "Twenty-five source-checked item versions are recorded as evidence only. Head, Shoulders, Chest, and Legs have isolated Mythic 6/6 item-level 334 observations; Hands now also have a source-backed Mythic 6/6 item-level 334 observation. Other difficulty and upgrade variants remain unverified. All observations remain ineligible as optimizer candidates until the full class variant map is verified.",
+      "candidateVariantsAvailable": true
     },
     {
       "class": "Hunter",
@@ -11532,7 +11536,7 @@
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
-      "itemIdsVerified": true,
+      "itemIdsVerified": false,
       "id": "skulking-viper-s-ambush",
       "itemIdsSource": "https://www.wowhead.com/ptr/item-set=2059/skulking-vipers-ambush",
       "basePieces": [
@@ -12830,7 +12834,8 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Fifteen source-checked item versions are recorded for evidence only. Hands are observed at item levels 295, 308, 321, and 334; Legs at item levels 219, 285 (Veteran 3/6), 298 (Champion 3/6), 308, 311 (Hero 3/6), 318 (Myth 3/6), 321, and 334. Chest, Head, and Shoulders have Mythic 6/6 observations at 334. Other difficulty and upgrade variants remain unverified. All observations remain ineligible as optimizer candidates until complete variant coverage is verified."
+      "variantObservationsNote": "Fifteen source-checked item versions are recorded for evidence only. Hands are observed at item levels 295, 308, 321, and 334; Legs at item levels 219, 285 (Veteran 3/6), 298 (Champion 3/6), 308, 311 (Hero 3/6), 318 (Myth 3/6), 321, and 334. Chest, Head, and Shoulders have Mythic 6/6 observations at 334. Other difficulty and upgrade variants remain unverified. All observations remain ineligible as optimizer candidates until complete variant coverage is verified.",
+      "candidateVariantsAvailable": true
     },
     {
       "class": "Mage",
@@ -14062,7 +14067,7 @@
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
-      "itemIdsVerified": true,
+      "itemIdsVerified": false,
       "id": "primal-leywarden-s-attire",
       "itemIdsSource": "https://www.wowhead.com/ptr/item-set=2060/primal-leywardens-attire",
       "basePieces": [
@@ -15202,7 +15207,14 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Six exact Wowhead item versions are recorded as evidence only. These observations do not establish coverage for all raid difficulties, upgrade tracks, or the complete Mage variant ID map. Do not use these observations as optimizer candidates."
+      "variantObservationsNote": "Six exact Wowhead item versions are recorded as evidence only. These observations do not establish coverage for all raid difficulties, upgrade tracks, or the complete Mage variant ID map. Do not use these observations as optimizer candidates.",
+      "candidateVariantsAvailable": true,
+      "verifiedVariantItemIds": {
+        "Legs": [
+          271563,
+          271566
+        ]
+      }
     },
     {
       "class": "Monk",
@@ -16478,7 +16490,7 @@
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
-      "itemIdsVerified": true,
+      "itemIdsVerified": false,
       "id": "guile-of-the-monkey-king",
       "itemIdsSource": "https://www.wowhead.com/ptr/item-set=2061/guile-of-the-monkey-king",
       "basePieces": [
@@ -17675,7 +17687,8 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Fifteen source-checked item-version observations are recorded as evidence only. Chest, hands, head, shoulders, and legs have item-level-334 observations; Hands also include an exact Wowhead item-level-321 observation. The Legs stats are from an equipped-profile observation and remain evidence-only. This does not establish coverage for all difficulty/upgrade tracks or the complete Monk variant ID map. Do not use these observations as optimizer candidates."
+      "variantObservationsNote": "Fifteen source-checked item-version observations are recorded as evidence only. Chest, hands, head, shoulders, and legs have item-level-334 observations; Hands also include an exact Wowhead item-level-321 observation. The Legs stats are from an equipped-profile observation and remain evidence-only. This does not establish coverage for all difficulty/upgrade tracks or the complete Monk variant ID map. Do not use these observations as optimizer candidates.",
+      "candidateVariantsAvailable": true
     },
     {
       "class": "Paladin",
@@ -18949,7 +18962,7 @@
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
-      "itemIdsVerified": true,
+      "itemIdsVerified": false,
       "id": "radiance-of-the-consecrated-flame",
       "itemIdsSource": "https://www.wowhead.com/ptr/item-set=2062/radiance-of-the-consecrated-flame",
       "basePieces": [
@@ -20268,7 +20281,8 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Thirteen source-checked Paladin tier-version observations preserve observed item-level-specific stats as evidence only. Hands now include an exact Wowhead Mythic 6/6 item-level-334 record. They are not optimizer candidates, and the full class/difficulty/upgrade variant map remains incomplete."
+      "variantObservationsNote": "Thirteen source-checked Paladin tier-version observations preserve observed item-level-specific stats as evidence only. Hands now include an exact Wowhead Mythic 6/6 item-level-334 record. They are not optimizer candidates, and the full class/difficulty/upgrade variant map remains incomplete.",
+      "candidateVariantsAvailable": true
     },
     {
       "class": "Priest",
@@ -21500,7 +21514,7 @@
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
-      "itemIdsVerified": true,
+      "itemIdsVerified": false,
       "id": "cosmic-penitent-s-raiment",
       "itemIdsSource": "https://www.wowhead.com/ptr/item-set=2063/cosmic-penitents-raiment",
       "basePieces": [
@@ -22722,7 +22736,8 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Eighteen source-checked Priest tier-version observations are recorded as evidence only. Hands now include an exact Wowhead Mythic 6/6 item-level-334 record; the remaining slots also have observed item versions. This does not establish coverage for all difficulty/upgrade tracks or the complete Priest variant ID map. Do not use these observations as optimizer candidates."
+      "variantObservationsNote": "Eighteen source-checked Priest tier-version observations are recorded as evidence only. Hands now include an exact Wowhead Mythic 6/6 item-level-334 record; the remaining slots also have observed item versions. This does not establish coverage for all difficulty/upgrade tracks or the complete Priest variant ID map. Do not use these observations as optimizer candidates.",
+      "candidateVariantsAvailable": true
     },
     {
       "class": "Rogue",
@@ -23735,7 +23750,8 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Twelve source-checked item versions are recorded as evidence only. Legs are observed at item levels 219, 285 (Veteran 3/6), 298 (Champion 3/6), 311 (Hero 3/6), 315, 321, and 324 (Myth 3/6); Hands at 282 (Veteran 2/6), 295 (Champion item level), and 321 (Myth 2/6). Chest 305, Head 295, and Shoulders 334. Other difficulty and upgrade variants and the complete Rogue variant ID map remain unverified. All observations remain ineligible as optimizer candidates."
+      "variantObservationsNote": "Twelve source-checked item versions are recorded as evidence only. Legs are observed at item levels 219, 285 (Veteran 3/6), 298 (Champion 3/6), 311 (Hero 3/6), 315, 321, and 324 (Myth 3/6); Hands at 282 (Veteran 2/6), 295 (Champion item level), and 321 (Myth 2/6). Chest 305, Head 295, and Shoulders 334. Other difficulty and upgrade variants and the complete Rogue variant ID map remain unverified. All observations remain ineligible as optimizer candidates.",
+      "candidateVariantsAvailable": false
     },
     {
       "class": "Shaman",
@@ -24852,7 +24868,7 @@
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
-      "itemIdsVerified": true,
+      "itemIdsVerified": false,
       "id": "ophidian-oracle-prophecy",
       "verifiedVariantObservations": [
         {
@@ -26064,7 +26080,9 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Twenty-five exact Shaman tier item versions are recorded as evidence only: Mythic 6/6 item level 334 for all five slots; Head 295/311/315/321; Shoulders 302/308/321; Chest 289/308/311/318/328; Hands 295/308/311/318/321; Legs 295/318/321. These records are separate from baseline raid-difficulty candidates. Remaining intermediate upgrade ranks and complete upgrade-track coverage are unfinished; no observation here is optimizer-eligible."
+      "variantObservationsNote": "Twenty-five exact Shaman tier item versions are recorded as evidence only: Mythic 6/6 item level 334 for all five slots; Head 295/311/315/321; Shoulders 302/308/321; Chest 289/308/311/318/328; Hands 295/308/311/318/321; Legs 295/318/321. These records are separate from baseline raid-difficulty candidates. Remaining intermediate upgrade ranks and complete upgrade-track coverage are unfinished; no observation here is optimizer-eligible.",
+      "baseItemIdsVerified": true,
+      "candidateVariantsAvailable": true
     },
     {
       "class": "Warlock",
@@ -27178,7 +27196,8 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Twenty-four source-checked item versions are recorded as evidence only. Head is observed at item levels 219, 285 (Veteran 3/6), 298 (Champion 3/6), 305, 308 (Hero 2/6), 311 (Hero 3/6), 315, 318, 321, 324 (Myth 3/6), and 334 (Mythic 6/6). Legs now include a source-checked Champion 5/6 version at item level 305 and a Mythic 6/6 version at 334. Hands have source-cross-checked item-level 331 and 334 observations; Chest has 311, 321, 324, 328, and 334; Shoulders have 308, 311, 321, and 334. Other difficulty and upgrade variants remain unverified. All observations remain evidence-only and are not optimizer candidates."
+      "variantObservationsNote": "Twenty-four source-checked item versions are recorded as evidence only. Head is observed at item levels 219, 285 (Veteran 3/6), 298 (Champion 3/6), 305, 308 (Hero 2/6), 311 (Hero 3/6), 315, 318, 321, 324 (Myth 3/6), and 334 (Mythic 6/6). Legs now include a source-checked Champion 5/6 version at item level 305 and a Mythic 6/6 version at 334. Hands have source-cross-checked item-level 331 and 334 observations; Chest has 311, 321, 324, 328, and 334; Shoulders have 308, 311, 321, and 334. Other difficulty and upgrade variants remain unverified. All observations remain evidence-only and are not optimizer candidates.",
+      "candidateVariantsAvailable": false
     },
     {
       "class": "Warrior",
@@ -28169,7 +28188,8 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Seventeen source-checked versions are recorded as evidence only. Mythic 6/6 item-level 334 observations now exist for Head, Shoulders, Chest, Hands, and Legs; lower-rank records are also present for Shoulders, Chest, Hands, and Legs. These are not eligible optimizer candidates and do not establish a complete difficulty/upgrade/effect variant map. Preserve distinct records when item ID and item level match but stats differ."
+      "variantObservationsNote": "Seventeen source-checked versions are recorded as evidence only. Mythic 6/6 item-level 334 observations now exist for Head, Shoulders, Chest, Hands, and Legs; lower-rank records are also present for Shoulders, Chest, Hands, and Legs. These are not eligible optimizer candidates and do not establish a complete difficulty/upgrade/effect variant map. Preserve distinct records when item ID and item level match but stats differ.",
+      "candidateVariantsAvailable": false
     }
   ],
   "itemMatching": {
@@ -28196,19 +28216,8 @@
       "Gladiator",
       "Elite"
     ],
-    "note": "Source-backed baseline PvE candidate maps exist for Death Knight, Demon Hunter, Evoker, Hunter, Mage, Paladin, Priest, and Shaman. Hunter's baseline Mythic Legs variant is item level 318 per the class-set source. Druid and Monk each have 24 verified candidate variants; their item-level-334 Legs observations remain evidence-only because exact upgrade rank is not source-verified. Rogue, Warlock, and Warrior still need complete baseline slot maps. Intermediate upgrade ranks remain evidence-only.",
-    "verifiedClasses": [
-      "Death Knight",
-      "Demon Hunter",
-      "Druid",
-      "Evoker",
-      "Hunter",
-      "Mage",
-      "Monk",
-      "Paladin",
-      "Priest",
-      "Shaman"
-    ],
+    "note": "Exact source-verified candidate versions are available for selected slots/difficulties, but no class is marked as having a complete variant map until all required upgrade-rank variants are verified. Base tier IDs remain separately verified. Mage Legs have two source-verified item IDs for the same named slot piece across observed versions (271566 at baseline levels; 271563 at item level 334).",
+    "verifiedClasses": [],
     "statsVerifiedClasses": [
       "Death Knight",
       "Demon Hunter",
@@ -28250,6 +28259,18 @@
       "Shaman",
       "Warlock",
       "Warrior"
+    ],
+    "candidateVariantClasses": [
+      "Death Knight",
+      "Demon Hunter",
+      "Druid",
+      "Evoker",
+      "Hunter",
+      "Mage",
+      "Monk",
+      "Paladin",
+      "Priest",
+      "Shaman"
     ]
   }
 }
