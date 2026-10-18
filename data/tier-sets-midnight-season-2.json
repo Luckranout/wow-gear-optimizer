@@ -2248,6 +2248,102 @@
               "source": "Wowhead tooltip, item level 308"
             }
           ]
+        },
+        {
+          "itemId": 271491,
+          "setId": "skulking-viper-s-ambush",
+          "name": "Skulking Viper's Coiled Legwraps",
+          "slot": "Legs",
+          "variant": "Heroic 6/6 observed",
+          "itemLevel": 321,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271491/skulking-vipers-coiled-legwraps?bonus=13693%3A6652%3A13698%3A12846&class=3&ilvl=321&spec=255",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 167,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 167,
+              "source": "Wowhead tooltip, item level 321 (primary stat shown for Hunter class/spec context)"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3369,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 67,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 124,
+              "source": "Wowhead tooltip, item level 321"
+            }
+          ]
+        },
+        {
+          "itemId": 271491,
+          "setId": "skulking-viper-s-ambush",
+          "name": "Skulking Viper's Coiled Legwraps",
+          "slot": "Legs",
+          "variant": "Mythic 6/6 observed",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271491/skulking-vipers-coiled-legwraps?bonus=13335%3A13693%3A6652%3A13698%3A12854&ilvl=334&spec=254",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334 (primary stat shown for Hunter class/spec context)"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 70,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 130,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
