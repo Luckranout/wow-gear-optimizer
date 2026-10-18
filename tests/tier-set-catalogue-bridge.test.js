@@ -1586,7 +1586,7 @@ test("Warrior Mythic 6/6 legs observation remains evidence-only", () => {
 test("Priest source-checked helm variants retain their exact source stats and remain evidence-only", () => {
   const priest = catalogue.sets.find(set => set.class === "Priest");
   const observations = priest.verifiedVariantObservations || [];
-  assert.equal(observations.length, 18);
+  assert.equal(observations.length, 21);
   const heads = new Map(observations.filter(piece => piece.itemId === 271555 && piece.slot === "Head").map(piece => [piece.itemLevel, piece]));
   assert.deepEqual([...heads.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334]);
   const shoulders = new Map(observations.filter(piece => piece.itemId === 271553 && piece.slot === "Shoulders").map(piece => [piece.itemLevel, piece]));
@@ -1615,6 +1615,20 @@ test("Priest source-checked helm variants retain their exact source stats and re
     assert.ok(piece.sourceUrl.includes("warcraft.wiki.gg"));
     assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
   }
+  const chest = new Map(observations.filter(piece => piece.itemId === 271558 && piece.slot === "Chest").map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...chest.keys()].sort((a, b) => a - b), [308, 311, 321, 334]);
+  for (const [level, expected] of [
+    [308, { intellect: 148, stamina: 2896, criticalStrike: 56, mastery: 124 }],
+    [311, { intellect: 152, stamina: 3002, criticalStrike: 56, mastery: 126 }],
+    [321, { intellect: 167, stamina: 3369, criticalStrike: 59, mastery: 131 }]
+  ]) {
+    const piece = chest.get(level);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), level);
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+
 });
 
 
