@@ -5085,6 +5085,170 @@
           ]
         },
         {
+          "itemId": 271546,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Skull of the Damned Necrolyte",
+          "slot": "Head",
+          "variant": "Item level 305 observed",
+          "itemLevel": 305,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271546/skull-of-the-damned-necrolyte?bonus=6652%3A12837%3A13439%3A13695%3A13692%3A13698%3A1558&class=9&ilvl=305&spec=266",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 144,
+              "source": "Wowhead tooltip, item level 305"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2794,
+              "source": "Wowhead tooltip, item level 305"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 57,
+              "source": "Wowhead tooltip, item level 305"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 120,
+              "source": "Wowhead tooltip, item level 305"
+            }
+          ]
+        },
+        {
+          "itemId": 271546,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Skull of the Damned Necrolyte",
+          "slot": "Head",
+          "variant": "Item level 315 observed",
+          "itemLevel": 315,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271546/skull-of-the-damned-necrolyte?bonus=13334%3A6652%3A13696%3A13692%3A13698%3A12844&class=9&ilvl=315&spec=266",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 158,
+              "source": "Wowhead tooltip, item level 315"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3143,
+              "source": "Wowhead tooltip, item level 315"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 60,
+              "source": "Wowhead tooltip, item level 315"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 126,
+              "source": "Wowhead tooltip, item level 315"
+            }
+          ]
+        },
+        {
+          "itemId": 271546,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Skull of the Damned Necrolyte",
+          "slot": "Head",
+          "variant": "Myth 1/6 observed",
+          "itemLevel": 318,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271546/skull-of-the-damned-necrolyte?bonus=13334%3A6652%3A12849%3A13696%3A13692%3A13698%3A1571&ilvl=318&spec=266",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 162,
+              "source": "Wowhead tooltip, item level 318"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3254,
+              "source": "Wowhead tooltip, item level 318"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 61,
+              "source": "Wowhead tooltip, item level 318"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 127,
+              "source": "Wowhead tooltip, item level 318"
+            }
+          ]
+        },
+        {
+          "itemId": 271546,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Skull of the Damned Necrolyte",
+          "slot": "Head",
+          "variant": "Item level 321 observed",
+          "itemLevel": 321,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr-2/item=271546/skull-of-the-damned-necrolyte?bonus=13334%3A6652%3A13696%3A13692%3A13698%3A12846&class=9&ilvl=321&spec=267",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 167,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3369,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 61,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 129,
+              "source": "Wowhead tooltip, item level 321"
+            }
+          ]
+        },
+        {
           "itemId": 271545,
           "setId": "damned-necrolyte-s-shattered-restraints",
           "name": "Damned Necrolyte's Leg Bindings",
@@ -5165,51 +5329,10 @@
               "source": "Wowhead tooltip, item level 334"
             }
           ]
-        },
-        {
-          "itemId": 271546,
-          "setId": "damned-necrolyte-s-shattered-restraints",
-          "name": "Skull of the Damned Necrolyte",
-          "slot": "Head",
-          "variant": "Myth 1/6 observed",
-          "itemLevel": 318,
-          "candidate": false,
-          "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/item=271546/skull-of-the-damned-necrolyte?bonus=13334%3A6652%3A12849%3A13696%3A13692%3A13698%3A1571&ilvl=318&spec=266",
-          "stats": [
-            {
-              "type": {
-                "name": "intellect"
-              },
-              "value": 162,
-              "source": "Wowhead tooltip, item level 318"
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 3254,
-              "source": "Wowhead tooltip, item level 318"
-            },
-            {
-              "type": {
-                "name": "versatility"
-              },
-              "value": 61,
-              "source": "Wowhead tooltip, item level 318"
-            },
-            {
-              "type": {
-                "name": "mastery"
-              },
-              "value": 127,
-              "source": "Wowhead tooltip, item level 318"
-            }
-          ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "The head is source-verified at base item level 219 and at Myth 1/6 item level 318; this does not establish the complete upgrade path or full per-slot variant map, and these observations are not optimizer candidates."
+      "variantObservationsNote": "The head is source-verified at item levels 219, 305, 315, 318, and 321. This still does not establish the complete upgrade path or full per-slot variant map; every observation remains evidence-only and is not an optimizer candidate."
     },
     {
       "class": "Warrior",
