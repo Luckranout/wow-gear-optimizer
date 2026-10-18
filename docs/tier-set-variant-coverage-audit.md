@@ -66,16 +66,16 @@ The current catalogue records at least one item-level-334 observation for all fi
 |---|---|---|
 | Death Knight | Head, Shoulders, Chest, Hands, Legs | Complete the exact source-verified Raid Finder, Normal, Heroic, Mythic base variants and distinct upgrade ranks for all five slots. |
 | Demon Hunter | Head, Shoulders, Chest, Hands, Legs | Complete difficulty and upgrade-rank maps; preserve the level-219 hands observation as a separate version, never as a replacement for 334. |
-| Druid | Legs | The item-level-334 Legs observation lacks source-verified upgrade-rank evidence; verify Mythic 6/6 before promoting it. |
+| Druid | Head, Shoulders, Chest, Hands, Legs | Baseline difficulty and 334 observations exist across all five slots; Legs at 334 still lacks source-verified Mythic 6/6 rank evidence. |
 | Evoker | Head, Shoulders, Chest, Hands, Legs | Complete intermediate upgrade-rank maps for all five slots; baseline difficulty variants and item-level-334 candidates are mapped. |
-| Hunter | — | Baseline and item-level-334 Mythic 6/6 candidates now cover all five slots; Legs uses the source-verified Mythic baseline at 318. | Intermediate upgrade-rank mapping remains incomplete. |
+| Hunter | Head, Shoulders, Chest, Hands, Legs | Baseline and item-level-334 Mythic 6/6 candidates cover all five slots; Legs uses the source-verified Mythic baseline at 318. | Intermediate upgrade-rank mapping remains incomplete. |
 | Mage | Head, Shoulders, Chest, Hands, Legs | Complete intermediate upgrade-rank maps for all five slots; baseline difficulty variants and item-level-334 candidates are mapped. |
-| Monk | Legs | The item-level-334 Legs observation lacks source-verified upgrade-rank evidence; verify Mythic 6/6 before promoting it. |
-| Paladin | — | Baseline and item-level-334 Mythic 6/6 candidates now cover all five slots. | Intermediate upgrade-rank mapping remains incomplete. |
+| Monk | Head, Shoulders, Chest, Hands, Legs | Baseline difficulty and 334 observations exist across all five slots; Legs at 334 still lacks source-verified Mythic 6/6 rank evidence. |
+| Paladin | Head, Shoulders, Chest, Hands, Legs | Baseline and item-level-334 Mythic 6/6 candidates cover all five slots. | Intermediate upgrade-rank mapping remains incomplete. |
 | Priest | Head, Shoulders, Chest, Hands, Legs | Complete intermediate upgrade-rank maps for all five slots; baseline difficulty variants and item-level-334 candidates are mapped. |
-| Rogue | Intermediate upgrade ranks across all five slots | Baseline difficulty and Mythic 6/6 candidates now cover every slot; remaining work is exact rank-by-rank upgrade variants. |
+| Rogue | Head, Shoulders, Chest, Hands, Legs | Baseline and 334 observations exist across all five slots; remaining work is exact rank-by-rank upgrade variants. |
 | Shaman | Head, Shoulders, Chest, Hands, Legs | Keep the 20 verified PvE candidate records separate from the 25 evidence-only observations; complete intermediate upgrade-rank mapping. |
-| Warlock | Intermediate upgrade ranks across all five slots | Baseline difficulty and Mythic 6/6 candidates now cover every slot; remaining work is exact rank-by-rank upgrade variants. |
+| Warlock | Head, Shoulders, Chest, Hands, Legs | Baseline and 334 observations exist across all five slots; remaining work is exact rank-by-rank upgrade variants. |
 | Warrior | Hands, Legs baseline variants; intermediate upgrade ranks across all slots | Five 334 candidates exist. Verify the missing baseline levels from exact sources and keep the 344 chest variant separate from Mythic 6/6. |
 
 ### Work sequence
