@@ -2761,173 +2761,84 @@
       "baseItemIdsVerified": true,
       "verifiedVariantObservations": [
         {
-          "itemId": 271531,
+          "itemId": 271526,
           "setId": "bark-of-the-enigmatic-dreamwatcher",
-          "name": "Enigmatic Dreamwatcher's Lunar Raiment",
-          "slot": "Chest",
-          "variant": "Mythic raid item level observed",
-          "itemLevel": 292,
+          "name": "Enigmatic Dreamwatcher's Plumage",
+          "slot": "Shoulders",
+          "variant": "Veteran 2/6 observed",
+          "itemLevel": 282,
           "candidate": false,
           "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/item=271531/enigmatic-dreamwatchers-lunar-raiment?bonus=13452%3A13658%3A12833%3A13690%3A13698%3A1545&ilvl=292&spec=105",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Enigmatic_Dreamwatcher%27s_Plumage",
           "stats": [
             {
               "type": {
                 "name": "agility"
               },
-              "value": 128,
-              "source": "Wowhead tooltip, item level 292"
-            },
-            {
-              "type": {
-                "name": "intellect"
-              },
-              "value": 128,
-              "source": "Wowhead tooltip, item level 292"
+              "value": 87,
+              "source": "Warcraft Wiki item page, item level 282; primary stat shown as Agility or Intellect"
             },
             {
               "type": {
                 "name": "stamina"
               },
-              "value": 2406,
-              "source": "Wowhead tooltip, item level 292"
+              "value": 1606,
+              "source": "Warcraft Wiki item page, item level 282"
             },
             {
               "type": {
                 "name": "criticalStrike"
               },
-              "value": 109,
-              "source": "Wowhead tooltip, item level 292"
-            },
-            {
-              "type": {
-                "name": "haste"
-              },
-              "value": 58,
-              "source": "Wowhead tooltip, item level 292"
-            }
-          ]
-        },
-        {
-          "itemId": 271529,
-          "setId": "bark-of-the-enigmatic-dreamwatcher",
-          "name": "Enigmatic Dreamwatcher's Gauntlets",
-          "slot": "Hands",
-          "variant": "Mythic 6/6",
-          "itemLevel": 334,
-          "candidate": false,
-          "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/item=271529/enigmatic-dreamwatchers-gauntlets?ilvl=334",
-          "stats": [
-            {
-              "type": {
-                "name": "agility"
-              },
-              "value": 141,
-              "source": "Wowhead tooltip, item level 334"
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 2932,
-              "source": "Wowhead tooltip, item level 334"
-            },
-            {
-              "type": {
-                "name": "versatility"
-              },
-              "value": 106,
-              "source": "Wowhead tooltip, item level 334"
+              "value": 82,
+              "source": "Warcraft Wiki item page, item level 282"
             },
             {
               "type": {
                 "name": "mastery"
               },
-              "value": 44,
-              "source": "Wowhead tooltip, item level 334"
+              "value": 37,
+              "source": "Warcraft Wiki item page, item level 282"
             }
           ]
         },
         {
-          "itemId": 271528,
+          "itemId": 271526,
           "setId": "bark-of-the-enigmatic-dreamwatcher",
-          "name": "Enigmatic Dreamwatcher's Somnolent Stare",
-          "slot": "Head",
-          "variant": "Mythic 6/6",
-          "itemLevel": 334,
+          "name": "Enigmatic Dreamwatcher's Plumage",
+          "slot": "Shoulders",
+          "variant": "Champion 2/6 observed",
+          "itemLevel": 295,
           "candidate": false,
           "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/ptr/item=271528/enigmatic-dreamwatchers-somnolent-stare?bonus=4786%3A12806&ilvl=334",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Enigmatic_Dreamwatcher%27s_Plumage",
           "stats": [
             {
               "type": {
                 "name": "agility"
               },
-              "value": 189,
-              "source": "Wowhead tooltip, item level 334"
+              "value": 98,
+              "source": "Warcraft Wiki item page, item level 295; primary stat shown as Agility or Intellect"
             },
             {
               "type": {
                 "name": "stamina"
               },
-              "value": 3910,
-              "source": "Wowhead tooltip, item level 334"
-            },
-            {
-              "type": {
-                "name": "haste"
-              },
-              "value": 142,
-              "source": "Wowhead tooltip, item level 334"
-            },
-            {
-              "type": {
-                "name": "versatility"
-              },
-              "value": 59,
-              "source": "Wowhead tooltip, item level 334"
-            }
-          ]
-        },
-        {
-          "itemId": 271527,
-          "setId": "bark-of-the-enigmatic-dreamwatcher",
-          "name": "Enigmatic Dreamwatcher's Leggings",
-          "slot": "Legs",
-          "variant": "Base item level observed",
-          "itemLevel": 219,
-          "candidate": false,
-          "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/item=271527/enigmatic-dreamwatchers-leggings?ilvl=219",
-          "stats": [
-            {
-              "type": {
-                "name": "agility"
-              },
-              "value": 65,
-              "source": "Wowhead tooltip, item level 219; primary stat shown as Agility or Intellect"
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 1005,
-              "source": "Wowhead tooltip, item level 219"
+              "value": 1869,
+              "source": "Warcraft Wiki item page, item level 295"
             },
             {
               "type": {
                 "name": "criticalStrike"
               },
-              "value": 36,
-              "source": "Wowhead tooltip, item level 219"
+              "value": 88,
+              "source": "Warcraft Wiki item page, item level 295"
             },
             {
               "type": {
-                "name": "haste"
+                "name": "mastery"
               },
-              "value": 71,
-              "source": "Wowhead tooltip, item level 219"
+              "value": 39,
+              "source": "Warcraft Wiki item page, item level 295"
             }
           ]
         },
@@ -2980,50 +2891,132 @@
           ]
         },
         {
-          "itemId": 271529,
+          "itemId": 271526,
           "setId": "bark-of-the-enigmatic-dreamwatcher",
-          "name": "Enigmatic Dreamwatcher's Gauntlets",
-          "slot": "Hands",
-          "variant": "Champion 2/6",
-          "itemLevel": 295,
+          "name": "Enigmatic Dreamwatcher's Plumage",
+          "slot": "Shoulders",
+          "variant": "Myth 2/6 observed",
+          "itemLevel": 321,
           "candidate": false,
           "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/item=271529/enigmatic-dreamwatchers-gauntlets?bonus=12834%3A13333%3A13691%3A6652%3A13697&class=11&ilvl=295&spec=102",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Enigmatic_Dreamwatcher%27s_Plumage",
           "stats": [
-            {
-              "type": {
-                "name": "intellect"
-              },
-              "value": 98,
-              "source": "Wowhead tooltip, item level 295"
-            },
             {
               "type": {
                 "name": "agility"
               },
-              "value": 98,
-              "source": "Wowhead tooltip, item level 295"
+              "value": 125,
+              "source": "Warcraft Wiki item page, item level 321; primary stat shown as Agility or Intellect"
             },
             {
               "type": {
                 "name": "stamina"
               },
-              "value": 1869,
-              "source": "Wowhead tooltip, item level 295"
+              "value": 2527,
+              "source": "Warcraft Wiki item page, item level 321"
             },
             {
               "type": {
-                "name": "versatility"
+                "name": "criticalStrike"
               },
-              "value": 90,
-              "source": "Wowhead tooltip, item level 295"
+              "value": 99,
+              "source": "Warcraft Wiki item page, item level 321"
             },
             {
               "type": {
                 "name": "mastery"
               },
-              "value": 37,
-              "source": "Wowhead tooltip, item level 295"
+              "value": 44,
+              "source": "Warcraft Wiki item page, item level 321"
+            }
+          ]
+        },
+        {
+          "itemId": 271526,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Plumage",
+          "slot": "Shoulders",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271526/enigmatic-dreamwatchers-plumage?ilvl=334&spec=105",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 141,
+              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Plumage at item level 334; Wowhead confirms the item identity and secondary-stat family."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 141,
+              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Plumage at item level 334; Wowhead confirms the item identity and secondary-stat family."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Plumage at item level 334."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 99,
+              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Plumage at item level 334."
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 52,
+              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Plumage at item level 334."
+            }
+          ]
+        },
+        {
+          "itemId": 271527,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Leggings",
+          "slot": "Legs",
+          "variant": "Base item level observed",
+          "itemLevel": 219,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271527/enigmatic-dreamwatchers-leggings?ilvl=219",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 65,
+              "source": "Wowhead tooltip, item level 219; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1005,
+              "source": "Wowhead tooltip, item level 219"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 36,
+              "source": "Wowhead tooltip, item level 219"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 71,
+              "source": "Wowhead tooltip, item level 219"
             }
           ]
         },
@@ -3192,6 +3185,54 @@
           ]
         },
         {
+          "itemId": 271527,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Leggings",
+          "slot": "Legs",
+          "variant": "Item level 334 observed (equipped profile)",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271527/enigmatic-dreamwatchers-leggings?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 189,
+              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Leggings at item level 334."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Leggings at item level 334."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Leggings at item level 334."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 63,
+              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Leggings at item level 334."
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 138,
+              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Leggings at item level 334."
+            }
+          ]
+        },
+        {
           "itemId": 271528,
           "setId": "bark-of-the-enigmatic-dreamwatcher",
           "name": "Enigmatic Dreamwatcher's Somnolent Stare",
@@ -3319,6 +3360,47 @@
           "setId": "bark-of-the-enigmatic-dreamwatcher",
           "name": "Enigmatic Dreamwatcher's Somnolent Stare",
           "slot": "Head",
+          "variant": "Hero 6/6 observed",
+          "itemLevel": 321,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271528/enigmatic-dreamwatchers-somnolent-stare?bonus=12846&ilvl=321",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 167,
+              "source": "Wowhead tooltip, item level 321; primary stat is Agility or Intellect by specialization"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3369,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 134,
+              "source": "Wowhead tooltip, item level 321"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 56,
+              "source": "Wowhead tooltip, item level 321"
+            }
+          ]
+        },
+        {
+          "itemId": 271528,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Somnolent Stare",
+          "slot": "Head",
           "variant": "Myth 3/6 observed",
           "itemLevel": 324,
           "candidate": false,
@@ -3352,6 +3434,177 @@
               },
               "value": 57,
               "source": "Warcraft Wiki tier set page, item level 324"
+            }
+          ]
+        },
+        {
+          "itemId": 271528,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Somnolent Stare",
+          "slot": "Head",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271528/enigmatic-dreamwatchers-somnolent-stare?bonus=4786%3A12806&ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 189,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 142,
+              "source": "Wowhead tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 59,
+              "source": "Wowhead tooltip, item level 334"
+            }
+          ]
+        },
+        {
+          "itemId": 271529,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Gauntlets",
+          "slot": "Hands",
+          "variant": "Veteran 2/6 observed",
+          "itemLevel": 282,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Bark_of_the_Enigmatic_Dreamwatcher",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki tier-set page, item level 282; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "Warcraft Wiki tier-set page, item level 282"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 84,
+              "source": "Warcraft Wiki tier-set page, item level 282"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 35,
+              "source": "Warcraft Wiki tier-set page, item level 282"
+            }
+          ]
+        },
+        {
+          "itemId": 271529,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Gauntlets",
+          "slot": "Hands",
+          "variant": "Champion 2/6",
+          "itemLevel": 295,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271529/enigmatic-dreamwatchers-gauntlets?bonus=12834%3A13333%3A13691%3A6652%3A13697&class=11&ilvl=295&spec=102",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 98,
+              "source": "Wowhead tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 98,
+              "source": "Wowhead tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1869,
+              "source": "Wowhead tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 90,
+              "source": "Wowhead tooltip, item level 295"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 37,
+              "source": "Wowhead tooltip, item level 295"
+            }
+          ]
+        },
+        {
+          "itemId": 271529,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Gauntlets",
+          "slot": "Hands",
+          "variant": "Hero 2/6 observed",
+          "itemLevel": 308,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Bark_of_the_Enigmatic_Dreamwatcher",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 111,
+              "source": "Warcraft Wiki tier-set page, item level 308; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2172,
+              "source": "Warcraft Wiki tier-set page, item level 308"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 95,
+              "source": "Warcraft Wiki tier-set page, item level 308"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 40,
+              "source": "Warcraft Wiki tier-set page, item level 308"
             }
           ]
         },
@@ -3408,80 +3661,39 @@
           "setId": "bark-of-the-enigmatic-dreamwatcher",
           "name": "Enigmatic Dreamwatcher's Gauntlets",
           "slot": "Hands",
-          "variant": "Veteran 2/6 observed",
-          "itemLevel": 282,
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
           "candidate": false,
           "verificationScope": "observed-version-only",
-          "sourceUrl": "https://warcraft.wiki.gg/wiki/Bark_of_the_Enigmatic_Dreamwatcher",
+          "sourceUrl": "https://www.wowhead.com/item=271529/enigmatic-dreamwatchers-gauntlets?ilvl=334",
           "stats": [
             {
               "type": {
                 "name": "agility"
               },
-              "value": 87,
-              "source": "Warcraft Wiki tier-set page, item level 282; primary stat shown as Agility or Intellect"
+              "value": 141,
+              "source": "Wowhead tooltip, item level 334"
             },
             {
               "type": {
                 "name": "stamina"
               },
-              "value": 1606,
-              "source": "Warcraft Wiki tier-set page, item level 282"
+              "value": 2932,
+              "source": "Wowhead tooltip, item level 334"
             },
             {
               "type": {
                 "name": "versatility"
               },
-              "value": 84,
-              "source": "Warcraft Wiki tier-set page, item level 282"
+              "value": 106,
+              "source": "Wowhead tooltip, item level 334"
             },
             {
               "type": {
                 "name": "mastery"
               },
-              "value": 35,
-              "source": "Warcraft Wiki tier-set page, item level 282"
-            }
-          ]
-        },
-        {
-          "itemId": 271529,
-          "setId": "bark-of-the-enigmatic-dreamwatcher",
-          "name": "Enigmatic Dreamwatcher's Gauntlets",
-          "slot": "Hands",
-          "variant": "Hero 2/6 observed",
-          "itemLevel": 308,
-          "candidate": false,
-          "verificationScope": "observed-version-only",
-          "sourceUrl": "https://warcraft.wiki.gg/wiki/Bark_of_the_Enigmatic_Dreamwatcher",
-          "stats": [
-            {
-              "type": {
-                "name": "agility"
-              },
-              "value": 111,
-              "source": "Warcraft Wiki tier-set page, item level 308; primary stat shown as Agility or Intellect"
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 2172,
-              "source": "Warcraft Wiki tier-set page, item level 308"
-            },
-            {
-              "type": {
-                "name": "versatility"
-              },
-              "value": 95,
-              "source": "Warcraft Wiki tier-set page, item level 308"
-            },
-            {
-              "type": {
-                "name": "mastery"
-              },
-              "value": 40,
-              "source": "Warcraft Wiki tier-set page, item level 308"
+              "value": 44,
+              "source": "Wowhead tooltip, item level 334"
             }
           ]
         },
@@ -3523,6 +3735,95 @@
               },
               "value": 56,
               "source": "Warcraft Wiki tier-set page, item level 285"
+            }
+          ]
+        },
+        {
+          "itemId": 271531,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Lunar Raiment",
+          "slot": "Chest",
+          "variant": "Mythic raid item level observed",
+          "itemLevel": 292,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271531/enigmatic-dreamwatchers-lunar-raiment?bonus=13452%3A13658%3A12833%3A13690%3A13698%3A1545&ilvl=292&spec=105",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 128,
+              "source": "Wowhead tooltip, item level 292"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 128,
+              "source": "Wowhead tooltip, item level 292"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2406,
+              "source": "Wowhead tooltip, item level 292"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 109,
+              "source": "Wowhead tooltip, item level 292"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 58,
+              "source": "Wowhead tooltip, item level 292"
+            }
+          ]
+        },
+        {
+          "itemId": 271531,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Lunar Raiment",
+          "slot": "Chest",
+          "variant": "Champion 3/6 observed",
+          "itemLevel": 298,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Bark_of_the_Enigmatic_Dreamwatcher",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki tier-set page, item level 298; primary stat shown as Agility or Intellect"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 112,
+              "source": "Warcraft Wiki tier-set page, item level 298"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 60,
+              "source": "Warcraft Wiki tier-set page, item level 298"
             }
           ]
         },
@@ -3613,218 +3914,6 @@
           "setId": "bark-of-the-enigmatic-dreamwatcher",
           "name": "Enigmatic Dreamwatcher's Lunar Raiment",
           "slot": "Chest",
-          "variant": "Champion 3/6 observed",
-          "itemLevel": 298,
-          "candidate": false,
-          "verificationScope": "observed-version-only",
-          "sourceUrl": "https://warcraft.wiki.gg/wiki/Bark_of_the_Enigmatic_Dreamwatcher",
-          "stats": [
-            {
-              "type": {
-                "name": "agility"
-              },
-              "value": 135,
-              "source": "Warcraft Wiki tier-set page, item level 298; primary stat shown as Agility or Intellect"
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 2579,
-              "source": "Warcraft Wiki tier-set page, item level 298"
-            },
-            {
-              "type": {
-                "name": "criticalStrike"
-              },
-              "value": 112,
-              "source": "Warcraft Wiki tier-set page, item level 298"
-            },
-            {
-              "type": {
-                "name": "haste"
-              },
-              "value": 60,
-              "source": "Warcraft Wiki tier-set page, item level 298"
-            }
-          ]
-        },
-        {
-          "itemId": 271526,
-          "setId": "bark-of-the-enigmatic-dreamwatcher",
-          "name": "Enigmatic Dreamwatcher's Plumage",
-          "slot": "Shoulders",
-          "variant": "Veteran 2/6 observed",
-          "itemLevel": 282,
-          "candidate": false,
-          "verificationScope": "observed-version-only",
-          "sourceUrl": "https://warcraft.wiki.gg/wiki/Enigmatic_Dreamwatcher%27s_Plumage",
-          "stats": [
-            {
-              "type": {
-                "name": "agility"
-              },
-              "value": 87,
-              "source": "Warcraft Wiki item page, item level 282; primary stat shown as Agility or Intellect"
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 1606,
-              "source": "Warcraft Wiki item page, item level 282"
-            },
-            {
-              "type": {
-                "name": "criticalStrike"
-              },
-              "value": 82,
-              "source": "Warcraft Wiki item page, item level 282"
-            },
-            {
-              "type": {
-                "name": "mastery"
-              },
-              "value": 37,
-              "source": "Warcraft Wiki item page, item level 282"
-            }
-          ]
-        },
-        {
-          "itemId": 271526,
-          "setId": "bark-of-the-enigmatic-dreamwatcher",
-          "name": "Enigmatic Dreamwatcher's Plumage",
-          "slot": "Shoulders",
-          "variant": "Champion 2/6 observed",
-          "itemLevel": 295,
-          "candidate": false,
-          "verificationScope": "observed-version-only",
-          "sourceUrl": "https://warcraft.wiki.gg/wiki/Enigmatic_Dreamwatcher%27s_Plumage",
-          "stats": [
-            {
-              "type": {
-                "name": "agility"
-              },
-              "value": 98,
-              "source": "Warcraft Wiki item page, item level 295; primary stat shown as Agility or Intellect"
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 1869,
-              "source": "Warcraft Wiki item page, item level 295"
-            },
-            {
-              "type": {
-                "name": "criticalStrike"
-              },
-              "value": 88,
-              "source": "Warcraft Wiki item page, item level 295"
-            },
-            {
-              "type": {
-                "name": "mastery"
-              },
-              "value": 39,
-              "source": "Warcraft Wiki item page, item level 295"
-            }
-          ]
-        },
-        {
-          "itemId": 271526,
-          "setId": "bark-of-the-enigmatic-dreamwatcher",
-          "name": "Enigmatic Dreamwatcher's Plumage",
-          "slot": "Shoulders",
-          "variant": "Myth 2/6 observed",
-          "itemLevel": 321,
-          "candidate": false,
-          "verificationScope": "observed-version-only",
-          "sourceUrl": "https://warcraft.wiki.gg/wiki/Enigmatic_Dreamwatcher%27s_Plumage",
-          "stats": [
-            {
-              "type": {
-                "name": "agility"
-              },
-              "value": 125,
-              "source": "Warcraft Wiki item page, item level 321; primary stat shown as Agility or Intellect"
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 2527,
-              "source": "Warcraft Wiki item page, item level 321"
-            },
-            {
-              "type": {
-                "name": "criticalStrike"
-              },
-              "value": 99,
-              "source": "Warcraft Wiki item page, item level 321"
-            },
-            {
-              "type": {
-                "name": "mastery"
-              },
-              "value": 44,
-              "source": "Warcraft Wiki item page, item level 321"
-            }
-          ]
-        },
-        {
-          "itemId": 271526,
-          "setId": "bark-of-the-enigmatic-dreamwatcher",
-          "name": "Enigmatic Dreamwatcher's Plumage",
-          "slot": "Shoulders",
-          "variant": "Mythic 6/6",
-          "itemLevel": 334,
-          "candidate": false,
-          "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/item=271526/enigmatic-dreamwatchers-plumage?ilvl=334&spec=105",
-          "stats": [
-            {
-              "type": {
-                "name": "agility"
-              },
-              "value": 141,
-              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Plumage at item level 334; Wowhead confirms the item identity and secondary-stat family."
-            },
-            {
-              "type": {
-                "name": "intellect"
-              },
-              "value": 141,
-              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Plumage at item level 334; Wowhead confirms the item identity and secondary-stat family."
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 2932,
-              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Plumage at item level 334."
-            },
-            {
-              "type": {
-                "name": "criticalStrike"
-              },
-              "value": 99,
-              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Plumage at item level 334."
-            },
-            {
-              "type": {
-                "name": "mastery"
-              },
-              "value": 52,
-              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Plumage at item level 334."
-            }
-          ]
-        },
-        {
-          "itemId": 271531,
-          "setId": "bark-of-the-enigmatic-dreamwatcher",
-          "name": "Enigmatic Dreamwatcher's Lunar Raiment",
-          "slot": "Chest",
           "variant": "Mythic 6/6",
           "itemLevel": 334,
           "candidate": false,
@@ -3865,54 +3954,6 @@
               },
               "value": 62,
               "source": "Azeroth Codex level-334 equipped profile; secondary stats vary by observed version, so this is one exact observed variant."
-            }
-          ]
-        },
-        {
-          "itemId": 271527,
-          "setId": "bark-of-the-enigmatic-dreamwatcher",
-          "name": "Enigmatic Dreamwatcher's Leggings",
-          "slot": "Legs",
-          "variant": "Item level 334 observed (equipped profile)",
-          "itemLevel": 334,
-          "candidate": false,
-          "verificationScope": "observed-version-only",
-          "sourceUrl": "https://www.wowhead.com/item=271527/enigmatic-dreamwatchers-leggings?ilvl=334",
-          "stats": [
-            {
-              "type": {
-                "name": "agility"
-              },
-              "value": 189,
-              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Leggings at item level 334."
-            },
-            {
-              "type": {
-                "name": "intellect"
-              },
-              "value": 189,
-              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Leggings at item level 334."
-            },
-            {
-              "type": {
-                "name": "stamina"
-              },
-              "value": 3910,
-              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Leggings at item level 334."
-            },
-            {
-              "type": {
-                "name": "haste"
-              },
-              "value": 63,
-              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Leggings at item level 334."
-            },
-            {
-              "type": {
-                "name": "mastery"
-              },
-              "value": 138,
-              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Leggings at item level 334."
             }
           ]
         }
