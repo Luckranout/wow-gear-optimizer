@@ -627,7 +627,7 @@ test("Druid source-checked tier versions remain evidence-only and preserve obser
 test("Evoker source-checked tier versions remain evidence-only and preserve observed stats", () => {
   const evoker = catalogue.sets.find(set => set.class === "Evoker");
   const observations = evoker.verifiedVariantObservations || [];
-  assert.equal(observations.length, 24);
+  assert.equal(observations.length, 25);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(evoker.variantObservationsStatus, "partial");
   assert.match(evoker.variantObservationsNote, /remain ineligible as optimizer candidates/i);
@@ -654,6 +654,14 @@ test("Evoker source-checked tier versions remain evidence-only and preserve obse
     assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
     assert.ok(piece.stats.every(stat => typeof stat.source === "string" && stat.source.length > 0));
   }
+  const mythicHands = observations.find(piece => piece.itemId === 271502 && piece.itemLevel === 334);
+  assert.ok(mythicHands, "Evoker hands Mythic 6/6 level 334 observation should be present");
+  assert.equal(mythicHands.variant, "Mythic 6/6 observed");
+  assert.equal(mythicHands.candidate, false);
+  assert.equal(mythicHands.verificationScope, "observed-version-only");
+  assert.deepEqual(Object.fromEntries(mythicHands.stats.map(stat => [stat.type.name, stat.value])), {
+    agility: 141, intellect: 141, stamina: 2932, haste: 97, mastery: 53
+  });
   const headsByLevel = new Map(observations.filter(piece => piece.itemId === 271501).map(piece => [piece.itemLevel, piece]));
   assert.deepEqual([...headsByLevel.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334]);
   const expectedHeads = {
