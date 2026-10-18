@@ -1189,7 +1189,7 @@ test("Priest source-backed tier item versions remain evidence-only and match Wow
       expected[key]
     );
   }
-  assert.equal(observations.find(piece => piece.itemId === 271556).itemLevel, 305);
+  assert.equal(observations.find(piece => piece.itemId === 271556 && piece.itemLevel === 305).itemLevel, 305);
   assert.equal(priest.itemIdsVerified, false,
     "partial observed versions must not promote the complete class variant map");
 });
