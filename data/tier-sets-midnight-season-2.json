@@ -14710,7 +14710,7 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Sixteen source-checked item versions are recorded as evidence only. Head is observed at item levels 219, 285 (Veteran 3/6), 298 (Champion 3/6), 305, 308 (Hero 2/6), 311 (Hero 3/6), 315, 318, 321, 324 (Myth 3/6), and 334 (Mythic 6/6). Hands have a source-cross-checked Mythic 6/6 item-level 334 observation; Chest, Legs, and Shoulders have isolated item-level 334 observations. Other difficulty and upgrade variants remain unverified. All observations remain evidence-only and are not optimizer candidates."
+      "variantObservationsNote": "Twenty-four source-checked item versions are recorded as evidence only. Head is observed at item levels 219, 285 (Veteran 3/6), 298 (Champion 3/6), 305, 308 (Hero 2/6), 311 (Hero 3/6), 315, 318, 321, 324 (Myth 3/6), and 334 (Mythic 6/6). Legs now include a source-checked Champion 5/6 version at item level 305 and a Mythic 6/6 version at 334. Hands have source-cross-checked item-level 331 and 334 observations; Chest has 311, 321, 324, 328, and 334; Shoulders have 308, 311, 321, and 334. Other difficulty and upgrade variants remain unverified. All observations remain evidence-only and are not optimizer candidates."
     },
     {
       "class": "Warrior",
