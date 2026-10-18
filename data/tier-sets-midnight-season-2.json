@@ -11738,10 +11738,51 @@
               "source": "Wowhead tooltip, item level 308"
             }
           ]
+        },
+        {
+          "itemId": 271547,
+          "setId": "damned-necrolyte-s-shattered-restraints",
+          "name": "Damned Necrolyte's Charred Grasps",
+          "slot": "Hands",
+          "variant": "Mythic 6/6 observed",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271547/damned-necrolytes-charred-grasps?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 141,
+              "source": "Azeroth Codex equipped profile and Wowhead item tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Azeroth Codex equipped profile and Wowhead item tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 45,
+              "source": "Azeroth Codex equipped profile and Wowhead item tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 106,
+              "source": "Azeroth Codex equipped profile and Wowhead item tooltip, item level 334"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Fourteen source-checked item versions are recorded as evidence only. Head is observed at item levels 219, 285 (Veteran 3/6), 298 (Champion 3/6), 305, 308 (Hero 2/6), 311 (Hero 3/6), 315, 318, 321, and 324 (Myth 3/6). Hands are observed at 331; Chest, Legs, and Shoulders have isolated item-level 334 observations. Other difficulty and upgrade variants remain unverified. All observations remain evidence-only and are not optimizer candidates."
+      "variantObservationsNote": "Fifteen source-checked item versions are recorded as evidence only. Head is observed at item levels 219, 285 (Veteran 3/6), 298 (Champion 3/6), 305, 308 (Hero 2/6), 311 (Hero 3/6), 315, 318, 321, and 324 (Myth 3/6). Hands now have a source-cross-checked Mythic 6/6 item-level 334 observation; Chest, Legs, and Shoulders have isolated item-level 334 observations. Other difficulty and upgrade variants remain unverified. All observations remain evidence-only and are not optimizer candidates."
     },
     {
       "class": "Warrior",
@@ -12524,10 +12565,51 @@
               "source": "Warcraft Wiki item page, item level 324"
             }
           ]
+        },
+        {
+          "itemId": 271455,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Greaves of the Jade Warlord",
+          "slot": "Legs",
+          "variant": "Mythic 6/6 observed",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271455/greaves-of-the-jade-warlord?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 189,
+              "source": "MythicSim item listing and Wowhead item page, item level 334"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead item tooltip, item level 334"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 135,
+              "source": "MythicSim item listing and Wowhead item page, item level 334"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 66,
+              "source": "MythicSim item listing and Wowhead item page, item level 334"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "These source-checked versions are evidence only, not eligible optimizer candidates and not a complete list of upgrade/effect variants. Preserve distinct records when item ID and item level match but stats differ."
+      "variantObservationsNote": "Seventeen source-checked versions are recorded as evidence only. Mythic 6/6 item-level 334 observations now exist for Head, Shoulders, Chest, Hands, and Legs; lower-rank records are also present for Shoulders, Chest, Hands, and Legs. These are not eligible optimizer candidates and do not establish a complete difficulty/upgrade/effect variant map. Preserve distinct records when item ID and item level match but stats differ."
     }
   ],
   "itemMatching": {
