@@ -12,10 +12,11 @@ Scope: source-verified numeric item variants needed before tier pieces can becom
 - Verified Death Knight PvE candidates: **25/25** (four baseline PvE difficulty variants plus exact Mythic 6/6 item-level-334 variants across five slots).
 - Verified Demon Hunter PvE candidates: **25/25** (source-documented baseline PvE variants plus exact Mythic 6/6 item-level-334 variants across five slots).
 - Druid verified candidates: **24/25**; Legs at item level 334 remains evidence-only because the source does not verify the upgrade rank.
+- Monk verified candidates: **24/25**; Legs at item level 334 remains evidence-only because the source does not verify the upgrade rank.
 - Verified Evoker PvE candidates: **25/25** (source-documented baseline PvE variants plus exact Mythic 6/6 item-level-334 variants across five slots).
 - Verified Mage PvE candidates: **25/25** (source-documented baseline PvE variants plus exact Mythic 6/6 item-level-334 variants across five slots).
 - Verified Priest PvE candidates: **25/25** (source-documented baseline PvE variants plus exact Mythic 6/6 item-level-334 variants across five slots).
-- Non-Shaman evidence-only observations: **280 records across 12 classes**. These are useful evidence, not complete variant maps.
+- Non-Shaman evidence-only observations: **298 records across 12 classes**. These are useful evidence, not complete variant maps.
 - Remaining baseline: five classes—Hunter, Paladin, Rogue, Warlock, and Warrior—still need complete baseline candidate maps across all 25 slots (up to 100 baseline PvE difficulty records). Druid and Monk each need source-verified Mythic 6/6 Legs data before their 25-slot maps are complete. The six complete baseline maps are Death Knight, Demon Hunter, Evoker, Mage, Priest, and Shaman. Intermediate upgrade-rank mapping remains incomplete across all classes and must use exact source data.
 - PvP appearances are not optimizer candidates unless their numeric item level and stats are independently verified.
 - Do not enable numeric tier-bonus scoring without a separate trustworthy, simulation-backed scoring source.
