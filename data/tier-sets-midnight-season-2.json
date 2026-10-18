@@ -594,10 +594,215 @@
               "source": "Wowhead tooltip, item level 318"
             }
           ]
+        },
+        {
+          "itemId": 271474,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Casque",
+          "slot": "Head",
+          "variant": "Veteran 3/6 observed",
+          "itemLevel": 285,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Baleful_Grave-Knight%27s_Casque",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki tier item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki tier item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 112,
+              "source": "Warcraft Wiki tier item page, item level 285"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 49,
+              "source": "Warcraft Wiki tier item page, item level 285"
+            }
+          ]
+        },
+        {
+          "itemId": 271474,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Casque",
+          "slot": "Head",
+          "variant": "Champion 3/6 observed",
+          "itemLevel": 298,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Baleful_Grave-Knight%27s_Casque",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki tier item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki tier item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki tier item page, item level 298"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 53,
+              "source": "Warcraft Wiki tier item page, item level 298"
+            }
+          ]
+        },
+        {
+          "itemId": 271474,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Casque",
+          "slot": "Head",
+          "variant": "Myth 3/6 observed",
+          "itemLevel": 324,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Baleful_Grave-Knight%27s_Casque",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki tier item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki tier item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 134,
+              "source": "Warcraft Wiki tier item page, item level 324"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 59,
+              "source": "Warcraft Wiki tier item page, item level 324"
+            }
+          ]
+        },
+        {
+          "itemId": 271472,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Gibbets",
+          "slot": "Shoulders",
+          "variant": "Veteran 2/6 observed",
+          "itemLevel": 282,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Baleful_Grave-Knight%27s_Crucible",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 87,
+              "source": "Warcraft Wiki tier item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "Warcraft Wiki tier item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 39,
+              "source": "Warcraft Wiki tier item page, item level 282"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 80,
+              "source": "Warcraft Wiki tier item page, item level 282"
+            }
+          ]
+        },
+        {
+          "itemId": 271472,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Gibbets",
+          "slot": "Shoulders",
+          "variant": "Myth 2/6 observed",
+          "itemLevel": 321,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Baleful_Grave-Knight%27s_Crucible",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 125,
+              "source": "Warcraft Wiki tier item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Warcraft Wiki tier item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 47,
+              "source": "Warcraft Wiki tier item page, item level 321"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 96,
+              "source": "Warcraft Wiki tier item page, item level 321"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Observed source-backed versions expand the known item-level range for Head and Shoulders, but the full per-slot variant map remains incomplete; these observations are not optimizer candidates."
+      "variantObservationsNote": "Sixteen source-checked item versions are recorded as evidence only. Head is observed at item levels 285, 298, 305, 308, 311, 321, and 324; Shoulders at 282, 295, 308, 318, and 321. Chest, Hands, and Legs have isolated observed versions only. Other difficulty and upgrade variants remain unverified; all observations remain ineligible as optimizer candidates."
     },
     {
       "class": "Demon Hunter",
