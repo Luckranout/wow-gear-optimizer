@@ -3744,6 +3744,54 @@
               "source": "Azeroth Codex level-334 equipped profile; secondary stats vary by observed version, so this is one exact observed variant."
             }
           ]
+        },
+        {
+          "itemId": 271527,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Leggings",
+          "slot": "Legs",
+          "variant": "Item level 334 observed (equipped profile)",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271527/enigmatic-dreamwatchers-leggings?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 189,
+              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Leggings at item level 334."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Leggings at item level 334."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Leggings at item level 334."
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 63,
+              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Leggings at item level 334."
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 138,
+              "source": "Azeroth Codex equipped profile explicitly lists Enigmatic Dreamwatcher's Leggings at item level 334."
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
@@ -7638,6 +7686,54 @@
               "source": "Warcraft Wiki item page, item level 324; primary stat is specialization-dependent"
             }
           ]
+        },
+        {
+          "itemId": 271518,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Pantaloons of the Monkey King",
+          "slot": "Legs",
+          "variant": "Item level 334 observed (equipped profile)",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271518/pantaloons-of-the-monkey-king?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 189,
+              "source": "Azeroth Codex equipped profile explicitly lists Pantaloons of the Monkey King at item level 334."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Azeroth Codex equipped profile explicitly lists Pantaloons of the Monkey King at item level 334."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Azeroth Codex equipped profile explicitly lists Pantaloons of the Monkey King at item level 334."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 130,
+              "source": "Azeroth Codex equipped profile explicitly lists Pantaloons of the Monkey King at item level 334."
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 71,
+              "source": "Azeroth Codex equipped profile explicitly lists Pantaloons of the Monkey King at item level 334."
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
@@ -8286,6 +8382,54 @@
               },
               "value": 43,
               "source": "Warcraft Wiki item page, item level 321"
+            }
+          ]
+        },
+        {
+          "itemId": 271466,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Gauntlets of the Consecrated Flame",
+          "slot": "Hands",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271466/gauntlets-of-the-consecrated-flame?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 141,
+              "source": "Wowhead item-specific tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 141,
+              "source": "Wowhead item-specific tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead item-specific tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 49,
+              "source": "Wowhead item-specific tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 101,
+              "source": "Wowhead item-specific tooltip explicitly lists Mythic 6/6 at item level 334."
             }
           ]
         }
@@ -9113,6 +9257,47 @@
               },
               "value": 47,
               "source": "Warcraft Wiki item page, item level 321"
+            }
+          ]
+        },
+        {
+          "itemId": 271556,
+          "setId": "cosmic-penitent-s-raiment",
+          "name": "Cosmic Penitent's Celestial Grips",
+          "slot": "Hands",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271556/cosmic-penitents-celestial-grips?ilvl=334",
+          "stats": [
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 141,
+              "source": "Wowhead item-specific tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2932,
+              "source": "Wowhead item-specific tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 53,
+              "source": "Wowhead item-specific tooltip explicitly lists Mythic 6/6 at item level 334."
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 98,
+              "source": "Wowhead item-specific tooltip explicitly lists Mythic 6/6 at item level 334."
             }
           ]
         }
