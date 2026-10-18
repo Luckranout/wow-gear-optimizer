@@ -2453,6 +2453,54 @@
               "source": "Azeroth Codex level-334 equipped profile"
             }
           ]
+        },
+        {
+          "itemId": 271536,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Legwraps",
+          "slot": "Legs",
+          "variant": "Mythic 6/6",
+          "itemLevel": 334,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271536/abyssal-doomhounds-legwraps?bonus=13334%3A6652%3A13847%3A13695%3A13692%3A13698%3A12854&ilvl=334&spec=577",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 189,
+              "source": "Wowhead item level 334 tooltip; cross-checked against equipped level-334 profile"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 189,
+              "source": "Wowhead item level 334 tooltip; primary stat shown for eligible Demon Hunter specs"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Wowhead item level 334 tooltip; cross-checked against equipped level-334 profile"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 63,
+              "source": "Azeroth Codex level-334 equipped profile; corroborated by item-specific Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 138,
+              "source": "Azeroth Codex level-334 equipped profile; corroborated by item-specific Wowhead tooltip"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
