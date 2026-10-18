@@ -6077,6 +6077,170 @@
               "source": "Warcraft Wiki item page, item level 321"
             }
           ]
+        },
+        {
+          "itemId": 271519,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Monkey King's Unyielding Visage",
+          "slot": "Head",
+          "variant": "Veteran 3/6 observed",
+          "itemLevel": 285,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Monkey_King%27s_Unyielding_Visage",
+          "stats": [
+            {
+              "type": {
+                "name": "agilityOrIntellect"
+              },
+              "value": 119,
+              "source": "Warcraft Wiki item page, item level 285; primary stat is specialization-dependent"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Warcraft Wiki item page, item level 285; primary stat is specialization-dependent"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 47,
+              "source": "Warcraft Wiki item page, item level 285; primary stat is specialization-dependent"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 114,
+              "source": "Warcraft Wiki item page, item level 285; primary stat is specialization-dependent"
+            }
+          ]
+        },
+        {
+          "itemId": 271519,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Monkey King's Unyielding Visage",
+          "slot": "Head",
+          "variant": "Champion 3/6 observed",
+          "itemLevel": 298,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Monkey_King%27s_Unyielding_Visage",
+          "stats": [
+            {
+              "type": {
+                "name": "agilityOrIntellect"
+              },
+              "value": 135,
+              "source": "Warcraft Wiki item page, item level 298; primary stat is specialization-dependent"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "Warcraft Wiki item page, item level 298; primary stat is specialization-dependent"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 50,
+              "source": "Warcraft Wiki item page, item level 298; primary stat is specialization-dependent"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 122,
+              "source": "Warcraft Wiki item page, item level 298; primary stat is specialization-dependent"
+            }
+          ]
+        },
+        {
+          "itemId": 271519,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Monkey King's Unyielding Visage",
+          "slot": "Head",
+          "variant": "Hero 3/6 observed",
+          "itemLevel": 311,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Monkey_King%27s_Unyielding_Visage",
+          "stats": [
+            {
+              "type": {
+                "name": "agilityOrIntellect"
+              },
+              "value": 152,
+              "source": "Warcraft Wiki item page, item level 311; primary stat is specialization-dependent"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "Warcraft Wiki item page, item level 311; primary stat is specialization-dependent"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 53,
+              "source": "Warcraft Wiki item page, item level 311; primary stat is specialization-dependent"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 129,
+              "source": "Warcraft Wiki item page, item level 311; primary stat is specialization-dependent"
+            }
+          ]
+        },
+        {
+          "itemId": 271519,
+          "setId": "guile-of-the-monkey-king",
+          "name": "Monkey King's Unyielding Visage",
+          "slot": "Head",
+          "variant": "Myth 3/6 observed",
+          "itemLevel": 324,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://warcraft.wiki.gg/wiki/Monkey_King%27s_Unyielding_Visage",
+          "stats": [
+            {
+              "type": {
+                "name": "agilityOrIntellect"
+              },
+              "value": 172,
+              "source": "Warcraft Wiki item page, item level 324; primary stat is specialization-dependent"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "Warcraft Wiki item page, item level 324; primary stat is specialization-dependent"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 56,
+              "source": "Warcraft Wiki item page, item level 324; primary stat is specialization-dependent"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 137,
+              "source": "Warcraft Wiki item page, item level 324; primary stat is specialization-dependent"
+            }
+          ]
         }
       ],
       "variantObservationsStatus": "partial",
