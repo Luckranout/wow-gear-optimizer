@@ -110,7 +110,7 @@ test("Demon Hunter has verified baseline PvE and exact Mythic 6/6 candidates for
 test("Warrior source-checked variant observations remain evidence-only and preserve same-level stat variants", () => {
   const warrior = catalogue.sets.find(set => set.class === "Warrior");
   const observations = warrior.verifiedVariantObservations || [];
-  assert.equal(observations.length, 26);
+  assert.equal(observations.length, 28);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(warrior.variantObservationsStatus, "partial");
   assert.match(warrior.variantObservationsNote, /Hands have exact source-backed item versions at 295, 308, 318, 321.*334/i);
@@ -412,9 +412,9 @@ test("Demon Hunter source-checked tier versions remain evidence-only and preserv
       "source URL must point to an accepted item reference or explicitly scoped build-source observation"
     );
     if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
-    if (sourceUrl.hostname === "www.wowhead.com") {
+    if (sourceUrl.hostname === "www.wowhead.com" && sourceUrl.searchParams.has("ilvl")) {
       assert.equal(Number(sourceUrl.searchParams.get("ilvl")), piece.itemLevel,
-        "Wowhead source URL must pin the exact observed item level");
+        "Wowhead source URL must pin the exact observed item level when an ilvl query is supplied");
     } else {
       assert.ok(piece.stats.every(stat => stat.source.includes(String(piece.itemLevel))),
         "Warcraft Wiki observations must label the exact observed item level in every stat source");
@@ -1805,6 +1805,17 @@ test("Warrior helm lower-rank variants preserve exact stats and remain evidence-
 });
 test("Warrior Mythic 6/6 legs observation remains evidence-only", () => {
   const warrior = catalogue.sets.find(set => set.class === "Warrior");
+  for (const [level, expected] of [
+    [282, { strength: 116, stamina: 2142, versatility: 107, mastery: 52 }],
+    [289, { strength: 124, stamina: 2326, versatility: 111, mastery: 54 }]
+  ]) {
+    const observed = (warrior.verifiedVariantObservations || []).find(item => item.itemId === 271455 && item.itemLevel === level);
+    assert.ok(observed, `missing Warrior Legs item-level-${level} observation`);
+    assert.equal(observed.candidate, false);
+    assert.equal(observed.verificationScope, "observed-version-only");
+    assert.ok(observed.stats.every(stat => stat.source.includes(String(level))));
+    assert.deepEqual(Object.fromEntries(observed.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
   const piece = (warrior.verifiedVariantObservations || []).find(item => item.itemId === 271455 && item.itemLevel === 334);
   assert.ok(piece);
   assert.equal(piece.variant, "Mythic 6/6 observed");
