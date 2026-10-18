@@ -66,7 +66,7 @@ test("all 13 classes have source-backed secondary-stat profiles without pretendi
 test("Warrior source-checked variant observations remain evidence-only and preserve same-level stat variants", () => {
   const warrior = catalogue.sets.find(set => set.class === "Warrior");
   const observations = warrior.verifiedVariantObservations || [];
-  assert.equal(observations.length, 17);
+  assert.equal(observations.length, 18);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(warrior.variantObservationsStatus, "partial");
   assert.match(warrior.variantObservationsNote, /not eligible optimizer candidates/i);
@@ -1356,6 +1356,17 @@ test("Monk source-backed tier item versions remain evidence-only and match sourc
   }
   const chestByLevel = new Map(observations.filter(piece => piece.itemId === 271522).map(piece => [piece.itemLevel, piece]));
   assert.deepEqual([...chestByLevel.keys()].sort((a, b) => a - b), [311, 324, 334]);
+  const legsByLevel = new Map(observations.filter(piece => piece.itemId === 271518).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...legsByLevel.keys()].sort((a, b) => a - b), [311, 324, 334]);
+  const mythicThreeLegs = legsByLevel.get(324);
+  assert.equal(mythicThreeLegs.variant, "Mythic 3/6 observed");
+  assert.equal(mythicThreeLegs.sourceUrl, "https://warcraft.wiki.gg/wiki/Guile_of_the_Monkey_King");
+  assert.equal(mythicThreeLegs.candidate, false);
+  assert.equal(mythicThreeLegs.verificationScope, "observed-version-only");
+  assert.deepEqual(Object.fromEntries(mythicThreeLegs.stats.map(stat => [stat.type.name, stat.value])), {
+    agility: 172, intellect: 172, stamina: 3487, criticalStrike: 125, versatility: 68
+  });
+  assert.ok(mythicThreeLegs.stats.every(stat => stat.source.includes("324")));
   const maxLegs = observations.find(piece => piece.itemId === 271518 && piece.itemLevel === 334);
   assert.ok(maxLegs, "missing Monk Legs observation at item level 334");
   assert.equal(maxLegs.variant, "Item level 334 observed; upgrade rank unverified");
@@ -1381,6 +1392,7 @@ test("Monk source-backed tier item versions remain evidence-only and match sourc
     "271519:311": { agilityOrIntellect: 152, stamina: 3002, criticalStrike: 53, mastery: 129 },
     "271519:324": { agilityOrIntellect: 172, stamina: 3487, criticalStrike: 56, mastery: 137 },
     "271518:311": { agility: 152, intellect: 152, stamina: 3002, criticalStrike: 118, versatility: 65 },
+    "271518:324": { agility: 172, intellect: 172, stamina: 3487, criticalStrike: 125, versatility: 68 },
     "271518:334": { agility: 189, intellect: 189, stamina: 3910, criticalStrike: 130, versatility: 71 },
     "271517:282": { agility: 87, intellect: 87, stamina: 1606, haste: 82, mastery: 37 },
     "271517:295": { agility: 98, intellect: 98, stamina: 1869, haste: 87, mastery: 40 },
