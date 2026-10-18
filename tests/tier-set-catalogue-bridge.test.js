@@ -42,6 +42,7 @@ test("all 13 classes have five manifest-matched base tier IDs and source-backed 
 test("catalogue reports ID mapping separately from variant stats and numeric bonus scoring", () => {
   assert.equal(catalogue.itemMatching.status, "partial");
   assert.deepEqual(catalogue.itemMatching.verifiedClasses, []);
+  assert.deepEqual(catalogue.itemMatching.candidateVariantClasses, ["Death Knight", "Demon Hunter", "Druid", "Evoker", "Hunter", "Mage", "Monk", "Paladin", "Priest", "Shaman"]);
   assert.equal(catalogue.itemMatching.baseItemIdsVerifiedClasses.length, 13);
   assert.deepEqual(catalogue.itemMatching.statsVerifiedClasses, ["Death Knight", "Demon Hunter", "Druid", "Evoker", "Mage", "Monk", "Paladin", "Priest", "Shaman"]);
   assert.equal(catalogue.sets.every(set => set.numericScoringAvailable !== true), true);
@@ -72,7 +73,8 @@ test("all 13 classes have source-backed secondary-stat profiles without pretendi
 
 test("Demon Hunter has verified baseline PvE and exact Mythic 6/6 candidates for all five slots", () => {
   const demonHunter = catalogue.sets.find(set => set.class === "Demon Hunter");
-  assert.equal(demonHunter.itemIdsVerified, true);
+  assert.equal(demonHunter.itemIdsVerified, false);
+  assert.equal(demonHunter.candidateVariantsAvailable, true);
   assert.equal(demonHunter.pieces.length, 25);
   assert.equal(demonHunter.pieces.filter(piece => piece.candidate).length, 25);
   const expected = {
@@ -146,7 +148,8 @@ test("Warrior source-checked variant observations remain evidence-only and prese
 
 test("Death Knight verified baseline candidates and source-checked tier observations preserve exact stats", () => {
   const deathKnight = catalogue.sets.find(set => set.class === "Death Knight");
-  assert.equal(deathKnight.itemIdsVerified, true, "Death Knight baseline tier map must be verified");
+  assert.equal(deathKnight.itemIdsVerified, false, "the full upgrade-rank map remains partial");
+  assert.equal(deathKnight.candidateVariantsAvailable, true);
   assert.equal(deathKnight.pieces.length, 25, "Death Knight must expose 20 baseline candidates plus five exact Mythic 6/6 variants");
   assert.equal(deathKnight.pieces.filter(piece => piece.candidate).length, 25);
   assert.ok(deathKnight.pieces.every(piece => piece.candidate === true && !("verificationScope" in piece)), "verified candidate records must not retain evidence-only scope");
@@ -1047,16 +1050,14 @@ test("optimizer coverage distinguishes verified base-piece IDs from unverified v
   assert.equal(deathKnight.variantMappingVerified, false);
   assert.equal(deathKnight.verifiedPieceCount, 5);
   assert.equal(deathKnight.expectedPieceCount, 5);
-  assert.deepEqual(deathKnight.verifiedCandidateSlots, []);
-  assert.deepEqual(deathKnight.missingVerifiedCandidateSlots, [
-    "Head", "Shoulders", "Chest", "Hands", "Legs"
-  ]);
+  assert.deepEqual(deathKnight.verifiedCandidateSlots, ["Head", "Shoulders", "Chest", "Hands", "Legs"]);
+  assert.deepEqual(deathKnight.missingVerifiedCandidateSlots, []);
   assert.deepEqual(deathKnight.observedOnlySlots, [
     "Head", "Shoulders", "Chest", "Hands", "Legs"
   ]);
   assert.ok(deathKnight.slotVariantCoverage.every(slot => Array.isArray(slot.observedOnlyItemLevels)));
-  assert.equal(deathKnight.verifiedClassCount, 1,
-    "only Shaman has fully verified variant mappings");
+  assert.equal(deathKnight.verifiedClassCount, 0,
+    "no class has a complete upgrade-rank map yet");
   assert.equal(deathKnight.baseMappingVerifiedClassCount, 13);
   assert.equal(deathKnight.numericScoringAvailable, false);
   assert.ok(deathKnight.limitations.some(note => /base tier-piece IDs are verified/i.test(note)));
@@ -1064,7 +1065,7 @@ test("optimizer coverage distinguishes verified base-piece IDs from unverified v
 
   const shaman = getTierSetCoverageStatus(catalogue, "Shaman", "Enhancement");
   assert.equal(shaman.itemMappingVerified, true);
-  assert.equal(shaman.variantMappingVerified, true);
+  assert.equal(shaman.variantMappingVerified, false);
   assert.equal(shaman.verifiedPieceCount, 5);
   assert.deepEqual(shaman.verifiedCandidateSlots, [
     "Head", "Shoulders", "Chest", "Hands", "Legs"
@@ -1121,7 +1122,7 @@ test("tier thresholds can be reported descriptively without inventing numeric bo
 test("Rogue source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
   const rogue = catalogue.sets.find(set => set.class === "Rogue");
   const observations = rogue.verifiedVariantObservations || [];
-  assert.equal(observations.length, 20);
+  assert.equal(observations.length, 31);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(rogue.variantObservationsStatus, "partial");
   assert.match(rogue.variantObservationsNote, /remain unverified/i);
@@ -1283,7 +1284,7 @@ test("Mage source-backed tier item versions remain evidence-only and match Wowhe
 test("Priest source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
   const priest = catalogue.sets.find(set => set.class === "Priest");
   const observations = priest.verifiedVariantObservations || [];
-  assert.equal(observations.length, 25);
+  assert.equal(observations.length, 28);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(priest.variantObservationsStatus, "partial");
   const handsByLevel = new Map(observations.filter(piece => piece.itemId === 271556).map(piece => [piece.itemLevel, piece]));
@@ -1455,7 +1456,7 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
 test("Monk source-backed tier item versions remain evidence-only and match source stats", () => {
   const monk = catalogue.sets.find(set => set.class === "Monk");
   const observations = monk.verifiedVariantObservations || [];
-  assert.equal(observations.length, 18);
+  assert.equal(observations.length, 29);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(monk.variantObservationsStatus, "partial");
   assert.match(monk.variantObservationsNote, /legs have item-level-334 observations/i);
@@ -1640,7 +1641,8 @@ test("Shaman tier item versions remain evidence-only with exact source levels", 
 test("all-class observed tier variants stay separate from eligible optimizer candidates", () => {
   for (const set of catalogue.sets) {
     if (set.class === "Shaman") {
-      assert.equal(set.itemIdsVerified, true);
+      assert.equal(set.itemIdsVerified, false);
+      assert.equal(set.candidateVariantsAvailable, true);
       assert.equal(set.pieces.length, 30);
       assert.equal(set.pieces.filter(piece => piece.candidate === true).length, 20,
         "only the four PvE difficulty variants per slot have verified numeric stats");
@@ -1880,7 +1882,8 @@ test("Druid tier observations preserve the source-backed Hero 6/6 head at item l
 
 test("Druid has baseline candidates and excludes unranked item-level-334 Legs", () => {
   const druid = catalogue.sets.find(set => set.class === "Druid");
-  assert.equal(druid.itemIdsVerified, true);
+  assert.equal(druid.itemIdsVerified, false);
+  assert.equal(druid.candidateVariantsAvailable, true);
   assert.equal(druid.baseItemIdsVerified, true);
   assert.equal(druid.pieces.length, 24);
   assert.equal(druid.pieces.filter(piece => piece.candidate).length, 24);
@@ -1921,7 +1924,8 @@ test("Druid has baseline candidates and excludes unranked item-level-334 Legs", 
 
 test("Evoker has source-verified baseline PvE and exact Mythic 6/6 candidates for all five slots", () => {
   const evoker = catalogue.sets.find(set => set.class === "Evoker");
-  assert.equal(evoker.itemIdsVerified, true);
+  assert.equal(evoker.itemIdsVerified, false);
+  assert.equal(evoker.candidateVariantsAvailable, true);
   assert.equal(evoker.baseItemIdsVerified, true);
   assert.equal(evoker.pieces.length, 25);
   assert.equal(evoker.pieces.filter(piece => piece.candidate).length, 25);
@@ -1958,7 +1962,8 @@ test("Evoker has source-verified baseline PvE and exact Mythic 6/6 candidates fo
 
 test("Mage has source-verified baseline PvE and exact Mythic 6/6 candidates for all five slots", () => {
   const mage = catalogue.sets.find(set => set.class === "Mage");
-  assert.equal(mage.itemIdsVerified, true);
+  assert.equal(mage.itemIdsVerified, false);
+  assert.equal(mage.candidateVariantsAvailable, true);
   assert.equal(mage.baseItemIdsVerified, true);
   assert.equal(mage.pieces.length, 25);
   assert.equal(mage.pieces.filter(piece => piece.candidate).length, 25);
@@ -1994,7 +1999,8 @@ test("Mage has source-verified baseline PvE and exact Mythic 6/6 candidates for 
 
 test("Priest has source-verified baseline PvE and exact Mythic 6/6 candidates for all five slots", () => {
   const priest = catalogue.sets.find(set => set.class === "Priest");
-  assert.equal(priest.itemIdsVerified, true);
+  assert.equal(priest.itemIdsVerified, false);
+  assert.equal(priest.candidateVariantsAvailable, true);
   assert.equal(priest.baseItemIdsVerified, true);
   assert.equal(priest.pieces.length, 25);
   assert.equal(priest.pieces.filter(piece => piece.candidate).length, 25);
@@ -2030,7 +2036,8 @@ test("Priest has source-verified baseline PvE and exact Mythic 6/6 candidates fo
 
 test("Monk keeps unranked item-level-334 Legs evidence-only while other baseline variants remain candidates", () => {
   const monk = catalogue.sets.find(set => set.class === "Monk");
-  assert.equal(monk.itemIdsVerified, true);
+  assert.equal(monk.itemIdsVerified, false);
+  assert.equal(monk.candidateVariantsAvailable, true);
   assert.equal(monk.baseItemIdsVerified, true);
   assert.equal(monk.pieces.length, 24);
   assert.equal(monk.pieces.filter(piece => piece.candidate).length, 24);
@@ -2056,7 +2063,8 @@ test("Monk keeps unranked item-level-334 Legs evidence-only while other baseline
 
 test("Paladin has source-verified baseline PvE and exact Mythic 6/6 candidates for all five slots", () => {
   const paladin = catalogue.sets.find(set => set.class === "Paladin");
-  assert.equal(paladin.itemIdsVerified, true);
+  assert.equal(paladin.itemIdsVerified, false);
+  assert.equal(paladin.candidateVariantsAvailable, true);
   assert.equal(paladin.baseItemIdsVerified, true);
   assert.equal(paladin.pieces.length, 25);
   assert.equal(paladin.pieces.filter(piece => piece.candidate).length, 25);
@@ -2092,7 +2100,8 @@ test("Paladin has source-verified baseline PvE and exact Mythic 6/6 candidates f
 
 test("Hunter has source-verified baseline candidates using the class-specific Mythic Legs level", () => {
   const hunter = catalogue.sets.find(set => set.class === "Hunter");
-  assert.equal(hunter.itemIdsVerified, true);
+  assert.equal(hunter.itemIdsVerified, false);
+  assert.equal(hunter.candidateVariantsAvailable, true);
   assert.equal(hunter.baseItemIdsVerified, true);
   assert.equal(hunter.pieces.length, 25);
   assert.equal(hunter.pieces.filter(piece => piece.candidate).length, 25);
@@ -2108,9 +2117,13 @@ test("Hunter has source-verified baseline candidates using the class-specific My
     assert.deepEqual(entries.map(piece => [piece.variant, piece.itemLevel]), expectedVariants);
     assert.ok(entries.every(piece => piece.candidate === true && piece.verificationScope === "observed-version-only"));
     assert.ok(entries.every(piece => piece.stats.length >= 4 && piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0)));
-    assert.ok(entries.every(piece => {\n      const url = new URL(piece.sourceUrl);\n      if (url.hostname === "www.wowhead.com" && url.searchParams.has("ilvl")) return Number(url.searchParams.get("ilvl")) === piece.itemLevel;\n      if (url.hostname === "warcraft.wiki.gg") return piece.stats.every(stat => stat.source.includes(`item level ${piece.itemLevel}`));\n      return piece.stats.every(stat => typeof stat.source === "string" && stat.source.length > 0);\n    }));
+    assert.ok(entries.every(piece => {
+      const url = new URL(piece.sourceUrl);
+      if (url.hostname === "www.wowhead.com" && url.searchParams.has("ilvl")) return Number(url.searchParams.get("ilvl")) === piece.itemLevel;
+      if (url.hostname === "warcraft.wiki.gg") return piece.stats.every(stat => stat.source.includes(`item level ${piece.itemLevel}`));
+      return piece.stats.every(stat => typeof stat.source === "string" && stat.source.length > 0);
+    }));
   }
-  assert.equal(hunter.variantObservationsStatus, "partial",
-    "baseline candidates must not imply all intermediate upgrade ranks are complete");
+  assert.equal(hunter.variantObservationsStatus, "partial", "baseline candidates must not imply all intermediate upgrade ranks are complete");
   assert.ok(hunter.verifiedVariantObservations.every(piece => piece.candidate === false));
 });
