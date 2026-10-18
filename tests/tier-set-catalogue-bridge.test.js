@@ -170,10 +170,10 @@ test("Paladin observed tier variants are source-backed and remain evidence-only"
 test("Demon Hunter source-checked tier versions remain evidence-only and preserve observed stats", () => {
   const demonHunter = catalogue.sets.find(set => set.class === "Demon Hunter");
   const observations = demonHunter.verifiedVariantObservations || [];
-  assert.equal(observations.length, 10);
+  assert.equal(observations.length, 11);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(demonHunter.variantObservationsStatus, "partial");
-  assert.match(demonHunter.variantObservationsNote, /Hands at base item level 219 and Hero 1\/6 item level 305, Hero 2\/6 item level 308, and Myth 2\/6 item level 321/i);
+  assert.match(demonHunter.variantObservationsNote, /Hands at base item level 219, Champion 2\/6 item level 295, Hero 1\/6 item level 305, Hero 2\/6 item level 308, and Myth 2\/6 item level 321/i);
   assert.match(demonHunter.variantObservationsNote, /Legs at item levels 295, 311, and 318/i);
   const manifestSet = manifest.sets.find(set => set.className === "Demon Hunter");
   const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
@@ -229,6 +229,10 @@ test("Demon Hunter source-checked tier versions remain evidence-only and preserv
     Object.fromEntries(mythicGloves.stats.map(stat => [stat.type.name, stat.value])),
     { agility: 125, stamina: 2527, criticalStrike: 98, mastery: 45 }
   );
+  assert.equal(championGloves.variant, "Champion 2/6 observed");
+  assert.equal(championGloves.candidate, false);
+  assert.deepEqual(Object.fromEntries(championGloves.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 98, stamina: 1869, criticalStrike: 87, mastery: 40 });
   const legs = observations.filter(piece => piece.itemId === 271536).sort((a, b) => a.itemLevel - b.itemLevel);
   assert.deepEqual(legs.map(piece => piece.itemLevel), [295, 311, 318]);
   assert.deepEqual(
@@ -332,10 +336,6 @@ test("Evoker source-checked tier versions remain evidence-only and preserve obse
     { agility: 189, intellect: 189, stamina: 3910, haste: 135, versatility: 66 }
   );
   const gloves = observations.find(piece => piece.itemId === 271502);
-  assert.equal(championGloves.variant, "Champion 2/6 observed");
-  assert.equal(championGloves.candidate, false);
-  assert.deepEqual(Object.fromEntries(championGloves.stats.map(stat => [stat.type.name, stat.value])),
-    { agility: 98, stamina: 1869, criticalStrike: 87, mastery: 40 });
   assert.equal(gloves.itemLevel, 321);
   assert.equal(evoker.itemIdsVerified, false,
     "partial observed versions must not promote the complete class variant map");
