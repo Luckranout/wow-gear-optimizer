@@ -1251,7 +1251,7 @@ test("Rogue source-backed tier item versions remain evidence-only and match Wowh
 test("Mage source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
   const mage = catalogue.sets.find(set => set.class === "Mage");
   const observations = mage.verifiedVariantObservations || [];
-  assert.equal(observations.length, 28);
+  assert.equal(observations.length, 26);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(mage.variantObservationsStatus, "partial");
   assert.match(mage.variantObservationsNote, /full class variant map remains partial/i);
@@ -1432,7 +1432,7 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
     { intellect: 125, stamina: 2527, haste: 47, versatility: 96 });
   assert.equal(Number(new URL(shoulders321.sourceUrl).searchParams.get("ilvl")), 321);
   const shoulderLevels = observations.filter(piece => piece.itemId === 271544).map(piece => piece.itemLevel).sort((a, b) => a - b);
-  assert.deepEqual(shoulderLevels, [308, 311, 321, 334]);
+  assert.deepEqual(shoulderLevels, [282, 295, 308, 311, 321, 334]);
   for (const level of [308, 311]) {
     const shoulder = observations.find(piece => piece.itemId === 271544 && piece.itemLevel === level);
     assert.ok(shoulder);
