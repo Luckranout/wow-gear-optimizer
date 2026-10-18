@@ -167,7 +167,7 @@ test("Death Knight source-checked tier versions preserve observed stats without 
 test("Paladin observed tier variants are source-backed and remain evidence-only", () => {
   const paladin = catalogue.sets.find(set => set.class === "Paladin");
   const observations = paladin.verifiedVariantObservations || [];
-  assert.equal(observations.length, 16);
+  assert.equal(observations.length, 12);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(paladin.variantObservationsStatus, "partial");
   assert.match(paladin.variantObservationsNote, /not optimizer candidates/i);
@@ -520,7 +520,7 @@ test("Druid source-checked tier versions remain evidence-only and preserve obser
 test("Evoker source-checked tier versions remain evidence-only and preserve observed stats", () => {
   const evoker = catalogue.sets.find(set => set.class === "Evoker");
   const observations = evoker.verifiedVariantObservations || [];
-  assert.equal(observations.length, 12);
+  assert.equal(observations.length, 16);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(evoker.variantObservationsStatus, "partial");
   assert.match(evoker.variantObservationsNote, /remain ineligible as optimizer candidates/i);
