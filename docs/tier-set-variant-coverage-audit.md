@@ -76,7 +76,7 @@ The current catalogue records at least one item-level-334 observation for all fi
 | Rogue | Head, Shoulders, Chest, Hands, Legs | Baseline and 334 observations exist across all five slots; remaining work is exact rank-by-rank upgrade variants. |
 | Shaman | Head, Shoulders, Chest, Hands, Legs | Keep the 20 verified PvE candidate records separate from the 25 evidence-only observations; complete intermediate upgrade-rank mapping. |
 | Warlock | Head, Shoulders, Chest, Hands, Legs | Baseline and 334 observations exist across all five slots; remaining work is exact rank-by-rank upgrade variants. |
-| Warrior | Hands, Legs baseline variants; intermediate upgrade ranks across all slots | Five 334 candidates exist. Verify the missing baseline levels from exact sources and keep the 344 chest variant separate from Mythic 6/6. |
+| Warrior | Head, Shoulders, Chest, Hands, Legs | Standard item-level-334 observations exist across all five slots; missing baseline variants are Hands 282 and Legs 285/298/311/324. Keep the separate 344 chest variant distinct. |
 
 ### Work sequence
 
