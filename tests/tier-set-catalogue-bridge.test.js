@@ -66,7 +66,7 @@ test("all 13 classes have source-backed secondary-stat profiles without pretendi
 test("Warrior source-checked variant observations remain evidence-only and preserve same-level stat variants", () => {
   const warrior = catalogue.sets.find(set => set.class === "Warrior");
   const observations = warrior.verifiedVariantObservations || [];
-  assert.equal(observations.length, 16);
+  assert.equal(observations.length, 17);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(warrior.variantObservationsStatus, "partial");
   assert.match(warrior.variantObservationsNote, /not eligible optimizer candidates/i);
@@ -1131,7 +1131,7 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
   }
   const expected = {
     271549: { intellect: 189, stamina: 3910, haste: 141, mastery: 60 },
-    271547: { intellect: 138, stamina: 2832, criticalStrike: 44, haste: 105 },
+    "271547:321": { intellect: 138, stamina: 2832, criticalStrike: 44, haste: 105 },
     "271546:219": { intellect: 65, stamina: 1005, versatility: 34, mastery: 73 },
     "271546:305": { intellect: 144, stamina: 2794, versatility: 57, mastery: 120 },
     "271546:308": { intellect: 148, stamina: 2896, versatility: 58, mastery: 122 },
@@ -1143,13 +1143,13 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
     "271546:321": { intellect: 167, stamina: 3369, versatility: 61, mastery: 129 },
     "271546:324": { intellect: 172, stamina: 3487, versatility: 62, mastery: 131 },
     271545: { intellect: 189, stamina: 3910, haste: 141, mastery: 60 },
-    271547: { intellect: 141, stamina: 2932, criticalStrike: 45, haste: 106 },
+    "271547:334": { intellect: 141, stamina: 2932, criticalStrike: 45, haste: 106 },
     271544: { intellect: 141, stamina: 2932, haste: 50, versatility: 101 }
   };
   for (const piece of observations) {
     assert.deepEqual(
       Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])),
-      expected[piece.itemId === 271546 ? `271546:${piece.itemLevel}` : piece.itemId]
+      expected[[271546, 271547].includes(piece.itemId) ? `${piece.itemId}:${piece.itemLevel}` : piece.itemId]
     );
   }
   assert.deepEqual(
@@ -1164,7 +1164,7 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
   assert.equal(mythicHands.candidate, false);
   assert.equal(mythicHands.verificationScope, "observed-version-only");
   assert.equal(Number(new URL(mythicHands.sourceUrl).searchParams.get("ilvl")), 334);
-  assert.deepEqual(Object.fromEntries(mythicHands.stats.map(stat => [stat.type.name, stat.value])), expected[271547]);
+  assert.deepEqual(Object.fromEntries(mythicHands.stats.map(stat => [stat.type.name, stat.value])), expected["271547:334"]);
     assert.equal(warlock.itemIdsVerified, false,
     "partial observed versions must not promote the complete class variant map");
 });
