@@ -2105,7 +2105,7 @@ test("Monk has baseline and source-verified Mythic 6/6 candidates for all five s
     Shoulders: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
     Chest: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
     Hands: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
-    Legs: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324]]
+    Legs: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]]
   };
   for (const [slot, expectedVariants] of Object.entries(expected)) {
     const entries = monk.pieces.filter(piece => piece.slot === slot);
