@@ -1154,3 +1154,23 @@ test("Warrior source-checked chest versions remain evidence-only", () => {
     assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
   }
 });
+
+test("Priest source-checked helm variants retain their exact source stats and remain evidence-only", () => {
+  const priest = catalogue.sets.find(set => set.class === "Priest");
+  const observations = priest.verifiedVariantObservations || [];
+  assert.equal(observations.length, 13);
+  const heads = new Map(observations.filter(piece => piece.itemId === 271555 && piece.slot === "Head").map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...heads.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334]);
+  for (const [level, expected] of [
+    [285, { intellect: 119, stamina: 2219, criticalStrike: 113, mastery: 48 }],
+    [298, { intellect: 135, stamina: 2579, criticalStrike: 120, mastery: 51 }],
+    [311, { intellect: 152, stamina: 3002, criticalStrike: 128, mastery: 55 }],
+    [324, { intellect: 172, stamina: 3487, criticalStrike: 135, mastery: 58 }]
+  ]) {
+    const piece = heads.get(level);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.ok(piece.sourceUrl.includes("warcraft.wiki.gg"));
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+});
