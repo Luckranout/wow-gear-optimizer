@@ -530,7 +530,7 @@ test("tier thresholds can be reported descriptively without inventing numeric bo
 test("Rogue source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
   const rogue = catalogue.sets.find(set => set.class === "Rogue");
   const observations = rogue.verifiedVariantObservations || [];
-  assert.equal(observations.length, 7);
+  assert.equal(observations.length, 11);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(rogue.variantObservationsStatus, "partial");
   assert.match(rogue.variantObservationsNote, /remain unverified/i);
@@ -540,10 +540,15 @@ test("Rogue source-backed tier item versions remain evidence-only and match Wowh
     assert.equal(piece.candidate, false);
     assert.equal(piece.verificationScope, "observed-version-only");
     assert.ok(piece.itemLevel > 0);
-    assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/"));
+    assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/") || piece.sourceUrl === "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave");
     assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
-    assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), piece.itemLevel,
-      "source URL must pin the exact observed item level");
+    if (piece.sourceUrl.startsWith("https://www.wowhead.com/")) {
+      assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), piece.itemLevel,
+        "Wowhead source URL must pin the exact observed item level");
+    } else {
+      assert.ok(piece.stats.every(stat => stat.source.includes(`item level ${piece.itemLevel}`)),
+        "Warcraft Wiki observations must identify the exact item level in each stat source");
+    }
     assert.ok(Array.isArray(piece.stats) && piece.stats.length >= 4);
     assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
     assert.ok(piece.stats.every(stat => typeof stat.source === "string" && stat.source.length > 0));
@@ -573,6 +578,17 @@ test("Rogue source-backed tier item versions remain evidence-only and match Wowh
   assert.equal(legs321.variant, "Heroic 6/6 observed");
   assert.deepEqual(Object.fromEntries(legs321.stats.map(stat => [stat.type.name, stat.value])),
     { agility: 167, intellect: 167, stamina: 3369, criticalStrike: 67, haste: 123 });
+  for (const [level, expected] of [
+    [285, { agility: 119, stamina: 2219, criticalStrike: 57, haste: 104 }],
+    [298, { agility: 135, stamina: 2579, criticalStrike: 61, haste: 111 }],
+    [311, { agility: 152, stamina: 3002, criticalStrike: 64, haste: 118 }],
+    [324, { agility: 172, stamina: 3487, criticalStrike: 68, haste: 125 }]
+  ]) {
+    const piece = observations.find(entry => entry.itemId === 271509 && entry.itemLevel === level);
+    assert.ok(piece, `expected source-checked Rogue legs at item level ${level}`);
+    assert.equal(piece.candidate, false);
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
   const legs = observations.find(piece => piece.itemId === 271509);
   assert.equal(legs.itemLevel, 219,
     "the legs entry is base-only evidence; it must not imply an upgraded version is verified");
