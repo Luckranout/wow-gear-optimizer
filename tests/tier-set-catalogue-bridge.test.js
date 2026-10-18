@@ -187,7 +187,7 @@ test("Death Knight source-checked tier versions preserve observed stats without 
 test("Paladin observed tier variants are source-backed and remain evidence-only", () => {
   const paladin = catalogue.sets.find(set => set.class === "Paladin");
   const observations = paladin.verifiedVariantObservations || [];
-  assert.equal(observations.length, 12);
+  assert.equal(observations.length, 13);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(paladin.variantObservationsStatus, "partial");
   assert.match(paladin.variantObservationsNote, /not optimizer candidates/i);
@@ -210,12 +210,13 @@ test("Paladin observed tier variants are source-backed and remain evidence-only"
     { strength: 189, stamina: 3910, haste: 64, mastery: 137 }
   );
   const handsByLevel = new Map(observations.filter(piece => piece.itemId === 271466).map(piece => [piece.itemLevel, piece]));
-  assert.deepEqual([...handsByLevel.keys()].sort((a, b) => a - b), [282, 295, 308, 321]);
+  assert.deepEqual([...handsByLevel.keys()].sort((a, b) => a - b), [282, 295, 308, 321, 334]);
   const expectedHands = {
     282: { strength: 87, stamina: 1606, criticalStrike: 39, mastery: 80 },
     295: { strength: 98, stamina: 1869, criticalStrike: 42, mastery: 86 },
     308: { strength: 111, stamina: 2172, criticalStrike: 44, mastery: 91 },
-    321: { strength: 125, stamina: 2527, criticalStrike: 47, mastery: 96 }
+    321: { strength: 125, stamina: 2527, criticalStrike: 47, mastery: 96 },
+    334: { strength: 141, intellect: 141, stamina: 2932, criticalStrike: 49, mastery: 101 }
   };
   for (const [level, piece] of handsByLevel) {
     assert.equal(piece.candidate, false);
@@ -494,12 +495,12 @@ test("Death Knight source-checked leg versions remain evidence-only", () => {
 test("Druid source-checked tier versions remain evidence-only and preserve observed stats", () => {
   const druid = catalogue.sets.find(set => set.class === "Druid");
   const observations = druid.verifiedVariantObservations || [];
-  assert.equal(observations.length, 26);
+  assert.equal(observations.length, 27);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(druid.variantObservationsStatus, "partial");
   assert.match(druid.variantObservationsNote, /all observations remain ineligible as optimizer candidates/i);
   const legsByLevel = new Map(observations.filter(piece => piece.slot === "Legs").map(piece => [piece.itemLevel, piece]));
-  assert.deepEqual([...legsByLevel.keys()].sort((a, b) => a - b), [219, 285, 298, 311, 324]);
+  assert.deepEqual([...legsByLevel.keys()].sort((a, b) => a - b), [219, 285, 298, 311, 324, 334]);
   for (const [level, expected] of [
     [285, { agility: 119, stamina: 2219, criticalStrike: 54, haste: 108 }],
     [298, { agility: 135, stamina: 2579, criticalStrike: 57, haste: 115 }],
@@ -617,9 +618,15 @@ test("Druid source-checked tier versions remain evidence-only and preserve obser
     assert.equal(piece.candidate, false);
     assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
   }
-  const legs = observations.find(piece => piece.itemId === 271527);
-  assert.equal(legs.itemLevel, 219,
-    "the known base version must be explicitly recorded as base-only evidence");
+  const baseLegs = observations.find(piece => piece.itemId === 271527 && piece.itemLevel === 219);
+  assert.ok(baseLegs, "the known base version must remain recorded as base-only evidence");
+  const mythicLegs = observations.find(piece => piece.itemId === 271527 && piece.itemLevel === 334);
+  assert.ok(mythicLegs, "missing Druid Legs item-level-334 observation");
+  assert.equal(mythicLegs.candidate, false);
+  assert.equal(mythicLegs.variant, "Item level 334 observed (equipped profile)");
+  assert.equal(Number(new URL(mythicLegs.sourceUrl).searchParams.get("ilvl")), 334);
+  assert.deepEqual(Object.fromEntries(mythicLegs.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 189, intellect: 189, stamina: 3910, haste: 63, mastery: 138 });
   assert.equal(druid.itemIdsVerified, false,
     "partial observed versions must not promote the complete class variant map");
 });
@@ -1065,7 +1072,7 @@ test("Mage source-backed tier item versions remain evidence-only and match Wowhe
 test("Priest source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
   const priest = catalogue.sets.find(set => set.class === "Priest");
   const observations = priest.verifiedVariantObservations || [];
-  assert.equal(observations.length, 17);
+  assert.equal(observations.length, 18);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(priest.variantObservationsStatus, "partial");
   const handsByLevel = new Map(observations.filter(piece => piece.itemId === 271556).map(piece => [piece.itemLevel, piece]));
@@ -1190,7 +1197,7 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
 test("Monk source-backed tier item versions remain evidence-only and match source stats", () => {
   const monk = catalogue.sets.find(set => set.class === "Monk");
   const observations = monk.verifiedVariantObservations || [];
-  assert.equal(observations.length, 13);
+  assert.equal(observations.length, 14);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(monk.variantObservationsStatus, "partial");
   assert.match(monk.variantObservationsNote, /legs are observed at Heroic 3\/6 item level 311/i);
@@ -1216,6 +1223,7 @@ test("Monk source-backed tier item versions remain evidence-only and match sourc
     "271519:311": { agilityOrIntellect: 152, stamina: 3002, criticalStrike: 53, mastery: 129 },
     "271519:324": { agilityOrIntellect: 172, stamina: 3487, criticalStrike: 56, mastery: 137 },
     "271518:311": { agility: 152, intellect: 152, stamina: 3002, criticalStrike: 118, versatility: 65 },
+    "271518:334": { agility: 189, intellect: 189, stamina: 3910, criticalStrike: 130, versatility: 71 },
     "271517:282": { agility: 87, intellect: 87, stamina: 1606, haste: 82, mastery: 37 },
     "271517:295": { agility: 98, intellect: 98, stamina: 1869, haste: 87, mastery: 40 },
     "271517:308": { agility: 111, intellect: 111, stamina: 2172, haste: 93, mastery: 42 },
@@ -1379,7 +1387,7 @@ test("Warrior Mythic 6/6 legs observation remains evidence-only", () => {
 test("Priest source-checked helm variants retain their exact source stats and remain evidence-only", () => {
   const priest = catalogue.sets.find(set => set.class === "Priest");
   const observations = priest.verifiedVariantObservations || [];
-  assert.equal(observations.length, 17);
+  assert.equal(observations.length, 18);
   const heads = new Map(observations.filter(piece => piece.itemId === 271555 && piece.slot === "Head").map(piece => [piece.itemLevel, piece]));
   assert.deepEqual([...heads.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334]);
   const shoulders = new Map(observations.filter(piece => piece.itemId === 271553 && piece.slot === "Shoulders").map(piece => [piece.itemLevel, piece]));
