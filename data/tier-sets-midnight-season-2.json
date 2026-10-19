@@ -34426,6 +34426,60 @@
           "setId": "jade-warlord-s-dominion",
           "name": "Jeweled Gauntlets of the Jade Warlord",
           "slot": "Hands",
+          "variant": "Hero 3/6 observed",
+          "itemLevel": 311,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271457/jeweled-gauntlets-of-the-jade-warlord?bonus=6652%3A12843%3A13440%3A13691%3A13697%3A1564&class=1&ilvl=311&spec=73",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 114,
+              "source": "Wowhead item tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2252,
+              "source": "Wowhead item tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 92,
+              "source": "Wowhead item tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 45,
+              "source": "Wowhead item tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 114,
+              "source": "Wowhead item tooltip, item level 311"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271457,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Jeweled Gauntlets of the Jade Warlord",
+          "slot": "Hands",
           "variant": "Mythic 1/6 observed",
           "itemLevel": 318,
           "candidate": true,
@@ -35111,6 +35165,60 @@
               "source": "Wowhead item version"
             }
           ]
+        },
+        {
+          "itemId": 271457,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Jeweled Gauntlets of the Jade Warlord",
+          "slot": "Hands",
+          "variant": "Hero 3/6 observed",
+          "itemLevel": 311,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271457/jeweled-gauntlets-of-the-jade-warlord?bonus=6652%3A12843%3A13440%3A13691%3A13697%3A1564&class=1&ilvl=311&spec=73",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 114,
+              "source": "Wowhead item tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2252,
+              "source": "Wowhead item tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 92,
+              "source": "Wowhead item tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 45,
+              "source": "Wowhead item tooltip, item level 311"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 114,
+              "source": "Wowhead item tooltip, item level 311"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         },
         {
           "itemId": 271457,
