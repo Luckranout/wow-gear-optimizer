@@ -3002,6 +3002,53 @@
           "setId": "abyssal-doomhound-s-pursuit",
           "name": "Abyssal Doomhound's Relentless Stare",
           "slot": "Head",
+          "variant": "Item level 315 observed",
+          "itemLevel": 315,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271537/abyssal-doomhounds-relentless-stare?bonus=6652%3A13696%3A13440%3A13692%3A13698%3A12844&class=12&ilvl=315&spec=1480",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 158,
+              "source": "Wowhead exact item-version tooltip, item level 315"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3143,
+              "source": "Wowhead exact item-version tooltip, item level 315"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 125,
+              "source": "Wowhead exact item-version tooltip, item level 315"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 61,
+              "source": "Wowhead exact item-version tooltip, item level 315"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271537,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Relentless Stare",
+          "slot": "Head",
           "variant": "Mythic",
           "itemLevel": 324,
           "candidate": true,
@@ -4651,6 +4698,53 @@
           "setId": "abyssal-doomhound-s-pursuit",
           "name": "Abyssal Doomhound's Relentless Stare",
           "slot": "Head",
+          "variant": "Item level 315 observed",
+          "itemLevel": 315,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271537/abyssal-doomhounds-relentless-stare?bonus=6652%3A13696%3A13440%3A13692%3A13698%3A12844&class=12&ilvl=315&spec=1480",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 158,
+              "source": "Wowhead exact item-version tooltip, item level 315"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3143,
+              "source": "Wowhead exact item-version tooltip, item level 315"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 125,
+              "source": "Wowhead exact item-version tooltip, item level 315"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 61,
+              "source": "Wowhead exact item-version tooltip, item level 315"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271537,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Relentless Stare",
+          "slot": "Head",
           "variant": "Item level 308 observed",
           "itemLevel": 308,
           "candidate": false,
@@ -5863,7 +5957,7 @@
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Twenty-five exact candidate versions cover all five slots at the source-documented Raid Finder, Normal, Heroic, and Mythic baseline levels plus Mythic 6/6 item level 334. The full class variant map remains partial because intermediate upgrade ranks are not all verified; observations outside the candidate list remain evidence-only. Added 6 additional source-verified intermediate upgrade-rank candidates. Unverified ranks remain evidence-only; full rank-by-rank coverage remains partial. Added exact Wowhead item-level-308 Head version as a source-verified candidate; this does not complete the remaining intermediate-rank map. Added exact Wowhead item-level-308 Head and Legs versions as source-verified candidates; remaining rank map is still partial.",
+      "variantObservationsNote": "Twenty-five exact candidate versions cover all five slots at the source-documented Raid Finder, Normal, Heroic, and Mythic baseline levels plus Mythic 6/6 item level 334. The full class variant map remains partial because intermediate upgrade ranks are not all verified; observations outside the candidate list remain evidence-only. Added 6 additional source-verified intermediate upgrade-rank candidates. Unverified ranks remain evidence-only; full rank-by-rank coverage remains partial. Added exact Wowhead item-level-308 Head version as a source-verified candidate; this does not complete the remaining intermediate-rank map. Added exact Wowhead item-level-308 Head and Legs versions as source-verified candidates; remaining rank map is still partial. Added exact Wowhead item-level-315 Head version as a source-verified candidate; remaining rank map is still partial.",
       "candidateVariantsAvailable": true
     },
     {
