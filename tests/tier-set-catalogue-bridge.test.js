@@ -609,7 +609,7 @@ test("Demon Hunter source-checked tier versions remain evidence-only and preserv
   assert.deepEqual(Object.fromEntries(championGloves.stats.map(stat => [stat.type.name, stat.value])),
     { agility: 98, stamina: 1869, criticalStrike: 87, mastery: 40 });
   const legs = observations.filter(piece => piece.itemId === 271536).sort((a, b) => a.itemLevel - b.itemLevel);
-  assert.deepEqual(legs.map(piece => piece.itemLevel), [285, 295, 298, 311, 318, 324, 334]);
+  assert.deepEqual(legs.map(piece => piece.itemLevel), [285, 295, 298, 308, 311, 318, 324, 334]);
   assert.deepEqual(
     Object.fromEntries(legs.find(piece => piece.itemLevel === 318).stats.map(stat => [stat.type.name, stat.value])),
     { agility: 162, stamina: 3254, criticalStrike: 58, mastery: 130 }
