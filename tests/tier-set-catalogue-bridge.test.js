@@ -421,7 +421,7 @@ test("Paladin observed tier variants are source-backed and remain evidence-only"
 test("Demon Hunter source-checked tier versions remain evidence-only and preserve observed stats", () => {
   const demonHunter = catalogue.sets.find(set => set.class === "Demon Hunter");
   const observations = demonHunter.verifiedVariantObservations || [];
-  assert.equal(observations.length, 32);
+  assert.equal(observations.length, 35);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(demonHunter.variantObservationsStatus, "partial");
   assert.match(demonHunter.variantObservationsNote, /exact candidate versions cover all five slots.*Mythic 6\/6/i);
