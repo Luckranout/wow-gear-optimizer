@@ -111,7 +111,7 @@ test("Demon Hunter has verified baseline PvE and exact Mythic 6/6 candidates for
 test("Warrior source-checked variant observations remain evidence-only and preserve same-level stat variants", () => {
   const warrior = catalogue.sets.find(set => set.class === "Warrior");
   const observations = warrior.verifiedVariantObservations || [];
-  assert.equal(observations.length, 28);
+  assert.equal(observations.length, 29);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(warrior.variantObservationsStatus, "partial");
   assert.match(warrior.variantObservationsNote, /Additional explicit source-verified intermediate upgrade-rank records are optimizer candidates/i);
@@ -139,6 +139,7 @@ test("Warrior source-checked variant observations remain evidence-only and prese
   }
   for (const [level, expected] of [
     [305, { strength: 108, stamina: 2096, criticalStrike: 89, haste: 44, intellect: 108 }],
+    [311, { strength: 114, stamina: 2252, criticalStrike: 92, haste: 45, intellect: 114 }],
     [315, { strength: 118, stamina: 2358, criticalStrike: 93, haste: 46, intellect: 118 }]
   ]) {
     const piece = observations.find(entry => entry.itemId === 271457 && entry.itemLevel === level);
