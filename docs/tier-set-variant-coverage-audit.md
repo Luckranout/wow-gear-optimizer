@@ -18,7 +18,7 @@ Scope: source-verified numeric item variants needed before tier pieces can becom
 - Verified Priest PvE candidates: **25/25** (source-documented baseline PvE variants plus exact Mythic 6/6 item-level-334 variants across five slots).
 - Verified Paladin PvE candidates: **25/25** (source-documented baseline PvE variants plus exact Mythic 6/6 item-level-334 variants across five slots).
 - Verified Hunter PvE candidates: **25/25**; the source identifies the baseline Mythic Legs variant at item level 318, with the exact Mythic 6/6 variant at 334.
-- Non-Shaman evidence-only observations: **340 records across 12 classes**. These observations remain distinct from candidate records and do not by themselves complete a variant map.
+- Non-Shaman evidence-only observations: **348 records across 12 classes**. These observations remain distinct from candidate records and do not by themselves complete a variant map.
 - Remaining baseline: Warrior still needs source-verified baseline Hands 282 and Legs 285/298/311/324. Druid and Monk's previously missing Legs 334 candidates are now present. Full intermediate upgrade-rank coverage remains incomplete across classes; missing ranks remain evidence-only.
 - PvP appearances are not optimizer candidates unless their numeric item level and stats are independently verified.
 - Do not enable numeric tier-bonus scoring without a separate trustworthy, simulation-backed scoring source.
@@ -74,7 +74,7 @@ The current catalogue records at least one item-level-334 observation for all fi
 | Paladin | Head, Shoulders, Chest, Hands, Legs | Baseline and item-level-334 Mythic 6/6 candidates cover all five slots. | Intermediate upgrade-rank mapping remains incomplete. |
 | Priest | Head, Shoulders, Chest, Hands, Legs | Complete intermediate upgrade-rank maps for all five slots; baseline difficulty variants and item-level-334 candidates are mapped. |
 | Rogue | Head, Shoulders, Chest, Hands, Legs | Baseline and 334 observations exist across all five slots; remaining work is exact rank-by-rank upgrade variants. |
-| Shaman | Head, Shoulders, Chest, Hands, Legs | Keep the 20 baseline PvE candidates and 28 independently rank-verified variants separate from the 25-observation ledger; continue filling the remaining exact rank gaps. |
+| Shaman | Head, Shoulders, Chest, Hands, Legs | Keep the 20 baseline PvE candidates and 32 independently rank-verified variants separate from the 25-observation ledger; continue filling the remaining exact rank gaps. |
 | Warlock | Head, Shoulders, Chest, Hands, Legs | Baseline and 334 observations exist across all five slots; remaining work is exact rank-by-rank upgrade variants. |
 | Warrior | Head, Shoulders, Chest, Hands, Legs | Standard item-level-334 observations exist across all five slots. Hands now also has an exact 311 Hero 3/6 intermediate observation/candidate. Baseline Hands 282 and Legs 285/298/311/324 remain gaps. Keep the separate 344 chest variant distinct. |
 
