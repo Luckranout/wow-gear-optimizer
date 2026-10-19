@@ -75,8 +75,8 @@ test("Demon Hunter has verified baseline PvE and exact Mythic 6/6 candidates for
   const demonHunter = catalogue.sets.find(set => set.class === "Demon Hunter");
   assert.equal(demonHunter.itemIdsVerified, false);
   assert.equal(demonHunter.candidateVariantsAvailable, true);
-  assert.equal(demonHunter.pieces.length, 33);
-  assert.equal(demonHunter.pieces.filter(piece => piece.candidate).length, 33);
+  assert.equal(demonHunter.pieces.length, 34);
+  assert.equal(demonHunter.pieces.filter(piece => piece.candidate).length, 34);
   const expected = {
     Head: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
     Shoulders: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
@@ -124,6 +124,12 @@ test("Demon Hunter has verified baseline PvE and exact Mythic 6/6 candidates for
 
   assert.equal(demonHunter.variantObservationsStatus, "partial",
     "baseline candidates must not imply all intermediate upgrade ranks are complete");
+  const head315 = demonHunter.pieces.find(piece => piece.slot === "Head" && piece.itemLevel === 315);
+  assert.ok(head315, "exact Demon Hunter Head 315 version is retained as a candidate");
+  assert.equal(head315.sourceUrl, "https://www.wowhead.com/item=271537/abyssal-doomhounds-relentless-stare?bonus=6652%3A13696%3A13440%3A13692%3A13698%3A12844&class=12&ilvl=315&spec=1480");
+  assert.deepEqual(head315.stats.map(stat => [stat.type.name, stat.value]), [
+    ["agility", 158], ["stamina", 3143], ["criticalStrike", 125], ["mastery", 61]
+  ]);
   assert.ok(demonHunter.verifiedVariantObservations.every(piece => piece.candidate === false),
     "additional upgrade-rank observations remain evidence-only");
 });
