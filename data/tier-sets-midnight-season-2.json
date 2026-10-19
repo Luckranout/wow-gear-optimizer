@@ -3902,6 +3902,53 @@
           "setId": "abyssal-doomhound-s-pursuit",
           "name": "Abyssal Doomhound's Legwraps",
           "slot": "Legs",
+          "variant": "Item level 308 observed",
+          "itemLevel": 308,
+          "candidate": true,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271536/abyssal-doomhounds-legwraps?bonus=40%3A13333%3A13693%3A13698%3A12838&ilvl=308&spec=1480",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 148,
+              "source": "Wowhead exact item-version tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2896,
+              "source": "Wowhead exact item-version tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 56,
+              "source": "Wowhead exact item-version tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 124,
+              "source": "Wowhead exact item-version tooltip, item level 308"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271536,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Legwraps",
+          "slot": "Legs",
           "variant": "Heroic",
           "itemLevel": 311,
           "candidate": true,
@@ -5766,10 +5813,57 @@
               "source": "Azeroth Codex level-334 equipped profile; corroborated by item-specific Wowhead tooltip"
             }
           ]
+        },
+        {
+          "itemId": 271536,
+          "setId": "abyssal-doomhound-s-pursuit",
+          "name": "Abyssal Doomhound's Legwraps",
+          "slot": "Legs",
+          "variant": "Item level 308 observed",
+          "itemLevel": 308,
+          "candidate": false,
+          "verificationScope": "observed-version-only",
+          "sourceUrl": "https://www.wowhead.com/item=271536/abyssal-doomhounds-legwraps?bonus=40%3A13333%3A13693%3A13698%3A12838&ilvl=308&spec=1480",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 148,
+              "source": "Wowhead exact item-version tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2896,
+              "source": "Wowhead exact item-version tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 56,
+              "source": "Wowhead exact item-version tooltip, item level 308"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 124,
+              "source": "Wowhead exact item-version tooltip, item level 308"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "variantObservationsStatus": "partial",
-      "variantObservationsNote": "Twenty-five exact candidate versions cover all five slots at the source-documented Raid Finder, Normal, Heroic, and Mythic baseline levels plus Mythic 6/6 item level 334. The full class variant map remains partial because intermediate upgrade ranks are not all verified; observations outside the candidate list remain evidence-only. Added 6 additional source-verified intermediate upgrade-rank candidates. Unverified ranks remain evidence-only; full rank-by-rank coverage remains partial. Added exact Wowhead item-level-308 Head version as a source-verified candidate; this does not complete the remaining intermediate-rank map.",
+      "variantObservationsNote": "Twenty-five exact candidate versions cover all five slots at the source-documented Raid Finder, Normal, Heroic, and Mythic baseline levels plus Mythic 6/6 item level 334. The full class variant map remains partial because intermediate upgrade ranks are not all verified; observations outside the candidate list remain evidence-only. Added 6 additional source-verified intermediate upgrade-rank candidates. Unverified ranks remain evidence-only; full rank-by-rank coverage remains partial. Added exact Wowhead item-level-308 Head version as a source-verified candidate; this does not complete the remaining intermediate-rank map. Added exact Wowhead item-level-308 Head and Legs versions as source-verified candidates; remaining rank map is still partial.",
       "candidateVariantsAvailable": true
     },
     {
