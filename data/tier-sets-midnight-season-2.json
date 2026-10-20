@@ -7843,6 +7843,59 @@
           "setId": "bark-of-the-enigmatic-dreamwatcher",
           "name": "Enigmatic Dreamwatcher's Lunar Raiment",
           "slot": "Chest",
+          "variant": "Item level 292 observed",
+          "itemLevel": 292,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271531/enigmatic-dreamwatchers-lunar-raiment?bonus=13452%3A13658%3A12833%3A13690%3A13698%3A1545&ilvl=292&spec=105",
+          "stats": [
+            {
+              "type": {
+                "name": "agility"
+              },
+              "value": 128,
+              "source": "Wowhead tooltip, item level 292"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 128,
+              "source": "Wowhead tooltip, item level 292"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2406,
+              "source": "Wowhead tooltip, item level 292"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 109,
+              "source": "Wowhead tooltip, item level 292"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 58,
+              "source": "Wowhead tooltip, item level 292"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271531,
+          "setId": "bark-of-the-enigmatic-dreamwatcher",
+          "name": "Enigmatic Dreamwatcher's Lunar Raiment",
+          "slot": "Chest",
           "variant": "Normal",
           "itemLevel": 298,
           "candidate": true,
