@@ -214,6 +214,18 @@ test("Death Knight verified baseline candidates and source-checked tier observat
       }
     }
   }
+  for (const [slot, level, expected, sourceUrl] of [
+    ["Head", 302, { strength: 140, stamina: 2699, criticalStrike: 121, mastery: 54 }, "https://www.wowhead.com/item=271474/baleful-grave-knights-casque?bonus=6652%3A13439%3A13696%3A13692%3A13698%3A12836&ilvl=302&spec=251"],
+    ["Shoulders", 302, { strength: 105, stamina: 2024, haste: 43, versatility: 88 }, "https://www.wowhead.com/item=271472/baleful-grave-knights-gibbets?bonus=13694%3A6652%3A13697%3A12836&class=6&ilvl=302&spec=251"],
+    ["Hands", 302, { strength: 105, stamina: 2024, criticalStrike: 45, mastery: 86 }, "https://www.wowhead.com/item=271475/baleful-grave-knights-deathgrips?bonus=13691%3A6652%3A13697%3A12836&class=6&ilvl=302&spec=251"]
+  ]) {
+    const piece = deathKnight.pieces.find(entry => entry.slot === slot && entry.itemLevel === level);
+    assert.ok(piece, `Death Knight ${slot} ${level} source-verified rank candidate is present`);
+    assert.equal(piece.candidate, true);
+    assert.equal(piece.sourceUrl, sourceUrl);
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+    assert.ok(piece.stats.every(stat => stat.source.includes(`item level ${level}`)));
+  }
   const observations = deathKnight.verifiedVariantObservations || [];
   assert.equal(observations.length, 31);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
