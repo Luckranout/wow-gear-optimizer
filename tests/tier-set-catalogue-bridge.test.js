@@ -2278,3 +2278,21 @@ test("Warrior Raid Finder Veteran 2/6 Hands item level 282 matches the source to
     strength: 87, stamina: 1606, criticalStrike: 80, haste: 39
   });
 });
+
+test("Warrior Greaves of the Jade Warlord exact tooltip variants 285/298/311/324 match screenshots", () => {
+  const warrior = catalogue.sets.find(set => set.class === "Warrior");
+  const expected = {
+    285: { strength: 119, stamina: 2219, versatility: 108, mastery: 53 },
+    298: { strength: 135, stamina: 2579, versatility: 116, mastery: 56 },
+    311: { strength: 152, stamina: 3002, versatility: 123, mastery: 60 },
+    324: { strength: 172, stamina: 3487, versatility: 130, mastery: 63 }
+  };
+  for (const [levelText, stats] of Object.entries(expected)) {
+    const level = Number(levelText);
+    const piece = warrior.pieces.find(piece => piece.slot === "Legs" && piece.itemLevel === level);
+    assert.ok(piece, `missing Warrior Legs ${level} exact-version record`);
+    assert.equal(piece.candidate, true);
+    assert.equal(piece.verificationScope, "exact-version-stats-confirmed-by-user-provided-in-game-tooltip");
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), stats);
+  }
+});
