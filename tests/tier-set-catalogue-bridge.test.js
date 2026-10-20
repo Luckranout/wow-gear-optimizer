@@ -2266,3 +2266,15 @@ test("Hunter has source-verified baseline candidates using the class-specific My
   assert.equal(hunter.variantObservationsStatus, "partial", "baseline candidates must not imply all intermediate upgrade ranks are complete");
   assert.ok(hunter.verifiedVariantObservations.every(piece => piece.candidate === false));
 });
+
+test("Warrior Raid Finder Veteran 2/6 Hands item level 282 matches the source tooltip", () => {
+  const warrior = catalogue.sets.find(set => set.class === "Warrior");
+  const piece = warrior.pieces.find(piece => piece.slot === "Hands" && piece.itemLevel === 282);
+  assert.ok(piece, "missing Warrior Hands 282 exact-version record");
+  assert.equal(piece.candidate, true);
+  assert.equal(piece.variant, "Raid Finder; Veteran 2/6 observed");
+  assert.equal(piece.verificationScope, "exact-version-stats-confirmed-by-user-provided-in-game-tooltip");
+  assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), {
+    strength: 87, stamina: 1606, criticalStrike: 80, haste: 39
+  });
+});
