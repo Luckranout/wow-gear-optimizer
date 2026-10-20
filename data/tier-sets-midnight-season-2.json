@@ -21777,6 +21777,59 @@
           "setId": "radiance-of-the-consecrated-flame",
           "name": "Gauntlets of the Consecrated Flame",
           "slot": "Hands",
+          "variant": "Item level 328",
+          "itemLevel": 328,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271466/gauntlets-of-the-consecrated-flame?bonus=13334%3A6652%3A13691%3A13697%3A12852&ilvl=328&spec=66",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 134,
+              "source": "Wowhead exact item-version tooltip, item level 328"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 134,
+              "source": "Wowhead exact item-version tooltip, item level 328"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2737,
+              "source": "Wowhead exact item-version tooltip, item level 328"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 48,
+              "source": "Wowhead exact item-version tooltip, item level 328"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 99,
+              "source": "Wowhead exact item-version tooltip, item level 328"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271466,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Gauntlets of the Consecrated Flame",
+          "slot": "Hands",
           "variant": "Mythic 6/6",
           "itemLevel": 334,
           "candidate": true,
@@ -23793,6 +23846,60 @@
               },
               "value": 95,
               "source": "Wowhead exact item-version tooltip, item level 318, Hero 5/6"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats",
+          "verificationScope": "observed-version-only"
+        },
+        {
+          "itemId": 271466,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Gauntlets of the Consecrated Flame",
+          "slot": "Hands",
+          "variant": "Item level 328 observed",
+          "itemLevel": 328,
+          "candidate": false,
+          "sourceUrl": "https://www.wowhead.com/item=271466/gauntlets-of-the-consecrated-flame?bonus=13334%3A6652%3A13691%3A13697%3A12852&ilvl=328&spec=66",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 134,
+              "source": "Wowhead exact item-version tooltip, item level 328"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 134,
+              "source": "Wowhead exact item-version tooltip, item level 328"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2737,
+              "source": "Wowhead exact item-version tooltip, item level 328"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 48,
+              "source": "Wowhead exact item-version tooltip, item level 328"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 99,
+              "source": "Wowhead exact item-version tooltip, item level 328"
             }
           ],
           "secondaryStats": [
