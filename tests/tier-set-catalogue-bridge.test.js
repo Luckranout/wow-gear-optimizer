@@ -332,7 +332,7 @@ test("Death Knight verified baseline candidates and source-checked tier observat
     assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
   }
   const headLevels = observations.filter(piece => piece.itemId === 271474).map(piece => piece.itemLevel).sort((a, b) => a - b);
-  assert.deepEqual(headLevels, [285, 298, 305, 308, 311, 321, 324, 334],
+  assert.deepEqual(headLevels, [285, 292, 295, 298, 305, 308, 311, 321, 324, 334],
     "Head must retain each independently sourced item-level observation");
   const shoulderLevels = observations.filter(piece => piece.itemId === 271472).map(piece => piece.itemLevel).sort((a, b) => a - b);
   assert.deepEqual(shoulderLevels, [282, 295, 308, 318, 321, 334],
