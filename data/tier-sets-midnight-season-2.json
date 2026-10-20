@@ -35292,6 +35292,53 @@
           ],
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271457,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Jeweled Gauntlets of the Jade Warlord",
+          "slot": "Hands",
+          "variant": "Raid Finder; Veteran 2/6 observed",
+          "itemLevel": 282,
+          "candidate": true,
+          "verificationScope": "exact-version-stats-confirmed-by-user-provided-in-game-tooltip",
+          "sourceUrl": "https://www.wowhead.com/item=271457/jeweled-gauntlets-of-the-jade-warlord?ilvl=282",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 87,
+              "source": "User-provided in-game tooltip screenshot, Raid Finder, Veteran 2/6, item level 282"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1606,
+              "source": "User-provided in-game tooltip screenshot, Raid Finder, Veteran 2/6, item level 282"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 80,
+              "source": "User-provided in-game tooltip screenshot, Raid Finder, Veteran 2/6, item level 282"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 39,
+              "source": "User-provided in-game tooltip screenshot, Raid Finder, Veteran 2/6, item level 282"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "itemIdsVerified": false,
