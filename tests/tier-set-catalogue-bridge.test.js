@@ -203,6 +203,16 @@ test("Death Knight verified baseline candidates and source-checked tier observat
       ["Mythic 6/6", 334]
     ]);
     assert.ok(slotCandidates.every(piece => piece.candidate === true));
+    for (const piece of slotCandidates) {
+      assert.ok(Array.isArray(piece.stats) && piece.stats.length >= 4, `Death Knight ${slot} ${piece.itemLevel} needs numeric stats`);
+      assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0), `Death Knight ${slot} ${piece.itemLevel} has invalid stats`);
+      assert.ok(piece.stats.every(stat => typeof stat.source === "string" && stat.source.includes(String(piece.itemLevel))), `Death Knight ${slot} ${piece.itemLevel} stats need exact-level provenance`);
+      assert.ok(piece.sourceUrl.startsWith("https://"), `Death Knight ${slot} ${piece.itemLevel} needs a source URL`);
+      const sourceUrl = new URL(piece.sourceUrl);
+      if (sourceUrl.hostname === "www.wowhead.com" && sourceUrl.searchParams.has("ilvl")) {
+        assert.equal(Number(sourceUrl.searchParams.get("ilvl")), piece.itemLevel);
+      }
+    }
   }
   for (const [slot, level, expected, sourceUrl] of [
     ["Head", 302, { strength: 140, stamina: 2699, criticalStrike: 121, mastery: 54 }, "https://www.wowhead.com/item=271474/baleful-grave-knights-casque?bonus=6652%3A13439%3A13696%3A13692%3A13698%3A12836&ilvl=302&spec=251"],
