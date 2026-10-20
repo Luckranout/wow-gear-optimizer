@@ -18,6 +18,8 @@ class EquipmentCatalogueAuditTests(unittest.TestCase):
                 self.assertEqual(tier_class["manifestSlotsMissingFromCatalogue"], [])
                 self.assertEqual(tier_class["manifestMappingMismatches"], [])
                 self.assertTrue(tier_class["basePieceMappingVerified"])
+                # Verified base IDs prove membership, not every difficulty/upgrade rank.
+                self.assertFalse(tier_class["completeVariantMapVerified"])
 
     def test_reports_missing_tier_items_and_does_not_claim_full_gear_coverage(self):
         with tempfile.TemporaryDirectory() as temporary:
