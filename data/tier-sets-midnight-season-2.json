@@ -1773,6 +1773,98 @@
           ],
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271477,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Breastplate",
+          "slot": "Chest",
+          "variant": "Champion 6/6",
+          "itemLevel": 308,
+          "candidate": true,
+          "sourceUrl": "https://azerothcodex.up.railway.app/personnage/eu/perenolde/Smersh",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 148,
+              "source": "Azeroth Codex equipped-item profile, exact Chest item level 308, Champion 6/6"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2896,
+              "source": "Azeroth Codex equipped-item profile, exact Chest item level 308, Champion 6/6"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 52,
+              "source": "Azeroth Codex equipped-item profile, exact Chest item level 308, Champion 6/6"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 127,
+              "source": "Azeroth Codex equipped-item profile, exact Chest item level 308, Champion 6/6"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271473,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Greaves",
+          "slot": "Legs",
+          "variant": "Champion 6/6",
+          "itemLevel": 308,
+          "candidate": true,
+          "sourceUrl": "https://azerothcodex.up.railway.app/simulation/eu/thrall/Xeradina",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 148,
+              "source": "Azeroth Codex equipped-item profile, exact Legs item level 308, Champion 6/6"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2896,
+              "source": "Azeroth Codex equipped-item profile, exact Legs item level 308, Champion 6/6"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 53,
+              "source": "Azeroth Codex equipped-item profile, exact Legs item level 308, Champion 6/6"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 127,
+              "source": "Azeroth Codex equipped-item profile, exact Legs item level 308, Champion 6/6"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "itemIdsVerified": false,
