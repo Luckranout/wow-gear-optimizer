@@ -189,8 +189,8 @@ test("Death Knight verified baseline candidates and source-checked tier observat
   const deathKnight = catalogue.sets.find(set => set.class === "Death Knight");
   assert.equal(deathKnight.itemIdsVerified, false, "the full upgrade-rank map remains partial");
   assert.equal(deathKnight.candidateVariantsAvailable, true);
-  assert.equal(deathKnight.pieces.length, 39, "Death Knight includes baseline and exact intermediate-rank candidates");
-  assert.equal(deathKnight.pieces.filter(piece => piece.candidate).length, 39);
+  assert.equal(deathKnight.pieces.length, 43, "Death Knight includes baseline, exact intermediate-rank, and same-level stat-variant candidates");
+  assert.equal(deathKnight.pieces.filter(piece => piece.candidate).length, 43);
   assert.ok(deathKnight.pieces.every(piece => piece.candidate === true && !("verificationScope" in piece)), "verified candidate records must not retain evidence-only scope");
   for (const slot of EXPECTED_SLOTS) {
     const slotCandidates = deathKnight.pieces.filter(piece => piece.slot === slot);
@@ -222,6 +222,21 @@ test("Death Knight verified baseline candidates and source-checked tier observat
     assert.equal(piece.sourceUrl, sourceUrl);
     assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
     assert.ok(piece.stats.every(stat => stat.source.includes(`item level ${level}`)));
+  }
+  const profileStatVariants = [
+    ["Head", 324, { strength: 172, stamina: 3487, criticalStrike: 58, haste: 135 }],
+    ["Chest", 321, { strength: 167, stamina: 3369, haste: 71, mastery: 120 }],
+    ["Hands", 311, { strength: 114, stamina: 2252, versatility: 83, mastery: 54 }],
+    ["Legs", 321, { strength: 167, stamina: 3369, criticalStrike: 71, versatility: 120 }]
+  ];
+  for (const [slot, level, expected] of profileStatVariants) {
+    const piece = deathKnight.pieces.find(entry => entry.slot === slot && entry.itemLevel === level && entry.sourceUrl === "https://wowcore.io/en/characters/eu/dalaran/Al%C3%BA");
+    assert.ok(piece, `Death Knight ${slot} ${level} alternate equipped-profile stat variant is retained`);
+    assert.equal(piece.candidate, true);
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+    assert.ok(piece.stats.every(stat => stat.source.includes(`item level ${level}`)));
+    const sameLevelRecords = deathKnight.pieces.filter(entry => entry.slot === slot && entry.itemLevel === level);
+    assert.ok(sameLevelRecords.length >= 2, `Death Knight ${slot} ${level} distinct stat versions must not be collapsed`);
   }
   const observations = deathKnight.verifiedVariantObservations || [];
   assert.equal(observations.length, 31);
