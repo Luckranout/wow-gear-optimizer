@@ -2509,6 +2509,52 @@
           ],
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271472,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Gibbets",
+          "slot": "Shoulders",
+          "variant": "Myth 4/6",
+          "itemLevel": 328,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271472/baleful-grave-knights-gibbets?bonus=6652%3A13440%3A13694%3A13697%3A12852&ilvl=328",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 134,
+              "source": "Wowhead exact item version, item level 328, Myth 4/6"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2737,
+              "source": "Wowhead exact item version, item level 328, Myth 4/6"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 48,
+              "source": "Wowhead exact item version, item level 328, Myth 4/6"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 99,
+              "source": "Wowhead exact item version, item level 328, Myth 4/6"
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "itemIdsVerified": false,
