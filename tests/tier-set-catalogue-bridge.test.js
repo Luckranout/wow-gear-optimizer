@@ -362,7 +362,7 @@ test("Death Knight verified baseline candidates and source-checked tier observat
 test("Paladin observed tier variants are source-backed and remain evidence-only", () => {
   const paladin = catalogue.sets.find(set => set.class === "Paladin");
   const observations = paladin.verifiedVariantObservations || [];
-  assert.equal(observations.length, 29);
+  assert.equal(observations.length, 33);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(paladin.variantObservationsStatus, "partial");
   assert.match(paladin.variantObservationsNote, /intermediate upgrade ranks remain evidence-only/i);
@@ -385,7 +385,15 @@ test("Paladin observed tier variants are source-backed and remain evidence-only"
     { strength: 189, stamina: 3910, haste: 64, mastery: 137 }
   );
   const chestByLevel = new Map(observations.filter(piece => piece.itemId === 271468).map(piece => [piece.itemLevel, piece]));
-  assert.deepEqual([...chestByLevel.keys()].sort((a, b) => a - b), [285, 298, 308, 311, 321, 324, 334]);
+  assert.deepEqual([...chestByLevel.keys()].sort((a, b) => a - b), [285, 295, 298, 302, 305, 308, 311, 318, 321, 324, 334]);
+  assert.deepEqual(Object.fromEntries(chestByLevel.get(295).stats.map(stat => [stat.type.name, stat.value])),
+    { strength: 131, intellect: 131, stamina: 2492, haste: 54, mastery: 116 });
+  assert.deepEqual(Object.fromEntries(chestByLevel.get(302).stats.map(stat => [stat.type.name, stat.value])),
+    { strength: 140, intellect: 140, stamina: 2699, haste: 56, mastery: 119 });
+  assert.deepEqual(Object.fromEntries(chestByLevel.get(305).stats.map(stat => [stat.type.name, stat.value])),
+    { strength: 144, intellect: 144, stamina: 2794, haste: 56, mastery: 121 });
+  assert.deepEqual(Object.fromEntries(chestByLevel.get(318).stats.map(stat => [stat.type.name, stat.value])),
+    { strength: 162, intellect: 162, stamina: 3254, haste: 60, mastery: 128 });
   assert.deepEqual(Object.fromEntries(chestByLevel.get(308).stats.map(stat => [stat.type.name, stat.value])),
     { strength: 148, intellect: 148, stamina: 2896, haste: 57, mastery: 123 });
   assert.deepEqual(Object.fromEntries(chestByLevel.get(311).stats.map(stat => [stat.type.name, stat.value])),
@@ -2230,8 +2238,8 @@ test("Paladin has source-verified baseline PvE and exact Mythic 6/6 candidates f
   assert.equal(paladin.itemIdsVerified, false);
   assert.equal(paladin.candidateVariantsAvailable, true);
   assert.equal(paladin.baseItemIdsVerified, true);
-  assert.equal(paladin.pieces.length, 29);
-  assert.equal(paladin.pieces.filter(piece => piece.candidate).length, 29);
+  assert.equal(paladin.pieces.length, 33);
+  assert.equal(paladin.pieces.filter(piece => piece.candidate).length, 33);
   const expected = {
     Head: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
     Shoulders: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
@@ -2327,6 +2335,10 @@ test("Warrior Greaves of the Jade Warlord exact tooltip variants 285/298/311/324
 test("exact source-backed intermediate variants are eligible while observations remain evidence-only", () => {
   const cases = [
     ["Druid", "Chest", 292, [["agility", 128], ["intellect", 128], ["stamina", 2406], ["criticalStrike", 109], ["haste", 58]]],
+    ["Paladin", "Chest", 295, [["strength", 131], ["intellect", 131], ["stamina", 2492], ["haste", 54], ["mastery", 116]]],
+    ["Paladin", "Chest", 302, [["strength", 140], ["intellect", 140], ["stamina", 2699], ["haste", 56], ["mastery", 119]]],
+    ["Paladin", "Chest", 305, [["strength", 144], ["intellect", 144], ["stamina", 2794], ["haste", 56], ["mastery", 121]]],
+    ["Paladin", "Chest", 318, [["strength", 162], ["intellect", 162], ["stamina", 3254], ["haste", 60], ["mastery", 128]]],
     ["Hunter", "Head", 308, [["agility", 148], ["stamina", 2896], ["haste", 128], ["mastery", 52]]],
     ["Hunter", "Legs", 308, [["agility", 148], ["intellect", 148], ["stamina", 2896], ["haste", 63], ["mastery", 117]]],
     ["Hunter", "Legs", 321, [["agility", 167], ["intellect", 167], ["stamina", 3369], ["haste", 67], ["mastery", 124]]],
