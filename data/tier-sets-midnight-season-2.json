@@ -2371,6 +2371,98 @@
           ],
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271472,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Gibbets",
+          "slot": "Shoulders",
+          "variant": "Item level 321 profile stat variant",
+          "itemLevel": 321,
+          "candidate": true,
+          "sourceUrl": "https://azerothcodex.up.railway.app/simulation/us/azralon/Vhroknar",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 125,
+              "source": "Azeroth Codex equipped Death Knight profile, Shoulders item level 321; exact equipped stat variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2527,
+              "source": "Azeroth Codex equipped Death Knight profile, Shoulders item level 321; exact equipped stat variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 53,
+              "source": "Azeroth Codex equipped Death Knight profile, Shoulders item level 321; exact equipped stat variant"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 89,
+              "source": "Azeroth Codex equipped Death Knight profile, Shoulders item level 321; exact equipped stat variant"
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271477,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Breastplate",
+          "slot": "Chest",
+          "variant": "Item level 321 profile stat variant",
+          "itemLevel": 321,
+          "candidate": true,
+          "sourceUrl": "https://azerothcodex.up.railway.app/simulation/us/area-52/Kyrasis",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 167,
+              "source": "Azeroth Codex equipped Death Knight profile, Chest item level 321; exact equipped stat variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3369,
+              "source": "Azeroth Codex equipped Death Knight profile, Chest item level 321; exact equipped stat variant"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 120,
+              "source": "Azeroth Codex equipped Death Knight profile, Chest item level 321; exact equipped stat variant"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 71,
+              "source": "Azeroth Codex equipped Death Knight profile, Chest item level 321; exact equipped stat variant"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "itemIdsVerified": false,
