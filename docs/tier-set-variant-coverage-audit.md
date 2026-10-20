@@ -76,7 +76,7 @@ The current catalogue records at least one item-level-334 observation for all fi
 | Rogue | Head, Shoulders, Chest, Hands, Legs | Baseline and 334 observations exist across all five slots; remaining work is exact rank-by-rank upgrade variants. |
 | Shaman | Head, Shoulders, Chest, Hands, Legs | Keep the 20 baseline PvE candidates and 32 independently rank-verified variants separate from the 25-observation ledger; continue filling the remaining exact rank gaps. |
 | Warlock | Head, Shoulders, Chest, Hands, Legs | Baseline and 334 observations exist across all five slots; remaining work is exact rank-by-rank upgrade variants. |
-| Warrior | Head, Shoulders, Chest, Hands, Legs | Standard item-level-334 observations exist across all five slots. Hands now also has an exact 311 Hero 3/6 intermediate observation/candidate. Baseline Hands 282 and Legs 285/298/311/324 remain gaps. Keep the separate 344 chest variant distinct. |
+| Warrior | Head, Shoulders, Chest, Hands, Legs | Standard item-level-334 observations exist across all five slots. Hands now also has an exact 311 Hero 3/6 intermediate observation/candidate. Hands 282 and Legs 285/298/311/324 are now exact-stat records verified from user-provided tooltips. Remaining intermediate ranks still need exact source verification; keep the separate 344 chest variant distinct. |
 
 ### Work sequence
 
@@ -149,7 +149,7 @@ Candidate-level coverage only; observed-only records are deliberately excluded. 
 | Rogue | Legs | 285, 298, 311, 324, 334 | 279, 282, 289, 292, 295, 302, 305, 308, 315, 318, 321, 328, 331 |
 | Shaman | Head | 285, 295, 298, 302, 305, 311, 315, 321, 324, 334 | 279, 282, 289, 292, 308, 318, 328, 331 |
 | Shaman | Shoulders | 282, 295, 302, 305, 308, 321, 328, 334 | 279, 285, 289, 292, 298, 311, 315, 318, 324, 331 |
-| Shaman | Chest | 285, 298, 305, 308, 311, 318, 324, 328, 334 | 279, 282, 289, 292, 295, 302, 315, 321, 331 |
+| Shaman | Chest | 285, 289, 298, 305, 308, 311, 318, 324, 328, 334 | 279, 282, 289, 292, 295, 302, 315, 321, 331 |
 | Shaman | Hands | 282, 295, 305, 308, 311, 318, 321, 334 | 279, 285, 289, 292, 298, 302, 315, 324, 328, 331 |
 | Shaman | Legs | 285, 295, 298, 305, 308, 311, 318, 321, 324, 334 | 279, 282, 289, 292, 302, 315, 328, 331 |
 | Warlock | Head | 285, 298, 308, 311, 318, 324, 334 | 279, 282, 289, 292, 295, 302, 305, 315, 321, 328, 331 |
@@ -160,5 +160,5 @@ Candidate-level coverage only; observed-only records are deliberately excluded. 
 | Warrior | Head | 285, 298, 311, 324, 334 | 279, 282, 289, 292, 295, 302, 305, 308, 315, 318, 321, 328, 331 |
 | Warrior | Shoulders | 282, 295, 308, 321, 334 | 279, 285, 289, 292, 298, 302, 305, 311, 315, 318, 324, 328, 331 |
 | Warrior | Chest | 285, 298, 311, 324, 334, 344 | 279, 282, 289, 292, 295, 302, 305, 308, 315, 318, 321, 328, 331 |
-| Warrior | Hands | 295, 305, 308, 311, 315, 318, 321, 334 | 279, 282, 285, 289, 292, 298, 302, 324, 328, 331 |
-| Warrior | Legs | 282, 289, 321, 334 | 279, 285, 292, 295, 298, 302, 305, 308, 311, 315, 318, 324, 328, 331 |
+| Warrior | Hands | 282, 295, 305, 308, 311, 315, 318, 321, 334 | 279, 282, 285, 289, 292, 298, 302, 324, 328, 331 |
+| Warrior | Legs | 282, 285, 289, 298, 311, 321, 324, 334 | 279, 285, 292, 295, 298, 302, 305, 308, 311, 315, 318, 324, 328, 331 |
