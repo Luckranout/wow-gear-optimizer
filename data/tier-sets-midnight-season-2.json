@@ -20769,6 +20769,59 @@
           "setId": "radiance-of-the-consecrated-flame",
           "name": "Pauldrons of the Consecrated Flame",
           "slot": "Shoulders",
+          "variant": "Hero 4/6",
+          "itemLevel": 315,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271463/pauldrons-of-the-consecrated-flame?bonus=6652%3A12844%3A13440%3A13694%3A13697%3A1568&ilvl=315&spec=70",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 118,
+              "source": "Wowhead exact item-version tooltip, item level 315, Hero 4/6"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 118,
+              "source": "Wowhead exact item-version tooltip, item level 315, Hero 4/6"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2358,
+              "source": "Wowhead exact item-version tooltip, item level 315, Hero 4/6"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 97,
+              "source": "Wowhead exact item-version tooltip, item level 315, Hero 4/6"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 42,
+              "source": "Wowhead exact item-version tooltip, item level 315, Hero 4/6"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271463,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Pauldrons of the Consecrated Flame",
+          "slot": "Shoulders",
           "variant": "Mythic",
           "itemLevel": 321,
           "candidate": true,
@@ -21524,6 +21577,59 @@
           "setId": "radiance-of-the-consecrated-flame",
           "name": "Gauntlets of the Consecrated Flame",
           "slot": "Hands",
+          "variant": "Champion 4/6",
+          "itemLevel": 302,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271466/gauntlets-of-the-consecrated-flame?bonus=6652%3A13439%3A13691%3A13697%3A12836&ilvl=302",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 105,
+              "source": "Wowhead exact item-version tooltip, item level 302, Champion 4/6"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 105,
+              "source": "Wowhead exact item-version tooltip, item level 302, Champion 4/6"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2024,
+              "source": "Wowhead exact item-version tooltip, item level 302, Champion 4/6"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 43,
+              "source": "Wowhead exact item-version tooltip, item level 302, Champion 4/6"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 88,
+              "source": "Wowhead exact item-version tooltip, item level 302, Champion 4/6"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271466,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Gauntlets of the Consecrated Flame",
+          "slot": "Hands",
           "variant": "Heroic",
           "itemLevel": 308,
           "candidate": true,
@@ -21557,6 +21663,59 @@
               },
               "value": 91,
               "source": "Warcraft Wiki item page, item level 308"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271466,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Gauntlets of the Consecrated Flame",
+          "slot": "Hands",
+          "variant": "Hero 5/6",
+          "itemLevel": 318,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271466/gauntlets-of-the-consecrated-flame?bonus=13334%3A13691%3A6652%3A13697%3A12845&ilvl=318&spec=65",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 122,
+              "source": "Wowhead exact item-version tooltip, item level 318, Hero 5/6"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 122,
+              "source": "Wowhead exact item-version tooltip, item level 318, Hero 5/6"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2440,
+              "source": "Wowhead exact item-version tooltip, item level 318, Hero 5/6"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 46,
+              "source": "Wowhead exact item-version tooltip, item level 318, Hero 5/6"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 95,
+              "source": "Wowhead exact item-version tooltip, item level 318, Hero 5/6"
             }
           ],
           "secondaryStats": [
@@ -23477,6 +23636,168 @@
           "secondaryStats": [
             "Mastery",
             "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats",
+          "verificationScope": "observed-version-only"
+        },
+        {
+          "itemId": 271463,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Pauldrons of the Consecrated Flame",
+          "slot": "Shoulders",
+          "variant": "Hero 4/6 observed",
+          "itemLevel": 315,
+          "candidate": false,
+          "sourceUrl": "https://www.wowhead.com/item=271463/pauldrons-of-the-consecrated-flame?bonus=6652%3A12844%3A13440%3A13694%3A13697%3A1568&ilvl=315&spec=70",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 118,
+              "source": "Wowhead exact item-version tooltip, item level 315, Hero 4/6"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 118,
+              "source": "Wowhead exact item-version tooltip, item level 315, Hero 4/6"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2358,
+              "source": "Wowhead exact item-version tooltip, item level 315, Hero 4/6"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 97,
+              "source": "Wowhead exact item-version tooltip, item level 315, Hero 4/6"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 42,
+              "source": "Wowhead exact item-version tooltip, item level 315, Hero 4/6"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats",
+          "verificationScope": "observed-version-only"
+        },
+        {
+          "itemId": 271466,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Gauntlets of the Consecrated Flame",
+          "slot": "Hands",
+          "variant": "Champion 4/6 observed",
+          "itemLevel": 302,
+          "candidate": false,
+          "sourceUrl": "https://www.wowhead.com/item=271466/gauntlets-of-the-consecrated-flame?bonus=6652%3A13439%3A13691%3A13697%3A12836&ilvl=302",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 105,
+              "source": "Wowhead exact item-version tooltip, item level 302, Champion 4/6"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 105,
+              "source": "Wowhead exact item-version tooltip, item level 302, Champion 4/6"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2024,
+              "source": "Wowhead exact item-version tooltip, item level 302, Champion 4/6"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 43,
+              "source": "Wowhead exact item-version tooltip, item level 302, Champion 4/6"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 88,
+              "source": "Wowhead exact item-version tooltip, item level 302, Champion 4/6"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats",
+          "verificationScope": "observed-version-only"
+        },
+        {
+          "itemId": 271466,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Gauntlets of the Consecrated Flame",
+          "slot": "Hands",
+          "variant": "Hero 5/6 observed",
+          "itemLevel": 318,
+          "candidate": false,
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271466/gauntlets-of-the-consecrated-flame?bonus=13334%3A13691%3A6652%3A13697%3A12845&ilvl=318&spec=65",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 122,
+              "source": "Wowhead exact item-version tooltip, item level 318, Hero 5/6"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 122,
+              "source": "Wowhead exact item-version tooltip, item level 318, Hero 5/6"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2440,
+              "source": "Wowhead exact item-version tooltip, item level 318, Hero 5/6"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 46,
+              "source": "Wowhead exact item-version tooltip, item level 318, Hero 5/6"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 95,
+              "source": "Wowhead exact item-version tooltip, item level 318, Hero 5/6"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
           ],
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats",
