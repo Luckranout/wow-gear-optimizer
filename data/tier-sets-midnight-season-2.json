@@ -2233,6 +2233,52 @@
           ],
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271473,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Greaves",
+          "slot": "Legs",
+          "variant": "Item level 321 profile stat variant",
+          "itemLevel": 321,
+          "candidate": true,
+          "sourceUrl": "https://wowcore.io/en/characters/tw/crystalpine-stinger/Ekallen",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 167,
+              "source": "WoWCore equipped Death Knight profile, Legs item level 321; exact equipped stat variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3369,
+              "source": "WoWCore equipped Death Knight profile, Legs item level 321; exact equipped stat variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 102,
+              "source": "WoWCore equipped Death Knight profile, Legs item level 321; exact equipped stat variant"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 88,
+              "source": "WoWCore equipped Death Knight profile, Legs item level 321; exact equipped stat variant"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "itemIdsVerified": false,
