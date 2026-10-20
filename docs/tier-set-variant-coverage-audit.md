@@ -7,7 +7,7 @@ Scope: source-verified numeric item variants needed before tier pieces can becom
 ## Summary
 
 - Base tier membership: **13/13 classes mapped**, with five base item IDs per class (65 total).
-- Complete baseline PvE + Mythic 6/6 slot mapping: **12/13 classes** — Death Knight, Demon Hunter, Druid, Evoker, Hunter, Mage, Monk, Paladin, Priest, Rogue, Shaman, and Warlock. Warrior now has source-verified baseline Hands 282; remaining baseline gaps are Legs 285/298/311/324. No class has complete rank-by-rank upgrade coverage yet.
+- Complete baseline PvE + Mythic 6/6 slot mapping: **12/13 classes** — Death Knight, Demon Hunter, Druid, Evoker, Hunter, Mage, Monk, Paladin, Priest, Rogue, Shaman, and Warlock. Warrior now has source-verified baseline Hands 282 and Legs 285/298/311/324 from user-provided in-game tooltip screenshots. No class has complete rank-by-rank upgrade coverage yet.
 - Shaman candidates: **20/20** baseline PvE variants across five slots plus **32** independently rank-verified variants stored separately; 10 PvP appearance-only records and other unverified ranks remain ineligible.
 - Verified Death Knight PvE candidates: **25/25** (four baseline PvE difficulty variants plus exact Mythic 6/6 item-level-334 variants across five slots).
 - Verified Demon Hunter PvE candidates: **25/25** (source-documented baseline PvE variants plus exact Mythic 6/6 item-level-334 variants across five slots).
@@ -19,7 +19,7 @@ Scope: source-verified numeric item variants needed before tier pieces can becom
 - Verified Paladin PvE candidates: **25/25** (source-documented baseline PvE variants plus exact Mythic 6/6 item-level-334 variants across five slots).
 - Verified Hunter PvE candidates: **25/25**; the source identifies the baseline Mythic Legs variant at item level 318, with the exact Mythic 6/6 variant at 334.
 - Non-Shaman evidence-only observations: **348 records across 12 classes**. These observations remain distinct from candidate records and do not by themselves complete a variant map.
-- Remaining baseline: Warrior still needs source-verified baseline Legs 285/298/311/324. Druid and Monk's previously missing Legs 334 candidates are now present. Full intermediate upgrade-rank coverage remains incomplete across classes; missing ranks remain evidence-only.
+- Remaining baseline: Warrior baseline Hands 282 and Legs 285/298/311/324 are now source-verified from user-provided in-game tooltips. Druid and Monk's previously missing Legs 334 candidates are now present. Full intermediate upgrade-rank coverage remains incomplete across classes; missing ranks remain evidence-only.
 - PvP appearances are not optimizer candidates unless their numeric item level and stats are independently verified.
 - Do not enable numeric tier-bonus scoring without a separate trustworthy, simulation-backed scoring source.
 
@@ -89,7 +89,7 @@ The current catalogue records at least one item-level-334 observation for all fi
 7. Run catalogue and optimizer CI on this draft branch. Do not merge or deploy without explicit authorization.
 
 
-Warrior Hands 282 is verified from a user-provided in-game tooltip screenshot (Raid Finder, Veteran 2/6): Strength 87, Stamina 1,606, Critical Strike 80, Haste 39. Exact-stat regression coverage was added. The remaining baseline Warrior gaps are Legs 285, 298, 311, and 324.\n\n## Exact upgrade-rank gaps by slot
+Warrior Hands 282 is verified from a user-provided in-game tooltip screenshot (Raid Finder, Veteran 2/6): Strength 87, Stamina 1,606, Critical Strike 80, Haste 39. Exact-stat regression coverage was added. Warrior Legs 285, 298, 311, and 324 are now verified from user-provided in-game tooltip screenshots: (285) Strength 119, Stamina 2,219, Versatility 108, Mastery 53; (298) Strength 135, Stamina 2,579, Versatility 116, Mastery 56; (311) Strength 152, Stamina 3,002, Versatility 123, Mastery 60; (324) Strength 172, Stamina 3,487, Versatility 130, Mastery 63. Exact-stat regression coverage was added.\n\n## Exact upgrade-rank gaps by slot
 
 Candidate-level coverage only; observed-only records are deliberately excluded. The upgrade-level grid is Veteran/Champion/Hero/Myth track levels: 279, 282, 285, 289, 292, 295, 298, 302, 305, 308, 311, 315, 318, 321, 324, 328, 331, 334. A level listed as missing needs a source that proves both the exact item version and its numeric stats before it can become optimizer-eligible.
 
