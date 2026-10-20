@@ -170,7 +170,7 @@ def audit_catalog(section_dir=SECTION_DIR, manifest_path=TIER_MANIFEST, tier_dat
                 "observedOnlySlotsPresent": sorted(observed_slots),
                 "missingObservedOnlySlots": sorted(EXPECTED_TIER_SLOTS - observed_slots),
                 "slotVariantLevels": slot_variant_levels,
-                "completeVariantMapVerified": tier_set.get("itemIdsVerified") is True,
+                "completeVariantMapVerified": tier_set.get("completeVariantMapVerified") is True,
                 "variantCoverageStatus": (
                     "verified-candidates-present" if len(verified_variants) else
                     "observations-only" if observation_variants_with_stats else
