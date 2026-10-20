@@ -89,7 +89,9 @@ The current catalogue records at least one item-level-334 observation for all fi
 7. Run catalogue and optimizer CI on this draft branch. Do not merge or deploy without explicit authorization.
 
 
-Warrior Hands 282 is verified from a user-provided in-game tooltip screenshot (Raid Finder, Veteran 2/6): Strength 87, Stamina 1,606, Critical Strike 80, Haste 39. Exact-stat regression coverage was added. Warrior Legs 285, 298, 311, and 324 are now verified from user-provided in-game tooltip screenshots: (285) Strength 119, Stamina 2,219, Versatility 108, Mastery 53; (298) Strength 135, Stamina 2,579, Versatility 116, Mastery 56; (311) Strength 152, Stamina 3,002, Versatility 123, Mastery 60; (324) Strength 172, Stamina 3,487, Versatility 130, Mastery 63. Exact-stat regression coverage was added.\n\n## Exact upgrade-rank gaps by slot
+Warrior Hands 282 is verified from a user-provided in-game tooltip screenshot (Raid Finder, Veteran 2/6): Strength 87, Stamina 1,606, Critical Strike 80, Haste 39. Exact-stat regression coverage was added. Warrior Legs 285, 298, 311, and 324 are now verified from user-provided in-game tooltip screenshots: (285) Strength 119, Stamina 2,219, Versatility 108, Mastery 53; (298) Strength 135, Stamina 2,579, Versatility 116, Mastery 56; (311) Strength 152, Stamina 3,002, Versatility 123, Mastery 60; (324) Strength 172, Stamina 3,487, Versatility 130, Mastery 63. Exact-stat regression coverage was added.
+
+## Exact upgrade-rank gaps by slot
 
 Candidate-level coverage only; observed-only records are deliberately excluded. The upgrade-level grid is Veteran/Champion/Hero/Myth track levels: 279, 282, 285, 289, 292, 295, 298, 302, 305, 308, 311, 315, 318, 321, 324, 328, 331, 334. A level listed as missing needs a source that proves both the exact item version and its numeric stats before it can become optimizer-eligible.
 
