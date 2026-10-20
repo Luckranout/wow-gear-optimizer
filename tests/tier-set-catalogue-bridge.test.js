@@ -1408,7 +1408,7 @@ test("Warlock source-backed tier item versions remain evidence-only and match Wo
   assert.equal(observations.length, 36);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(warlock.variantObservationsStatus, "partial");
-  assert.equal(warlock.pieces.length, 31, "Warlock candidates include baseline and exact intermediate upgrade ranks");
+  assert.equal(warlock.pieces.length, 35, "Warlock candidates include baseline and exact intermediate upgrade ranks");
   assert.match(warlock.variantObservationsNote, /Additional explicit source-verified upgrade-rank observations.*are also candidates/i);
   assert.match(warlock.variantObservationsNote, /Remaining ranks not independently source-verified stay evidence-only/i);
   const manifestSet = manifest.sets.find(set => set.className === "Warlock");
@@ -2159,8 +2159,8 @@ test("Priest has source-verified baseline PvE and exact Mythic 6/6 candidates fo
   assert.equal(priest.itemIdsVerified, false);
   assert.equal(priest.candidateVariantsAvailable, true);
   assert.equal(priest.baseItemIdsVerified, true);
-  assert.equal(priest.pieces.length, 27);
-  assert.equal(priest.pieces.filter(piece => piece.candidate).length, 27);
+  assert.equal(priest.pieces.length, 28);
+  assert.equal(priest.pieces.filter(piece => piece.candidate).length, 28);
   const expected = {
     Head: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
     Shoulders: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
@@ -2228,8 +2228,8 @@ test("Paladin has source-verified baseline PvE and exact Mythic 6/6 candidates f
   assert.equal(paladin.itemIdsVerified, false);
   assert.equal(paladin.candidateVariantsAvailable, true);
   assert.equal(paladin.baseItemIdsVerified, true);
-  assert.equal(paladin.pieces.length, 28);
-  assert.equal(paladin.pieces.filter(piece => piece.candidate).length, 28);
+  assert.equal(paladin.pieces.length, 29);
+  assert.equal(paladin.pieces.filter(piece => piece.candidate).length, 29);
   const expected = {
     Head: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
     Shoulders: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
@@ -2266,8 +2266,8 @@ test("Hunter has source-verified baseline candidates using the class-specific My
   assert.equal(hunter.itemIdsVerified, false);
   assert.equal(hunter.candidateVariantsAvailable, true);
   assert.equal(hunter.baseItemIdsVerified, true);
-  assert.equal(hunter.pieces.length, 25);
-  assert.equal(hunter.pieces.filter(piece => piece.candidate).length, 25);
+  assert.equal(hunter.pieces.length, 28);
+  assert.equal(hunter.pieces.filter(piece => piece.candidate).length, 28);
   const expected = {
     Head: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
     Shoulders: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
@@ -2321,3 +2321,34 @@ test("Warrior Greaves of the Jade Warlord exact tooltip variants 285/298/311/324
     assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), stats);
   }
 });
+
+test("exact source-backed intermediate variants are eligible while observations remain evidence-only", () => {
+  const cases = [
+    ["Hunter", "Head", 308, [["agility", 148], ["stamina", 2896], ["haste", 128], ["mastery", 52]]],
+    ["Hunter", "Legs", 308, [["agility", 148], ["intellect", 148], ["stamina", 2896], ["haste", 63], ["mastery", 117]]],
+    ["Hunter", "Legs", 321, [["agility", 167], ["intellect", 167], ["stamina", 3369], ["haste", 67], ["mastery", 124]]],
+    ["Paladin", "Chest", 321, [["strength", 167], ["intellect", 167], ["stamina", 3369], ["haste", 61], ["mastery", 130]]],
+    ["Priest", "Hands", 305, [["intellect", 108], ["stamina", 2096], ["criticalStrike", 47], ["mastery", 87]]],
+    ["Rogue", "Legs", 315, [["agility", 158], ["intellect", 158], ["stamina", 3143], ["criticalStrike", 66], ["haste", 120]]],
+    ["Rogue", "Legs", 321, [["agility", 167], ["intellect", 167], ["stamina", 3369], ["criticalStrike", 67], ["haste", 123]]],
+    ["Warlock", "Head", 305, [["intellect", 144], ["stamina", 2794], ["versatility", 57], ["mastery", 120]]],
+    ["Warlock", "Head", 315, [["intellect", 158], ["stamina", 3143], ["versatility", 60], ["mastery", 126]]],
+    ["Warlock", "Head", 321, [["intellect", 167], ["stamina", 3369], ["versatility", 61], ["mastery", 129]]],
+    ["Warlock", "Hands", 331, [["intellect", 138], ["stamina", 2832], ["criticalStrike", 44], ["haste", 105]]]
+  ];
+  for (const [className, slot, level, expectedStats] of cases) {
+    const set = catalogue.sets.find(entry => entry.class === className);
+    const candidate = set.pieces.find(piece => piece.slot === slot && piece.itemLevel === level && piece.candidate === true);
+    assert.ok(candidate, `${className} ${slot} ${level} is an eligible exact-version candidate`);
+    assert.equal(candidate.verificationScope, undefined, "promoted candidates must not retain evidence-only scope");
+    assert.ok(candidate.sourceUrl.startsWith("https://"));
+    const sourceLevel = new URL(candidate.sourceUrl).searchParams.get("ilvl");
+    if (sourceLevel) assert.equal(Number(sourceLevel), level);
+    assert.deepEqual(candidate.stats.map(stat => [stat.type.name, stat.value]), expectedStats);
+    assert.ok(candidate.stats.every(stat => String(stat.source).includes(String(level))));
+    const observation = set.verifiedVariantObservations.find(piece => piece.slot === slot && piece.itemLevel === level);
+    assert.ok(observation, "keep the original observation ledger record");
+    assert.equal(observation.candidate, false, "observation ledger remains evidence-only");
+  }
+});
+
