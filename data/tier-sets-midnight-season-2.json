@@ -123,6 +123,98 @@
           "setId": "baleful-grave-knight-s-crucible",
           "name": "Baleful Grave-Knight's Casque",
           "slot": "Head",
+          "variant": "Champion 1/6",
+          "itemLevel": 292,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271474/baleful-grave-knights-casque?bonus=13452%3A13658%3A12833%3A13554%3A13692%3A13698%3A1545&ilvl=292",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 128,
+              "source": "Wowhead exact item-version tooltip, item level 292, Champion 1/6"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2406,
+              "source": "Wowhead exact item-version tooltip, item level 292, Champion 1/6"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 116,
+              "source": "Wowhead exact item-version tooltip, item level 292, Champion 1/6"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 51,
+              "source": "Wowhead exact item-version tooltip, item level 292, Champion 1/6"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271474,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Casque",
+          "slot": "Head",
+          "variant": "Champion 2/6",
+          "itemLevel": 295,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271474/baleful-grave-knights-casque?bonus=13692%3A6652%3A13696%3A13698%3A12834&ilvl=295&spec=250",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 131,
+              "source": "Wowhead exact item-version tooltip, item level 295, Champion 2/6"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2492,
+              "source": "Wowhead exact item-version tooltip, item level 295, Champion 2/6"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 117,
+              "source": "Wowhead exact item-version tooltip, item level 295, Champion 2/6"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 52,
+              "source": "Wowhead exact item-version tooltip, item level 295, Champion 2/6"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271474,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Casque",
+          "slot": "Head",
           "variant": "Normal",
           "itemLevel": 298,
           "candidate": true,
@@ -3991,6 +4083,100 @@
               "source": "Warcraft Wiki tier set item listing, item level 308"
             }
           ]
+        },
+        {
+          "itemId": 271474,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Casque",
+          "slot": "Head",
+          "variant": "Champion 1/6 observed",
+          "itemLevel": 292,
+          "candidate": false,
+          "sourceUrl": "https://www.wowhead.com/item=271474/baleful-grave-knights-casque?bonus=13452%3A13658%3A12833%3A13554%3A13692%3A13698%3A1545&ilvl=292",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 128,
+              "source": "Wowhead exact item-version tooltip, item level 292, Champion 1/6"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2406,
+              "source": "Wowhead exact item-version tooltip, item level 292, Champion 1/6"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 116,
+              "source": "Wowhead exact item-version tooltip, item level 292, Champion 1/6"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 51,
+              "source": "Wowhead exact item-version tooltip, item level 292, Champion 1/6"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats",
+          "verificationScope": "observed-version-only"
+        },
+        {
+          "itemId": 271474,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Casque",
+          "slot": "Head",
+          "variant": "Champion 2/6 observed",
+          "itemLevel": 295,
+          "candidate": false,
+          "sourceUrl": "https://www.wowhead.com/item=271474/baleful-grave-knights-casque?bonus=13692%3A6652%3A13696%3A13698%3A12834&ilvl=295&spec=250",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 131,
+              "source": "Wowhead exact item-version tooltip, item level 295, Champion 2/6"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2492,
+              "source": "Wowhead exact item-version tooltip, item level 295, Champion 2/6"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 117,
+              "source": "Wowhead exact item-version tooltip, item level 295, Champion 2/6"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 52,
+              "source": "Wowhead exact item-version tooltip, item level 295, Champion 2/6"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats",
+          "verificationScope": "observed-version-only"
         }
       ],
       "variantObservationsStatus": "partial",
