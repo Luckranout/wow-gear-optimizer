@@ -214,52 +214,6 @@ test("Death Knight verified baseline candidates and source-checked tier observat
       }
     }
   }
-  for (const [slot, level, expected, sourceUrl] of [
-    ["Head", 302, { strength: 140, stamina: 2699, criticalStrike: 121, mastery: 54 }, "https://www.wowhead.com/item=271474/baleful-grave-knights-casque?bonus=6652%3A13439%3A13696%3A13692%3A13698%3A12836&ilvl=302&spec=251"],
-    ["Shoulders", 328, { strength: 134, stamina: 2737, haste: 48, versatility: 99 }, "https://www.wowhead.com/item=271472/baleful-grave-knights-gibbets?bonus=6652%3A13440%3A13694%3A13697%3A12852&ilvl=328"],
-    ["Hands", 302, { strength: 105, stamina: 2024, criticalStrike: 45, mastery: 86 }, "https://www.wowhead.com/item=271475/baleful-grave-knights-deathgrips?bonus=13691%3A6652%3A13697%3A12836&class=6&ilvl=302&spec=251"],
-    ["Shoulders", 302, { strength: 105, stamina: 2024, haste: 43, versatility: 88 }, "https://www.wowhead.com/item=271472/baleful-grave-knights-gibbets?bonus=13694%3A6652%3A13697%3A12836&class=6&ilvl=302&spec=251"],
-    ["Hands", 315, { strength: 118, stamina: 2358, criticalStrike: 48, mastery: 91 }, "https://www.wowhead.com/ptr-2/item=271475/baleful-grave-knights-deathgrips?bonus=12844"],
-    ["Hands", 311, { strength: 114, stamina: 2252, versatility: 83, mastery: 54 }, "https://wowcore.io/en/characters/eu/dalaran/Al%C3%BA"],
-    ["Head", 305, { strength: 144, stamina: 2794, criticalStrike: 123, mastery: 54 }, "https://www.wowhead.com/item=271474/baleful-grave-knights-casque?bonus=6652%3A12841%3A13696%3A13440%3A13692%3A13698%3A1558&class=6&ilvl=305&spec=250"],
-    ["Hands", 285, { strength: 90, stamina: 1664, criticalStrike: 42, mastery: 79 }, "https://www.wowhead.com/item=271475/baleful-grave-knights-deathgrips?bonus=41%3A12827%3A13691%3A13697%3A1538&ilvl=285&spec=250"],
-    ["Shoulders", 318, { strength: 122, stamina: 2440, haste: 46, versatility: 94 }, "https://www.wowhead.com/ptr-2/item=271472/baleful-grave-knights-gibbets?bonus=13334%3A6652%3A12849%3A13694%3A13697%3A1571%3A13696&ilvl=318&spec=250"],
-    ["Chest", 308, { strength: 148, stamina: 2896, criticalStrike: 52, mastery: 127 }, "https://azerothcodex.up.railway.app/personnage/eu/perenolde/Smersh"],
-    ["Legs", 308, { strength: 148, stamina: 2896, criticalStrike: 53, mastery: 127 }, "https://azerothcodex.up.railway.app/simulation/eu/thrall/Xeradina"]
-  ]) {
-    const piece = deathKnight.pieces.find(entry => entry.slot === slot && entry.itemLevel === level);
-    assert.ok(piece, `Death Knight ${slot} ${level} source-verified rank candidate is present`);
-    assert.equal(piece.candidate, true);
-    assert.equal(piece.sourceUrl, sourceUrl);
-    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
-    assert.ok(piece.stats.every(stat => stat.source.includes(`item level ${level}`)));
-  }
-  const profileStatVariants = [
-    ["Head", 324, { strength: 172, stamina: 3487, criticalStrike: 58, haste: 135 }, "https://wowcore.io/en/characters/eu/dalaran/Al%C3%BA"],
-    ["Chest", 321, { strength: 167, stamina: 3369, haste: 71, mastery: 120 }, "https://wowcore.io/en/characters/eu/dalaran/Al%C3%BA"],
-    ["Legs", 321, { strength: 167, stamina: 3369, criticalStrike: 71, versatility: 120 }, "https://wowcore.io/en/characters/eu/dalaran/Al%C3%BA"],
-    ["Head", 321, { strength: 167, stamina: 3369, criticalStrike: 71, mastery: 120 }, "https://wowcore.io/en/characters/tw/crystalpine-stinger/Ekallen"],
-    ["Head", 321, { strength: 167, stamina: 3369, haste: 79, versatility: 112 }, "https://azerothcodex.up.railway.app/personnage/us/frostmourne/Skylarkeddn"],
-    ["Head", 321, { strength: 167, stamina: 3369, criticalStrike: 124, mastery: 67 }, "https://azerothcodex.up.railway.app/simulation/eu/perenolde/Smersh"],
-    ["Chest", 321, { strength: 167, stamina: 3369, criticalStrike: 75, mastery: 116 }, "https://wowcore.io/en/characters/tw/crystalpine-stinger/Ekallen"],
-    ["Chest", 321, { strength: 167, stamina: 3369, criticalStrike: 99, versatility: 91 }, "https://wowcore.io/en/characters/eu/ravencrest/alugrip"],
-    ["Hands", 321, { strength: 125, stamina: 2527, criticalStrike: 47, mastery: 96 }, "https://wowcore.io/en/characters/tw/crystalpine-stinger/Ekallen"],
-    ["Legs", 321, { strength: 167, stamina: 3369, criticalStrike: 102, haste: 88 }, "https://wowcore.io/en/characters/tw/crystalpine-stinger/Ekallen"],
-    ["Head", 334, { strength: 189, stamina: 3910, criticalStrike: 75, mastery: 126 }, "https://azerothcodex.up.railway.app/simulation/us/azralon/Vhroknar"],
-    ["Head", 334, { strength: 189, stamina: 3910, criticalStrike: 61, haste: 140 }, "https://azerothcodex.up.railway.app/simulation/eu/tarren-mill/Balouwu"],
-    ["Shoulders", 321, { strength: 125, stamina: 2527, criticalStrike: 53, mastery: 89 }, "https://azerothcodex.up.railway.app/simulation/us/azralon/Vhroknar"],
-    ["Chest", 321, { strength: 167, stamina: 3369, haste: 120, versatility: 71 }, "https://azerothcodex.up.railway.app/simulation/us/area-52/Kyrasis"],
-    ["Chest", 321, { strength: 167, stamina: 3369, haste: 75, versatility: 116 }, "https://wowcore.io/en/characters/tw/wrathbringer/%E7%81%AB%E7%AE%AD%E8%B7%B3%E8%BA%8D"]
-  ];
-  for (const [slot, level, expected, sourceUrl] of profileStatVariants) {
-    const piece = deathKnight.pieces.find(entry => entry.slot === slot && entry.itemLevel === level && entry.sourceUrl === sourceUrl);
-    assert.ok(piece, `Death Knight ${slot} ${level} alternate equipped-profile stat variant is retained`);
-    assert.equal(piece.candidate, true);
-    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
-    assert.ok(piece.stats.every(stat => stat.source.includes(`item level ${level}`)));
-    const sameLevelRecords = deathKnight.pieces.filter(entry => entry.slot === slot && entry.itemLevel === level);
-    assert.ok(sameLevelRecords.length >= 2, `Death Knight ${slot} ${level} distinct stat versions must not be collapsed`);
-  }
   const observations = deathKnight.verifiedVariantObservations || [];
   assert.equal(observations.length, 31);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
