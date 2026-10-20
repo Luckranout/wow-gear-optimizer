@@ -38110,7 +38110,7 @@
       "Gladiator",
       "Elite"
     ],
-    "note": "Shaman's five tier IDs remain verified across the six canonical variants, with intermediate rank candidates stored separately from the canonical 30-record mapping. Exact source-verified intermediate upgrade-rank candidates are promoted for Death Knight, Demon Hunter, Druid, Mage, Paladin, Priest, Rogue, Warlock, and Warrior where available. Druid and Monk Legs 334 are now exact Mythic 6/6 candidates with independent equipped-profile rank evidence; Warrior still lacks baseline Hands 282 and Legs 285/298/311/324. No class has complete rank-by-rank coverage.",
+    "note": "Shaman's five tier IDs remain verified across the six canonical variants, with intermediate rank candidates stored separately from the canonical 30-record mapping. Exact source-verified intermediate upgrade-rank candidates are promoted for Death Knight, Demon Hunter, Druid, Mage, Paladin, Priest, Rogue, Warlock, and Warrior where available. Druid and Monk Legs 334 are now exact Mythic 6/6 candidates with independent equipped-profile rank evidence; Warrior baseline Hands 282 and Legs 285/298/311/324 are now recorded with exact stats from user-provided tooltips; intermediate rank coverage remains incomplete. No class has complete rank-by-rank coverage.",
     "verifiedClasses": [
       "Shaman"
     ],
