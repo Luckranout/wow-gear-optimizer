@@ -123,7 +123,7 @@ class EquipmentCatalogueAuditTests(unittest.TestCase):
         self.assertEqual(shaman["optimizerEligibleVariantRecordsWithLevelAndStats"], 1)
         self.assertEqual(shaman["verifiedCandidateSlotsPresent"], ["Head"])
         self.assertEqual(shaman["missingVerifiedCandidateSlots"], ["Chest", "Hands", "Legs", "Shoulders"])
-        self.assertTrue(shaman["completeVariantMapVerified"])
+        self.assertFalse(shaman["completeVariantMapVerified"])
         self.assertTrue(shaman["basePieceMappingVerified"])
         self.assertTrue(shaman["manifestMappingMatchesCatalogue"])
         self.assertEqual(shaman["manifestBasePieceCount"], 5)
