@@ -2463,6 +2463,52 @@
           ],
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271474,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Casque",
+          "slot": "Head",
+          "variant": "Item level 321 profile stat variant",
+          "itemLevel": 321,
+          "candidate": true,
+          "sourceUrl": "https://azerothcodex.up.railway.app/personnage/us/frostmourne/Skylarkeddn",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 167,
+              "source": "Azeroth Codex equipped Death Knight profile, Head item level 321; exact equipped stat variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3369,
+              "source": "Azeroth Codex equipped Death Knight profile, Head item level 321; exact equipped stat variant"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 79,
+              "source": "Azeroth Codex equipped Death Knight profile, Head item level 321; exact equipped stat variant"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 112,
+              "source": "Azeroth Codex equipped Death Knight profile, Head item level 321; exact equipped stat variant"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "itemIdsVerified": false,
