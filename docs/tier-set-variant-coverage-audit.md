@@ -33,14 +33,14 @@ For every class marked incomplete below, all five slots still need a complete, s
 | Demon Hunter | 35 observations + 34 candidates | All five slots have source-backed Raid Finder, Normal, Heroic, and Mythic baseline variants plus Mythic 6/6 at item level 334. Head/Chest/Legs use 285/298/311/324 baseline levels; Shoulders/Hands use 282/295/308/321. | Promoted 25 source-backed records into candidates for the five baseline versions per slot, preserving the existing observation ledger. Exact item-level-334 Mythic 6/6 variants are included for every slot. Nine additional exact intermediate-rank/item-level versions (Head 308/315; Chest 321; Hands 305/311/324; Legs 295/308/318) are candidates. Full rank-by-rank upgrade mapping remains incomplete. |
 | Druid | 28 observations + 26 candidates | All five slots now have four baseline difficulties plus source-verified Mythic 6/6 at 334. Legs 334 rank is cross-checked against an equipped-profile source; the observation ledger remains separate from optimizer candidates. One exact intermediate Head 321 candidate is also present. Other unverified intermediate ranks remain evidence-only. |
 | Evoker | 25 observations + 25 candidates | All five slots have source-backed Raid Finder, Normal, Heroic, and Mythic baseline variants plus exact item-level-334 Mythic 6/6 candidates. | Promoted 25 baseline/max-rank records plus the exact source-verified Head 315 Hero 4/6 version. Remaining unverified intermediate ranks stay evidence-only. |
-| Hunter | 31 observations + 25 candidates | All five slots have source-backed Raid Finder, Normal, Heroic, and Mythic baseline variants plus exact Mythic 6/6 at item level 334. The source-specific Mythic baseline for Legs is item level 318, not 324. | Added 11 exact baseline observations from the Warcraft Wiki set listing and promoted 25 exact observed versions into candidates. Intermediate upgrade ranks remain evidence-only. |
+| Hunter | 29 observations + 28 candidates | All five slots have source-backed Raid Finder, Normal, Heroic, and Mythic baseline variants plus exact Mythic 6/6 at item level 334. The source-specific Mythic baseline for Legs is item level 318, not 324. | Added 11 exact baseline observations from the Warcraft Wiki set listing and promoted 25 baseline/max-rank versions plus exact Head 308 and Legs 308/321 candidates. Other intermediate upgrade ranks remain evidence-only. |
 | Mage | 26 observations + 26 candidates | All five slots have source-backed Raid Finder, Normal, Heroic, and Mythic baseline variants plus exact item-level-334 Mythic 6/6 candidates. Head also retains an additional item-level-315 observation. | Promoted 25 exact source-backed observations into candidates across the five baseline variants per slot. Numeric stats remain tied to their exact observed versions. Other intermediate upgrade ranks remain evidence-only and full rank-by-rank coverage is incomplete. |
 | Monk | 25 observations + 25 candidates | All five slots now have four baseline difficulties plus source-verified Mythic 6/6 at 334. Legs 334 rank is cross-checked against an equipped-profile source; the observation ledger remains separate from optimizer candidates. Added seven exact baseline observations from the Warcraft Wiki tier-set listing. Other intermediate upgrade ranks remain evidence-only. |
-| Paladin | 29 observations + 28 candidates | All five slots have source-backed Raid Finder, Normal, Heroic, and Mythic baseline variants plus exact Mythic 6/6 at item level 334. | Added 11 exact source-backed Head, Chest, and Legs baseline records from the Warcraft Wiki tier-set listing, then promoted 25 baseline/max-rank versions plus exact Head 321, Chest 308, and Legs 318 rank candidates. Remaining unverified ranks stay evidence-only. |
-| Priest | 28 observations + 27 candidates | All five slots have source-backed Raid Finder, Normal, Heroic, and Mythic baseline variants plus exact item-level-334 Mythic 6/6 candidates. | Added source-backed chest observations at item levels 285, 298, and 324 from the Warcraft Wiki tier-set listing, then promoted 25 baseline/max-rank versions plus exact Chest 308 and 321 rank candidates. Other unverified ranks remain evidence-only. |
-| Rogue | 30 observations + 27 candidates | All five slots have source-backed Raid Finder, Normal, Heroic, and Mythic baseline variants plus exact item-level-334 Mythic 6/6 candidates. | Added 10 exact Head, Chest, and Hands baseline records from the Warcraft Wiki set listing, then promoted baseline versions and two additional exact source-verified intermediate-rank versions into candidates. Intermediate upgrade ranks remain evidence-only and the full rank-by-rank map is unfinished. |
+| Paladin | 29 observations + 29 candidates | All five slots have source-backed Raid Finder, Normal, Heroic, and Mythic baseline variants plus exact Mythic 6/6 at item level 334. | Added 11 exact source-backed Head, Chest, and Legs baseline records from the Warcraft Wiki tier-set listing, then promoted 25 baseline/max-rank versions plus exact Head 321, Chest 308/321, and Legs 318 rank candidates. Remaining unverified ranks stay evidence-only. |
+| Priest | 28 observations + 28 candidates | All five slots have source-backed Raid Finder, Normal, Heroic, and Mythic baseline variants plus exact item-level-334 Mythic 6/6 candidates. | Added source-backed chest observations at item levels 285, 298, and 324 from the Warcraft Wiki tier-set listing, then promoted 25 baseline/max-rank versions plus exact Chest 308/321 and Hands 305 rank candidates. Other unverified ranks remain evidence-only. |
+| Rogue | 30 observations + 29 candidates | All five slots have source-backed Raid Finder, Normal, Heroic, and Mythic baseline variants plus exact item-level-334 Mythic 6/6 candidates. | Added 10 exact Head, Chest, and Hands baseline records from the Warcraft Wiki set listing, then promoted baseline versions plus exact intermediate candidates for Head, Chest, Hands, and Legs; Legs 315/321 are now included. Intermediate upgrade ranks remain evidence-only and the full rank-by-rank map is unfinished. |
 | Shaman | 25 observations + 52 eligible candidates (20 baseline + 32 rank) + 10 PvP appearance-only records | Four baseline PvE variants per slot remain candidate-eligible. There are now 32 additional rank-verified candidates, including all five Mythic 6/6 versions and exact intermediate ranks across Head, Shoulders, Chest, Hands, and Legs. Ten PvP appearance records lack verified numeric stats. | Added 17 rank-verified versions: Head 295 Champion 2/6, 302 Champion 4/6, 305 Hero 1/6 (dropped-item and Catalyst stat variants), and 311 Hero 3/6; the 305 Hero 1/6 dropped-item variants are now verified for all five slots; Shoulders 302 Champion 4/6, 308 Champion 6/6, 321 Hero 6/6, and 328 Myth 4/6; Chest 289 Veteran 4/6, 308 Champion 6/6, 311 Hero 3/6, 318 Myth 1/6, 328 Myth 4/6; Hands 311 Hero 3/6 and 321 Hero 6/6; Legs 295 Veteran 6/6, 308 Champion 6/6, 318 Myth 1/6, and 321 Hero 6/6. Chest 289 uses the exact Wowhead version bonus identifier to verify its upgrade rank. Observation records remain separate and ineligible; remaining rank gaps are explicitly listed below. |
-| Warlock | 36 observations + 31 candidates | All five slots now have source-backed Raid Finder, Normal, Heroic, and Mythic baseline variants plus exact item-level-334 Mythic 6/6 candidates. | Added 12 exact Shoulder, Chest, Hands, and Legs baseline records from the Warcraft Wiki item pages, then promoted baseline versions plus six exact source-verified intermediate-rank versions into candidates. Remaining unverified ranks stay evidence-only. |
+| Warlock | 36 observations + 35 candidates | All five slots now have source-backed Raid Finder, Normal, Heroic, and Mythic baseline variants plus exact item-level-334 Mythic 6/6 candidates. | Added 12 exact Shoulder, Chest, Hands, and Legs baseline records from the Warcraft Wiki item pages, then promoted baseline versions plus ten exact source-verified intermediate-rank versions, including Head 305/315/321 and Hands 331. Remaining unverified ranks stay evidence-only. |
 | Warrior | 34 observations + 34 candidates | Head, Shoulders, and Chest have baseline difficulty candidates plus Mythic 6/6 at 334. Hands 282 is verified from the user tooltip; Legs 285/298/311/324 are verified from user tooltips. The separate item-level-344 chest variant remains distinct. | Baseline five-slot difficulty coverage is now present for Warrior. Full intermediate upgrade-rank coverage remains incomplete; do not infer missing stats. |
 
 ## Acceptance criteria
@@ -93,6 +93,8 @@ Warrior Hands 282 is verified from a user-provided in-game tooltip screenshot (R
 
 ## Exact upgrade-rank gaps by slot
 
+Newly promoted from the evidence ledger after rechecking the exact item-version URL and numeric stats: Hunter Head 308 and Legs 308/321; Paladin Chest 321; Priest Hands 305; Rogue Legs 315/321; Warlock Head 305/315/321 and Hands 331. The original evidence-ledger records remain `candidate:false`; eligible candidate copies are separately recorded in each class catalogue. These additions reduce listed gaps but do not complete any class's full rank-by-rank map.
+
 Candidate-level coverage only; observed-only records are deliberately excluded. The upgrade-level grid is Veteran/Champion/Hero/Myth track levels: 279, 282, 285, 289, 292, 295, 298, 302, 305, 308, 311, 315, 318, 321, 324, 328, 331, 334. A level listed as missing needs a source that proves both the exact item version and its numeric stats before it can become optimizer-eligible.
 
 | Class | Slot | Candidate item levels | Missing item levels |
@@ -117,11 +119,11 @@ Candidate-level coverage only; observed-only records are deliberately excluded. 
 | Evoker | Chest | 285, 298, 311, 324, 334 | 279, 282, 289, 292, 295, 302, 305, 308, 315, 318, 321, 328, 331 |
 | Evoker | Hands | 282, 295, 308, 321, 334 | 279, 285, 289, 292, 298, 302, 305, 311, 315, 318, 324, 328, 331 |
 | Evoker | Legs | 285, 298, 311, 324, 334 | 279, 282, 289, 292, 295, 302, 305, 308, 315, 318, 321, 328, 331 |
-| Hunter | Head | 285, 298, 311, 324, 334 | 279, 282, 289, 292, 295, 302, 305, 308, 315, 318, 321, 328, 331 |
+| Hunter | Head | 285, 298, 308, 311, 324, 334 | 279, 282, 289, 292, 295, 302, 305, 315, 318, 321, 328, 331 |
 | Hunter | Shoulders | 282, 295, 308, 321, 334 | 279, 285, 289, 292, 298, 302, 305, 311, 315, 318, 324, 328, 331 |
 | Hunter | Chest | 285, 298, 311, 324, 334 | 279, 282, 289, 292, 295, 302, 305, 308, 315, 318, 321, 328, 331 |
 | Hunter | Hands | 282, 295, 308, 321, 334 | 279, 285, 289, 292, 298, 302, 305, 311, 315, 318, 324, 328, 331 |
-| Hunter | Legs | 285, 298, 311, 318, 334 | 279, 282, 289, 292, 295, 302, 305, 308, 315, 321, 324, 328, 331 |
+| Hunter | Legs | 285, 298, 308, 311, 318, 321, 334 | 279, 282, 289, 292, 295, 302, 305, 315, 324, 328, 331 |
 | Mage | Head | 285, 298, 311, 315, 324, 334 | 279, 282, 289, 292, 295, 302, 305, 308, 318, 321, 328, 331 |
 | Mage | Shoulders | 282, 295, 308, 321, 334 | 279, 285, 289, 292, 298, 302, 305, 311, 315, 318, 324, 328, 331 |
 | Mage | Chest | 285, 298, 311, 324, 334 | 279, 282, 289, 292, 295, 302, 305, 308, 315, 318, 321, 328, 331 |
@@ -134,28 +136,28 @@ Candidate-level coverage only; observed-only records are deliberately excluded. 
 | Monk | Legs | 285, 298, 311, 324, 334 | 279, 282, 289, 292, 295, 302, 305, 308, 315, 318, 321, 328, 331 |
 | Paladin | Head | 285, 298, 311, 321, 324, 334 | 279, 282, 289, 292, 295, 302, 305, 308, 315, 318, 328, 331 |
 | Paladin | Shoulders | 282, 295, 308, 321, 334 | 279, 285, 289, 292, 298, 302, 305, 311, 315, 318, 324, 328, 331 |
-| Paladin | Chest | 285, 298, 308, 311, 324, 334 | 279, 282, 289, 292, 295, 302, 305, 315, 318, 321, 328, 331 |
+| Paladin | Chest | 285, 298, 308, 311, 321, 324, 334 | 279, 282, 289, 292, 295, 302, 305, 315, 318, 328, 331 |
 | Paladin | Hands | 282, 295, 308, 321, 334 | 279, 285, 289, 292, 298, 302, 305, 311, 315, 318, 324, 328, 331 |
 | Paladin | Legs | 285, 298, 311, 318, 324, 334 | 279, 282, 289, 292, 295, 302, 305, 308, 315, 321, 328, 331 |
 | Priest | Head | 285, 298, 311, 324, 334 | 279, 282, 289, 292, 295, 302, 305, 308, 315, 318, 321, 328, 331 |
 | Priest | Shoulders | 282, 295, 308, 321, 334 | 279, 285, 289, 292, 298, 302, 305, 311, 315, 318, 324, 328, 331 |
 | Priest | Chest | 285, 298, 308, 311, 321, 324, 334 | 279, 282, 289, 292, 295, 302, 305, 315, 318, 328, 331 |
-| Priest | Hands | 282, 295, 308, 321, 334 | 279, 285, 289, 292, 298, 302, 305, 311, 315, 318, 324, 328, 331 |
+| Priest | Hands | 282, 295, 305, 308, 321, 334 | 279, 285, 289, 292, 298, 302, 311, 315, 318, 324, 328, 331 |
 | Priest | Legs | 285, 298, 311, 324, 334 | 279, 282, 289, 292, 295, 302, 305, 308, 315, 318, 321, 328, 331 |
 | Rogue | Head | 285, 295, 298, 311, 324, 334 | 279, 282, 289, 292, 302, 305, 308, 315, 318, 321, 328, 331 |
 | Rogue | Shoulders | 282, 295, 308, 321, 334 | 279, 285, 289, 292, 298, 302, 305, 311, 315, 318, 324, 328, 331 |
 | Rogue | Chest | 285, 298, 305, 311, 324, 334 | 279, 282, 289, 292, 295, 302, 308, 315, 318, 321, 328, 331 |
 | Rogue | Hands | 282, 295, 308, 321, 334 | 279, 285, 289, 292, 298, 302, 305, 311, 315, 318, 324, 328, 331 |
-| Rogue | Legs | 285, 298, 311, 324, 334 | 279, 282, 289, 292, 295, 302, 305, 308, 315, 318, 321, 328, 331 |
+| Rogue | Legs | 285, 298, 311, 315, 321, 324, 334 | 279, 282, 289, 292, 295, 302, 305, 308, 318, 328, 331 |
 | Shaman | Head | 285, 295, 298, 302, 305, 311, 315, 321, 324, 334 | 279, 282, 289, 292, 308, 318, 328, 331 |
 | Shaman | Shoulders | 282, 295, 302, 305, 308, 321, 328, 334 | 279, 285, 289, 292, 298, 311, 315, 318, 324, 331 |
 | Shaman | Chest | 285, 289, 298, 305, 308, 311, 318, 324, 328, 334 | 279, 282, 289, 292, 295, 302, 315, 321, 331 |
 | Shaman | Hands | 282, 295, 305, 308, 311, 318, 321, 334 | 279, 285, 289, 292, 298, 302, 315, 324, 328, 331 |
 | Shaman | Legs | 285, 295, 298, 305, 308, 311, 318, 321, 324, 334 | 279, 282, 289, 292, 302, 315, 328, 331 |
-| Warlock | Head | 285, 298, 308, 311, 318, 324, 334 | 279, 282, 289, 292, 295, 302, 305, 315, 321, 328, 331 |
+| Warlock | Head | 285, 298, 305, 308, 311, 315, 318, 321, 324, 334 | 279, 282, 289, 292, 295, 302, 328, 331 |
 | Warlock | Shoulders | 282, 295, 308, 311, 321, 334 | 279, 285, 289, 292, 298, 302, 305, 315, 318, 324, 328, 331 |
 | Warlock | Chest | 285, 298, 311, 321, 324, 328, 334 | 279, 282, 289, 292, 295, 302, 305, 308, 315, 318, 331 |
-| Warlock | Hands | 282, 295, 308, 321, 334 | 279, 285, 289, 292, 298, 302, 305, 311, 315, 318, 324, 328, 331 |
+| Warlock | Hands | 282, 295, 308, 321, 331, 334 | 279, 285, 289, 292, 298, 302, 305, 311, 315, 318, 324, 328 |
 | Warlock | Legs | 285, 298, 305, 311, 324, 334 | 279, 282, 289, 292, 295, 302, 308, 315, 318, 321, 328, 331 |
 | Warrior | Head | 285, 298, 311, 324, 334 | 279, 282, 289, 292, 295, 302, 305, 308, 315, 318, 321, 328, 331 |
 | Warrior | Shoulders | 282, 295, 308, 321, 334 | 279, 285, 289, 292, 298, 302, 305, 311, 315, 318, 324, 328, 331 |
