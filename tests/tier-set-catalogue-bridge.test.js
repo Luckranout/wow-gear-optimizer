@@ -362,7 +362,7 @@ test("Death Knight verified baseline candidates and source-checked tier observat
 test("Paladin observed tier variants are source-backed and remain evidence-only", () => {
   const paladin = catalogue.sets.find(set => set.class === "Paladin");
   const observations = paladin.verifiedVariantObservations || [];
-  assert.equal(observations.length, 33);
+  assert.equal(observations.length, 36);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(paladin.variantObservationsStatus, "partial");
   assert.match(paladin.variantObservationsNote, /intermediate upgrade ranks remain evidence-only/i);
@@ -407,11 +407,13 @@ test("Paladin observed tier variants are source-backed and remain evidence-only"
   assert.equal(chestByLevel.get(321).candidate, false);
   assert.equal(Number(new URL(chestByLevel.get(321).sourceUrl).searchParams.get("ilvl")), 321);
   const handsByLevel = new Map(observations.filter(piece => piece.itemId === 271466).map(piece => [piece.itemLevel, piece]));
-  assert.deepEqual([...handsByLevel.keys()].sort((a, b) => a - b), [282, 295, 308, 321, 334]);
+  assert.deepEqual([...handsByLevel.keys()].sort((a, b) => a - b), [282, 295, 302, 308, 318, 321, 334]);
   const expectedHands = {
     282: { strength: 87, stamina: 1606, criticalStrike: 39, mastery: 80 },
     295: { strength: 98, stamina: 1869, criticalStrike: 42, mastery: 86 },
+    302: { strength: 105, intellect: 105, stamina: 2024, criticalStrike: 43, mastery: 88 },
     308: { strength: 111, stamina: 2172, criticalStrike: 44, mastery: 91 },
+    318: { strength: 122, intellect: 122, stamina: 2440, criticalStrike: 46, mastery: 95 },
     321: { strength: 125, stamina: 2527, criticalStrike: 47, mastery: 96 },
     334: { strength: 141, intellect: 141, stamina: 2932, criticalStrike: 49, mastery: 101 }
   };
@@ -420,11 +422,12 @@ test("Paladin observed tier variants are source-backed and remain evidence-only"
     assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expectedHands[level]);
   }
   const shouldersByLevel = new Map(observations.filter(piece => piece.itemId === 271463).map(piece => [piece.itemLevel, piece]));
-  assert.deepEqual([...shouldersByLevel.keys()].sort((a, b) => a - b), [282, 295, 308, 321, 334]);
+  assert.deepEqual([...shouldersByLevel.keys()].sort((a, b) => a - b), [282, 295, 308, 315, 321, 334]);
   const expectedShoulders = {
     282: { strength: 87, intellect: 87, stamina: 1606, criticalStrike: 83, mastery: 36 },
     295: { strength: 98, intellect: 98, stamina: 1869, criticalStrike: 89, mastery: 38 },
     308: { strength: 111, intellect: 111, stamina: 2172, criticalStrike: 94, mastery: 41 },
+    315: { strength: 118, intellect: 118, stamina: 2358, criticalStrike: 97, mastery: 42 },
     321: { strength: 125, intellect: 125, stamina: 2527, criticalStrike: 100, mastery: 43 },
     334: { strength: 141, stamina: 2932, haste: 95, mastery: 56 }
   };
@@ -2238,8 +2241,8 @@ test("Paladin has source-verified baseline PvE and exact Mythic 6/6 candidates f
   assert.equal(paladin.itemIdsVerified, false);
   assert.equal(paladin.candidateVariantsAvailable, true);
   assert.equal(paladin.baseItemIdsVerified, true);
-  assert.equal(paladin.pieces.length, 33);
-  assert.equal(paladin.pieces.filter(piece => piece.candidate).length, 33);
+  assert.equal(paladin.pieces.length, 36);
+  assert.equal(paladin.pieces.filter(piece => piece.candidate).length, 36);
   const expected = {
     Head: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
     Shoulders: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
@@ -2339,6 +2342,9 @@ test("exact source-backed intermediate variants are eligible while observations 
     ["Paladin", "Chest", 302, [["strength", 140], ["intellect", 140], ["stamina", 2699], ["haste", 56], ["mastery", 119]]],
     ["Paladin", "Chest", 305, [["strength", 144], ["intellect", 144], ["stamina", 2794], ["haste", 56], ["mastery", 121]]],
     ["Paladin", "Chest", 318, [["strength", 162], ["intellect", 162], ["stamina", 3254], ["haste", 60], ["mastery", 128]]],
+    ["Paladin", "Shoulders", 315, [["strength", 118], ["intellect", 118], ["stamina", 2358], ["criticalStrike", 97], ["mastery", 42]]],
+    ["Paladin", "Hands", 302, [["strength", 105], ["intellect", 105], ["stamina", 2024], ["criticalStrike", 43], ["mastery", 88]]],
+    ["Paladin", "Hands", 318, [["strength", 122], ["intellect", 122], ["stamina", 2440], ["criticalStrike", 46], ["mastery", 95]]],
     ["Hunter", "Head", 308, [["agility", 148], ["stamina", 2896], ["haste", 128], ["mastery", 52]]],
     ["Hunter", "Legs", 308, [["agility", 148], ["intellect", 148], ["stamina", 2896], ["haste", 63], ["mastery", 117]]],
     ["Hunter", "Legs", 321, [["agility", 167], ["intellect", 167], ["stamina", 3369], ["haste", 67], ["mastery", 124]]],
