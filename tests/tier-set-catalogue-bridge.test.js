@@ -362,7 +362,7 @@ test("Death Knight verified baseline candidates and source-checked tier observat
 test("Paladin observed tier variants are source-backed and remain evidence-only", () => {
   const paladin = catalogue.sets.find(set => set.class === "Paladin");
   const observations = paladin.verifiedVariantObservations || [];
-  assert.equal(observations.length, 36);
+  assert.equal(observations.length, 37);
   assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
   assert.equal(paladin.variantObservationsStatus, "partial");
   assert.match(paladin.variantObservationsNote, /intermediate upgrade ranks remain evidence-only/i);
@@ -407,13 +407,14 @@ test("Paladin observed tier variants are source-backed and remain evidence-only"
   assert.equal(chestByLevel.get(321).candidate, false);
   assert.equal(Number(new URL(chestByLevel.get(321).sourceUrl).searchParams.get("ilvl")), 321);
   const handsByLevel = new Map(observations.filter(piece => piece.itemId === 271466).map(piece => [piece.itemLevel, piece]));
-  assert.deepEqual([...handsByLevel.keys()].sort((a, b) => a - b), [282, 295, 302, 308, 318, 321, 334]);
+  assert.deepEqual([...handsByLevel.keys()].sort((a, b) => a - b), [282, 295, 302, 308, 318, 321, 328, 334]);
   const expectedHands = {
     282: { strength: 87, stamina: 1606, criticalStrike: 39, mastery: 80 },
     295: { strength: 98, stamina: 1869, criticalStrike: 42, mastery: 86 },
     302: { strength: 105, intellect: 105, stamina: 2024, criticalStrike: 43, mastery: 88 },
     308: { strength: 111, stamina: 2172, criticalStrike: 44, mastery: 91 },
     318: { strength: 122, intellect: 122, stamina: 2440, criticalStrike: 46, mastery: 95 },
+    328: { strength: 134, intellect: 134, stamina: 2737, criticalStrike: 48, mastery: 99 },
     321: { strength: 125, stamina: 2527, criticalStrike: 47, mastery: 96 },
     334: { strength: 141, intellect: 141, stamina: 2932, criticalStrike: 49, mastery: 101 }
   };
@@ -2241,8 +2242,8 @@ test("Paladin has source-verified baseline PvE and exact Mythic 6/6 candidates f
   assert.equal(paladin.itemIdsVerified, false);
   assert.equal(paladin.candidateVariantsAvailable, true);
   assert.equal(paladin.baseItemIdsVerified, true);
-  assert.equal(paladin.pieces.length, 36);
-  assert.equal(paladin.pieces.filter(piece => piece.candidate).length, 36);
+  assert.equal(paladin.pieces.length, 37);
+  assert.equal(paladin.pieces.filter(piece => piece.candidate).length, 37);
   const expected = {
     Head: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
     Shoulders: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
@@ -2345,6 +2346,7 @@ test("exact source-backed intermediate variants are eligible while observations 
     ["Paladin", "Shoulders", 315, [["strength", 118], ["intellect", 118], ["stamina", 2358], ["criticalStrike", 97], ["mastery", 42]]],
     ["Paladin", "Hands", 302, [["strength", 105], ["intellect", 105], ["stamina", 2024], ["criticalStrike", 43], ["mastery", 88]]],
     ["Paladin", "Hands", 318, [["strength", 122], ["intellect", 122], ["stamina", 2440], ["criticalStrike", 46], ["mastery", 95]]],
+    ["Paladin", "Hands", 328, [["strength", 134], ["intellect", 134], ["stamina", 2737], ["criticalStrike", 48], ["mastery", 99]]],
     ["Hunter", "Head", 308, [["agility", 148], ["stamina", 2896], ["haste", 128], ["mastery", 52]]],
     ["Hunter", "Legs", 308, [["agility", 148], ["intellect", 148], ["stamina", 2896], ["haste", 63], ["mastery", 117]]],
     ["Hunter", "Legs", 321, [["agility", 167], ["intellect", 167], ["stamina", 3369], ["haste", 67], ["mastery", 124]]],
