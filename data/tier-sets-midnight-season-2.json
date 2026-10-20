@@ -2279,6 +2279,98 @@
           ],
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271474,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Casque",
+          "slot": "Head",
+          "variant": "Item level 334 profile stat variant",
+          "itemLevel": 334,
+          "candidate": true,
+          "sourceUrl": "https://azerothcodex.up.railway.app/simulation/us/azralon/Vhroknar",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 189,
+              "source": "Azeroth Codex equipped Death Knight profile, Head item level 334; exact equipped stat variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Azeroth Codex equipped Death Knight profile, Head item level 334; exact equipped stat variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 75,
+              "source": "Azeroth Codex equipped Death Knight profile, Head item level 334; exact equipped stat variant"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 126,
+              "source": "Azeroth Codex equipped Death Knight profile, Head item level 334; exact equipped stat variant"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271474,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Casque",
+          "slot": "Head",
+          "variant": "Item level 334 profile stat variant",
+          "itemLevel": 334,
+          "candidate": true,
+          "sourceUrl": "https://azerothcodex.up.railway.app/simulation/eu/tarren-mill/Balouwu",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 189,
+              "source": "Azeroth Codex equipped Death Knight profile, Head item level 334; exact equipped stat variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3910,
+              "source": "Azeroth Codex equipped Death Knight profile, Head item level 334; exact equipped stat variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 61,
+              "source": "Azeroth Codex equipped Death Knight profile, Head item level 334; exact equipped stat variant"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 140,
+              "source": "Azeroth Codex equipped Death Knight profile, Head item level 334; exact equipped stat variant"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "itemIdsVerified": false,
