@@ -35339,6 +35339,53 @@
           ],
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271455,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Greaves of the Jade Warlord",
+          "slot": "Legs",
+          "variant": "Veteran 3/6 observed",
+          "itemLevel": 285,
+          "candidate": true,
+          "verificationScope": "exact-version-stats-verified",
+          "sourceUrl": "https://www.wowhead.com/mx/item=271455/grebas-del-se%C3%B1or-de-la-guerra-de-jade?bonus=12827",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 119,
+              "source": "Wowhead exact item version, Veteran 3/6, item level 285"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "Wowhead exact item version, Veteran 3/6, item level 285"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 108,
+              "source": "Wowhead exact item version, Veteran 3/6, item level 285"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 53,
+              "source": "Wowhead exact item version, Veteran 3/6, item level 285"
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "itemIdsVerified": false,
