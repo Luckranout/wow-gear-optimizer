@@ -189,8 +189,8 @@ test("Death Knight verified baseline candidates and source-checked tier observat
   const deathKnight = catalogue.sets.find(set => set.class === "Death Knight");
   assert.equal(deathKnight.itemIdsVerified, false, "the full upgrade-rank map remains partial");
   assert.equal(deathKnight.candidateVariantsAvailable, true);
-  assert.equal(deathKnight.pieces.length, 36, "Death Knight includes baseline and exact intermediate-rank candidates");
-  assert.equal(deathKnight.pieces.filter(piece => piece.candidate).length, 36);
+  assert.equal(deathKnight.pieces.length, 37, "Death Knight includes baseline and exact intermediate-rank candidates");
+  assert.equal(deathKnight.pieces.filter(piece => piece.candidate).length, 37);
   assert.ok(deathKnight.pieces.every(piece => piece.candidate === true && !("verificationScope" in piece)), "verified candidate records must not retain evidence-only scope");
   for (const slot of EXPECTED_SLOTS) {
     const slotCandidates = deathKnight.pieces.filter(piece => piece.slot === slot);
@@ -211,7 +211,8 @@ test("Death Knight verified baseline candidates and source-checked tier observat
     ["Shoulders", 302, { strength: 105, stamina: 2024, haste: 43, versatility: 88 }, "https://www.wowhead.com/item=271472/baleful-grave-knights-gibbets?bonus=13694%3A6652%3A13697%3A12836&class=6&ilvl=302&spec=251"],
     ["Hands", 315, { strength: 118, stamina: 2358, criticalStrike: 48, mastery: 91 }, "https://www.wowhead.com/ptr-2/item=271475/baleful-grave-knights-deathgrips?bonus=12844"],
     ["Head", 305, { strength: 144, stamina: 2794, criticalStrike: 123, mastery: 54 }, "https://www.wowhead.com/item=271474/baleful-grave-knights-casque?bonus=6652%3A12841%3A13696%3A13440%3A13692%3A13698%3A1558&class=6&ilvl=305&spec=250"],
-    ["Hands", 285, { strength: 90, stamina: 1664, criticalStrike: 42, mastery: 79 }, "https://www.wowhead.com/item=271475/baleful-grave-knights-deathgrips?bonus=41%3A12827%3A13691%3A13697%3A1538&ilvl=285&spec=250"]
+    ["Hands", 285, { strength: 90, stamina: 1664, criticalStrike: 42, mastery: 79 }, "https://www.wowhead.com/item=271475/baleful-grave-knights-deathgrips?bonus=41%3A12827%3A13691%3A13697%3A1538&ilvl=285&spec=250"],
+    ["Shoulders", 318, { strength: 122, stamina: 2440, haste: 46, versatility: 94 }, "https://www.wowhead.com/ptr-2/item=271472/baleful-grave-knights-gibbets?bonus=13334%3A6652%3A12849%3A13694%3A13697%3A1571%3A13696&ilvl=318&spec=250"]
   ]) {
     const piece = deathKnight.pieces.find(entry => entry.slot === slot && entry.itemLevel === level);
     assert.ok(piece, `Death Knight ${slot} ${level} source-verified rank candidate is present`);
