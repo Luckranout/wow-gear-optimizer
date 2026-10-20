@@ -1635,6 +1635,98 @@
           ],
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271474,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Casque",
+          "slot": "Head",
+          "variant": "Hero 1/6",
+          "itemLevel": 305,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271474/baleful-grave-knights-casque?bonus=6652%3A12841%3A13696%3A13440%3A13692%3A13698%3A1558&class=6&ilvl=305&spec=250",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 144,
+              "source": "Wowhead exact item version, item level 305, Hero 1/6"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2794,
+              "source": "Wowhead exact item version, item level 305, Hero 1/6"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 123,
+              "source": "Wowhead exact item version, item level 305, Hero 1/6"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 54,
+              "source": "Wowhead exact item version, item level 305, Hero 1/6"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271475,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Deathgrips",
+          "slot": "Hands",
+          "variant": "Veteran 3/6",
+          "itemLevel": 285,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271475/baleful-grave-knights-deathgrips?bonus=41%3A12827%3A13691%3A13697%3A1538&ilvl=285&spec=250",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 90,
+              "source": "Wowhead exact item version, item level 285, Veteran 3/6"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 1664,
+              "source": "Wowhead exact item version, item level 285, Veteran 3/6"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 42,
+              "source": "Wowhead exact item version, item level 285, Veteran 3/6"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 79,
+              "source": "Wowhead exact item version, item level 285, Veteran 3/6"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "itemIdsVerified": false,
