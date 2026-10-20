@@ -2035,8 +2035,8 @@ test("Druid has baseline and source-verified Mythic 6/6 candidates for all five 
   assert.equal(druid.itemIdsVerified, false);
   assert.equal(druid.candidateVariantsAvailable, true);
   assert.equal(druid.baseItemIdsVerified, true);
-  assert.equal(druid.pieces.length, 26);
-  assert.equal(druid.pieces.filter(piece => piece.candidate).length, 26);
+  assert.equal(druid.pieces.length, 27);
+  assert.equal(druid.pieces.filter(piece => piece.candidate).length, 27);
   const expected = {
     Head: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
     Shoulders: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
@@ -2324,6 +2324,7 @@ test("Warrior Greaves of the Jade Warlord exact tooltip variants 285/298/311/324
 
 test("exact source-backed intermediate variants are eligible while observations remain evidence-only", () => {
   const cases = [
+    ["Druid", "Chest", 292, [["agility", 128], ["intellect", 128], ["stamina", 2406], ["criticalStrike", 109], ["haste", 58]]],
     ["Hunter", "Head", 308, [["agility", 148], ["stamina", 2896], ["haste", 128], ["mastery", 52]]],
     ["Hunter", "Legs", 308, [["agility", 148], ["intellect", 148], ["stamina", 2896], ["haste", 63], ["mastery", 117]]],
     ["Hunter", "Legs", 321, [["agility", 167], ["intellect", 167], ["stamina", 3369], ["haste", 67], ["mastery", 124]]],
