@@ -35339,6 +35339,194 @@
           ],
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271455,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Greaves of the Jade Warlord",
+          "slot": "Legs",
+          "variant": "Raid Finder; Veteran 3/6 observed",
+          "itemLevel": 285,
+          "candidate": true,
+          "verificationScope": "exact-version-stats-confirmed-by-user-provided-in-game-tooltip",
+          "sourceUrl": "https://www.wowhead.com/item=271455/greaves-of-the-jade-warlord?ilvl=285",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 119,
+              "source": "User-provided in-game tooltip screenshot, Raid Finder; Veteran 3/6 observed, item level 285"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2219,
+              "source": "User-provided in-game tooltip screenshot, Raid Finder; Veteran 3/6 observed, item level 285"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 108,
+              "source": "User-provided in-game tooltip screenshot, Raid Finder; Veteran 3/6 observed, item level 285"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 53,
+              "source": "User-provided in-game tooltip screenshot, Raid Finder; Veteran 3/6 observed, item level 285"
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271455,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Greaves of the Jade Warlord",
+          "slot": "Legs",
+          "variant": "Champion 3/6 observed",
+          "itemLevel": 298,
+          "candidate": true,
+          "verificationScope": "exact-version-stats-confirmed-by-user-provided-in-game-tooltip",
+          "sourceUrl": "https://www.wowhead.com/item=271455/greaves-of-the-jade-warlord?ilvl=298",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 135,
+              "source": "User-provided in-game tooltip screenshot, Champion 3/6 observed, item level 298"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2579,
+              "source": "User-provided in-game tooltip screenshot, Champion 3/6 observed, item level 298"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 116,
+              "source": "User-provided in-game tooltip screenshot, Champion 3/6 observed, item level 298"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 56,
+              "source": "User-provided in-game tooltip screenshot, Champion 3/6 observed, item level 298"
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271455,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Greaves of the Jade Warlord",
+          "slot": "Legs",
+          "variant": "Hero 3/6 observed",
+          "itemLevel": 311,
+          "candidate": true,
+          "verificationScope": "exact-version-stats-confirmed-by-user-provided-in-game-tooltip",
+          "sourceUrl": "https://www.wowhead.com/item=271455/greaves-of-the-jade-warlord?ilvl=311",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 152,
+              "source": "User-provided in-game tooltip screenshot, Hero 3/6 observed, item level 311"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3002,
+              "source": "User-provided in-game tooltip screenshot, Hero 3/6 observed, item level 311"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 123,
+              "source": "User-provided in-game tooltip screenshot, Hero 3/6 observed, item level 311"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 60,
+              "source": "User-provided in-game tooltip screenshot, Hero 3/6 observed, item level 311"
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271455,
+          "setId": "jade-warlord-s-dominion",
+          "name": "Greaves of the Jade Warlord",
+          "slot": "Legs",
+          "variant": "Mythic 3/6 observed",
+          "itemLevel": 324,
+          "candidate": true,
+          "verificationScope": "exact-version-stats-confirmed-by-user-provided-in-game-tooltip",
+          "sourceUrl": "https://www.wowhead.com/item=271455/greaves-of-the-jade-warlord?ilvl=324",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 172,
+              "source": "User-provided in-game tooltip screenshot, Mythic 3/6 observed, item level 324"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "User-provided in-game tooltip screenshot, Mythic 3/6 observed, item level 324"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 130,
+              "source": "User-provided in-game tooltip screenshot, Mythic 3/6 observed, item level 324"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 63,
+              "source": "User-provided in-game tooltip screenshot, Mythic 3/6 observed, item level 324"
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "itemIdsVerified": false,
