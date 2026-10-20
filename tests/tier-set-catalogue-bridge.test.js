@@ -189,8 +189,8 @@ test("Death Knight verified baseline candidates and source-checked tier observat
   const deathKnight = catalogue.sets.find(set => set.class === "Death Knight");
   assert.equal(deathKnight.itemIdsVerified, false, "the full upgrade-rank map remains partial");
   assert.equal(deathKnight.candidateVariantsAvailable, true);
-  assert.equal(deathKnight.pieces.length, 55, "Death Knight includes baseline, exact intermediate-rank, and same-level stat-variant candidates");
-  assert.equal(deathKnight.pieces.filter(piece => piece.candidate).length, 55);
+  assert.equal(deathKnight.pieces.length, 56, "Death Knight includes baseline, exact intermediate-rank, and same-level stat-variant candidates");
+  assert.equal(deathKnight.pieces.filter(piece => piece.candidate).length, 56);
   assert.ok(deathKnight.pieces.every(piece => piece.candidate === true && !("verificationScope" in piece)), "verified candidate records must not retain evidence-only scope");
   for (const slot of EXPECTED_SLOTS) {
     const slotCandidates = deathKnight.pieces.filter(piece => piece.slot === slot);
