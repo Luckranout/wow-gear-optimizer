@@ -1865,6 +1865,190 @@
           ],
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271474,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Casque",
+          "slot": "Head",
+          "variant": "Item level 324 profile stat variant",
+          "itemLevel": 324,
+          "candidate": true,
+          "sourceUrl": "https://wowcore.io/en/characters/eu/dalaran/Al%C3%BA",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 172,
+              "source": "WoWCore equipped Death Knight profile, Head item level 324; exact equipped stat variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3487,
+              "source": "WoWCore equipped Death Knight profile, Head item level 324; exact equipped stat variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 58,
+              "source": "WoWCore equipped Death Knight profile, Head item level 324; exact equipped stat variant"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 135,
+              "source": "WoWCore equipped Death Knight profile, Head item level 324; exact equipped stat variant"
+            }
+          ],
+          "secondaryStats": [
+            "Critical Strike",
+            "Mastery"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271477,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Breastplate",
+          "slot": "Chest",
+          "variant": "Item level 321 profile stat variant",
+          "itemLevel": 321,
+          "candidate": true,
+          "sourceUrl": "https://wowcore.io/en/characters/eu/dalaran/Al%C3%BA",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 167,
+              "source": "WoWCore equipped Death Knight profile, Chest item level 321; exact equipped stat variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3369,
+              "source": "WoWCore equipped Death Knight profile, Chest item level 321; exact equipped stat variant"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 71,
+              "source": "WoWCore equipped Death Knight profile, Chest item level 321; exact equipped stat variant"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 120,
+              "source": "WoWCore equipped Death Knight profile, Chest item level 321; exact equipped stat variant"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271475,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Deathgrips",
+          "slot": "Hands",
+          "variant": "Item level 311 profile stat variant",
+          "itemLevel": 311,
+          "candidate": true,
+          "sourceUrl": "https://wowcore.io/en/characters/eu/dalaran/Al%C3%BA",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 114,
+              "source": "WoWCore equipped Death Knight profile, Hands item level 311; exact equipped stat variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2252,
+              "source": "WoWCore equipped Death Knight profile, Hands item level 311; exact equipped stat variant"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 83,
+              "source": "WoWCore equipped Death Knight profile, Hands item level 311; exact equipped stat variant"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 54,
+              "source": "WoWCore equipped Death Knight profile, Hands item level 311; exact equipped stat variant"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271473,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Greaves",
+          "slot": "Legs",
+          "variant": "Item level 321 profile stat variant",
+          "itemLevel": 321,
+          "candidate": true,
+          "sourceUrl": "https://wowcore.io/en/characters/eu/dalaran/Al%C3%BA",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 167,
+              "source": "WoWCore equipped Death Knight profile, Legs item level 321; exact equipped stat variant"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3369,
+              "source": "WoWCore equipped Death Knight profile, Legs item level 321; exact equipped stat variant"
+            },
+            {
+              "type": {
+                "name": "criticalStrike"
+              },
+              "value": 71,
+              "source": "WoWCore equipped Death Knight profile, Legs item level 321; exact equipped stat variant"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 120,
+              "source": "WoWCore equipped Death Knight profile, Legs item level 321; exact equipped stat variant"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Critical Strike"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "itemIdsVerified": false,
