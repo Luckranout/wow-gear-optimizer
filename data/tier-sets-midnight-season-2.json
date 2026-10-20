@@ -20917,6 +20917,59 @@
           "setId": "radiance-of-the-consecrated-flame",
           "name": "Bulwark of the Consecrated Flame",
           "slot": "Chest",
+          "variant": "Champion 2/6",
+          "itemLevel": 295,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271468/bulwark-of-the-consecrated-flame?bonus=6652%3A12834%3A13690%3A13698%3A1548&class=2&ilvl=295&spec=66",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 131,
+              "source": "Wowhead exact item-version tooltip, item level 295, Champion 2/6"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 131,
+              "source": "Wowhead exact item-version tooltip, item level 295, Champion 2/6"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2492,
+              "source": "Wowhead exact item-version tooltip, item level 295, Champion 2/6"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 54,
+              "source": "Wowhead exact item-version tooltip, item level 295, Champion 2/6"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 116,
+              "source": "Wowhead exact item-version tooltip, item level 295, Champion 2/6"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271468,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Bulwark of the Consecrated Flame",
+          "slot": "Chest",
           "variant": "Normal",
           "itemLevel": 298,
           "candidate": true,
@@ -20950,6 +21003,112 @@
               },
               "value": 117,
               "source": "Warcraft Wiki tier-set page, item level 298"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271468,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Bulwark of the Consecrated Flame",
+          "slot": "Chest",
+          "variant": "Champion 4/6",
+          "itemLevel": 302,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271468/bulwark-of-the-consecrated-flame?bonus=6652%3A13333%3A12836%3A13690%3A13698%3A1555&class=2&ilvl=302&spec=66",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 140,
+              "source": "Wowhead exact item-version tooltip, item level 302, Champion 4/6"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 140,
+              "source": "Wowhead exact item-version tooltip, item level 302, Champion 4/6"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2699,
+              "source": "Wowhead exact item-version tooltip, item level 302, Champion 4/6"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 56,
+              "source": "Wowhead exact item-version tooltip, item level 302, Champion 4/6"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 119,
+              "source": "Wowhead exact item-version tooltip, item level 302, Champion 4/6"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271468,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Bulwark of the Consecrated Flame",
+          "slot": "Chest",
+          "variant": "Hero 1/6",
+          "itemLevel": 305,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/item=271468/bulwark-of-the-consecrated-flame?bonus=6652%3A13690%3A13698%3A12837&class=2&ilvl=305&spec=70",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 144,
+              "source": "Wowhead exact item-version tooltip, item level 305, Hero 1/6"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 144,
+              "source": "Wowhead exact item-version tooltip, item level 305, Hero 1/6"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2794,
+              "source": "Wowhead exact item-version tooltip, item level 305, Hero 1/6"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 56,
+              "source": "Wowhead exact item-version tooltip, item level 305, Hero 1/6"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 121,
+              "source": "Wowhead exact item-version tooltip, item level 305, Hero 1/6"
             }
           ],
           "secondaryStats": [
@@ -21057,6 +21216,59 @@
               },
               "value": 152,
               "source": "Wowhead tooltip, item level 311"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271468,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Bulwark of the Consecrated Flame",
+          "slot": "Chest",
+          "variant": "Hero 5/6",
+          "itemLevel": 318,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/ptr-2/item=271468/bulwark-of-the-consecrated-flame?bonus=6652%3A13690%3A13698%3A12845&ilvl=318&spec=66",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 162,
+              "source": "Wowhead exact item-version tooltip, item level 318, Hero 5/6"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 162,
+              "source": "Wowhead exact item-version tooltip, item level 318, Hero 5/6"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3254,
+              "source": "Wowhead exact item-version tooltip, item level 318, Hero 5/6"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 60,
+              "source": "Wowhead exact item-version tooltip, item level 318, Hero 5/6"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 128,
+              "source": "Wowhead exact item-version tooltip, item level 318, Hero 5/6"
             }
           ],
           "secondaryStats": [
@@ -23053,6 +23265,222 @@
               "source": "Warcraft Wiki tier-set page, item level 324"
             }
           ]
+        },
+        {
+          "itemId": 271468,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Bulwark of the Consecrated Flame",
+          "slot": "Chest",
+          "variant": "Champion 2/6 observed",
+          "itemLevel": 295,
+          "candidate": false,
+          "sourceUrl": "https://www.wowhead.com/ptr/item=271468/bulwark-of-the-consecrated-flame?bonus=6652%3A12834%3A13690%3A13698%3A1548&class=2&ilvl=295&spec=66",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 131,
+              "source": "Wowhead exact item-version tooltip, item level 295, Champion 2/6"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 131,
+              "source": "Wowhead exact item-version tooltip, item level 295, Champion 2/6"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2492,
+              "source": "Wowhead exact item-version tooltip, item level 295, Champion 2/6"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 54,
+              "source": "Wowhead exact item-version tooltip, item level 295, Champion 2/6"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 116,
+              "source": "Wowhead exact item-version tooltip, item level 295, Champion 2/6"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats",
+          "verificationScope": "observed-version-only"
+        },
+        {
+          "itemId": 271468,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Bulwark of the Consecrated Flame",
+          "slot": "Chest",
+          "variant": "Champion 4/6 observed",
+          "itemLevel": 302,
+          "candidate": false,
+          "sourceUrl": "https://www.wowhead.com/item=271468/bulwark-of-the-consecrated-flame?bonus=6652%3A13333%3A12836%3A13690%3A13698%3A1555&class=2&ilvl=302&spec=66",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 140,
+              "source": "Wowhead exact item-version tooltip, item level 302, Champion 4/6"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 140,
+              "source": "Wowhead exact item-version tooltip, item level 302, Champion 4/6"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2699,
+              "source": "Wowhead exact item-version tooltip, item level 302, Champion 4/6"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 56,
+              "source": "Wowhead exact item-version tooltip, item level 302, Champion 4/6"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 119,
+              "source": "Wowhead exact item-version tooltip, item level 302, Champion 4/6"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats",
+          "verificationScope": "observed-version-only"
+        },
+        {
+          "itemId": 271468,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Bulwark of the Consecrated Flame",
+          "slot": "Chest",
+          "variant": "Hero 1/6 observed",
+          "itemLevel": 305,
+          "candidate": false,
+          "sourceUrl": "https://www.wowhead.com/item=271468/bulwark-of-the-consecrated-flame?bonus=6652%3A13690%3A13698%3A12837&class=2&ilvl=305&spec=70",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 144,
+              "source": "Wowhead exact item-version tooltip, item level 305, Hero 1/6"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 144,
+              "source": "Wowhead exact item-version tooltip, item level 305, Hero 1/6"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2794,
+              "source": "Wowhead exact item-version tooltip, item level 305, Hero 1/6"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 56,
+              "source": "Wowhead exact item-version tooltip, item level 305, Hero 1/6"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 121,
+              "source": "Wowhead exact item-version tooltip, item level 305, Hero 1/6"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats",
+          "verificationScope": "observed-version-only"
+        },
+        {
+          "itemId": 271468,
+          "setId": "radiance-of-the-consecrated-flame",
+          "name": "Bulwark of the Consecrated Flame",
+          "slot": "Chest",
+          "variant": "Hero 5/6 observed",
+          "itemLevel": 318,
+          "candidate": false,
+          "sourceUrl": "https://www.wowhead.com/ptr-2/item=271468/bulwark-of-the-consecrated-flame?bonus=6652%3A13690%3A13698%3A12845&ilvl=318&spec=66",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 162,
+              "source": "Wowhead exact item-version tooltip, item level 318, Hero 5/6"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 162,
+              "source": "Wowhead exact item-version tooltip, item level 318, Hero 5/6"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 3254,
+              "source": "Wowhead exact item-version tooltip, item level 318, Hero 5/6"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 60,
+              "source": "Wowhead exact item-version tooltip, item level 318, Hero 5/6"
+            },
+            {
+              "type": {
+                "name": "mastery"
+              },
+              "value": 128,
+              "source": "Wowhead exact item-version tooltip, item level 318, Hero 5/6"
+            }
+          ],
+          "secondaryStats": [
+            "Mastery",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats",
+          "verificationScope": "observed-version-only"
         }
       ],
       "variantObservationsStatus": "partial",
