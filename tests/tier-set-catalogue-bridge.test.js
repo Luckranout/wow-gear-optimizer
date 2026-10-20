@@ -220,6 +220,7 @@ test("Death Knight verified baseline candidates and source-checked tier observat
     ["Hands", 302, { strength: 105, stamina: 2024, criticalStrike: 45, mastery: 86 }, "https://www.wowhead.com/item=271475/baleful-grave-knights-deathgrips?bonus=13691%3A6652%3A13697%3A12836&class=6&ilvl=302&spec=251"],
     ["Shoulders", 302, { strength: 105, stamina: 2024, haste: 43, versatility: 88 }, "https://www.wowhead.com/item=271472/baleful-grave-knights-gibbets?bonus=13694%3A6652%3A13697%3A12836&class=6&ilvl=302&spec=251"],
     ["Hands", 315, { strength: 118, stamina: 2358, criticalStrike: 48, mastery: 91 }, "https://www.wowhead.com/ptr-2/item=271475/baleful-grave-knights-deathgrips?bonus=12844"],
+    ["Hands", 311, { strength: 114, stamina: 2252, versatility: 83, mastery: 54 }, "https://wowcore.io/en/characters/eu/dalaran/Al%C3%BA"],
     ["Head", 305, { strength: 144, stamina: 2794, criticalStrike: 123, mastery: 54 }, "https://www.wowhead.com/item=271474/baleful-grave-knights-casque?bonus=6652%3A12841%3A13696%3A13440%3A13692%3A13698%3A1558&class=6&ilvl=305&spec=250"],
     ["Hands", 285, { strength: 90, stamina: 1664, criticalStrike: 42, mastery: 79 }, "https://www.wowhead.com/item=271475/baleful-grave-knights-deathgrips?bonus=41%3A12827%3A13691%3A13697%3A1538&ilvl=285&spec=250"],
     ["Shoulders", 318, { strength: 122, stamina: 2440, haste: 46, versatility: 94 }, "https://www.wowhead.com/ptr-2/item=271472/baleful-grave-knights-gibbets?bonus=13334%3A6652%3A12849%3A13694%3A13697%3A1571%3A13696&ilvl=318&spec=250"],
@@ -236,7 +237,6 @@ test("Death Knight verified baseline candidates and source-checked tier observat
   const profileStatVariants = [
     ["Head", 324, { strength: 172, stamina: 3487, criticalStrike: 58, haste: 135 }, "https://wowcore.io/en/characters/eu/dalaran/Al%C3%BA"],
     ["Chest", 321, { strength: 167, stamina: 3369, haste: 71, mastery: 120 }, "https://wowcore.io/en/characters/eu/dalaran/Al%C3%BA"],
-    ["Hands", 311, { strength: 114, stamina: 2252, versatility: 83, mastery: 54 }, "https://wowcore.io/en/characters/eu/dalaran/Al%C3%BA"],
     ["Legs", 321, { strength: 167, stamina: 3369, criticalStrike: 71, versatility: 120 }, "https://wowcore.io/en/characters/eu/dalaran/Al%C3%BA"],
     ["Head", 321, { strength: 167, stamina: 3369, criticalStrike: 71, mastery: 120 }, "https://wowcore.io/en/characters/tw/crystalpine-stinger/Ekallen"],
     ["Chest", 321, { strength: 167, stamina: 3369, criticalStrike: 75, mastery: 116 }, "https://wowcore.io/en/characters/tw/crystalpine-stinger/Ekallen"],
