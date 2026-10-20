@@ -189,8 +189,8 @@ test("Death Knight verified baseline candidates and source-checked tier observat
   const deathKnight = catalogue.sets.find(set => set.class === "Death Knight");
   assert.equal(deathKnight.itemIdsVerified, false, "the full upgrade-rank map remains partial");
   assert.equal(deathKnight.candidateVariantsAvailable, true);
-  assert.equal(deathKnight.pieces.length, 52, "Death Knight includes baseline, exact intermediate-rank, and same-level stat-variant candidates");
-  assert.equal(deathKnight.pieces.filter(piece => piece.candidate).length, 52);
+  assert.equal(deathKnight.pieces.length, 53, "Death Knight includes baseline, exact intermediate-rank, and same-level stat-variant candidates");
+  assert.equal(deathKnight.pieces.filter(piece => piece.candidate).length, 53);
   assert.ok(deathKnight.pieces.every(piece => piece.candidate === true && !("verificationScope" in piece)), "verified candidate records must not retain evidence-only scope");
   for (const slot of EXPECTED_SLOTS) {
     const slotCandidates = deathKnight.pieces.filter(piece => piece.slot === slot);
@@ -239,6 +239,7 @@ test("Death Knight verified baseline candidates and source-checked tier observat
     ["Chest", 321, { strength: 167, stamina: 3369, haste: 71, mastery: 120 }, "https://wowcore.io/en/characters/eu/dalaran/Al%C3%BA"],
     ["Legs", 321, { strength: 167, stamina: 3369, criticalStrike: 71, versatility: 120 }, "https://wowcore.io/en/characters/eu/dalaran/Al%C3%BA"],
     ["Head", 321, { strength: 167, stamina: 3369, criticalStrike: 71, mastery: 120 }, "https://wowcore.io/en/characters/tw/crystalpine-stinger/Ekallen"],
+    ["Head", 321, { strength: 167, stamina: 3369, haste: 79, versatility: 112 }, "https://azerothcodex.up.railway.app/personnage/us/frostmourne/Skylarkeddn"],
     ["Chest", 321, { strength: 167, stamina: 3369, criticalStrike: 75, mastery: 116 }, "https://wowcore.io/en/characters/tw/crystalpine-stinger/Ekallen"],
     ["Chest", 321, { strength: 167, stamina: 3369, criticalStrike: 99, versatility: 91 }, "https://wowcore.io/en/characters/eu/ravencrest/alugrip"],
     ["Hands", 321, { strength: 125, stamina: 2527, criticalStrike: 47, mastery: 96 }, "https://wowcore.io/en/characters/tw/crystalpine-stinger/Ekallen"],
