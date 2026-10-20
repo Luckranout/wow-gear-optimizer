@@ -1727,6 +1727,52 @@
           ],
           "secondaryStatsVerified": true,
           "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
+        },
+        {
+          "itemId": 271472,
+          "setId": "baleful-grave-knight-s-crucible",
+          "name": "Baleful Grave-Knight's Gibbets",
+          "slot": "Shoulders",
+          "variant": "Hero 5/6",
+          "itemLevel": 318,
+          "candidate": true,
+          "sourceUrl": "https://www.wowhead.com/ptr-2/item=271472/baleful-grave-knights-gibbets?bonus=13334%3A6652%3A12849%3A13694%3A13697%3A1571%3A13696&ilvl=318&spec=250",
+          "stats": [
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 122,
+              "source": "Wowhead exact item version, item level 318, Hero 5/6"
+            },
+            {
+              "type": {
+                "name": "stamina"
+              },
+              "value": 2440,
+              "source": "Wowhead exact item version, item level 318, Hero 5/6"
+            },
+            {
+              "type": {
+                "name": "haste"
+              },
+              "value": 46,
+              "source": "Wowhead exact item version, item level 318, Hero 5/6"
+            },
+            {
+              "type": {
+                "name": "versatility"
+              },
+              "value": 94,
+              "source": "Wowhead exact item version, item level 318, Hero 5/6"
+            }
+          ],
+          "secondaryStats": [
+            "Versatility",
+            "Haste"
+          ],
+          "secondaryStatsVerified": true,
+          "secondaryStatsSourceUrl": "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats"
         }
       ],
       "itemIdsVerified": false,
