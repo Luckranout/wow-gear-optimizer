@@ -189,8 +189,8 @@ test("Death Knight verified baseline candidates and source-checked tier observat
   const deathKnight = catalogue.sets.find(set => set.class === "Death Knight");
   assert.equal(deathKnight.itemIdsVerified, false, "the full upgrade-rank map remains partial");
   assert.equal(deathKnight.candidateVariantsAvailable, true);
-  assert.equal(deathKnight.pieces.length, 54, "Death Knight includes baseline, exact intermediate-rank, and same-level stat-variant candidates");
-  assert.equal(deathKnight.pieces.filter(piece => piece.candidate).length, 54);
+  assert.equal(deathKnight.pieces.length, 55, "Death Knight includes baseline, exact intermediate-rank, and same-level stat-variant candidates");
+  assert.equal(deathKnight.pieces.filter(piece => piece.candidate).length, 55);
   assert.ok(deathKnight.pieces.every(piece => piece.candidate === true && !("verificationScope" in piece)), "verified candidate records must not retain evidence-only scope");
   for (const slot of EXPECTED_SLOTS) {
     const slotCandidates = deathKnight.pieces.filter(piece => piece.slot === slot);
@@ -248,7 +248,8 @@ test("Death Knight verified baseline candidates and source-checked tier observat
     ["Head", 334, { strength: 189, stamina: 3910, criticalStrike: 75, mastery: 126 }, "https://azerothcodex.up.railway.app/simulation/us/azralon/Vhroknar"],
     ["Head", 334, { strength: 189, stamina: 3910, criticalStrike: 61, haste: 140 }, "https://azerothcodex.up.railway.app/simulation/eu/tarren-mill/Balouwu"],
     ["Shoulders", 321, { strength: 125, stamina: 2527, criticalStrike: 53, mastery: 89 }, "https://azerothcodex.up.railway.app/simulation/us/azralon/Vhroknar"],
-    ["Chest", 321, { strength: 167, stamina: 3369, haste: 120, versatility: 71 }, "https://azerothcodex.up.railway.app/simulation/us/area-52/Kyrasis"]
+    ["Chest", 321, { strength: 167, stamina: 3369, haste: 120, versatility: 71 }, "https://azerothcodex.up.railway.app/simulation/us/area-52/Kyrasis"],
+    ["Chest", 321, { strength: 167, stamina: 3369, haste: 75, versatility: 116 }, "https://wowcore.io/en/characters/tw/wrathbringer/%E7%81%AB%E7%AE%AD%E8%B7%B3%E8%BA%8D"]
   ];
   for (const [slot, level, expected, sourceUrl] of profileStatVariants) {
     const piece = deathKnight.pieces.find(entry => entry.slot === slot && entry.itemLevel === level && entry.sourceUrl === sourceUrl);
