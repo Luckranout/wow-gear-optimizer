@@ -58,6 +58,29 @@ assert.equal(exactTierVariant({
   stats: [{ type: { name: "strength" }, value: 119 }, { type: { name: "stamina" }, value: 2219 },
     { type: { name: "criticalStrike" }, value: 47 }, { type: { name: "mastery" }, value: 114 }]
 }), false, "general item pages cannot verify a specific upgrade level");
+
+assert.equal(exactTierVariant({
+  candidate: true, itemId: 271459, itemLevel: 285,
+  name: "Cuirass of the Jade Warlord",
+  sourceUrl: "https://warcraft.wiki.gg/wiki/Cuirass_of_the_Jade_Warlord",
+  stats: [
+    { type: { name: "strength" }, value: 119, source: "Warcraft Wiki item level 285" },
+    { type: { name: "stamina" }, value: 2219, source: "Warcraft Wiki item level 285" },
+    { type: { name: "criticalStrike" }, value: 47, source: "Warcraft Wiki item level 285" },
+    { type: { name: "mastery" }, value: 114, source: "Warcraft Wiki item level 285" }
+  ]
+}), true, "item-specific source plus per-stat exact item-level provenance verifies variants without an ilvl URL parameter");
+assert.equal(exactTierVariant({
+  candidate: true, itemId: 271459, itemLevel: 285,
+  name: "Cuirass of the Jade Warlord",
+  sourceUrl: "https://warcraft.wiki.gg/wiki/Cuirass_of_the_Jade_Warlord",
+  stats: [
+    { type: { name: "strength" }, value: 119, source: "Warcraft Wiki item level 298" },
+    { type: { name: "stamina" }, value: 2219, source: "Warcraft Wiki item level 298" },
+    { type: { name: "criticalStrike" }, value: 47, source: "Warcraft Wiki item level 298" },
+    { type: { name: "mastery" }, value: 114, source: "Warcraft Wiki item level 298" }
+  ]
+}), false, "per-stat provenance for a different item level does not verify the candidate");
 const warriorChestTier = loadVerifiedTierSetCandidates("Chest", "Warrior");
 const warriorHandsTier = loadVerifiedTierSetCandidates("Hands", "Warrior");
 const warriorWristsTier = loadVerifiedTierSetCandidates("Wrists", "Warrior");
