@@ -168,6 +168,7 @@ const SLOT_INVENTORY_SEARCHES = {
 let discoveryEnabled = true;
 let discoveryProvider = null;
 let verifiedSeasonItemProvider = null;
+let tierSetCandidateProvider = null;
 let verifiedSeasonItemCache = null;
 
 function getVerifiedSeasonItem(itemId) {
@@ -228,6 +229,7 @@ function exactTierVariant(piece) {
   } catch (_) { return false; }
 }
 function loadVerifiedTierSetCandidates(slot, className) {
+  if (tierSetCandidateProvider) return tierSetCandidateProvider(slot, className) || [];
   const section = SLOT_SECTION[slot];
   if (!section || !ARMOR_SLOTS.has(slot)) return [];
   try {
@@ -354,6 +356,7 @@ handler._test = {
   setDiscoveryProvider(fn) { discoveryProvider = typeof fn === "function" ? fn : null; },
   discoverSlotItems,
   exactTierVariant, loadVerifiedTierSetCandidates,
+  setTierSetCandidateProvider(fn) { tierSetCandidateProvider = typeof fn === "function" ? fn : null; },
   getVerifiedSeasonItem,
   setVerifiedSeasonItemProvider(fn) { verifiedSeasonItemProvider = typeof fn === "function" ? fn : null; },
   resetVerifiedSeasonItemCache() { verifiedSeasonItemCache = null; }
