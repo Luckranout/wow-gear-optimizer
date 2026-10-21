@@ -353,6 +353,7 @@ handler._test = {
   setDiscoveryEnabled(value) { discoveryEnabled = Boolean(value); },
   setDiscoveryProvider(fn) { discoveryProvider = typeof fn === "function" ? fn : null; },
   discoverSlotItems,
+  exactTierVariant, loadVerifiedTierSetCandidates,
   getVerifiedSeasonItem,
   setVerifiedSeasonItemProvider(fn) { verifiedSeasonItemProvider = typeof fn === "function" ? fn : null; },
   resetVerifiedSeasonItemCache() { verifiedSeasonItemCache = null; }
