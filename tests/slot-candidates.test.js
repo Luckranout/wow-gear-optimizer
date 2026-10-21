@@ -3,7 +3,7 @@ const fs = require("node:fs");
 const os = require("node:os");
 const path = require("node:path");
 const handler = require("../api/slot-candidates");
-const { SLOT_SECTION, slotMatches, allowedForClass, allowedForClassWeapon, allowedForSpecialization, normalizeClass, hasUsableStats, createResponse, setSectionDir, setDiscoveryProvider, setVerifiedSeasonItemProvider } = handler._test;
+const { SLOT_SECTION, slotMatches, allowedForClass, allowedForClassWeapon, allowedForSpecialization, normalizeClass, hasUsableStats, exactTierVariant, loadVerifiedTierSetCandidates, createResponse, setSectionDir, setDiscoveryProvider, setVerifiedSeasonItemProvider } = handler._test;
 
 assert.equal(SLOT_SECTION.Neck, "necklaces");
 assert.equal(SLOT_SECTION.Shoulders, "shoulders");
@@ -45,6 +45,28 @@ assert.equal(slotMatches({ inventoryType: { name: "Shield" } }, "Off Hand"), tru
 assert.equal(hasUsableStats({ stats: [{ value: 12 }] }), true);
 assert.equal(hasUsableStats({ stats: [] }), false);
 assert.equal(hasUsableStats({}), false);
+
+assert.equal(exactTierVariant({
+  candidate: true, itemId: 271459, itemLevel: 334,
+  sourceUrl: "https://www.wowhead.com/ptr/item=271459/cuirass-of-the-jade-warlord?ilvl=334",
+  stats: [{ type: { name: "strength" }, value: 189 }, { type: { name: "stamina" }, value: 3910 },
+    { type: { name: "criticalStrike" }, value: 59 }, { type: { name: "mastery" }, value: 142 }]
+}), true, "tier variants require exact item-ID and item-level source URLs plus numeric stats");
+assert.equal(exactTierVariant({
+  candidate: true, itemId: 271459, itemLevel: 285,
+  sourceUrl: "https://warcraft.wiki.gg/wiki/Cuirass_of_the_Jade_Warlord",
+  stats: [{ type: { name: "strength" }, value: 119 }, { type: { name: "stamina" }, value: 2219 },
+    { type: { name: "criticalStrike" }, value: 47 }, { type: { name: "mastery" }, value: 114 }]
+}), false, "general item pages cannot verify a specific upgrade level");
+const warriorChestTier = loadVerifiedTierSetCandidates("Chest", "Warrior");
+const warriorHandsTier = loadVerifiedTierSetCandidates("Hands", "Protection Warrior");
+const warriorWristsTier = loadVerifiedTierSetCandidates("Wrists", "Warrior");
+assert.ok(warriorChestTier.some(item => item.id === 271459 && item.variants.some(v => v.itemLevel === 334)),
+  "the exact-source Warrior 334 chest variant is available to slot candidate selection");
+assert.ok(warriorHandsTier.some(item => item.id === 271457 && item.variants.some(v => v.itemLevel === 334)),
+  "the exact-source Warrior 334 hands variant is available to slot candidate selection");
+assert.deepEqual(warriorWristsTier, [], "the tier-set bridge must not invent wrist items outside the five-piece set");
+
 
 function mockReq(method, query = {}) { return { method, query, headers: {} }; }
 async function call(method, query) {
