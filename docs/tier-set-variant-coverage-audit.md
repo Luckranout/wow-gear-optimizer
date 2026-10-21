@@ -162,5 +162,7 @@ Candidate-level coverage only; observed-only records are deliberately excluded. 
 | Warrior | Head | 285, 298, 311, 324, 334 | 279, 282, 289, 292, 295, 302, 305, 308, 315, 318, 321, 328, 331 |
 | Warrior | Shoulders | 282, 295, 308, 321, 334 | 279, 285, 289, 292, 298, 302, 305, 311, 315, 318, 324, 328, 331 |
 | Warrior | Chest | 285, 298, 311, 324, 334, 344 | 279, 282, 289, 292, 295, 302, 305, 308, 315, 318, 321, 328, 331 |
-| Warrior | Hands | 282, 295, 305, 308, 311, 315, 318, 321, 334 | 279, 282, 285, 289, 292, 298, 302, 324, 328, 331 |
-| Warrior | Legs | 282, 285, 289, 298, 311, 321, 324, 334 | 279, 285, 292, 295, 298, 302, 305, 308, 311, 315, 318, 324, 328, 331 |
+| Warrior | Hands | 282, 295, 305, 308, 311, 315, 318, 321, 334 | 279, 285, 289, 292, 298, 302, 324, 328, 331 |
+| Warrior | Legs | 282, 285, 289, 298, 311, 321, 324, 334 | 279, 292, 295, 302, 305, 308, 315, 318, 328, 331 |
+
+The Warrior missing-level entries above are the complement of the recorded candidate levels in the standard upgrade-level grid. This corrects stale gaps that incorrectly listed screenshot-verified candidate levels as missing: Hands 282 and Legs 285/298/311/324. The special Chest 344 remains a separate candidate level.
