@@ -59,7 +59,7 @@ assert.equal(exactTierVariant({
     { type: { name: "criticalStrike" }, value: 47 }, { type: { name: "mastery" }, value: 114 }]
 }), false, "general item pages cannot verify a specific upgrade level");
 const warriorChestTier = loadVerifiedTierSetCandidates("Chest", "Warrior");
-const warriorHandsTier = loadVerifiedTierSetCandidates("Hands", "Protection Warrior");
+const warriorHandsTier = loadVerifiedTierSetCandidates("Hands", "Warrior");
 const warriorWristsTier = loadVerifiedTierSetCandidates("Wrists", "Warrior");
 assert.ok(warriorChestTier.some(item => item.id === 271459 && item.variants.some(v => v.itemLevel === 334)),
   "the exact-source Warrior 334 chest variant is available to slot candidate selection");
