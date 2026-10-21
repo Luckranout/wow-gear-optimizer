@@ -223,9 +223,20 @@ function exactTierVariant(piece) {
   try {
     const url = new URL(piece.sourceUrl);
     const itemMatch = url.pathname.match(/(?:item[=/])([0-9]+)/i);
-    const itemId = Number(itemMatch?.[1] || url.searchParams.get("item"));
-    return /^https?:$/.test(url.protocol) && itemId === Number(piece.itemId) &&
-      Number(url.searchParams.get("ilvl")) === Number(piece.itemLevel);
+    const urlItemId = Number(itemMatch?.[1] || url.searchParams.get("item")) || null;
+    const normalize = value => String(value || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+    const nameSlug = normalize(piece.name);
+    const pathSlug = normalize(decodeURIComponent(url.pathname));
+    const itemIdentityMatches = urlItemId != null
+      ? urlItemId === Number(piece.itemId)
+      : Boolean(nameSlug && pathSlug.includes(nameSlug));
+    const levelParam = url.searchParams.get("ilvl");
+    const levelMatches = levelParam != null
+      ? Number(levelParam) === Number(piece.itemLevel)
+      : piece.stats.every(stat => new RegExp(
+          `item[- ]level\\s+${Number(piece.itemLevel)}\\b`, "i"
+        ).test(String(stat.source || "")));
+    return /^https?:$/.test(url.protocol) && itemIdentityMatches && levelMatches;
   } catch (_) { return false; }
 }
 function loadVerifiedTierSetCandidates(slot, className) {
