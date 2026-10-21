@@ -72,6 +72,8 @@ jobs:
         run: node tests/tier-set-catalogue-bridge.test.js
       - name: Run on-demand slot candidate API tests
         run: node tests/slot-candidates.test.js
+      - name: Run Warrior tier slot API-to-optimizer integration tests
+        run: node tests/warrior-tier-slot-optimizer.integration.test.js
       - name: Run live Wowhead item lookup API tests
         run: node tests/item-lookup.test.js
       - name: Run on-demand Blizzard item persistence tests
