@@ -232,18 +232,24 @@ function loadVerifiedTierSetCandidates(slot, className) {
   if (tierSetCandidateProvider) return tierSetCandidateProvider(slot, className) || [];
   const section = SLOT_SECTION[slot];
   if (!section || !ARMOR_SLOTS.has(slot)) return [];
+  const armorType = CLASS_ARMOR[normalizeClass(className)];
+  if (!armorType) return [];
   try {
     const file = path.join(process.cwd(), "data", "tier-sets-midnight-season-2.json");
     const catalogue = JSON.parse(fs.readFileSync(file, "utf8"));
     const set = (catalogue.sets || []).find(entry => normalizeClass(entry.class) === normalizeClass(className));
-    if (!set || !Array.isArray(set.pieces)) return [];
+    if (!set) return [];
+    const pieces = [
+      ...(Array.isArray(set.pieces) ? set.pieces : []),
+      ...(Array.isArray(set.upgradeRankCandidates) ? set.upgradeRankCandidates : [])
+    ];
     const grouped = new Map();
-    for (const piece of set.pieces) {
+    for (const piece of pieces) {
       if (piece.slot !== slot || !exactTierVariant(piece)) continue;
       const id = Number(piece.itemId);
       if (!grouped.has(id)) grouped.set(id, {
         id, name: piece.name, slot, itemLevel: 0, level: 0,
-        itemClass: { name: "Armor" }, itemSubclass: { name: "Plate" },
+        itemClass: { name: "Armor" }, itemSubclass: { name: armorType[0].toUpperCase() + armorType.slice(1) },
         inventoryType: { name: slot === "Wrists" ? "Wrist" : slot === "Hands" ? "Hands" : slot },
         equipmentCategories: [section], isEquippable: true,
         seasonScope: "Midnight Season 2+",
