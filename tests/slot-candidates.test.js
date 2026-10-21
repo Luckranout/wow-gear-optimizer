@@ -3,7 +3,7 @@ const fs = require("node:fs");
 const os = require("node:os");
 const path = require("node:path");
 const handler = require("../api/slot-candidates");
-const { SLOT_SECTION, slotMatches, allowedForClass, allowedForClassWeapon, allowedForSpecialization, normalizeClass, hasUsableStats, exactTierVariant, loadVerifiedTierSetCandidates, createResponse, setSectionDir, setDiscoveryProvider, setVerifiedSeasonItemProvider } = handler._test;
+const { SLOT_SECTION, slotMatches, allowedForClass, allowedForClassWeapon, allowedForSpecialization, normalizeClass, hasUsableStats, exactTierVariant, loadVerifiedTierSetCandidates, createResponse, setTierSetCandidateProvider, setSectionDir, setDiscoveryProvider, setVerifiedSeasonItemProvider } = handler._test;
 
 assert.equal(SLOT_SECTION.Neck, "necklaces");
 assert.equal(SLOT_SECTION.Shoulders, "shoulders");
@@ -95,6 +95,7 @@ assert.equal(allowedForSpecialization({
 (async () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "slot-candidates-"));
   setSectionDir(dir);
+  setTierSetCandidateProvider(() => []);
   setDiscoveryProvider(async () => []);
   try {
     const validShoulders = {
@@ -204,6 +205,7 @@ assert.equal(allowedForSpecialization({
   } finally {
     setDiscoveryProvider(null);
     setVerifiedSeasonItemProvider(null);
+    setTierSetCandidateProvider(null);
     setSectionDir(path.join(process.cwd(), "data", "equipment-sections"));
     fs.rmSync(dir, { recursive: true, force: true });
   }
