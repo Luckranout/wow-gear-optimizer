@@ -1294,10 +1294,25 @@
               },
               "value": 69,
               "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 106,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 106,
+              "source": "Wowhead tooltip"
             }
           ],
           "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
-          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup; exact item-level stats cross-checked against Wowhead ilvl=334",
+          "sourceUrl": "https://www.wowhead.com/item=251133/overseers-vambraces?ilvl=334"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -2253,10 +2268,25 @@
               },
               "value": 79,
               "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 106,
+              "source": "Wowhead tooltip"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 106,
+              "source": "Wowhead tooltip"
             }
           ],
           "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
-          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup; exact item-level stats cross-checked against Wowhead ilvl=334",
+          "sourceUrl": "https://www.wowhead.com/item=268239/shellbound-bracers?ilvl=334"
         }
       ],
       "statsSource": "Blizzard Game Data API"
