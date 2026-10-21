@@ -310,7 +310,8 @@ async function handler(req, res) {
         verificationNote: "Matched by item ID to the imported Midnight Season 2+ source-evidence catalog."
       };
     });
-    const tierSetCandidates = loadVerifiedTierSetCandidates(slot, className);\n    const allRecords = [...payload.items, ...newDiscovery, ...tierSetCandidates.filter(item => !payload.items.some(existing => Number(existing.id) === Number(item.id)))];
+    const tierSetCandidates = loadVerifiedTierSetCandidates(slot, className);
+    const allRecords = [...payload.items, ...newDiscovery, ...tierSetCandidates.filter(item => !payload.items.some(existing => Number(existing.id) === Number(item.id)))];
     if (!sectionCacheAvailable && !discovered.length) {
       return res.status(503).json({ error: discoveryError || "Neither a validated section cache nor Blizzard discovery is available." });
     }
