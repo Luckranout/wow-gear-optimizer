@@ -1272,32 +1272,47 @@
                 "name": "armor"
               },
               "value": 217,
-              "source": "Wowhead tooltip"
+              "source": "Wowhead exact item-level tooltip"
+            },
+            {
+              "type": {
+                "name": "strength"
+              },
+              "value": 106,
+              "source": "Wowhead exact item-level tooltip"
             },
             {
               "type": {
                 "name": "stamina"
               },
               "value": 2199,
-              "source": "Wowhead tooltip"
+              "source": "Wowhead exact item-level tooltip"
             },
             {
               "type": {
                 "name": "criticalStrike"
               },
               "value": 44,
-              "source": "Wowhead tooltip"
+              "source": "Wowhead exact item-level tooltip"
             },
             {
               "type": {
                 "name": "haste"
               },
               "value": 69,
-              "source": "Wowhead tooltip"
+              "source": "Wowhead exact item-level tooltip"
+            },
+            {
+              "type": {
+                "name": "intellect"
+              },
+              "value": 106,
+              "source": "Wowhead exact item-level tooltip"
             }
           ],
-          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
-          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); returned tooltip stats are partial and do not establish primary stats; bonus IDs not exposed by this lookup"
+          "statsSource": "Wowhead exact item-level tooltip at ilvl 334",
+          "variantSource": "Wowhead exact item-level tooltip (ilvl=334; upgrade rank 6/6)",
+          "sourceUrl": "https://www.wowhead.com/item=251133/overseers-vambraces?bonus=13440%3A6652%3A13695%3A13662%3A12699%3A12854&class=6&ilvl=334&spec=252"
         }
       ],
       "statsSource": "Blizzard Game Data API"
