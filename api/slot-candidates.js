@@ -213,6 +213,55 @@ async function discoverSlotItems(slot) {
   }));
   return results.filter(Boolean).map(item => ({ ...item, discoveredOnDemand: true }));
 }
+
+function exactTierVariant(piece) {
+  if (!piece || piece.candidate !== true || !Number.isSafeInteger(Number(piece.itemId)) ||
+      !Number.isSafeInteger(Number(piece.itemLevel)) || Number(piece.itemLevel) <= 0 ||
+      !Array.isArray(piece.stats) || piece.stats.length < 4 ||
+      !piece.stats.every(stat => Number(stat?.value) > 0 && (stat?.type?.name || stat?.type))) return false;
+  try {
+    const url = new URL(piece.sourceUrl);
+    const itemMatch = url.pathname.match(/(?:item[=/])([0-9]+)/i);
+    const itemId = Number(itemMatch?.[1] || url.searchParams.get("item"));
+    return /^https?:$/.test(url.protocol) && itemId === Number(piece.itemId) &&
+      Number(url.searchParams.get("ilvl")) === Number(piece.itemLevel);
+  } catch (_) { return false; }
+}
+function loadVerifiedTierSetCandidates(slot, className) {
+  const section = SLOT_SECTION[slot];
+  if (!section || !ARMOR_SLOTS.has(slot)) return [];
+  try {
+    const file = path.join(process.cwd(), "data", "tier-sets-midnight-season-2.json");
+    const catalogue = JSON.parse(fs.readFileSync(file, "utf8"));
+    const set = (catalogue.sets || []).find(entry => normalizeClass(entry.class) === normalizeClass(className));
+    if (!set || !Array.isArray(set.pieces)) return [];
+    const grouped = new Map();
+    for (const piece of set.pieces) {
+      if (piece.slot !== slot || !exactTierVariant(piece)) continue;
+      const id = Number(piece.itemId);
+      if (!grouped.has(id)) grouped.set(id, {
+        id, name: piece.name, slot, itemLevel: 0, level: 0,
+        itemClass: { name: "Armor" }, itemSubclass: { name: "Plate" },
+        inventoryType: { name: slot === "Wrists" ? "Wrist" : slot === "Hands" ? "Hands" : slot },
+        equipmentCategories: [section], isEquippable: true,
+        seasonScope: "Midnight Season 2+",
+        sourceLocations: [{ seasonScope: "Midnight Season 2+", sourceUrl: piece.sourceUrl }],
+        stats: [], variants: []
+      });
+      grouped.get(id).variants.push({
+        itemLevel: Number(piece.itemLevel), level: Number(piece.itemLevel),
+        variant: piece.variant, variantKey: String(id) + ":ilvl:" + String(piece.itemLevel),
+        stats: piece.stats.map(stat => ({ type: { name: String(stat.type?.name || stat.type) }, value: Number(stat.value), source: piece.sourceUrl })),
+        sourceUrl: piece.sourceUrl, verificationScope: piece.verificationScope || "exact-item-version-url-and-stats",
+        statsVerified: true
+      });
+    }
+    return [...grouped.values()].filter(item => item.variants.length);
+  } catch (_) {
+    return [];
+  }
+}
+
 function createResponse() {
   return {
     statusCode: 200, headers: {}, body: undefined,
@@ -261,7 +310,7 @@ async function handler(req, res) {
         verificationNote: "Matched by item ID to the imported Midnight Season 2+ source-evidence catalog."
       };
     });
-    const allRecords = [...payload.items, ...newDiscovery];
+    const tierSetCandidates = loadVerifiedTierSetCandidates(slot, className);\n    const allRecords = [...payload.items, ...newDiscovery, ...tierSetCandidates.filter(item => !payload.items.some(existing => Number(existing.id) === Number(item.id)))];
     if (!sectionCacheAvailable && !discovered.length) {
       return res.status(503).json({ error: discoveryError || "Neither a validated section cache nor Blizzard discovery is available." });
     }
