@@ -125,6 +125,35 @@ assert.equal(allowedForSpecialization({
     assert.equal(res.statusCode, 200, "valid section returns 200");
     assert.deepEqual(res.body.items.map(item => item.id), [101], "filters legacy, wrong class, non-equippable, missing-stat cosmetic/unknown items, and wrong-slot items");
     assert.equal(res.body.count, 1);
+    // Exercise the tier-catalogue bridge through the HTTP handler, not just its loader.
+    setTierSetCandidateProvider((slot, className) => {
+      if (slot !== "Chest" || className !== "Warrior") return [];
+      return [{
+        id: 271459, name: "Cuirass of the Jade Warlord", slot: "Chest", itemLevel: 0, level: 0,
+        itemClass: { name: "Armor" }, itemSubclass: { name: "Plate" },
+        inventoryType: { name: "Chest" }, equipmentCategories: ["chest"],
+        isEquippable: true, seasonScope: "Midnight Season 2+",
+        stats: [], variants: [{
+          itemLevel: 334, level: 334, variantKey: "271459:ilvl:334",
+          stats: [
+            { type: { name: "strength" }, value: 189 },
+            { type: { name: "stamina" }, value: 3910 },
+            { type: { name: "criticalStrike" }, value: 59 },
+            { type: { name: "mastery" }, value: 142 }
+          ],
+          sourceUrl: "https://www.wowhead.com/ptr/item=271459/cuirass-of-the-jade-warlord?ilvl=334",
+          statsVerified: true
+        }]
+      }];
+    });
+    writeSection(dir, "chest", { complete: true, items: [] });
+    res = await call("GET", { slot: "Chest", class: "Warrior" });
+    assert.equal(res.statusCode, 200, "tier-set candidates pass through the slot API");
+    const tierChest = res.body.items.find(item => item.id === 271459);
+    assert.ok(tierChest, "verified Warrior tier chest is returned by the HTTP handler");
+    assert.ok(tierChest.variants.some(variant => variant.itemLevel === 334),
+      "the verified 334 variant survives API eligibility filters");
+    setTierSetCandidateProvider(() => []);
     assert.deepEqual(res.body.pendingStatVerification.map(item => item.id), [105],
       "stat-incomplete but otherwise compatible seasonal records are queued for verification, never scored directly");
     assert.equal(res.body.pendingStatVerification[0].requiresWowheadVerification, true);
