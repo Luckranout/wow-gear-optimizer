@@ -65,6 +65,14 @@ assert.ok(warriorChestTier.some(item => item.id === 271459 && item.variants.some
   "the exact-source Warrior 334 chest variant is available to slot candidate selection");
 assert.ok(warriorHandsTier.some(item => item.id === 271457 && item.variants.some(v => v.itemLevel === 334)),
   "the exact-source Warrior 334 hands variant is available to slot candidate selection");
+assert.ok(warriorChestTier.every(item => item.itemSubclass.name === "Plate"),
+  "plate classes receive tier candidates with the matching armor subclass");
+const mageHeadTier = loadVerifiedTierSetCandidates("Head", "Mage");
+assert.ok(mageHeadTier.every(item => item.itemSubclass.name === "Cloth"),
+  "cloth classes receive tier candidates with the matching armor subclass");
+const hunterHeadTier = loadVerifiedTierSetCandidates("Head", "Hunter");
+assert.ok(hunterHeadTier.every(item => item.itemSubclass.name === "Mail"),
+  "mail classes receive tier candidates with the matching armor subclass");
 assert.deepEqual(warriorWristsTier, [], "the tier-set bridge must not invent wrist items outside the five-piece set");
 
 
