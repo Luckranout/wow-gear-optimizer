@@ -125,6 +125,10 @@ assert.equal(allowedForSpecialization({
     assert.equal(res.statusCode, 200, "valid section returns 200");
     assert.deepEqual(res.body.items.map(item => item.id), [101], "filters legacy, wrong class, non-equippable, missing-stat cosmetic/unknown items, and wrong-slot items");
     assert.equal(res.body.count, 1);
+    const shouldersResponse = res;
+    assert.deepEqual(shouldersResponse.body.pendingStatVerification.map(item => item.id), [105],
+      "stat-incomplete but otherwise compatible seasonal records are queued for verification, never scored directly");
+    assert.equal(shouldersResponse.body.pendingStatVerification[0].requiresWowheadVerification, true);
     // Exercise the tier-catalogue bridge through the HTTP handler, not just its loader.
     setTierSetCandidateProvider((slot, className) => {
       if (slot !== "Chest" || className !== "Warrior") return [];
@@ -154,9 +158,9 @@ assert.equal(allowedForSpecialization({
     assert.ok(tierChest.variants.some(variant => variant.itemLevel === 334),
       "the verified 334 variant survives API eligibility filters");
     setTierSetCandidateProvider(() => []);
-    assert.deepEqual(res.body.pendingStatVerification.map(item => item.id), [105],
+    assert.deepEqual(shouldersResponse.body.pendingStatVerification.map(item => item.id), [105],
       "stat-incomplete but otherwise compatible seasonal records are queued for verification, never scored directly");
-    assert.equal(res.body.pendingStatVerification[0].requiresWowheadVerification, true);
+    assert.equal(shouldersResponse.body.pendingStatVerification[0].requiresWowheadVerification, true);
     assert.match(res.headers["cache-control"], /s-maxage=300/);
     const discoveredShoulders = {
       id: 999, name: "New Blizzard-discovered Plate Shoulders", slot: "Shoulders",
