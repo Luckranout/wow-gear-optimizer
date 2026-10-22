@@ -1292,3 +1292,34 @@ if (downgradeGuard.some(upgrade => upgrade.slot === "Trinket 1" &&
   throw new Error("Upgrade comparison must not recommend a level-219 base trinket over equipped level 305 gear");
 }
 console.log("Upgrade-panel anti-downgrade regression passed.");
+
+const tierManifest = JSON.parse(fs.readFileSync("data/tier-set-item-ids.json", "utf8"));
+const warriorTier = tierManifest.sets.find(set => set.className === "Warrior");
+const warriorGloves = warriorTier?.pieces.find(piece => Number(piece.itemId) === 271457);
+if (!warriorGloves) throw new Error("Warrior tier manifest should include the verified 271457 hands item");
+const bridged = o.buildTierSetAwareCatalog({
+  items: [{
+    id: 271457, name: warriorGloves.name, slot: "Hands", itemLevel: 311,
+    stats: { Strength: 114, Stamina: 2252, CriticalStrike: 92, Haste: 45 }
+  }],
+  equipment: {},
+  manifest: tierManifest,
+  className: "Warrior"
+});
+if (bridged.items[0]?.isSetPiece !== true || bridged.items[0]?.tierSetId !== String(warriorTier.setId)) {
+  throw new Error("Verified Warrior tier membership must be connected to optimizer candidate scoring");
+}
+if (bridged.setBonuses.length !== 1 ||
+    bridged.setBonuses[0].thresholds.some(threshold => threshold.scoreValue !== null)) {
+  throw new Error("Tier thresholds must be visible without inventing numeric combat scores");
+}
+const nonWarriorBridge = o.buildTierSetAwareCatalog({
+  items: [{ id: 271457, name: warriorGloves.name, slot: "Hands", itemLevel: 311, stats: { Strength: 114 } }],
+  equipment: {},
+  manifest: tierManifest,
+  className: "Mage"
+});
+if (nonWarriorBridge.items[0]?.isSetPiece === true) {
+  throw new Error("Warrior tier membership must not leak into another class");
+}
+console.log("Tier-set manifest membership bridge regression passed.");
