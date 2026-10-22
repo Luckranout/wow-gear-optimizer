@@ -1389,7 +1389,7 @@ for (const className of [
   for (const [slot, id] of [["Head", 1], ["Shoulders", 2], ["Chest", 3], ["Hands", 4]]) {
     equipment[slot] = {
       id: 982000 + id, name: className + " Tier " + slot, slot,
-      itemLevel: 300, tierSetId: setId, stats: { Strength: 100 }
+      itemLevel: 300, tierSetId: setId, stats: { CriticalStrike: 100 }
     };
   }
   const bonuses = [{
@@ -1400,15 +1400,15 @@ for (const className of [
   const result = o.optimizeEquipment({
     items: [
       { id: 982005, name: className + " Tier Legs", slot: "Legs", itemLevel: 300,
-        tierSetId: setId, isSetPiece: true, stats: { Strength: 10 } },
+        tierSetId: setId, isSetPiece: true, stats: { CriticalStrike: 10 } },
       { id: 982006, name: className + " Strong Off-Set Legs", slot: "Legs", itemLevel: 310,
-        stats: { Strength: 500 } }
+        stats: { CriticalStrike: 500 } }
     ],
     character: {
       ...o.createCharacterProfile(), className, specialization: "Test",
       equipment
     },
-    statWeights: { Strength: 1, Stamina: 0, CriticalStrike: 0, Haste: 0, Mastery: 0, Versatility: 0 },
+    statWeights: { Strength: 0, Agility: 0, Intellect: 0, Stamina: 0, CriticalStrike: 1, Haste: 0, Mastery: 0, Versatility: 0 },
     setBonuses: bonuses
   });
   if (result.equipment.Legs?.id !== 982006 ||
