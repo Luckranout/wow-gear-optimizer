@@ -39,7 +39,7 @@ function parseTooltip(payload, id, rank) {
   // never infer a missing stat from item level or a base-item placeholder.
   const statPatterns = [
     new RegExp("([+\\-−]?\\s*\\d[\\d,]*)\\s+(" + statNames + ")\\b", "gi"),
-    new RegExp("\\b(" + statNames + ")\\s+([+\\-−]?\\s*\\d[\\d,]*)", "gi")
+    new RegExp("\\b(" + statNames + ")\\s+(\\d[\\d,]*)(?!\\s*(?:Strength|Agility|Intellect|Stamina|Critical Strike|Crit|Haste|Mastery|Versatility|Armor|Leech|Avoidance|Speed)\\b)", "gi")
   ];
   for (const statPattern of statPatterns) {
     let match;
