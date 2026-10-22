@@ -1335,3 +1335,44 @@ if (nonWarriorBridge.items[0]?.isSetPiece === true) {
   throw new Error("Warrior tier membership must not leak into another class");
 }
 console.log("Tier-set manifest membership bridge regression passed.");
+
+
+// Regression: the fifth tier piece is optional. Preserve the verified 4-piece
+// bonus and select a materially stronger off-set fifth-slot item when it wins.
+const optionalFifthTierEquipment = {
+  Head: { id: 981101, name: "Tier Head", slot: "Head", itemLevel: 300, tierSetId: "warrior-s2", stats: { Strength: 100 } },
+  Shoulders: { id: 981102, name: "Tier Shoulders", slot: "Shoulders", itemLevel: 300, tierSetId: "warrior-s2", stats: { Strength: 100 } },
+  Chest: { id: 981103, name: "Tier Chest", slot: "Chest", itemLevel: 300, tierSetId: "warrior-s2", stats: { Strength: 100 } },
+  Hands: { id: 981104, name: "Tier Hands", slot: "Hands", itemLevel: 300, tierSetId: "warrior-s2", stats: { Strength: 100 } }
+};
+const optionalFifthTierCandidates = [
+  { id: 981105, name: "Tier Legs", slot: "Legs", itemLevel: 300, tierSetId: "warrior-s2", isSetPiece: true, stats: { Strength: 10 } },
+  { id: 981106, name: "Stronger Off-Set Legs", slot: "Legs", itemLevel: 310, stats: { Strength: 500 } }
+];
+const optionalFifthTierBonuses = [{
+  setId: "warrior-s2",
+  name: "Warrior Season 2 Set",
+  pieces: [981101, 981102, 981103, 981104, 981105],
+  thresholds: [
+    { pieces: 2, scoreValue: 100 },
+    { pieces: 4, scoreValue: 200 }
+  ]
+}];
+const optionalFifthTierResult = o.optimizeEquipment({
+  items: optionalFifthTierCandidates,
+  character: {
+    ...o.createCharacterProfile(),
+    className: "Warrior",
+    specialization: "Protection",
+    equipment: optionalFifthTierEquipment
+  },
+  statWeights: { Strength: 1, Stamina: 0, CriticalStrike: 0, Haste: 0, Mastery: 0, Versatility: 0 },
+  setBonuses: optionalFifthTierBonuses
+});
+if (optionalFifthTierResult.equipment.Legs?.id !== 981106) {
+  throw new Error("Optimizer must choose a stronger off-set fifth piece when the 4-piece tier bonus is preserved");
+}
+if (optionalFifthTierResult.setBonusStatus?.bonuses?.find(bonus => bonus.requiredPieces === 4)?.active !== true) {
+  throw new Error("Choosing an off-set fifth piece must preserve the active 4-piece tier bonus");
+}
+console.log("Optional fifth tier-piece loadout regression passed.");
