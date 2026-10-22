@@ -168,6 +168,7 @@ const SLOT_INVENTORY_SEARCHES = {
 let discoveryEnabled = true;
 let discoveryProvider = null;
 let verifiedSeasonItemProvider = null;
+let tierSetCandidateProvider = null;
 let verifiedSeasonItemCache = null;
 
 function getVerifiedSeasonItem(itemId) {
@@ -213,6 +214,73 @@ async function discoverSlotItems(slot) {
   }));
   return results.filter(Boolean).map(item => ({ ...item, discoveredOnDemand: true }));
 }
+
+function exactTierVariant(piece) {
+  if (!piece || piece.candidate !== true || !Number.isSafeInteger(Number(piece.itemId)) ||
+      !Number.isSafeInteger(Number(piece.itemLevel)) || Number(piece.itemLevel) <= 0 ||
+      !Array.isArray(piece.stats) || piece.stats.length < 4 ||
+      !piece.stats.every(stat => Number(stat?.value) > 0 && (stat?.type?.name || stat?.type))) return false;
+  try {
+    const url = new URL(piece.sourceUrl);
+    const itemMatch = url.pathname.match(/(?:item[=/])([0-9]+)/i);
+    const urlItemId = Number(itemMatch?.[1] || url.searchParams.get("item")) || null;
+    const normalize = value => String(value || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+    const nameSlug = normalize(piece.name);
+    const pathSlug = normalize(decodeURIComponent(url.pathname));
+    const itemIdentityMatches = urlItemId != null
+      ? urlItemId === Number(piece.itemId)
+      : Boolean(nameSlug && pathSlug.includes(nameSlug));
+    const levelParam = url.searchParams.get("ilvl");
+    const levelMatches = levelParam != null
+      ? Number(levelParam) === Number(piece.itemLevel)
+      : piece.stats.every(stat => new RegExp(
+          `item[- ]level\\s+${Number(piece.itemLevel)}\\b`, "i"
+        ).test(String(stat.source || "")));
+    return /^https?:$/.test(url.protocol) && itemIdentityMatches && levelMatches;
+  } catch (_) { return false; }
+}
+function loadVerifiedTierSetCandidates(slot, className) {
+  if (tierSetCandidateProvider) return tierSetCandidateProvider(slot, className) || [];
+  const section = SLOT_SECTION[slot];
+  if (!section || !ARMOR_SLOTS.has(slot)) return [];
+  const armorType = CLASS_ARMOR[normalizeClass(className)];
+  if (!armorType) return [];
+  try {
+    const file = path.join(process.cwd(), "data", "tier-sets-midnight-season-2.json");
+    const catalogue = JSON.parse(fs.readFileSync(file, "utf8"));
+    const set = (catalogue.sets || []).find(entry => normalizeClass(entry.class) === normalizeClass(className));
+    if (!set) return [];
+    const pieces = [
+      ...(Array.isArray(set.pieces) ? set.pieces : []),
+      ...(Array.isArray(set.upgradeRankCandidates) ? set.upgradeRankCandidates : [])
+    ];
+    const grouped = new Map();
+    for (const piece of pieces) {
+      if (piece.slot !== slot || !exactTierVariant(piece)) continue;
+      const id = Number(piece.itemId);
+      if (!grouped.has(id)) grouped.set(id, {
+        id, name: piece.name, slot, itemLevel: 0, level: 0,
+        itemClass: { name: "Armor" }, itemSubclass: { name: armorType[0].toUpperCase() + armorType.slice(1) },
+        inventoryType: { name: slot === "Wrists" ? "Wrist" : slot === "Hands" ? "Hands" : slot },
+        equipmentCategories: [section], isEquippable: true,
+        seasonScope: "Midnight Season 2+",
+        sourceLocations: [{ seasonScope: "Midnight Season 2+", sourceUrl: piece.sourceUrl }],
+        stats: [], variants: []
+      });
+      grouped.get(id).variants.push({
+        itemLevel: Number(piece.itemLevel), level: Number(piece.itemLevel),
+        variant: piece.variant, variantKey: String(id) + ":ilvl:" + String(piece.itemLevel),
+        stats: piece.stats.map(stat => ({ type: { name: String(stat.type?.name || stat.type) }, value: Number(stat.value), source: piece.sourceUrl })),
+        sourceUrl: piece.sourceUrl, verificationScope: piece.verificationScope || "exact-item-version-url-and-stats",
+        statsVerified: true
+      });
+    }
+    return [...grouped.values()].filter(item => item.variants.length);
+  } catch (_) {
+    return [];
+  }
+}
+
 function createResponse() {
   return {
     statusCode: 200, headers: {}, body: undefined,
@@ -261,7 +329,17 @@ async function handler(req, res) {
         verificationNote: "Matched by item ID to the imported Midnight Season 2+ source-evidence catalog."
       };
     });
-    const allRecords = [...payload.items, ...newDiscovery];
+    const tierSetCandidates = loadVerifiedTierSetCandidates(slot, className);
+    const tierIds = new Set(tierSetCandidates.map(item => Number(item.id)));
+    const sectionRecords = payload.items.map(item => {
+      const tier = tierSetCandidates.find(candidate => Number(candidate.id) === Number(item.id));
+      return tier ? { ...item, ...tier, variants: [...(item.variants || []), ...(tier.variants || [])] } : item;
+    });
+    const allRecords = [
+      ...sectionRecords,
+      ...newDiscovery.filter(item => !tierIds.has(Number(item.id)) && !payload.items.some(existing => Number(existing.id) === Number(item.id))),
+      ...tierSetCandidates.filter(item => !payload.items.some(existing => Number(existing.id) === Number(item.id)))
+    ];
     if (!sectionCacheAvailable && !discovered.length) {
       return res.status(503).json({ error: discoveryError || "Neither a validated section cache nor Blizzard discovery is available." });
     }
@@ -303,6 +381,8 @@ handler._test = {
   setDiscoveryEnabled(value) { discoveryEnabled = Boolean(value); },
   setDiscoveryProvider(fn) { discoveryProvider = typeof fn === "function" ? fn : null; },
   discoverSlotItems,
+  exactTierVariant, loadVerifiedTierSetCandidates,
+  setTierSetCandidateProvider(fn) { tierSetCandidateProvider = typeof fn === "function" ? fn : null; },
   getVerifiedSeasonItem,
   setVerifiedSeasonItemProvider(fn) { verifiedSeasonItemProvider = typeof fn === "function" ? fn : null; },
   resetVerifiedSeasonItemCache() { verifiedSeasonItemCache = null; }

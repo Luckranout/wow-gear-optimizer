@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - "scripts/equipment_catalog_sections.py"
+      - "scripts/audit_equipment_catalog.py"
+      - "tests/test_equipment_catalog_audit.py"
       - "scripts/import_blizzard_data.py"
       - "tests/test_equipment_catalog_sections.py"
       - "tests/test_blizzard_request_retry.py"
@@ -25,6 +27,10 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Test equipment catalogue gap audit
+        run: python -m unittest discover -s tests -p "test_equipment_catalog_audit.py" -v
+      - name: Run equipment catalogue coverage audit
+        run: python scripts/audit_equipment_catalog.py
       - name: Test section pagination and persistence
         run: python -m unittest discover -s tests -p "test_equipment_catalog_sections.py" -v
       - name: Test Blizzard request retry diagnostics
@@ -34,4 +40,4 @@ jobs:
       - name: Test supporting catalog validation
         run: python -m unittest discover -s tests -p "test_supporting_catalog_validation.py" -v
       - name: Compile importer and section module
-        run: python -m py_compile scripts/import_blizzard_data.py scripts/equipment_catalog_sections.py
+        run: python -m py_compile scripts/import_blizzard_data.py scripts/equipment_catalog_sections.py scripts/audit_equipment_catalog.py

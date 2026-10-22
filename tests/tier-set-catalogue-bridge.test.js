@@ -1,0 +1,2377 @@
+// Validate the season tier catalogue is bridged to the verified item-ID manifest.
+// Run with: node tests/tier-set-catalogue-bridge.test.js
+const test = require("node:test");
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const path = require("node:path");
+
+const root = path.resolve(__dirname, "..");
+const manifest = JSON.parse(fs.readFileSync(path.join(root, "data/tier-set-item-ids.json"), "utf8"));
+const catalogue = JSON.parse(fs.readFileSync(path.join(root, "data/tier-sets-midnight-season-2.json"), "utf8"));
+const STAT_PROFILE_SOURCE = "https://www.method.gg/guides/wow-midnight-season-2-tier-set-stats";
+const EXPECTED_SLOTS = ["Head", "Shoulders", "Chest", "Hands", "Legs"];
+
+test("all 13 classes have five manifest-matched base tier IDs and source-backed variant IDs", () => {
+  assert.equal(manifest.sets.length, 13);
+  assert.equal(catalogue.sets.length, 13);
+  for (const manifestSet of manifest.sets) {
+    const catalogueSet = catalogue.sets.find(set => set.class === manifestSet.className);
+    assert.ok(catalogueSet, `missing catalogue entry for ${manifestSet.className}`);
+    const expected = manifestSet.pieces.map(piece => Number(piece.itemId)).sort((a, b) => a - b);
+    const baseRecords = Array.isArray(catalogueSet.basePieces)
+      ? catalogueSet.basePieces
+      : (catalogueSet.pieces || []).filter(piece => piece.candidate === true);
+    const baseActual = baseRecords.map(piece => Number(piece.itemId)).filter(Number.isFinite).sort((a, b) => a - b);
+    assert.equal(catalogueSet.baseItemIdsVerified, true, `${manifestSet.className} base mapping not marked verified`);
+    assert.deepEqual([...new Set(baseActual)], expected, `${manifestSet.className} base item IDs differ from the manifest`);
+    assert.equal(catalogueSet.itemIdsVerified, manifestSet.className === "Shaman",
+      `${manifestSet.className} canonical mapping status must be distinguished from complete upgrade-rank coverage`);
+    const candidates = [...(catalogueSet.pieces || []), ...(catalogueSet.upgradeRankCandidates || [])].filter(piece => piece.candidate === true);
+    assert.equal(catalogueSet.candidateVariantsAvailable, candidates.length > 0);
+    const baseBySlot = new Map(baseRecords.map(piece => [piece.slot, piece]));
+    for (const piece of candidates) {
+      const base = baseBySlot.get(piece.slot);
+      assert.ok(base, `${manifestSet.className} candidate has an unknown slot ${piece.slot}`);
+      assert.equal(piece.name, base.name, `${manifestSet.className} candidate name does not match the base slot item`);
+      const allowedIds = new Set([Number(base.itemId), ...((catalogueSet.verifiedVariantItemIds?.[piece.slot] || []).map(Number))]);
+      assert.ok(allowedIds.has(Number(piece.itemId)),
+        `${manifestSet.className} ${piece.slot} candidate item ID ${piece.itemId} lacks variant-ID provenance`);
+    }
+  }
+});
+test("catalogue reports ID mapping separately from variant stats and numeric bonus scoring", () => {
+  assert.equal(catalogue.itemMatching.status, "partial");
+  assert.deepEqual(catalogue.itemMatching.verifiedClasses, ["Shaman"]);
+  assert.deepEqual(catalogue.itemMatching.candidateVariantClasses, ["Death Knight", "Demon Hunter", "Druid", "Evoker", "Hunter", "Mage", "Monk", "Paladin", "Priest", "Rogue", "Shaman", "Warlock", "Warrior"]);
+  assert.equal(catalogue.itemMatching.baseItemIdsVerifiedClasses.length, 13);
+  assert.deepEqual(catalogue.itemMatching.statsVerifiedClasses, ["Death Knight", "Demon Hunter", "Druid", "Evoker", "Hunter", "Mage", "Monk", "Paladin", "Priest", "Rogue", "Shaman", "Warlock", "Warrior"]);
+  assert.equal(catalogue.sets.every(set => set.numericScoringAvailable !== true), true);
+  assert.match(catalogue.scoringPolicy, /Do not assign numeric optimization weights/i);
+});
+
+test("all 13 classes have source-backed secondary-stat profiles without pretending numeric stats are verified", () => {
+  assert.deepEqual(catalogue.itemMatching.secondaryStatsProfileVerifiedClasses, manifest.sets.map(set => set.className));
+  for (const set of catalogue.sets) {
+    const records = set.class === "Shaman" ? set.pieces : set.basePieces;
+    assert.equal(records.length, set.class === "Shaman" ? 30 : 5, set.class + " profile record count");
+    for (const slot of EXPECTED_SLOTS) {
+      const piece = records.find(record => record.slot === slot);
+      assert.ok(piece, set.class + " missing " + slot + " stat profile");
+      assert.equal(piece.secondaryStatsVerified, true, set.class + " " + slot);
+      assert.equal(piece.secondaryStatsSourceUrl, STAT_PROFILE_SOURCE);
+      assert.equal(piece.secondaryStats.length, 2);
+      assert.ok(piece.secondaryStats.every(stat => ["Critical Strike", "Haste", "Mastery", "Versatility"].includes(stat)));
+    }
+    if (!["Shaman", "Death Knight", "Demon Hunter", "Druid", "Evoker", "Hunter", "Mage", "Monk", "Paladin", "Priest"].includes(set.class)) {
+      assert.equal(set.itemIdsVerified, false, set.class + " variant mapping must remain unverified");
+      assert.ok(records.every(piece => !("itemLevel" in piece) && !("stats" in piece)),
+        set.class + " profile metadata must not invent numeric item stats");
+    }
+  }
+});
+
+
+test("Demon Hunter has verified baseline PvE and exact Mythic 6/6 candidates for all five slots", () => {
+  const demonHunter = catalogue.sets.find(set => set.class === "Demon Hunter");
+  assert.equal(demonHunter.itemIdsVerified, false);
+  assert.equal(demonHunter.candidateVariantsAvailable, true);
+  assert.equal(demonHunter.pieces.length, 34);
+  assert.equal(demonHunter.pieces.filter(piece => piece.candidate).length, 34);
+  const expected = {
+    Head: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
+    Shoulders: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
+    Chest: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
+    Hands: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
+    Legs: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]]
+  };
+  for (const [slot, expectedVariants] of Object.entries(expected)) {
+    const entries = demonHunter.pieces.filter(piece => piece.slot === slot);
+    const baselineEntries = entries.filter(piece => ["Raid Finder", "Normal", "Heroic", "Mythic", "Mythic 6/6"].includes(piece.variant));
+    assert.deepEqual(baselineEntries.map(piece => [piece.variant, piece.itemLevel]), expectedVariants);
+    assert.ok(entries.every(piece => piece.candidate === true));
+    assert.ok(entries.every(piece => piece.stats.length >= 4 && piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0)));
+    assert.ok(entries.every(piece => typeof piece.sourceUrl === "string" && piece.sourceUrl.startsWith("https://")));
+    for (const piece of entries) {
+      const sourceUrl = new URL(piece.sourceUrl);
+      if (sourceUrl.hostname === "www.wowhead.com" && sourceUrl.searchParams.has("ilvl")) {
+        assert.equal(Number(sourceUrl.searchParams.get("ilvl")), piece.itemLevel,
+          "Wowhead candidate source must pin the exact item level");
+      } else {
+        assert.ok(piece.stats.every(stat => new RegExp(`item[- ]level ${piece.itemLevel}`, "i").test(stat.source)),
+          "wiki candidate stat provenance must pin the exact item level");
+      }
+    }
+  }
+  const head308 = demonHunter.pieces.find(piece => piece.slot === "Head" && piece.itemLevel === 308);
+  assert.ok(head308, "exact Demon Hunter Head 308 version is retained as a candidate");
+  assert.equal(head308.candidate, true);
+  assert.equal(head308.sourceUrl, "https://www.wowhead.com/item=271537/abyssal-doomhounds-relentless-stare?bonus=13333%3A13692%3A6652%3A13696%3A13698%3A12838&ilvl=308&spec=581");
+  assert.deepEqual(head308.stats.map(stat => [stat.type.name, stat.value]), [
+    ["agility", 148], ["stamina", 2896], ["criticalStrike", 121], ["mastery", 59]
+  ]);
+  assert.ok(demonHunter.verifiedVariantObservations.some(piece =>
+    piece.slot === "Head" && piece.itemLevel === 308 && piece.candidate === false
+  ));
+  const legs308 = demonHunter.pieces.find(piece => piece.slot === "Legs" && piece.itemLevel === 308);
+  assert.ok(legs308, "exact Demon Hunter Legs 308 version is retained as a candidate");
+  assert.equal(legs308.sourceUrl, "https://www.wowhead.com/item=271536/abyssal-doomhounds-legwraps?bonus=40%3A13333%3A13693%3A13698%3A12838&ilvl=308&spec=1480");
+  assert.deepEqual(legs308.stats.map(stat => [stat.type.name, stat.value]), [
+    ["agility", 148], ["stamina", 2896], ["criticalStrike", 56], ["mastery", 124]
+  ]);
+  assert.ok(demonHunter.verifiedVariantObservations.some(piece =>
+    piece.slot === "Legs" && piece.itemLevel === 308 && piece.candidate === false
+  ));
+
+  assert.equal(demonHunter.variantObservationsStatus, "partial",
+    "baseline candidates must not imply all intermediate upgrade ranks are complete");
+  const head315 = demonHunter.pieces.find(piece => piece.slot === "Head" && piece.itemLevel === 315);
+  assert.ok(head315, "exact Demon Hunter Head 315 version is retained as a candidate");
+  assert.equal(head315.sourceUrl, "https://www.wowhead.com/item=271537/abyssal-doomhounds-relentless-stare?bonus=6652%3A13696%3A13440%3A13692%3A13698%3A12844&class=12&ilvl=315&spec=1480");
+  assert.deepEqual(head315.stats.map(stat => [stat.type.name, stat.value]), [
+    ["agility", 158], ["stamina", 3143], ["criticalStrike", 125], ["mastery", 61]
+  ]);
+  assert.ok(demonHunter.verifiedVariantObservations.every(piece => piece.candidate === false),
+    "additional upgrade-rank observations remain evidence-only");
+});
+
+test("Warrior source-checked variant observations remain evidence-only and preserve same-level stat variants", () => {
+  const warrior = catalogue.sets.find(set => set.class === "Warrior");
+  const observations = warrior.verifiedVariantObservations || [];
+  assert.equal(observations.length, 29);
+  assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
+  assert.equal(warrior.variantObservationsStatus, "partial");
+  assert.match(warrior.variantObservationsNote, /Additional explicit source-verified intermediate upgrade-rank records are optimizer candidates/i);
+  const manifestWarrior = manifest.sets.find(set => set.className === "Warrior");
+  const manifestSlotsById = new Map(manifestWarrior.pieces.map(piece => [Number(piece.itemId), piece.slot]));
+  for (const piece of observations) {
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.ok(piece.itemLevel > 0);
+    assert.ok(["www.wowhead.com", "warcraft.wiki.gg", "mythicsim.com", "azerothcodex.up.railway.app"].includes(new URL(piece.sourceUrl).hostname));
+    assert.equal(manifestSlotsById.get(Number(piece.itemId)), piece.slot,
+      "observed item ID must match the manifest slot");
+    const sourceUrl = new URL(piece.sourceUrl);
+    if (sourceUrl.hostname === "www.wowhead.com" && sourceUrl.searchParams.has("ilvl")) {
+      assert.equal(Number(sourceUrl.searchParams.get("ilvl")), piece.itemLevel,
+        "Wowhead source URL must pin the exact observed item level when an ilvl query is supplied");
+    } else {
+      assert.match(piece.stats[0].source, new RegExp(String(piece.itemLevel)),
+        "wiki source must record the exact observed item level in stat provenance");
+    }
+    assert.ok(Array.isArray(piece.stats) && piece.stats.length >= 4);
+    assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
+    assert.ok(piece.stats.every(stat => typeof stat.source === "string" && stat.source.length > 0),
+      "each observed stat must retain provenance");
+  }
+  for (const [level, expected] of [
+    [305, { strength: 108, stamina: 2096, criticalStrike: 89, haste: 44, intellect: 108 }],
+    [311, { strength: 114, stamina: 2252, criticalStrike: 92, haste: 45, intellect: 114 }],
+    [315, { strength: 118, stamina: 2358, criticalStrike: 93, haste: 46, intellect: 118 }]
+  ]) {
+    const piece = observations.find(entry => entry.itemId === 271457 && entry.itemLevel === level);
+    assert.ok(piece, `expected Warrior Hands observation at item level ${level}`);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.ok(piece.stats.every(stat => stat.source.includes(String(level))));
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+  const gloves = observations.filter(piece => piece.itemId === 271457 && piece.itemLevel === 321);
+  assert.equal(gloves.length, 2);
+  assert.equal(gloves[0].itemLevel, gloves[1].itemLevel);
+  assert.notDeepEqual(
+    gloves[0].stats.map(stat => [stat.type.name, stat.value]).sort(),
+    gloves[1].stats.map(stat => [stat.type.name, stat.value]).sort()
+  );
+  assert.equal(warrior.itemIdsVerified, false, "observations must not promote the full class variant map to verified");
+});
+
+test("Death Knight verified baseline candidates and source-checked tier observations preserve exact stats", () => {
+  const deathKnight = catalogue.sets.find(set => set.class === "Death Knight");
+  assert.equal(deathKnight.itemIdsVerified, false, "the full upgrade-rank map remains partial");
+  assert.equal(deathKnight.candidateVariantsAvailable, true);
+  assert.equal(deathKnight.pieces.length, 58, "Death Knight includes baseline, exact intermediate-rank, and same-level stat-variant candidates");
+  assert.equal(deathKnight.pieces.filter(piece => piece.candidate).length, 58);
+  assert.ok(deathKnight.pieces.every(piece => piece.candidate === true && !("verificationScope" in piece)), "verified candidate records must not retain evidence-only scope");
+  for (const slot of EXPECTED_SLOTS) {
+    const slotCandidates = deathKnight.pieces.filter(piece => piece.slot === slot);
+    const baselineCandidates = slotCandidates.filter(piece => ["Raid Finder", "Normal", "Heroic", "Mythic", "Mythic 6/6"].includes(piece.variant));
+    assert.deepEqual(baselineCandidates.map(piece => [piece.variant, piece.itemLevel]), [
+      ["Raid Finder", slot === "Shoulders" || slot === "Hands" ? 282 : 285],
+      ["Normal", slot === "Shoulders" || slot === "Hands" ? 295 : 298],
+      ["Heroic", slot === "Shoulders" || slot === "Hands" ? 308 : 311],
+      ["Mythic", slot === "Shoulders" || slot === "Hands" ? 321 : 324],
+      ["Mythic 6/6", 334]
+    ]);
+    assert.ok(slotCandidates.every(piece => piece.candidate === true));
+    for (const piece of slotCandidates) {
+      assert.ok(Array.isArray(piece.stats) && piece.stats.length >= 4, `Death Knight ${slot} ${piece.itemLevel} needs numeric stats`);
+      assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0), `Death Knight ${slot} ${piece.itemLevel} has invalid stats`);
+      assert.ok(piece.stats.every(stat => typeof stat.source === "string" && stat.source.includes(String(piece.itemLevel))), `Death Knight ${slot} ${piece.itemLevel} stats need exact-level provenance`);
+      assert.ok(piece.sourceUrl.startsWith("https://"), `Death Knight ${slot} ${piece.itemLevel} needs a source URL`);
+      const sourceUrl = new URL(piece.sourceUrl);
+      if (sourceUrl.hostname === "www.wowhead.com" && sourceUrl.searchParams.has("ilvl")) {
+        assert.equal(Number(sourceUrl.searchParams.get("ilvl")), piece.itemLevel);
+      }
+    }
+  }
+  for (const [slot, level, expected, sourceUrl] of [
+    ["Head", 302, { strength: 140, stamina: 2699, criticalStrike: 121, mastery: 54 }, "https://www.wowhead.com/item=271474/baleful-grave-knights-casque?bonus=6652%3A13439%3A13696%3A13692%3A13698%3A12836&ilvl=302&spec=251"],
+    ["Head", 292, { strength: 128, stamina: 2406, criticalStrike: 116, mastery: 51 }, "https://www.wowhead.com/item=271474/baleful-grave-knights-casque?bonus=13452%3A13658%3A12833%3A13554%3A13692%3A13698%3A1545&ilvl=292"],
+    ["Head", 295, { strength: 131, stamina: 2492, criticalStrike: 117, mastery: 52 }, "https://www.wowhead.com/item=271474/baleful-grave-knights-casque?bonus=13692%3A6652%3A13696%3A13698%3A12834&ilvl=295&spec=250"],
+    ["Shoulders", 302, { strength: 105, stamina: 2024, haste: 43, versatility: 88 }, "https://www.wowhead.com/item=271472/baleful-grave-knights-gibbets?bonus=13694%3A6652%3A13697%3A12836&class=6&ilvl=302&spec=251"],
+    ["Hands", 302, { strength: 105, stamina: 2024, criticalStrike: 45, mastery: 86 }, "https://www.wowhead.com/item=271475/baleful-grave-knights-deathgrips?bonus=13691%3A6652%3A13697%3A12836&class=6&ilvl=302&spec=251"],
+    ["Shoulders", 328, { strength: 134, stamina: 2737, haste: 48, versatility: 99 }, "https://www.wowhead.com/item=271472/baleful-grave-knights-gibbets?bonus=6652%3A13440%3A13694%3A13697%3A12852&ilvl=328"],
+    ["Shoulders", 315, { strength: 118, stamina: 2358, haste: 46, versatility: 93 }, "https://www.wowhead.com/item=271472/baleful-grave-knights-gibbets?bonus=6652%3A13694%3A13697%3A12844&ilvl=315&spec=252"],
+    ["Hands", 315, { strength: 118, stamina: 2358, criticalStrike: 48, mastery: 91 }, "https://www.wowhead.com/ptr-2/item=271475/baleful-grave-knights-deathgrips?bonus=12844"]
+  ]) {
+    const piece = deathKnight.pieces.find(entry => entry.slot === slot && entry.itemLevel === level);
+    assert.ok(piece, `Death Knight ${slot} ${level} source-verified rank candidate is present`);
+    assert.equal(piece.candidate, true);
+    assert.equal(piece.sourceUrl, sourceUrl);
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+    assert.ok(piece.stats.every(stat => stat.source.includes(`item level ${level}`)));
+  }
+  const observations = deathKnight.verifiedVariantObservations || [];
+  assert.equal(observations.length, 33);
+  assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
+  assert.equal(deathKnight.variantObservationsStatus, "partial");
+  assert.match(deathKnight.variantObservationsNote, /intermediate upgrade ranks are not all verified/i);
+  const manifestSet = manifest.sets.find(set => set.className === "Death Knight");
+  const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
+  for (const piece of observations) {
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.ok(piece.itemLevel > 0);
+    assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/") || piece.sourceUrl.startsWith("https://warcraft.wiki.gg/"));
+    if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    if (piece.sourceUrl.startsWith("https://warcraft.wiki.gg/")) {
+      assert.ok(piece.stats.every(stat => stat.source.includes(`item level ${piece.itemLevel}`)));
+    }
+    assert.ok(Array.isArray(piece.stats) && piece.stats.length >= 4);
+    assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
+    assert.ok(piece.stats.every(stat => typeof stat.source === "string" && stat.source.length > 0));
+  }
+  const expectedBaselineLevels = {
+    Head: [285, 298, 311, 324],
+    Shoulders: [282, 295, 308, 321],
+    Chest: [285, 298, 311, 324],
+    Hands: [282, 295, 308, 321],
+    Legs: [285, 298, 311, 324]
+  };
+  for (const [slot, levels] of Object.entries(expectedBaselineLevels)) {
+    const itemId = manifestSet.pieces.find(piece => piece.slot === slot).itemId;
+    const observedLevels = [...new Set(observations
+      .filter(piece => piece.itemId === itemId && levels.includes(piece.itemLevel))
+      .map(piece => piece.itemLevel))].sort((a, b) => a - b);
+    assert.deepEqual(observedLevels, levels, `Death Knight ${slot} must cover all four baseline PvE raid difficulties`);
+    const mythicSix = observations.find(piece => piece.itemId === itemId && piece.itemLevel === 334 && piece.variant === "Mythic 6/6");
+    assert.ok(mythicSix, `Death Knight ${slot} missing exact Mythic 6/6 at item level 334`);
+  }
+  const chest = observations.find(piece => piece.itemId === 271477);
+  assert.equal(chest.itemLevel, 334);
+  assert.deepEqual(
+    Object.fromEntries(chest.stats.map(stat => [stat.type.name, stat.value])),
+    { strength: 189, stamina: 3910, criticalStrike: 59, mastery: 142 }
+  );
+  const shoulders = observations.find(piece => piece.itemId === 271472);
+  assert.equal(shoulders.itemLevel, 308);
+  assert.deepEqual(
+    Object.fromEntries(shoulders.stats.map(stat => [stat.type.name, stat.value])),
+    { strength: 111, stamina: 2172, haste: 44, versatility: 90 }
+  );
+  const mythicShoulders = observations.find(piece => piece.itemId === 271472 && piece.itemLevel === 334);
+  assert.ok(mythicShoulders, "missing Death Knight Mythic 6/6 shoulders at item level 334");
+  assert.equal(mythicShoulders.variant, "Mythic 6/6");
+  assert.equal(mythicShoulders.candidate, false);
+  assert.equal(mythicShoulders.verificationScope, "observed-version-only");
+  assert.ok(new URL(mythicShoulders.sourceUrl).pathname.includes("item=271472"));
+  assert.deepEqual(
+    Object.fromEntries(mythicShoulders.stats.map(stat => [stat.type.name, stat.value])),
+    { strength: 141, stamina: 2932, haste: 50, versatility: 101 }
+  );
+  const mythicHands = observations.find(piece => piece.itemId === 271475 && piece.itemLevel === 334);
+  assert.ok(mythicHands, "missing Death Knight Mythic 6/6 hands at item level 334");
+  assert.equal(mythicHands.variant, "Mythic 6/6");
+  assert.equal(mythicHands.candidate, false);
+  assert.equal(mythicHands.verificationScope, "observed-version-only");
+  assert.equal(Number(new URL(mythicHands.sourceUrl).searchParams.get("ilvl")), 334);
+  assert.deepEqual(
+    Object.fromEntries(mythicHands.stats.map(stat => [stat.type.name, stat.value])),
+    { strength: 141, stamina: 2932, criticalStrike: 52, mastery: 99 }
+  );
+  const championHands = observations.find(piece => piece.itemId === 271475 && piece.itemLevel === 298);
+  assert.ok(championHands, "missing Death Knight Champion 3/6 hands at item level 298");
+  assert.equal(championHands.variant, "Champion 3/6 observed");
+  assert.equal(championHands.candidate, false);
+  assert.equal(championHands.verificationScope, "observed-version-only");
+  assert.equal(Number(new URL(championHands.sourceUrl).searchParams.get("ilvl")), 298);
+  assert.deepEqual(
+    Object.fromEntries(championHands.stats.map(stat => [stat.type.name, stat.value])),
+    { strength: 101, stamina: 1935, criticalStrike: 44, mastery: 85 }
+  );
+  const chestLevels = observations.filter(piece => piece.itemId === 271477).map(piece => piece.itemLevel).sort((a, b) => a - b);
+  assert.deepEqual(chestLevels, [285, 298, 311, 321, 324, 334],
+    "Chest must retain each independently sourced item-level observation");
+  for (const [level, expected, variant] of [
+    [298, { strength: 135, stamina: 2579, criticalStrike: 50, mastery: 122 }, "Champion 3/6 observed"],
+    [311, { strength: 152, stamina: 3002, criticalStrike: 53, mastery: 129 }, "Hero 3/6 observed"],
+    [321, { strength: 167, stamina: 3369, criticalStrike: 56, mastery: 135 }, "Hero 6/6 observed"]
+  ]) {
+    const piece = observations.find(entry => entry.itemId === 271477 && entry.itemLevel === level);
+    assert.ok(piece, `expected Death Knight chest observation at item level ${level}`);
+    assert.equal(piece.variant, variant);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    const sourceUrl = new URL(piece.sourceUrl);
+    if (sourceUrl.hostname === "www.wowhead.com") {
+      assert.equal(Number(sourceUrl.searchParams.get("ilvl")), level);
+    } else {
+      assert.ok(piece.stats.every(stat => stat.source.includes(`item level ${level}`)),
+        "Warcraft Wiki stat provenance must identify the exact observed item level");
+    }
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+  const headLevels = observations.filter(piece => piece.itemId === 271474).map(piece => piece.itemLevel).sort((a, b) => a - b);
+  assert.deepEqual(headLevels, [285, 292, 295, 298, 305, 308, 311, 321, 324, 334],
+    "Head must retain each independently sourced item-level observation");
+  const shoulderLevels = observations.filter(piece => piece.itemId === 271472).map(piece => piece.itemLevel).sort((a, b) => a - b);
+  assert.deepEqual(shoulderLevels, [282, 295, 308, 318, 321, 334],
+    "Shoulders must retain each independently sourced item-level observation");
+  for (const [itemId, itemLevel, expected] of [
+    [271474, 285, { strength: 119, stamina: 2219, criticalStrike: 112, mastery: 49 }],
+    [271474, 298, { strength: 135, stamina: 2579, criticalStrike: 119, mastery: 53 }],
+    [271474, 324, { strength: 172, stamina: 3487, criticalStrike: 134, mastery: 59 }],
+    [271472, 282, { strength: 87, stamina: 1606, haste: 39, versatility: 80 }],
+    [271472, 321, { strength: 125, stamina: 2527, haste: 47, versatility: 96 }]
+  ]) {
+    const piece = observations.find(entry => entry.itemId === itemId && entry.itemLevel === itemLevel);
+    assert.ok(piece, `expected source-checked Death Knight tier variant at item level ${itemLevel}`);
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+  const legs = observations.find(piece => piece.itemId === 271473 && piece.itemLevel === 324);
+  assert.equal(legs.variant, "Mythic 3/6 observed");
+  assert.deepEqual(
+    Object.fromEntries(legs.stats.map(stat => [stat.type.name, stat.value])),
+    { strength: 172, stamina: 3487, criticalStrike: 57, mastery: 136 }
+  );
+  assert.equal(legs.candidate, false);
+  assert.equal(deathKnight.itemIdsVerified, false,
+    "partial observed versions must not promote the complete class variant map");
+});
+
+test("Paladin observed tier variants are source-backed and remain evidence-only", () => {
+  const paladin = catalogue.sets.find(set => set.class === "Paladin");
+  const observations = paladin.verifiedVariantObservations || [];
+  assert.equal(observations.length, 37);
+  assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
+  assert.equal(paladin.variantObservationsStatus, "partial");
+  assert.match(paladin.variantObservationsNote, /intermediate upgrade ranks remain evidence-only/i);
+  const manifestSet = manifest.sets.find(set => set.className === "Paladin");
+  const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
+  for (const piece of observations) {
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.ok(piece.itemLevel > 0);
+    assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/") || piece.sourceUrl.startsWith("https://warcraft.wiki.gg/"));
+    if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    assert.ok(Array.isArray(piece.stats) && piece.stats.length >= 4);
+    assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
+    assert.ok(piece.stats.every(stat => typeof stat.source === "string" && stat.source.length > 0));
+  }
+  const chest = observations.find(piece => piece.itemId === 271468 && piece.itemLevel === 334);
+  assert.equal(chest.itemLevel, 334);
+  assert.deepEqual(
+    Object.fromEntries(chest.stats.map(stat => [stat.type.name, stat.value])),
+    { strength: 189, stamina: 3910, haste: 64, mastery: 137 }
+  );
+  const chestByLevel = new Map(observations.filter(piece => piece.itemId === 271468).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...chestByLevel.keys()].sort((a, b) => a - b), [285, 295, 298, 302, 305, 308, 311, 318, 321, 324, 334]);
+  assert.deepEqual(Object.fromEntries(chestByLevel.get(295).stats.map(stat => [stat.type.name, stat.value])),
+    { strength: 131, intellect: 131, stamina: 2492, haste: 54, mastery: 116 });
+  assert.deepEqual(Object.fromEntries(chestByLevel.get(302).stats.map(stat => [stat.type.name, stat.value])),
+    { strength: 140, intellect: 140, stamina: 2699, haste: 56, mastery: 119 });
+  assert.deepEqual(Object.fromEntries(chestByLevel.get(305).stats.map(stat => [stat.type.name, stat.value])),
+    { strength: 144, intellect: 144, stamina: 2794, haste: 56, mastery: 121 });
+  assert.deepEqual(Object.fromEntries(chestByLevel.get(318).stats.map(stat => [stat.type.name, stat.value])),
+    { strength: 162, intellect: 162, stamina: 3254, haste: 60, mastery: 128 });
+  assert.deepEqual(Object.fromEntries(chestByLevel.get(308).stats.map(stat => [stat.type.name, stat.value])),
+    { strength: 148, intellect: 148, stamina: 2896, haste: 57, mastery: 123 });
+  assert.deepEqual(Object.fromEntries(chestByLevel.get(311).stats.map(stat => [stat.type.name, stat.value])),
+    { strength: 152, intellect: 152, stamina: 3002, haste: 58, mastery: 124 });
+  for (const level of [308, 311]) {
+    assert.equal(chestByLevel.get(level).candidate, false);
+    assert.equal(Number(new URL(chestByLevel.get(level).sourceUrl).searchParams.get("ilvl")), level);
+  }
+  assert.deepEqual(Object.fromEntries(chestByLevel.get(321).stats.map(stat => [stat.type.name, stat.value])),
+    { strength: 167, intellect: 167, stamina: 3369, haste: 61, mastery: 130 });
+  assert.equal(chestByLevel.get(321).candidate, false);
+  assert.equal(Number(new URL(chestByLevel.get(321).sourceUrl).searchParams.get("ilvl")), 321);
+  const handsByLevel = new Map(observations.filter(piece => piece.itemId === 271466).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...handsByLevel.keys()].sort((a, b) => a - b), [282, 295, 302, 308, 318, 321, 328, 334]);
+  const expectedHands = {
+    282: { strength: 87, stamina: 1606, criticalStrike: 39, mastery: 80 },
+    295: { strength: 98, stamina: 1869, criticalStrike: 42, mastery: 86 },
+    302: { strength: 105, intellect: 105, stamina: 2024, criticalStrike: 43, mastery: 88 },
+    308: { strength: 111, stamina: 2172, criticalStrike: 44, mastery: 91 },
+    318: { strength: 122, intellect: 122, stamina: 2440, criticalStrike: 46, mastery: 95 },
+    328: { strength: 134, intellect: 134, stamina: 2737, criticalStrike: 48, mastery: 99 },
+    321: { strength: 125, stamina: 2527, criticalStrike: 47, mastery: 96 },
+    334: { strength: 141, intellect: 141, stamina: 2932, criticalStrike: 49, mastery: 101 }
+  };
+  for (const [level, piece] of handsByLevel) {
+    assert.equal(piece.candidate, false);
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expectedHands[level]);
+  }
+  const shouldersByLevel = new Map(observations.filter(piece => piece.itemId === 271463).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...shouldersByLevel.keys()].sort((a, b) => a - b), [282, 295, 308, 315, 321, 334]);
+  const expectedShoulders = {
+    282: { strength: 87, intellect: 87, stamina: 1606, criticalStrike: 83, mastery: 36 },
+    295: { strength: 98, intellect: 98, stamina: 1869, criticalStrike: 89, mastery: 38 },
+    308: { strength: 111, intellect: 111, stamina: 2172, criticalStrike: 94, mastery: 41 },
+    315: { strength: 118, intellect: 118, stamina: 2358, criticalStrike: 97, mastery: 42 },
+    321: { strength: 125, intellect: 125, stamina: 2527, criticalStrike: 100, mastery: 43 },
+    334: { strength: 141, stamina: 2932, haste: 95, mastery: 56 }
+  };
+  for (const [level, piece] of shouldersByLevel) {
+    assert.equal(piece.candidate, false);
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expectedShoulders[level]);
+  }
+  const legs318 = observations.find(piece => piece.itemId === 271464 && piece.itemLevel === 318);
+  assert.ok(legs318);
+  assert.equal(legs318.variant, "Mythic 1/6 observed");
+  assert.equal(legs318.candidate, false);
+  assert.equal(legs318.verificationScope, "observed-version-only");
+  assert.equal(Number(new URL(legs318.sourceUrl).searchParams.get("ilvl")), 318);
+  assert.deepEqual(Object.fromEntries(legs318.stats.map(stat => [stat.type.name, stat.value])),
+    { strength: 162, stamina: 3254, criticalStrike: 63, haste: 125 });
+  assert.equal(paladin.itemIdsVerified, false,
+    "partial observed versions must not promote the complete class variant map");
+  const head321 = observations.find(piece => piece.itemId === 271465 && piece.itemLevel === 321);
+  assert.ok(head321);
+  assert.equal(head321.variant, "Hero 6/6 observed");
+  assert.equal(head321.candidate, false);
+  assert.equal(head321.verificationScope, "observed-version-only");
+  assert.equal(Number(new URL(head321.sourceUrl).searchParams.get("ilvl")), 321);
+  assert.deepEqual(Object.fromEntries(head321.stats.map(stat => [stat.type.name, stat.value])),
+    { strength: 167, stamina: 3369, criticalStrike: 134, mastery: 57 });
+
+});
+
+test("Demon Hunter source-checked tier versions remain evidence-only and preserve observed stats", () => {
+  const demonHunter = catalogue.sets.find(set => set.class === "Demon Hunter");
+  const observations = demonHunter.verifiedVariantObservations || [];
+  assert.equal(observations.length, 35);
+  assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
+  assert.equal(demonHunter.variantObservationsStatus, "partial");
+  assert.match(demonHunter.variantObservationsNote, /exact candidate versions cover all five slots.*Mythic 6\/6/i);
+  assert.match(demonHunter.variantObservationsNote, /intermediate upgrade ranks are not all verified/i);
+  const manifestSet = manifest.sets.find(set => set.className === "Demon Hunter");
+  const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
+  for (const piece of observations) {
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.ok(piece.itemLevel > 0);
+    const sourceUrl = new URL(piece.sourceUrl);
+    assert.ok(
+      sourceUrl.hostname === "www.wowhead.com" ||
+      sourceUrl.hostname === "warcraft.wiki.gg" ||
+      (Number(piece.itemId) === 271527 && piece.slot === "Legs" && piece.itemLevel === 334 &&
+        sourceUrl.hostname === "mythicsim.com"),
+      "source URL must point to an accepted item reference or explicitly scoped build-source observation"
+    );
+    if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    if (sourceUrl.hostname === "www.wowhead.com" && sourceUrl.searchParams.has("ilvl")) {
+      assert.equal(Number(sourceUrl.searchParams.get("ilvl")), piece.itemLevel,
+        "Wowhead source URL must pin the exact observed item level when an ilvl query is supplied");
+    } else {
+      assert.ok(piece.stats.every(stat => stat.source.includes(String(piece.itemLevel))),
+        "Warcraft Wiki observations must label the exact observed item level in every stat source");
+    }
+    assert.ok(Array.isArray(piece.stats) && piece.stats.length >= 4);
+    assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
+    assert.ok(piece.stats.every(stat => typeof stat.source === "string" && stat.source.length > 0));
+  }
+  const raidFinderGloves = observations.find(piece => piece.itemId === 271538 && piece.itemLevel === 282);
+  assert.equal(raidFinderGloves.variant, "Veteran 2/6 observed");
+  assert.equal(raidFinderGloves.candidate, false);
+  assert.deepEqual(
+    Object.fromEntries(raidFinderGloves.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 87, stamina: 1606, criticalStrike: 82, mastery: 37 }
+  );
+  const mythicLegs = observations.find(piece => piece.itemId === 271536 && piece.itemLevel === 334);
+  assert.ok(mythicLegs, "missing Demon Hunter Mythic 6/6 legs at item level 334");
+  assert.equal(mythicLegs.variant, "Mythic 6/6");
+  assert.equal(mythicLegs.candidate, false);
+  assert.equal(mythicLegs.verificationScope, "observed-version-only");
+  assert.equal(Number(new URL(mythicLegs.sourceUrl).searchParams.get("ilvl")), 334);
+  assert.deepEqual(
+    Object.fromEntries(mythicLegs.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 189, intellect: 189, stamina: 3910, haste: 63, mastery: 138 }
+  );
+  const mythicChest = observations.find(piece => piece.itemId === 271540 && piece.itemLevel === 334);
+  assert.ok(mythicChest, "missing Demon Hunter Mythic 6/6 chest at item level 334");
+  assert.equal(mythicChest.variant, "Mythic 6/6");
+  assert.equal(mythicChest.candidate, false);
+  assert.equal(mythicChest.verificationScope, "observed-version-only");
+  assert.equal(Number(new URL(mythicChest.sourceUrl).searchParams.get("ilvl")), 334);
+  assert.deepEqual(
+    Object.fromEntries(mythicChest.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 189, intellect: 189, stamina: 3910, haste: 139, mastery: 62 }
+  );
+  const mythicGloves = observations.find(piece => piece.itemId === 271538 && piece.itemLevel === 334);
+  assert.ok(mythicGloves, "missing Demon Hunter Mythic 6/6 gloves at item level 334");
+  assert.equal(mythicGloves.variant, "Mythic 6/6");
+  assert.equal(mythicGloves.candidate, false);
+  assert.equal(mythicGloves.verificationScope, "observed-version-only");
+  assert.equal(Number(new URL(mythicGloves.sourceUrl).searchParams.get("ilvl")), 334);
+  assert.deepEqual(
+    Object.fromEntries(mythicGloves.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 141, stamina: 2932, criticalStrike: 104, mastery: 47 }
+  );
+  for (const expected of [
+    { level: 285, stats: { agility: 119, stamina: 2219, criticalStrike: 50, mastery: 111 } },
+    { level: 298, stats: { agility: 135, stamina: 2579, criticalStrike: 53, mastery: 119 } },
+    { level: 324, stats: { agility: 172, stamina: 3487, criticalStrike: 60, mastery: 133 } },
+  ]) {
+    const item = observations.find(piece => piece.slot === "Legs" && piece.itemLevel === expected.level);
+    assert.ok(item, `missing Demon Hunter leg observation at item level ${expected.level}`);
+    assert.equal(item.candidate, false);
+    assert.equal(item.verificationScope, "observed-version-only");
+    assert.match(item.sourceUrl, /warcraft\.wiki\.gg/);
+    assert.deepEqual(
+      Object.fromEntries(item.stats.map(stat => [stat.type.name, stat.value])),
+      expected.stats
+    );
+  }
+  const expectedShoulders = {
+    282: { agility: 87, stamina: 1606, criticalStrike: 42, versatility: 77 },
+    295: { agility: 98, stamina: 1869, criticalStrike: 45, versatility: 82 },
+    308: { agility: 111, stamina: 2172, criticalStrike: 48, versatility: 87 },
+    321: { agility: 125, stamina: 2527, criticalStrike: 51, versatility: 92 }
+  };
+  for (const [level, expected] of Object.entries(expectedShoulders)) {
+    const piece = observations.find(item => item.slot === "Shoulders" && item.itemLevel === Number(level));
+    assert.ok(piece, `missing Demon Hunter shoulder observation at item level ${level}`);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    if (level === 334) {
+      assert.equal(new URL(piece.sourceUrl).hostname, "www.wowhead.com");
+      assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), 334);
+    } else {
+      assert.match(piece.sourceUrl, /warcraft\.wiki\.gg/);
+    }
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+  const expectedHandUpgrades = {
+    311: { agility: 152, stamina: 3002, criticalStrike: 94, mastery: 43 },
+    324: { agility: 172, stamina: 3487, criticalStrike: 98, mastery: 45 }
+  };
+  for (const [level, expected] of Object.entries(expectedHandUpgrades)) {
+    const piece = observations.find(item => item.itemId === 271538 && item.itemLevel === Number(level));
+    assert.ok(piece, `missing Demon Hunter hand observation at item level ${level}`);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.match(piece.sourceUrl, /warcraft\.wiki\.gg/);
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+  const expectedChest = {
+    285: { agility: 119, stamina: 2219, haste: 110, versatility: 51 },
+    298: { agility: 135, stamina: 2579, haste: 118, versatility: 54 },
+    311: { agility: 152, stamina: 3002, haste: 125, versatility: 57 },
+    324: { agility: 172, stamina: 3487, haste: 132, versatility: 61 }
+  };
+  for (const [level, expected] of Object.entries(expectedChest)) {
+    const piece = observations.find(item => item.itemId === 271540 && item.itemLevel === Number(level));
+    assert.ok(piece, `missing Demon Hunter chest observation at item level ${level}`);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.match(piece.sourceUrl, /warcraft\.wiki\.gg/);
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+  const chest = observations.find(piece => piece.itemId === 271540 && piece.itemLevel === 321);
+  assert.equal(chest.itemLevel, 321);
+  assert.deepEqual(
+    Object.fromEntries(chest.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 167, stamina: 3369, haste: 130, versatility: 60 }
+  );
+  const head = observations.find(piece => piece.itemId === 271537);
+  assert.equal(head.itemLevel, 334);
+  assert.deepEqual(
+    Object.fromEntries(head.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 189, stamina: 3910, criticalStrike: 135, mastery: 66 }
+  );
+  for (const expected of [
+    { level: 298, stats: { agility: 135, stamina: 2579, criticalStrike: 115, mastery: 56 } },
+    { level: 311, stats: { agility: 152, stamina: 3002, criticalStrike: 123, mastery: 60 } },
+    { level: 324, stats: { agility: 172, stamina: 3487, criticalStrike: 130, mastery: 63 } },
+  ]) {
+    const item = observations.find(piece => piece.itemId === 271537 && piece.itemLevel === expected.level);
+    assert.ok(item, "missing Demon Hunter head observation at item level " + expected.level);
+    assert.equal(item.candidate, false);
+    assert.equal(item.verificationScope, "observed-version-only");
+    assert.match(item.sourceUrl, /warcraft\.wiki\.gg/);
+    assert.deepEqual(
+      Object.fromEntries(item.stats.map(stat => [stat.type.name, stat.value])),
+      expected.stats
+    );
+  }
+  const veteranHead = observations.find(piece => piece.itemId === 271537 && piece.itemLevel === 285);
+  assert.equal(veteranHead.variant, "Veteran 3/6 observed");
+  assert.equal(veteranHead.candidate, false);
+  assert.equal(veteranHead.verificationScope, "observed-version-only");
+  assert.match(veteranHead.sourceUrl, /warcraft\.wiki\.gg/);
+  assert.deepEqual(
+    Object.fromEntries(veteranHead.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 119, stamina: 2219, criticalStrike: 108, mastery: 53 }
+  );
+  const gloves = observations.find(piece => piece.itemId === 271538);
+  assert.equal(gloves.itemLevel, 219,
+    "the known base version must be explicitly recorded as base-only evidence");
+  const upgradedGloves = observations.find(piece => piece.itemId === 271538 && piece.itemLevel === 305);
+  assert.deepEqual(
+    Object.fromEntries(upgradedGloves.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 108, stamina: 2096, criticalStrike: 92, mastery: 42 }
+  );
+  const heroicGloves = observations.find(piece => piece.itemId === 271538 && piece.itemLevel === 308);
+  assert.deepEqual(
+    Object.fromEntries(heroicGloves.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 111, stamina: 2172, criticalStrike: 93, mastery: 42 }
+  );
+  const mythicGloves321 = observations.find(piece => piece.itemId === 271538 && piece.itemLevel === 321);
+  const championGloves = observations.find(piece => piece.itemId === 271538 && piece.itemLevel === 295);
+  assert.deepEqual(
+    Object.fromEntries(mythicGloves321.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 125, stamina: 2527, criticalStrike: 98, mastery: 45 }
+  );
+  assert.equal(championGloves.variant, "Champion 2/6 observed");
+  assert.equal(championGloves.candidate, false);
+  assert.deepEqual(Object.fromEntries(championGloves.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 98, stamina: 1869, criticalStrike: 87, mastery: 40 });
+  const legs = observations.filter(piece => piece.itemId === 271536).sort((a, b) => a.itemLevel - b.itemLevel);
+  assert.deepEqual(legs.map(piece => piece.itemLevel), [285, 295, 298, 308, 311, 318, 324, 334]);
+  assert.deepEqual(
+    Object.fromEntries(legs.find(piece => piece.itemLevel === 318).stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 162, stamina: 3254, criticalStrike: 58, mastery: 130 }
+  );
+  assert.equal(demonHunter.itemIdsVerified, false,
+    "partial observed versions must not promote the complete class variant map");
+});
+
+test("Mage source-checked chest versions remain evidence-only", () => {
+  const mage = catalogue.sets.find(set => set.class === "Mage");
+  const observations = mage.verifiedVariantObservations || [];
+  const chest = new Map(observations.filter(piece => piece.itemId === 271567 && piece.slot === "Chest").map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...chest.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334]);
+  for (const [level, expected] of [
+    [285, { intellect: 119, stamina: 2219, criticalStrike: 105, haste: 57 }],
+    [298, { intellect: 135, stamina: 2579, criticalStrike: 111, haste: 60 }],
+    [311, { intellect: 152, stamina: 3002, criticalStrike: 118, haste: 64 }],
+    [324, { intellect: 172, stamina: 3487, criticalStrike: 125, haste: 68 }]
+  ]) {
+    const piece = chest.get(level);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.equal(new URL(piece.sourceUrl).hostname, level === 334 ? "www.wowhead.com" : "warcraft.wiki.gg");
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+});
+
+test("Mage source-checked helm versions remain evidence-only", () => {
+  const mage = catalogue.sets.find(set => set.class === "Mage");
+  const observations = mage.verifiedVariantObservations || [];
+  const head = new Map(observations.filter(piece => piece.itemId === 271564 && piece.slot === "Head").map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...head.keys()].sort((a, b) => a - b), [285, 298, 311, 315, 324, 334]);
+  for (const [level, expected] of [
+    [285, { intellect: 119, stamina: 2219, haste: 110, mastery: 51 }],
+    [298, { intellect: 135, stamina: 2579, haste: 118, mastery: 54 }],
+    [311, { intellect: 152, stamina: 3002, haste: 125, mastery: 58 }],
+    [315, { intellect: 158, stamina: 3143, haste: 127, mastery: 59 }],
+    [324, { intellect: 172, stamina: 3487, haste: 132, mastery: 61 }]
+  ]) {
+    const piece = head.get(level);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.equal(piece.sourceUrl.includes("ilvl=315"), level === 315);
+    assert.equal(new URL(piece.sourceUrl).hostname, level === 315 ? "www.wowhead.com" : "warcraft.wiki.gg");
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+});
+
+test("Death Knight source-checked leg versions remain evidence-only", () => {
+  const dk = catalogue.sets.find(set => set.class === "Death Knight");
+  const observations = dk.verifiedVariantObservations || [];
+  const legs = new Map(observations.filter(piece => piece.itemId === 271473 && piece.slot === "Legs").map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...legs.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334]);
+  for (const [level, expected] of [
+    [285, { strength: 119, stamina: 2219, criticalStrike: 47, mastery: 114 }],
+    [298, { strength: 135, stamina: 2579, criticalStrike: 50, mastery: 121 }],
+    [311, { strength: 152, stamina: 3002, criticalStrike: 54, mastery: 129 }]
+  ]) {
+    const piece = legs.get(level);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.equal(new URL(piece.sourceUrl).hostname, "warcraft.wiki.gg");
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+});
+
+test("Druid source-checked tier versions remain evidence-only and preserve observed stats", () => {
+  const druid = catalogue.sets.find(set => set.class === "Druid");
+  const observations = druid.verifiedVariantObservations || [];
+  assert.equal(observations.length, 28);
+  assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
+  assert.equal(druid.variantObservationsStatus, "partial");
+  assert.match(druid.variantObservationsNote, /Legs 334 item version is verified as Mythic 6\/6/i);
+  const legsByLevel = new Map(observations.filter(piece => piece.slot === "Legs").map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...legsByLevel.keys()].sort((a, b) => a - b), [219, 285, 298, 311, 324, 334]);
+  for (const [level, expected] of [
+    [285, { agility: 119, stamina: 2219, criticalStrike: 54, haste: 108 }],
+    [298, { agility: 135, stamina: 2579, criticalStrike: 57, haste: 115 }],
+    [311, { agility: 152, stamina: 3002, criticalStrike: 61, haste: 122 }],
+    [324, { agility: 172, stamina: 3487, criticalStrike: 64, haste: 129 }]
+  ]) {
+    const piece = legsByLevel.get(level);
+    assert.equal(piece.candidate, false);
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+  const chestByLevel = new Map(observations.filter(piece => piece.slot === "Chest").map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...chestByLevel.keys()].sort((a, b) => a - b), [285, 292, 298, 311, 324, 334]);
+  for (const [level, expected] of [
+    [285, { agility: 119, stamina: 2219, criticalStrike: 105, haste: 56 }],
+    [298, { agility: 135, stamina: 2579, criticalStrike: 112, haste: 60 }],
+    [311, { agility: 152, stamina: 3002, criticalStrike: 119, haste: 63 }],
+    [324, { agility: 172, stamina: 3487, criticalStrike: 126, haste: 67 }],
+    [334, { agility: 189, intellect: 189, stamina: 3910, haste: 139, mastery: 62 }]
+  ]) {
+    const piece = chestByLevel.get(level);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    if (level === 334) {
+      assert.equal(new URL(piece.sourceUrl).hostname, "www.wowhead.com");
+      assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), 334);
+    } else {
+      assert.equal(new URL(piece.sourceUrl).hostname, "warcraft.wiki.gg");
+    }
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+  const shouldersByLevel = new Map(observations.filter(piece => piece.slot === "Shoulders").map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...shouldersByLevel.keys()].sort((a, b) => a - b), [282, 295, 308, 321, 334]);
+  for (const [level, expected] of [
+    [282, { agility: 87, stamina: 1606, criticalStrike: 82, mastery: 37 }],
+    [295, { agility: 98, stamina: 1869, criticalStrike: 88, mastery: 39 }],
+    [321, { agility: 125, stamina: 2527, criticalStrike: 99, mastery: 44 }],
+    [334, { agility: 141, intellect: 141, stamina: 2932, criticalStrike: 99, mastery: 52 }]
+  ]) {
+    const piece = shouldersByLevel.get(level);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    if (level === 334) {
+      assert.equal(new URL(piece.sourceUrl).hostname, "www.wowhead.com");
+      assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), 334);
+    } else {
+      assert.match(piece.sourceUrl, /warcraft\.wiki\.gg/);
+    }
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+  const manifestSet = manifest.sets.find(set => set.className === "Druid");
+  const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
+  for (const piece of observations) {
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.ok(piece.itemLevel > 0);
+    const sourceUrl = new URL(piece.sourceUrl);
+    assert.ok(
+      sourceUrl.hostname === "www.wowhead.com" || sourceUrl.hostname === "warcraft.wiki.gg",
+      "source URL must point to a trusted item reference"
+    );
+    if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    if (sourceUrl.hostname === "www.wowhead.com") {
+      assert.equal(Number(sourceUrl.searchParams.get("ilvl")), piece.itemLevel,
+        "Wowhead source URL must pin the exact observed item level");
+    } else if (sourceUrl.hostname === "warcraft.wiki.gg") {
+      assert.ok(piece.stats.every(stat => stat.source.includes(String(piece.itemLevel))),
+        "Warcraft Wiki observations must label the exact observed item level in every stat source");
+    } else {
+      assert.ok(piece.stats.every(stat => stat.source.includes(String(piece.itemLevel))),
+        "Warcraft Wiki observations must label the exact observed item level in every stat source");
+    }
+    assert.ok(Array.isArray(piece.stats) && piece.stats.length >= 4);
+    assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
+    assert.ok(piece.stats.every(stat => typeof stat.source === "string" && stat.source.length > 0));
+  }
+  for (const [level, expected] of [
+    [282, { agility: 87, stamina: 1606, versatility: 84, mastery: 35 }],
+    [308, { agility: 111, stamina: 2172, versatility: 95, mastery: 40 }]
+  ]) {
+    const piece = observations.find(item => item.itemId === 271529 && item.itemLevel === level);
+    assert.ok(piece, "missing Druid hand observation at item level " + level);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.equal(new URL(piece.sourceUrl).hostname, "warcraft.wiki.gg");
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+  const championGloves = observations.find(piece => piece.itemId === 271529 && piece.itemLevel === 295);
+  assert.equal(championGloves.variant, "Champion 2/6");
+  assert.equal(Number(new URL(championGloves.sourceUrl).searchParams.get("ilvl")), 295);
+  assert.deepEqual(
+    Object.fromEntries(championGloves.stats.map(stat => [stat.type.name, stat.value])),
+    { intellect: 98, agility: 98, stamina: 1869, versatility: 90, mastery: 37 }
+  );
+  const heroGloves = observations.find(piece => piece.itemId === 271529 && piece.itemLevel === 321);
+  assert.equal(heroGloves.variant, "Hero 6/6");
+  assert.equal(Number(new URL(heroGloves.sourceUrl).searchParams.get("ilvl")), 321);
+  assert.deepEqual(
+    Object.fromEntries(heroGloves.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 125, intellect: 125, stamina: 2527, versatility: 101, mastery: 42 }
+  );
+  const gloves = observations.find(piece => piece.itemId === 271529);
+  assert.equal(gloves.itemLevel, 334);
+  assert.deepEqual(
+    Object.fromEntries(gloves.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 141, stamina: 2932, versatility: 106, mastery: 44 }
+  );
+  const headVariants = new Map(observations.filter(piece => piece.itemId === 271528).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...headVariants.keys()].sort((a, b) => a - b), [285, 298, 311, 321, 324, 334]);
+  for (const [level, expected] of [
+    [285, { agility: 119, stamina: 2219, haste: 114, versatility: 47 }],
+    [298, { agility: 135, stamina: 2579, haste: 121, versatility: 51 }],
+    [311, { agility: 152, stamina: 3002, haste: 129, versatility: 54 }],
+    [321, { agility: 167, stamina: 3369, haste: 134, versatility: 56 }],
+    [324, { agility: 172, stamina: 3487, haste: 136, versatility: 57 }],
+    [334, { agility: 189, stamina: 3910, haste: 142, versatility: 59 }]
+  ]) {
+    const piece = headVariants.get(level);
+    assert.ok(piece, `missing Druid head observation at item level ${level}`);
+    assert.equal(piece.candidate, false);
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+  const baseLegs = observations.find(piece => piece.itemId === 271527 && piece.itemLevel === 219);
+  assert.ok(baseLegs, "the known base version must remain recorded as base-only evidence");
+  const mythicLegs = observations.find(piece => piece.itemId === 271527 && piece.itemLevel === 334);
+  assert.ok(mythicLegs, "missing Druid Legs item-level-334 observation");
+  assert.equal(mythicLegs.candidate, false);
+  assert.match(mythicLegs.variant, /Mythic 6\/6 observed/i);
+  assert.match(mythicLegs.rankSourceUrl, /guildsofwow\.com/);
+  assert.equal(new URL(mythicLegs.sourceUrl).hostname, "www.wowhead.com");
+  assert.equal(Number(new URL(mythicLegs.sourceUrl).searchParams.get("ilvl")), 334);
+  assert.deepEqual(Object.fromEntries(mythicLegs.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 189, intellect: 189, stamina: 3910, criticalStrike: 67, haste: 134 });
+  assert.ok(mythicLegs.stats.every(stat => /item-level-334/i.test(stat.source)));
+  assert.equal(druid.itemIdsVerified, false,
+    "partial observed versions must not promote the complete class variant map");
+});
+
+test("Evoker source-checked tier versions remain evidence-only and preserve observed stats", () => {
+  const evoker = catalogue.sets.find(set => set.class === "Evoker");
+  const observations = evoker.verifiedVariantObservations || [];
+  assert.equal(observations.length, 25);
+  assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
+  assert.equal(evoker.variantObservationsStatus, "partial");
+  assert.match(evoker.variantObservationsNote, /full class variant map remains partial/i);
+  const manifestSet = manifest.sets.find(set => set.className === "Evoker");
+  const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
+  for (const piece of observations) {
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.ok(piece.itemLevel > 0);
+    const sourceUrl = new URL(piece.sourceUrl);
+    assert.ok(
+      sourceUrl.hostname === "www.wowhead.com" || sourceUrl.hostname === "warcraft.wiki.gg",
+      "source URL must point to a trusted item reference"
+    );
+    if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    if (sourceUrl.hostname === "www.wowhead.com") {
+      assert.equal(Number(sourceUrl.searchParams.get("ilvl")), piece.itemLevel,
+        "Wowhead source URL must pin the exact observed item level");
+    } else {
+      assert.ok(piece.stats.every(stat => stat.source.includes(String(piece.itemLevel))),
+        "Warcraft Wiki observations must label the exact observed item level in every stat source");
+    }
+    assert.ok(Array.isArray(piece.stats) && piece.stats.length >= 3);
+    assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
+    assert.ok(piece.stats.every(stat => typeof stat.source === "string" && stat.source.length > 0));
+  }
+  const mythicHands = observations.find(piece => piece.itemId === 271502 && piece.itemLevel === 334);
+  assert.ok(mythicHands, "Evoker hands Mythic 6/6 level 334 observation should be present");
+  assert.equal(mythicHands.variant, "Mythic 6/6 observed");
+  assert.equal(mythicHands.candidate, false);
+  assert.equal(mythicHands.verificationScope, "observed-version-only");
+  assert.deepEqual(Object.fromEntries(mythicHands.stats.map(stat => [stat.type.name, stat.value])), {
+    agility: 141, intellect: 141, stamina: 2932, haste: 97, mastery: 53
+  });
+  const headsByLevel = new Map(observations.filter(piece => piece.itemId === 271501).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...headsByLevel.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334]);
+  const expectedHeads = {
+    285: { agility: 119, intellect: 119, stamina: 2219, haste: 108, versatility: 53 },
+    298: { agility: 135, intellect: 135, stamina: 2579, haste: 115, versatility: 56 },
+    311: { agility: 152, intellect: 152, stamina: 3002, haste: 122, versatility: 60 },
+    324: { agility: 172, intellect: 172, stamina: 3487, haste: 130, versatility: 63 },
+    334: { agility: 189, intellect: 189, stamina: 3910, haste: 135, versatility: 66 }
+  };
+  for (const [level, expected] of Object.entries(expectedHeads)) {
+    const head = headsByLevel.get(Number(level));
+    assert.equal(head.candidate, false);
+    assert.equal(head.verificationScope, "observed-version-only");
+    assert.deepEqual(Object.fromEntries(head.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+  const chestsByLevel = new Map(observations.filter(piece => piece.itemId === 271504).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...chestsByLevel.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334]);
+  const expectedChests = {
+    285: { agility: 119, intellect: 119, stamina: 2219, criticalStrike: 112, mastery: 49 },
+    298: { agility: 135, intellect: 135, stamina: 2579, criticalStrike: 119, mastery: 52 },
+    311: { agility: 152, intellect: 152, stamina: 3002, criticalStrike: 127, mastery: 56 },
+    324: { agility: 172, intellect: 172, stamina: 3487, criticalStrike: 134, mastery: 59 }
+  };
+  for (const [level, expected] of Object.entries(expectedChests)) {
+    const chest = chestsByLevel.get(Number(level));
+    assert.equal(chest.candidate, false);
+    assert.equal(chest.verificationScope, "observed-version-only");
+    assert.equal(new URL(chest.sourceUrl).hostname, "warcraft.wiki.gg");
+    assert.deepEqual(Object.fromEntries(chest.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+  const legsByLevel = new Map(observations.filter(piece => piece.itemId === 271500).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...legsByLevel.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334]);
+  const expectedLegs = {
+    285: { agility: 119, intellect: 119, stamina: 2219, criticalStrike: 110, haste: 51 },
+    298: { agility: 135, intellect: 135, stamina: 2579, criticalStrike: 118, haste: 54 },
+    311: { agility: 152, intellect: 152, stamina: 3002, criticalStrike: 125, haste: 57 },
+    324: { agility: 172, intellect: 172, stamina: 3487, criticalStrike: 132, haste: 61 }
+  };
+  for (const [level, expected] of Object.entries(expectedLegs)) {
+    const legs = legsByLevel.get(Number(level));
+    assert.equal(legs.candidate, false);
+    assert.equal(legs.verificationScope, "observed-version-only");
+    assert.equal(new URL(legs.sourceUrl).hostname, "warcraft.wiki.gg");
+    assert.deepEqual(Object.fromEntries(legs.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+  const gloves = observations.find(piece => piece.itemId === 271502);
+  assert.equal(gloves.itemLevel, 321);
+  const glovesByLevel = new Map(observations.filter(piece => piece.itemId === 271502).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...glovesByLevel.keys()].sort((a, b) => a - b), [282, 295, 308, 321, 334]);
+  const expectedGloves = {
+    282: { intellect: 87, stamina: 1606, haste: 77, mastery: 42 },
+    295: { intellect: 98, stamina: 1869, haste: 82, mastery: 45 },
+    308: { intellect: 111, stamina: 2172, haste: 87, mastery: 48 },
+    321: { agility: 125, intellect: 125, stamina: 2527, haste: 92, mastery: 51 },
+    334: { agility: 141, intellect: 141, stamina: 2932, haste: 97, mastery: 53 }
+  };
+  for (const [level, piece] of glovesByLevel) {
+    assert.equal(piece.candidate, false);
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expectedGloves[level]);
+  }
+  const shouldersByLevel = new Map(observations.filter(piece => piece.itemId === 271499).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...shouldersByLevel.keys()].sort((a, b) => a - b), [282, 295, 308, 321, 334]);
+  const expectedShoulders = {
+    282: { intellect: 87, stamina: 1606, criticalStrike: 82, versatility: 37 },
+    295: { intellect: 98, stamina: 1869, criticalStrike: 88, versatility: 39 },
+    308: { intellect: 111, stamina: 2172, criticalStrike: 93, versatility: 42 },
+    321: { intellect: 125, stamina: 2527, criticalStrike: 99, versatility: 44 },
+    334: { agility: 141, intellect: 141, stamina: 2932, criticalStrike: 104, versatility: 46 }
+  };
+  for (const [level, piece] of shouldersByLevel) {
+    assert.equal(piece.candidate, false);
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expectedShoulders[level]);
+  }
+  assert.equal(evoker.itemIdsVerified, false,
+    "partial observed versions must not promote the complete class variant map");
+});
+
+test("Hunter source-checked tier versions remain evidence-only and match exact Wowhead stats", () => {
+  const hunter = catalogue.sets.find(set => set.class === "Hunter");
+  const observations = hunter.verifiedVariantObservations || [];
+  assert.equal(observations.length, 29);
+  assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
+  assert.equal(hunter.variantObservationsStatus, "partial");
+  assert.match(hunter.variantObservationsNote, /intermediate upgrade ranks remain evidence-only/i);
+  const manifestSet = manifest.sets.find(set => set.className === "Hunter");
+  const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
+  for (const piece of observations) {
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.ok(piece.itemLevel > 0);
+    assert.ok(["www.wowhead.com", "warcraft.wiki.gg", "mythicsim.com", "azerothcodex.up.railway.app"].includes(new URL(piece.sourceUrl).hostname));
+    if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    if (new URL(piece.sourceUrl).hostname === "www.wowhead.com") {
+      assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), piece.itemLevel,
+        "Wowhead source URL must pin the exact observed item level");
+    } else {
+      assert.ok(piece.stats.every(stat => stat.source.includes(String(piece.itemLevel))),
+        "Warcraft Wiki observations must label the exact observed item level in every stat source");
+    }
+    assert.ok(Array.isArray(piece.stats) && piece.stats.length >= 4);
+    assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
+    assert.ok(piece.stats.every(stat => typeof stat.source === "string" && stat.source.length > 0));
+  }
+  const chest311 = observations.find(piece => piece.itemId === 271495 && piece.itemLevel === 311);
+  assert.ok(chest311, "missing Hunter chest Hero 3/6 item level 311 observation");
+  assert.equal(chest311.candidate, false);
+  assert.equal(chest311.verificationScope, "observed-version-only");
+  assert.equal(new URL(chest311.sourceUrl).hostname, "warcraft.wiki.gg");
+  assert.deepEqual(Object.fromEntries(chest311.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 152, stamina: 3002, haste: 58, mastery: 125 });
+  assert.ok(chest311.stats.every(stat => stat.source.includes("311")));
+  const chest324 = observations.find(piece => piece.itemId === 271495 && piece.itemLevel === 324);
+  assert.ok(chest324, "missing Hunter chest Mythic 3/6 item level 324 observation");
+  assert.equal(chest324.variant, "Myth 3/6 observed");
+  assert.equal(chest324.candidate, false);
+  assert.equal(chest324.verificationScope, "observed-version-only");
+  assert.equal(new URL(chest324.sourceUrl).hostname, "warcraft.wiki.gg");
+  assert.deepEqual(Object.fromEntries(chest324.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 172, stamina: 3487, haste: 61, mastery: 132 });
+  assert.ok(chest324.stats.every(stat => stat.source.includes("324")));
+  const chest = observations.find(piece => piece.itemId === 271495 && piece.itemLevel === 334);
+  assert.equal(chest.itemLevel, 334);
+  assert.deepEqual(
+    Object.fromEntries(chest.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 189, stamina: 3910, haste: 64, mastery: 137 }
+  );
+  const championGloves = observations.find(piece => piece.itemId === 271493 && piece.itemLevel === 295);
+  assert.equal(championGloves.variant, "Champion item level observed");
+  assert.deepEqual(
+    Object.fromEntries(championGloves.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 98, intellect: 98, stamina: 1869, haste: 83, versatility: 44 }
+  );
+  const heroGloves = observations.find(piece => piece.itemId === 271493 && piece.itemLevel === 308);
+  assert.equal(heroGloves.variant, "Hero 2/6 observed");
+  assert.equal(heroGloves.candidate, false);
+  assert.equal(heroGloves.verificationScope, "observed-version-only");
+  assert.equal(new URL(heroGloves.sourceUrl).hostname, "warcraft.wiki.gg");
+  assert.deepEqual(
+    Object.fromEntries(heroGloves.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 111, stamina: 2172, haste: 89, versatility: 46 }
+  );
+  assert.ok(heroGloves.stats.every(stat => stat.source.includes("308")),
+    "Warcraft Wiki stats must identify the exact observed item level");
+  const gloves = observations.find(piece => piece.itemId === 271493 && piece.itemLevel === 321);
+  assert.deepEqual(
+    Object.fromEntries(gloves.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 125, stamina: 2527, haste: 94, versatility: 49 }
+  );
+  const mythicGloves = observations.find(piece => piece.itemId === 271493 && piece.itemLevel === 334);
+  assert.equal(mythicGloves.variant, "Mythic 6/6 observed");
+  assert.equal(mythicGloves.candidate, false);
+  assert.equal(mythicGloves.verificationScope, "observed-version-only");
+  assert.equal(new URL(mythicGloves.sourceUrl).hostname, "www.wowhead.com");
+  assert.deepEqual(
+    Object.fromEntries(mythicGloves.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 141, intellect: 141, stamina: 2932, haste: 99, versatility: 52 }
+  );
+  const head = observations.find(piece => piece.itemId === 271492 && piece.itemLevel === 334);
+  assert.deepEqual(
+    Object.fromEntries(head.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 189, stamina: 3910, haste: 143, mastery: 58 }
+  );
+  const head308 = observations.find(piece => piece.itemId === 271492 && piece.itemLevel === 308);
+  assert.ok(head308, "missing Hunter head item level 308 observation");
+  assert.equal(head308.candidate, false);
+  assert.deepEqual(
+    Object.fromEntries(head308.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 148, stamina: 2896, haste: 128, mastery: 52 }
+  );
+  const head311 = observations.find(piece => piece.itemId === 271492 && piece.itemLevel === 311);
+  assert.ok(head311, "missing Hunter head Hero 3/6 item level 311 observation");
+  assert.equal(head311.variant, "Hero 3/6 observed");
+  assert.deepEqual(
+    Object.fromEntries(head311.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 152, stamina: 3002, haste: 130, mastery: 52 }
+  );
+  const shoulders321 = observations.find(piece => piece.itemId === 271490 && piece.itemLevel === 321);
+  assert.ok(shoulders321, "missing Hunter shoulders item level 321 observation");
+  assert.equal(shoulders321.candidate, false);
+  assert.deepEqual(
+    Object.fromEntries(shoulders321.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 125, stamina: 2527, criticalStrike: 50, haste: 93 }
+  );
+  const lfrLegs = observations.find(piece => piece.itemId === 271491 && piece.itemLevel === 285);
+  assert.equal(lfrLegs.variant, "Veteran 3/6 observed");
+  assert.deepEqual(
+    Object.fromEntries(lfrLegs.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 119, stamina: 2219, haste: 57, mastery: 105 }
+  );
+  const normalLegs = observations.find(piece => piece.itemId === 271491 && piece.itemLevel === 298);
+  assert.equal(normalLegs.variant, "Champion 3/6 observed");
+  assert.deepEqual(
+    Object.fromEntries(normalLegs.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 135, stamina: 2579, haste: 60, mastery: 112 }
+  );
+  const upgradedLegs = observations.find(piece => piece.itemId === 271491 && piece.itemLevel === 308);
+  assert.equal(upgradedLegs.variant, "Heroic item level observed");
+  assert.deepEqual(
+    Object.fromEntries(upgradedLegs.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 148, intellect: 148, stamina: 2896, haste: 63, mastery: 117 }
+  );
+  const legs = observations.find(piece => piece.itemId === 271491 && piece.itemLevel === 219);
+  assert.equal(legs.itemLevel, 219,
+    "the known base version must be explicitly recorded as base-only evidence");
+  assert.deepEqual(
+    Object.fromEntries(legs.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 65, stamina: 1005, haste: 38, mastery: 69 }
+  );
+  const shoulders = observations.find(piece => piece.itemId === 271490 && piece.itemLevel === 334);
+  assert.deepEqual(
+    Object.fromEntries(shoulders.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 141, stamina: 2932, criticalStrike: 52, haste: 98 }
+  );
+  assert.equal(hunter.itemIdsVerified, false,
+    "partial observed versions must not promote the complete class variant map");
+});
+
+
+
+test("optimizer coverage distinguishes verified base-piece IDs from unverified variants", () => {
+  // optimizer.js attaches its browser API to window at load time.
+  global.window = global.window || {};
+  require("../optimizer");
+  const { getTierSetCoverageStatus } = global.window.WoWOptimizer;
+  const deathKnight = getTierSetCoverageStatus(catalogue, "Death Knight", "Blood");
+  assert.equal(deathKnight.catalogueStatus, "partial");
+  assert.equal(deathKnight.itemMappingVerified, true);
+  assert.equal(deathKnight.baseItemMappingVerified, true);
+  assert.equal(deathKnight.variantMappingVerified, false);
+  assert.equal(deathKnight.verifiedPieceCount, 5);
+  assert.equal(deathKnight.expectedPieceCount, 5);
+  assert.deepEqual(deathKnight.verifiedCandidateSlots, ["Head", "Shoulders", "Chest", "Hands", "Legs"]);
+  assert.deepEqual(deathKnight.missingVerifiedCandidateSlots, []);
+  assert.deepEqual(deathKnight.observedOnlySlots, [
+    "Head", "Shoulders", "Chest", "Hands", "Legs"
+  ]);
+  assert.ok(deathKnight.slotVariantCoverage.every(slot => Array.isArray(slot.observedOnlyItemLevels)));
+  assert.equal(deathKnight.verifiedClassCount, 1,
+    "Shaman has a complete canonical six-variant mapping; upgrade-rank coverage remains partial");
+  assert.equal(deathKnight.baseMappingVerifiedClassCount, 13);
+  assert.equal(deathKnight.numericScoringAvailable, false);
+  assert.ok(deathKnight.limitations.some(note => /base tier-piece IDs are verified/i.test(note)));
+  assert.ok(!deathKnight.limitations.some(note => /base tier-piece item mapping is not verified/i.test(note)));
+
+  const shaman = getTierSetCoverageStatus(catalogue, "Shaman", "Enhancement");
+  assert.equal(shaman.itemMappingVerified, true);
+  assert.equal(shaman.variantMappingVerified, true);
+  assert.equal(shaman.verifiedPieceCount, 5);
+  assert.deepEqual(shaman.verifiedCandidateSlots, [
+    "Head", "Shoulders", "Chest", "Hands", "Legs"
+  ]);
+  assert.deepEqual(shaman.missingVerifiedCandidateSlots, []);
+  assert.equal(shaman.numericScoringAvailable, false);
+});
+
+
+test("tier thresholds can be reported descriptively without inventing numeric bonus scores", () => {
+  global.window = global.window || {};
+  require("../optimizer");
+  const { getSetBonusStatus, scoreSetBonuses } = global.window.WoWOptimizer;
+  const setBonuses = [{
+    setId: "test-tier-set",
+    name: "Test tier set",
+    pieces: [
+      { itemId: 1001, name: "Test Head" },
+      { itemId: 1002, name: "Test Shoulders" },
+      { itemId: 1003, name: "Test Chest" },
+      { itemId: 1004, name: "Test Hands" },
+      { itemId: 1005, name: "Test Legs" }
+    ],
+    thresholds: [
+      { pieces: 2, description: "Descriptive two-piece effect" },
+      { pieces: 4, description: "Descriptive four-piece effect" }
+    ]
+  }];
+  const twoPieces = {
+    Head: { id: 1001, name: "Test Head" },
+    Chest: { id: 1003, name: "Test Chest" }
+  };
+  const twoPieceStatus = getSetBonusStatus(twoPieces, setBonuses);
+  assert.equal(twoPieceStatus.counts["test-tier-set"], 2);
+  assert.equal(twoPieceStatus.bonuses.find(bonus => bonus.requiredPieces === 2).active, true);
+  assert.equal(twoPieceStatus.bonuses.find(bonus => bonus.requiredPieces === 4).active, false);
+  assert.equal(twoPieceStatus.bonuses.find(bonus => bonus.requiredPieces === 2).scoreValue, null);
+  assert.equal(scoreSetBonuses(twoPieces, setBonuses).score, 0,
+    "descriptive effects must not add score without an explicit verified scoreValue");
+
+  const fourPieces = {
+    Head: { id: 1001, name: "Test Head" },
+    Shoulders: { id: 1002, name: "Test Shoulders" },
+    Chest: { id: 1003, name: "Test Chest" },
+    Hands: { id: 1004, name: "Test Hands" }
+  };
+  const fourPieceStatus = getSetBonusStatus(fourPieces, setBonuses);
+  assert.equal(fourPieceStatus.bonuses.find(bonus => bonus.requiredPieces === 2).active, true);
+  assert.equal(fourPieceStatus.bonuses.find(bonus => bonus.requiredPieces === 4).active, true);
+  assert.equal(scoreSetBonuses(fourPieces, setBonuses).score, 0);
+});
+
+
+test("Rogue source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
+  const rogue = catalogue.sets.find(set => set.class === "Rogue");
+  const observations = rogue.verifiedVariantObservations || [];
+  assert.equal(observations.length, 30);
+  assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
+  assert.equal(rogue.variantObservationsStatus, "partial");
+  assert.match(rogue.variantObservationsNote, /Ranks not independently source-verified remain evidence-only/i);
+  const manifestSet = manifest.sets.find(set => set.className === "Rogue");
+  const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
+  for (const piece of observations) {
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.ok(piece.itemLevel > 0);
+    assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/") || piece.sourceUrl === "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Hexweave" || piece.sourceUrl === "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Voodoo_Guards");
+    if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    if (piece.sourceUrl.startsWith("https://www.wowhead.com/")) {
+      assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), piece.itemLevel,
+        "Wowhead source URL must pin the exact observed item level");
+    } else {
+      assert.ok(piece.stats.every(stat => stat.source.includes(`item level ${piece.itemLevel}`)),
+        "Warcraft Wiki observations must identify the exact item level in each stat source");
+    }
+    assert.ok(Array.isArray(piece.stats) && piece.stats.length >= 4);
+    assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
+    assert.ok(piece.stats.every(stat => typeof stat.source === "string" && stat.source.length > 0));
+  }
+  const mythicChest = observations.find(piece => piece.itemId === 271513 && piece.itemLevel === 334);
+  assert.equal(mythicChest.variant, "Mythic 6/6");
+  assert.equal(new URL(mythicChest.sourceUrl).searchParams.get("ilvl"), "334");
+  assert.deepEqual(
+    Object.fromEntries(mythicChest.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 189, intellect: 189, stamina: 3910, haste: 132, versatility: 69 }
+  );
+  const mythicHands = observations.find(piece => piece.itemId === 271511 && piece.itemLevel === 334);
+  assert.equal(mythicHands.variant, "Mythic 6/6");
+  assert.equal(new URL(mythicHands.sourceUrl).searchParams.get("ilvl"), "334");
+  assert.deepEqual(
+    Object.fromEntries(mythicHands.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 141, intellect: 141, stamina: 2932, criticalStrike: 100, mastery: 51 }
+  );
+  assert.equal(mythicChest.candidate, false);
+  assert.equal(mythicHands.candidate, false);
+  const chest = observations.find(piece => piece.itemId === 271513);
+  assert.equal(chest.itemLevel, 305);
+  assert.deepEqual(
+    Object.fromEntries(chest.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 144, intellect: 144, stamina: 2794, haste: 116, versatility: 61 }
+  );
+  const hands = observations.find(piece => piece.itemId === 271511);
+  assert.deepEqual(
+    Object.fromEntries(hands.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 125, intellect: 125, stamina: 2527, criticalStrike: 95, mastery: 48 }
+  );
+  const veteranHands = observations.find(piece => piece.itemId === 271511 && piece.itemLevel === 282);
+  assert.equal(veteranHands.variant, "Veteran 2/6 observed");
+  assert.deepEqual(
+    Object.fromEntries(veteranHands.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 87, stamina: 1606, criticalStrike: 79, mastery: 40 }
+  );
+  assert.equal(veteranHands.candidate, false);
+  const head = observations.find(piece => piece.itemId === 271510);
+  assert.equal(head.itemLevel, 295);
+  assert.deepEqual(
+    Object.fromEntries(head.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 131, intellect: 131, stamina: 2492, criticalStrike: 56, mastery: 113 }
+  );
+  const legs315 = observations.find(piece => piece.itemId === 271509 && piece.itemLevel === 315);
+  assert.equal(legs315.variant, "Heroic 4/6 observed");
+  assert.deepEqual(Object.fromEntries(legs315.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 158, intellect: 158, stamina: 3143, criticalStrike: 66, haste: 120 });
+  const legs321 = observations.find(piece => piece.itemId === 271509 && piece.itemLevel === 321);
+  assert.equal(legs321.variant, "Heroic 6/6 observed");
+  assert.deepEqual(Object.fromEntries(legs321.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 167, intellect: 167, stamina: 3369, criticalStrike: 67, haste: 123 });
+  for (const [level, expected] of [
+    [285, { agility: 119, stamina: 2219, criticalStrike: 57, haste: 104 }],
+    [298, { agility: 135, stamina: 2579, criticalStrike: 61, haste: 111 }],
+    [311, { agility: 152, stamina: 3002, criticalStrike: 64, haste: 118 }],
+    [324, { agility: 172, stamina: 3487, criticalStrike: 68, haste: 125 }]
+  ]) {
+    const piece = observations.find(entry => entry.itemId === 271509 && entry.itemLevel === level);
+    assert.ok(piece, `expected source-checked Rogue legs at item level ${level}`);
+    assert.equal(piece.candidate, false);
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+  const legs = observations.find(piece => piece.itemId === 271509);
+  assert.equal(legs.itemLevel, 219,
+    "the legs entry is base-only evidence; it must not imply an upgraded version is verified");
+  assert.deepEqual(
+    Object.fromEntries(legs.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 65, stamina: 1005, criticalStrike: 38, haste: 69 }
+  );
+  const shoulderVariants = new Map(observations.filter(piece => piece.itemId === 271508 && piece.slot === "Shoulders").map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...shoulderVariants.keys()].sort((a, b) => a - b), [282, 295, 308, 321, 334]);
+  for (const [level, expected] of [
+    [282, { agility: 87, stamina: 1606, haste: 34, versatility: 85 }],
+    [295, { agility: 98, stamina: 1869, haste: 37, versatility: 90 }],
+    [308, { agility: 111, stamina: 2172, haste: 39, versatility: 96 }],
+    [321, { agility: 125, stamina: 2527, haste: 41, versatility: 102 }]
+  ]) {
+    const piece = shoulderVariants.get(level);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.equal(piece.sourceUrl, "https://warcraft.wiki.gg/wiki/Chosen_Bloodslayer%27s_Voodoo_Guards");
+    assert.ok(piece.stats.every(stat => stat.source.includes(`item level ${level}`)));
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+  const shoulders = observations.find(piece => piece.itemId === 271508 && piece.itemLevel === 334);
+  assert.equal(shoulders.itemLevel, 334);
+  assert.deepEqual(
+    Object.fromEntries(shoulders.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 141, stamina: 2932, haste: 43, versatility: 107 }
+  );
+  assert.equal(rogue.itemIdsVerified, false,
+    "partial observed versions must not promote the complete class variant map");
+});
+
+
+test("Mage source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
+  const mage = catalogue.sets.find(set => set.class === "Mage");
+  const observations = mage.verifiedVariantObservations || [];
+  assert.equal(observations.length, 26);
+  assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
+  assert.equal(mage.variantObservationsStatus, "partial");
+  assert.match(mage.variantObservationsNote, /full class variant map remains partial/i);
+  const manifestSet = manifest.sets.find(set => set.className === "Mage");
+  const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
+  for (const piece of observations) {
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.ok(piece.itemLevel > 0);
+    assert.ok(["www.wowhead.com", "warcraft.wiki.gg", "mythicsim.com", "azerothcodex.up.railway.app"].includes(new URL(piece.sourceUrl).hostname));
+    if (new URL(piece.sourceUrl).hostname === "www.wowhead.com") assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), piece.itemLevel);
+    else assert.ok(piece.stats.every(stat => stat.source.includes(String(piece.itemLevel))));
+    if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    assert.ok(piece.stats.length >= 4);
+    assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
+  }
+  const expected = {
+    "271567:334": { intellect: 189, stamina: 3910, criticalStrike: 130, haste: 71 },
+    "271565:282": { intellect: 87, stamina: 1606, haste: 39, mastery: 80 },
+    "271565:295": { intellect: 98, stamina: 1869, haste: 42, mastery: 85 },
+    "271565:308": { intellect: 111, stamina: 2172, haste: 45, mastery: 90 },
+    "271565:321": { intellect: 125, stamina: 2527, haste: 47, mastery: 96 },
+    "271565:334": { intellect: 141, stamina: 2932, haste: 50, mastery: 101 },
+    "271564:334": { intellect: 189, stamina: 3910, haste: 137, mastery: 63 },
+    "271563:334": { intellect: 189, stamina: 3910, criticalStrike: 62, versatility: 139 },
+    "271562:334": { intellect: 141, stamina: 2932, haste: 107, versatility: 44 }
+  };
+  const handsByLevel = new Map(observations.filter(piece => piece.itemId === 271565).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...handsByLevel.keys()].sort((a, b) => a - b), [282, 295, 308, 321, 334]);
+  for (const piece of observations) {
+    if (expected[`${piece.itemId}:${piece.itemLevel}`]) assert.deepEqual(
+      Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])),
+      expected[`${piece.itemId}:${piece.itemLevel}`]
+    );
+  }
+  assert.equal(mage.itemIdsVerified, false,
+    "observed variants must not promote the complete class variant map");
+});
+
+
+test("Priest source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
+  const priest = catalogue.sets.find(set => set.class === "Priest");
+  const observations = priest.verifiedVariantObservations || [];
+  assert.equal(observations.length, 28);
+  assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
+  assert.equal(priest.variantObservationsStatus, "partial");
+  const handsByLevel = new Map(observations.filter(piece => piece.itemId === 271556).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...handsByLevel.keys()].sort((a, b) => a - b), [282, 295, 305, 308, 321, 334]);
+  assert.equal(handsByLevel.get(282).variant, "Veteran 2/6 observed");
+  assert.equal(handsByLevel.get(295).variant, "Champion 2/6 observed");
+  assert.equal(handsByLevel.get(308).variant, "Hero 2/6 observed");
+  assert.equal(handsByLevel.get(321).variant, "Myth 2/6 observed");
+  assert.equal(handsByLevel.get(334).variant, "Mythic 6/6");
+  assert.match(priest.variantObservationsNote, /intermediate upgrade ranks remain evidence-only/i);
+  const manifestSet = manifest.sets.find(set => set.className === "Priest");
+  const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
+  for (const piece of observations) {
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.ok(["www.wowhead.com", "warcraft.wiki.gg", "mythicsim.com", "azerothcodex.up.railway.app"].includes(new URL(piece.sourceUrl).hostname));
+    if (new URL(piece.sourceUrl).hostname === "www.wowhead.com") assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), piece.itemLevel);
+    else assert.ok(piece.stats.every(stat => stat.source.includes(String(piece.itemLevel))));
+    if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    assert.ok(piece.stats.length >= 4);
+    assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
+  }
+  const expected = {
+    "271558:334": { intellect: 189, stamina: 3910, criticalStrike: 62, mastery: 139 },
+    "271556:305": { intellect: 108, stamina: 2096, criticalStrike: 47, mastery: 87 },
+    "271556:282": { intellect: 87, stamina: 1606, criticalStrike: 42, mastery: 77 },
+    "271556:295": { intellect: 98, stamina: 1869, criticalStrike: 44, mastery: 83 },
+    "271556:308": { intellect: 111, stamina: 2172, criticalStrike: 47, mastery: 88 },
+    "271556:321": { intellect: 125, stamina: 2527, criticalStrike: 50, mastery: 93 },
+    "271556:334": { intellect: 141, stamina: 2932, criticalStrike: 53, mastery: 98 },
+    "271555:334": { intellect: 189, stamina: 3910, criticalStrike: 141, mastery: 60 },
+    "271555:285": { intellect: 119, stamina: 2219, criticalStrike: 113, mastery: 48 },
+    "271555:298": { intellect: 135, stamina: 2579, criticalStrike: 120, mastery: 51 },
+    "271555:311": { intellect: 152, stamina: 3002, criticalStrike: 128, mastery: 55 },
+    "271555:324": { intellect: 172, stamina: 3487, criticalStrike: 135, mastery: 58 },
+    "271554:334": { intellect: 189, stamina: 3910, haste: 143, versatility: 58 },
+    "271553:334": { intellect: 141, stamina: 2932, criticalStrike: 101, haste: 49 }
+  };
+  for (const piece of observations) {
+    const key = `${piece.itemId}:${piece.itemLevel}`;
+    if (expected[key]) assert.deepEqual(
+      Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])),
+      expected[key]
+    );
+  }
+  assert.equal(observations.find(piece => piece.itemId === 271556 && piece.itemLevel === 305).itemLevel, 305);
+  assert.equal(priest.itemIdsVerified, false,
+    "partial observed versions must not promote the complete class variant map");
+});
+
+
+test("Warlock source-backed tier item versions remain evidence-only and match Wowhead stats", () => {
+  const warlock = catalogue.sets.find(set => set.class === "Warlock");
+  const observations = warlock.verifiedVariantObservations || [];
+  assert.equal(observations.length, 36);
+  assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
+  assert.equal(warlock.variantObservationsStatus, "partial");
+  assert.equal(warlock.pieces.length, 35, "Warlock candidates include baseline and exact intermediate upgrade ranks");
+  assert.match(warlock.variantObservationsNote, /Additional explicit source-verified upgrade-rank observations.*are also candidates/i);
+  assert.match(warlock.variantObservationsNote, /Remaining ranks not independently source-verified stay evidence-only/i);
+  const manifestSet = manifest.sets.find(set => set.className === "Warlock");
+  const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
+  for (const piece of observations) {
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.ok(piece.sourceUrl.startsWith("https://www.wowhead.com/") || piece.sourceUrl.startsWith("https://warcraft.wiki.gg/wiki/"));
+    const sourceLevel = new URL(piece.sourceUrl).searchParams.get("ilvl");
+    if (sourceLevel) assert.equal(Number(sourceLevel), piece.itemLevel);
+    if (piece.sourceUrl.startsWith("https://warcraft.wiki.gg/")) {
+      assert.ok(piece.stats.every(stat => stat.source.includes(`item level ${piece.itemLevel}`)));
+    }
+    if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    assert.ok(piece.stats.length >= 4);
+    assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
+  }
+  const expected = {
+    271549: { intellect: 189, stamina: 3910, haste: 141, mastery: 60 },
+    "271544:308": { intellect: 111, stamina: 2172, haste: 45, versatility: 90 },
+    "271544:311": { intellect: 114, stamina: 2252, haste: 45, versatility: 92 },
+    "271544:321": { intellect: 125, stamina: 2527, haste: 47, versatility: 96 },
+    "271549:311": { intellect: 152, stamina: 3002, haste: 128, mastery: 54 },
+    "271549:321": { intellect: 167, stamina: 3369, haste: 134, mastery: 57 },
+    "271549:324": { intellect: 172, stamina: 3487, haste: 135, mastery: 57 },
+    "271549:328": { intellect: 178, stamina: 3649, haste: 138, mastery: 58 },
+    "271547:331": { intellect: 138, stamina: 2832, criticalStrike: 44, haste: 105 },
+    "271546:219": { intellect: 65, stamina: 1005, versatility: 34, mastery: 73 },
+    "271546:305": { intellect: 144, stamina: 2794, versatility: 57, mastery: 120 },
+    "271546:308": { intellect: 148, stamina: 2896, versatility: 58, mastery: 122 },
+    "271546:315": { intellect: 158, stamina: 3143, versatility: 60, mastery: 126 },
+    "271546:318": { intellect: 162, stamina: 3254, versatility: 61, mastery: 127 },
+    "271546:285": { intellect: 119, stamina: 2219, versatility: 52, mastery: 109 },
+    "271546:298": { intellect: 135, stamina: 2579, versatility: 55, mastery: 116 },
+    "271546:311": { intellect: 152, stamina: 3002, versatility: 59, mastery: 124 },
+    "271546:321": { intellect: 167, stamina: 3369, versatility: 61, mastery: 129 },
+    "271546:324": { intellect: 172, stamina: 3487, versatility: 62, mastery: 131 },
+    "271547:321": { intellect: 138, stamina: 2832, criticalStrike: 44, haste: 105 },
+    "271545:305": { intellect: 144, stamina: 2794, haste: 125, mastery: 53 },
+    271545: { intellect: 189, stamina: 3910, haste: 141, mastery: 60 },
+    "271547:334": { intellect: 141, stamina: 2932, criticalStrike: 45, haste: 106 },
+    "271546:334": { intellect: 189, stamina: 3910, versatility: 65, mastery: 136 },
+    271544: { intellect: 141, stamina: 2932, haste: 50, versatility: 101 },
+    "271544:282": { intellect: 87, stamina: 1606, haste: 39, versatility: 80 },
+    "271544:295": { intellect: 98, stamina: 1869, haste: 42, versatility: 85 },
+    "271549:285": { intellect: 119, stamina: 2219, haste: 113, mastery: 48 },
+    "271549:298": { intellect: 135, stamina: 2579, haste: 121, mastery: 51 },
+    "271547:282": { intellect: 87, stamina: 1606, criticalStrike: 35, haste: 84 },
+    "271547:295": { intellect: 98, stamina: 1869, criticalStrike: 38, haste: 89 },
+    "271547:308": { intellect: 111, stamina: 2172, criticalStrike: 40, haste: 95 },
+    "271547:321": { intellect: 125, stamina: 2527, criticalStrike: 42, haste: 100 },
+    "271545:285": { intellect: 119, stamina: 2219, haste: 113, mastery: 48 },
+    "271545:298": { intellect: 135, stamina: 2579, haste: 121, mastery: 51 },
+    "271545:311": { intellect: 152, stamina: 3002, haste: 128, mastery: 54 },
+    "271545:324": { intellect: 172, stamina: 3487, haste: 135, mastery: 57 }
+  };
+  for (const piece of observations) {
+    assert.deepEqual(
+      Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])),
+      expected[[271546, 271547].includes(piece.itemId) || (piece.itemId === 271545 && piece.itemLevel !== 334) || ([271549, 271544].includes(piece.itemId) && piece.itemLevel !== 334) ? `${piece.itemId}:${piece.itemLevel}` : piece.itemId]
+    );
+  }
+  const legs305 = observations.find(piece => piece.itemId === 271545 && piece.itemLevel === 305);
+  assert.ok(legs305, "missing Warlock legs Champion 5/6 item level 305 observation");
+  assert.equal(legs305.variant, "Champion 5/6 observed");
+  assert.equal(legs305.candidate, false);
+  assert.equal(legs305.verificationScope, "observed-version-only");
+  assert.equal(Number(new URL(legs305.sourceUrl).searchParams.get("ilvl")), 305);
+  assert.deepEqual(Object.fromEntries(legs305.stats.map(stat => [stat.type.name, stat.value])),
+    { intellect: 144, stamina: 2794, haste: 125, mastery: 53 });
+  const legLevels = observations.filter(piece => piece.itemId === 271545).map(piece => piece.itemLevel).sort((a, b) => a - b);
+  assert.deepEqual(legLevels, [285, 298, 305, 311, 324, 334]);
+  const shoulders321 = observations.find(piece => piece.itemId === 271544 && piece.itemLevel === 321);
+  assert.ok(shoulders321, "missing Warlock shoulders item level 321 observation");
+  assert.equal(shoulders321.candidate, false);
+  assert.deepEqual(Object.fromEntries(shoulders321.stats.map(stat => [stat.type.name, stat.value])),
+    { intellect: 125, stamina: 2527, haste: 47, versatility: 96 });
+  assert.equal(Number(new URL(shoulders321.sourceUrl).searchParams.get("ilvl")), 321);
+  const shoulderLevels = observations.filter(piece => piece.itemId === 271544).map(piece => piece.itemLevel).sort((a, b) => a - b);
+  assert.deepEqual(shoulderLevels, [282, 295, 308, 311, 321, 334]);
+  for (const level of [308, 311]) {
+    const shoulder = observations.find(piece => piece.itemId === 271544 && piece.itemLevel === level);
+    assert.ok(shoulder);
+    assert.equal(shoulder.candidate, false);
+    assert.equal(shoulder.verificationScope, "observed-version-only");
+    assert.equal(Number(new URL(shoulder.sourceUrl).searchParams.get("ilvl")), level);
+  }
+  const chestLevels = observations.filter(piece => piece.itemId === 271549).map(piece => piece.itemLevel).sort((a, b) => a - b);
+  assert.deepEqual(chestLevels, [285, 298, 311, 321, 324, 328, 334]);
+  for (const level of [311, 321, 324, 328]) {
+    const chestVariant = observations.find(piece => piece.itemId === 271549 && piece.itemLevel === level);
+    assert.ok(chestVariant, `missing Warlock chest item level ${level} observation`);
+    assert.equal(chestVariant.candidate, false);
+    assert.equal(Number(new URL(chestVariant.sourceUrl).searchParams.get("ilvl")), level);
+  }
+  const chest321 = observations.find(piece => piece.itemId === 271549 && piece.itemLevel === 321);
+  assert.ok(chest321, "missing Warlock chest item level 321 observation");
+  assert.equal(chest321.candidate, false);
+  assert.equal(Number(new URL(chest321.sourceUrl).searchParams.get("ilvl")), 321);
+  assert.deepEqual(
+    observations.filter(piece => piece.itemId === 271546).map(piece => piece.itemLevel).sort((a, b) => a - b),
+    [219, 285, 298, 305, 308, 311, 315, 318, 321, 324, 334]
+  );
+  assert.equal(observations.find(piece => piece.itemId === 271546 && piece.itemLevel === 308).variant, "Hero 2/6 observed");
+  assert.equal(observations.find(piece => piece.itemId === 271546 && piece.itemLevel === 318).variant, "Myth 1/6 observed");
+  assert.equal(observations.find(piece => piece.itemId === 271546 && piece.itemLevel === 321).variant, "Item level 321 observed");
+  const mythicHead = observations.find(piece => piece.itemId === 271546 && piece.itemLevel === 334);
+  assert.equal(mythicHead.variant, "Mythic 6/6 observed");
+  assert.equal(mythicHead.candidate, false);
+  assert.equal(mythicHead.verificationScope, "observed-version-only");
+  assert.equal(Number(new URL(mythicHead.sourceUrl).searchParams.get("ilvl")), 334);
+  assert.deepEqual(Object.fromEntries(mythicHead.stats.map(stat => [stat.type.name, stat.value])), expected["271546:334"]);
+  const mythicHands = observations.find(piece => piece.itemId === 271547 && piece.itemLevel === 334);
+  assert.equal(mythicHands.variant, "Mythic 6/6 observed");
+  assert.equal(mythicHands.candidate, false);
+  assert.equal(mythicHands.verificationScope, "observed-version-only");
+  assert.equal(Number(new URL(mythicHands.sourceUrl).searchParams.get("ilvl")), 334);
+  assert.deepEqual(Object.fromEntries(mythicHands.stats.map(stat => [stat.type.name, stat.value])), expected["271547:334"]);
+    assert.equal(warlock.itemIdsVerified, false,
+    "partial observed versions must not promote the complete class variant map");
+});
+
+
+test("Monk source-backed tier item versions remain evidence-only and match source stats", () => {
+  const monk = catalogue.sets.find(set => set.class === "Monk");
+  const observations = monk.verifiedVariantObservations || [];
+  assert.equal(observations.length, 25);
+  assert.deepEqual([...new Set(observations.map(piece => piece.slot))].sort(), [...EXPECTED_SLOTS].sort());
+  assert.equal(monk.variantObservationsStatus, "partial");
+  assert.match(monk.variantObservationsNote, /Legs 334 item version is verified as Mythic 6\/6/i);
+  const manifestSet = manifest.sets.find(set => set.className === "Monk");
+  const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
+  for (const piece of observations) {
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.ok(["www.wowhead.com", "warcraft.wiki.gg", "mythicsim.com", "azerothcodex.up.railway.app"].includes(new URL(piece.sourceUrl).hostname));
+    const sourceLevel = new URL(piece.sourceUrl).searchParams.get("ilvl");
+    if (sourceLevel) assert.equal(Number(sourceLevel), piece.itemLevel);
+    else assert.ok(piece.stats.every(stat => stat.source.includes(String(piece.itemLevel))));
+    if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    assert.ok(piece.stats.length >= 4);
+    assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
+  }
+  const chestByLevel = new Map(observations.filter(piece => piece.itemId === 271522).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...chestByLevel.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334]);
+  const legsByLevel = new Map(observations.filter(piece => piece.itemId === 271518).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...legsByLevel.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334]);
+  const mythicThreeLegs = legsByLevel.get(324);
+  assert.equal(mythicThreeLegs.variant, "Mythic 3/6 observed");
+  assert.equal(mythicThreeLegs.sourceUrl, "https://warcraft.wiki.gg/wiki/Guile_of_the_Monkey_King");
+  assert.equal(mythicThreeLegs.candidate, false);
+  assert.equal(mythicThreeLegs.verificationScope, "observed-version-only");
+  assert.deepEqual(Object.fromEntries(mythicThreeLegs.stats.map(stat => [stat.type.name, stat.value])), {
+    agility: 172, intellect: 172, stamina: 3487, criticalStrike: 125, versatility: 68
+  });
+  assert.ok(mythicThreeLegs.stats.every(stat => stat.source.includes("324")));
+  const maxLegs = observations.find(piece => piece.itemId === 271518 && piece.itemLevel === 334);
+  assert.ok(maxLegs, "missing Monk Legs observation at item level 334");
+  assert.match(maxLegs.variant, /Mythic 6\/6 observed/i);
+  assert.match(maxLegs.rankSourceUrl, /guildsofwow\.com/);
+  assert.equal(new URL(maxLegs.sourceUrl).hostname, "www.wowhead.com");
+  assert.equal(Number(new URL(maxLegs.sourceUrl).searchParams.get("ilvl")), 334);
+  assert.equal(maxLegs.candidate, false);
+  assert.equal(maxLegs.verificationScope, "observed-version-only");
+  for (const level of [311, 324]) {
+    const piece = chestByLevel.get(level);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.ok(piece.stats.every(stat => stat.source.includes(String(level))));
+  }
+  const expected = {
+    "271522:285": { agility: 119, stamina: 2219, haste: 50, mastery: 112 },
+    "271522:298": { agility: 135, stamina: 2579, haste: 53, mastery: 119 },
+    "271522:311": { agility: 152, intellect: 152, stamina: 3002, haste: 56, mastery: 126 },
+    "271522:324": { agility: 172, intellect: 172, stamina: 3487, haste: 59, mastery: 134 },
+    "271522:334": { agility: 189, intellect: 189, stamina: 3910, haste: 62, mastery: 139 },
+    "271520:282": { agility: 87, stamina: 1606, haste: 84, versatility: 35 },
+    "271520:295": { agility: 98, stamina: 1869, haste: 89, versatility: 38 },
+    "271520:308": { agility: 111, stamina: 2172, haste: 95, versatility: 40 },
+    "271520:321": { agility: 125, intellect: 125, stamina: 2527, haste: 100, versatility: 42 },
+    "271520:334": { agility: 141, intellect: 141, stamina: 2932, haste: 106, versatility: 45 },
+    "271519:334": { agility: 189, intellect: 189, stamina: 3910, criticalStrike: 58, mastery: 142 },
+    "271519:285": { agilityOrIntellect: 119, stamina: 2219, criticalStrike: 47, mastery: 114 },
+    "271519:298": { agilityOrIntellect: 135, stamina: 2579, criticalStrike: 50, mastery: 122 },
+    "271519:311": { agilityOrIntellect: 152, stamina: 3002, criticalStrike: 53, mastery: 129 },
+    "271519:324": { agilityOrIntellect: 172, stamina: 3487, criticalStrike: 56, mastery: 137 },
+    "271518:285": { agility: 119, stamina: 2219, criticalStrike: 104, versatility: 57 },
+    "271518:298": { agility: 135, stamina: 2579, criticalStrike: 111, versatility: 61 },
+    "271518:311": { agility: 152, intellect: 152, stamina: 3002, criticalStrike: 118, versatility: 65 },
+    "271518:324": { agility: 172, intellect: 172, stamina: 3487, criticalStrike: 125, versatility: 68 },
+    "271518:334": { agility: 189, intellect: 189, stamina: 3910, criticalStrike: 130, versatility: 71 },
+    "271517:282": { agility: 87, intellect: 87, stamina: 1606, haste: 82, mastery: 37 },
+    "271517:295": { agility: 98, intellect: 98, stamina: 1869, haste: 87, mastery: 40 },
+    "271517:308": { agility: 111, intellect: 111, stamina: 2172, haste: 93, mastery: 42 },
+    "271517:321": { agility: 125, intellect: 125, stamina: 2527, haste: 98, mastery: 45 },
+    "271517:334": { agility: 141, intellect: 141, stamina: 2932, haste: 103, mastery: 47 }
+  };
+
+  const headByLevel = new Map(observations.filter(piece => piece.itemId === 271519).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...headByLevel.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334]);
+  for (const [level, expectedStats] of [
+    [285, { agilityOrIntellect: 119, stamina: 2219, criticalStrike: 47, mastery: 114 }],
+    [298, { agilityOrIntellect: 135, stamina: 2579, criticalStrike: 50, mastery: 122 }],
+    [311, { agilityOrIntellect: 152, stamina: 3002, criticalStrike: 53, mastery: 129 }],
+    [324, { agilityOrIntellect: 172, stamina: 3487, criticalStrike: 56, mastery: 137 }]
+  ]) {
+    const piece = headByLevel.get(level);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expectedStats);
+  }
+
+  const shouldersByLevel = new Map(observations.filter(piece => piece.itemId === 271517).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...shouldersByLevel.keys()].sort((a, b) => a - b), [282, 295, 308, 321, 334]);
+  for (const piece of observations) {
+    assert.deepEqual(
+      Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])),
+      expected[`${piece.itemId}:${piece.itemLevel}`]
+    );
+  }
+  assert.equal(monk.itemIdsVerified, false,
+    "partial observed versions must not promote the complete class variant map");
+});
+
+
+test("Shaman tier item versions remain evidence-only with exact source levels", () => {
+  const shaman = catalogue.sets.find(set => set.class === "Shaman");
+  const observations = shaman.verifiedVariantObservations || [];
+  assert.equal(observations.length, 25);
+  const level334 = observations.filter(piece => piece.itemLevel === 334);
+  assert.equal(level334.length, 5);
+  assert.deepEqual([...level334.map(piece => piece.slot)].sort(), [...EXPECTED_SLOTS].sort());
+  const manifestSet = manifest.sets.find(set => set.className === "Shaman");
+  const slotsById = new Map(manifestSet.pieces.map(piece => [Number(piece.itemId), piece.slot]));
+  const expected334 = {
+    "271483": { agility: 189, intellect: 189, stamina: 3910, criticalStrike: 61, haste: 140, leech: 86 },
+    "271481": { agility: 141, intellect: 141, stamina: 2932, criticalStrike: 52, mastery: 99 },
+    "271486": { agility: 189, intellect: 189, stamina: 3910, criticalStrike: 141, haste: 60 },
+    "271484": { agility: 141, intellect: 141, stamina: 2932, criticalStrike: 46, mastery: 105 },
+    "271482": { agility: 189, intellect: 189, stamina: 3910, haste: 70, versatility: 131 }
+  };
+  for (const piece of observations) {
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.equal(new URL(piece.sourceUrl).hostname, "www.wowhead.com");
+    assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), piece.itemLevel,
+      "Wowhead evidence URL must pin the exact item level");
+    if (slotsById.has(Number(piece.itemId))) assert.equal(slotsById.get(Number(piece.itemId)), piece.slot);
+    assert.ok(piece.stats.every(stat => stat.source.includes(String(piece.itemLevel))));
+    if (piece.itemLevel === 334) {
+      assert.equal(piece.variant, "Mythic 6/6");
+      assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected334[String(piece.itemId)]);
+    }
+  }
+  const headByLevel = new Map(observations.filter(piece => piece.itemId === 271483).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...headByLevel.keys()].sort((a, b) => a - b), [295, 311, 315, 321, 334]);
+  assert.equal(headByLevel.get(295).variant, "Item level 295 observed");
+  assert.deepEqual(Object.fromEntries(headByLevel.get(295).stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 131, intellect: 131, stamina: 2492, criticalStrike: 51, haste: 118 });
+  assert.deepEqual(Object.fromEntries(headByLevel.get(311).stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 152, intellect: 152, stamina: 3002, criticalStrike: 55, haste: 127 });
+  assert.equal(headByLevel.get(315).variant, "Hero 4/6");
+  assert.deepEqual(Object.fromEntries(headByLevel.get(315).stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 158, intellect: 158, stamina: 3143, criticalStrike: 56, haste: 129 });
+  assert.equal(headByLevel.get(321).variant, "Hero 6/6");
+  assert.deepEqual(Object.fromEntries(headByLevel.get(321).stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 167, intellect: 167, stamina: 3369, criticalStrike: 58, haste: 133 });
+  const chestByLevel = new Map(observations.filter(piece => piece.itemId === 271486).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...chestByLevel.keys()].sort((a, b) => a - b), [289, 308, 311, 318, 328, 334]);
+  assert.deepEqual(Object.fromEntries(chestByLevel.get(311).stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 152, intellect: 152, stamina: 3002, criticalStrike: 128, haste: 55 });
+  const expectedChest = {
+    289: { agility: 124, intellect: 124, stamina: 2326, criticalStrike: 115, haste: 49 },
+    308: { agility: 148, intellect: 148, stamina: 2896, criticalStrike: 126, haste: 54 },
+    318: { agility: 162, intellect: 162, stamina: 3254, criticalStrike: 132, haste: 56 },
+    328: { agility: 178, intellect: 178, stamina: 3649, criticalStrike: 137, haste: 59 }
+  };
+  for (const [level, stats] of Object.entries(expectedChest)) {
+    const piece = chestByLevel.get(Number(level));
+    assert.equal(piece.variant, `Item level ${level} observed`);
+    assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), Number(level));
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), stats);
+  }
+  const legsByLevel = new Map(observations.filter(piece => piece.itemId === 271482).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...legsByLevel.keys()].sort((a, b) => a - b), [295, 318, 321, 334]);
+  assert.deepEqual(Object.fromEntries(legsByLevel.get(295).stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 131, intellect: 131, stamina: 2492, haste: 59, versatility: 110 });
+  assert.deepEqual(Object.fromEntries(legsByLevel.get(318).stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 162, intellect: 162, stamina: 3254, haste: 66, versatility: 122 });
+  assert.deepEqual(Object.fromEntries(legsByLevel.get(321).stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 167, intellect: 167, stamina: 3369, haste: 67, versatility: 124 });
+  const shouldersByLevel = new Map(observations.filter(piece => piece.itemId === 271481).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...shouldersByLevel.keys()].sort((a, b) => a - b), [302, 308, 321, 334]);
+  assert.deepEqual(Object.fromEntries(shouldersByLevel.get(302).stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 105, intellect: 105, stamina: 2024, criticalStrike: 45, mastery: 86 });
+  assert.deepEqual(Object.fromEntries(shouldersByLevel.get(308).stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 111, intellect: 111, stamina: 2172, criticalStrike: 46, mastery: 89 });
+  assert.deepEqual(Object.fromEntries(shouldersByLevel.get(321).stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 125, intellect: 125, stamina: 2527, criticalStrike: 49, mastery: 94 });
+  const handsByLevel = new Map(observations.filter(piece => piece.itemId === 271484).map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...handsByLevel.keys()].sort((a, b) => a - b), [295, 308, 311, 318, 321, 334]);
+  assert.deepEqual(Object.fromEntries(handsByLevel.get(295).stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 98, intellect: 98, stamina: 1869, criticalStrike: 39, mastery: 88 });
+  assert.deepEqual(Object.fromEntries(handsByLevel.get(308).stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 111, intellect: 111, stamina: 2172, criticalStrike: 41, mastery: 94 });
+  assert.deepEqual(Object.fromEntries(handsByLevel.get(311).stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 114, intellect: 114, stamina: 2252, criticalStrike: 41, mastery: 95 });
+  assert.deepEqual(Object.fromEntries(handsByLevel.get(318).stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 122, intellect: 122, stamina: 2440, criticalStrike: 43, mastery: 98 });
+  assert.equal(handsByLevel.get(318).variant, "Hero 5/6");
+  assert.deepEqual(Object.fromEntries(handsByLevel.get(321).stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 125, intellect: 125, stamina: 2527, criticalStrike: 43, mastery: 99 });
+  assert.equal(shaman.pieces.length, 30, "canonical six-variant mapping remains separate from intermediate-rank candidates");
+  assert.equal(shaman.pieces.filter(piece => piece.candidate === true).length, 20);
+  assert.equal(shaman.upgradeRankCandidates.length, 32);
+});
+
+test("Shaman independently rank-verified intermediate variants are optimizer candidates while observations remain evidence-only", () => {
+  const shaman = catalogue.sets.find(set => set.class === "Shaman");
+  const candidates = shaman.upgradeRankCandidates || [];
+  const expected = [
+    ["Head", 295, "Champion 2/6"],
+    ["Head", 302, "Champion 4/6"],
+    ["Head", 305, "Hero 1/6"],
+    ["Head", 305, "Hero 1/6 Catalyst"],
+    ["Head", 311, "Hero 3/6"],
+    ["Shoulders", 302, "Champion 4/6"],
+    ["Shoulders", 308, "Champion 6/6"],
+    ["Shoulders", 321, "Hero 6/6"],
+    ["Shoulders", 328, "Myth 4/6"],
+    ["Shoulders", 305, "Hero 1/6"],
+    ["Chest", 289, "Veteran 4/6"],
+    ["Chest", 305, "Hero 1/6"],
+    ["Chest", 308, "Champion 6/6"],
+    ["Chest", 311, "Hero 3/6"],
+    ["Chest", 318, "Myth 1/6"],
+    ["Chest", 328, "Myth 4/6"],
+    ["Hands", 311, "Hero 3/6"],
+    ["Hands", 305, "Hero 1/6"],
+    ["Hands", 321, "Hero 6/6"],
+    ["Legs", 295, "Veteran 6/6"],
+    ["Legs", 305, "Hero 1/6"],
+    ["Legs", 321, "Hero 6/6"],
+    ["Legs", 318, "Myth 1/6"],
+    ["Legs", 308, "Champion 6/6"]
+  ];
+  for (const [slot, itemLevel, variant] of expected) {
+    const piece = candidates.find(entry => entry.slot === slot && entry.itemLevel === itemLevel && entry.variant === variant);
+    assert.ok(piece, `missing verified Shaman rank candidate ${slot} ${itemLevel} ${variant}`);
+    assert.equal(piece.candidate, true);
+    assert.ok(["exact-item-stats-and-rank-cross-checked", "exact-item-stats-and-upgrade-bonus-verified"].includes(piece.verificationScope));
+    assert.ok(piece.sourceUrl.includes("ilvl=" + itemLevel), "stats source must pin the exact item level");
+    assert.ok(typeof piece.rankSourceUrl === "string" && piece.rankSourceUrl.startsWith("https://"),
+      "upgrade rank must have its own source");
+    assert.ok(typeof piece.rankEvidence === "string" && piece.rankEvidence.length > 0);
+    assert.ok(piece.stats.length >= 4 && piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
+  }
+  assert.equal(candidates.length, 32);
+  assert.ok(shaman.verifiedVariantObservations.every(piece => piece.candidate === false),
+    "observation ledger remains evidence-only even when a separately verified candidate exists");
+});
+
+test("all-class observed tier variants stay separate from eligible optimizer candidates", () => {
+  for (const set of catalogue.sets) {
+    if (set.class === "Shaman") {
+      assert.equal(set.itemIdsVerified, true);
+      assert.equal(set.candidateVariantsAvailable, true);
+      assert.equal(set.pieces.length, 30);
+      assert.equal(set.pieces.filter(piece => piece.candidate === true).length, 20,
+        "baseline PvE candidates stay in the canonical map; exact intermediate ranks are stored separately");
+      assert.equal(set.pieces.filter(piece => piece.candidate !== true).length, 10,
+        "PvP appearance records without verified numeric stats must stay ineligible");
+      assert.equal(set.upgradeRankCandidates.length, 32, "verified intermediate ranks stay separate from the canonical six-variant map");
+      continue;
+    }
+    const observations = set.verifiedVariantObservations || [];
+    if (observations.length === 0) continue;
+    assert.equal(set.itemIdsVerified, false, set.class + " must not imply complete variant mapping");
+    assert.equal(set.variantObservationsStatus, "partial", set.class + " must report partial variant coverage");
+    assert.deepEqual(
+      [...new Set(observations.map(piece => piece.slot))].sort(),
+      [...EXPECTED_SLOTS].sort(),
+      set.class + " observed versions should span the five tier slots"
+    );
+    for (const piece of observations) {
+      assert.equal(piece.candidate, false, set.class + " observed version leaked into candidates");
+      assert.equal(piece.verificationScope, "observed-version-only");
+      assert.ok(Number.isInteger(piece.itemLevel) && piece.itemLevel > 0);
+      const sourceHost = new URL(piece.sourceUrl).hostname;
+      assert.ok(
+        sourceHost === "www.wowhead.com" || sourceHost === "warcraft.wiki.gg" || sourceHost === "mythicsim.com" || sourceHost === "azerothcodex.up.railway.app",
+        set.class + " source URL must point to a trusted item reference"
+      );
+      assert.ok(Array.isArray(piece.stats) && piece.stats.length >= 4);
+      assert.ok(piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0));
+    }
+  }
+});
+
+test("Mage source-checked leg versions remain evidence-only", () => {
+  const mage = catalogue.sets.find(set => set.class === "Mage");
+  const observations = mage.verifiedVariantObservations || [];
+  const legs = new Map(observations.filter(piece => piece.itemId === 271566 && piece.slot === "Legs").map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...legs.keys()].sort((a, b) => a - b), [285, 298, 311, 324]);
+  for (const [level, expected] of [
+    [285, { intellect: 119, stamina: 2219, criticalStrike: 50, versatility: 111 }],
+    [298, { intellect: 135, stamina: 2579, criticalStrike: 53, versatility: 119 }],
+    [311, { intellect: 152, stamina: 3002, criticalStrike: 56, versatility: 126 }],
+    [324, { intellect: 172, stamina: 3487, criticalStrike: 60, versatility: 133 }]
+  ]) {
+    const piece = legs.get(level);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.equal(new URL(piece.sourceUrl).hostname, "warcraft.wiki.gg");
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+});
+
+test("Mage source-checked shoulder versions remain evidence-only", () => {
+  const mage = catalogue.sets.find(set => set.class === "Mage");
+  const observations = mage.verifiedVariantObservations || [];
+  const shoulders = new Map(observations.filter(piece => piece.itemId === 271562 && piece.slot === "Shoulders").map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...shoulders.keys()].sort((a, b) => a - b), [282, 295, 308, 321, 334]);
+  for (const [level, expected] of [
+    [282, { intellect: 87, stamina: 1606, criticalStrike: 81, haste: 38 }],
+    [295, { intellect: 98, stamina: 1869, criticalStrike: 86, haste: 41 }],
+    [308, { intellect: 111, stamina: 2172, criticalStrike: 92, haste: 43 }],
+    [321, { intellect: 125, stamina: 2527, criticalStrike: 97, haste: 46 }]
+  ]) {
+    const piece = shoulders.get(level);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.equal(new URL(piece.sourceUrl).hostname, "warcraft.wiki.gg");
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+});
+
+test("Warrior source-checked shoulder variants preserve exact stats and remain evidence-only", () => {
+  const warrior = catalogue.sets.find(set => set.class === "Warrior");
+  const observations = warrior.verifiedVariantObservations || [];
+  assert.equal(observations.length, 29);
+  const shoulders = new Map(observations.filter(piece => piece.itemId === 271454 && piece.slot === "Shoulders").map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...shoulders.keys()].sort((a, b) => a - b), [282, 295, 308, 321, 334]);
+  for (const [level, expected] of [
+    [282, { strength: 87, stamina: 1606, criticalStrike: 36, mastery: 83 }],
+    [295, { strength: 98, stamina: 1869, criticalStrike: 39, mastery: 88 }],
+    [308, { strength: 111, stamina: 2172, criticalStrike: 41, mastery: 94 }]
+  ]) {
+    const piece = shoulders.get(level);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), level);
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+    assert.ok(piece.stats.every(stat => /Warcraft Wiki item page/.test(stat.source)));
+  }
+});
+
+test("Warrior source-checked chest versions remain evidence-only", () => {
+  const warrior = catalogue.sets.find(set => set.class === "Warrior");
+  const observations = warrior.verifiedVariantObservations || [];
+  const chest = new Map(observations.filter(piece => piece.itemId === 271459 && piece.slot === "Chest").map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...chest.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334, 344]);
+  for (const [level, expected] of [
+    [285, { strength: 119, stamina: 2219, criticalStrike: 47, mastery: 114 }],
+    [298, { strength: 135, stamina: 2579, criticalStrike: 51, mastery: 121 }],
+    [311, { strength: 152, stamina: 3002, criticalStrike: 54, mastery: 129 }],
+    [324, { strength: 172, stamina: 3487, criticalStrike: 57, mastery: 136 }],
+    [334, { strength: 189, stamina: 3910, criticalStrike: 59, mastery: 142 }]
+  ]) {
+    const piece = chest.get(level);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.equal(new URL(piece.sourceUrl).hostname, level === 334 ? "www.wowhead.com" : "warcraft.wiki.gg");
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+});
+
+
+test("Warrior helm lower-rank variants preserve exact stats and remain evidence-only", () => {
+  const warrior = catalogue.sets.find(set => set.class === "Warrior");
+  const observations = warrior.verifiedVariantObservations || [];
+  const heads = new Map(observations.filter(piece => piece.itemId === 271456 && piece.slot === "Head").map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...heads.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334]);
+  for (const [level, variant, expected] of [
+    [285, "Veteran 3/6 observed", { strength: 119, stamina: 2219, criticalStrike: 112, haste: 49 }],
+    [298, "Champion 3/6 observed", { strength: 135, stamina: 2579, criticalStrike: 120, haste: 52 }],
+    [311, "Hero 3/6 observed", { strength: 152, stamina: 3002, criticalStrike: 127, haste: 55 }],
+    [324, "Myth 3/6 observed", { strength: 172, stamina: 3487, criticalStrike: 134, haste: 58 }]
+  ]) {
+    const piece = heads.get(level);
+    assert.equal(piece.variant, variant);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.equal(piece.sourceUrl, "https://warcraft.wiki.gg/wiki/Tempered_Horns_of_the_Jade_Warlord");
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+    assert.ok(piece.stats.every(stat => stat.source.includes("item level " + level)));
+  }
+});
+test("Warrior Mythic 6/6 legs observation remains evidence-only", () => {
+  const warrior = catalogue.sets.find(set => set.class === "Warrior");
+  for (const [level, expected] of [
+    [282, { strength: 116, stamina: 2142, versatility: 107, mastery: 52 }],
+    [289, { strength: 124, stamina: 2326, versatility: 111, mastery: 54 }]
+  ]) {
+    const observed = (warrior.verifiedVariantObservations || []).find(item => item.itemId === 271455 && item.itemLevel === level);
+    assert.ok(observed, `missing Warrior Legs item-level-${level} observation`);
+    assert.equal(observed.candidate, false);
+    assert.equal(observed.verificationScope, "observed-version-only");
+    assert.ok(observed.stats.every(stat => stat.source.includes(String(level))));
+    assert.deepEqual(Object.fromEntries(observed.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+  const piece = (warrior.verifiedVariantObservations || []).find(item => item.itemId === 271455 && item.itemLevel === 334);
+  assert.ok(piece);
+  assert.equal(piece.variant, "Mythic 6/6 observed");
+  assert.equal(piece.candidate, false);
+  assert.equal(piece.verificationScope, "observed-version-only");
+  assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), 334);
+  assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])),
+    { strength: 189, stamina: 3910, versatility: 135, mastery: 66 });
+});
+
+test("Priest source-checked helm variants retain their exact source stats and remain evidence-only", () => {
+  const priest = catalogue.sets.find(set => set.class === "Priest");
+  const observations = priest.verifiedVariantObservations || [];
+  assert.equal(observations.length, 28);
+  const heads = new Map(observations.filter(piece => piece.itemId === 271555 && piece.slot === "Head").map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...heads.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334]);
+  const shoulders = new Map(observations.filter(piece => piece.itemId === 271553 && piece.slot === "Shoulders").map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...shoulders.keys()].sort((a, b) => a - b), [282, 295, 308, 321, 334]);
+  for (const [level, expected] of [
+    [282, { intellect: 87, stamina: 1606, criticalStrike: 80, haste: 39 }],
+    [295, { intellect: 98, stamina: 1869, criticalStrike: 85, haste: 42 }],
+    [308, { intellect: 111, stamina: 2172, criticalStrike: 91, haste: 44 }],
+    [321, { intellect: 125, stamina: 2527, criticalStrike: 96, haste: 47 }]
+  ]) {
+    const piece = shoulders.get(level);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.ok(piece.sourceUrl.includes("warcraft.wiki.gg"));
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+  for (const [level, expected] of [
+    [285, { intellect: 119, stamina: 2219, criticalStrike: 113, mastery: 48 }],
+    [298, { intellect: 135, stamina: 2579, criticalStrike: 120, mastery: 51 }],
+    [311, { intellect: 152, stamina: 3002, criticalStrike: 128, mastery: 55 }],
+    [324, { intellect: 172, stamina: 3487, criticalStrike: 135, mastery: 58 }]
+  ]) {
+    const piece = heads.get(level);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.ok(piece.sourceUrl.includes("warcraft.wiki.gg"));
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+  const chest = new Map(observations.filter(piece => piece.itemId === 271558 && piece.slot === "Chest").map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...chest.keys()].sort((a, b) => a - b), [285, 298, 308, 311, 321, 324, 334]);
+  for (const [level, expected] of [
+    [285, { intellect: 119, stamina: 2219, criticalStrike: 50, mastery: 111 }],
+    [298, { intellect: 135, stamina: 2579, criticalStrike: 53, mastery: 119 }],
+    [308, { intellect: 148, stamina: 2896, criticalStrike: 56, mastery: 124 }],
+    [311, { intellect: 152, stamina: 3002, criticalStrike: 56, mastery: 126 }],
+    [321, { intellect: 167, stamina: 3369, criticalStrike: 59, mastery: 131 }],
+    [324, { intellect: 172, stamina: 3487, criticalStrike: 60, mastery: 133 }]
+  ]) {
+    const piece = chest.get(level);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    if (new URL(piece.sourceUrl).hostname === "www.wowhead.com") assert.equal(Number(new URL(piece.sourceUrl).searchParams.get("ilvl")), level);
+    else assert.ok(piece.stats.every(stat => stat.source.includes(`item level ${level}`)));
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+
+  const legs = new Map(observations.filter(piece => piece.itemId === 271554 && piece.slot === "Legs").map(piece => [piece.itemLevel, piece]));
+  assert.deepEqual([...legs.keys()].sort((a, b) => a - b), [285, 298, 311, 324, 334]);
+  for (const [level, expected] of [
+    [285, { intellect: 119, stamina: 2219, haste: 47, versatility: 114 }],
+    [298, { intellect: 135, stamina: 2579, haste: 50, versatility: 122 }],
+    [311, { intellect: 152, stamina: 3002, haste: 53, versatility: 129 }],
+    [324, { intellect: 172, stamina: 3487, haste: 56, versatility: 137 }]
+  ]) {
+    const piece = legs.get(level);
+    assert.equal(piece.candidate, false);
+    assert.equal(piece.verificationScope, "observed-version-only");
+    assert.equal(piece.sourceUrl, "https://warcraft.wiki.gg/wiki/Enveloping_Legwraps_of_the_Cosmic_Penitent");
+    assert.ok(piece.stats.every(stat => stat.source.includes(`item level ${level}`)));
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), expected);
+  }
+
+});
+
+
+test("Druid tier observations preserve the source-backed Hero 6/6 head at item level 321", () => {
+  const druid = catalogue.sets.find(set => set.class === "Druid");
+  const observations = druid.verifiedVariantObservations || [];
+  assert.equal(observations.length, 28);
+  const head = observations.find(piece => piece.itemId === 271528 && piece.itemLevel === 321);
+  assert.ok(head, "missing Druid Hero 6/6 head at item level 321");
+  assert.equal(head.variant, "Hero 6/6 observed");
+  assert.equal(head.candidate, false);
+  assert.equal(head.verificationScope, "observed-version-only");
+  assert.equal(head.slot, "Head");
+  const sourceUrl = new URL(head.sourceUrl);
+  assert.equal(sourceUrl.hostname, "www.wowhead.com");
+  assert.equal(Number(sourceUrl.searchParams.get("ilvl")), 321);
+  assert.deepEqual(
+    Object.fromEntries(head.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 167, stamina: 3369, haste: 134, versatility: 56 }
+  );
+  assert.ok(head.stats.every(stat => stat.source.includes("item level 321")));
+  const maxLegs = observations.find(piece => piece.itemId === 271527 && piece.itemLevel === 334);
+  assert.ok(maxLegs, "missing Druid Legs observation at item level 334");
+  assert.match(maxLegs.variant, /Mythic 6\/6 observed/i);
+  assert.match(maxLegs.rankSourceUrl, /guildsofwow\.com/);
+  assert.equal(new URL(maxLegs.sourceUrl).hostname, "www.wowhead.com");
+  assert.equal(Number(new URL(maxLegs.sourceUrl).searchParams.get("ilvl")), 334);
+  assert.equal(maxLegs.candidate, false);
+  assert.equal(maxLegs.verificationScope, "observed-version-only");
+  assert.deepEqual(Object.fromEntries(maxLegs.stats.map(stat => [stat.type.name, stat.value])),
+    { agility: 189, intellect: 189, stamina: 3910, criticalStrike: 67, haste: 134 });
+});
+
+
+test("Druid has baseline and source-verified Mythic 6/6 candidates for all five slots", () => {
+  const druid = catalogue.sets.find(set => set.class === "Druid");
+  assert.equal(druid.itemIdsVerified, false);
+  assert.equal(druid.candidateVariantsAvailable, true);
+  assert.equal(druid.baseItemIdsVerified, true);
+  assert.equal(druid.pieces.length, 27);
+  assert.equal(druid.pieces.filter(piece => piece.candidate).length, 27);
+  const expected = {
+    Head: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
+    Shoulders: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
+    Chest: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
+    Hands: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
+    Legs: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]]
+  };
+  for (const [slot, expectedVariants] of Object.entries(expected)) {
+    const entries = druid.pieces.filter(piece => piece.slot === slot);
+    const baselineEntries = entries.filter(piece => ["Raid Finder", "Normal", "Heroic", "Mythic", "Mythic 6/6"].includes(piece.variant));
+    assert.deepEqual(baselineEntries.map(piece => [piece.variant, piece.itemLevel]), expectedVariants);
+    assert.ok(entries.every(piece => piece.candidate === true));
+    assert.ok(entries.every(piece => piece.stats.length >= 4 && piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0)));
+    assert.ok(entries.every(piece => typeof piece.sourceUrl === "string" && piece.sourceUrl.startsWith("https://")));
+    for (const piece of entries) {
+      const sourceUrl = new URL(piece.sourceUrl);
+      if (sourceUrl.hostname === "www.wowhead.com" && sourceUrl.searchParams.has("ilvl")) {
+        assert.equal(Number(sourceUrl.searchParams.get("ilvl")), piece.itemLevel,
+          "Wowhead candidate source must pin the exact item level");
+      } else {
+        assert.ok(piece.stats.every(stat => stat.source.includes(`item level ${piece.itemLevel}`)),
+          "wiki candidate stat provenance must pin the exact item level");
+      }
+    }
+  }
+  assert.equal(druid.variantObservationsStatus, "partial",
+    "baseline candidates must not imply all intermediate upgrade ranks are complete");
+  const unrankedLegs = druid.verifiedVariantObservations.find(piece => piece.slot === "Legs" && piece.itemLevel === 334);
+  assert.ok(unrankedLegs);
+  assert.equal(unrankedLegs.candidate, false, "observations remain separate from optimizer candidates");
+  assert.match(unrankedLegs.variant, /Mythic 6\/6 observed/i);
+  assert.match(unrankedLegs.rankSourceUrl, /guildsofwow\.com/);
+  const verifiedLegs = druid.pieces.find(piece => piece.slot === "Legs" && piece.itemLevel === 334);
+  assert.ok(verifiedLegs && verifiedLegs.candidate);
+  assert.match(verifiedLegs.rankSourceUrl, /guildsofwow\.com/);
+  assert.ok(druid.verifiedVariantObservations.every(piece => piece.candidate === false),
+    "additional upgrade-rank observations remain evidence-only");
+});
+
+
+test("Evoker has source-verified baseline PvE and exact Mythic 6/6 candidates for all five slots", () => {
+  const evoker = catalogue.sets.find(set => set.class === "Evoker");
+  assert.equal(evoker.itemIdsVerified, false);
+  assert.equal(evoker.candidateVariantsAvailable, true);
+  assert.equal(evoker.baseItemIdsVerified, true);
+  assert.equal(evoker.pieces.length, 25);
+  assert.equal(evoker.pieces.filter(piece => piece.candidate).length, 25);
+  const expected = {
+    Head: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
+    Shoulders: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
+    Chest: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
+    Hands: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
+    Legs: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]]
+  };
+  for (const [slot, expectedVariants] of Object.entries(expected)) {
+    const entries = evoker.pieces.filter(piece => piece.slot === slot);
+    const baselineEntries = entries.filter(piece => ["Raid Finder", "Normal", "Heroic", "Mythic", "Mythic 6/6"].includes(piece.variant));
+    assert.deepEqual(baselineEntries.map(piece => [piece.variant, piece.itemLevel]), expectedVariants);
+    assert.ok(entries.every(piece => piece.candidate === true));
+    assert.ok(entries.every(piece => piece.stats.length >= 4 && piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0)));
+    assert.ok(entries.every(piece => typeof piece.sourceUrl === "string" && piece.sourceUrl.startsWith("https://")));
+    for (const piece of entries) {
+      const isWowhead = piece.sourceUrl.includes("www.wowhead.com");
+      const match = piece.sourceUrl.match(/[?&]ilvl=(\\d+)/);
+      if (isWowhead && match) {
+        assert.equal(Number(match[1]), piece.itemLevel, "Wowhead candidate source must pin the exact item level");
+      } else {
+        assert.ok(piece.stats.every(stat => stat.source.includes(`item level ${piece.itemLevel}`)),
+          "wiki candidate stat provenance must pin the exact item level");
+      }
+    }
+  }
+  assert.equal(evoker.variantObservationsStatus, "partial",
+    "baseline candidates must not imply all intermediate upgrade ranks are complete");
+  assert.ok(evoker.verifiedVariantObservations.every(piece => piece.candidate === false),
+    "additional upgrade-rank observations remain evidence-only");
+});
+
+
+test("Mage has source-verified baseline PvE and exact Mythic 6/6 candidates for all five slots", () => {
+  const mage = catalogue.sets.find(set => set.class === "Mage");
+  assert.equal(mage.itemIdsVerified, false);
+  assert.equal(mage.candidateVariantsAvailable, true);
+  assert.equal(mage.baseItemIdsVerified, true);
+  assert.equal(mage.pieces.length, 26);
+  assert.equal(mage.pieces.filter(piece => piece.candidate).length, 26);
+  const expected = {
+    Head: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
+    Shoulders: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
+    Chest: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
+    Hands: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
+    Legs: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]]
+  };
+  for (const [slot, expectedVariants] of Object.entries(expected)) {
+    const entries = mage.pieces.filter(piece => piece.slot === slot);
+    const baselineEntries = entries.filter(piece => ["Raid Finder", "Normal", "Heroic", "Mythic", "Mythic 6/6"].includes(piece.variant));
+    assert.deepEqual(baselineEntries.map(piece => [piece.variant, piece.itemLevel]), expectedVariants);
+    assert.ok(entries.every(piece => piece.candidate === true));
+    assert.ok(entries.every(piece => piece.stats.length >= 4 && piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0)));
+    for (const piece of entries) {
+      const isWowhead = piece.sourceUrl.includes("www.wowhead.com");
+      const match = piece.sourceUrl.match(/[?&]ilvl=(\\d+)/);
+      if (isWowhead && match) {
+        assert.equal(Number(match[1]), piece.itemLevel, "Wowhead candidate source must pin the exact item level");
+      } else {
+        assert.ok(piece.stats.every(stat => stat.source.includes(`item level ${piece.itemLevel}`)),
+          "wiki candidate stat provenance must pin the exact item level");
+      }
+    }
+  }
+  assert.equal(mage.variantObservationsStatus, "partial",
+    "baseline candidates must not imply all intermediate upgrade ranks are complete");
+  assert.ok(mage.verifiedVariantObservations.every(piece => piece.candidate === false),
+    "additional upgrade-rank observations remain evidence-only");
+});
+
+
+test("Priest has source-verified baseline PvE and exact Mythic 6/6 candidates for all five slots", () => {
+  const priest = catalogue.sets.find(set => set.class === "Priest");
+  assert.equal(priest.itemIdsVerified, false);
+  assert.equal(priest.candidateVariantsAvailable, true);
+  assert.equal(priest.baseItemIdsVerified, true);
+  assert.equal(priest.pieces.length, 28);
+  assert.equal(priest.pieces.filter(piece => piece.candidate).length, 28);
+  const expected = {
+    Head: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
+    Shoulders: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
+    Chest: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
+    Hands: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
+    Legs: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]]
+  };
+  for (const [slot, expectedVariants] of Object.entries(expected)) {
+    const entries = priest.pieces.filter(piece => piece.slot === slot);
+    const baselineEntries = entries.filter(piece => ["Raid Finder", "Normal", "Heroic", "Mythic", "Mythic 6/6"].includes(piece.variant));
+    assert.deepEqual(baselineEntries.map(piece => [piece.variant, piece.itemLevel]), expectedVariants);
+    assert.ok(entries.every(piece => piece.candidate === true));
+    assert.ok(entries.every(piece => piece.stats.length >= 4 && piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0)));
+    for (const piece of entries) {
+      const isWowhead = piece.sourceUrl.includes("www.wowhead.com");
+      const match = piece.sourceUrl.match(/[?&]ilvl=(\\d+)/);
+      if (isWowhead && match) {
+        assert.equal(Number(match[1]), piece.itemLevel, "Wowhead candidate source must pin the exact item level");
+      } else {
+        assert.ok(piece.stats.every(stat => stat.source.includes(`item level ${piece.itemLevel}`)),
+          "wiki candidate stat provenance must pin the exact item level");
+      }
+    }
+  }
+  assert.equal(priest.variantObservationsStatus, "partial",
+    "baseline candidates must not imply all intermediate upgrade ranks are complete");
+  assert.ok(priest.verifiedVariantObservations.every(piece => piece.candidate === false),
+    "additional upgrade-rank observations remain evidence-only");
+});
+
+
+test("Monk has baseline and source-verified Mythic 6/6 candidates for all five slots", () => {
+  const monk = catalogue.sets.find(set => set.class === "Monk");
+  assert.equal(monk.itemIdsVerified, false);
+  assert.equal(monk.candidateVariantsAvailable, true);
+  assert.equal(monk.baseItemIdsVerified, true);
+  assert.equal(monk.pieces.length, 25);
+  assert.equal(monk.pieces.filter(piece => piece.candidate).length, 25);
+  const expected = {
+    Head: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
+    Shoulders: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
+    Chest: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
+    Hands: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
+    Legs: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]]
+  };
+  for (const [slot, expectedVariants] of Object.entries(expected)) {
+    const entries = monk.pieces.filter(piece => piece.slot === slot);
+    assert.deepEqual(entries.map(piece => [piece.variant, piece.itemLevel]), expectedVariants);
+    assert.ok(entries.every(piece => piece.candidate === true && piece.stats.length >= 4));
+  }
+  const unrankedLegs = monk.verifiedVariantObservations.find(piece => piece.slot === "Legs" && piece.itemLevel === 334);
+  assert.ok(unrankedLegs);
+  assert.equal(unrankedLegs.candidate, false, "observations remain separate from optimizer candidates");
+  assert.match(unrankedLegs.variant, /Mythic 6\/6 observed/i);
+  assert.match(unrankedLegs.rankSourceUrl, /guildsofwow\.com/);
+  const verifiedLegs = monk.pieces.find(piece => piece.slot === "Legs" && piece.itemLevel === 334);
+  assert.ok(verifiedLegs && verifiedLegs.candidate);
+  assert.match(verifiedLegs.rankSourceUrl, /guildsofwow\.com/);
+  assert.equal(monk.variantObservationsStatus, "partial");
+});
+
+
+test("Paladin has source-verified baseline PvE and exact Mythic 6/6 candidates for all five slots", () => {
+  const paladin = catalogue.sets.find(set => set.class === "Paladin");
+  assert.equal(paladin.itemIdsVerified, false);
+  assert.equal(paladin.candidateVariantsAvailable, true);
+  assert.equal(paladin.baseItemIdsVerified, true);
+  assert.equal(paladin.pieces.length, 37);
+  assert.equal(paladin.pieces.filter(piece => piece.candidate).length, 37);
+  const expected = {
+    Head: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
+    Shoulders: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
+    Chest: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
+    Hands: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
+    Legs: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]]
+  };
+  for (const [slot, expectedVariants] of Object.entries(expected)) {
+    const entries = paladin.pieces.filter(piece => piece.slot === slot);
+    const baselineEntries = entries.filter(piece => ["Raid Finder", "Normal", "Heroic", "Mythic", "Mythic 6/6"].includes(piece.variant));
+    assert.deepEqual(baselineEntries.map(piece => [piece.variant, piece.itemLevel]), expectedVariants);
+    assert.ok(entries.every(piece => piece.candidate === true));
+    assert.ok(entries.every(piece => piece.stats.length >= 4 && piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0)));
+    for (const piece of entries) {
+      const isWowhead = piece.sourceUrl.includes("www.wowhead.com");
+      const match = piece.sourceUrl.match(/[?&]ilvl=(\\d+)/);
+      if (isWowhead && match) {
+        assert.equal(Number(match[1]), piece.itemLevel, "Wowhead candidate source must pin the exact item level");
+      } else {
+        assert.ok(piece.stats.every(stat => stat.source.includes(`item level ${piece.itemLevel}`)),
+          "wiki candidate stat provenance must pin the exact item level");
+      }
+    }
+  }
+  assert.equal(paladin.variantObservationsStatus, "partial",
+    "baseline candidates must not imply all intermediate upgrade ranks are complete");
+  assert.ok(paladin.verifiedVariantObservations.every(piece => piece.candidate === false),
+    "additional upgrade-rank observations remain evidence-only");
+});
+
+
+test("Hunter has source-verified baseline candidates using the class-specific Mythic Legs level", () => {
+  const hunter = catalogue.sets.find(set => set.class === "Hunter");
+  assert.equal(hunter.itemIdsVerified, false);
+  assert.equal(hunter.candidateVariantsAvailable, true);
+  assert.equal(hunter.baseItemIdsVerified, true);
+  assert.equal(hunter.pieces.length, 28);
+  assert.equal(hunter.pieces.filter(piece => piece.candidate).length, 28);
+  const expected = {
+    Head: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
+    Shoulders: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
+    Chest: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 324], ["Mythic 6/6", 334]],
+    Hands: [["Raid Finder", 282], ["Normal", 295], ["Heroic", 308], ["Mythic", 321], ["Mythic 6/6", 334]],
+    Legs: [["Raid Finder", 285], ["Normal", 298], ["Heroic", 311], ["Mythic", 318], ["Mythic 6/6", 334]]
+  };
+  for (const [slot, expectedVariants] of Object.entries(expected)) {
+    const entries = hunter.pieces.filter(piece => piece.slot === slot);
+    const baselineEntries = entries.filter(piece => ["Raid Finder", "Normal", "Heroic", "Mythic", "Mythic 6/6"].includes(piece.variant));
+    assert.deepEqual(baselineEntries.map(piece => [piece.variant, piece.itemLevel]), expectedVariants);
+    assert.ok(entries.every(piece => piece.candidate === true));
+    assert.ok(entries.every(piece => piece.stats.length >= 4 && piece.stats.every(stat => Number.isFinite(stat.value) && stat.value > 0)));
+    assert.ok(entries.every(piece => {
+      const url = new URL(piece.sourceUrl);
+      if (url.hostname === "www.wowhead.com" && url.searchParams.has("ilvl")) return Number(url.searchParams.get("ilvl")) === piece.itemLevel;
+      if (url.hostname === "warcraft.wiki.gg") return piece.stats.every(stat => new RegExp(`item[- ]level ${piece.itemLevel}`, "i").test(stat.source));
+      return piece.stats.every(stat => typeof stat.source === "string" && stat.source.length > 0);
+    }));
+  }
+  assert.equal(hunter.variantObservationsStatus, "partial", "baseline candidates must not imply all intermediate upgrade ranks are complete");
+  assert.ok(hunter.verifiedVariantObservations.every(piece => piece.candidate === false));
+});
+
+test("Warrior Raid Finder Veteran 2/6 Hands item level 282 matches the source tooltip", () => {
+  const warrior = catalogue.sets.find(set => set.class === "Warrior");
+  const piece = warrior.pieces.find(piece => piece.slot === "Hands" && piece.itemLevel === 282);
+  assert.ok(piece, "missing Warrior Hands 282 exact-version record");
+  assert.equal(piece.candidate, true);
+  assert.equal(piece.variant, "Raid Finder; Veteran 2/6 observed");
+  assert.equal(piece.verificationScope, "exact-version-stats-confirmed-by-user-provided-in-game-tooltip");
+  assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), {
+    strength: 87, stamina: 1606, criticalStrike: 80, haste: 39
+  });
+});
+
+test("Warrior Greaves of the Jade Warlord exact tooltip variants 285/298/311/324 match screenshots", () => {
+  const warrior = catalogue.sets.find(set => set.class === "Warrior");
+  const expected = {
+    285: { strength: 119, stamina: 2219, versatility: 108, mastery: 53 },
+    298: { strength: 135, stamina: 2579, versatility: 116, mastery: 56 },
+    311: { strength: 152, stamina: 3002, versatility: 123, mastery: 60 },
+    324: { strength: 172, stamina: 3487, versatility: 130, mastery: 63 }
+  };
+  for (const [levelText, stats] of Object.entries(expected)) {
+    const level = Number(levelText);
+    const piece = warrior.pieces.find(piece => piece.slot === "Legs" && piece.itemLevel === level);
+    assert.ok(piece, `missing Warrior Legs ${level} exact-version record`);
+    assert.equal(piece.candidate, true);
+    assert.equal(piece.verificationScope, "exact-version-stats-confirmed-by-user-provided-in-game-tooltip");
+    assert.deepEqual(Object.fromEntries(piece.stats.map(stat => [stat.type.name, stat.value])), stats);
+  }
+});
+
+test("exact source-backed intermediate variants are eligible while observations remain evidence-only", () => {
+  const cases = [
+    ["Druid", "Chest", 292, [["agility", 128], ["intellect", 128], ["stamina", 2406], ["criticalStrike", 109], ["haste", 58]]],
+    ["Paladin", "Chest", 295, [["strength", 131], ["intellect", 131], ["stamina", 2492], ["haste", 54], ["mastery", 116]]],
+    ["Paladin", "Chest", 302, [["strength", 140], ["intellect", 140], ["stamina", 2699], ["haste", 56], ["mastery", 119]]],
+    ["Paladin", "Chest", 305, [["strength", 144], ["intellect", 144], ["stamina", 2794], ["haste", 56], ["mastery", 121]]],
+    ["Paladin", "Chest", 318, [["strength", 162], ["intellect", 162], ["stamina", 3254], ["haste", 60], ["mastery", 128]]],
+    ["Paladin", "Shoulders", 315, [["strength", 118], ["intellect", 118], ["stamina", 2358], ["criticalStrike", 97], ["mastery", 42]]],
+    ["Paladin", "Hands", 302, [["strength", 105], ["intellect", 105], ["stamina", 2024], ["criticalStrike", 43], ["mastery", 88]]],
+    ["Paladin", "Hands", 318, [["strength", 122], ["intellect", 122], ["stamina", 2440], ["criticalStrike", 46], ["mastery", 95]]],
+    ["Paladin", "Hands", 328, [["strength", 134], ["intellect", 134], ["stamina", 2737], ["criticalStrike", 48], ["mastery", 99]]],
+    ["Hunter", "Head", 308, [["agility", 148], ["stamina", 2896], ["haste", 128], ["mastery", 52]]],
+    ["Hunter", "Legs", 308, [["agility", 148], ["intellect", 148], ["stamina", 2896], ["haste", 63], ["mastery", 117]]],
+    ["Hunter", "Legs", 321, [["agility", 167], ["intellect", 167], ["stamina", 3369], ["haste", 67], ["mastery", 124]]],
+    ["Paladin", "Chest", 321, [["strength", 167], ["intellect", 167], ["stamina", 3369], ["haste", 61], ["mastery", 130]]],
+    ["Priest", "Hands", 305, [["intellect", 108], ["stamina", 2096], ["criticalStrike", 47], ["mastery", 87]]],
+    ["Rogue", "Legs", 315, [["agility", 158], ["intellect", 158], ["stamina", 3143], ["criticalStrike", 66], ["haste", 120]]],
+    ["Rogue", "Legs", 321, [["agility", 167], ["intellect", 167], ["stamina", 3369], ["criticalStrike", 67], ["haste", 123]]],
+    ["Warlock", "Head", 305, [["intellect", 144], ["stamina", 2794], ["versatility", 57], ["mastery", 120]]],
+    ["Warlock", "Head", 315, [["intellect", 158], ["stamina", 3143], ["versatility", 60], ["mastery", 126]]],
+    ["Warlock", "Head", 321, [["intellect", 167], ["stamina", 3369], ["versatility", 61], ["mastery", 129]]],
+    ["Warlock", "Hands", 331, [["intellect", 138], ["stamina", 2832], ["criticalStrike", 44], ["haste", 105]]]
+  ];
+  for (const [className, slot, level, expectedStats] of cases) {
+    const set = catalogue.sets.find(entry => entry.class === className);
+    const candidate = set.pieces.find(piece => piece.slot === slot && piece.itemLevel === level && piece.candidate === true);
+    assert.ok(candidate, `${className} ${slot} ${level} is an eligible exact-version candidate`);
+    assert.equal(candidate.verificationScope, undefined, "promoted candidates must not retain evidence-only scope");
+    assert.ok(candidate.sourceUrl.startsWith("https://"));
+    const sourceLevel = new URL(candidate.sourceUrl).searchParams.get("ilvl");
+    if (sourceLevel) assert.equal(Number(sourceLevel), level);
+    assert.deepEqual(candidate.stats.map(stat => [stat.type.name, stat.value]), expectedStats);
+    assert.ok(candidate.stats.every(stat => String(stat.source).includes(String(level))));
+    const observation = set.verifiedVariantObservations.find(piece => piece.slot === slot && piece.itemLevel === level);
+    assert.ok(observation, "keep the original observation ledger record");
+    assert.equal(observation.candidate, false, "observation ledger remains evidence-only");
+  }
+});
+

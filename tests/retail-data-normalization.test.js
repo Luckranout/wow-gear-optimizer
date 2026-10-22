@@ -23,14 +23,17 @@ if (tierCatalogue.sets.length !== 13 ||
     new Set(tierCatalogue.sets.map(set => set.class)).size !== 13 ||
     tierCatalogue.thresholds.join(",") !== "2,4" ||
     tierCatalogue.itemMatching.status !== "partial" ||
-    !tierCatalogue.itemMatching.verifiedClasses?.includes("Shaman") ||
+    tierCatalogue.itemMatching.verifiedClasses?.length !== 1 ||
+    !tierCatalogue.itemMatching.verifiedClasses.includes("Shaman") ||
+    tierCatalogue.itemMatching.candidateVariantClasses?.length !== 13 ||
     tierCatalogue.sets.some(set =>
       set.eligibleSlots?.join(",") !== "Head,Shoulders,Chest,Hands,Legs" ||
       set.appearanceVariants?.length !== 6 ||
-      (set.class === "Shaman"
-        ? set.itemIdsVerified !== true || set.pieces?.length !== 30
-        : set.itemIdsVerified !== false || set.pieces?.length !== 0))) {
-  throw new Error("Tier-set catalogue must verify Shaman piece IDs while keeping other class matching explicitly incomplete");
+      set.itemIdsVerified !== (set.class === "Shaman") ||
+      set.baseItemIdsVerified !== true ||
+      set.candidateVariantsAvailable !== true ||
+      !set.pieces?.some(piece => piece.candidate === true))) {
+  throw new Error("Tier-set catalogue must distinguish Shaman's canonical six-variant map from partial candidate maps for every class");
 }
 
 
@@ -66,7 +69,7 @@ if (validation.length) throw new Error("Normalized test dataset failed validatio
   if (real.catalogSections?.status !== "complete" || real.catalogSections.loadedSections.length !== dataLayer.equipmentSectionFiles.length) throw new Error("All sectioned equipment catalog files must load");
   if (!real.items.some(item => item.catalogSection === "head")) throw new Error("Sectioned equipment must be included in the candidate pool");
   const shamanTierCandidates = real.items.filter(item => [271483,271481,271486,271484,271482].includes(Number(item.id)) && item.seasonScope === "Midnight Season 2");
-  if (shamanTierCandidates.length !== 20) throw new Error("Expected 20 verified Shaman tier candidates (four PvE variants for each of five slots), got " + shamanTierCandidates.length);
+  if (shamanTierCandidates.length !== 52) throw new Error("Expected 52 source-verified Shaman tier candidates including exact intermediate upgrade ranks, got " + shamanTierCandidates.length);
   for (const slot of ["Head","Shoulders","Chest","Hands","Legs"]) {
     if (!shamanTierCandidates.some(item => item.slot === slot && Number(item.itemLevel) > 0 && item.stats?.length)) {
       throw new Error("Missing source-backed Shaman tier candidate for " + slot);

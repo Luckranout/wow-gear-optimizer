@@ -305,7 +305,13 @@ const cappedMythPlan = o.recommendUpgradePlan({
   weeklyUsed: 100,
   maximumQualityTidalCrafted: true
 });
-if (cappedMythPlan.crestPlan.fitsWeeklyCap) throw new Error("Weekly cap should block an additional crest spend at 100 used");
+const realCrestCapLifted = realSystem.crestCapStatus === "lifted" || realSystem.weeklyCrestCap === null;
+const expectedFitsWeeklyCap = realCrestCapLifted;
+if (cappedMythPlan.crestPlan.fitsWeeklyCap !== expectedFitsWeeklyCap) {
+  throw new Error(realCrestCapLifted
+    ? "Lifted seasonal crest cap should permit an additional crest spend"
+    : "Active weekly cap should block an additional crest spend at 100 used");
+}
 
 const cappedPlan = o.recommendUpgradePlan({
   currentItem: { id: 900003, name: "Validation Hero Chest", slot: "Chest", track: "Hero", rank: 5 },
@@ -313,7 +319,11 @@ const cappedPlan = o.recommendUpgradePlan({
   availableCrests: { "Hero Mistcrest": 20 },
   weeklyUsed: 100
 });
-if (cappedPlan.crestPlan.fitsWeeklyCap) throw new Error("Weekly cap edge case failed");
+if (cappedPlan.crestPlan.fitsWeeklyCap !== expectedFitsWeeklyCap) {
+  throw new Error(realCrestCapLifted
+    ? "Lifted seasonal crest cap should permit the Hero crest spend"
+    : "Active weekly crest cap edge case failed");
+}
 
 const invalidVenomstone = o.isAscendantVenomstoneEligible({
   upgradeSystem: realSystem,

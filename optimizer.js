@@ -1416,31 +1416,88 @@ function getTierSetCoverageStatus(tierSetCatalogue = null, className = "", speci
   const classSet = sets.find(set =>
     String(set.class || set.className || "").trim().toLowerCase() === normalizedClass
   ) || null;
-  const isVerified = set => set?.itemIdsVerified === true || set?.mappingStatus === "verified";
-  const verifiedClasses = sets.filter(isVerified);
-  const unverifiedClasses = sets.filter(set => !isVerified(set));
-  const uniqueVerifiedPieceIds = classSet && isVerified(classSet)
-    ? new Set((classSet.pieces || []).map(piece => Number(piece.itemId)).filter(Number.isFinite)).size
+  const isBaseMappingVerified = set => set?.baseItemIdsVerified === true ||
+    set?.itemIdsVerified === true || set?.mappingStatus === "verified";
+  const isVariantMappingVerified = set => set?.itemIdsVerified === true || set?.mappingStatus === "verified";
+  const candidatePieces = set => [
+    ...(Array.isArray(set?.pieces) ? set.pieces : []),
+    ...(Array.isArray(set?.upgradeRankCandidates) ? set.upgradeRankCandidates : [])
+  ].filter(piece => piece?.candidate === true);
+  const hasVerifiedCandidates = set => candidatePieces(set).length > 0;
+  const verifiedClasses = sets.filter(isVariantMappingVerified);
+  const unverifiedClasses = sets.filter(set => !isVariantMappingVerified(set));
+  const baseMappingVerifiedClassCount = sets.filter(isBaseMappingVerified).length;
+  const pieceRecords = classSet
+    ? (hasVerifiedCandidates(classSet)
+      ? candidatePieces(classSet)
+      : (isVariantMappingVerified(classSet) ? (classSet.pieces || []) : (classSet.basePieces || [])))
+    : [];
+  const uniqueVerifiedPieceIds = classSet && isBaseMappingVerified(classSet)
+    ? new Set(pieceRecords.map(piece => {
+      const slot = String(piece.slot || "").trim().toLowerCase();
+      const itemId = Number(piece.itemId);
+      return slot || (Number.isFinite(itemId) ? `item:${itemId}` : null);
+    }).filter(Boolean)).size
     : 0;
+  const expectedTierSlots = ["Head", "Shoulders", "Chest", "Hands", "Legs"];
+  const verifiedVariantRecords = classSet
+    ? (hasVerifiedCandidates(classSet)
+      ? candidatePieces(classSet).filter(piece =>
+        piece?.candidate === true &&
+        Number.isInteger(piece.itemLevel) &&
+        Array.isArray(piece.stats) && piece.stats.length > 0
+      )
+      : (isVariantMappingVerified(classSet) ? (classSet.pieces || []).filter(piece =>
+        Number.isInteger(piece.itemLevel) && Array.isArray(piece.stats) && piece.stats.length > 0
+      ) : []))
+    : [];
+  const observedVariantRecords = (classSet?.verifiedVariantObservations || []).filter(piece =>
+    Number.isInteger(piece?.itemLevel) &&
+    Array.isArray(piece.stats) && piece.stats.length > 0
+  );
+  const verifiedVariantSlots = new Set(verifiedVariantRecords.map(piece => piece.slot));
+  const observedVariantSlots = new Set(observedVariantRecords.map(piece => piece.slot));
+  const slotVariantCoverage = expectedTierSlots.map(slot => ({
+    slot,
+    verifiedCandidateItemLevels: [...new Set(verifiedVariantRecords
+      .filter(piece => piece.slot === slot).map(piece => piece.itemLevel))].sort((a, b) => a - b),
+    observedOnlyItemLevels: [...new Set(observedVariantRecords
+      .filter(piece => piece.slot === slot).map(piece => piece.itemLevel))].sort((a, b) => a - b)
+  }));
   return {
     catalogueStatus: tierSetCatalogue?.itemMatching?.status || (mappingOnly ? "mapping-only" : "unavailable"),
     className: classSet?.class || classSet?.className || className || null,
     specialization: specialization || null,
     setName: classSet?.setName || null,
-    itemMappingVerified: isVerified(classSet),
+    itemMappingVerified: isBaseMappingVerified(classSet),
+    baseItemMappingVerified: isBaseMappingVerified(classSet),
+    variantMappingVerified: isVariantMappingVerified(classSet),
     verifiedPieceCount: uniqueVerifiedPieceIds,
     expectedPieceCount: 5,
+    verifiedCandidateSlots: expectedTierSlots.filter(slot => verifiedVariantSlots.has(slot)),
+    missingVerifiedCandidateSlots: expectedTierSlots.filter(slot => !verifiedVariantSlots.has(slot)),
+    observedOnlySlots: expectedTierSlots.filter(slot => observedVariantSlots.has(slot)),
+    slotVariantCoverage,
     bonusDescriptionsAvailable: !mappingOnly && Array.isArray(classSet?.specs) &&
       classSet.specs.some(spec => String(spec[0]).toLowerCase() === String(specialization || "").toLowerCase()),
     numericScoringAvailable: false,
     verifiedClassCount: verifiedClasses.length,
+    baseMappingVerifiedClassCount,
     totalClassCount: sets.length,
     unverifiedClasses: unverifiedClasses.map(set => set.class || set.className),
     limitations: [
       mappingOnly
         ? "The item-ID manifest verifies piece membership only; tier bonus effects and numeric scoring are unmodeled."
         : "Tier bonus descriptions do not provide a numeric gear score without simulation-derived or otherwise verified values.",
-      ...(isVerified(classSet) ? [] : ["This class's tier-piece item mapping is not verified, so equipped-piece counts may be incomplete."])
+      ...(!isBaseMappingVerified(classSet)
+        ? ["This class's base tier-piece item mapping is not verified, so equipped-piece counts may be incomplete."]
+        : []),
+      ...(isBaseMappingVerified(classSet) && !isVariantMappingVerified(classSet)
+        ? ["Base tier-piece IDs are verified, but upgraded/difficulty variant IDs and stats are not fully verified."]
+        : []),
+      ...(hasVerifiedCandidates(classSet) && !isVariantMappingVerified(classSet)
+        ? ["Some exact candidate variants are verified, but the complete class variant map remains partial."]
+        : [])
     ]
   };
 }

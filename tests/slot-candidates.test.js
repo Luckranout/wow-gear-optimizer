@@ -3,7 +3,7 @@ const fs = require("node:fs");
 const os = require("node:os");
 const path = require("node:path");
 const handler = require("../api/slot-candidates");
-const { SLOT_SECTION, slotMatches, allowedForClass, allowedForClassWeapon, allowedForSpecialization, normalizeClass, hasUsableStats, createResponse, setSectionDir, setDiscoveryProvider, setVerifiedSeasonItemProvider } = handler._test;
+const { SLOT_SECTION, slotMatches, allowedForClass, allowedForClassWeapon, allowedForSpecialization, normalizeClass, hasUsableStats, exactTierVariant, loadVerifiedTierSetCandidates, createResponse, setTierSetCandidateProvider, setSectionDir, setDiscoveryProvider, setVerifiedSeasonItemProvider } = handler._test;
 
 assert.equal(SLOT_SECTION.Neck, "necklaces");
 assert.equal(SLOT_SECTION.Shoulders, "shoulders");
@@ -46,6 +46,59 @@ assert.equal(hasUsableStats({ stats: [{ value: 12 }] }), true);
 assert.equal(hasUsableStats({ stats: [] }), false);
 assert.equal(hasUsableStats({}), false);
 
+assert.equal(exactTierVariant({
+  candidate: true, itemId: 271459, itemLevel: 334,
+  sourceUrl: "https://www.wowhead.com/ptr/item=271459/cuirass-of-the-jade-warlord?ilvl=334",
+  stats: [{ type: { name: "strength" }, value: 189 }, { type: { name: "stamina" }, value: 3910 },
+    { type: { name: "criticalStrike" }, value: 59 }, { type: { name: "mastery" }, value: 142 }]
+}), true, "tier variants require exact item-ID and item-level source URLs plus numeric stats");
+assert.equal(exactTierVariant({
+  candidate: true, itemId: 271459, itemLevel: 285,
+  sourceUrl: "https://warcraft.wiki.gg/wiki/Cuirass_of_the_Jade_Warlord",
+  stats: [{ type: { name: "strength" }, value: 119 }, { type: { name: "stamina" }, value: 2219 },
+    { type: { name: "criticalStrike" }, value: 47 }, { type: { name: "mastery" }, value: 114 }]
+}), false, "general item pages cannot verify a specific upgrade level");
+
+assert.equal(exactTierVariant({
+  candidate: true, itemId: 271459, itemLevel: 285,
+  name: "Cuirass of the Jade Warlord",
+  sourceUrl: "https://warcraft.wiki.gg/wiki/Cuirass_of_the_Jade_Warlord",
+  stats: [
+    { type: { name: "strength" }, value: 119, source: "Warcraft Wiki item level 285" },
+    { type: { name: "stamina" }, value: 2219, source: "Warcraft Wiki item level 285" },
+    { type: { name: "criticalStrike" }, value: 47, source: "Warcraft Wiki item level 285" },
+    { type: { name: "mastery" }, value: 114, source: "Warcraft Wiki item level 285" }
+  ]
+}), true, "item-specific source plus per-stat exact item-level provenance verifies variants without an ilvl URL parameter");
+assert.equal(exactTierVariant({
+  candidate: true, itemId: 271459, itemLevel: 285,
+  name: "Cuirass of the Jade Warlord",
+  sourceUrl: "https://warcraft.wiki.gg/wiki/Cuirass_of_the_Jade_Warlord",
+  stats: [
+    { type: { name: "strength" }, value: 119, source: "Warcraft Wiki item level 298" },
+    { type: { name: "stamina" }, value: 2219, source: "Warcraft Wiki item level 298" },
+    { type: { name: "criticalStrike" }, value: 47, source: "Warcraft Wiki item level 298" },
+    { type: { name: "mastery" }, value: 114, source: "Warcraft Wiki item level 298" }
+  ]
+}), false, "per-stat provenance for a different item level does not verify the candidate");
+const warriorChestTier = loadVerifiedTierSetCandidates("Chest", "Warrior");
+const warriorHandsTier = loadVerifiedTierSetCandidates("Hands", "Warrior");
+const warriorWristsTier = loadVerifiedTierSetCandidates("Wrists", "Warrior");
+assert.ok(warriorChestTier.some(item => item.id === 271459 && item.variants.some(v => v.itemLevel === 334)),
+  "the exact-source Warrior 334 chest variant is available to slot candidate selection");
+assert.ok(warriorHandsTier.some(item => item.id === 271457 && item.variants.some(v => v.itemLevel === 334)),
+  "the exact-source Warrior 334 hands variant is available to slot candidate selection");
+assert.ok(warriorChestTier.every(item => item.itemSubclass.name === "Plate"),
+  "plate classes receive tier candidates with the matching armor subclass");
+const mageHeadTier = loadVerifiedTierSetCandidates("Head", "Mage");
+assert.ok(mageHeadTier.every(item => item.itemSubclass.name === "Cloth"),
+  "cloth classes receive tier candidates with the matching armor subclass");
+const hunterHeadTier = loadVerifiedTierSetCandidates("Head", "Hunter");
+assert.ok(hunterHeadTier.every(item => item.itemSubclass.name === "Mail"),
+  "mail classes receive tier candidates with the matching armor subclass");
+assert.deepEqual(warriorWristsTier, [], "the tier-set bridge must not invent wrist items outside the five-piece set");
+
+
 function mockReq(method, query = {}) { return { method, query, headers: {} }; }
 async function call(method, query) {
   const res = createResponse();
@@ -73,6 +126,7 @@ assert.equal(allowedForSpecialization({
 (async () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "slot-candidates-"));
   setSectionDir(dir);
+  setTierSetCandidateProvider(() => []);
   setDiscoveryProvider(async () => []);
   try {
     const validShoulders = {
@@ -94,9 +148,42 @@ assert.equal(allowedForSpecialization({
     assert.equal(res.statusCode, 200, "valid section returns 200");
     assert.deepEqual(res.body.items.map(item => item.id), [101], "filters legacy, wrong class, non-equippable, missing-stat cosmetic/unknown items, and wrong-slot items");
     assert.equal(res.body.count, 1);
-    assert.deepEqual(res.body.pendingStatVerification.map(item => item.id), [105],
+    const shouldersResponse = res;
+    assert.deepEqual(shouldersResponse.body.pendingStatVerification.map(item => item.id), [105],
       "stat-incomplete but otherwise compatible seasonal records are queued for verification, never scored directly");
-    assert.equal(res.body.pendingStatVerification[0].requiresWowheadVerification, true);
+    assert.equal(shouldersResponse.body.pendingStatVerification[0].requiresWowheadVerification, true);
+    // Exercise the tier-catalogue bridge through the HTTP handler, not just its loader.
+    setTierSetCandidateProvider((slot, className) => {
+      if (slot !== "Chest" || className !== "Warrior") return [];
+      return [{
+        id: 271459, name: "Cuirass of the Jade Warlord", slot: "Chest", itemLevel: 0, level: 0,
+        itemClass: { name: "Armor" }, itemSubclass: { name: "Plate" },
+        inventoryType: { name: "Chest" }, equipmentCategories: ["chest"],
+        isEquippable: true, seasonScope: "Midnight Season 2+",
+        stats: [], variants: [{
+          itemLevel: 334, level: 334, variantKey: "271459:ilvl:334",
+          stats: [
+            { type: { name: "strength" }, value: 189 },
+            { type: { name: "stamina" }, value: 3910 },
+            { type: { name: "criticalStrike" }, value: 59 },
+            { type: { name: "mastery" }, value: 142 }
+          ],
+          sourceUrl: "https://www.wowhead.com/ptr/item=271459/cuirass-of-the-jade-warlord?ilvl=334",
+          statsVerified: true
+        }]
+      }];
+    });
+    writeSection(dir, "chest", { complete: true, items: [] });
+    res = await call("GET", { slot: "Chest", class: "Warrior" });
+    assert.equal(res.statusCode, 200, "tier-set candidates pass through the slot API");
+    const tierChest = res.body.items.find(item => item.id === 271459);
+    assert.ok(tierChest, "verified Warrior tier chest is returned by the HTTP handler");
+    assert.ok(tierChest.variants.some(variant => variant.itemLevel === 334),
+      "the verified 334 variant survives API eligibility filters");
+    setTierSetCandidateProvider(() => []);
+    assert.deepEqual(shouldersResponse.body.pendingStatVerification.map(item => item.id), [105],
+      "stat-incomplete but otherwise compatible seasonal records are queued for verification, never scored directly");
+    assert.equal(shouldersResponse.body.pendingStatVerification[0].requiresWowheadVerification, true);
     assert.match(res.headers["cache-control"], /s-maxage=300/);
     const discoveredShoulders = {
       id: 999, name: "New Blizzard-discovered Plate Shoulders", slot: "Shoulders",
@@ -182,6 +269,7 @@ assert.equal(allowedForSpecialization({
   } finally {
     setDiscoveryProvider(null);
     setVerifiedSeasonItemProvider(null);
+    setTierSetCandidateProvider(null);
     setSectionDir(path.join(process.cwd(), "data", "equipment-sections"));
     fs.rmSync(dir, { recursive: true, force: true });
   }

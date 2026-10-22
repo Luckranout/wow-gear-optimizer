@@ -33,12 +33,24 @@ function parseTooltip(payload, id, rank) {
   // Active effect stats are not passive item stats; keep them out of the gear-stat score.
   const passivePlain = effectText ? plain.replace(effectText, " ") : plain;
   const stats = {};
-  const statPattern = /([+\-−]?\s*\d[\d,]*)\s+(Strength|Agility|Intellect|Stamina|Critical Strike|Crit|Haste|Mastery|Versatility|Armor|Leech|Avoidance|Speed)\b/gi;
-  let match;
-  while ((match = statPattern.exec(passivePlain))) {
-    const key = STAT_NAMES[match[2].toLowerCase()];
-    const value = Number(match[1].replace(/[,+\s]/g, "").replace("−", "-"));
-    if (key && Number.isFinite(value) && value !== 0) stats[key] = value;
+  const statNames = "Strength|Agility|Intellect|Stamina|Critical Strike|Crit|Haste|Mastery|Versatility|Armor|Leech|Avoidance|Speed";
+  // Wowhead can render the same passive stat either as "+123 Strength" or
+  // "Strength +123" depending on tooltip source/locale. Accept both forms;
+  // never infer a missing stat from item level or a base-item placeholder.
+  const statPatterns = [
+    new RegExp("([+\\-−]?\\s*\\d[\\d,]*)\\s+(" + statNames + ")\\b", "gi"),
+    new RegExp("\\b(" + statNames + ")\\s+(\\d[\\d,]*)(?![\\d,])", "gi")
+  ];
+  for (const statPattern of statPatterns) {
+    let match;
+    while ((match = statPattern.exec(passivePlain))) {
+      const nameFirst = /^[A-Za-z]/.test(match[1]);
+      const statName = nameFirst ? match[1] : match[2];
+      const rawValue = nameFirst ? match[2] : match[1];
+      const key = STAT_NAMES[statName.toLowerCase()];
+      const value = Number(rawValue.replace(/[,+\\s]/g, "").replace("−", "-"));
+      if (key && Number.isFinite(value) && value !== 0) stats[key] = value;
+    }
   }
   if (!Object.keys(stats).length) return null;
   const durationMatch = effectText.match(/(?:for|lasting)\s+(\d+)\s*(sec(?:ond)?s?|min(?:ute)?s?)/i);
