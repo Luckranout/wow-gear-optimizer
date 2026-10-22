@@ -1584,6 +1584,54 @@ function calculateProjectedStatChanges(currentEquipment = {}, projectedEquipment
   };
 }
 
+function buildTierSetAwareCatalog({ items = [], equipment = {}, manifest = null, className = "" } = {}) {
+  const sets = Array.isArray(manifest?.sets) ? manifest.sets : [];
+  const classKey = normalizeClassName(className);
+  const classSet = sets.find(set => normalizeClassName(set.className || set.class) === classKey) || null;
+  if (!classSet) return { items: [...(items || [])], equipment: { ...(equipment || {}) }, setBonuses: [] };
+
+  const setId = normalizeSetIdentity(classSet.setId ?? classSet.id ?? classSet.setName);
+  if (!setId) return { items: [...(items || [])], equipment: { ...(equipment || {}) }, setBonuses: [] };
+  const pieces = Array.isArray(classSet.pieces) ? classSet.pieces : [];
+  const byId = new Map();
+  const byName = new Map();
+  for (const piece of pieces) {
+    const id = piece?.itemId ?? piece?.id;
+    const name = normalizeSetIdentity(piece?.name);
+    if (id !== null && id !== undefined && Number.isFinite(Number(id))) byId.set(String(Number(id)), piece);
+    if (name) byName.set(name, piece);
+  }
+  const annotate = item => {
+    if (!item || typeof item !== "object") return item;
+    const id = item.id ?? item.itemId ?? item.baseItemId;
+    const name = normalizeSetIdentity(item.name);
+    const piece = (id !== null && id !== undefined ? byId.get(String(Number(id))) : null) ||
+      (name ? byName.get(name) : null);
+    if (!piece) return item;
+    return { ...item, isSetPiece: true, tierSetId: setId, setId, tierSetName: classSet.setName || classSet.name || classSet.setId };
+  };
+  const annotatedItems = (items || []).map(item => {
+    const base = annotate(item);
+    if (!Array.isArray(item?.variants)) return base;
+    return { ...base, variants: item.variants.map(variant => annotate({ ...item, ...variant, id: item.id ?? variant.id })) };
+  });
+  const annotatedEquipment = Object.fromEntries(Object.entries(equipment || {}).map(([slot, item]) => [slot, annotate(item)]));
+  // Membership and the existence of 2pc/4pc thresholds are verified separately
+  // from their numeric combat value. Null scoreValue intentionally keeps unknown
+  // tier effects out of the numerical score while still reporting threshold coverage.
+  const setBonus = {
+    setId,
+    name: classSet.setName || classSet.name || classSet.setId || setId,
+    pieces,
+    source: classSet.sourceUrl || null,
+    thresholds: [
+      { pieces: 2, scoreValue: null, description: "2-piece effect is not numerically scored until verified." },
+      { pieces: 4, scoreValue: null, description: "4-piece effect is not numerically scored until verified." }
+    ]
+  };
+  return { items: annotatedItems, equipment: annotatedEquipment, setBonuses: [setBonus] };
+}
+
 function createOptimizationReport({character = createCharacterProfile(), availableItems = [], dataset = null, upgradeSystem = null} = {}) {
   const goal = character.goal || WOW_GOALS.general;
   const simulation = character.simulation || dataset?.simulation || null;
@@ -1623,7 +1671,7 @@ function createOptimizationReport({character = createCharacterProfile(), availab
       availableCrests: character.crestInventory || {}, weeklyUsed: character.weeklyCrestUsed || 0
     }) : null)
     .filter(Boolean);
-  const projectedStats = calculateProjectedStatChanges(character.equipment, optimized.equipment, character.statistics);
+  const projectedStats = calculateProjectedStatChanges(optimizerCharacter.equipment, optimized.equipment, character.statistics);
   return {
     character, goal, statWeights, optimizedEquipment: optimized.equipment, totalScore: optimized.score,
     setBonusStatus: optimized.setBonusStatus,
@@ -1661,7 +1709,7 @@ function createOptimizationReport({character = createCharacterProfile(), availab
     numericProjectionAvailable: projectedStats.available,
     diminishingReturns: {
       supported: Number(character.level) === SECONDARY_RATING_DR_LEVEL,
-      equipped: getLoadoutDiminishingReturnsSummary(character.equipment, character.level),
+      equipped: getLoadoutDiminishingReturnsSummary(optimizerCharacter.equipment, character.level),
       recommended: getLoadoutDiminishingReturnsSummary(optimized.equipment, character.level)
     },
     recommendationLimitations: [
@@ -1689,7 +1737,7 @@ window.WoWOptimizer = {
   createCharacterProfile, normalizeCharacterStatistics, scoreCharacterStatistics, getCharacterStatSummary, resolveStatWeights, normalizeSimulationScaleFactors, getSimulationWeightContext, findBlizzardSpecialization, getSpecProfileContext,
   normalizeImportedEquipment, createCharacterProfileFromImport, normalizeItemStatName, hasUsableItemStats, itemAllowedForClass, expectedPrimaryStat, itemPrimaryStats, itemAllowedForPrimaryStat, scoreTrinketUseEffect, scoreItem, scoreEquipment, getGoalWeights,
   findBestItemForSlot, itemMatchesSlot, itemAllowedForClassWeapon, itemAllowedForSpecialization, getWeaponMetadata, normalizeWeaponType, optimizeEquipment, findUpgradeOpportunities, rankItems,
-  getItemSetId, getSetBonusStatus, getTierSetCoverageStatus, scoreSetBonuses, scoreEquipmentWithRatingDiminishingReturns, scoreLoadout,
+  getItemSetId, getSetBonusStatus, getTierSetCoverageStatus, scoreSetBonuses, scoreEquipmentWithRatingDiminishingReturns, scoreLoadout, buildTierSetAwareCatalog,
   getUpgradeSystem, findUpgradeTrack, getTrackRank, getNextUpgrade, getUpgradePath,
   calculateCrestRequirements, isAscendantVenomstoneEligible, recommendUpgradePlan,
   calculateProjectedStatChanges, getEquipmentStatTotals, getLoadoutDiminishingReturnsSummary, createOptimizationReport, testData: WOW_OPTIMIZER_TEST_DATA
