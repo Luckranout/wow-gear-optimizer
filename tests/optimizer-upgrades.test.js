@@ -1376,3 +1376,44 @@ if (optionalFifthTierResult.setBonusStatus?.bonuses?.find(bonus => bonus.require
   throw new Error("Choosing an off-set fifth piece must preserve the active 4-piece tier bonus");
 }
 console.log("Optional fifth tier-piece loadout regression passed.");
+
+
+// Cross-class parity regression: the optional-fifth-piece rule is shared by
+// every class, rather than being a Protection Warrior-only special case.
+for (const className of [
+  "Warrior", "Paladin", "Death Knight", "Hunter", "Shaman", "Evoker",
+  "Demon Hunter", "Druid", "Monk", "Rogue", "Mage", "Priest", "Warlock"
+]) {
+  const setId = "parity-" + className.toLowerCase().replace(/[^a-z]/g, "");
+  const equipment = {};
+  for (const [slot, id] of [["Head", 1], ["Shoulders", 2], ["Chest", 3], ["Hands", 4]]) {
+    equipment[slot] = {
+      id: 982000 + id, name: className + " Tier " + slot, slot,
+      itemLevel: 300, tierSetId: setId, stats: { Strength: 100 }
+    };
+  }
+  const bonuses = [{
+    setId, name: className + " Test Set",
+    pieces: [982001, 982002, 982003, 982004, 982005],
+    thresholds: [{ pieces: 2, scoreValue: 100 }, { pieces: 4, scoreValue: 200 }]
+  }];
+  const result = o.optimizeEquipment({
+    items: [
+      { id: 982005, name: className + " Tier Legs", slot: "Legs", itemLevel: 300,
+        tierSetId: setId, isSetPiece: true, stats: { Strength: 10 } },
+      { id: 982006, name: className + " Strong Off-Set Legs", slot: "Legs", itemLevel: 310,
+        stats: { Strength: 500 } }
+    ],
+    character: {
+      ...o.createCharacterProfile(), className, specialization: "Test",
+      equipment
+    },
+    statWeights: { Strength: 1, Stamina: 0, CriticalStrike: 0, Haste: 0, Mastery: 0, Versatility: 0 },
+    setBonuses: bonuses
+  });
+  if (result.equipment.Legs?.id !== 982006 ||
+      result.setBonusStatus?.bonuses?.find(bonus => bonus.requiredPieces === 4)?.active !== true) {
+    throw new Error(className + " must use the same optional-fifth-tier-piece optimization rule");
+  }
+}
+console.log("Shared optional fifth tier-piece rule passed for all 13 classes.");
