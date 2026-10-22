@@ -1651,11 +1651,20 @@ function createOptimizationReport({character = createCharacterProfile(), availab
     simulation
   });
   const statSummary = getCharacterStatSummary(character.statistics, statWeights);
-  const setBonuses = dataset?.tierSetBonuses || dataset?.setBonuses || [];
-  const optimized = optimizeEquipment({ items: availableItems, character, goal, statWeights, setBonuses });
+  const tierSetBridge = buildTierSetAwareCatalog({
+    items: availableItems,
+    equipment: character.equipment || {},
+    manifest: dataset?.tierSetItemIdManifest || dataset?.tierSetCatalogue,
+    className: character.className
+  });
+  const scoringSetBonuses = dataset?.tierSetBonuses || dataset?.setBonuses || [];
+  const setBonuses = [...scoringSetBonuses, ...tierSetBridge.setBonuses];
+  const optimizerCharacter = { ...character, equipment: tierSetBridge.equipment };
+  const optimizerItems = tierSetBridge.items;
+  const optimized = optimizeEquipment({ items: optimizerItems, character: optimizerCharacter, goal, statWeights, setBonuses });
   const upgrades = findUpgradeOpportunities({
-    currentEquipment: character.equipment,
-    availableItems,
+    currentEquipment: optimizerCharacter.equipment,
+    availableItems: optimizerItems,
     goal,
     statWeights,
     className: character.className,
