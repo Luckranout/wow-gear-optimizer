@@ -1309,6 +1309,18 @@ const bridged = o.buildTierSetAwareCatalog({
 if (bridged.items[0]?.isSetPiece !== true || bridged.items[0]?.tierSetId !== String(warriorTier.setId)) {
   throw new Error("Verified Warrior tier membership must be connected to optimizer candidate scoring");
 }
+const upgradedVariant = o.buildTierSetAwareCatalog({
+  items: [{
+    id: 999457, baseItemId: 271457, name: warriorGloves.name, slot: "Hands",
+    itemLevel: 328, stats: { Strength: 130, Stamina: 2600, CriticalStrike: 100, Haste: 55 }
+  }],
+  equipment: {},
+  manifest: tierManifest,
+  className: "Warrior"
+});
+if (upgradedVariant.items[0]?.isSetPiece !== true) {
+  throw new Error("An upgraded variant must retain verified base tier-set membership");
+}
 if (bridged.setBonuses.length !== 1 ||
     bridged.setBonuses[0].thresholds.some(threshold => threshold.scoreValue !== null)) {
   throw new Error("Tier thresholds must be visible without inventing numeric combat scores");
