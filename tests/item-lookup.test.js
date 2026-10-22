@@ -18,6 +18,13 @@ assert.equal(variant.stats.Agility,36);
 assert.equal(variant.stats.Stamina,565);
 assert.equal(variant.stats.CriticalStrike,40);
 assert.equal(variant.stats.Haste,21);
+
+const nameFirstHtml = "<table><tr><td>Item Level 334</td></tr><tr><td>Strength 1,234</td><td>Stamina 2,932</td><td>Versatility 59</td><td>Mastery 91</td></tr></table>";
+const nameFirstVariant = parseTooltip({tooltip:{html:nameFirstHtml}},251144,6);
+assert.equal(nameFirstVariant.stats.Strength,1234,"name-first Wowhead stat labels retain primary stat");
+assert.equal(nameFirstVariant.stats.Stamina,2932,"name-first Wowhead stat labels retain stamina");
+assert.equal(nameFirstVariant.stats.Versatility,59);
+assert.equal(nameFirstVariant.stats.Mastery,91);
 assert.equal(variant.lookupStatus,"verified");
 assert.match(variant.wowheadTooltipText,/Item Level 334/);
 assert.match(variant.wowheadTooltipText,/Gain 422 Mastery/);
