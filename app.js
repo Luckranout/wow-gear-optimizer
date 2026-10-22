@@ -871,15 +871,37 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
   // item level and at least one positive combat stat, which keeps transmog-only
   // records out of the optimizer while allowing valid upgraded gear to be found.
   const hasVerifiedCombatStats = item => {
-    const stats = item?.stats ?? item?.statValues ?? item?.stat_values ?? item?.attributes;
-    const positive = values => Array.isArray(values)
+    const statsHavePositiveValue = values => Array.isArray(values)
       ? values.some(stat => Number(stat?.value ?? stat?.amount ?? stat) > 0)
       : values && typeof values === "object"
         ? Object.values(values).some(value => Number(value?.value ?? value?.amount ?? value) > 0)
         : false;
-    return positive(stats) || (Array.isArray(item?.variants) && item.variants.some(variant =>
-      Number(variant?.itemLevel) > 0 && positive(variant?.stats)
-    ));
+    const hasPrimaryStat = record => {
+      const values = record?.stats ?? record?.statValues ?? record?.stat_values ?? record?.attributes;
+      const entries = Array.isArray(values)
+        ? values
+        : values && typeof values === "object"
+          ? Object.entries(values).map(([name, value]) => ({ name, value }))
+          : [];
+      return entries.some(stat => {
+        const rawName = stat?.type?.name || stat?.name || stat?.type || stat?.stat || "";
+        const name = String(rawName).replace(/[\\s_-]/g, "").toLowerCase();
+        return ["strength", "agility", "intellect"].includes(name) &&
+          Number(stat?.value ?? stat?.amount ?? stat) > 0;
+      });
+    };
+    const slot = String(item?.slot || item?.inventoryType?.name || item?.inventoryType || "").toLowerCase();
+    const requiresPrimary = /head|shoulder|chest|robe|wrist|hand|waist|leg|feet|main.?hand|off.?hand|weapon|shield/.test(slot);
+    const variants = Array.isArray(item?.variants) ? item.variants.filter(variant => Number(variant?.itemLevel) > 0) : [];
+    // A base record can contain low-level placeholder primary stats while its
+    // upgraded variant has only stamina/secondaries. Require primary stats on
+    // the actual upgraded variant before considering that record complete.
+    if (requiresPrimary && variants.length) {
+      return variants.some(variant => hasPrimaryStat(variant) && statsHavePositiveValue(variant.stats));
+    }
+    if (requiresPrimary) return hasPrimaryStat(item) && statsHavePositiveValue(item.stats ?? item.statValues ?? item.stat_values ?? item.attributes);
+    return statsHavePositiveValue(item.stats ?? item.statValues ?? item.stat_values ?? item.attributes) ||
+      variants.some(variant => statsHavePositiveValue(variant.stats));
   };
   const pendingById = new Map();
   // Include on-demand discoveries in the bounded verification queue, but never
