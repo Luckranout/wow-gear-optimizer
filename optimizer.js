@@ -1603,9 +1603,11 @@ function buildTierSetAwareCatalog({ items = [], equipment = {}, manifest = null,
   }
   const annotate = item => {
     if (!item || typeof item !== "object") return item;
-    const id = item.id ?? item.itemId ?? item.baseItemId;
-    const name = normalizeSetIdentity(item.name);
-    const piece = (id !== null && id !== undefined ? byId.get(String(Number(id))) : null) ||
+    const ids = [item.id, item.itemId, item.baseItemId, item.baseItem?.id]
+      .filter(id => id !== null && id !== undefined && Number.isFinite(Number(id)))
+      .map(id => String(Number(id)));
+    const name = normalizeSetIdentity(item.name ?? item.baseItem?.name);
+    const piece = ids.map(id => byId.get(id)).find(Boolean) ||
       (name ? byName.get(name) : null);
     if (!piece) return item;
     return { ...item, isSetPiece: true, tierSetId: setId, setId, tierSetName: classSet.setName || classSet.name || classSet.setId };
