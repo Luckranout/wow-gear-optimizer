@@ -1296,8 +1296,8 @@
               "source": "Wowhead tooltip"
             }
           ],
-          "statsSource": "Wowhead tooltip explicitly returned armor, stamina, critical strike, and haste at item level 334; primary stats were not verified",
-          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); returned tooltip stats are partial and do not establish primary stats; bonus IDs not exposed by this lookup"
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
@@ -2256,7 +2256,7 @@
             }
           ],
           "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 334",
-          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); returned tooltip stats are partial and do not establish primary stats; bonus IDs not exposed by this lookup"
+          "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
       "statsSource": "Blizzard Game Data API"
