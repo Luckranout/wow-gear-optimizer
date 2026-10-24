@@ -189,3 +189,6 @@ jobs:
 
       - name: Run WoW tooltip SavedVariables converter tests
         run: node tests/wow-tooltip-export-converter.test.js
+
+      - name: Run WoW tooltip item ID batch tests
+        run: node tests/wow-tooltip-item-ids.test.js
