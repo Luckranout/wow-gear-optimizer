@@ -9,6 +9,10 @@ This addon captures the **structured tooltip lines produced by the installed WoW
 3. Enable **WoW Tooltip Exporter** on the character-select AddOns screen.
 4. Log in and enter `/wgte help`.
 
+## Generate the optimizer's item ID batches
+
+From the repository root, run `node scripts/export-wow-tooltip-item-ids.js`. This reads the existing current Retail dataset, all 14 equipment section catalogs, and the tier-set ID manifest, then writes `wow-tooltip-item-ids.txt` with unique sorted item IDs split into batches of up to 200. The catalog can contain duplicate appearances of the same base ID; duplicates are removed. Review the generated file and paste each line into the game as `/wgte <IDs from that line>`.
+
 ## Export item tooltip lines
 
 Run `/wgte 19019 212405 212406` or use commas, e.g. `/wgte 19019,212405,212406`. Batches are limited to 200 IDs so the client can load item data without being overwhelmed. The addon waits briefly for the client tooltip data, records failures explicitly, and preserves previous records for items not in the current batch.
