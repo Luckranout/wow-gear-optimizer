@@ -75,6 +75,20 @@ if (!styles.includes(".slot-icon-wrap:hover .item-hover-tooltip") ||
 }
 console.log("Blizzard-style item tooltip UI contract passed.");
 
+for (const required of [
+  "loadBlizzardTooltipData()",
+  "data/blizzard-tooltip-lines.json",
+  "renderCapturedBlizzardTooltip(item, captured)",
+  "tooltipColorStyle(line?.leftColor)"
+]) {
+  if (!app.includes(required)) throw new Error("Captured Blizzard tooltip data integration missing: " + required);
+}
+if (!styles.includes(".item-hover-tooltip-blizzard") ||
+    !styles.includes(".item-hover-blizzard-line-type-22")) {
+  throw new Error("Captured Blizzard tooltip rows must preserve tooltip-specific line layout.");
+}
+console.log("Captured Blizzard tooltip data integration contract passed.");
+
 if (!app.includes("function getItemQualityClass(item)") ||
     !app.includes('4: "epic"') ||
     !app.includes('"item-quality-" + qualityName') ||
