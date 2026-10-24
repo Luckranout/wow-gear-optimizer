@@ -460,3 +460,24 @@ footer {
 #diminishingReturnsPanel details { margin-top: 10px; }
 #diminishingReturnsPanel summary { cursor: pointer; }
 #diminishingReturnsPanel ul { padding-left: 20px; }
+
+/* Structured tooltip rows captured from Blizzard's in-client C_TooltipInfo API. */
+.item-hover-tooltip-blizzard { padding: 8px 10px; }
+.item-hover-blizzard-line {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+  white-space: pre-wrap;
+}
+.item-hover-blizzard-line.is-wrapped {
+  display: block;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.item-hover-blizzard-left { min-width: 0; }
+.item-hover-blizzard-right { flex: 0 0 auto; text-align: right; }
+.item-hover-blizzard-line-type-22 { font-weight: 700; margin-bottom: 2px; }
+.item-hover-blizzard-line-type-31 { font-weight: 600; }
+.item-hover-blizzard-blank { height: 5px; }
