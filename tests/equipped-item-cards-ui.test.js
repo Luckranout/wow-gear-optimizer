@@ -64,7 +64,7 @@ for (const required of [
   "item-hover-level",
   "item-hover-stats",
   "item-hover-stat",
-  "hover or focus to view stats"
+  "renderWowheadItemLink(item"
 ]) {
   if (!app.includes(required)) throw new Error("Item hover tooltip missing behavior: " + required);
 }
@@ -88,6 +88,18 @@ if (!styles.includes(".item-hover-tooltip-blizzard") ||
   throw new Error("Captured Blizzard tooltip rows must preserve tooltip-specific line layout.");
 }
 console.log("Captured Blizzard tooltip data integration contract passed.");
+
+if (!app.includes('data-wowhead="item=') ||
+    !app.includes('https://www.wowhead.com/item=') ||
+    !app.includes('class="wowhead-item-link ')) {
+  throw new Error("Equipped and recommended item icons must use Wowhead's live item tooltip renderer.");
+}
+const page = fs.readFileSync("index.html", "utf8");
+if (!page.includes("https://wow.zamimg.com/js/tooltips.js") ||
+    !page.includes("hide: { extra: true }")) {
+  throw new Error("Wowhead tooltips must load with non-game-only tooltip details hidden.");
+}
+console.log("Wowhead live item tooltip integration contract passed.");
 
 if (!app.includes("function getItemQualityClass(item)") ||
     !app.includes('4: "epic"') ||
