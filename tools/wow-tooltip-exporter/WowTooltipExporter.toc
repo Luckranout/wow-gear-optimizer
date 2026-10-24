@@ -1,4 +1,4 @@
-## Interface: 120000
+## Interface: 120105
 ## Title: WoW Tooltip Exporter
 ## Notes: Exports Blizzard client item tooltip lines for the WoW Gear Optimizer.
 ## Author: WoW Gear Optimizer
