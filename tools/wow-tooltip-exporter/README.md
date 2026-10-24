@@ -5,7 +5,7 @@ This addon captures the **structured tooltip lines produced by the installed WoW
 ## Install
 
 1. Copy the `wow-tooltip-exporter` folder into the Retail game's `_retail_/Interface/AddOns/` folder.
-2. Rename the folder to `WoWTooltipExporter` if desired (keep the `.toc` and `.lua` together).
+2. Keep the folder named `WowTooltipExporter` so it matches `WowTooltipExporter.toc`; keep the `.toc` and `.lua` together.
 3. Enable **WoW Tooltip Exporter** on the character-select AddOns screen.
 4. Log in and enter `/wgte help`.
 
@@ -21,7 +21,7 @@ Then **log out normally** so WoW writes the SavedVariables file:
 
 `WTF/Account/<account>/SavedVariables/WoWTooltipExporter.lua`
 
-The saved table is `WoWTooltipExporterDB.items`, keyed by item ID. Copy that file into a private working copy for analysis; do not commit character/account data or other personal SavedVariables.
+The saved table is `WoWTooltipExporterDB.items`, keyed by item ID. Convert it into the format the web app can read with `node scripts/convert-wow-tooltip-export.js /path/to/WoWTooltipExporter.lua data/blizzard-tooltip-lines.json`. Then add the generated `data/blizzard-tooltip-lines.json` to the tooltip branch and reload the app; it will prefer captured Blizzard lines for items that have them and use the fallback only for uncaptured items. Copy only this exporter file into a private working copy for analysis; do not commit character/account data or other personal SavedVariables.
 
 Commands:
 - `/wgte <itemID> [itemID...]` — capture a batch.
@@ -32,6 +32,11 @@ Commands:
 ## What to export first
 
 Start with representative items covering equipment types and tooltip features: a weapon, armor, ring, trinket with an effect, tier-set piece, item with sockets, crafted item, and an item with an upgrade track. Then export the verified current-season item IDs in batches.
+
+## Blizzard references
+
+- [TooltipInfo API documentation](https://github.com/Gethe/wow-ui-source/blob/live/Interface/AddOns/Blizzard_APIDocumentationGenerated/TooltipInfoDocumentation.lua) documents `C_TooltipInfo.GetItemByID` and the structured return data.
+- [Blizzard UI source mirror](https://github.com/Gethe/wow-ui-source/tree/live/Interface/AddOns/Blizzard_SharedXML) contains shared tooltip templates; use the matching tooltip templates from the current client build when comparing visual layout.
 
 ## Data strategy
 
