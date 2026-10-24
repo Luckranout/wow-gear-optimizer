@@ -14,7 +14,7 @@ const lua = [
   '    ["212406"] = { itemID = 212406, error = "Tooltip unavailable" },',
   "  },",
   "}",
-].join("\\n");
+].join("\n");
 const parsed = parseSavedVariables(lua);
 assert.equal(Object.keys(parsed.items).length, 2);
 assert.equal(parsed.items["212405"].itemID, 212405);
