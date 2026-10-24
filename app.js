@@ -181,6 +181,16 @@ function renderCapturedBlizzardTooltip(item, captured) {
   return '<div class="item-hover-tooltip item-hover-tooltip-blizzard" role="tooltip">' + html + '</div>';
 }
 
+function renderWowheadItemLink(item, innerMarkup, className = "") {
+  const rawId = item?.id ?? item?.itemId ?? item?.itemID;
+  const itemId = Number(rawId);
+  if (!Number.isSafeInteger(itemId) || itemId <= 0) return innerMarkup;
+  const safeId = String(itemId);
+  return '<a class="wowhead-item-link ' + className + '" href="https://www.wowhead.com/item=' + safeId +
+    '" data-wowhead="item=' + safeId + '" aria-label="' + escapeSlotText(item?.name || "View item tooltip") + '">' +
+    innerMarkup + '</a>';
+}
+
 function renderItemHoverTooltip(item) {
   if (!item) return "";
   const itemId = item.id ?? item.itemId ?? item.itemID;
@@ -312,7 +322,7 @@ function renderSlots() {
     return `<div class="slot" data-item-id="${escapeSlotText(item.id)}">
       <div class="slot-name">${escapeSlotText(slot)}</div>
       <div class="slot-item">
-        <div class="slot-icon-wrap"><div class="slot-icon" tabindex="0" aria-label="Item icon for ${escapeSlotText(item.name || slot)}">…</div>${renderItemHoverTooltip(item)}</div>
+        <div class="slot-icon-wrap">${renderWowheadItemLink(item, '<span class="slot-icon" aria-label="Item icon for ${escapeSlotText(item.name || slot)}">…</span>', "slot-wowhead-link")}</div>
         <div class="slot-details">
           <div class="slot-item-name">${escapeSlotText(item.name || "Unknown item")}</div>
           <div class="slot-status">${displayItemLevel(item.itemLevel) != null ? `Item level ${escapeSlotText(displayItemLevel(item.itemLevel))}` : "Item level unavailable"}</div>
@@ -650,7 +660,7 @@ function renderLoadoutItemCard(item, label, emptyText) {
   return '<section class="compare-item">' +
     '<h4>' + escapeSlotText(label) + '</h4>' +
     '<div class="compare-item-heading">' +
-      '<span class="compare-icon-wrap"><span class="compare-icon" tabindex="0" data-item-icon-id="' + escapeSlotText(item.id || "") + '" aria-label="Item icon; hover or focus to view stats">Item</span>' + renderItemHoverTooltip(item) + '</span>' +
+      '<span class="compare-icon-wrap">' + renderWowheadItemLink(item, '<span class="compare-icon" data-item-icon-id="' + escapeSlotText(item.id || "") + '" aria-label="Item icon; hover or focus to view item tooltip">Item</span>', "compare-wowhead-link") + '</span>' +
       '<div class="compare-item-meta"><strong>' + escapeSlotText(item.name || "Unnamed item") + '</strong>' +
       '<span>' + (itemLevel ? 'Item level ' + escapeSlotText(itemLevel) : 'Item level unavailable') + '</span></div>' +
     '</div>' +
