@@ -21,6 +21,7 @@ assert.equal(parsed.items["212405"].itemID, 212405);
 assert.equal(parsed.items["212405"].lines.length, 2);
 assert.equal(parsed.items["212405"].lines[0].leftText, "Example Sword");
 assert.equal(parsed.items["212405"].lines[0].leftColor.r, 1);
-assert.equal(parsed.items["212405"].lines[1].rightText, null);
+assert.equal(parsed.items["212405"].lines[0].rightText, null);
+assert.equal(parsed.items["212405"].lines[1].rightText, "+12");
 assert.equal(parsed.items["212406"].error, "Tooltip unavailable");
 console.log("WoW tooltip SavedVariables converter tests passed.");
