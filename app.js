@@ -181,6 +181,13 @@ function renderCapturedBlizzardTooltip(item, captured) {
   return '<div class="item-hover-tooltip item-hover-tooltip-blizzard" role="tooltip">' + html + '</div>';
 }
 
+function refreshWowheadLinks() {
+  // Wowhead's supported refresh method is needed because gear cards are rendered dynamically.
+  if (window.$WowheadPower && typeof window.$WowheadPower.refreshLinks === "function") {
+    window.$WowheadPower.refreshLinks();
+  }
+}
+
 function renderWowheadItemLink(item, innerMarkup, className = "") {
   const rawId = item?.id ?? item?.itemId ?? item?.itemID;
   const itemId = Number(rawId);
@@ -331,6 +338,7 @@ function renderSlots() {
       </div>
     </div>`;
   }).join("");
+  refreshWowheadLinks();
   renderGemSummary(importedCharacter?.equipment || []);
 
   const renderToken = importedCharacter;
@@ -712,6 +720,7 @@ function renderOptimizedLoadout(equipment = {}, score = 0, currentEquipment = {}
       '</section>' +
     '</article>';
   }).join("") + '<div class="loadout-summary"><strong>Recommended target score: ' + escapeSlotText(formatGearScore(score)) + '</strong><span>Goal/spec-weighted catalog scoring. Item stats are shown only when present in the catalog or character import; unavailable data is not inferred.</span></div>';
+  refreshWowheadLinks();
 
   const renderToken = importedCharacter;
   [...loadoutResults.querySelectorAll("[data-item-icon-id]")].forEach(async node => {
