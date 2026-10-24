@@ -74,9 +74,27 @@ async function loadRealmOptions() {
   }
 }
 
+async function loadBlizzardTooltipData() {
+  // Optional dataset produced by scripts/convert-wow-tooltip-export.js from the
+  // in-game addon's SavedVariables. A missing file leaves the current fallback usable.
+  if (!retailDataset) return;
+  retailDataset.blizzardTooltipItems = {};
+  try {
+    const response = await fetch("data/blizzard-tooltip-lines.json", { cache: "no-store" });
+    if (!response.ok) return;
+    const payload = await response.json();
+    if (payload?.items && typeof payload.items === "object" && !Array.isArray(payload.items)) {
+      retailDataset.blizzardTooltipItems = payload.items;
+    }
+  } catch {
+    // Captured tooltips are an optional enhancement; never block gear optimization.
+  }
+}
+
 async function loadCurrentRetailData() {
   try {
     retailDataset = await WoWData.loadRetailDataset();
+    await loadBlizzardTooltipData();
     // WoWData loads the optional tier catalogue. Core gear loading remains
     // usable even when that enhancement is unavailable; the report shows coverage.
     if (encounterSelect) {
@@ -134,51 +152,114 @@ function getItemQualityClass(item) {
     : "item-quality-unknown";
 }
 
+function tooltipColorStyle(color) {
+  if (!color || typeof color !== "object") return "";
+  const channels = ["r", "g", "b"].map(key => Number(color[key]));
+  if (!channels.every(Number.isFinite)) return "";
+  const rgb = channels.map(value => Math.round(Math.max(0, Math.min(1, value)) * 255));
+  return "color: rgb(" + rgb.join(", ") + ");";
+}
+
+function renderCapturedBlizzardTooltip(item, captured) {
+  const lines = Array.isArray(captured?.lines) ? captured.lines : [];
+  if (!lines.length) return "";
+  const html = lines.map(line => {
+    const type = Number.isInteger(Number(line?.type)) ? Number(line.type) : -1;
+    const leftText = line?.leftText == null ? "" : String(line.leftText);
+    const rightText = line?.rightText == null ? "" : String(line.rightText);
+    if (type === 1 || (!leftText && !rightText)) {
+      return '<div class="item-hover-blizzard-blank" aria-hidden="true"></div>';
+    }
+    const leftStyle = tooltipColorStyle(line?.leftColor);
+    const rightStyle = tooltipColorStyle(line?.rightColor || line?.leftColor);
+    const wrapClass = line?.wrapText ? " is-wrapped" : "";
+    return '<div class="item-hover-blizzard-line item-hover-blizzard-line-type-' + type + wrapClass + '">' +
+      '<span class="item-hover-blizzard-left"' + (leftStyle ? ' style="' + leftStyle + '"' : "") + '>' + escapeSlotText(leftText) + '</span>' +
+      (rightText ? '<span class="item-hover-blizzard-right"' + (rightStyle ? ' style="' + rightStyle + '"' : "") + '>' + escapeSlotText(rightText) + '</span>' : "") +
+      '</div>';
+  }).join("");
+  return '<div class="item-hover-tooltip item-hover-tooltip-blizzard" role="tooltip">' + html + '</div>';
+}
+
+function refreshWowheadLinks() {
+  // Wowhead's supported refresh method is needed because gear cards are rendered dynamically.
+  if (window.$WowheadPower && typeof window.$WowheadPower.refreshLinks === "function") {
+    window.$WowheadPower.refreshLinks();
+  }
+}
+
+function renderWowheadItemLink(item, innerMarkup, className = "") {
+  const rawId = item?.id ?? item?.itemId ?? item?.itemID;
+  const itemId = Number(rawId);
+  if (!Number.isSafeInteger(itemId) || itemId <= 0) return innerMarkup;
+  const safeId = String(itemId);
+  return '<a class="wowhead-item-link ' + className + '" href="https://www.wowhead.com/item=' + safeId +
+    '" data-wowhead="item=' + safeId + '" aria-label="' + escapeSlotText(item?.name || "View item tooltip") + '">' +
+    innerMarkup + '</a>';
+}
+
 function renderItemHoverTooltip(item) {
+  if (!item) return "";
+  const itemId = item.id ?? item.itemId ?? item.itemID;
+  const captured = item.blizzardTooltip || retailDataset?.blizzardTooltipItems?.[String(itemId)];
+  const capturedMarkup = renderCapturedBlizzardTooltip(item, captured);
+  if (capturedMarkup) return capturedMarkup;
   if (!item) return "";
   const level = displayItemLevel(item.itemLevel ?? item.level);
   const stats = typeof getLoadoutItemStats === "function" ? getLoadoutItemStats(item) : {};
   const statRows = Object.entries(stats).map(([name, value]) =>
-    '<div class="item-hover-stat"><span>' + escapeSlotText(name) + '</span><strong>+' + escapeSlotText(Number(value).toLocaleString()) + '</strong></div>'
+    '<div class="item-hover-stat">+' + escapeSlotText(Number(value).toLocaleString()) + ' ' + escapeSlotText(name) + '</div>'
   ).join("");
   const qualityClass = getItemQualityClass(item);
   const variantSource = String(item.variantSource || item.statsSource || "");
   const upgradeLabel = /myth/i.test(variantSource) ? "Mythic" : /hero/i.test(variantSource) ? "Hero" : /champ/i.test(variantSource) ? "Champion" : "";
-  const sourceLocations = Array.isArray(item.sourceLocations) ? item.sourceLocations : [];
-  const dropSource = sourceLocations.map(source => [source.encounter, source.instance].filter(Boolean).join(" — ")).find(Boolean);
-  const description = String(item.description || "").trim();
-  const requiredLevel = Number(item.requiredLevel);
-  const slotName = String(item.inventoryType?.name || item.slot || "");
+  const description = String(item.wowheadEffectText || item.trinketEffect?.text || item.description || "").trim();
+  const itemType = [item.itemClass?.name || item.itemClass, item.itemSubclass?.name || item.itemSubclass]
+    .filter(value => typeof value === "string" && value.trim()).join(" — ");
+  const slotName = String(item.inventoryType?.name || item.slot || "").trim();
+  const bindType = typeof item.bindType === "object" ? item.bindType?.name : item.bindType;
   const unique = item.uniqueEquipped || item.unique_equipped || "";
-  const metadataRows = [
-    upgradeLabel ? '<div class="item-hover-track">' + escapeSlotText(upgradeLabel) + '</div>' : "",
-    item.upgradeTrack ? '<div class="item-hover-track">' + escapeSlotText(item.upgradeTrack) + '</div>' : "",
-    item.bindType ? '<div class="item-hover-meta">' + escapeSlotText(item.bindType) + '</div>' : "",
-    unique ? '<div class="item-hover-meta">' + escapeSlotText(unique === true ? "Unique-Equipped" : unique) + '</div>' : "",
-    slotName ? '<div class="item-hover-meta">' + escapeSlotText(slotName) + '</div>' : ""
-  ].filter(Boolean).join("");
-  const wowheadText = String(item.wowheadTooltipText || "").trim();
-  const effectText = String(item.wowheadEffectText || item.trinketEffect?.text || description).trim();
-  const effect = effectText ? '<div class="item-hover-effect">' + escapeSlotText(effectText) + '</div>' : "";
-  const effectTiming = item.trinketEffect ? [
+  const requiredLevel = Number(item.requiredLevel);
+  const armor = Number(item.armor?.value ?? item.armor);
+  const weaponDamage = item.weaponDamage || item.damage;
+  const damageMin = Number(weaponDamage?.minValue ?? weaponDamage?.min ?? weaponDamage?.minDamage);
+  const damageMax = Number(weaponDamage?.maxValue ?? weaponDamage?.max ?? weaponDamage?.maxDamage);
+  const attackSpeed = Number(item.attackSpeed?.value ?? item.attackSpeed);
+  const dps = Number(item.dps?.value ?? item.dps);
+  const hasDamage = Number.isFinite(damageMin) && damageMin > 0 && Number.isFinite(damageMax) && damageMax >= damageMin;
+  const armorRow = Number.isFinite(armor) && armor > 0 ? '<div class="item-hover-stat">' + escapeSlotText(armor.toLocaleString()) + ' Armor</div>' : "";
+  const damageRow = hasDamage
+    ? '<div class="item-hover-stat">' + escapeSlotText(damageMin.toLocaleString()) + ' - ' + escapeSlotText(damageMax.toLocaleString()) + ' Damage</div>' +
+      (Number.isFinite(attackSpeed) && attackSpeed > 0 ? '<div class="item-hover-stat">Speed ' + escapeSlotText(attackSpeed.toFixed(2)) + '</div>' : "") +
+      (Number.isFinite(dps) && dps > 0 ? '<div class="item-hover-stat">(' + escapeSlotText(dps.toFixed(1)) + ' damage per second)</div>' : "")
+    : "";
+  const upgradeLine = item.upgradeTrack
+    ? '<div class="item-hover-track">' + escapeSlotText(item.upgradeTrack) + '</div>'
+    : upgradeLabel ? '<div class="item-hover-track">' + escapeSlotText(upgradeLabel) + '</div>' : "";
+  const bindLine = typeof bindType === "string" && bindType.trim()
+    ? '<div class="item-hover-meta">' + escapeSlotText(bindType) + '</div>' : "";
+  const typeLine = itemType ? '<div class="item-hover-meta">' + escapeSlotText(itemType) + '</div>' : "";
+  const slotLine = slotName ? '<div class="item-hover-meta">' + escapeSlotText(slotName) + '</div>' : "";
+  const uniqueLine = unique
+    ? '<div class="item-hover-meta">' + escapeSlotText(unique === true ? "Unique-Equipped" : unique) + '</div>' : "";
+  const requiredLine = requiredLevel > 0
+    ? '<div class="item-hover-meta">Requires Level ' + escapeSlotText(requiredLevel) + '</div>' : "";
+  const effectLine = description ? '<div class="item-hover-effect">' + escapeSlotText(description) + '</div>' : "";
+  const timingLines = item.trinketEffect ? [
     Number.isFinite(Number(item.trinketEffect.durationSeconds)) ? 'Duration: ' + Number(item.trinketEffect.durationSeconds) + ' sec' : "",
-    Number.isFinite(Number(item.trinketEffect.cooldownSeconds)) ? 'Cooldown: ' + Number(item.trinketEffect.cooldownSeconds) + ' sec' : "",
-    item.trinketEffect.scoringMethod ? 'Effect scoring: ' + item.trinketEffect.scoringMethod : ""
+    Number.isFinite(Number(item.trinketEffect.cooldownSeconds)) ? 'Cooldown: ' + Number(item.trinketEffect.cooldownSeconds) + ' sec' : ""
   ].filter(Boolean).join(" • ") : "";
-  const tooltipDetails = wowheadText ? '<details class="item-hover-full-tooltip"><summary>Full Wowhead tooltip</summary><pre>' + escapeSlotText(wowheadText) + '</pre></details>' : "";
-  const timing = effectTiming ? '<div class="item-hover-meta item-hover-timing">' + escapeSlotText(effectTiming) + '</div>' : "";
-  const required = requiredLevel > 0 ? '<div class="item-hover-meta">Requires Level ' + escapeSlotText(requiredLevel) + '</div>' : "";
-  const source = dropSource ? '<div class="item-hover-meta item-hover-source">Dropped by: ' + escapeSlotText(dropSource) + '</div>' : "";
+  const timingLine = timingLines ? '<div class="item-hover-meta">' + escapeSlotText(timingLines) + '</div>' : "";
+  const socketValues = Array.isArray(item.sockets) ? item.sockets : [];
+  const socketLine = socketValues.length
+    ? '<div class="item-hover-meta">' + escapeSlotText(socketValues.map(socket => socket?.socketType?.name || socket?.type?.name || socket?.type || "Socket").join(", ")) + '</div>'
+    : "";
   return '<div class="item-hover-tooltip" role="tooltip">' +
-    '<div class="item-hover-heading">' +
-      '<img class="item-hover-image" data-item-tooltip-image-id="' + escapeSlotText(item.id || "") + '" alt="" />' +
-      '<div><a class="item-hover-name ' + qualityClass + '" href="https://www.wowhead.com/item=' + encodeURIComponent(String(item.id || "")) + '" target="_blank" rel="noopener noreferrer">' + escapeSlotText(item.name || "Unknown item") + '</a>' +
-      (upgradeLabel ? '<span class="item-hover-rarity">' + escapeSlotText(upgradeLabel) + '</span>' : '') +
-      '<span>' + (level ? 'Item Level ' + escapeSlotText(level) : 'Item level unavailable') + '</span></div>' +
-    '</div>' +
-    metadataRows +
+    '<div class="item-hover-name ' + qualityClass + '">' + escapeSlotText(item.name || "Unknown item") + '</div>' +
+    '<div class="item-hover-level">' + (level ? 'Item Level ' + escapeSlotText(level) : 'Item level unavailable') + '</div>' +
+    upgradeLine + bindLine + typeLine + slotLine + armorRow + damageRow +
     '<div class="item-hover-stats">' + (statRows || '<span class="item-hover-no-stats">Verified stats unavailable</span>') + '</div>' +
-    effect + timing + tooltipDetails + required + source +
+    socketLine + uniqueLine + effectLine + timingLine + requiredLine +
   '</div>';
 }
 
@@ -248,7 +329,7 @@ function renderSlots() {
     return `<div class="slot" data-item-id="${escapeSlotText(item.id)}">
       <div class="slot-name">${escapeSlotText(slot)}</div>
       <div class="slot-item">
-        <div class="slot-icon-wrap"><div class="slot-icon" tabindex="0" aria-label="Item icon for ${escapeSlotText(item.name || slot)}">…</div>${renderItemHoverTooltip(item)}</div>
+        <div class="slot-icon-wrap">${renderWowheadItemLink(item, '<span class="slot-icon" aria-label="Item icon for ${escapeSlotText(item.name || slot)}">…</span>', "slot-wowhead-link")}</div>
         <div class="slot-details">
           <div class="slot-item-name">${escapeSlotText(item.name || "Unknown item")}</div>
           <div class="slot-status">${displayItemLevel(item.itemLevel) != null ? `Item level ${escapeSlotText(displayItemLevel(item.itemLevel))}` : "Item level unavailable"}</div>
@@ -257,6 +338,7 @@ function renderSlots() {
       </div>
     </div>`;
   }).join("");
+  refreshWowheadLinks();
   renderGemSummary(importedCharacter?.equipment || []);
 
   const renderToken = importedCharacter;
@@ -586,7 +668,7 @@ function renderLoadoutItemCard(item, label, emptyText) {
   return '<section class="compare-item">' +
     '<h4>' + escapeSlotText(label) + '</h4>' +
     '<div class="compare-item-heading">' +
-      '<span class="compare-icon-wrap"><span class="compare-icon" tabindex="0" data-item-icon-id="' + escapeSlotText(item.id || "") + '" aria-label="Item icon; hover or focus to view stats">Item</span>' + renderItemHoverTooltip(item) + '</span>' +
+      '<span class="compare-icon-wrap">' + renderWowheadItemLink(item, '<span class="compare-icon" data-item-icon-id="' + escapeSlotText(item.id || "") + '" aria-label="Item icon; hover or focus to view item tooltip">Item</span>', "compare-wowhead-link") + '</span>' +
       '<div class="compare-item-meta"><strong>' + escapeSlotText(item.name || "Unnamed item") + '</strong>' +
       '<span>' + (itemLevel ? 'Item level ' + escapeSlotText(itemLevel) : 'Item level unavailable') + '</span></div>' +
     '</div>' +
@@ -638,6 +720,7 @@ function renderOptimizedLoadout(equipment = {}, score = 0, currentEquipment = {}
       '</section>' +
     '</article>';
   }).join("") + '<div class="loadout-summary"><strong>Recommended target score: ' + escapeSlotText(formatGearScore(score)) + '</strong><span>Goal/spec-weighted catalog scoring. Item stats are shown only when present in the catalog or character import; unavailable data is not inferred.</span></div>';
+  refreshWowheadLinks();
 
   const renderToken = importedCharacter;
   [...loadoutResults.querySelectorAll("[data-item-icon-id]")].forEach(async node => {

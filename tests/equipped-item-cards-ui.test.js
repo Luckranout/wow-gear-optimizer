@@ -56,23 +56,52 @@ if (!endpoint.includes("BLIZZARD_CLIENT_SECRET")) throw new Error("Blizzard cred
 console.log("Equipped item cards UI contract passed.");
 
 
-// Item icons should expose a keyboard-accessible hover/focus tooltip with artwork,
-// item level, and the item's explicitly supplied stats.
+// Item icons should expose a keyboard-accessible hover/focus tooltip with Blizzard-style
+// text ordering and explicitly supplied stats; the tooltip itself does not add custom artwork.
 for (const required of [
   "renderItemHoverTooltip(item)",
-  "data-item-tooltip-image-id",
+  "item-hover-name",
+  "item-hover-level",
   "item-hover-stats",
   "item-hover-stat",
-  "hover or focus to view stats"
+  "renderWowheadItemLink(item"
 ]) {
   if (!app.includes(required)) throw new Error("Item hover tooltip missing behavior: " + required);
 }
 if (!styles.includes(".slot-icon-wrap:hover .item-hover-tooltip") ||
     !styles.includes(".compare-icon-wrap:focus-within .item-hover-tooltip") ||
-    !styles.includes(".item-hover-image")) {
-  throw new Error("Item tooltip must appear on hover/focus and display item artwork.");
+    !styles.includes(".item-hover-name.item-quality-epic")) {
+  throw new Error("Item tooltip must appear on hover/focus and use Blizzard rarity colors.");
 }
-console.log("Item icon hover tooltip UI contract passed.");
+console.log("Blizzard-style item tooltip UI contract passed.");
+
+for (const required of [
+  "loadBlizzardTooltipData()",
+  "data/blizzard-tooltip-lines.json",
+  "renderCapturedBlizzardTooltip(item, captured)",
+  "tooltipColorStyle(line?.leftColor)"
+]) {
+  if (!app.includes(required)) throw new Error("Captured Blizzard tooltip data integration missing: " + required);
+}
+if (!styles.includes(".item-hover-tooltip-blizzard") ||
+    !styles.includes(".item-hover-blizzard-line-type-22")) {
+  throw new Error("Captured Blizzard tooltip rows must preserve tooltip-specific line layout.");
+}
+console.log("Captured Blizzard tooltip data integration contract passed.");
+
+if (!app.includes('data-wowhead="item=') ||
+    !app.includes('https://www.wowhead.com/item=') ||
+    !app.includes('class="wowhead-item-link ') ||
+    !app.includes('$WowheadPower.refreshLinks()') ||
+    !app.includes('refreshWowheadLinks();')) {
+  throw new Error("Equipped and recommended item icons must use Wowhead's live tooltip renderer and refresh dynamically created links.");
+}
+const page = fs.readFileSync("index.html", "utf8");
+if (!page.includes("https://wow.zamimg.com/js/tooltips.js") ||
+    !page.includes("hide: { extra: true }")) {
+  throw new Error("Wowhead tooltips must load with non-game-only tooltip details hidden.");
+}
+console.log("Wowhead live item tooltip integration contract passed.");
 
 if (!app.includes("function getItemQualityClass(item)") ||
     !app.includes('4: "epic"') ||
