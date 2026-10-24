@@ -74,9 +74,27 @@ async function loadRealmOptions() {
   }
 }
 
+async function loadBlizzardTooltipData() {
+  // Optional dataset produced by scripts/convert-wow-tooltip-export.js from the
+  // in-game addon's SavedVariables. A missing file leaves the current fallback usable.
+  if (!retailDataset) return;
+  retailDataset.blizzardTooltipItems = {};
+  try {
+    const response = await fetch("data/blizzard-tooltip-lines.json", { cache: "no-store" });
+    if (!response.ok) return;
+    const payload = await response.json();
+    if (payload?.items && typeof payload.items === "object" && !Array.isArray(payload.items)) {
+      retailDataset.blizzardTooltipItems = payload.items;
+    }
+  } catch {
+    // Captured tooltips are an optional enhancement; never block gear optimization.
+  }
+}
+
 async function loadCurrentRetailData() {
   try {
     retailDataset = await WoWData.loadRetailDataset();
+    await loadBlizzardTooltipData();
     // WoWData loads the optional tier catalogue. Core gear loading remains
     // usable even when that enhancement is unavailable; the report shows coverage.
     if (encounterSelect) {
@@ -134,7 +152,41 @@ function getItemQualityClass(item) {
     : "item-quality-unknown";
 }
 
+function tooltipColorStyle(color) {
+  if (!color || typeof color !== "object") return "";
+  const channels = ["r", "g", "b"].map(key => Number(color[key]));
+  if (!channels.every(Number.isFinite)) return "";
+  const rgb = channels.map(value => Math.round(Math.max(0, Math.min(1, value)) * 255));
+  return "color: rgb(" + rgb.join(", ") + ");";
+}
+
+function renderCapturedBlizzardTooltip(item, captured) {
+  const lines = Array.isArray(captured?.lines) ? captured.lines : [];
+  if (!lines.length) return "";
+  const html = lines.map(line => {
+    const type = Number.isInteger(Number(line?.type)) ? Number(line.type) : -1;
+    const leftText = line?.leftText == null ? "" : String(line.leftText);
+    const rightText = line?.rightText == null ? "" : String(line.rightText);
+    if (type === 1 || (!leftText && !rightText)) {
+      return '<div class="item-hover-blizzard-blank" aria-hidden="true"></div>';
+    }
+    const leftStyle = tooltipColorStyle(line?.leftColor);
+    const rightStyle = tooltipColorStyle(line?.rightColor || line?.leftColor);
+    const wrapClass = line?.wrapText ? " is-wrapped" : "";
+    return '<div class="item-hover-blizzard-line item-hover-blizzard-line-type-' + type + wrapClass + '">' +
+      '<span class="item-hover-blizzard-left"' + (leftStyle ? ' style="' + leftStyle + '"' : "") + '>' + escapeSlotText(leftText) + '</span>' +
+      (rightText ? '<span class="item-hover-blizzard-right"' + (rightStyle ? ' style="' + rightStyle + '"' : "") + '>' + escapeSlotText(rightText) + '</span>' : "") +
+      '</div>';
+  }).join("");
+  return '<div class="item-hover-tooltip item-hover-tooltip-blizzard" role="tooltip">' + html + '</div>';
+}
+
 function renderItemHoverTooltip(item) {
+  if (!item) return "";
+  const itemId = item.id ?? item.itemId ?? item.itemID;
+  const captured = item.blizzardTooltip || retailDataset?.blizzardTooltipItems?.[String(itemId)];
+  const capturedMarkup = renderCapturedBlizzardTooltip(item, captured);
+  if (capturedMarkup) return capturedMarkup;
   if (!item) return "";
   const level = displayItemLevel(item.itemLevel ?? item.level);
   const stats = typeof getLoadoutItemStats === "function" ? getLoadoutItemStats(item) : {};
