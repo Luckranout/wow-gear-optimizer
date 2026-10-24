@@ -398,7 +398,7 @@ footer {
 .loadout-upgrade-reason p { margin:5px 0 0; color:var(--muted); font-size:12px; line-height:1.5; }
 
 
-/* Item tooltip shown when an item icon is hovered or keyboard-focused. */
+/* Shared Blizzard-inspired item tooltip used by equipped and recommended items. */
 .slot-icon-wrap,.compare-icon-wrap { position:relative; display:inline-flex; flex:0 0 auto; vertical-align:middle; }
 .slot-icon-wrap { align-self:center; }
 .item-hover-tooltip {
@@ -407,81 +407,49 @@ footer {
   z-index:1000;
   left:calc(100% + 10px);
   top:0;
-  width: min(300px, calc(100vw - 32px));
-  padding:12px;
-  border:1px solid #8c6a32;
-  border-radius:10px;
-  background:linear-gradient(180deg,#171c26,#090c12);
-  box-shadow:0 14px 36px rgba(0,0,0,.72);
-  color:var(--text);
+  width:min(280px,calc(100vw - 28px));
+  padding:8px 9px;
+  border:1px solid #687b9c;
+  border-radius:2px;
+  background:linear-gradient(180deg,#101a2b 0%,#050914 100%);
+  box-shadow:0 5px 18px rgba(0,0,0,.78),inset 0 0 0 1px rgba(155,180,220,.08);
+  color:#f2f2f2;
   text-align:left;
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:12px;
+  line-height:1.35;
   pointer-events:none;
+  overflow-wrap:anywhere;
 }
 .slot-icon-wrap:hover .item-hover-tooltip,
 .slot-icon-wrap:focus-within .item-hover-tooltip,
 .compare-icon-wrap:hover .item-hover-tooltip,
 .compare-icon-wrap:focus-within .item-hover-tooltip { display:block; }
 .slot-icon-wrap .item-hover-tooltip { top:-6px; }
-/* In recommendation cards, open the tooltip below the item card so it
-   doesn't cover the equipped item's own name and stat rows. */
 .compare-icon-wrap .item-hover-tooltip { top:calc(100% + 8px); left:0; }
-.loadout-compare-pair .compare-item:nth-child(2) .compare-icon-wrap .item-hover-tooltip {
-  left:auto;
-  right:0;
-}
-.item-hover-heading { display:flex; gap:10px; align-items:center; padding-bottom:9px; border-bottom:1px solid var(--border); }
-.item-hover-image { width:64px; height:64px; flex:0 0 64px; border:1px solid #8c6a32; border-radius:7px; background:#0b0f16; object-fit:cover; }
-.item-hover-heading strong { display:block; color:#f0c76a; font-size:13px; line-height:1.4; overflow-wrap:anywhere; }
-.item-hover-heading span { display:block; color:var(--muted); font-size:11px; margin-top:4px; }
-.item-hover-stats { display:grid; gap:5px; margin-top:8px; }
-.item-hover-stat { display:flex; justify-content:space-between; gap:12px; font-size:12px; line-height:1.35; }
-.item-hover-stat span { color:#c6ced9; }
-.item-hover-stat strong { color:#fff; font-variant-numeric:tabular-nums; }
-.item-hover-no-stats { color:var(--muted); font-size:11px; }
-@media(max-width:640px) {
-  .item-hover-tooltip { left:0; top:calc(100% + 8px); }
-  .slot-icon-wrap .item-hover-tooltip,.compare-icon-wrap .item-hover-tooltip { left:0; top:calc(100% + 8px); }
-}
-
-/* WoW-style item rarity colors for names in the hover tooltip. */
-.item-hover-name { color:#f0c76a; }
+.loadout-compare-pair .compare-item:nth-child(2) .compare-icon-wrap .item-hover-tooltip { left:auto; right:0; }
+.item-hover-name { display:block; margin:0 0 2px; font-size:13px; line-height:1.35; font-weight:700; }
 .item-hover-name.item-quality-poor { color:#9d9d9d; }
-.item-hover-name.item-quality-common { color:#ffffff; }
+.item-hover-name.item-quality-common { color:#fff; }
 .item-hover-name.item-quality-uncommon { color:#1eff00; }
 .item-hover-name.item-quality-rare { color:#0070dd; }
 .item-hover-name.item-quality-epic { color:#a335ee; }
 .item-hover-name.item-quality-legendary { color:#ff8000; }
 .item-hover-name.item-quality-artifact { color:#e6cc80; }
-.item-hover-name.item-quality-heirloom { color:#00ccff; }
-.item-hover-name.item-quality-wow-token { color:#00ccff; }
-
-.item-hover-name { display:block; font-size:13px; line-height:1.4; font-weight:700; overflow-wrap:anywhere; text-decoration:none; }
-.item-hover-name:hover,.item-hover-name:focus-visible { text-decoration:underline; }
-
-/* Expanded, data-grounded WoW-style tooltip details. */
-.item-hover-track { color:#1eff00; font-size:11px; line-height:1.35; margin-top:2px; }
-.item-hover-meta { color:#f0f2f5; font-size:11px; line-height:1.35; margin-top:3px; }
-.item-hover-rarity { color:#1eff00 !important; }
-.item-hover-effect { color:#1eff00; font-size:11px; line-height:1.4; margin-top:7px; overflow-wrap:anywhere; }
-.item-hover-effect strong { color:#1eff00; }
-.item-hover-source { color:#c6ced9; margin-top:7px; }
-.item-hover-tooltip { border-color:#8c8c8c; border-radius:3px; background:#050817; padding:9px; width:min(292px,calc(100vw - 32px)); }
-.item-hover-heading { border-bottom:0; padding-bottom:5px; }
-.item-hover-image { border-radius:2px; }
-.item-hover-stats { border-top:1px solid #242b3a; padding-top:5px; margin-top:5px; }
-
-/* Full, escaped Wowhead tooltip text and cooldown metadata inside item hover cards. */
-.item-hover-full-tooltip { margin-top: 8px; border-top: 1px solid #242b3a; padding-top: 6px; }
-.item-hover-full-tooltip summary { cursor: pointer; color: #d8c17b; font-size: 11px; }
-.item-hover-full-tooltip pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 240px; overflow: auto; margin: 6px 0 0; color: #d7deea; font: inherit; font-size: 11px; line-height: 1.45; }
-.item-hover-timing { color: #d8c17b; }
-
-.item-hover-full-tooltip { margin-top: 8px; border-top: 1px solid #242b3a; padding-top: 6px; }
-.item-hover-full-tooltip summary { cursor: pointer; color: #d8c17b; font-size: 11px; }
-.item-hover-full-tooltip pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 240px; overflow: auto; margin: 6px 0 0; color: #d7deea; font: inherit; font-size: 11px; line-height: 1.45; }
-.item-hover-timing { color: #d8c17b; }
-
-
+.item-hover-name.item-quality-heirloom,.item-hover-name.item-quality-wow-token { color:#00ccff; }
+.item-hover-name.item-quality-unknown { color:#f0c76a; }
+.item-hover-level { color:#ffd100; margin-bottom:5px; }
+.item-hover-track { color:#1eff00; margin:2px 0; }
+.item-hover-meta { color:#f2f2f2; margin:1px 0; }
+.item-hover-stats { display:grid; gap:1px; margin-top:5px; }
+.item-hover-stat { color:#f2f2f2; font-size:12px; line-height:1.35; }
+.item-hover-effect { color:#1eff00; margin-top:6px; line-height:1.4; }
+.item-hover-timing { color:#1eff00; }
+.item-hover-no-stats { color:#c6ced9; font-size:11px; }
+@media(max-width:640px) {
+  .item-hover-tooltip { left:0; top:calc(100% + 8px); }
+  .slot-icon-wrap .item-hover-tooltip,.compare-icon-wrap .item-hover-tooltip { left:0; top:calc(100% + 8px); }
+}
 /* Equipped vs recommended full-loadout diminishing-return comparison. */
 .dr-table-wrap { width: 100%; overflow-x: auto; }
 .dr-comparison-table { width: 100%; min-width: 940px; border-collapse: collapse; font-size: 12px; }
