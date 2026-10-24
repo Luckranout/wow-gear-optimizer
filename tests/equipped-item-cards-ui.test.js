@@ -56,11 +56,12 @@ if (!endpoint.includes("BLIZZARD_CLIENT_SECRET")) throw new Error("Blizzard cred
 console.log("Equipped item cards UI contract passed.");
 
 
-// Item icons should expose a keyboard-accessible hover/focus tooltip with artwork,
-// item level, and the item's explicitly supplied stats.
+// Item icons should expose a keyboard-accessible hover/focus tooltip with Blizzard-style
+// text ordering and explicitly supplied stats; the tooltip itself does not add custom artwork.
 for (const required of [
   "renderItemHoverTooltip(item)",
-  "data-item-tooltip-image-id",
+  "item-hover-name",
+  "item-hover-level",
   "item-hover-stats",
   "item-hover-stat",
   "hover or focus to view stats"
@@ -69,10 +70,10 @@ for (const required of [
 }
 if (!styles.includes(".slot-icon-wrap:hover .item-hover-tooltip") ||
     !styles.includes(".compare-icon-wrap:focus-within .item-hover-tooltip") ||
-    !styles.includes(".item-hover-image")) {
-  throw new Error("Item tooltip must appear on hover/focus and display item artwork.");
+    !styles.includes(".item-hover-name.item-quality-epic")) {
+  throw new Error("Item tooltip must appear on hover/focus and use Blizzard rarity colors.");
 }
-console.log("Item icon hover tooltip UI contract passed.");
+console.log("Blizzard-style item tooltip UI contract passed.");
 
 if (!app.includes("function getItemQualityClass(item)") ||
     !app.includes('4: "epic"') ||
