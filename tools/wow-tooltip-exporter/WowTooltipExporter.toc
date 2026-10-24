@@ -1,0 +1,7 @@
+## Interface: 120000
+## Title: WoW Tooltip Exporter
+## Notes: Exports Blizzard client item tooltip lines for the WoW Gear Optimizer.
+## Author: WoW Gear Optimizer
+## Version: 1.0.0
+## SavedVariables: WoWTooltipExporterDB
+TooltipExporter.lua
