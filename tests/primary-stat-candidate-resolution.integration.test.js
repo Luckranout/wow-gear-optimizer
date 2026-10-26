@@ -76,7 +76,7 @@ async function verifyCandidate(directory, scenario) {
 
   const currentStats = scenario.slot === "Back"
     ? { Haste: 10, Mastery: 10, Stamina: 1000 }
-    : { Strength: 100, Stamina: 1000, Haste: 10, Mastery: 10, Versatility: 10 };
+    : { Strength: scenario.slot === "Off Hand" ? 50 : 100, Stamina: 1000, Haste: 10, Mastery: 10, Versatility: 10 };
   const current = {
     id: scenario.item.id + 100000,
     name: "Lower-level equipped " + scenario.slot,
