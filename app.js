@@ -892,6 +892,15 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
     // slot record's Wowhead lookup.
     if (existing && hasVerifiedCombatStats(existing)) continue;
     pendingById.set(id, item);
+    if (existing) {
+      // A broad retail-data duplicate can still be present even when the slot
+      // API correctly marks its upgraded variant as incomplete. Keep it out of
+      // scoring unless the pre-score Wowhead lookup resolves a complete variant.
+      byId.delete(String(id));
+      for (let index = availableItems.length - 1; index >= 0; index--) {
+        if (Number(availableItems[index]?.id) === id) availableItems.splice(index, 1);
+      }
+    }
   }
   const pendingLookupIds = [...pendingById.keys()].slice(0, 24);
   let preScoreWowheadVerified = 0;
