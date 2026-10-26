@@ -53,6 +53,7 @@ function normalizeWeaponType(value) {
     .replace(/[_-]+/g, " ")
     .replace(/\b(two|one) handed\b/g, "$1 hand");
   if (!raw || /^(weapon|melee|ranged|miscellaneous|unknown)$/.test(raw)) return "";
+  if (raw.includes("shield") || raw.includes("held in off hand") || raw.includes("off hand")) return "off-hand";
   // Blizzard subclass labels can be plural or include a hand qualifier.
   if (raw.includes("warglaive") || raw.includes("war glaive") || raw.includes("glaive")) return "warglaive";
   if (raw.includes("fist")) return "fist weapon";
