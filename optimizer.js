@@ -154,10 +154,11 @@ function itemAllowedForClassWeapon(item, slot, className) {
   const weaponType = normalizeWeaponType(rawType);
   // Missing/unrecognized weapon-subclass metadata is not enough evidence to
   // reject an item. The importer/catalog should provide itemSubclass for strict filtering.
-  if (!weaponType || !allowed.includes(weaponType)) {
-    return !weaponType;
-  }
-  return true;
+  if (!weaponType) return true;
+  // Shields and dedicated off-hand items are valid Warrior/Paladin off-hand
+  // candidates even though they are not weapon proficiency families.
+  if (weaponType === "off-hand") return slot === "Off Hand";
+  return allowed.includes(weaponType);
 }
 
 function itemAllowedForSpecialization(item, slot, className, specialization) {
