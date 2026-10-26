@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const { setCorsHeaders } = require("./cors");
 const { searchItemIds, getItem } = require("../server/blizzard-item-catalog");
+const CombatStatVerification = require("../combat-stat-verification");
 
 let sectionDir = path.join(process.cwd(), "data", "equipment-sections");
 const SLOT_SECTION = {
@@ -144,18 +145,25 @@ function allowedForSpecialization(item, className, specialization, slot) {
   return true;
 }
 
-function hasUsableStats(item) {
-  // Blizzard's base item record can contain placeholder/low-level stats while
-  // a verified Wowhead variant carries the usable upgraded stats. Evaluate
-  // both the base record and attached variants so the API does not discard an
-  // item before optimizer.js can expand its variants.
+function hasUsableStats(item, slot) {
   const hasStats = candidate => {
     const values = candidate?.stats ?? candidate?.statValues ?? candidate?.stat_values ?? candidate?.attributes;
-    if (Array.isArray(values)) return values.some(stat => Number(stat?.value ?? stat?.amount ?? stat) > 0);
-    if (values && typeof values === "object") return Object.values(values).some(value => Number(value?.value ?? value?.amount ?? value) > 0);
-    return Number(candidate?.intellect || candidate?.strength || candidate?.agility || candidate?.stamina || 0) > 0;
+    return CombatStatVerification.hasPositiveStats(values) ||
+      Number(candidate?.intellect || candidate?.strength || candidate?.agility || candidate?.stamina || 0) > 0;
   };
-  return hasStats(item) || (Array.isArray(item.variants) && item.variants.some(hasStats));
+  const needsPrimary = CombatStatVerification.requiresPrimaryStat(slot);
+  const variants = Array.isArray(item?.variants)
+    ? item.variants.filter(variant => Number(variant?.itemLevel ?? variant?.level) > 0)
+    : [];
+  // For armor and weapons, placeholder primary stats on the base item do not
+  // validate an upgraded variant. Require the primary stat on the actual variant.
+  if (needsPrimary && variants.length) {
+    return variants.some(variant =>
+      CombatStatVerification.hasPrimaryStat(variant) && hasStats(variant)
+    );
+  }
+  if (needsPrimary) return CombatStatVerification.hasPrimaryStat(item) && hasStats(item);
+  return hasStats(item) || (Array.isArray(item?.variants) && item.variants.some(hasStats));
 }
 const SLOT_INVENTORY_SEARCHES = {
   Head: ["HEAD"], Neck: ["NECK"], Shoulders: ["SHOULDER"], Back: ["CLOAK"],
@@ -351,11 +359,15 @@ async function handler(req, res) {
       allowedForClassWeapon(item, className, slot) &&
       allowedForSpecialization(item, className, specialization, slot)
     );
-    const items = eligibleByMetadata.filter(hasUsableStats);
+    const items = eligibleByMetadata.filter(item => hasUsableStats(item, slot)).map(item => {
+      if (!CombatStatVerification.requiresPrimaryStat(slot) || !Array.isArray(item.variants)) return item;
+      const variants = CombatStatVerification.filterVerifiedVariants({ ...item, slot }, item.variants);
+      return { ...item, variants };
+    });
     const pendingStatVerification = allRecords
       .filter(item => item.isEquippable === true && slotMatches(item, slot) &&
         allowedForClass(item, className, slot) && allowedForClassWeapon(item, className, slot) &&
-        allowedForSpecialization(item, className, specialization, slot) && !hasUsableStats(item))
+        allowedForSpecialization(item, className, specialization, slot) && !hasUsableStats(item, slot))
       .slice(0, 8).map(item => ({ ...item, requiresWowheadVerification: true }));
     const pendingSeasonVerification = newDiscovery.filter(item => item.seasonEligibility !== "verified");
     res.setHeader("Cache-Control", "public, s-maxage=300, stale-while-revalidate=600");
