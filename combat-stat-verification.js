@@ -50,11 +50,12 @@
   }
 
   function hasVerifiedCombatStats(item) {
-    const variants = Array.isArray(item?.variants)
+    const hasVariants = Array.isArray(item?.variants) && item.variants.length > 0;
+    const variants = hasVariants
       ? item.variants.filter(variant => Number(variant?.itemLevel ?? variant?.level) > 0)
       : [];
     if (requiresPrimaryStat(item)) {
-      if (variants.length) {
+      if (hasVariants) {
         return variants.some(variant => hasPrimaryStat(variant) && hasPositiveStats(getStats(variant)));
       }
       return hasPrimaryStat(item) && hasPositiveStats(getStats(item));
