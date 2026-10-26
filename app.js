@@ -870,39 +870,8 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
   // before scoring. They are never candidates until Wowhead supplies a positive
   // item level and at least one positive combat stat, which keeps transmog-only
   // records out of the optimizer while allowing valid upgraded gear to be found.
-  const hasVerifiedCombatStats = item => {
-    const statsHavePositiveValue = values => Array.isArray(values)
-      ? values.some(stat => Number(stat?.value ?? stat?.amount ?? stat) > 0)
-      : values && typeof values === "object"
-        ? Object.values(values).some(value => Number(value?.value ?? value?.amount ?? value) > 0)
-        : false;
-    const hasPrimaryStat = record => {
-      const values = record?.stats ?? record?.statValues ?? record?.stat_values ?? record?.attributes;
-      const entries = Array.isArray(values)
-        ? values
-        : values && typeof values === "object"
-          ? Object.entries(values).map(([name, value]) => ({ name, value }))
-          : [];
-      return entries.some(stat => {
-        const rawName = stat?.type?.name || stat?.name || stat?.type || stat?.stat || "";
-        const name = String(rawName).replace(/[\\s_-]/g, "").toLowerCase();
-        return ["strength", "agility", "intellect"].includes(name) &&
-          Number(stat?.value ?? stat?.amount ?? stat) > 0;
-      });
-    };
-    const slot = String(item?.slot || item?.inventoryType?.name || item?.inventoryType || "").toLowerCase();
-    const requiresPrimary = /head|shoulder|chest|robe|wrist|hand|waist|leg|feet|main.?hand|off.?hand|weapon|shield/.test(slot);
-    const variants = Array.isArray(item?.variants) ? item.variants.filter(variant => Number(variant?.itemLevel) > 0) : [];
-    // A base record can contain low-level placeholder primary stats while its
-    // upgraded variant has only stamina/secondaries. Require primary stats on
-    // the actual upgraded variant before considering that record complete.
-    if (requiresPrimary && variants.length) {
-      return variants.some(variant => hasPrimaryStat(variant) && statsHavePositiveValue(variant.stats));
-    }
-    if (requiresPrimary) return hasPrimaryStat(item) && statsHavePositiveValue(item.stats ?? item.statValues ?? item.stat_values ?? item.attributes);
-    return statsHavePositiveValue(item.stats ?? item.statValues ?? item.stat_values ?? item.attributes) ||
-      variants.some(variant => statsHavePositiveValue(variant.stats));
-  };
+  const hasVerifiedCombatStats = item =>
+    window.WoWCombatStatVerification.hasVerifiedCombatStats(item);
   const pendingById = new Map();
   // Include on-demand discoveries in the bounded verification queue, but never
   // promote them directly to scoring: season eligibility must be explicit.
@@ -932,27 +901,23 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
       const response = await fetch(`${API_BASE_URL}/api/item-lookup?id=${encodeURIComponent(id)}`);
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const payload = await response.json();
-      const variants = Array.isArray(payload.variants) ? payload.variants.filter(variant => {
-        const stats = variant?.stats;
-        const hasPositiveStats = Array.isArray(stats)
-          ? stats.some(stat => Number(stat?.value ?? stat?.amount) > 0)
-          : stats && typeof stats === "object"
-            ? Object.values(stats).some(value => Number(value?.value ?? value?.amount ?? value) > 0)
-            : false;
-        return Number(variant?.itemLevel) > 0 && hasPositiveStats;
-      }) : [];
+      const pending = pendingById.get(id);
+      const base = byId.get(String(id)) || pending;
+      const variants = window.WoWCombatStatVerification.filterVerifiedVariants(base, payload.variants);
       if (payload.status !== "verified" || !variants.length) {
         preScoreWowheadUnavailable++;
         return;
       }
-      const pending = pendingById.get(id);
-      const base = byId.get(String(id)) || pending;
       // Preserve the richest slot metadata while enriching an existing broad
       // catalog record rather than creating a duplicate item ID.
       for (const field of ["name", "slot", "inventoryType", "itemClass", "itemSubclass", "quality", "isEquippable", "seasonScope", "equipmentCategories"]) {
         if ((base[field] == null || base[field] === "") && pending[field] != null) base[field] = pending[field];
       }
-      base.variants = [...(Array.isArray(base.variants) ? base.variants : []), ...variants.map(variant => ({
+      const existingVariants = Array.isArray(base.variants) ? base.variants : [];
+      const retainedVariants = window.WoWCombatStatVerification.requiresPrimaryStat(base)
+        ? window.WoWCombatStatVerification.filterVerifiedVariants(base, existingVariants)
+        : existingVariants;
+      base.variants = [...retainedVariants, ...variants.map(variant => ({
         ...variant, id, name: base.name, slot: base.slot, inventoryType: base.inventoryType,
         itemClass: base.itemClass, itemSubclass: base.itemSubclass, quality: base.quality,
         isEquippable: base.isEquippable
@@ -1023,11 +988,19 @@ document.querySelector("#optimizeBtn").addEventListener("click", async () => {
         ...equippedForVerification.filter(item => Number(item.id) === id)
       ];
       for (const base of new Set(bases)) {
-        base.variants = [...(base.variants || []).filter(existing =>
-          String(existing.variantKey || "") !== String(variant.variantKey || "")
-        ), { ...variant, name: base.name, slot: base.slot || variant.slot,
-          inventoryType: base.inventoryType, itemClass: base.itemClass, itemSubclass: base.itemSubclass,
-          quality: base.quality, isEquippable: base.isEquippable }];
+        const verifiedVariants = window.WoWCombatStatVerification.filterVerifiedVariants(base, [variant]);
+        const existingVariants = Array.isArray(base.variants) ? base.variants : [];
+        const retainedVariants = window.WoWCombatStatVerification.requiresPrimaryStat(base)
+          ? window.WoWCombatStatVerification.filterVerifiedVariants(base, existingVariants)
+          : existingVariants;
+        base.variants = [
+          ...retainedVariants.filter(existing => String(existing.variantKey || "") !== String(variant.variantKey || "")),
+          ...verifiedVariants.map(verifiedVariant => ({
+            ...verifiedVariant, name: base.name, slot: base.slot || verifiedVariant.slot,
+            inventoryType: base.inventoryType, itemClass: base.itemClass, itemSubclass: base.itemSubclass,
+            quality: base.quality, isEquippable: base.isEquippable
+          }))
+        ];
         base.wowheadLookupStatus = "verified";
       }
     }
