@@ -152,12 +152,13 @@ function hasUsableStats(item, slot) {
       Number(candidate?.intellect || candidate?.strength || candidate?.agility || candidate?.stamina || 0) > 0;
   };
   const needsPrimary = CombatStatVerification.requiresPrimaryStat(slot);
-  const variants = Array.isArray(item?.variants)
+  const hasVariants = Array.isArray(item?.variants) && item.variants.length > 0;
+  const variants = hasVariants
     ? item.variants.filter(variant => Number(variant?.itemLevel ?? variant?.level) > 0)
     : [];
   // For armor and weapons, placeholder primary stats on the base item do not
   // validate an upgraded variant. Require the primary stat on the actual variant.
-  if (needsPrimary && variants.length) {
+  if (needsPrimary && hasVariants) {
     return variants.some(variant =>
       CombatStatVerification.hasPrimaryStat(variant) && hasStats(variant)
     );
