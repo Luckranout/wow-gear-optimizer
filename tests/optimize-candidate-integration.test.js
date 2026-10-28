@@ -23,7 +23,7 @@ assert.match(app, /createOptimizationReport\(\{\s*character,\s*availableItems,/)
 // positive passive combat stats and an explicit item level. The app performs this
 // bounded pre-score resolution and enriches an existing catalog duplicate by ID.
 assert.match(api, /pendingStatVerification/);
-assert.match(api, /!hasUsableStats\(item\)/);
+assert.match(api, /!hasUsableStats\(item, slot\)/);
 assert.match(api, /requiresWowheadVerification: true/);
 const optimizer = fs.readFileSync("optimizer.js", "utf8");
 assert.match(app, /const pendingLookupIds = \[\.\.\.pendingById\.keys\(\)\]\.slice\(0, 24\)/);
@@ -32,7 +32,7 @@ assert.match(app, /const verificationCandidates = requests\.flatMap/);
 assert.match(app, /seasonScope !== "Midnight Season 2\+"/);
 assert.match(optimizer, /"Main Hand": "Off Hand", "Off Hand": "Main Hand"/);
 assert.match(optimizer, /Enforce uniqueness for both weapon hands on every whole-loadout pass/);
-assert.match(app, /Number\(variant\?\.itemLevel\) > 0 && hasPositiveStats/);
+assert.match(app, /filterVerifiedVariants\(base, payload\.variants\)/);
 assert.match(app, /preScoreWowheadVerified\+\+/);
 assert.match(app, /const existing = byId\.get\(String\(id\)\)/);
 assert.match(app, /Resolve the items the optimizer is actually proposing against live Wowhead/);
@@ -71,7 +71,7 @@ assert.match(optimizer, /Projection excludes unmodeled effects, temporary buffs/
 // usable stats, requested slot, and class armor restrictions.
 assert.match(api, /item\.isEquippable === true/);
 assert.match(api, /item\.seasonScope === "Midnight Season 2\+"/);
-assert.match(api, /hasUsableStats\(item\)/);
+assert.match(api, /hasUsableStats\(item, slot\)/);
 assert.match(api, /slotMatches\(item, slot\)/);
 assert.match(api, /allowedForClass\(item, className, slot\)/);
 assert.match(api, /Neither a validated section cache nor Blizzard discovery is available/);
@@ -81,6 +81,7 @@ assert.match(api, /Neither a validated section cache nor Blizzard discovery is a
 assert.match(api, /"Neck": "necklaces"/);
 assert.match(api, /"Shoulders": "shoulders"/);
 assert.match(html, /id="optimizeBtn"/);
+assert.match(html, /<script src="combat-stat-verification\.js"><\/script>/);
 assert.match(app, /no direct gear candidates ranked from the currently available dataset/);
 assert.match(app, /This does not prove that no upgrades exist in game/);
 
