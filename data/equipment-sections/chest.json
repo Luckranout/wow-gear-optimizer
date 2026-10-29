@@ -62,7 +62,7 @@
         },
         {
           "type": {
-            "name": "versatility"
+            "name": "mastery"
           },
           "value": 65,
           "source": "Blizzard preview_item.stats"
@@ -286,14 +286,14 @@
         },
         {
           "type": {
-            "name": "haste"
+            "name": "versatility"
           },
           "value": 37,
           "source": "Blizzard preview_item.stats"
         },
         {
           "type": {
-            "name": "versatility"
+            "name": "mastery"
           },
           "value": 37,
           "source": "Blizzard preview_item.stats"
@@ -421,7 +421,7 @@
         },
         {
           "type": {
-            "name": "versatility"
+            "name": "haste"
           },
           "value": 37,
           "source": "Blizzard preview_item.stats"
@@ -542,7 +542,7 @@
         },
         {
           "type": {
-            "name": "haste"
+            "name": "versatility"
           },
           "value": 37,
           "source": "Blizzard preview_item.stats"

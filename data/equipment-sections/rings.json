@@ -48,7 +48,7 @@
         },
         {
           "type": {
-            "name": "mastery"
+            "name": "versatility"
           },
           "value": 75,
           "source": "Blizzard preview_item.stats"
