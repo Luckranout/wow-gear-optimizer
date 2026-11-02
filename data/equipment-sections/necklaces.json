@@ -187,17 +187,17 @@
       ],
       "variants": [
         {
-          "variantKey": "wowhead:upgd6:ilvl340",
+          "variantKey": "wowhead:upgd6:ilvl341",
           "name": "Pendant of Malefic Fury",
-          "level": 340,
-          "itemLevel": 340,
+          "level": 341,
+          "itemLevel": 341,
           "upgradeRank": 6,
           "stats": [
             {
               "type": {
                 "name": "stamina"
               },
-              "value": 2355,
+              "value": 2382,
               "source": "Wowhead tooltip"
             },
             {
@@ -211,11 +211,11 @@
               "type": {
                 "name": "mastery"
               },
-              "value": 287,
+              "value": 289,
               "source": "Wowhead tooltip"
             }
           ],
-          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 341",
           "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
@@ -321,17 +321,17 @@
       ],
       "variants": [
         {
-          "variantKey": "wowhead:upgd6:ilvl340",
+          "variantKey": "wowhead:upgd6:ilvl341",
           "name": "Yoke of the Charging Bear",
-          "level": 340,
-          "itemLevel": 340,
+          "level": 341,
+          "itemLevel": 341,
           "upgradeRank": 6,
           "stats": [
             {
               "type": {
                 "name": "stamina"
               },
-              "value": 2355,
+              "value": 2382,
               "source": "Wowhead tooltip"
             },
             {
@@ -345,11 +345,11 @@
               "type": {
                 "name": "haste"
               },
-              "value": 275,
+              "value": 277,
               "source": "Wowhead tooltip"
             }
           ],
-          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 341",
           "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
@@ -437,24 +437,24 @@
       ],
       "variants": [
         {
-          "variantKey": "wowhead:upgd6:ilvl340",
+          "variantKey": "wowhead:upgd6:ilvl341",
           "name": "Graft of the Domanaar",
-          "level": 340,
-          "itemLevel": 340,
+          "level": 341,
+          "itemLevel": 341,
           "upgradeRank": 6,
           "stats": [
             {
               "type": {
                 "name": "stamina"
               },
-              "value": 2355,
+              "value": 2382,
               "source": "Wowhead tooltip"
             },
             {
               "type": {
                 "name": "criticalStrike"
               },
-              "value": 269,
+              "value": 271,
               "source": "Wowhead tooltip"
             },
             {
@@ -465,7 +465,7 @@
               "source": "Wowhead tooltip"
             }
           ],
-          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 341",
           "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
@@ -553,35 +553,35 @@
       ],
       "variants": [
         {
-          "variantKey": "wowhead:upgd6:ilvl340",
+          "variantKey": "wowhead:upgd6:ilvl341",
           "name": "Sentinel's Vitriolic Chain",
-          "level": 340,
-          "itemLevel": 340,
+          "level": 341,
+          "itemLevel": 341,
           "upgradeRank": 6,
           "stats": [
             {
               "type": {
                 "name": "stamina"
               },
-              "value": 2355,
+              "value": 2382,
               "source": "Wowhead tooltip"
             },
             {
               "type": {
                 "name": "criticalStrike"
               },
-              "value": 98,
+              "value": 99,
               "source": "Wowhead tooltip"
             },
             {
               "type": {
                 "name": "haste"
               },
-              "value": 321,
+              "value": 323,
               "source": "Wowhead tooltip"
             }
           ],
-          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 341",
           "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
@@ -669,35 +669,35 @@
       ],
       "variants": [
         {
-          "variantKey": "wowhead:upgd6:ilvl340",
+          "variantKey": "wowhead:upgd6:ilvl341",
           "name": "Amulet of the Twin Fangs",
-          "level": 340,
-          "itemLevel": 340,
+          "level": 341,
+          "itemLevel": 341,
           "upgradeRank": 6,
           "stats": [
             {
               "type": {
                 "name": "stamina"
               },
-              "value": 2355,
+              "value": 2382,
               "source": "Wowhead tooltip"
             },
             {
               "type": {
                 "name": "haste"
               },
-              "value": 63,
+              "value": 64,
               "source": "Wowhead tooltip"
             },
             {
               "type": {
                 "name": "mastery"
               },
-              "value": 356,
+              "value": 357,
               "source": "Wowhead tooltip"
             }
           ],
-          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 341",
           "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
@@ -929,35 +929,35 @@
       ],
       "variants": [
         {
-          "variantKey": "wowhead:upgd6:ilvl340",
+          "variantKey": "wowhead:upgd6:ilvl341",
           "name": "Strand of Warding Fangs",
-          "level": 340,
-          "itemLevel": 340,
+          "level": 341,
+          "itemLevel": 341,
           "upgradeRank": 6,
           "stats": [
             {
               "type": {
                 "name": "stamina"
               },
-              "value": 2355,
+              "value": 2382,
               "source": "Wowhead tooltip"
             },
             {
               "type": {
                 "name": "criticalStrike"
               },
-              "value": 238,
+              "value": 240,
               "source": "Wowhead tooltip"
             },
             {
               "type": {
                 "name": "haste"
               },
-              "value": 181,
+              "value": 182,
               "source": "Wowhead tooltip"
             }
           ],
-          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 341",
           "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],

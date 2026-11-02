@@ -326,21 +326,21 @@
       ],
       "variants": [
         {
-          "variantKey": "wowhead:upgd6:ilvl340",
+          "variantKey": "wowhead:upgd6:ilvl341",
           "name": "Lightspire Core",
-          "level": 340,
-          "itemLevel": 340,
+          "level": 341,
+          "itemLevel": 341,
           "upgradeRank": 6,
           "stats": [
             {
               "type": {
                 "name": "mastery"
               },
-              "value": 205,
+              "value": 206,
               "source": "Wowhead tooltip"
             }
           ],
-          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 341",
           "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
@@ -481,21 +481,21 @@
       ],
       "variants": [
         {
-          "variantKey": "wowhead:upgd6:ilvl340",
+          "variantKey": "wowhead:upgd6:ilvl341",
           "name": "Mindpiercer's Sigil",
-          "level": 340,
-          "itemLevel": 340,
+          "level": 341,
+          "itemLevel": 341,
           "upgradeRank": 6,
           "stats": [
             {
               "type": {
                 "name": "intellect"
               },
-              "value": 593,
+              "value": 599,
               "source": "Wowhead tooltip"
             }
           ],
-          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 341",
           "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
@@ -572,17 +572,17 @@
       ],
       "variants": [
         {
-          "variantKey": "wowhead:upgd6:ilvl340",
+          "variantKey": "wowhead:upgd6:ilvl341",
           "name": "Void Execution Mandate",
-          "level": 340,
-          "itemLevel": 340,
+          "level": 341,
+          "itemLevel": 341,
           "upgradeRank": 6,
           "stats": [
             {
               "type": {
                 "name": "agility"
               },
-              "value": 190,
+              "value": 191,
               "source": "Wowhead tooltip"
             },
             {
@@ -593,7 +593,7 @@
               "source": "Wowhead tooltip"
             }
           ],
-          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 341",
           "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
@@ -742,28 +742,28 @@
       ],
       "variants": [
         {
-          "variantKey": "wowhead:upgd6:ilvl340",
+          "variantKey": "wowhead:upgd6:ilvl341",
           "name": "Idol of the War Loa",
-          "level": 340,
-          "itemLevel": 340,
+          "level": 341,
+          "itemLevel": 341,
           "upgradeRank": 6,
           "stats": [
             {
               "type": {
                 "name": "criticalStrike"
               },
-              "value": 147,
+              "value": 148,
               "source": "Wowhead tooltip"
             },
             {
               "type": {
                 "name": "strength"
               },
-              "value": 289,
+              "value": 290,
               "source": "Wowhead tooltip"
             }
           ],
-          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 341",
           "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
@@ -837,28 +837,28 @@
       ],
       "variants": [
         {
-          "variantKey": "wowhead:upgd6:ilvl340",
+          "variantKey": "wowhead:upgd6:ilvl341",
           "name": "Seed of the Devouring Wild",
-          "level": 340,
-          "itemLevel": 340,
+          "level": 341,
+          "itemLevel": 341,
           "upgradeRank": 6,
           "stats": [
             {
               "type": {
                 "name": "strength"
               },
-              "value": 190,
+              "value": 191,
               "source": "Wowhead tooltip"
             },
             {
               "type": {
                 "name": "mastery"
               },
-              "value": 422,
+              "value": 424,
               "source": "Wowhead tooltip"
             }
           ],
-          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 341",
           "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
@@ -1144,21 +1144,21 @@
       ],
       "variants": [
         {
-          "variantKey": "wowhead:upgd6:ilvl340",
+          "variantKey": "wowhead:upgd6:ilvl341",
           "name": "Mycolic Medicine",
-          "level": 340,
-          "itemLevel": 340,
+          "level": 341,
+          "itemLevel": 341,
           "upgradeRank": 6,
           "stats": [
             {
               "type": {
                 "name": "intellect"
               },
-              "value": 190,
+              "value": 191,
               "source": "Wowhead tooltip"
             }
           ],
-          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 341",
           "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
@@ -1232,21 +1232,21 @@
       ],
       "variants": [
         {
-          "variantKey": "wowhead:upgd6:ilvl340",
+          "variantKey": "wowhead:upgd6:ilvl341",
           "name": "Seed of Radiant Hope",
-          "level": 340,
-          "itemLevel": 340,
+          "level": 341,
+          "itemLevel": 341,
           "upgradeRank": 6,
           "stats": [
             {
               "type": {
                 "name": "intellect"
               },
-              "value": 190,
+              "value": 191,
               "source": "Wowhead tooltip"
             }
           ],
-          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 341",
           "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
@@ -1320,21 +1320,21 @@
       ],
       "variants": [
         {
-          "variantKey": "wowhead:upgd6:ilvl340",
+          "variantKey": "wowhead:upgd6:ilvl341",
           "name": "Unstable Felheart Crystal",
-          "level": 340,
-          "itemLevel": 340,
+          "level": 341,
+          "itemLevel": 341,
           "upgradeRank": 6,
           "stats": [
             {
               "type": {
                 "name": "intellect"
               },
-              "value": 190,
+              "value": 191,
               "source": "Wowhead tooltip"
             }
           ],
-          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 341",
           "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
@@ -1565,21 +1565,21 @@
       ],
       "variants": [
         {
-          "variantKey": "wowhead:upgd6:ilvl340",
+          "variantKey": "wowhead:upgd6:ilvl341",
           "name": "Fang of Umbral Malignance",
-          "level": 340,
-          "itemLevel": 340,
+          "level": 341,
+          "itemLevel": 341,
           "upgradeRank": 6,
           "stats": [
             {
               "type": {
                 "name": "intellect"
               },
-              "value": 190,
+              "value": 191,
               "source": "Wowhead tooltip"
             }
           ],
-          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 341",
           "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
@@ -1653,21 +1653,21 @@
       ],
       "variants": [
         {
-          "variantKey": "wowhead:upgd6:ilvl340",
+          "variantKey": "wowhead:upgd6:ilvl341",
           "name": "Soulcoiler Ritual Vessel",
-          "level": 340,
-          "itemLevel": 340,
+          "level": 341,
+          "itemLevel": 341,
           "upgradeRank": 6,
           "stats": [
             {
               "type": {
                 "name": "intellect"
               },
-              "value": 190,
+              "value": 191,
               "source": "Wowhead tooltip"
             }
           ],
-          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 341",
           "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
@@ -1741,21 +1741,21 @@
       ],
       "variants": [
         {
-          "variantKey": "wowhead:upgd6:ilvl340",
+          "variantKey": "wowhead:upgd6:ilvl341",
           "name": "Sszorak's Ferocity",
-          "level": 340,
-          "itemLevel": 340,
+          "level": 341,
+          "itemLevel": 341,
           "upgradeRank": 6,
           "stats": [
             {
               "type": {
                 "name": "strength"
               },
-              "value": 190,
+              "value": 191,
               "source": "Wowhead tooltip"
             }
           ],
-          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 341",
           "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
@@ -1986,21 +1986,21 @@
       ],
       "variants": [
         {
-          "variantKey": "wowhead:upgd6:ilvl340",
+          "variantKey": "wowhead:upgd6:ilvl341",
           "name": "Vashnik's Sanguine Rancor",
-          "level": 340,
-          "itemLevel": 340,
+          "level": 341,
+          "itemLevel": 341,
           "upgradeRank": 6,
           "stats": [
             {
               "type": {
                 "name": "agility"
               },
-              "value": 190,
+              "value": 191,
               "source": "Wowhead tooltip"
             }
           ],
-          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 341",
           "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
@@ -2343,21 +2343,21 @@
       ],
       "variants": [
         {
-          "variantKey": "wowhead:upgd6:ilvl340",
+          "variantKey": "wowhead:upgd6:ilvl341",
           "name": "Vexhul's Everflowing Gland",
-          "level": 340,
-          "itemLevel": 340,
+          "level": 341,
+          "itemLevel": 341,
           "upgradeRank": 6,
           "stats": [
             {
               "type": {
                 "name": "intellect"
               },
-              "value": 190,
+              "value": 191,
               "source": "Wowhead tooltip"
             }
           ],
-          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 341",
           "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
@@ -2431,21 +2431,21 @@
       ],
       "variants": [
         {
-          "variantKey": "wowhead:upgd6:ilvl340",
+          "variantKey": "wowhead:upgd6:ilvl341",
           "name": "Preternatural Antivenom",
-          "level": 340,
-          "itemLevel": 340,
+          "level": 341,
+          "itemLevel": 341,
           "upgradeRank": 6,
           "stats": [
             {
               "type": {
                 "name": "criticalStrike"
               },
-              "value": 147,
+              "value": 148,
               "source": "Wowhead tooltip"
             }
           ],
-          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 341",
           "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
@@ -2594,21 +2594,21 @@
       ],
       "variants": [
         {
-          "variantKey": "wowhead:upgd6:ilvl340",
+          "variantKey": "wowhead:upgd6:ilvl341",
           "name": "Idol of the Howling Nexus",
-          "level": 340,
-          "itemLevel": 340,
+          "level": 341,
+          "itemLevel": 341,
           "upgradeRank": 6,
           "stats": [
             {
               "type": {
                 "name": "mastery"
               },
-              "value": 147,
+              "value": 148,
               "source": "Wowhead tooltip"
             }
           ],
-          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 341",
           "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
@@ -2777,21 +2777,21 @@
       ],
       "variants": [
         {
-          "variantKey": "wowhead:upgd6:ilvl340",
+          "variantKey": "wowhead:upgd6:ilvl341",
           "name": "Knot of Writhing Serpents",
-          "level": 340,
-          "itemLevel": 340,
+          "level": 341,
+          "itemLevel": 341,
           "upgradeRank": 6,
           "stats": [
             {
               "type": {
                 "name": "intellect"
               },
-              "value": 190,
+              "value": 191,
               "source": "Wowhead tooltip"
             }
           ],
-          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 341",
           "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
@@ -2865,21 +2865,21 @@
       ],
       "variants": [
         {
-          "variantKey": "wowhead:upgd6:ilvl340",
+          "variantKey": "wowhead:upgd6:ilvl341",
           "name": "Coiled Fangstone",
-          "level": 340,
-          "itemLevel": 340,
+          "level": 341,
+          "itemLevel": 341,
           "upgradeRank": 6,
           "stats": [
             {
               "type": {
                 "name": "strength"
               },
-              "value": 190,
+              "value": 191,
               "source": "Wowhead tooltip"
             }
           ],
-          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 340",
+          "statsSource": "Wowhead tooltip explicitly resolved upgd=6 at item level 341",
           "variantSource": "Wowhead tooltip upgrade-rank lookup (upgd=6); bonus IDs not exposed by this lookup"
         }
       ],
