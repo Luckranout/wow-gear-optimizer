@@ -41,7 +41,7 @@
         },
         {
           "type": {
-            "name": "criticalStrike"
+            "name": "haste"
           },
           "value": 75,
           "source": "Blizzard preview_item.stats"

@@ -55,7 +55,7 @@
         },
         {
           "type": {
-            "name": "criticalStrike"
+            "name": "versatility"
           },
           "value": 65,
           "source": "Blizzard preview_item.stats"
@@ -172,7 +172,7 @@
         },
         {
           "type": {
-            "name": "versatility"
+            "name": "haste"
           },
           "value": 37,
           "source": "Blizzard preview_item.stats"
@@ -286,14 +286,14 @@
         },
         {
           "type": {
-            "name": "versatility"
+            "name": "criticalStrike"
           },
           "value": 37,
           "source": "Blizzard preview_item.stats"
         },
         {
           "type": {
-            "name": "mastery"
+            "name": "versatility"
           },
           "value": 37,
           "source": "Blizzard preview_item.stats"
@@ -421,7 +421,7 @@
         },
         {
           "type": {
-            "name": "haste"
+            "name": "versatility"
           },
           "value": 37,
           "source": "Blizzard preview_item.stats"
@@ -535,14 +535,14 @@
         },
         {
           "type": {
-            "name": "criticalStrike"
+            "name": "haste"
           },
           "value": 37,
           "source": "Blizzard preview_item.stats"
         },
         {
           "type": {
-            "name": "versatility"
+            "name": "mastery"
           },
           "value": 37,
           "source": "Blizzard preview_item.stats"
