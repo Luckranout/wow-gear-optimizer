@@ -261,8 +261,8 @@ assert.equal(allowedForSpecialization({
     assert.equal(res.body.count, 0, "returns zero candidates rather than legacy gear");
 
     writeSection(dir, "off-hand", { complete: true, items: [
-      { id: 301, inventoryType: { name: "One-Hand" }, isEquippable: true, seasonScope: "Midnight Season 2+", stats: [{ value: 5 }] },
-      { id: 302, inventoryType: { name: "Shield" }, isEquippable: true, seasonScope: "Midnight Season 2+", stats: [{ value: 5 }] }
+      { id: 301, inventoryType: { name: "One-Hand" }, isEquippable: true, seasonScope: "Midnight Season 2+", stats: [{ name: "strength", value: 5 }] },
+      { id: 302, inventoryType: { name: "Shield" }, isEquippable: true, seasonScope: "Midnight Season 2+", stats: [{ name: "strength", value: 5 }] }
     ] });
     res = await call("GET", { slot: "Off Hand", class: "Warrior" });
     assert.deepEqual(res.body.items.map(item => item.id), [302], "off-hand does not accept a generic one-hand weapon as an off-hand item");

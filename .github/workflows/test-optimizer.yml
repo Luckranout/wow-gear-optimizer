@@ -84,6 +84,10 @@ jobs:
         run: node tests/enhancement-shaman-primary-stat.test.js
       - name: Run variant-only slot candidate stats regression tests
         run: node tests/slot-candidates-variant-stats.test.js
+      - name: Run primary-stat variant verification tests
+        run: node tests/combat-stat-verification.test.js
+      - name: Run primary-stat candidate resolution integration tests
+        run: node tests/primary-stat-candidate-resolution.integration.test.js
       - name: Run Optimize candidate integration contract tests
         run: node tests/optimize-candidate-integration.test.js
       - name: Run retail dataset normalization tests

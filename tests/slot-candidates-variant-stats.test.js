@@ -68,3 +68,70 @@ test("slot candidates reject items without combat-stat evidence to avoid transmo
     fs.rmSync(directory, { recursive: true, force: true });
   }
 });
+
+
+test("armor and weapon variants missing their primary stat are queued, not scored", async () => {
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), "primary-stat-queue-"));
+  const incompleteBelt = {
+    id: 251144,
+    name: "Autumn's Boon Belt",
+    slot: "Waist",
+    inventoryType: { name: "Waist" },
+    itemClass: { name: "Armor" },
+    itemSubclass: { name: "Plate" },
+    isEquippable: true,
+    seasonScope: "Midnight Season 2+",
+    stats: [{ type: { name: "strength" }, value: 50 }, { type: { name: "stamina" }, value: 500 }],
+    variants: [{
+      itemLevel: 334,
+      stats: [
+        { type: { name: "armor" }, value: 245 },
+        { type: { name: "stamina" }, value: 2932 },
+        { type: { name: "versatility" }, value: 59 },
+        { type: { name: "mastery" }, value: 91 }
+      ]
+    }]
+  };
+  const incompleteWeapon = {
+    id: 987656,
+    name: "Incomplete Two-Hand Sword",
+    slot: "Main Hand",
+    inventoryType: { name: "Two-Hand" },
+    itemClass: { name: "Weapon" },
+    itemSubclass: { name: "Sword" },
+    isEquippable: true,
+    seasonScope: "Midnight Season 2+",
+    stats: [{ type: { name: "strength" }, value: 50 }, { type: { name: "stamina" }, value: 500 }],
+    variants: [{
+      itemLevel: 334,
+      stats: [{ type: { name: "stamina" }, value: 2932 }, { type: { name: "haste" }, value: 90 }]
+    }]
+  };
+  fs.writeFileSync(path.join(directory, "waist.json"), JSON.stringify({ complete: true, items: [incompleteBelt] }));
+  fs.writeFileSync(path.join(directory, "main-hand.json"), JSON.stringify({ complete: true, items: [incompleteWeapon] }));
+
+  slotCandidates._test.setSectionDir(directory);
+  slotCandidates._test.setDiscoveryProvider(async () => []);
+  const beltRes = slotCandidates._test.createResponse();
+  const weaponRes = slotCandidates._test.createResponse();
+  try {
+    await slotCandidates({ method: "GET", query: { slot: "Waist", class: "Warrior", specialization: "Protection" } }, beltRes);
+    await slotCandidates({ method: "GET", query: { slot: "Main Hand", class: "Warrior", specialization: "Protection" } }, weaponRes);
+
+    assert.equal(beltRes.statusCode, 200);
+    assert.equal(beltRes.body.items.some(item => item.id === incompleteBelt.id), false,
+      "placeholder Strength on the base belt must not make its incomplete upgraded variant scoreable");
+    assert.ok(beltRes.body.pendingStatVerification.some(item => item.id === incompleteBelt.id),
+      "the belt must be sent to pre-score Wowhead verification");
+
+    assert.equal(weaponRes.statusCode, 200);
+    assert.equal(weaponRes.body.items.some(item => item.id === incompleteWeapon.id), false,
+      "placeholder Strength on the base weapon must not make its incomplete upgraded variant scoreable");
+    assert.ok(weaponRes.body.pendingStatVerification.some(item => item.id === incompleteWeapon.id),
+      "the weapon must be sent to pre-score Wowhead verification");
+  } finally {
+    slotCandidates._test.setDiscoveryProvider(null);
+    slotCandidates._test.setSectionDir(path.join(process.cwd(), "data", "equipment-sections"));
+    fs.rmSync(directory, { recursive: true, force: true });
+  }
+});

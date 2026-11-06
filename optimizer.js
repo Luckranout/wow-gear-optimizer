@@ -53,6 +53,7 @@ function normalizeWeaponType(value) {
     .replace(/[_-]+/g, " ")
     .replace(/\b(two|one) handed\b/g, "$1 hand");
   if (!raw || /^(weapon|melee|ranged|miscellaneous|unknown)$/.test(raw)) return "";
+  if (raw.includes("shield") || raw.includes("held in off hand") || raw.includes("off hand")) return "off-hand";
   // Blizzard subclass labels can be plural or include a hand qualifier.
   if (raw.includes("warglaive") || raw.includes("war glaive") || raw.includes("glaive")) return "warglaive";
   if (raw.includes("fist")) return "fist weapon";
@@ -154,10 +155,11 @@ function itemAllowedForClassWeapon(item, slot, className) {
   const weaponType = normalizeWeaponType(rawType);
   // Missing/unrecognized weapon-subclass metadata is not enough evidence to
   // reject an item. The importer/catalog should provide itemSubclass for strict filtering.
-  if (!weaponType || !allowed.includes(weaponType)) {
-    return !weaponType;
-  }
-  return true;
+  if (!weaponType) return true;
+  // Shields and dedicated off-hand items are valid Warrior/Paladin off-hand
+  // candidates even though they are not weapon proficiency families.
+  if (weaponType === "off-hand") return slot === "Off Hand";
+  return allowed.includes(weaponType);
 }
 
 function itemAllowedForSpecialization(item, slot, className, specialization) {
