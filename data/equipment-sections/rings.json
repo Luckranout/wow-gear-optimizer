@@ -41,14 +41,14 @@
         },
         {
           "type": {
-            "name": "haste"
+            "name": "versatility"
           },
           "value": 75,
           "source": "Blizzard preview_item.stats"
         },
         {
           "type": {
-            "name": "versatility"
+            "name": "mastery"
           },
           "value": 75,
           "source": "Blizzard preview_item.stats"

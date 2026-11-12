@@ -55,14 +55,14 @@
         },
         {
           "type": {
-            "name": "criticalStrike"
+            "name": "versatility"
           },
           "value": 49,
           "source": "Blizzard preview_item.stats"
         },
         {
           "type": {
-            "name": "haste"
+            "name": "mastery"
           },
           "value": 49,
           "source": "Blizzard preview_item.stats"
@@ -172,7 +172,7 @@
         },
         {
           "type": {
-            "name": "haste"
+            "name": "criticalStrike"
           },
           "value": 28,
           "source": "Blizzard preview_item.stats"
@@ -293,7 +293,7 @@
         },
         {
           "type": {
-            "name": "mastery"
+            "name": "haste"
           },
           "value": 28,
           "source": "Blizzard preview_item.stats"
@@ -421,7 +421,7 @@
         },
         {
           "type": {
-            "name": "mastery"
+            "name": "haste"
           },
           "value": 28,
           "source": "Blizzard preview_item.stats"
@@ -542,7 +542,7 @@
         },
         {
           "type": {
-            "name": "haste"
+            "name": "versatility"
           },
           "value": 28,
           "source": "Blizzard preview_item.stats"
@@ -897,7 +897,7 @@
         },
         {
           "type": {
-            "name": "mastery"
+            "name": "criticalStrike"
           },
           "value": 55,
           "source": "Blizzard preview_item.stats"
@@ -1018,7 +1018,7 @@
         },
         {
           "type": {
-            "name": "criticalStrike"
+            "name": "haste"
           },
           "value": 55,
           "source": "Blizzard preview_item.stats"
@@ -1132,7 +1132,7 @@
         },
         {
           "type": {
-            "name": "haste"
+            "name": "criticalStrike"
           },
           "value": 55,
           "source": "Blizzard preview_item.stats"
@@ -1246,7 +1246,7 @@
         },
         {
           "type": {
-            "name": "haste"
+            "name": "versatility"
           },
           "value": 55,
           "source": "Blizzard preview_item.stats"
