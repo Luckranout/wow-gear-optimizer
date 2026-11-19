@@ -62,7 +62,7 @@
         },
         {
           "type": {
-            "name": "haste"
+            "name": "versatility"
           },
           "value": 21,
           "source": "Blizzard preview_item.stats"

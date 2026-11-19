@@ -62,7 +62,7 @@
         },
         {
           "type": {
-            "name": "haste"
+            "name": "mastery"
           },
           "value": 28,
           "source": "Blizzard preview_item.stats"
@@ -176,7 +176,7 @@
         },
         {
           "type": {
-            "name": "versatility"
+            "name": "haste"
           },
           "value": 28,
           "source": "Blizzard preview_item.stats"

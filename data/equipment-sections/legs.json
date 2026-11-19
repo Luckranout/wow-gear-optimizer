@@ -62,7 +62,7 @@
         },
         {
           "type": {
-            "name": "mastery"
+            "name": "haste"
           },
           "value": 37,
           "source": "Blizzard preview_item.stats"
@@ -169,14 +169,14 @@
         },
         {
           "type": {
-            "name": "haste"
+            "name": "criticalStrike"
           },
           "value": 37,
           "source": "Blizzard preview_item.stats"
         },
         {
           "type": {
-            "name": "versatility"
+            "name": "haste"
           },
           "value": 37,
           "source": "Blizzard preview_item.stats"
@@ -425,7 +425,7 @@
         },
         {
           "type": {
-            "name": "versatility"
+            "name": "mastery"
           },
           "value": 37,
           "source": "Blizzard preview_item.stats"
